@@ -1,0 +1,33 @@
+cve_ent,nombre_inegi,nombre_corto,abreviatura,iso_3166_2,region_sinave,nombre_boletin_sinave,delegaciones_imss
+01,Aguascalientes,Aguascalientes,Ags.,MX-AGU,occidente,Aguascalientes,Aguascalientes
+02,Baja California,Baja California,BC,MX-BCN,norte,Baja California,Baja California
+03,Baja California Sur,Baja California Sur,BCS,MX-BCS,norte,Baja California Sur,Baja California Sur
+04,Campeche,Campeche,Camp.,MX-CAM,sureste,Campeche,Campeche
+05,Coahuila de Zaragoza,Coahuila,Coah.,MX-COA,norte,Coahuila,Coahuila
+06,Colima,Colima,Col.,MX-COL,occidente,Colima,Colima
+07,Chiapas,Chiapas,Chis.,MX-CHP,sureste,Chiapas,Chiapas
+08,Chihuahua,Chihuahua,Chih.,MX-CHH,norte,Chihuahua,Chihuahua
+09,Ciudad de México,Ciudad de México,CDMX,MX-CMX,centro,Ciudad de México,D.F. Norte; D.F. Sur
+10,Durango,Durango,Dgo.,MX-DUR,norte,Durango,Durango
+11,Guanajuato,Guanajuato,Gto.,MX-GUA,occidente,Guanajuato,Guanajuato
+12,Guerrero,Guerrero,Gro.,MX-GRO,sureste,Guerrero,Guerrero
+13,Hidalgo,Hidalgo,Hgo.,MX-HID,centro,Hidalgo,Hidalgo
+14,Jalisco,Jalisco,Jal.,MX-JAL,occidente,Jalisco,Jalisco
+15,México,México,Méx.,MX-MEX,centro,México,México Oriente; México Poniente
+16,Michoacán de Ocampo,Michoacán,Mich.,MX-MIC,occidente,Michoacán,Michoacán
+17,Morelos,Morelos,Mor.,MX-MOR,centro,Morelos,Morelos
+18,Nayarit,Nayarit,Nay.,MX-NAY,occidente,Nayarit,Nayarit
+19,Nuevo León,Nuevo León,NL,MX-NLE,norte,Nuevo León,Nuevo León
+20,Oaxaca,Oaxaca,Oax.,MX-OAX,sureste,Oaxaca,Oaxaca
+21,Puebla,Puebla,Pue.,MX-PUE,centro,Puebla,Puebla
+22,Querétaro,Querétaro,Qro.,MX-QUE,centro,Querétaro,Querétaro
+23,Quintana Roo,Quintana Roo,Q. Roo,MX-ROO,sureste,Quintana Roo,Quintana Roo
+24,San Luis Potosí,San Luis Potosí,SLP,MX-SLP,occidente,San Luis Potosí,San Luis Potosí
+25,Sinaloa,Sinaloa,Sin.,MX-SIN,norte,Sinaloa,Sinaloa
+26,Sonora,Sonora,Son.,MX-SON,norte,Sonora,Sonora
+27,Tabasco,Tabasco,Tab.,MX-TAB,sureste,Tabasco,Tabasco
+28,Tamaulipas,Tamaulipas,Tamps.,MX-TAM,norte,Tamaulipas,Tamaulipas
+29,Tlaxcala,Tlaxcala,Tlax.,MX-TLA,centro,Tlaxcala,Tlaxcala
+30,Veracruz de Ignacio de la Llave,Veracruz,Ver.,MX-VER,sureste,Veracruz,Veracruz Norte; Veracruz Sur
+31,Yucatán,Yucatán,Yuc.,MX-YUC,sureste,Yucatán,Yucatán
+32,Zacatecas,Zacatecas,Zac.,MX-ZAC,occidente,Zacatecas,Zacatecas

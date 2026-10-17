@@ -58,6 +58,7 @@ Más detalle: [COMPETENCIA](docs/COMPETENCIA.md) · [REGLAS](docs/REGLAS.md) · 
 │   ├── TEMAS.md             ← los 3 retos oficiales
 │   ├── PROYECTO.md          ← diseño de Tamizaje a ciegas: cifrado, arquitectura, plan
 │   ├── FUENTES_DATOS.md     ← CDC, SINAVE (incidencia) y EDR INEGI (mortalidad)
+│   ├── MODELO_DATOS.md      ← esquema estrella, llaves, armonización y mart de la cascada
 │   ├── DECISION.md          ← acta: por qué elegimos Tamizaje a ciegas
 │   ├── IDEAS.md             ← ideas candidatas + matriz de decisión
 │   ├── Ranking_Ideas_Antimarrulla.pptx ← 11 ideas calificadas por jueces ciegos
@@ -74,7 +75,11 @@ Más detalle: [COMPETENCIA](docs/COMPETENCIA.md) · [REGLAS](docs/REGLAS.md) · 
 │   ├── egresos_sector/      ← hospitalizaciones por diabetes 2024 de todo el sector (IMSS, ISSSTE…)
 │   ├── sis_cronicas/        ← control de diabetes por unidad médica, 2021–2023
 │   ├── imss_detecciones/    ← tamizajes de diabetes del IMSS, 2000–2023
-│   └── conapo/              ← población y marginación (denominadores)
+│   ├── conapo/              ← población y marginación (denominadores)
+│   ├── historicos/          ← muertes 2017–2024 y hospitalizaciones 2018–2024 agregadas
+│   ├── catalogos/           ← entidades (tabla de cruce) y CLUES
+│   ├── geo/                 ← polígonos de los 32 estados
+│   └── marts/               ← cascada de la diabetes por entidad y año
 └── submission/
     ├── Los_Antimarrulla_Pitch_Tamizaje.pptx ← presentación del proyecto (8 slides)
     ├── PITCH.md             ← guion del video de máx. 3 minutos

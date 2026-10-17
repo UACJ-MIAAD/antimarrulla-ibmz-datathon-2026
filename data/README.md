@@ -33,6 +33,28 @@ Detalle de variables, catálogos y cruces entre fuentes: [docs/FUENTES_DATOS.md]
 | `sis_cronicas/descriptor_servicios_2010_2023.xlsx` | Diccionario del SIS (hoja `Descriptor-ECRON`) | — | — |
 | `imss_detecciones/deteccion_diabetes.csv` | Detecciones (tamizajes) de diabetes del IMSS por delegación, 2000–2023 | 840 | 40 KB |
 
+### Históricos agregados (2017–2024)
+
+| Archivo | Qué es | Filas | Tamaño |
+|---------|--------|------:|-------:|
+| `historicos/defunciones_diabetes_2017_2024.csv` | Muertes E10–E14 y O24 por año de registro, año de ocurrencia, entidad de residencia, sexo, grupo de edad (`<20`, `20-59`, `60+`) y causa | 9,137 | 0.3 MB |
+| `historicos/defunciones_todas_causas_2017_2024.csv` | Total de muertes por año, entidad y sexo (denominador) | 792 | 12 KB |
+| `historicos/egresos_diabetes_2018_2024.csv` | Hospitalizaciones por diabetes de todo el sector por año, entidad de atención, institución, sexo, edad, motivo y afección; con días de estancia | 60,944 | 1.9 MB |
+| `historicos/egresos_todas_causas_2018_2024.csv` | Total de egresos por año, entidad e institución (denominador) | 1,026 | 17 KB |
+
+Validación: 151,019 muertes por diabetes registradas en 2020 y 110,059 en 2023, iguales a las cifras oficiales de INEGI.
+
+### Modelo de datos listo para usar
+
+| Archivo | Qué es | Filas | Tamaño |
+|---------|--------|------:|-------:|
+| `marts/cascada_entidad_anio.csv` | **Cascada de la diabetes por entidad y año**: población, casos nuevos, detecciones, en tratamiento y controlados, hospitalizaciones, muertes y tasas | 256 | 30 KB |
+| `catalogos/entidades.csv` | 32 entidades: clave INEGI, nombres, ISO 3166-2, región SINAVE y delegaciones IMSS (tabla de cruce) | 32 | 2 KB |
+| `catalogos/clues_202608.csv` | Catálogo CLUES de la DGIS (agosto 2026): 64,450 establecimientos con institución, ubicación y coordenadas | 64,450 | 16 MB |
+| `geo/estados_mx.geojson` | Polígonos de los 32 estados para mapas (Natural Earth, dominio público) | 32 | 0.4 MB |
+
+Esquema, llaves y reglas de armonización: [docs/MODELO_DATOS.md](../docs/MODELO_DATOS.md).
+
 ### Denominadores y determinantes sociales
 
 | Archivo | Qué es | Filas | Tamaño |
@@ -66,6 +88,8 @@ gh release download datos-2024 --repo UACJ-MIAAD/antimarrulla-ibmz-datathon-2026
 | Enfermedades crónicas (SIS) | DGIS | CC BY 4.0 | http://www.dgis.salud.gob.mx/contenidos/basesdedatos/da_sis_gobmx.html |
 | Detecciones de padecimientos | IMSS | CC BY 4.0 | https://www.datos.gob.mx/dataset/deteccion_padecimientos_delegacion |
 | Proyecciones de población · marginación | CONAPO | CC BY 4.0 | https://www.datos.gob.mx/dataset/proyecciones-de-poblacion |
+| Catálogo CLUES | DGIS | Libre uso con cita | http://www.dgis.salud.gob.mx/contenidos/intercambio/clues_gobmx.html |
+| Límites estatales | Natural Earth | Dominio público | https://www.naturalearthdata.com |
 
 > **ISSSTE:** el CSV de egresos del ISSSTE en datos.gob.mx (`repodatos.atdt.gob.mx`) no se puede descargar ni por script ni, a veces, por navegador. **No hace falta:** el ISSSTE viene completo en los egresos del sector (`DH = 4`, 6,924 hospitalizaciones por diabetes en 2024).
 
