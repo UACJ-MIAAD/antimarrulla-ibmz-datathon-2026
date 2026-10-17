@@ -1,6 +1,6 @@
 # System diagrams and storage dictionary
 
-Owner: Javier / documentation and public site. This atlas documents the implemented English runtime at `b04fadb`; it does not certify deployment. The static site and documentation additions do not change the screening source hash or trained model. Final LinuxONE evidence must still identify the code actually executed.
+Owner: Javier / documentation and public site. This atlas documents the implemented English runtime at `ef1e21d`; it does not certify deployment. The static site and documentation additions do not change the screening source hash or trained model. Final LinuxONE evidence must still identify the code actually executed.
 
 ## Public atlas
 

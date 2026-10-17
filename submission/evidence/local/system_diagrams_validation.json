@@ -1,6 +1,6 @@
 {
-  "date_utc": "2026-10-17T21:02:47Z",
-  "runtime_baseline": "b04fadb",
+  "date_utc": "2026-10-17T21:26:43Z",
+  "runtime_baseline": "ef1e21dca8692038352ea6190262da310bad00e8",
   "scope": "Static website diagrams and plan audit; no runtime/model/forecast numeric changes",
   "checks": {
     "model_retraining": "exact weights/intercept",
@@ -17,9 +17,10 @@
     "mobile_text_alternative_expands": true,
     "browser_console_errors": 0,
     "host_tests_passed_before_pr12": 97,
-    "host_tests_after_pr12": 98
+    "host_tests_after_pr12": 98,
+    "host_test_baseline": "b04fadb, 98 passed, exact model reproduction"
   },
-  "runtime_code_sha256": "659ac8607f476652b03a6949872ed975145a481c3b6642f7ca3f70bb8f8747ac",
+  "runtime_code_sha256": "62c160c2d5a92d087f343e540cbc81e3e575ae352e86a7d4e87fcae2c3b72573",
   "story_counts": {
     "done": 23,
     "pending": 5,
@@ -42,5 +43,21 @@
     "response_id_matches": true,
     "recorded_checks_passed": 10,
     "full_log_replay_performed": false
+  },
+  "merged_ui_check": {
+    "source": "PR 13, merged main ef1e21d",
+    "environment": "local native Mac arm64 hospital and real mTLS service, synthetic inputs",
+    "synthetic_C": "66.3%",
+    "answer_rows": 21,
+    "ciphertext_rows_including_result": 22,
+    "charts": 3,
+    "BMI_150": "rejected",
+    "console_errors": 0,
+    "local_Docker_attempt": "failed: engine _ping HTTP 500; no local container success claimed",
+    "synthetic_batch": 10,
+    "session_evaluations_including_C": 11,
+    "mobile_viewport_width": 375,
+    "mobile_document_width": 375,
+    "mobile_batch_completed": true
   }
 }

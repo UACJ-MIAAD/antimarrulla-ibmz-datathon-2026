@@ -35,7 +35,7 @@ English implementation and existing artifacts are translated and checked; see [E
 - [ ] Event-window history reviewed with frequent, reviewable commits; chronology issues documented
 - [ ] No final all-project dump
 - [ ] Branches merged through PRs with another member's review
-- [x] `main` baseline b04fadb includes PRs 11/12, passes 98 host tests/model reproduction, and both PR 12 CI checks passed; real final LinuxONE evidence remains separate
+- [x] `main` ef1e21d includes PRs 11/12/13; PR 12 baseline passed 98 host tests/model reproduction and its CI checks; merged PR 13 UI is additionally checked natively. Final branch CI is tracked in PR 14; real final LinuxONE evidence remains separate
 - [x] Large raw datasets and ENSANUT microdata are not tracked (checked October 17)
 - [x] No credentials, keys or tokens found in the October 17 review; demo secrets remain outside the repo
 - [x] `LICENSE` present

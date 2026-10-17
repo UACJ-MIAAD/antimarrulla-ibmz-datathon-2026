@@ -6,7 +6,7 @@
 
 **Privacy-preserving screening** evaluates a diabetes screening model on Paillier ciphertexts. The hospital keeps its private key; the risk service evaluates the model without decrypting patient inputs.
 
-Public site: [project, pitch, data and delivery plan](https://antimarrulla-tamizaje.netlify.app). The English migration and audit corrections are merged through PRs 9, 11 and 12 (runtime baseline `b04fadb`). The public forecast dashboard is live. Independent teammate sign-off and final VM/video evidence remain open. See the [current plan audit](docs/PLAN_AUDIT_20261017.md).
+Public site: [project, pitch, data and delivery plan](https://antimarrulla-tamizaje.netlify.app). The English migration and audit corrections are merged through PRs 9, 11, 12 and 13 (runtime baseline `ef1e21d`). The public forecast dashboard is live. Independent teammate sign-off and final VM/video evidence remain open. See the [current plan audit](docs/PLAN_AUDIT_20261017.md).
 
 The [system diagram atlas](https://antimarrulla-tamizaje.netlify.app/architecture) covers the complete flow, deployment, hospital, risk service, cryptographic protocol, encrypted vault, analytical data model, model training, forecasting and release evidence. [Diagram guide and storage dictionary](docs/SYSTEM_DIAGRAMS.md).
 

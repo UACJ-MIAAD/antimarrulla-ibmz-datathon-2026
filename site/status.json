@@ -1,7 +1,7 @@
 {
-  "rev": 34,
-  "updated_at": "2026-10-17T21:22:19Z",
-  "note": "Plan audit: main b04fadb includes English/audit PRs 9/11 and Carlos PR 12 concurrency plus original legacy two-host audit. Legacy report records 200/200 exact, p50 606.919 ms, p95 804.967 ms; historical source/model hashes match Git. Final English v2/provider evidence remains open. Yazmin PR 13 redesign is active and unmerged; coordinate code hashes before final measurements. Requested ten-diagram web atlas is complete. E5 exploratory demo ready; no sourced budget. VM, labs, English video, independent review, approved AI declaration and submission confirmations remain open. docs/PLAN_AUDIT_20261017.md. Keep Netlify and its badge.",
+  "rev": 35,
+  "updated_at": "2026-10-17T21:26:43Z",
+  "note": "Plan audit: current main ef1e21d includes PR 12 concurrency/raw legacy audit and Yazmin PR 13 redesign plus model/session charts. Both main updates are integrated into the diagram review branch. Legacy audit: 200/200 exact, p50 606.919 ms, p95 804.967 ms; historical source/model hashes verified against Git. Final English v2/provider evidence remains open. Ten-diagram web atlas complete. E5 exploratory demo ready; no sourced budget. VM, labs, English narrated video, independent review, approved AI declaration and submission confirmations remain open. Pin one common current runtime/hash for measurements. docs/PLAN_AUDIT_20261017.md. Keep Netlify and its badge.",
   "milestones": {
     "internal_start": "2026-10-17T13:00:00Z",
     "virtual_closing": "2026-10-18T05:00:00Z",
@@ -433,7 +433,7 @@
           "block": "h12",
           "priority": "Plus",
           "state": "done",
-          "evidence": "Yazmin’s commit 09cadf5 (PR 8) integrated at src/screening/ui/index.html with English v2 callers. Five question groups, 21 coded/required controls, integer/range validation, selected-profile/busy state, threshold meter and responsive layout. Local Docker/browser: C 66.3%; custom BMI 30 gives 57.8%; invalid, fractional and missing values rejected; random response repopulates fields; 390px layout without overflow. docs/YAZMIN_INTEGRATION.md; submission/evidence/local/yazmin_form_integrated_C.png and yazmin_form_mobile.png. Synthetic demonstration only; not clinical validation or LinuxONE evidence. Late PR 10 cfe0343 is merged into main 679c287 through PR 11: matching title, sensitivity-target explanation, malformed-number message and stacked mobile factors. Rebuilt container browser confirms C 66.3%, invalid number/range rejection and no overflow at 390px."
+          "evidence": "Yazmin’s commit 09cadf5 (PR 8) integrated at src/screening/ui/index.html with English v2 callers. Five question groups, 21 coded/required controls, integer/range validation, selected-profile/busy state, threshold meter and responsive layout. Local Docker/browser: C 66.3%; custom BMI 30 gives 57.8%; invalid, fractional and missing values rejected; random response repopulates fields; 390px layout without overflow. docs/YAZMIN_INTEGRATION.md; submission/evidence/local/yazmin_form_integrated_C.png and yazmin_form_mobile.png. Synthetic demonstration only; not clinical validation or LinuxONE evidence. Late PR 10 cfe0343 is merged into main 679c287 through PR 11: matching title, sensitivity-target explanation, malformed-number message and stacked mobile factors. Rebuilt container browser confirms C 66.3%, invalid number/range rejection and no overflow at 390px. PR 13 redesign/model/session charts merged into main ef1e21d; native real hospital/service browser confirms synthetic C 66.3%, 21 feature rows, 21 ciphertexts plus Enc(z), three charts and BMI-range rejection, without console errors. Local Docker engine returned HTTP 500; no new local container-run claim."
         },
         {
           "id": "US-6.5",
@@ -463,7 +463,7 @@
           "block": "h12",
           "priority": "MVP",
           "state": "in_progress",
-          "evidence": "English package screening, v2 protocol, API/CLI, comments/tests/messages, UI/site/dashboard, guides, three decks (8/19/17 slides), official PDF, flowchart and silent 170-second draft implemented and checked. make verify: 90 pass; Ubuntu: 86 pass/4 Git-dependent skips. Original data/evidence preserved; nine CSVs reproduced byte for byte; all 222 forecasts reproduced. docs/ENGLISH_MIGRATION.md. Still open: independent teammate review of this release and final authorized English narration with real LinuxONE footage. Fresh clone passes all 90 tests; both GitHub CI jobs pass. ENSANUT rerun identical except timestamp. Media URLs are versioned to prevent stale Spanish thumbnails. Yazmin’s grouped coded form from PR 8 integrated into PR 9 and checked against the English v2 backend; see docs/YAZMIN_INTEGRATION.md. This automated audit does not satisfy independent teammate approval. PR 9 is now merged into main; no human review recorded. Fresh audit corrects residual English log/error/fallback text and site clock IDs. Audit branch tests: 97 host, 93 Ubuntu plus four Git skips. Final English VM capture/narration and teammate sign-off remain open. PR 11 merged into main 679c287 at 2026-10-17 20:42:57 UTC with no recorded independent GitHub review. Final narration and teammate sign-off remain open."
+          "evidence": "English package screening, v2 protocol, API/CLI, comments/tests/messages, UI/site/dashboard, guides, three decks (8/19/17 slides), official PDF, flowchart and silent 170-second draft implemented and checked. make verify: 90 pass; Ubuntu: 86 pass/4 Git-dependent skips. Original data/evidence preserved; nine CSVs reproduced byte for byte; all 222 forecasts reproduced. docs/ENGLISH_MIGRATION.md. Still open: independent teammate review of this release and final authorized English narration with real LinuxONE footage. Fresh clone passes all 90 tests; both GitHub CI jobs pass. ENSANUT rerun identical except timestamp. Media URLs are versioned to prevent stale Spanish thumbnails. Yazmin’s grouped coded form from PR 8 integrated into PR 9 and checked against the English v2 backend; see docs/YAZMIN_INTEGRATION.md. This automated audit does not satisfy independent teammate approval. PR 9 is now merged into main; no human review recorded. Fresh audit corrects residual English log/error/fallback text and site clock IDs. Audit branch tests: 97 host, 93 Ubuntu plus four Git skips. Final English VM capture/narration and teammate sign-off remain open. PR 11 merged into main 679c287 at 2026-10-17 20:42:57 UTC with no recorded independent GitHub review. Final narration and teammate sign-off remain open. Current runtime includes PRs 12/13 as ef1e21d; diagrams/plan docs do not change that runtime hash. Final English narration and independent teammate review remain open."
         },
         {
           "id": "US-7.1",
@@ -517,7 +517,7 @@
           "block": "h18",
           "priority": "MVP",
           "state": "in_progress",
-          "evidence": "Main 679c287 merges English PR 9 and audit PR 11, including Yazmin PR 10. Audit runtime: 97 host tests; 93 Ubuntu plus four Git skips; both CI jobs passed. No independent GitHub review recorded. Final release review and original LinuxONE/evidence records remain open. docs/PLAN_AUDIT_20261017.md. Current main b04fadb also includes Carlos PR 12; its raw historical audit is reconciled in docs/CARLOS_REMOTE_AUDIT.md. Yazmin PR 13 redesign is unmerged at this checkpoint."
+          "evidence": "Main 679c287 merges English PR 9 and audit PR 11, including Yazmin PR 10. Audit runtime: 97 host tests; 93 Ubuntu plus four Git skips; both CI jobs passed. No independent GitHub review recorded. Final release review and original LinuxONE/evidence records remain open. docs/PLAN_AUDIT_20261017.md. Current main b04fadb also includes Carlos PR 12; its raw historical audit is reconciled in docs/CARLOS_REMOTE_AUDIT.md. Yazmin PR 13 redesign/charts subsequently merged into main ef1e21d at 21:24:20 UTC. Its changed HTML hash must match final measurement endpoints/client. No independent GitHub review recorded."
         },
         {
           "id": "US-7.7",
@@ -560,7 +560,7 @@
           "block": "h8",
           "priority": "Plus",
           "state": "done",
-          "evidence": "Ten source-referenced SVG diagrams and text equivalents in site/architecture.html; operational vault schema and analytical file relationships in docs/SYSTEM_DIAGRAMS.md. All ten SVGs render with no text outside cards; 390px browser layout has no page overflow and supports scoped diagram scrolling/expanded text. Deterministic rebuild and local file links pass; Own changes are documentation-only atop merged PR 12: screening runtime hash/model unchanged. Publication/review through its own PR."
+          "evidence": "Ten source-referenced SVG diagrams and text equivalents in site/architecture.html; operational vault schema and analytical file relationships in docs/SYSTEM_DIAGRAMS.md. All ten SVGs render with no text outside cards; 390px browser layout has no page overflow and supports scoped diagram scrolling/expanded text. Deterministic rebuild and local file links pass; Own changes are documentation-only atop merged PR 12: screening runtime hash/model unchanged. Publication/review through its own PR. Netlify review preview: https://system-diagrams--antimarrulla-tamizaje.netlify.app/architecture. PR 14."
         }
       ]
     }
