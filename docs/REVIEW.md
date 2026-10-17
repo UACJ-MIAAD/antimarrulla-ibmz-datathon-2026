@@ -46,3 +46,7 @@ Use the release commit under review, including the English migration. Record com
 | _pending_ | | | |
 
 A full review must identify the commit, scope, commands and findings. Yazmin's partial check does not certify the later English release. Keep partial checks labeled partial; the current independent review remains open.
+
+## Yazmin form integration
+
+PR 8 (`09cadf5`) is incorporated into English PR 9 with its authored commit preserved. The automated integration audit and local verification are recorded in [YAZMIN_INTEGRATION.md](YAZMIN_INTEGRATION.md). Yazmin authored this form; her earlier clone check remains partial and does not approve the combined release. Another teammate must review the final combined commit before main is updated.

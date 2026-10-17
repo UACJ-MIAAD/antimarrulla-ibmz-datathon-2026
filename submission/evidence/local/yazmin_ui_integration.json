@@ -1,0 +1,38 @@
+{
+  "schema_version": 1,
+  "checked_at_utc": "2026-10-17T19:55:18.765883+00:00",
+  "source_commit": "09cadf5ef63a83a485e67e4a206f4dde80c7fa09",
+  "release_parent": "8b9e5b93df92aca1e1fedb96dfda84fe5d112487",
+  "ui_sha256": "b3ceacaa3659ce561bb489971f9778d6713a50f01ea31603186293663f87a992",
+  "environment": "macOS arm64 host; Ubuntu 24.04 arm64 Docker; local browser",
+  "linuxone": false,
+  "inputs": "synthetic only",
+  "host_tests": {
+    "passed": 90,
+    "failed": 0
+  },
+  "ubuntu_tests": {
+    "passed": 86,
+    "skipped": 4,
+    "reason": "Git executable absent from the image"
+  },
+  "browser": {
+    "profile_C_percent": 66.3,
+    "custom_C_BMI_30_percent": 57.8,
+    "invalid_BMI_150_rejected": true,
+    "fractional_BMI_30_5_rejected": true,
+    "missing_age_rejected": true,
+    "random_repopulates_21_fields": true,
+    "phone_viewport": [
+      390,
+      844
+    ],
+    "phone_document_width": 390,
+    "observed_console_errors": 0
+  },
+  "captures": [
+    "submission/evidence/local/yazmin_form_integrated_C.png",
+    "submission/evidence/local/yazmin_form_mobile.png"
+  ],
+  "review_scope": "Automated integration audit; independent teammate release approval remains pending."
+}

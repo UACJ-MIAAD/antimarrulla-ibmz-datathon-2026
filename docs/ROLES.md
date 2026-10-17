@@ -39,7 +39,7 @@ The submission portal is open from **October 16, 2026, 23:45 UTC** until **Octob
 ### Yazmin Ivonne Flores Martinez — data, English narrative and pitch
 
 - Own CDC exploratory analysis, splits, Mexican statistics and source/population explanations.
-- Review English labels, source coding and validation in the existing form; physician-focused polish is optional.
+- Form implementation US-6.4 is integrated from Yazmin’s PR 8 into English PR 9 and verified locally; see [YAZMIN_INTEGRATION.md](YAZMIN_INTEGRATION.md). Move next to English narration and real LinuxONE demo footage with Javier. Further form polish is optional.
 - Translate and review slides, diagram and PDF; assemble the <=180-second English video with Javier.
 - Use actual LinuxONE/model footage and versioned measurements; do not relabel local screenshots as VM evidence.
 - Keep sensitive data out of the repository and review the English AI declaration and final submission text.

@@ -33,7 +33,7 @@ Freeze the translated code commit **before** the final LinuxONE measurement and 
 
 ## Where to start now
 
-**Javier / coordination: use the next 15 minutes to confirm the registered leader, VM access, each evidence owner and the English workstreams above.** Open the dashboard and prepare the English script with Yazmin. Check attendance and the actual completion of both labs. Protect the time reserved for submission.
+**Javier / coordination: use the next 30 minutes to secure the release, real VM evidence and the video.** Yazmin’s PR 8 form is now integrated into the English release in PR 9; US-6.4 is complete for synthetic inputs. See [YAZMIN_INTEGRATION.md](YAZMIN_INTEGRATION.md). Confirm the registered leader and dashboard access; agree on the combined commit with Carlos and Álvaro; secure a human review; collect lab/attendance evidence; then rehearse the English script with Yazmin. Protect the submission buffer. Further form polish and optional extensions are lower priority.
 
 | Priority | Owner | Next concrete action | Completion evidence |
 |----------|-------|----------------------|---------------------|
@@ -43,7 +43,7 @@ Freeze the translated code commit **before** the final LinuxONE measurement and 
 | 2 | Teammate other than the author | Run the pinned clone and review protocol, keys, data, limits and the language migration using `docs/REVIEW.md` | GitHub review and record with name, date, commit and commands; no self-approval or AI approval as a team member |
 | 2 | Yazmin and Javier | Record the model and demo on LinuxONE, record English narration and assemble a 170–180-second video | Audio/video file, `ffprobe` duration, public link tested without a login and `submission/VIDEO_RECORD.json` |
 | 3 | Álvaro: hospital; Carlos: service | After MVP evidence and the English gate, run the optional two-host test with synthetic inputs by default | Strict audit passes, distinct host IDs, matching versions and evidence of both real hosts; a local rehearsal does not close this story |
-| 3 | Yazmin | If time remains, polish the existing 21-feature form: English labels, explicit CDC codes, required fields and validation | Screenshot and synthetic patient walkthrough; no real patient records or new bulk upload features |
+| Done locally | Yazmin; Javier integrates | PR 8 grouped, coded form integrated with English v2; move to the English video and visual review | docs/YAZMIN_INTEGRATION.md; synthetic desktop/mobile screenshots. Does not certify clinical usability or LinuxONE execution. |
 | 4 | Javier and all four teammates | Pin the final version; align PDF/site/script; confirm AI attribution; build the final package and submit through the registered leader | English gate complete, `make package FINAL=1`, working public links and Hack2Skill confirmation screenshot |
 
 ## Commands and scope

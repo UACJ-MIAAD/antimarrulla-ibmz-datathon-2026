@@ -51,7 +51,7 @@ def validate(record):
     missing = [n for n in FEATURE_NAMES if n not in record]
     extra = sorted(set(record) - set(FEATURE_NAMES))
     if missing or extra:
-        raise InvalidInput(f"variables faltantes {missing} or unexpected {extra}")
+        raise InvalidInput(f"missing variables {missing} or unexpected variables {extra}")
     return [to_integer(n, record[n]) for n in FEATURE_NAMES]
 
 

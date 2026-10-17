@@ -1,7 +1,7 @@
 {
-  "rev": 26,
-  "updated_at": "2026-10-17T19:45:50Z",
-  "note": "Evidence-based status. English implementation and existing artifacts translated; final narration and independent teammate sign-off remain open. See docs/ENGLISH_MIGRATION.md and docs/DELIVERY_PLAN.md. Keep Netlify and its badge. Increase rev and actual UTC timestamp for every status update.",
+  "rev": 27,
+  "updated_at": "2026-10-17T19:55:00Z",
+  "note": "Evidence-based status. Yazmin’s PR 8 form is integrated into the English release (PR 9): US-6.4 complete with local browser/Docker evidence. Human release review, LinuxONE/labs evidence and final English narration remain open. See docs/YAZMIN_INTEGRATION.md and docs/DELIVERY_PLAN.md. Keep Netlify and its badge.",
   "milestones": {
     "internal_start": "2026-10-17T13:00:00Z",
     "virtual_closing": "2026-10-18T05:00:00Z",
@@ -432,8 +432,8 @@
           "owners": "Yazmin",
           "block": "h12",
           "priority": "Plus",
-          "state": "in_progress",
-          "evidence": "English 21-feature synthetic editor now shows human-readable labels, original CDC codes and ranges. Browser rejects BMI 99 outside [12,98]. English code/UI migration implemented; Yazmin’s physician-focused review remains open. submission/evidence/local/english_demo_synthetic_C.png."
+          "state": "done",
+          "evidence": "Yazmin’s commit 09cadf5 (PR 8) integrated at src/screening/ui/index.html with English v2 callers. Five question groups, 21 coded/required controls, integer/range validation, selected-profile/busy state, threshold meter and responsive layout. Local Docker/browser: C 66.3%; custom BMI 30 gives 57.8%; invalid, fractional and missing values rejected; random response repopulates fields; 390px layout without overflow. docs/YAZMIN_INTEGRATION.md; submission/evidence/local/yazmin_form_integrated_C.png and yazmin_form_mobile.png. Synthetic demonstration only; not clinical validation or LinuxONE evidence."
         },
         {
           "id": "US-6.5",
@@ -463,7 +463,7 @@
           "block": "h12",
           "priority": "MVP",
           "state": "in_progress",
-          "evidence": "English package screening, v2 protocol, API/CLI, comments/tests/messages, UI/site/dashboard, guides, three decks (8/19/17 slides), official PDF, flowchart and silent 170-second draft implemented and checked. make verify: 90 pass; Ubuntu: 86 pass/4 Git-dependent skips. Original data/evidence preserved; nine CSVs reproduced byte for byte; all 222 forecasts reproduced. docs/ENGLISH_MIGRATION.md. Still open: independent teammate review of this release and final authorized English narration with real LinuxONE footage. Fresh clone passes all 90 tests; both GitHub CI jobs pass. ENSANUT rerun identical except timestamp. Media URLs are versioned to prevent stale Spanish thumbnails."
+          "evidence": "English package screening, v2 protocol, API/CLI, comments/tests/messages, UI/site/dashboard, guides, three decks (8/19/17 slides), official PDF, flowchart and silent 170-second draft implemented and checked. make verify: 90 pass; Ubuntu: 86 pass/4 Git-dependent skips. Original data/evidence preserved; nine CSVs reproduced byte for byte; all 222 forecasts reproduced. docs/ENGLISH_MIGRATION.md. Still open: independent teammate review of this release and final authorized English narration with real LinuxONE footage. Fresh clone passes all 90 tests; both GitHub CI jobs pass. ENSANUT rerun identical except timestamp. Media URLs are versioned to prevent stale Spanish thumbnails. Yazmin’s grouped coded form from PR 8 integrated into PR 9 and checked against the English v2 backend; see docs/YAZMIN_INTEGRATION.md. This automated audit does not satisfy independent teammate approval."
         },
         {
           "id": "US-7.1",
