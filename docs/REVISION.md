@@ -40,4 +40,5 @@ Los PR 3 y 4 también entraron por decisiones previas del capitán; una excepci�
 
 | Integrante | Fecha y hora | Qué corrió | Comentarios |
 |------------|--------------|------------|-------------|
+| Yazmin Flores | 2026-10-17 14:39 EDT | Clon limpio y `make verify` con Python 3.12 (commit `32a5af1`, sin cambios de archivos) | **Parcial:** confirma que el clon corre; falta la lectura del código y las preguntas de la sección 3 |
 | _pendiente_ | | | |
