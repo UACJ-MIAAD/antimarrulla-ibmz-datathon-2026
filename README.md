@@ -107,7 +107,7 @@ En LinuxONE (s390x) los pasos son los mismos; si algún paquete no trae wheel pa
 > **La IA ve el riesgo. Nadie ve al paciente.**
 
 - **Tema oficial:** T2 · AI Secured: Innovation Without Exposure
-- **Problema:** en México, 18.3% de los adultos vive con diabetes, 1 de cada 3 no lo sabe y es la 2.ª causa de muerte (112,641 defunciones en 2024). Los hospitales tienen los datos para detectar el riesgo antes, pero no pueden compartirlos.
+- **Problema:** en México, 18.3% de los adultos vive con diabetes, 1 de cada 3 no lo sabe y es la 2.ª causa de muerte (112,577 defunciones en 2024) y causó más de 11 mil amputaciones solo en hospitales de la Secretaría de Salud. Los hospitales tienen los datos para detectar el riesgo antes, pero no pueden compartirlos.
 - **Solución:** el hospital cifra los 21 indicadores del paciente con **cifrado homomórfico (Paillier)** y se queda con la llave. LinuxONE calcula el riesgo de diabetes **sobre los datos cifrados**, sin poder leerlos. El hospital descifra el resultado y **Granite** lo explica en lenguaje claro. Es tamizaje, no diagnóstico.
 - **Uso de IBM Z / LinuxONE:** dos contenedores Docker en LinuxONE (hospital con llave · servicio de riesgo sin llave); aritmética homomórfica con enteros de miles de bits; AES-256-GCM en reposo acelerado por CPACF; TLS 1.3 en tránsito.
 - **Datos:** CDC Diabetes Health Indicators (UCI 891) para entrenar; incidencia **SINAVE** y mortalidad **EDR (INEGI)** para el contexto mexicano.

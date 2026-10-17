@@ -218,9 +218,44 @@ flowchart LR
 
 **Denominadores para tasas:** proyecciones de población de CONAPO por entidad, sexo y edad.
 
+## 6.1 Primeros conteos con los microdatos (17 oct 2026)
+
+Archivos: `DEFUN_2024.zip` y `ssa_egresos_2024.zip` de la DGIS, en `data/raw/` (no versionados).
+
+**Defunciones registradas 2024** (819,672 registros)
+
+| Indicador | Valor |
+|-----------|------:|
+| Diabetes (E10–E14) | 112,577 (13.7%) |
+| E11 tipo 2 · E14 no especificada · E10 tipo 1 | 85,395 · 22,537 · 4,323 |
+| Hombres · mujeres | 56,131 · 56,442 |
+| Top residencia | Edo. de México 17,155 · Veracruz 10,585 · CDMX 8,565 · Puebla 7,065 |
+| Chihuahua | 2,768 |
+
+**Egresos hospitalarios SSA 2024** (2,649,236 egresos, archivo `Egresos.txt` separado por `|`, latin-1)
+
+| Indicador | Valor |
+|-----------|------:|
+| Afección principal diabetes (`AFECPRIN` E10–E14) | 62,771 (2.4%) |
+| Con amputación de miembro inferior (CIE-9 84.1x) | 11,550 (18.4%) |
+| Con hemodiálisis (CIE-9 39.95) | 1,719 (2.7%) |
+| Murieron en el hospital (`MOTEGRE` = 5) | 2,976 (4.7%) |
+| Estancia media | 5.1 días |
+| Top residencia | Edo. de México 6,697 · Veracruz 5,491 · Guanajuato 4,215 · CDMX 3,891 |
+| Chihuahua | 1,332 |
+
+Notas: los egresos cubren solo unidades de la Secretaría de Salud e IMSS-Bienestar (la DGIS también publica `sectorial_egresos_{año}.zip` con todas las instituciones). Descriptor: `ssa_Descriptores_Bases_de_Datos_EGRESOS_2023_2025.xlsx`; los catálogos van en su segunda hoja.
+
+---
+
 ## 7. Cifras de contexto usadas en el pitch
 
 | Cifra | Fuente |
 |-------|--------|
 | 18.3% de adultos con diabetes; 12.6% diagnosticada y 5.8% sin diagnóstico | ENSANUT 2022, Basto-Abreu et al., *Salud Pública de México* 2023;65(supl 1):S163-S168 |
-| 112,641 defunciones por diabetes en 2024; 2.ª causa de muerte | INEGI, EDR 2024 (preliminar) |
+| 112,577 defunciones por diabetes registradas en 2024 (13.7% del total; 109,698 ocurridas en 2024) | Defunciones registradas 2024, microdatos DGIS/INEGI (conteo propio de `causa_def` E10–E14) |
+| 62,771 egresos con diabetes como afección principal en unidades SSA / IMSS-Bienestar, 2024 | Egresos hospitalarios SSA 2024, DGIS (conteo propio) |
+| 11,550 (18.4%) de esos egresos con amputación de miembro inferior; 1,719 (2.7%) con hemodiálisis | Egresos hospitalarios SSA 2024, DGIS (conteo propio) (CIE-9 84.1x y 39.95 en `Procedimientos.txt`) |
+| 2,976 (4.7%) murieron en el hospital; estancia media 5.1 días | Egresos hospitalarios SSA 2024, DGIS (conteo propio) (`MOTEGRE` = 5) |
+
+> El boletín preliminar de INEGI publicó 112,641 defunciones por diabetes en 2024; los microdatos dan 112,577. Usamos la cifra de los microdatos porque la podemos reproducir.
