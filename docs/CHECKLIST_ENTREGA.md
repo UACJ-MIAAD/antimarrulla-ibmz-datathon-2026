@@ -15,25 +15,25 @@
 
 ## 📦 Repositorio
 
-- [ ] Repo **público** en GitHub (probar el link en una ventana de incógnito)
+- [x] Repo **público** en GitHub (HTTP 200 sin sesión, 17 oct)
 - [ ] Historial con **commits del 17–18 de octubre**, frecuentes y con formato `tipo: descripción`
 - [ ] Ningún commit gigante de "todo el proyecto" al final
 - [ ] Ramas fusionadas a `main` vía pull request con revisión
 - [ ] `main` corre de punta a punta
-- [ ] Sin datasets grandes ni datos sensibles (`git ls-files data/`)
-- [ ] Sin credenciales, llaves ni tokens, incluido el de Jupyter Lab (buscar `key`, `token`, `password`, `secret`)
-- [ ] `LICENSE` presente
+- [x] Sin datasets grandes ni datos sensibles: `data/raw/` y los microdatos de ENSANUT no están versionados (revisado el 17 oct)
+- [x] Sin credenciales, llaves ni tokens (búsqueda de llaves privadas, tokens de GitHub/AWS y contraseñas el 17 oct; los secretos de la demo viven en `~/.tamizaje`)
+- [x] `LICENSE` presente
 
 ## 📝 README y documentación
 
-- [ ] Sección **Proyecto** completa: problema, solución, uso de IBM Z, cómo correr la demo
-- [ ] Quickstart probado en máquina limpia por alguien que **no** escribió el código
-- [ ] `requirements.txt` con versiones fijadas
-- [ ] Instrucciones para obtener el dataset (fuente + licencia) en `data/README.md`
-- [ ] Tabla de **librerías open source con sus links** (la guía lo exige en la entrega)
-- [x] Declaración de **asistentes de IA** (sección *Uso de IA* al final del README) · actualizarla si se usa IA en el código del evento
-- [ ] Diagrama de arquitectura / flowchart con las piezas que viven en LinuxONE
-- [ ] [DECISION.md](DECISION.md) lleno
+- [x] Sección **Proyecto** completa: problema, solución, uso de IBM Z, cómo correr la demo (sección *Cómo correrlo*)
+- [ ] Quickstart probado en máquina limpia por alguien que **no** escribió el código (en un clon limpio ya pasa `make verify`; falta que lo corra otro integrante)
+- [x] `requirements.txt` con versiones fijadas (verificadas en local; en s390x se usan los paquetes apt de la imagen)
+- [x] Instrucciones para obtener el dataset (fuente + licencia) en `data/README.md`
+- [x] Tabla de **librerías open source con sus links** (la guía lo exige en la entrega)
+- [x] Declaración de **asistentes de IA** (sección *Uso de IA* al final del README), incluida la implementación y las auditorías externas
+- [x] Diagrama de arquitectura / flowchart: `submission/flowchart/arquitectura.pdf`
+- [x] [DECISION.md](DECISION.md) lleno
 
 ## 🖥️ Evidencias de LinuxONE (criterio técnico)
 
@@ -43,7 +43,7 @@ Capturas en `submission/evidencias/`:
 - [ ] `lscpu` y `cpacfinfo` (si está instalado)
 - [ ] Versión de OpenSSL de la CLI **y** de la biblioteca que usa la app (`cryptography`)
 - [ ] Tiempo de AES-256-GCM medido **dentro de la aplicación**
-- [ ] Error numérico claro vs. cifrado y tamaño de la muestra cifrada
+- [ ] Error numérico claro vs. cifrado y tamaño de la muestra cifrada (hecho en **local**: 2,000 pacientes; falta en LinuxONE con `make medir-docker`)
 - [ ] Entrenamiento del modelo en LinuxONE
 - [ ] Inferencia / servicio corriendo en LinuxONE
 - [ ] Contenedor (Podman/Docker) si se usó
