@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Blind Screening · demo</title>
+<title>Privacy-preserving screening · demo</title>
 <style>
 :root{--bg:#0e0e13;--card:#17171f;--card2:#1e1e28;--line:#2a2a36;--txt:#e8e8ef;--muted:#a3a3b5;--blue:#0f62fe;--lblue:#78a9ff;--green:#24a148;--lgreen:#42be65;--red:#fa4d56;--yel:#f1c21b;--mono:#c6c6d4}
 @media (prefers-color-scheme:light){:root{--bg:#f4f4f6;--card:#fff;--card2:#f2f2f5;--line:#dcdce3;--txt:#161616;--muted:#5b5b6b;--lblue:#0043ce;--lgreen:#198038;--mono:#393946}}
@@ -39,6 +39,7 @@ section h2{font-size:15px;margin:0 0 4px}.sub{color:var(--muted);font-size:13px;
 .meter i{position:absolute;inset:0 auto 0 0;border-radius:5px}.meter b{position:absolute;top:-4px;bottom:-4px;width:2px;background:var(--txt)}
 .bar{display:grid;grid-template-columns:minmax(120px,190px) 1fr 56px;gap:8px;align-items:center;font-size:13px;margin:4px 0}
 .bar i{display:block;height:10px;border-radius:5px;min-width:2px}.bar span:last-child{text-align:right;font-variant-numeric:tabular-nums}
+@media(max-width:520px){.bar{grid-template-columns:1fr 56px;gap:2px 8px;margin:8px 0}.bar span:first-child{grid-column:1/-1}}
 footer{padding:4px 20px 18px;color:var(--muted);font-size:13px}
 .kpis{display:flex;gap:18px;flex-wrap:wrap}.kpis b{display:block;font-size:20px;color:var(--txt);font-variant-numeric:tabular-nums}
 .err{color:var(--red)}
@@ -96,7 +97,7 @@ function fieldMarkup(v){const m=META[v.name]||{},id="f_"+v.name,c=m.c&&Object.ke
   :`<input id="${id}" aria-describedby="m_${v.name}" type="number" inputmode="numeric" step="1" min="${v.min}" max="${v.max}" required placeholder="${v.min}–${v.max}${m.u?" "+m.u:""}">`;
  return `<label class="fld" id="w_${v.name}"><span class="q">${escapeHtml(featureLabel(v.name))}</span><code>${escapeHtml(v.name)} · ${v.min}–${v.max}${m.u?" "+escapeHtml(m.u):""}</code>${ctl}<span class="msg" id="m_${v.name}"></span></label>`}
 function validateField(v){const x=$("f_"+v.name).value.trim();let e="";
- if(x==="")e="Required.";else if(!/^-?\d+$/.test(x))e="Whole number only.";else if(+x<v.min||+x>v.max)e=`Must be between ${v.min} and ${v.max}.`;
+ if($("f_"+v.name).validity.badInput)e="Enter a number.";else if(x==="")e="Required.";else if(!/^-?\d+$/.test(x))e="Whole number only.";else if(+x<v.min||+x>v.max)e=`Must be between ${v.min} and ${v.max}.`;
  $("m_"+v.name).textContent=e;$("w_"+v.name).classList.toggle("bad",!!e);$("f_"+v.name).setAttribute("aria-invalid",!!e);return e?null:Number(x)}
 function fill(p){for(const v of SCHEMA.variables){$("f_"+v.name).value=p[v.name]??"";validateField(v)}$("summary").textContent=""}
 function markProfile(k){for(const b of $("profiles").querySelectorAll("button"))b.setAttribute("aria-pressed",b.dataset.profile===k)}
@@ -113,7 +114,7 @@ function render(r){const s=r.server,h=r.hospital;fill(h.input);
  $("hospital").innerHTML=`<div class="sub">${escapeHtml(String(r.profile))} · id ${escapeHtml(r.id.slice(0,8))}</div><div class="big">${pct.toFixed(1)}%</div>
  <div class="meter" role="img" aria-label="Risk ${pct.toFixed(1)}% against threshold ${u.toFixed(1)}%"><i style="width:${Math.min(pct,100)}%;background:${h.risk_high?"var(--red)":"var(--green)"}"></i><b style="left:${Math.min(u,100)}%"></b></div>
  <span class="badge ${h.risk_high?"high":"low"}">${h.risk_high?"Prioritize a glucose test":"Risk below the threshold"}</span>
- <p class="sub" style="margin-top:8px">Threshold ${u.toFixed(1)}% (set on validation data) · logit ${h.logit.toFixed(4)} · z = ${escapeHtml(h.z_integer)}</p>
+ <p class="sub" style="margin-top:8px">Threshold ${u.toFixed(1)}%, chosen for ≥80% sensitivity on validation data, so moderate profiles can be flagged · logit ${h.logit.toFixed(4)} · z = ${escapeHtml(h.z_integer)}</p>
  <p class="sub">Largest model contributions relative to the training mean (not causal effects):</p>
  ${h.factors.map(f=>`<div class="bar"><span title="${escapeHtml(f.variable)}">${escapeHtml(featureLabel(f.variable))}</span><i style="width:${Math.abs(f.contribution_logit)/max*100}%;background:${f.contribution_logit>0?"var(--red)":"var(--green)"}"></i><span>${f.contribution_logit>0?"+":""}${f.contribution_logit}</span></div>`).join("")}`;
  const t=r.timings_ms;$("timings").innerHTML=`<span><b>${t.encrypt} ms</b>encrypt (hospital)</span><span><b>${t.network_and_service} ms</b>TLS + service</span><span><b>${t.decrypt} ms</b>decrypt (hospital)</span><span><b>${t.vault} ms</b>AES-GCM vault + fsync</span><span><b>${t.total_in_hospital} ms</b>total inside the hospital (excluding browser)</span>`}
