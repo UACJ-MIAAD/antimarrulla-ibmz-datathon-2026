@@ -1,6 +1,6 @@
 {
-  "rev": 20,
-  "actualizado": "2026-10-17T13:16:47Z",
+  "rev": 21,
+  "actualizado": "2026-10-17T17:40:16Z",
   "nota": "Para actualizar: cambia 'estado' de la historia (hecho · en_curso · pendiente · bloqueado), sube 'rev' en 1, pon 'actualizado' con la hora real en UTC y haz commit a main. El sitio muestra la copia con 'rev' mayor (GitHub o la publicada).",
   "hitos": {
     "hora_cero": "2026-10-17T13:00:00Z",
@@ -159,7 +159,8 @@
           "quien": "Álvaro",
           "bloque": "prep",
           "prioridad": "MVP",
-          "estado": "en_curso"
+          "estado": "en_curso",
+          "evidencia": "Carlos reporta su servidor funcionando y Álvaro reconectándose (chat 17 oct); sin captura en el repo todavía"
         },
         {
           "id": "US-2.2",
@@ -212,8 +213,8 @@
           "quien": "Álvaro",
           "bloque": "h16",
           "prioridad": "MVP",
-          "estado": "pendiente",
-          "evidencia": "no verificado: esta sesión no tiene acceso a la VM; pasos en docs/LINUXONE.md"
+          "estado": "en_curso",
+          "evidencia": "scripts de verificación en tests/instance/ (PR 5): Carlos reporta 6/6 del stack y 8/8 de afirmaciones en su servidor. Ojo: 05_test_claims.py usa una implementación de referencia de 6 variables, no src/tamizaje. Falta guardar salidas y capturas en submission/evidencias/linuxone/ con REGISTRO.json"
         }
       ]
     },
@@ -420,6 +421,28 @@
           "prioridad": "MVP",
           "estado": "en_curso",
           "evidencia": "recorrido completo local verificado (make demo + smoke + make medir-api desde clon limpio); falta LinuxONE"
+        },
+        {
+          "id": "US-6.4",
+          "como": "médico",
+          "quiero": "un formulario claro para capturar o subir los datos de un paciente (sintético en la demo) y ver su riesgo",
+          "para": "usar la herramienta sin tocar código",
+          "quien": "Yazmin",
+          "bloque": "h12",
+          "prioridad": "Plus",
+          "estado": "pendiente",
+          "evidencia": "base: la UI ya permite editar las 21 variables (src/tamizaje/ui/index.html); falta el formulario de médico"
+        },
+        {
+          "id": "US-6.5",
+          "como": "jurado",
+          "quiero": "ver al hospital y al servicio de riesgo en dos máquinas distintas, comunicándose solo con cifrados",
+          "para": "confirmar que son sistemas separados",
+          "quien": "Álvaro · Carlos",
+          "bloque": "h12",
+          "prioridad": "Plus",
+          "estado": "en_curso",
+          "evidencia": "PR 6: make ensayo-dos-maquinas aprobado en una sola máquina (no es evidencia); falta la corrida real VM A servicio (Carlos) y VM B hospital (Álvaro), docs/DOS_MAQUINAS.md"
         }
       ]
     },

@@ -32,6 +32,8 @@ make demo-down
 9. ¿Qué evaluó ENSANUT y por qué no valida el modelo de 21 variables?
 10. ¿Qué mide `make medir` y qué mide `make medir-api`? ¿Cuál de los dos es el recorrido de dos contenedores?
 
+> PR 5 y PR 6 (17 oct) los revisó y fusionó su propio autor (cuenta AzraelNogo); tampoco cuentan como revisión de otro integrante.
+
 ## 4. Registro de revisiones
 
 | Integrante | Fecha y hora | Qué corrió | Comentarios |

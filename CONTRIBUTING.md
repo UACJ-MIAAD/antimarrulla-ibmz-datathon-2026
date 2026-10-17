@@ -51,6 +51,12 @@ Commits frecuentes y pequeños. Un commit cada 30–60 min de trabajo es buena s
 - No traigas código de proyectos anteriores. Ideas e investigación sí; código no.
 - Antes de commitear revisa que tu reloj del sistema esté bien.
 
+## 4.1 Notebooks
+
+- Viven en el repo, en `notebooks/`, con nombre `NN_tema.ipynb` (por ejemplo `02_baseline.ipynb`). Se pueden editar y correr en el servidor, pero **siempre con commit y push**: lo que se queda solo en la VM no cuenta para la entrega y se pierde si la VM se cae.
+- Antes de commitear: *Kernel → Restart & Run All* y limpiar salidas pesadas.
+- El código reutilizable va en `src/tamizaje/` y el notebook lo importa, para que los resultados coincidan con `make verify`.
+
 ## 5. Datos y secretos
 
 - Nada de datasets grandes ni datos sensibles en el repo. Ver [data/README.md](data/README.md).
