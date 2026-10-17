@@ -27,7 +27,7 @@
 - Semillas fijas, scripts reproducibles en `src/` y `pip freeze` final.
 
 ### 📊🎤 Datos y pitch · Yazmin Ivonne Flores Martinez
-- EDA y particiones del CDC; cascada, brecha de detección y mapa con los datos mexicanos (`data/marts/`).
+- EDA y particiones del CDC; etapas de la atención, indicador exploratorio por estado y mapa con los datos mexicanos (`data/marts/`).
 - Dueña de la narrativa de impacto: cifras con fuente en las slides.
 - Slides v2 con capturas reales, **pitch deck en PDF** con el nombre oficial y **video de 2:50**.
 - Vigila que nada sensible llegue al repo.
@@ -56,7 +56,7 @@
 
 **Plan por épicas e historias de usuario:** 7 épicas (E1 base · E2 infraestructura · E3 modelo cifrado · E4 datos e impacto · E5 pronóstico y planeación financiera · E6 demo · E7 pitch y entrega) en [site/status.json](../site/status.json), visibles en el sitio.
 
-**Épica E5 (Plus):** Yazmin prepara las 111 series y la planeación financiera (H3–H12), Carlos ajusta los modelos de pronóstico (H8–H12) y Javier arma el dashboard (H12–H16). Diseño en [PRONOSTICO.md](PRONOSTICO.md). Si en la hora 12 la demo cifrada va atrasada, E5 se congela.
+**Épica E5 (Plus):** Yazmin prepara las 222 series (111 por tipo) y la planeación financiera (H3–H12), Carlos ajusta los modelos de pronóstico (H8–H12) y Javier arma el dashboard (H12–H16). Diseño en [PRONOSTICO.md](PRONOSTICO.md). Si en la hora 12 la demo cifrada va atrasada, E5 se congela.
 
 ## 😴 Turnos de descanso
 

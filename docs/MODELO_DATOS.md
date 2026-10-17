@@ -5,7 +5,7 @@ Dos mundos que no se mezclan:
 | Mundo | Para qué | Datos | Dónde |
 |-------|----------|-------|-------|
 | **A. Modelo predictivo** | Entrenar y evaluar la regresión logística que corre **cifrada** en LinuxONE | Registros individuales con factores de riesgo y etiqueta | `data/cdc_891/` |
-| **B. Modelo analítico** | Contar la historia de México: cascada de atención, brecha de detección, mapas | Agregados oficiales por entidad, año, sexo, edad e institución | Resto de `data/` |
+| **B. Modelo analítico** | Contar la historia de México: tamaño de cada etapa de la atención, indicadores por estado y mapas | Agregados oficiales por entidad, año, sexo, edad e institución | Resto de `data/` |
 
 > El mundo A nunca usa datos de pacientes mexicanos reales: en la demo, los "pacientes" son sintéticos y llegan **cifrados**. El mundo B solo usa agregados públicos.
 
@@ -25,12 +25,14 @@ Dos mundos que no se mezclan:
 | Salud percibida | `GenHlth` (1–5), `MentHlth` (0–30), `PhysHlth` (0–30), `DiffWalk` | ordinal · conteo | |
 | Demografía | `Sex`, `Age` (13 grupos), `Education` (1–6), `Income` (1–8) | categórica ordinal | |
 
+**Calidad del dataset:** sin nulos. Hay **24,206 filas repetidas** si se excluye `ID` (mismas respuestas e indicadores). No prueban que sean la misma persona: con 21 variables mayormente binarias, respuestas idénticas son esperables. Se entrena con todas las filas y se reporta una prueba de sensibilidad sin duplicados. `ID` nunca entra al modelo.
+
 **Preparación para el cifrado (Paillier):**
-1. Escalar cada variable a un rango fijo y codificar pesos y variables en **punto fijo** (enteros).
+1. Escalar cada variable a un rango fijo **ajustado solo con el conjunto de entrenamiento** y codificar pesos y variables en **punto fijo** (protocolo en [PROYECTO.md §3](PROYECTO.md#protocolo-numérico-lo-que-fija-us-32)).
 2. Entrenar la regresión logística en claro con datos públicos; guardar `w` y `b`.
 3. En inferencia, el hospital cifra el vector `x` (21 valores); el servidor calcula `Enc(w·x + b)`.
 4. Particiones: 70 / 15 / 15 estratificadas por `Diabetes_binary`; `class_weight="balanced"` por el desbalance.
-5. Métricas: AUC, AUC-PR, recall y F1 en claro, y **AUC cifrado vs. en claro**.
+5. Métricas: AUC, AUC-PR, sensibilidad/especificidad a un umbral fijado en validación, calibración, error numérico claro vs. cifrado y **AUC cifrado vs. en claro sobre la misma muestra** ([PROYECTO.md §6](PROYECTO.md#6-métricas-que-reportamos)).
 
 **Validación externa con México: ENSANUT 2022/2023** (historia US-3.5, prioridad Plus)
 
@@ -188,7 +190,7 @@ erDiagram
 | `egresos`, `muertes_hospital` | Egresos del sector | Hospitalizaciones por diabetes y las que terminaron en defunción (2018–2024) |
 | `defunciones` | EDR / DGIS | Muertes E10–E14 **ocurridas y registradas en el mismo año**, por residencia |
 | `tasa_casos_100k`, `tasa_defunciones_100k` | Derivada | Por 100,000 habitantes (población total) |
-| `defunciones_por_100_casos` | Derivada | Indicador de **brecha de detección** |
+| `defunciones_por_100_casos` | Derivada | Razón **exploratoria** muertes / casos notificados (no es letalidad ni subdiagnóstico) |
 | `pct_controlados_sis` | Derivada | `sis_controlados / sis_en_tratamiento` |
 
 **Cifras nacionales del mart:**

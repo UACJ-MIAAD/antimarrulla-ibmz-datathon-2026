@@ -40,6 +40,10 @@
 Capturas en `submission/evidencias/`:
 - [ ] VM de LinuxONE corriendo (dashboard de la Community Cloud)
 - [ ] `uname -m` → `s390x`
+- [ ] `lscpu` y `cpacfinfo` (si está instalado)
+- [ ] Versión de OpenSSL de la CLI **y** de la biblioteca que usa la app (`cryptography`)
+- [ ] Tiempo de AES-256-GCM medido **dentro de la aplicación**
+- [ ] Error numérico claro vs. cifrado y tamaño de la muestra cifrada
 - [ ] Entrenamiento del modelo en LinuxONE
 - [ ] Inferencia / servicio corriendo en LinuxONE
 - [ ] Contenedor (Podman/Docker) si se usó

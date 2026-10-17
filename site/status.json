@@ -1,5 +1,5 @@
 {
-  "actualizado": "2026-10-17T09:10:00Z",
+  "actualizado": "2026-10-17T09:30:00Z",
   "nota": "Para actualizar: cambia 'estado' de la historia (hecho · en_curso · pendiente · bloqueado), sube 'actualizado' y haz commit a main. El sitio lo lee de GitHub en vivo.",
   "hitos": {
     "hora_cero": "2026-10-17T13:00:00Z",
@@ -273,7 +273,7 @@
     {
       "id": "E4",
       "nombre": "Datos e impacto en México",
-      "objetivo": "Probar con datos oficiales por qué detectar antes importa.",
+      "objetivo": "Mostrar con datos oficiales el tamaño del problema en México.",
       "responsable": "Yazmin",
       "historias": [
         {
@@ -289,7 +289,7 @@
         {
           "id": "US-4.2",
           "como": "jurado",
-          "quiero": "la cascada nacional y la brecha de detección por estado",
+          "quiero": "las cifras nacionales por etapa y el indicador exploratorio de muertes por cada 100 casos notificados por estado",
           "para": "entender el tamaño del problema",
           "quien": "Yazmin",
           "bloque": "h3",
@@ -299,8 +299,8 @@
         {
           "id": "US-4.3",
           "como": "público",
-          "quiero": "un mapa interactivo de la brecha",
-          "para": "ver dónde se detecta tarde",
+          "quiero": "un mapa interactivo de indicadores por estado",
+          "para": "comparar estados con cifras oficiales",
           "quien": "Yazmin",
           "bloque": "prep",
           "prioridad": "MVP",
@@ -317,7 +317,7 @@
         {
           "id": "US-5.1",
           "como": "planeador de salud",
-          "quiero": "las 111 series semanales de diabetes T1 y T2 (estado, región y nacional × hombres, mujeres y total) listas para pronosticar",
+          "quiero": "las 222 series semanales de diabetes (111 por tipo: estado, región y nacional × hombres, mujeres y total) listas para pronosticar",
           "para": "partir de datos limpios",
           "quien": "Yazmin",
           "bloque": "h3",

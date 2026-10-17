@@ -9,7 +9,7 @@ Tamizar antes cambia cuántos casos llegan y cuándo. Para que una secretaría d
 
 ## Datos (ya en el repo)
 
-`data/sinave/tipo{1,2}/products.csv`: **111 series semanales** por tipo de diabetes (T1 y T2), 2014 → 2026 semana 30.
+`data/sinave/tipo{1,2}/products.csv`: **111 series semanales por tipo** de diabetes (**222 entre T1 y T2**), 2014 → 2026 semana 30. **La última observación es la semana del 27 de julio de 2026**: al momento del evento hay ~12 semanas sin datos, así que el horizonte real cubre ~12 semanas de *nowcast* + 52 de pronóstico. Las series no son independientes: estados, regiones, nacional y sexos son agregaciones unas de otras.
 
 | Nivel | Series |
 |-------|-------:|
@@ -24,7 +24,7 @@ Tamizar antes cambia cuántos casos llegan y cuándo. Para que una secretaría d
    - Referencia: ingenuo estacional (misma semana del año anterior).
    - **ETS / Holt-Winters** y **SARIMA** (`statsmodels`): ruta segura en LinuxONE.
    - Prophet solo si se instala en s390x (depende de `cmdstan`; probarlo en la hora 2 junto con TenSEAL).
-3. **Selección por serie:** el modelo con menor **SMAPE** en las últimas 13 semanas observadas (validación hacia atrás). Si dos modelos quedan a menos de 5% de SMAPE, desempata el MAE.
+3. **Selección por serie:** el modelo con menor **SMAPE** en validación hacia atrás. Un backtest de 13 semanas **no valida por sí solo un horizonte de 52**: usar además origen móvil con horizontes de 13, 26 y 52 semanas sobre 2023–2025 y reportar el error por horizonte. Si dos modelos quedan a menos de 5% de SMAPE, desempata el MAE.
 4. **Series con pocos casos** (menos de 5 casos en 52 semanas, típico de T1 en estados chicos): se usa la proporción del estado dentro de su **región** aplicada al pronóstico regional.
 5. **Coherencia jerárquica:** los estados suman a su región y las regiones al nacional (reconciliación *bottom-up* o proporcional).
 6. **COVID:** 2020–2021 se marcan como periodo atípico (variable indicadora o se excluyen del ajuste).
@@ -56,7 +56,7 @@ Tamizar antes cambia cuántos casos llegan y cuándo. Para que una secretaría d
 
 ## Dónde corre
 
-El ajuste de las 111 series corre en **LinuxONE** (en el contenedor del servicio de riesgo, o en uno propio) y se exporta como JSON para el dashboard. Así suma al criterio técnico: más cómputo de IA/ML corriendo en IBM Z.
+El ajuste de las 222 series corre en **LinuxONE** (en el contenedor del servicio de riesgo, o en uno propio) y se exporta como JSON para el dashboard. Así suma al criterio técnico: más cómputo de IA/ML corriendo en IBM Z.
 
 ## Reglas
 

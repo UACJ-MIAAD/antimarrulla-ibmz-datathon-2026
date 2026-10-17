@@ -24,7 +24,7 @@ ENV/
 *.pem
 *.key
 
-# --- Datos: nunca subir datasets ni datos sensibles ---
+# --- Datos: los originales y crudos van en data/raw/ (ignorado); los datos públicos curados sí se versionan en subcarpetas de data/ ---
 data/*.csv
 data/*.tsv
 data/*.parquet

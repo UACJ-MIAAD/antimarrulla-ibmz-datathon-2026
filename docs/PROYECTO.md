@@ -16,11 +16,11 @@ Pitch: [submission/Los_Antimarrulla_Pitch_Tamizaje.pptx](../submission/Los_Antim
 | **18.3%** de los adultos en México vive con diabetes | ENSANUT 2022 (Basto-Abreu et al., *Salud Pública de México*, 2023) |
 | **1 de cada 3** casos no está diagnosticado (5.8% de 18.3%) | ENSANUT 2022 |
 | **112,577** muertes por diabetes registradas en 2024 (13.7% de todas): **2.ª causa de muerte** del país | Defunciones registradas 2024, microdatos DGIS/INEGI (conteo propio de `causa_def` E10–E14) |
-| **120,385** hospitalizaciones por diabetes en 2024 en todo el sector salud (62,771 de ellas en Secretaría de Salud / IMSS-Bienestar) | Egresos hospitalarios SSA 2024, DGIS (conteo propio) |
-| **11,550** de esas hospitalizaciones (**18.4%**) incluyeron una **amputación de miembro inferior** | Egresos hospitalarios SSA 2024, DGIS (conteo propio) (procedimientos CIE-9 84.1x) |
+| **120,385** egresos hospitalarios por diabetes en 2024 en la base sectorial reportada; el archivo SSA registra 62,771 para Secretaría de Salud / IMSS-Bienestar (la base sectorial suma 62,635 para esas instituciones: difieren cobertura y corte) | Egresos hospitalarios SSA 2024, DGIS (conteo propio) |
+| **11,550 egresos** SSA por diabetes (**18.4%**) con al menos un procedimiento de **amputación de miembro inferior** (11,759 procedimientos; no son personas únicas) | Egresos hospitalarios SSA 2024, DGIS (conteo propio) (procedimientos CIE-9 84.1x) |
 | **4.7%** de los hospitalizados por diabetes murió en el hospital; estancia media de 5.1 días | Egresos hospitalarios SSA 2024, DGIS (conteo propio) |
 
-**La brecha de detección:** en 2024 hubo 22 muertes por cada 100 casos nuevos notificados en el país, pero **44 en Michoacán contra 9 en Sinaloa**. Donde se notifica poco en proporción a las muertes, probablemente se detecta tarde ([detalle y cuidados](FUENTES_DATOS.md#32-la-brecha-de-detección-por-estado-2024)).
+**Indicador exploratorio:** en 2024 se registraron 22 muertes por cada 100 casos nuevos notificados en el país, con **44 en Michoacán y 9 en Sinaloa**. La razón es aritméticamente correcta, pero **no es letalidad ni mide subdiagnóstico ni retraso**: muertes y casos son cohortes distintas, no está ajustada por edad y la notificación varía por institución ([detalle y límites](FUENTES_DATOS.md#32-muertes-por-cada-100-casos-notificados-por-estado-2024--exploratorio)).
 
 Los hospitales tienen los datos para detectar el riesgo antes, pero **no pueden compartirlos**: hacerlo es un riesgo legal y de privacidad; no hacerlo significa detectar tarde.
 
@@ -52,13 +52,44 @@ Enc(a) ^ k       =  Enc(k · a)
 
 Una regresión logística es `σ(w·x + b)`. El servidor calcula `Enc(w·x + b)` sin descifrar; el hospital descifra el puntaje y aplica la sigmoide. Los pesos y las variables se codifican en **punto fijo** (enteros escalados), que `python-paillier` maneja con su `EncodedNumber`.
 
+### Protocolo numérico (lo que fija US-3.2)
+
+Los **pesos son públicos y en claro** (se entrenan con datos públicos); solo las variables del paciente van cifradas.
+
+| Paso | Regla |
+|------|-------|
+| Orden y rango | Vector fijo de 21 variables en el orden de `MODELO_DATOS.md`, con su rango documentado; el esquema se versiona junto con el modelo |
+| Escalado | `X_i = round(S_x · x_i)` en el hospital; `W_i = round(S_w · w_i)` en el servidor. Proponemos `S_x = S_w = 10^4` (se ajusta midiendo el error) |
+| Intercepto | Se codifica en la escala del producto: `B = round(S_x · S_w · b)` |
+| Cálculo cifrado | `Enc(z) = ∏ Enc(X_i)^{W_i} · Enc(B)` (mod `n²`), es decir `z = Σ W_i·X_i + B` |
+| Negativos | Los coeficientes negativos se representan módulo `n` (lo resuelve la codificación de `phe`); el hospital decodifica el entero con signo |
+| Descifrado | El hospital calcula `logit = z / (S_x·S_w)` y `p = σ(logit)` |
+| Exponente | **Fijo por protocolo** antes de transmitir: el exponente de `EncodedNumber` es público y puede filtrar magnitud |
+| Prueba de igualdad | Para cada paciente de prueba: `|logit_claro − logit_cifrado| < 1e-6` y `|p_claro − p_cifrado| < 1e-6`; se reporta el error máximo |
+
+**Cuidados de seguridad** (avisos de la [documentación de `phe`](https://python-paillier.readthedocs.io/en/stable/caveats.html)):
+- Re-aleatorizar (`obfuscate`) el cifrado del resultado antes de devolverlo.
+- El hospital **no descifra cualquier cosa que le manden**: solo resultados del protocolo esperado (evita convertirlo en un oráculo de descifrado, porque los cifrados se pueden manipular homomórficamente).
+- `python-paillier` no ha tenido una auditoría criptográfica independiente: es adecuado para una prueba técnica, no para producción.
+
+
 ### Tres capas de cifrado
 
 | Capa | Mecanismo | Evidencia para jueces |
 |------|-----------|-----------------------|
 | En tránsito | TLS 1.3 entre contenedores | Configuración del servicio |
-| En reposo | AES-256-GCM vía OpenSSL / `cryptography` (CPACF en IBM Z) | `openssl speed -evp aes-256-gcm` en la VM |
+| En reposo | AES-256-GCM vía OpenSSL / `cryptography` (CPACF en IBM Z) | Ver "Evidencia de CPACF" abajo: `openssl speed` solo mide la CLI |
 | En uso | Paillier de 2048 bits: se calcula sin descifrar | Pantalla dividida + logs sin datos en claro |
+
+### Evidencia de CPACF (qué sí prueba algo)
+
+`openssl speed` mide la herramienta de línea de comandos, no a nuestra aplicación: `cryptography` puede traer su propia copia de OpenSSL. En la VM registramos:
+
+1. `lscpu` (arquitectura `s390x`, CPU y memoria asignadas) y `cpacfinfo` si está instalado (funciones CPACF disponibles).
+2. `openssl version -a` (CLI) y, desde Python, `cryptography.hazmat.backends.openssl.backend.openssl_version_text()` (la biblioteca que usa la app).
+3. Tiempo de cifrar y descifrar con AES-256-GCM **dentro de la aplicación**, con el mismo tamaño de datos que la bóveda.
+
+CPACF acelera AES; **no** acelera Paillier, no es Secure Execution, no protege las llaves frente al administrador del host y no es el acelerador de IA del chip. No lo presentamos como tal.
 
 ### ¿Quién ve qué?
 
@@ -67,7 +98,10 @@ Una regresión logística es `σ(w·x + b)`. El servidor calcula `Enc(w·x + b)`
 | Hospital (tiene la llave privada) | En claro: son sus pacientes | En claro |
 | Servicio de riesgo en LinuxONE | **Solo números cifrados** | **Solo cifrado** |
 | Disco, logs y respaldos | **Cifrado AES-256-GCM** | **Cifrado AES-256-GCM** |
-| Equipo Antimarrulla | **Nada** | **Nada** |
+| Granite (dentro del entorno del hospital) | Solo lo que el hospital le pase (prompt mínimo, sin registro de prompts) | Resultado descifrado |
+| Administrador del host donde corra el entorno del hospital | Puede acceder a ese entorno: **es parte de la frontera de confianza** | Ídem |
+
+> **Frontera de confianza:** el servicio de riesgo solo recibe cifrados y no tiene la llave. La llave y Granite viven en el **entorno del hospital**; quien administre ese entorno queda dentro de la frontera de confianza. Dos contenedores en una misma VM **no** protegen frente al administrador del host. Dónde corre el entorno del hospital en la demo está en [DECISION.md](DECISION.md). En la demo solo se usan pacientes sintéticos.
 
 ### Ruta garantizada vs. ruta ambiciosa
 
@@ -122,13 +156,20 @@ Detalle de variables y cruce entre fuentes en [FUENTES_DATOS.md](FUENTES_DATOS.m
 
 | Métrica | Qué demuestra |
 |---------|---------------|
-| AUC, recall y F1 en claro | Calidad del modelo (con clases desbalanceadas: 13.9% positivos) |
-| **AUC cifrado vs. AUC en claro** | Que la privacidad no cuesta precisión (meta: diferencia ≈ 0) |
+| AUC y **AUC-PR** en claro | Discriminación con clases desbalanceadas (13.9% positivos) |
+| **Sensibilidad y especificidad** a un umbral fijado en validación (no en prueba) | Qué pasaría en un tamizaje real |
+| **Calibración** (Brier y curva de calibración) | `class_weight="balanced"` desplaza las probabilidades; sin calibrar no son probabilidades poblacionales |
+| **Error numérico cifrado vs. en claro** (máximo y medio, en logit y en probabilidad) | Que el protocolo de punto fijo es correcto |
+| **AUC cifrado vs. AUC en claro sobre la misma muestra** | Que la privacidad no cambia la discriminación |
 | Latencia por paciente | Viabilidad operativa |
 | Tamaño del cifrado por paciente | Costo de comunicación |
 | Pacientes por minuto en LinuxONE | Escala |
 
 Todas se miden **en vivo en LinuxONE** y se guardan en `submission/evidencias/`.
+
+**Tamaño de la evaluación cifrada:** el conjunto de prueba completo (15%) son 38,052 personas × 21 variables = **799,092 cifrados** antes de los productos. Primero se mide cuántos pacientes por minuto procesa LinuxONE; con eso se elige una **muestra estratificada** (por ejemplo 1,000–2,000 personas) y se compara claro contra cifrado **exactamente sobre esa muestra**, reportando tamaño y composición.
+
+**Qué afirmamos y qué no:** es una **prueba técnica de inferencia privada**. El modelo clasifica una etiqueta de una encuesta de EE. UU. (prediabetes o diabetes declarada); no demuestra predicción prospectiva, ni detección de diabetes no diagnosticada en México, ni reducción de complicaciones. La validación con población mexicana se hace con ENSANUT (US-3.5); la validación clínica queda fuera del evento.
 
 ## 7. Demo (pantalla dividida)
 
@@ -154,7 +195,7 @@ Todas se miden **en vivo en LinuxONE** y se guardan en `submission/evidencias/`.
 
 ## 8.1 Épica E5 · Pronóstico y planeación financiera (Plus)
 
-Pronóstico a **52 semanas** de casos nuevos de diabetes T1 y T2 para las **111 series** (estado, región y nacional × hombres, mujeres y total), con selección del modelo por SMAPE, respaldo regional para series con pocos casos y un **dashboard de presupuesto** con costo unitario editable. Diseño completo en [PRONOSTICO.md](PRONOSTICO.md).
+Pronóstico a **52 semanas** de casos nuevos de diabetes T1 y T2 para las **111 series por tipo, 222 en total** (estado, región y nacional × hombres, mujeres y total), con selección del modelo por SMAPE, respaldo regional para series con pocos casos y un **dashboard de presupuesto** con costo unitario editable. Diseño completo en [PRONOSTICO.md](PRONOSTICO.md).
 
 ## 9. Riesgos
 

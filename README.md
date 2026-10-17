@@ -75,7 +75,7 @@ Más detalle: [COMPETENCIA](docs/COMPETENCIA.md) · [REGLAS](docs/REGLAS.md) · 
 │   ├── sinave/              ← casos nuevos semanales de diabetes T1 y T2, 2014–2026
 │   ├── defunciones/         ← muertes por diabetes 2024
 │   ├── egresos_ssa/         ← hospitalizaciones por diabetes 2024 en SSA (+ procedimientos)
-│   ├── egresos_sector/      ← hospitalizaciones por diabetes 2024 de todo el sector (IMSS, ISSSTE…)
+│   ├── egresos_sector/      ← hospitalizaciones por diabetes 2024 de la base sectorial (IMSS, ISSSTE…)
 │   ├── sis_cronicas/        ← control de diabetes por unidad médica, 2021–2023
 │   ├── imss_detecciones/    ← tamizajes de diabetes del IMSS, 2000–2023
 │   ├── conapo/              ← población y marginación (denominadores)
@@ -125,11 +125,11 @@ En LinuxONE (s390x) los pasos son los mismos; si algún paquete no trae wheel pa
 > **La IA ve el riesgo. Nadie ve al paciente.**
 
 - **Tema oficial:** T2 · AI Secured: Innovation Without Exposure
-- **Problema:** en México, 18.3% de los adultos vive con diabetes, 1 de cada 3 no lo sabe y es la 2.ª causa de muerte (112,577 defunciones en 2024) y causó más de 11 mil amputaciones solo en hospitales de la Secretaría de Salud. Los hospitales tienen los datos para detectar el riesgo antes, pero no pueden compartirlos.
+- **Problema:** en México, 18.3% de los adultos vive con diabetes, 1 de cada 3 no lo sabe y es la 2.ª causa de muerte (112,577 defunciones registradas en 2024). En hospitales de la Secretaría de Salud, 11,550 egresos por diabetes (18.4%) incluyeron una amputación de miembro inferior. Los hospitales tienen los datos para detectar el riesgo antes, pero no pueden compartirlos.
 - **Solución:** el hospital cifra los 21 indicadores del paciente con **cifrado homomórfico (Paillier)** y se queda con la llave. LinuxONE calcula el riesgo de diabetes **sobre los datos cifrados**, sin poder leerlos. El hospital descifra el resultado y **Granite** lo explica en lenguaje claro. Es tamizaje, no diagnóstico.
 - **Uso de IBM Z / LinuxONE:** dos contenedores Docker en LinuxONE (hospital con llave · servicio de riesgo sin llave); aritmética homomórfica con enteros de miles de bits; AES-256-GCM en reposo acelerado por CPACF; TLS 1.3 en tránsito.
-- **Datos (ya en `data/`):** CDC Diabetes Health Indicators (UCI 891) para entrenar el modelo; para el contexto mexicano, casos nuevos **SINAVE** 2014–2026, **muertes** y **hospitalizaciones** por diabetes 2024 (todo el sector, incluido el ISSSTE), control en el **SIS**, tamizajes del **IMSS** y población de **CONAPO**. Los archivos completos de la DGIS están en el Release [`datos-2024`](https://github.com/UACJ-MIAAD/antimarrulla-ibmz-datathon-2026/releases/tag/datos-2024).
-- **Hallazgo clave:** en 2024 hubo 22 muertes por diabetes por cada 100 casos nuevos notificados en el país: **44 en Michoacán contra 9 en Sinaloa**. Donde se notifica poco, la diabetes probablemente se detecta tarde ([detalle](docs/FUENTES_DATOS.md#32-la-brecha-de-detección-por-estado-2024)).
+- **Datos (ya en `data/`):** CDC Diabetes Health Indicators (UCI 891) para entrenar el modelo; para el contexto mexicano, casos nuevos **SINAVE** 2014–2026, **muertes** y **hospitalizaciones** por diabetes 2024 (base sectorial reportada, incluido el ISSSTE), control en el **SIS**, tamizajes del **IMSS** y población de **CONAPO**. Los archivos completos de la DGIS están en el Release [`datos-2024`](https://github.com/UACJ-MIAAD/antimarrulla-ibmz-datathon-2026/releases/tag/datos-2024).
+- **Indicador exploratorio:** en 2024 se registraron 22 muertes por diabetes por cada 100 casos nuevos notificados en el país, con **44 en Michoacán y 9 en Sinaloa**. No es letalidad ni una medición de subdiagnóstico: mezcla cohortes distintas y no está ajustado por edad ([detalle y límites](docs/FUENTES_DATOS.md#32-muertes-por-cada-100-casos-notificados-por-estado-2024--exploratorio)).
 - **Métrica estrella:** AUC cifrado vs. AUC en claro (la privacidad no cuesta precisión).
 - **Cómo correr la demo:** _se documenta durante el evento._
 
@@ -155,16 +155,23 @@ Las reglas permiten librerías open source **siempre que se citen**. Esta tabla 
 
 | Herramienta / librería | Licencia | Para qué la usamos |
 |------------------------|----------|--------------------|
-| pandas, NumPy, scikit-learn, matplotlib, Jupyter | BSD / PSF | Datos, modelado y visualización |
+| [pandas](https://github.com/pandas-dev/pandas), [NumPy](https://github.com/numpy/numpy), [scikit-learn](https://github.com/scikit-learn/scikit-learn), [matplotlib](https://github.com/matplotlib/matplotlib), [Jupyter](https://github.com/jupyter/notebook) | BSD / PSF | Datos, modelado y visualización |
 | [python-paillier (`phe`)](https://github.com/data61/python-paillier) | GPLv3 (partes Apache 2.0) | Cifrado homomórfico Paillier (ruta garantizada) |
 | [cryptography](https://github.com/pyca/cryptography) | Apache 2.0 / BSD | AES-256-GCM en reposo |
 | [ucimlrepo](https://github.com/uci-ml-repo/ucimlrepo) | MIT | Descarga del dataset CDC (UCI 891) |
 | [dbfread](https://github.com/olemb/dbfread) | MIT | Lectura de microdatos EDR de INEGI (DBF) |
 | [TenSEAL](https://github.com/OpenMined/TenSEAL) / [OpenFHE](https://github.com/openfheorg/openfhe-development) | Apache 2.0 / BSD-2 | Ruta CKKS opcional |
-| [llama.cpp](https://github.com/ggerganov/llama.cpp) + IBM Granite | MIT / Apache 2.0 | Explicación generativa del resultado |
+| [llama.cpp](https://github.com/ggerganov/llama.cpp) + IBM Granite (modelo exacto: _a fijar en la VM_) | MIT / Apache 2.0 | Explicación generativa del resultado |
+| [statsmodels](https://github.com/statsmodels/statsmodels) | BSD | Pronóstico ETS/SARIMA (épica E5) |
 | _agregar aquí_ | | |
 
 ---
+
+## Licencias
+
+- **Código propio:** [MIT](LICENSE).
+- **Dependencia `python-paillier` (`phe`):** GPLv3 (con partes Apache 2.0). Si distribuimos una obra combinada con `phe` (por ejemplo, una imagen de contenedor), esa distribución debe cumplir la GPLv3: no se presenta como "solo MIT" y se conservan sus avisos y su texto de licencia.
+- **Datos:** cada fuente conserva su licencia y exige atribución; indicamos los cambios (recortes, agregados y armonizaciones) en `data/README.md` y `src/datos/`. CDC/BRFSS: dominio público (UCI remite a la fuente; Kaggle lo marca CC0). DGIS, IMSS, CONAPO: CC BY 4.0 o libre uso con cita. Natural Earth: dominio público. ENSANUT: no se redistribuye.
 
 ## Licencia
 

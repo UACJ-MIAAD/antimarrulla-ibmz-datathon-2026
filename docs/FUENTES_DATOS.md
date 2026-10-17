@@ -117,7 +117,9 @@ Series semanales del Boletín Epidemiológico de **diabetes tipo 1 (E10)** y **t
 |-------|---------|-----------|
 | Crudo | `boletin/data_raw_Diabetes_T{1,2}.csv` | `Anio`, `Semana`, `Entidad`, `Padecimiento`, `Casos_semana`, `Acumulado_hombres`, `Acumulado_mujeres`, `Acumulado_anio_anterior` |
 | Reconciliado | `tipo{1,2}/epi_dataset_v2.csv` | 64 series estado × sexo: `cve_ent`, `epi_year`, `epi_week`, `ds`, `sexo`, `y_cases`, `exposure`, `observed`, `quality_flags`, … |
-| Productos | `tipo{1,2}/products.csv` | 111 series: `geography_level` (estado · región · nacional) × `sex` (hombres · mujeres · general), `y_cases`, `exposure` |
+| Productos | `tipo{1,2}/products.csv` | 111 series por tipo (222 entre T1 y T2): `geography_level` (estado · región · nacional) × `sex` (hombres · mujeres · general), `y_cases`, `exposure` |
+
+**Procedencia:** estas series se compilaron y reconciliaron **antes del evento** como preparación de datos (permitido: explorar datasets). El código de esa reconciliación no forma parte de la entrega; aquí se publica el boletín crudo y la validación contra él.
 
 **Validación (17 oct 2026)**
 
@@ -136,7 +138,7 @@ Series semanales del Boletín Epidemiológico de **diabetes tipo 1 (E10)** y **t
 - 2026 es parcial (hasta la semana 30).
 - Son casos **notificados**, no casos reales: dependen de cuánto se detecta y se reporta en cada estado.
 
-### 3.2 La brecha de detección por estado (2024)
+### 3.2 Muertes por cada 100 casos notificados, por estado (2024) · exploratorio
 
 Cruce de los casos nuevos notificados (SINAVE T1 + T2) con las muertes por diabetes ocurridas en 2024 por estado de residencia (EDR):
 
@@ -152,9 +154,10 @@ Cruce de los casos nuevos notificados (SINAVE T1 + T2) con las muertes por diabe
 | Baja California | 27,751 | 2,504 | 9.0 |
 | Sinaloa | 17,681 | 1,537 | **8.7** |
 
-- Entre estados, la tasa de notificación y la de mortalidad **no se mueven juntas** (correlación de Pearson −0.19).
-- **Lectura:** donde se notifican pocos casos en proporción a las muertes, es probable que la diabetes **se esté detectando tarde o no se esté detectando**. En Michoacán hay 5 veces más muertes por caso notificado que en Sinaloa.
-- **Cuidado:** es un indicador ilustrativo. No está ajustado por edad, las muertes de 2024 no son los mismos casos notificados en 2024 y la notificación varía por institución. Presentarlo como **señal**, no como medición de subdiagnóstico.
+- Entre estados, la tasa de casos notificados y la de mortalidad (ambas por 100,000 habitantes con población CONAPO 2024, `data/marts/cascada_entidad_anio.csv`) tienen una correlación de Pearson de **−0.12**: prácticamente no se mueven juntas.
+- **Qué es:** una razón entre dos conteos de 2024: muertes **ocurridas y registradas** en 2024 por residencia (EDR) sobre casos **notificados** al SINAVE.
+- **Qué no es:** no es letalidad, no mide subdiagnóstico y no demuestra detección tardía. Las muertes de 2024 provienen de cohortes diagnosticadas en años anteriores; edad, prevalencia histórica, cobertura de notificación, referencia entre estados y registro pueden mover el cociente.
+- **Cómo presentarlo:** mostrar siempre ambas cantidades y llamarlo indicador **exploratorio**.
 
 ---
 
@@ -216,7 +219,7 @@ Revisadas el 17 de octubre de 2026 a sugerencia de Álvaro. Todas tienen licenci
 - Filtro: `diagnostico_principal_cie10` empieza con `E10`–`E14`. La estancia sale de `fecha_egreso − fecha_ingreso`.
 - **Más grande y automatizable:** los egresos de la Secretaría de Salud (`ssa_egresos_{año}.zip`, 2019–2026) están en la DGIS; revisar su descriptor antes de usarlos.
 
-### 4.5 Egresos de todo el sector (DGIS) · incluye ISSSTE
+### 4.5 Egresos de la base sectorial (DGIS) · incluye ISSSTE
 
 - URL: `http://www.dgis.salud.gob.mx/descargas/datosabiertos/egresos/sectorial_egresos_{año}.zip` (2024: 82 MB, se baja con `curl`). Descriptor: `sectorial_Descriptores_Base_de_Datos_EGRESOS_2018_2024.xlsx`.
 - **Sustituye al CSV del ISSSTE** de datos.gob.mx (que solo baja por navegador): trae ISSSTE, IMSS, SSA, IMSS-Bienestar, PEMEX, SEDENA, SEMAR, estatales, universitarios y otros.
@@ -235,7 +238,7 @@ Revisadas el 17 de octubre de 2026 a sugerencia de Álvaro. Todas tienen licenci
 | SEDENA · PEMEX · SEMAR · otros | 4,071 | — |
 | **Total** | **120,385** | 2.0% |
 
-Murieron en el hospital: 5,707 (4.7%). SSA + IMSS-Bienestar suman 62,635, consistente con los 62,771 del archivo de la SSA.
+Murieron en el hospital: 5,707 (4.7%). En la base sectorial, SSA + IMSS-Bienestar (`DH` 1, 3 y 13) suman 62,635, frente a 62,771 del archivo SSA: difieren en cobertura y fecha de corte, así que no se presentan como subconjuntos idénticos. Es la cobertura de la **base sectorial reportada**, no necesariamente todo el universo hospitalario.
 
 ### Fuentes revisadas que no nos sirven
 
@@ -272,12 +275,12 @@ flowchart LR
 | Escalón | 2024 | Fuente |
 |---------|-----:|--------|
 | Casos nuevos notificados (T1 + T2) | 497,987 | SINAVE · `data/sinave/` |
-| Hospitalizaciones por diabetes (todo el sector) | 120,385 | Egresos sectoriales · `data/egresos_sector/` |
+| Egresos por diabetes (base sectorial reportada) | 120,385 | Egresos sectoriales · `data/egresos_sector/` |
 | … de ellas en SSA / IMSS-Bienestar | 62,771 | Egresos SSA · `data/egresos_ssa/` |
-| … con amputación de miembro inferior | 11,550 | Egresos SSA (CIE-9 84.1x) |
+| … egresos SSA con al menos una amputación de miembro inferior | 11,550 (11,759 procedimientos) | Egresos SSA (CIE-9 84.1x) |
 | Muertes por diabetes registradas | 112,577 | EDR / DGIS · `data/defunciones/` |
 
-**Por qué importa para el pitch:** cada escalón donde se pierde gente es un lugar donde el tamizaje temprano ayuda. Y el mensaje cierra solo: **para detectar antes hacen falta datos que hoy nadie comparte**, justo lo que Tamizaje a ciegas resuelve.
+**Por qué importa para el pitch:** muestra el tamaño de cada etapa con cifras oficiales. **No es una cascada de las mismas personas**: cada fuente cubre otra población (residencia, atención o unidad notificante) y otro periodo, así que no se leen pérdidas entre escalones. El mensaje: para detectar antes hacen falta datos que hoy no se comparten, justo lo que Tamizaje a ciegas resuelve.
 
 **Cuidado al comparar escalones:** cada fuente cubre a una población distinta (IMSS, Secretaría de Salud, ISSSTE, todo el país). La cascada es **ilustrativa por entidad**, no un seguimiento de las mismas personas. Decirlo así en el pitch.
 
@@ -317,7 +320,7 @@ Archivos: `DEFUN_2024.zip` y `ssa_egresos_2024.zip` de la DGIS, en `data/raw/` (
 | Indicador | Valor |
 |-----------|------:|
 | Afección principal diabetes (`AFECPRIN` E10–E14) | 62,771 (2.4%) |
-| Con amputación de miembro inferior (CIE-9 84.1x) | 11,550 (18.4%) |
+| Egresos con al menos una amputación de miembro inferior (CIE-9 84.1x) | 11,550 (18.4%) · 11,759 procedimientos |
 | Con hemodiálisis (CIE-9 39.95) | 1,719 (2.7%) |
 | Murieron en el hospital (`MOTEGRE` = 5) | 2,976 (4.7%) |
 | Estancia media | 5.1 días |
@@ -335,7 +338,7 @@ Notas: los egresos cubren solo unidades de la Secretaría de Salud e IMSS-Bienes
 | 18.3% de adultos con diabetes; 12.6% diagnosticada y 5.8% sin diagnóstico | ENSANUT 2022, Basto-Abreu et al., *Salud Pública de México* 2023;65(supl 1):S163-S168 |
 | 112,577 defunciones por diabetes registradas en 2024 (13.7% del total; 109,698 ocurridas en 2024) | Defunciones registradas 2024, microdatos DGIS/INEGI (conteo propio de `causa_def` E10–E14) |
 | 62,771 egresos con diabetes como afección principal en unidades SSA / IMSS-Bienestar, 2024 | Egresos hospitalarios SSA 2024, DGIS (conteo propio) |
-| 11,550 (18.4%) de esos egresos con amputación de miembro inferior; 1,719 (2.7%) con hemodiálisis | Egresos hospitalarios SSA 2024, DGIS (conteo propio) (CIE-9 84.1x y 39.95 en `Procedimientos.txt`) |
+| 11,550 egresos (18.4%) con al menos una amputación de miembro inferior (11,759 procedimientos); 1,719 (2.7%) con hemodiálisis. Son egresos, no personas únicas | Egresos hospitalarios SSA 2024, DGIS (conteo propio) (CIE-9 84.1x y 39.95 en `Procedimientos.txt`) |
 | 2,976 (4.7%) murieron en el hospital; estancia media 5.1 días | Egresos hospitalarios SSA 2024, DGIS (conteo propio) (`MOTEGRE` = 5) |
 
 > El boletín preliminar de INEGI publicó 112,641 defunciones por diabetes en 2024; los microdatos dan 112,577. Usamos la cifra de los microdatos porque la podemos reproducir.

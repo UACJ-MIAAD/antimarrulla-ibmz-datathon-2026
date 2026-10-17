@@ -22,13 +22,13 @@
 Somos Los Antimarrulla, de la UACJ. Nuestro proyecto es **Tamizaje a ciegas**: una IA que calcula el riesgo de diabetes sobre datos cifrados en IBM LinuxONE.
 
 ## 2. El problema · 0:25
-En México, **18.3%** de los adultos vive con diabetes y **uno de cada tres** no lo sabe. En 2024 murieron **112 mil** personas por diabetes, la segunda causa de muerte, y solo en hospitales de la Secretaría de Salud hubo **más de 11 mil amputaciones**. Los hospitales tienen los datos para detectarla antes, pero no pueden compartirlos. ¿Y si la IA pudiera calcular el riesgo sin ver jamás los datos del paciente?
+En México, **18.3%** de los adultos vive con diabetes y **uno de cada tres** no lo sabe. Es la segunda causa de muerte: **112 mil** en 2024. Los hospitales tienen los datos para detectarla antes, pero no pueden compartirlos. ¿Y si la IA calculara el riesgo sin ver esos datos?
 
 ## 3. La solución · 0:20
 El hospital cifra los 21 indicadores del paciente y se queda con la llave. LinuxONE calcula el riesgo sobre números cifrados. El resultado regresa cifrado; solo el hospital lo abre, y Granite lo explica en lenguaje claro. Es tamizaje: decide a quién hacerle una prueba de glucosa primero.
 
 ## 4. Cifrado homomórfico · 0:25
-Usamos cifrado homomórfico Paillier: multiplicar dos cifrados suma sus valores, y elevar un cifrado a una potencia lo multiplica. Con eso, el servidor calcula el puntaje del modelo **sin descifrar nada**. Sumamos TLS 1.3 en tránsito y AES-256-GCM acelerado por el hardware de IBM Z en reposo. Ni el servidor ni nosotros vemos un solo dato.
+Usamos cifrado homomórfico Paillier: multiplicar dos cifrados suma sus valores, y elevar un cifrado a una potencia lo multiplica. Con eso, el servidor calcula el puntaje del modelo **sin descifrar nada**. Sumamos TLS 1.3 en tránsito y AES-256-GCM acelerado por el hardware de IBM Z en reposo. El servicio de riesgo nunca ve un dato en claro: la llave se queda con el hospital.
 
 ## 5. Por qué IBM Z · 0:30
 *(Mostrar la terminal de la VM: `uname -m` → `s390x`, los dos contenedores corriendo y el modelo cargado.)*
@@ -42,7 +42,7 @@ A la izquierda, lo que ve el servidor: solo números cifrados. A la derecha, lo 
 Entrenamos con 253 mil registros públicos de los CDC. Los datos de pacientes solo llegan cifrados.
 
 ## 8. Impacto y cierre · 0:13
-Detectar antes es evitar amputaciones y muertes. Tamizaje temprano, sin entregar un solo expediente. **La IA ve el riesgo. Nadie ve al paciente.** Somos Los Antimarrulla. Gracias.
+En 2024, más de 11 mil hospitalizaciones por diabetes en la Secretaría de Salud incluyeron una amputación. Detectar antes es la primera oportunidad de cambiar eso, sin entregar un solo expediente. **La IA ve el riesgo. Nadie ve al paciente.** Somos Los Antimarrulla. Gracias.
 
 ---
 

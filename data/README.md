@@ -22,9 +22,9 @@ Detalle de variables, catálogos y cruces entre fuentes: [docs/FUENTES_DATOS.md]
 |---------|--------|------:|-------:|
 | `sinave/boletin/data_raw_Diabetes_T1.csv` · `_T2.csv` | Boletín Epidemiológico SINAVE tal cual: año, semana, entidad, casos de la semana y acumulados por sexo · 2014 → 2026 sem. 31 | 21,024 c/u | 2 MB |
 | `sinave/tipo1/epi_dataset_v2.csv` · `sinave/tipo2/epi_dataset_v2.csv` | Serie semanal reconciliada: 32 estados × 2 sexos (64 series), con exposición (Censo 2020) y banderas de calidad | 42,048 c/u | 12 MB |
-| `sinave/tipo1/products.csv` · `sinave/tipo2/products.csv` | 111 series listas para graficar: estado · región · nacional × hombres · mujeres · general | 72,927 c/u | 14 MB |
+| `sinave/tipo1/products.csv` · `sinave/tipo2/products.csv` | 111 series por tipo (222 entre T1 y T2) listas para graficar: estado · región · nacional × hombres · mujeres · general | 72,927 c/u | 14 MB |
 | `defunciones/defunciones_diabetes_2024.csv` | Defunciones registradas 2024 con causa E10–E14 (112,577) u O24 (9); las 74 columnas de la EDR | 112,586 | 24 MB |
-| `egresos_sector/egresos_sector_diabetes_2024.csv` | Hospitalizaciones por diabetes 2024 de **todo el sector** (IMSS, ISSSTE, SSA, IMSS-Bienestar, PEMEX, SEDENA, SEMAR…); `DH` = institución, ISSSTE = 4 | 120,385 | 8 MB |
+| `egresos_sector/egresos_sector_diabetes_2024.csv` | Egresos por diabetes 2024 de la **base sectorial reportada** (IMSS, ISSSTE, SSA, IMSS-Bienestar, PEMEX, SEDENA, SEMAR…); `DH` = institución, ISSSTE = 4 | 120,385 | 8 MB |
 | `egresos_sector/descriptor_sectorial_2018_2024.xlsx` | Diccionario y catálogos de egresos sectoriales | — | — |
 | `egresos_ssa/egresos_diabetes_2024.csv` | Hospitalizaciones por diabetes 2024 en SSA / IMSS-Bienestar, con más variables (peso, talla, derechohabiencia…) | 62,771 | 11 MB |
 | `egresos_ssa/afecciones_diabetes_2024.csv` · `procedimientos_diabetes_2024.csv` | Diagnósticos secundarios y procedimientos CIE-9 de esos egresos (amputaciones, hemodiálisis) | 104,556 · 142,999 | 8 MB |
@@ -75,7 +75,7 @@ Esquema, llaves y reglas de armonización: [docs/MODELO_DATOS.md](../docs/MODELO
 |---------|--------|-------:|
 | `DEFUN_2024.zip` | Defunciones registradas 2024, todas las causas | 31 MB |
 | `ssa_egresos_2024.zip` | Egresos SSA 2024 completos (Egresos, Afecciones, Procedimientos, Productos) | 111 MB |
-| `sectorial_egresos_2024.zip` | Egresos de todo el sector 2024 | 82 MB |
+| `sectorial_egresos_2024.zip` | Egresos de la base sectorial 2024 | 82 MB |
 
 ```bash
 gh release download datos-2024 --repo UACJ-MIAAD/antimarrulla-ibmz-datathon-2026 --dir data/raw
@@ -87,7 +87,7 @@ gh release download datos-2024 --repo UACJ-MIAAD/antimarrulla-ibmz-datathon-2026
 
 | Fuente | Institución | Licencia | Origen |
 |--------|-------------|----------|--------|
-| CDC Diabetes Health Indicators | CDC vía UCI ML Repository | CC BY 4.0 | https://archive.ics.uci.edu/dataset/891 |
+| CDC Diabetes Health Indicators | CDC (BRFSS 2015) vía UCI ML Repository | Datos del CDC de dominio público; UCI remite a la fuente y Kaggle lo marca CC0 · citar CDC y UCI | https://archive.ics.uci.edu/dataset/891 |
 | Boletín Epidemiológico (diabetes T1 y T2) | DGE · SINAVE | Información pública; citar fuente | https://www.gob.mx/salud/acciones-y-programas/direccion-general-de-epidemiologia-boletin-epidemiologico |
 | Defunciones registradas | DGIS / INEGI | Libre uso con cita | http://www.dgis.salud.gob.mx/contenidos/basesdedatos/da_defunciones_gobmx.html |
 | Egresos hospitalarios (SSA y sector) | DGIS | Libre uso con cita | http://www.dgis.salud.gob.mx/contenidos/basesdedatos/da_egresoshosp_gobmx.html |
@@ -106,7 +106,11 @@ gh release download datos-2024 --repo UACJ-MIAAD/antimarrulla-ibmz-datathon-2026
 | **112,577** | Muertes registradas en 2024 con causa E10–E14 (la que usamos en el pitch) | Microdatos DGIS |
 | 112,586 | Las mismas + 9 por diabetes en el embarazo (O24) | `defunciones/defunciones_diabetes_2024.csv` |
 | 112,641 | Cifra preliminar del boletín de prensa de INEGI | Comunicado INEGI |
-| 109,603 | Solo las ocurridas en 2024 con residencia en México (usada en la brecha por estado) | Cálculo del equipo |
+| 109,603 | Solo las ocurridas en 2024 con residencia en México (usada en el indicador exploratorio por estado) | Cálculo del equipo |
+
+## Reproducir los datos derivados
+
+Scripts en [src/datos/](../src/datos/README.md). El mart se regenera idéntico byte por byte.
 
 ## Descarga desde las fuentes originales
 

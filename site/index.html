@@ -100,8 +100,9 @@ h2{font-size:clamp(26px,3.4vw,38px);margin:0 0 6px;letter-spacing:-.015em}
 .navbtn{position:absolute;top:50%;transform:translateY(-50%);width:44px;height:44px;border-radius:50%;border:0;background:rgba(0,0,0,.55);color:#fff;font-size:22px;cursor:pointer}
 .navbtn:hover{background:var(--blue)}.prev{left:12px}.next{right:12px}
 .thumbs{display:grid;grid-template-columns:repeat(8,1fr);gap:8px;margin:12px 0}
-.thumbs img{width:100%;border-radius:8px;border:2px solid transparent;cursor:pointer;opacity:.65}
-.thumbs img.on{border-color:var(--blue);opacity:1}
+.thumbs .th{padding:0;background:none;border:2px solid transparent;border-radius:10px;cursor:pointer;opacity:.65;line-height:0}
+.thumbs .th img{width:100%;border-radius:8px}
+.thumbs .th.on{border-color:var(--blue);opacity:1}.thumbs .th:focus-visible,svg#map path:focus-visible{outline:2px solid var(--lblue);outline-offset:2px}
 .btn{display:inline-flex;align-items:center;gap:8px;background:var(--blue);color:#fff;text-decoration:none;font-weight:600;padding:10px 16px;border-radius:10px;font-size:15px}
 .btn.ghost{background:transparent;border:1px solid var(--line);color:var(--txt)}
 /* datos */
@@ -125,6 +126,7 @@ svg#map path:hover{opacity:.8;stroke:#fff;stroke-width:1.2}
 .rank ol{margin:0;padding-left:20px;font-size:14px;display:grid;gap:3px}
 .rank ol li span{float:right;font-family:"IBM Plex Mono",monospace;color:var(--lblue)}
 .note{font-size:13px;color:var(--muted);margin-top:12px}
+#mtable table{width:100%;border-collapse:collapse;margin-top:8px}#mtable td,#mtable th{text-align:left;padding:4px 6px;border-bottom:1px solid var(--line)}details summary{cursor:pointer;color:var(--lblue)}
 .team{display:grid;grid-template-columns:repeat(4,1fr);gap:12px}
 .member{background:var(--card);border:1px solid var(--line);border-radius:var(--r);padding:14px 16px}
 .member b{display:block}.member span{font-size:13px;color:var(--muted)}
@@ -140,7 +142,7 @@ header.top .brand{white-space:nowrap;overflow:hidden;text-overflow:ellipsis;min-
 <header class="top"><div class="wrap" style="position:relative">
   <img src="assets/logo.png" alt="Logo de Los Antimarrulla">
   <div class="brand"><b>Los Antimarrulla</b> <span>· IBM Z Datathon 2026</span></div>
-  <nav><a href="#plan">Plan</a><a href="#deck">Pitch</a><a href="#datos">Datos</a><a href="#equipo">Equipo</a>
+  <nav><a href="#deck">Pitch</a><a href="#datos">Datos</a><a href="#plan">Plan</a><a href="#equipo">Equipo</a>
     <span class="minibar" title="Avance total"><i id="minibar"></i></span><span class="minipct" id="minipct">—</span></nav>
   <div id="prog"></div>
 </div></header>
@@ -166,7 +168,7 @@ header.top .brand{white-space:nowrap;overflow:hidden;text-overflow:ellipsis;min-
         <div><span style="color:var(--lblue)">MVP</span><b id="pmvp">—</b></div>
         <div><span style="color:#c7a6ff">Plus</span><b id="pplus">—</b></div>
       </div>
-      <div class="note" id="counts" style="margin-top:10px"></div>
+      <div class="note" id="counts" style="margin-top:10px"></div><div class="note" style="margin-top:4px">% de historias completadas (en curso cuenta ½). No mide esfuerzo ni horas.</div>
     </div>
   </div>
 
@@ -180,24 +182,22 @@ header.top .brand{white-space:nowrap;overflow:hidden;text-overflow:ellipsis;min-
   <div class="barlbl"><span>H0 · 17 oct 7:00</span><span id="barpct">0%</span><span>H24 · 18 oct 7:00</span></div>
 </div></div>
 
-<section id="plan"><div class="wrap">
-  <h2>Plan público: épicas e historias</h2>
-  <p class="lead">7 épicas y sus historias de usuario, con responsable, horario y estado. El estado se lee en vivo desde nuestro repositorio en GitHub.</p>
-  <div class="tabs" role="tablist"><button class="on" data-v="epicas">Por épicas</button><button data-v="horario">Por horario</button></div>
-  <div class="filters" id="filters">
-    <button data-f="todas" class="on">Todas</button><button data-f="MVP">Solo MVP</button><button data-f="Plus">Solo Plus</button>
-    <button data-f="pendiente">Pendientes</button><button data-f="en_curso">En curso</button><button data-f="hecho">Hechas</button>
-  </div>
-  <div id="view-epicas" class="epics"><div class="note">Cargando plan…</div></div>
-  <div id="view-horario" class="timeline" style="display:none"></div>
-  <div class="upd" id="upd"></div>
-</div></section>
+
 
 <section id="deck"><div class="wrap">
   <h2>El pitch</h2>
   <p class="lead">8 slides: el problema, la solución, el cifrado homomórfico, la arquitectura en LinuxONE, la demo, los datos y el impacto.</p>
   <div class="stage"><img id="slide" src="assets/slides/s-1.jpg" alt="Slide 1 del pitch"><button class="navbtn prev" aria-label="Slide anterior">‹</button><button class="navbtn next" aria-label="Slide siguiente">›</button></div>
   <div class="thumbs" id="thumbs"></div>
+  <details class="note" style="margin:0 0 14px"><summary>Texto de las slides</summary><ol>
+<li>Los Antimarrulla · Tamizaje a ciegas: IA que detecta riesgo de diabetes sin ver a ningún paciente, sobre datos cifrados en IBM LinuxONE.</li>
+<li>El problema: 18.3% de los adultos en México vive con diabetes, 1 de cada 3 no lo sabe y en 2024 se registraron 112,577 muertes. Los hospitales no pueden compartir sus datos.</li>
+<li>La solución: el hospital cifra 21 indicadores y conserva la llave; LinuxONE calcula el riesgo sobre cifrados; el hospital descifra y Granite lo explica.</li>
+<li>Cifrado homomórfico Paillier: suma y multiplicación por escalares sin descifrar. TLS 1.3 en tránsito, AES-256-GCM en reposo. Tabla de quién ve qué.</li>
+<li>Arquitectura en LinuxONE: servicio de riesgo sin llave, contenedores, cómputo pesado de aritmética homomórfica.</li>
+<li>Demo: pantalla dividida entre lo que ve el servidor (solo cifrados) y lo que ve el hospital (riesgo y explicación). Maqueta ilustrativa.</li>
+<li>Datos y modelo: CDC 891 (253,680 registros, 21 indicadores); métricas y límites; validación con adultos mexicanos de ENSANUT.</li>
+<li>Impacto: tamizaje temprano sin entregar expedientes. La IA ve el riesgo. Nadie ve al paciente.</li></ol></details>
   <div><a class="btn" href="assets/Los%20Antimarrulla_IBM%20Z%20Datathon%202026%20Project.pdf" download>Descargar PDF</a> <a class="btn ghost" href="https://github.com/UACJ-MIAAD/antimarrulla-ibmz-datathon-2026">Ver el repositorio</a></div>
 </div></section>
 
@@ -206,14 +206,14 @@ header.top .brand{white-space:nowrap;overflow:hidden;text-overflow:ellipsis;min-
   <p class="lead">La diabetes en México, de la detección a la muerte, con datos oficiales (SINAVE, DGIS, INEGI, SIS, CONAPO).</p>
   <div class="kpis">
     <div class="kpi"><div class="n">497,987</div><div class="d">casos nuevos notificados en 2024</div></div>
-    <div class="kpi"><div class="n">120,385</div><div class="d">hospitalizaciones por diabetes en 2024</div></div>
-    <div class="kpi"><div class="n">11,550</div><div class="d">amputaciones en hospitales de la Secretaría de Salud, 2024</div></div>
+    <div class="kpi"><div class="n">120,385</div><div class="d">egresos hospitalarios por diabetes en 2024 (base sectorial reportada)</div></div>
+    <div class="kpi"><div class="n">11,550</div><div class="d">egresos SSA por diabetes con al menos una amputación de miembro inferior (18.4%), 2024</div></div>
     <div class="kpi"><div class="n">112,577</div><div class="d">muertes registradas en 2024 · 2.ª causa de muerte</div></div>
   </div>
   <div class="mapgrid">
     <div class="mapbox">
       <div class="ctrl" id="ctrl">
-        <button data-m="defunciones_por_100_casos" class="on">Brecha de detección</button>
+        <button data-m="defunciones_por_100_casos" class="on">Muertes por 100 casos notificados</button>
         <button data-m="tasa_defunciones_100k">Mortalidad /100k</button>
         <button data-m="tasa_casos_100k">Casos nuevos /100k</button>
         <button data-m="pct_controlados_sis">% controlados (SIS)</button>
@@ -223,8 +223,22 @@ header.top .brand{white-space:nowrap;overflow:hidden;text-overflow:ellipsis;min-
       <div class="legend"><span id="lmin">—</span><div class="grad"></div><span id="lmax">—</span></div>
       <div class="tip" id="tip"></div>
     </div>
-    <div class="rank"><h3 id="rtitle">Mayor brecha</h3><ol id="rlist"></ol><p class="note" id="mnote"></p></div>
+    <details class="note" id="mtablebox" style="grid-column:1/-1"><summary>Ver como tabla (32 entidades)</summary><div id="mtable"></div></details>
+    <div class="rank"><h3 id="rtitle">Muertes por 100 casos notificados</h3><ol id="rlist"></ol><p class="note" id="mnote"></p></div>
   </div>
+</div></section>
+
+<section id="plan"><div class="wrap">
+  <h2>Plan público: épicas e historias</h2>
+  <p class="lead">7 épicas y sus historias de usuario, con responsable, horario y estado. El estado se lee en vivo desde nuestro repositorio en GitHub.</p>
+  <div class="tabs" role="tablist" aria-label="Vista del plan"><button class="on" role="tab" aria-selected="true" aria-controls="view-epicas" data-v="epicas">Por épicas</button><button role="tab" aria-selected="false" aria-controls="view-horario" data-v="horario">Por horario</button></div>
+  <div class="filters" id="filters">
+    <button data-f="todas" class="on">Todas</button><button data-f="MVP">Solo MVP</button><button data-f="Plus">Solo Plus</button>
+    <button data-f="pendiente">Pendientes</button><button data-f="en_curso">En curso</button><button data-f="hecho">Hechas</button>
+  </div>
+  <div id="view-epicas" class="epics" role="tabpanel"><div class="note">Cargando plan…</div></div>
+  <div id="view-horario" class="timeline" role="tabpanel" style="display:none"></div>
+  <div class="upd" id="upd"></div>
 </div></section>
 
 <section id="equipo"><div class="wrap">
@@ -238,7 +252,7 @@ header.top .brand{white-space:nowrap;overflow:hidden;text-overflow:ellipsis;min-
   </div>
 </div></section>
 
-<footer><div class="wrap">Proyecto del IBM Z Datathon 2026 (Shooting Stars Foundation · IBM). Datos públicos oficiales y agregados; ningún dato de pacientes reales. Herramienta de tamizaje: no sustituye el diagnóstico médico.</div></footer>
+<footer><div class="wrap">Proyecto del IBM Z Datathon 2026 (Shooting Stars Foundation · IBM). Datos públicos oficiales: agregados y microdatos anonimizados en origen. La demo usa pacientes sintéticos. Herramienta de tamizaje: no sustituye el diagnóstico médico.</div></footer>
 
 <script>
 const RAW="https://raw.githubusercontent.com/UACJ-MIAAD/antimarrulla-ibmz-datathon-2026/main/site/status.json";
@@ -285,21 +299,21 @@ function render(){
 function markNow(){const now=new Date();document.querySelectorAll(".blk").forEach(el=>{const a=new Date(el.dataset.i),b=new Date(el.dataset.f),on=now>=a&&now<b;el.classList.toggle("now",on);el.classList.toggle("past",now>=b);const t=el.querySelector(".now-tag");if(t)t.style.display=on?"inline-block":"none"})}
 function load(first){return fetch(RAW+"?t="+Date.now(),{cache:"no-store"}).then(r=>{if(!r.ok)throw 0;return r.json()}).then(s=>{if(!s||!s.epicas)throw 0;return s}).catch(()=>(first||!ST)?fetch("status.json",{cache:"no-store"}).then(r=>r.json()):null)
   .then(s=>{if(s&&s.epicas){ST=s;if(s.hitos)H={...H,...s.hitos};render()}}).catch(()=>{if(first)document.getElementById("view-epicas").innerHTML='<div class="note">No se pudo cargar el plan.</div>'})}
-document.querySelector(".tabs").onclick=e=>{const b=e.target.closest("button");if(!b)return;VIEW=b.dataset.v;document.querySelectorAll(".tabs button").forEach(x=>x.classList.toggle("on",x===b));
+document.querySelector(".tabs").onclick=e=>{const b=e.target.closest("button");if(!b)return;VIEW=b.dataset.v;document.querySelectorAll(".tabs button").forEach(x=>{x.classList.toggle("on",x===b);x.setAttribute("aria-selected",x===b?"true":"false")});
   document.getElementById("view-epicas").style.display=VIEW==="epicas"?"grid":"none";document.getElementById("view-horario").style.display=VIEW==="horario"?"grid":"none";markNow()};
 document.getElementById("filters").onclick=e=>{const b=e.target.closest("button");if(!b)return;FILT=b.dataset.f;document.querySelectorAll("#filters button").forEach(x=>x.classList.toggle("on",x===b));if(ST)render()};
 load(true);setInterval(tick,1000);tick();setInterval(()=>load(false),120000);
 
 // ---- Deck ----
 const N=8; let cur=1; const img=document.getElementById("slide"), th=document.getElementById("thumbs");
-th.innerHTML=Array.from({length:N},(_,i)=>`<img src="assets/slides/s-${i+1}.jpg" alt="Miniatura ${i+1}" data-i="${i+1}" loading="lazy">`).join("");
-function go(i){ cur=(i-1+N)%N+1; img.src=`assets/slides/s-${cur}.jpg`; img.alt=`Slide ${cur} del pitch`; th.querySelectorAll("img").forEach(x=>x.classList.toggle("on",+x.dataset.i===cur)); }
+th.innerHTML=Array.from({length:N},(_,i)=>`<button type="button" class="th" data-i="${i+1}" aria-label="Ir a la slide ${i+1}"><img src="assets/slides/s-${i+1}.jpg" alt="" loading="lazy"></button>`).join("");
+function go(i){ cur=(i-1+N)%N+1; img.src=`assets/slides/s-${cur}.jpg`; img.alt=`Slide ${cur} del pitch`; th.querySelectorAll(".th").forEach(x=>{const on=+x.dataset.i===cur;x.classList.toggle("on",on);x.setAttribute("aria-current",on?"true":"false")}); }
 document.querySelector(".prev").onclick=()=>go(cur-1); document.querySelector(".next").onclick=()=>go(cur+1);
-th.onclick=e=>{ if(e.target.dataset.i) go(+e.target.dataset.i); };
-document.addEventListener("keydown",e=>{ if(e.key==="ArrowRight") go(cur+1); if(e.key==="ArrowLeft") go(cur-1); }); go(1);
+th.onclick=e=>{ const b=e.target.closest(".th"); if(b) go(+b.dataset.i); };
+document.addEventListener("keydown",e=>{ const a=document.activeElement, deck=document.getElementById("deck"); if(a && /^(INPUT|SELECT|TEXTAREA)$/.test(a.tagName)) return; if(a && a!==document.body && !deck.contains(a)) return; const r=deck.getBoundingClientRect(); if(r.bottom<0||r.top>innerHeight) return; if(e.key==="ArrowRight") go(cur+1); if(e.key==="ArrowLeft") go(cur-1); }); go(1);
 
 // ---- Mapa ----
-const META={defunciones_por_100_casos:{t:"Mayor brecha",u:"muertes por cada 100 casos notificados",n:"Donde se notifican pocos casos en proporción a las muertes, la diabetes probablemente se detecta tarde. Indicador ilustrativo: no está ajustado por edad.",fmt:v=>v.toFixed(1)},
+const META={defunciones_por_100_casos:{t:"Muertes por 100 casos notificados",u:"muertes registradas por cada 100 casos nuevos notificados",n:"Indicador exploratorio: muertes (cohortes de años anteriores) entre casos notificados en el año. No es letalidad ni mide subdiagnóstico; no está ajustado por edad.",fmt:v=>v.toFixed(1)},
  tasa_defunciones_100k:{t:"Mayor mortalidad",u:"muertes por 100 mil habitantes",n:"Muertes por diabetes ocurridas en el año, por estado de residencia (DGIS/INEGI) y población CONAPO.",fmt:v=>v.toFixed(1)},
  tasa_casos_100k:{t:"Más casos notificados",u:"casos nuevos por 100 mil habitantes",n:"Casos nuevos de diabetes tipo 1 y 2 notificados al SINAVE.",fmt:v=>v.toFixed(0)},
  pct_controlados_sis:{t:"Menos pacientes controlados",u:"% de pacientes en tratamiento que están controlados",n:"Unidades que reportan al SIS (Secretaría de Salud / IMSS-Bienestar). Disponible 2021–2023.",fmt:v=>v.toFixed(1)+"%",inv:true}};
@@ -316,7 +330,7 @@ function drawMap(){
   const arr=Object.values(vals); const lo=Math.min(...arr), hi=Math.max(...arr);
   const svg=document.getElementById("map");
   svg.innerHTML=GEO.features.map(f=>{ const k=f.properties.cve_ent, v=vals[k]; let t=v==null?null:(v-lo)/(hi-lo||1); if(m.inv&&t!=null) t=1-t;
-    return `<path d="${pathOf(f.geometry)}" fill="${t==null?'#2b2b38':color(t)}" data-k="${k}"></path>`; }).join("");
+    return `<path d="${pathOf(f.geometry)}" fill="${t==null?'#2b2b38':color(t)}" data-k="${k}" tabindex="0" role="img" aria-label="${DATA[k].entidad}: ${v==null?"sin dato":m.fmt(v)}"></path>`; }).join("");
   document.getElementById("lmin").textContent=arr.length?(m.inv?m.fmt(hi):m.fmt(lo)):"—"; document.getElementById("lmax").textContent=arr.length?(m.inv?m.fmt(lo):m.fmt(hi)):"—";
   const sorted=Object.entries(vals).sort((a,b)=>m.inv?a[1]-b[1]:b[1]-a[1]).slice(0,8);
   document.getElementById("rtitle").textContent=`${m.t} · ${year}`;
@@ -325,7 +339,8 @@ function drawMap(){
   const tip=document.getElementById("tip"), box=document.querySelector(".mapbox");
   svg.querySelectorAll("path").forEach(p=>{ p.onmousemove=e=>{ const k=p.dataset.k, v=vals[k]; const r=box.getBoundingClientRect();
       tip.style.display="block"; tip.style.left=(e.clientX-r.left+12)+"px"; tip.style.top=(e.clientY-r.top+12)+"px";
-      tip.innerHTML=`<b>${DATA[k].entidad}</b><br>${v==null?"Sin dato":m.fmt(v)+" · "+m.u}`; }; p.onmouseleave=()=>tip.style.display="none"; });
+      tip.innerHTML=`<b>${DATA[k].entidad}</b><br>${v==null?"Sin dato":m.fmt(v)+" · "+m.u}`; }; p.onmouseleave=()=>tip.style.display="none"; p.onfocus=()=>{ const k=p.dataset.k, v=vals[k]; tip.style.display="block"; tip.style.left="12px"; tip.style.top="12px"; tip.innerHTML=`<b>${DATA[k].entidad}</b><br>${v==null?"Sin dato":m.fmt(v)+" · "+m.u}`; }; p.onblur=()=>tip.style.display="none"; });
+  document.getElementById("mtable").innerHTML=`<table><thead><tr><th>Entidad</th><th>${m.u} (${year})</th></tr></thead><tbody>${Object.entries(DATA).sort((a,b)=>a[1].entidad.localeCompare(b[1].entidad)).map(([k,d])=>`<tr><td>${d.entidad}</td><td>${vals[k]==null?"—":m.fmt(vals[k])}</td></tr>`).join("")}</tbody></table>`;
 }
 Promise.all([fetch("assets/estados_mx.geojson").then(r=>r.json()),fetch("assets/cascada.json").then(r=>r.json())]).then(([g,d])=>{
   GEO=g; DATA=d; const ys=[...new Set(Object.values(d).flatMap(v=>Object.keys(v).filter(k=>/^\d{4}$/.test(k))))].sort();

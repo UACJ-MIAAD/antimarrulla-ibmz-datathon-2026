@@ -1,4 +1,5 @@
-# Dependencias base del equipo. Fijar versiones con `pip freeze` al final del evento.
+# Dependencias base del equipo. Las versiones se fijan con `pip freeze` en la VM s390x
+# en cuanto se prueben (US-7.5); hoy no hay versiones verificadas en LinuxONE.
 pandas
 numpy
 scikit-learn

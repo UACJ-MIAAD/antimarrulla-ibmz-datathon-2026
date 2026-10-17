@@ -32,7 +32,7 @@ Fuente: línea de tiempo de la [plataforma del evento](https://hack2skill.com/ev
 
 > ⛔ **Cierre duro: 18 oct, 10:30 hora Juárez.** Meta interna sin cambios: **todo enviado a las 7:00**, con tres horas y media de colchón. El deck del kick-off insiste: *"Submit early, not in the last minutes"*.
 >
-> El kick-off global (16 oct, 21:15 Juárez) ocurrió antes de nuestro primer commit (17 oct, 00:54 EDT), así que **todo el historial del repo cae dentro de la ventana del evento**.
+> El primer commit del repo (17 oct, 00:54 EDT) es posterior al kick-off global (16 oct, 23:15 EDT). Tres commits aparecen como "16 oct 23:xx −0600": son las 01:xx EDT del 17 oct, no son anteriores. **Pendiente:** confirmar con la organización (`#helpdesk`) qué hora de inicio aplica al track online de Americas y si el sitio y la documentación hechos antes de los labs obligatorios cuentan como preparación. Mientras tanto, el código del proyecto se escribe después de los labs y con capturas que lo prueben. Nunca reescribir fechas del historial.
 
 ## Premios (por región, según el kick-off)
 
