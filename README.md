@@ -68,6 +68,15 @@ The 21-feature logistic model uses public CDC BRFSS 2015 data (UCI 891). The str
 
 This is a technical screening demonstration, not a diagnosis or a forecast of an individual's future diabetes or mortality. The survey label concerns reported diagnosis. Clinical use requires independent population-specific evaluation.
 
+**Team runs reported on October 17 (not yet independently verified):**
+
+| Run | Reported result | Evidence status |
+|-----|-----------------|-----------------|
+| Carlos · hospital client to remote risk service | Audit 10/10, exact results 200/200, ≈650 ms per record (≈140 ms encrypt, ≈500 ms network + service, ≈10 ms decrypt), 18.6 ms service evaluation, ≈92 records/min sequential; ciphertexts of 1,233 digits (consistent with a 2048-bit key) | Image and chat only; original `hospital_summary.json`, audit JSON/Markdown and logs pending ([record](submission/evidence/two_hosts/carlos_20261017_audit_summary_reported.md)) |
+| Álvaro · legacy UI on the server | Linux s390x, 2048-bit key, synthetic C at 66.3% | Screenshot only; provider dashboard, `uname`/`lscpu`, containers and measurement files pending |
+
+Next run, on both hosts with this English release: `make verify-docker`, `make demo-docker`, `make measure-docker FINAL=1` and `make measure-api-docker FINAL=1`, then commit the outputs. Use the wording "One synthetic record from the measured run" (not "real patient").
+
 **Trust boundary:** the risk service receives ciphertexts and has no Paillier private key. The approved demo uses two containers on one host; its administrator is trusted and could access hospital memory. Use synthetic demo inputs. Publicly anonymized CDC rows are reserved for explicit benchmarks. AES-256-GCM protects vault records, not every log, disk or backup. CPACF is a platform capability; effective use by this application remains unmeasured. LinuxONE execution and provider screenshots remain pending until actual evidence is committed.
 
 ## Repository map
