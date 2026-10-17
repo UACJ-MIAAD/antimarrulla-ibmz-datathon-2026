@@ -1,6 +1,6 @@
 # 📊 Fuentes de datos
 
-Tres fuentes, tres roles: el **CDC** entrena el modelo; **SINAVE** y **EDR** dan el contexto mexicano de incidencia y mortalidad para el pitch y el impacto.
+El **CDC** entrena el modelo. Las fuentes mexicanas (**SINAVE**, **EDR**, **SIS crónicas**, **IMSS detecciones**, **egresos ISSSTE** y **CONAPO**) dan el contexto de impacto y arman la [cascada de atención de la diabetes](#5-la-cascada-de-atención-de-la-diabetes).
 
 > Ningún dataset se sube al repo. Cómo descargarlos: [data/README.md](../data/README.md).
 
@@ -33,6 +33,8 @@ Base anual de registros individuales de defunción, generada a partir del certif
 | Licencia | Términos de libre uso de la información del INEGI (citar la fuente) |
 
 > ⚠️ INEGI bloquea descargas por script (`curl` recibe HTML). Descargar desde el navegador. Para leer DBF en Python: `dbfread` o `geopandas`/`pyogrio`.
+
+> 💡 **Alternativa en CSV:** la Secretaría de Salud publica la misma base, **con las mismas columnas más fechas armadas**, en datos.gob.mx para 1998–2023 (ver [sección 4.1](#41-defunciones-registradas-secretaría-de-salud)). Para 2024 solo está el DBF de INEGI.
 
 ### Variables de `DEFUN24` (74 en total)
 
@@ -83,7 +85,98 @@ Notificación **semanal y agregada** de casos nuevos por unidad médica. No es b
 | Casos nuevos por sexo y grupo de edad | <1 · 1-4 · 5-9 · 10-14 · 15-19 · 20-24 · **25-44** · 45-49 · 50-59 · 60-64 · 65+ · Ign. |
 | Derivadas (anuario) | Tasa de incidencia por 100,000 habitantes · fuente de notificación · principales causas |
 
-## 4. Cómo cruzar SINAVE (incidencia) con EDR (mortalidad)
+## 4. Fuentes adicionales en datos.gob.mx
+
+Revisadas el 17 de octubre de 2026 a sugerencia de Álvaro. Todas tienen licencia **CC BY 4.0** (citar la fuente).
+
+> ⚠️ Los archivos en `repodatos.atdt.gob.mx` bloquean `curl` ("Access Denied"). **Descargar desde el navegador.** La API del catálogo sí responde: `https://www.datos.gob.mx/api/3/action/package_show?id=<conjunto>`.
+
+| # | Conjunto | Institución | Cobertura | Nivel | Para qué nos sirve |
+|---|----------|-------------|-----------|-------|--------------------|
+| 4.1 | [Registro de defunciones](https://www.datos.gob.mx/dataset/registro_defunciones) | Secretaría de Salud | 1998–2023 · CSV (~206 MB en 2023) | Individual | Mortalidad por diabetes en CSV directo; mismas variables que la EDR |
+| 4.2 | [Registro de enfermedades crónicas en adultos](https://www.datos.gob.mx/dataset/registro_enfermedades_cronicas_adultos) | Secretaría de Salud (SIS/DGIS) | 2010–2023 · CSV (~53 MB en 2023) | Unidad médica × mes | **Control** de la diabetes: en tratamiento, controlados, HbA1c, pie diabético |
+| 4.3 | [Detección de padecimientos por delegación](https://www.datos.gob.mx/dataset/deteccion_padecimientos_delegacion) | IMSS | 2000–2023 · CSV (37 KB) | Delegación × año | **Tamizaje**: detecciones de diabetes realizadas |
+| 4.4 | [Datos de egresos hospitalarios](https://www.datos.gob.mx/dataset/datos_egresos_hospitalarios) | ISSSTE | 2020 y 2024 · CSV (~58 MB en 2024) | Individual | Hospitalizaciones por diabetes (complicaciones) |
+| 4.5 | [Proyecciones de población](https://www.datos.gob.mx/dataset/proyecciones-de-poblacion) · [Índices de marginación](https://www.datos.gob.mx/dataset/indices_marginacion) | CONAPO | 1950–2070 · 2010–2020 | Entidad / municipio | Denominadores para tasas · determinantes sociales |
+
+### 4.1 Defunciones registradas (Secretaría de Salud)
+
+- URL por año: `https://repodatos.atdt.gob.mx/all_data/secretaria_salud/6fecbbb3-afd9-44a1-8665-679a80ce4a15/defunciones_registradas_{año}.csv`
+- Columnas: las 74 de la EDR (sección 2) **más** `FECHA_OCURR`, `FECHA_NACIM`, `FECHA_REGIS`, `FECHA_CERT`, `fn_LISTA_MEX`, `fn_GR_LISMEX`.
+- Filtro de diabetes: `CAUSA_DEF` empieza con `E10`–`E14` (y `O24` en el embarazo).
+
+### 4.2 Enfermedades crónicas en adultos (SIS)
+
+- URL por año: `https://repodatos.atdt.gob.mx/s_salud/enf_cronicas_adultos/DA_EC_SIS_{año}.csv`
+- También en la DGIS como ZIP, con el **descriptor de variables**: http://www.dgis.salud.gob.mx/contenidos/basesdedatos/da_sis_gobmx.html (`Descriptor-Datos_Servicios_2010_2023.xlsx`, hoja `Descriptor-ECRON`).
+- Llaves: `CLAVE_ENTIDAD`, `ENTIDAD`, `CLAVE_MUNICIPIO`, `MUNICIPIO`, `CLUES`, `NOMBRE_CLUES`, `MES`, `ANIO`, `FECHA`.
+- Los valores vienen como `NULL` cuando no hay registro.
+
+| Prefijo | Apartado | Variables (sufijo = sexo y edad) |
+|---------|----------|----------------------------------|
+| `ADM` | Control y seguimiento de **diabetes mellitus** | `02/03/05/06` ingresos a tratamiento · `08/09/11/12` en tratamiento · `14/15/17/18` **controlados** (M 20-59, M 60+, H 20-59, H 60+) · `20–22` en tratamiento con insulina · `23` controlados con insulina |
+| `AHA` | Hipertensión arterial | Mismo esquema que `ADM` |
+| `AOB` | Obesidad | Mismo esquema |
+| `ADL` | Dislipidemias | Mismo esquema |
+| `AEC` | Síndrome metabólico | Mismo esquema |
+| `HBA` | **Hemoglobina glucosilada (HbA1c)** en pacientes con DM | `01` número de pruebas · `02` controlados con HbA1c · `03` cobertura |
+| `PDM` | Revisión de pies en DM | `02` revisiones · `03` con pie diabético |
+| `PMA` | Microalbuminuria | `01` pruebas en DM · `02` pruebas en hipertensión |
+| `FRS` | Factor de riesgo: sobrepeso | `01` M 20-59 · `02` M 60+ · `03` H 20-59 · `04` H 60+ |
+| `RUN` | Referencia a UNEME-EC | `01` |
+
+> Cubre las unidades que reportan al SIS (principalmente Secretaría de Salud / IMSS-Bienestar), no a todo el sistema de salud.
+
+### 4.3 Detecciones de diabetes (IMSS)
+
+- URL: `https://www.datos.gob.mx/dataset/0ad05edd-1c6b-469e-b52b-a58234b29e65/resource/25261f00-c346-446d-84a4-943691569af9/download/deteccion_diabetes.csv`
+- Columnas: `delegacion`, `ano`, `detecciones`, `fecha`, `fn_ano`.
+- Ojo: `ano` trae notas pegadas (`2004*`, `2008 (1)`, `2012 (2)`); limpiar antes de convertir a número. Los nombres de delegación traen espacios al inicio.
+- El mismo conjunto trae hipertensión, cáncer, nutrición y otros padecimientos.
+
+### 4.4 Egresos hospitalarios (ISSSTE)
+
+- URL 2024: `https://repodatos.atdt.gob.mx/api_update/issste/datos_egresos_hospitalarios/egresos_hospitalarios_issste2024.csv`
+- Columnas: `entidad`, `unidad`, `clues`, `edad_anios`, `sexo`, `servicio_troncal`, `tipo_derechohabiente`, `fecha_ingreso`, `fecha_egreso`, `diagnostico_principal_cie10`, `descripcion_cie_010`.
+- Filtro: `diagnostico_principal_cie10` empieza con `E10`–`E14`. La estancia sale de `fecha_egreso − fecha_ingreso`.
+
+### Fuentes revisadas que no nos sirven
+
+- **data.buengobierno.gob.mx** (Secretaría Anticorrupción y Buen Gobierno): transparencia, programas del Bienestar, presupuesto (PEF) y corrupción. No trae datos clínicos ni epidemiológicos de diabetes. A lo mucho, presupuesto en salud para la narrativa.
+- En datos.gob.mx **no hay** ENSANUT, glucosa ni COVID con comorbilidades: para entrenar seguimos con el CDC.
+
+---
+
+## 5. La cascada de atención de la diabetes
+
+La idea para el slide de impacto: seguir a la diabetes en México **de la detección a la muerte**, por entidad, con fuentes oficiales.
+
+```mermaid
+flowchart LR
+    A["Detectados<br/>IMSS detecciones"] --> B["Casos nuevos<br/>SINAVE (E11–E14)"]
+    B --> C["En tratamiento<br/>SIS · ADM08–12"]
+    C --> D["Controlados<br/>SIS · ADM14–18 · HBA02"]
+    C --> E["Complicaciones<br/>Egresos ISSSTE · pie diabético PDM03"]
+    E --> F["Muertes<br/>EDR · CAUSA_DEF E10–E14"]
+```
+
+| Escalón | Fuente | Variable | Nivel |
+|---------|--------|----------|-------|
+| 1. Detectados (tamizaje) | IMSS detecciones | `detecciones` | Delegación × año |
+| 2. Casos nuevos | SINAVE (SUIVE-1) | Casos E11–E14 | Entidad × semana |
+| 3. En tratamiento | SIS crónicas | `ADM08`+`ADM09`+`ADM11`+`ADM12` | CLUES × mes |
+| 4. Controlados | SIS crónicas | `ADM14`+`ADM15`+`ADM17`+`ADM18`, `HBA02` | CLUES × mes |
+| 5. Complicaciones | Egresos ISSSTE · SIS | Egresos E10–E14 · `PDM03` | Individual · CLUES × mes |
+| 6. Muertes | EDR / Defunciones SSA | `CAUSA_DEF` E10–E14 | Individual |
+| Denominador | CONAPO | Población 20+ por entidad y sexo | Entidad × año |
+
+**Por qué importa para el pitch:** cada escalón donde se pierde gente es un lugar donde el tamizaje temprano ayuda. Y el mensaje cierra solo: **para detectar antes hacen falta datos que hoy nadie comparte**, justo lo que Tamizaje a ciegas resuelve.
+
+**Cuidado al comparar escalones:** cada fuente cubre a una población distinta (IMSS, Secretaría de Salud, ISSSTE, todo el país). La cascada es **ilustrativa por entidad**, no un seguimiento de las mismas personas. Decirlo así en el pitch.
+
+---
+
+## 6. Cómo cruzar SINAVE (incidencia) con EDR (mortalidad)
 
 | Llave | SINAVE | EDR | Nota |
 |-------|--------|-----|------|
@@ -98,7 +191,7 @@ Notificación **semanal y agregada** de casos nuevos por unidad médica. No es b
 
 **Denominadores para tasas:** proyecciones de población de CONAPO por entidad, sexo y edad.
 
-## 5. Cifras de contexto usadas en el pitch
+## 7. Cifras de contexto usadas en el pitch
 
 | Cifra | Fuente |
 |-------|--------|
