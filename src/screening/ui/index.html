@@ -81,6 +81,15 @@ h3{margin:0;font-size:12px;font-weight:600;letter-spacing:.14em;text-transform:u
 #timings{display:flex;flex-direction:column;gap:14px}#timings:empty{display:none}
 .tbar td.bar{width:45%;min-width:120px}.tbar .bar i{display:block;height:8px;border-radius:0 4px 4px 0;background:var(--accent);min-width:2px}
 .tbar td.v{text-align:right;font-family:var(--mono);white-space:nowrap}.tbar tr.total td{border-bottom:0;color:var(--txt);font-weight:500}
+h4{margin:0;font-size:14px;font-weight:500}figure{margin:0}
+.tiles{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(190px,100%),1fr));gap:20px 32px}
+.tile{border-top:1px solid var(--line2);padding-top:12px;display:flex;flex-direction:column;gap:2px}.tile b{font:300 34px/1.1 var(--sans);letter-spacing:-.01em}.tile span{font-size:13px;color:var(--muted)}
+.duo2{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(440px,100%),1fr));gap:36px 56px;align-items:start}
+.duo2 figure{display:flex;flex-direction:column;gap:10px}.duo2 figure p{margin:0;font-size:13px;color:var(--faint)}
+.chart svg{display:block;overflow:visible}.chart text{font:11px var(--mono);fill:var(--faint)}.chart .lab{font:12px var(--sans);fill:var(--muted)}
+.cm{display:grid;grid-template-columns:auto 1fr 1fr;gap:3px;font-size:13px}.cm div{padding:12px}.cm .hd{color:var(--muted);padding:6px 12px}
+.cm .cell{border-radius:4px;color:var(--txt);display:flex;flex-direction:column;gap:2px}.cm .cell b{font:500 20px var(--mono)}.cm .cell span{font-size:12px;color:var(--muted)}
+.legend{display:flex;flex-wrap:wrap;gap:6px 18px;font-size:12px;color:var(--muted)}.legend i{display:inline-block;width:9px;height:9px;border-radius:50%;margin-right:6px;vertical-align:middle}
 th .sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0)}
 footer{display:flex;flex-wrap:wrap;justify-content:space-between;gap:12px 32px;font-size:12px;color:var(--faint)}footer span:first-child{max-width:760px}
 </style>
@@ -144,6 +153,24 @@ footer{display:flex;flex-wrap:wrap;justify-content:space-between;gap:12px 32px;f
     <div id="service" aria-live="polite"><p class="empty">It only ever receives numbers encrypted with the hospital's public key.</p></div>
   </section>
 </div>
+<section id="session" class="panel" aria-label="This session" hidden>
+  <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:8px 16px"><h3>This session</h3><button class="link" id="batch" type="button">Run 10 random synthetic patients</button></div>
+  <div class="duo2">
+    <figure><h4>Risk of each evaluated patient</h4><div class="chart" id="strip"></div>
+      <div class="legend"><span><i style="background:var(--raise)"></i>Flagged: prioritize a glucose test</span><span><i style="background:var(--lower)"></i>Below the threshold</span></div>
+      <p>Most recent at the top. Random inputs are uniform draws, not a population sample.</p></figure>
+    <figure><h4>Time inside the hospital per evaluation</h4><div class="chart" id="latency"></div><p id="latency-note"></p></figure>
+  </div>
+</section>
+<section id="model" class="panel" aria-label="How good is the model">
+  <h3>How good is the model</h3>
+  <p id="model-note">Held-out CDC test set, never used for training (n = 38,052). Snapshot of artifacts/metrics/logistic_model_v1.json for this exact model file.</p>
+  <div class="tiles" id="model-tiles"></div>
+  <div class="duo2">
+    <figure><h4>Calibration by decile</h4><div class="chart" id="calibration"></div><p>Each point is one tenth of the test set: average predicted risk against the share that reported diabetes. On the dashed line, prediction matches reality.</p></figure>
+    <figure><h4>Decisions at the 12.3% threshold</h4><div id="confusion"></div><p id="confusion-note"></p></figure>
+  </div>
+</section>
 <section id="answers" class="panel" aria-label="Answer by answer" hidden>
   <h3>Answer by answer</h3>
   <p>What the hospital encrypted and what the risk service received for each question, in protocol order.</p>
@@ -198,7 +225,7 @@ function openEditor(open){$("editor").classList.toggle("open",open);$("toggle-ed
 async function evaluate(body,k){if(busy)return;busy=true;document.body.classList.remove("idle");markProfile(k);for(const b of document.querySelectorAll("button"))b.disabled=true;
  $("hospital").innerHTML='<p class="empty">Encrypting and sending…</p>';$("service").innerHTML="";
  try{render(await api("/api/evaluate",body))}catch(e){$("hospital").innerHTML=`<p class="err">Evaluation failed: ${escapeHtml(e.message)}</p>`}
- finally{busy=false;for(const b of document.querySelectorAll("button"))b.disabled=false}}
+ finally{busy=false;if(!batching)for(const b of document.querySelectorAll("button"))b.disabled=false}}
 function render(r){const s=r.server,h=r.hospital;fill(h.input);
  const pct=h.probability*100,u=h.threshold*100,max=Math.max(...h.factors.map(f=>Math.abs(f.contribution_logit)),.01);
  $("hospital").innerHTML=`<div class="meta">${escapeHtml(shortLabel(String(r.profile)))} · id ${escapeHtml(r.id.slice(0,8))}</div>
@@ -219,10 +246,11 @@ function render(r){const s=r.server,h=r.hospital;fill(h.input);
  $("timings").innerHTML=`<h3>One encrypted round trip</h3><div class="tbox"><table class="tbl tbar"><thead><tr><th scope="col">Step</th><th scope="col">Where</th><th scope="col"><span class="sr">Share</span></th><th scope="col" style="text-align:right">ms</th></tr></thead><tbody>
  ${steps.map(([n,w,ms])=>`<tr title="${n}: ${ms} ms (${(ms/t.total_in_hospital*100).toFixed(1)}% of the hospital total)"><td>${n}</td><td class="no">${w}</td><td class="bar"><i style="width:${ms/tmax*100}%"></i></td><td class="v">${ms}</td></tr>`).join("")}
  <tr class="total"><td>Total inside the hospital</td><td class="no">Excluding the browser</td><td></td><td class="v">${t.total_in_hospital}</td></tr></tbody></table></div>
- ${t.encrypt>=tmax?`<p>Encryption takes the longest: each of the ${s.received.ciphertexts.length} answers is a separate ${s.received.key_public_bits}-bit Paillier encryption.</p>`:""}`}
+ ${t.encrypt>=tmax?`<p>Encryption takes the longest: each of the ${s.received.ciphertexts.length} answers is a separate ${s.received.key_public_bits}-bit Paillier encryption.</p>`:""}`;
+ SESSION.push({label:shortLabel(String(r.profile)),p:h.probability,flag:h.risk_high,ms:t.total_in_hospital});LAST_P=h.probability;THRESHOLD=h.threshold;$("session").hidden=false;drawCharts()}
 async function init(){
  try{const e=await api("/api/state"),ok=e.service.state==="ok";$("dot").className="dot "+(ok?"ok":"bad");
-  $("service-state").textContent=ok?"Service online":`Service: ${e.service.state}`;$("environment").textContent=`${e.model} · ${e.key_bits}-bit key · ${e.machine} (${e.system})`}
+  $("service-state").textContent=ok?"Service online":`Service: ${e.service.state}`;$("environment").textContent=`${e.model} · ${e.key_bits}-bit key · ${e.machine} (${e.system})`;checkModel(e.model_sha256)}
  catch(e){$("dot").className="dot bad";$("service-state").textContent="Status unavailable"}
  let s;try{s=await api("/api/synthetic")}catch(e){$("hospital").innerHTML=`<p class="err">Could not load the synthetic profiles: ${escapeHtml(e.message)}</p>`;return}
  SCHEMA=s.schema;PROFILES=s.profiles;
@@ -235,12 +263,54 @@ async function init(){
  $("form").addEventListener("submit",event=>{event.preventDefault();$("submit").click()});
  for(const v of SCHEMA.variables){const el=$("f_"+v.name);el.addEventListener(el.tagName==="SELECT"?"change":"input",()=>{validateField(v);markProfile(null)})}
  fill(Object.values(PROFILES)[0]);
+ $("batch").onclick=async()=>{if(busy)return;batching=true;const b=$("batch");
+  try{for(let i=1;i<=10;i++){b.textContent=`Running ${i} of 10…`;await evaluate({random_patient:true},"random")}}
+  finally{batching=false;b.textContent="Run 10 random synthetic patients";for(const x of document.querySelectorAll("button"))x.disabled=false}};
  const q=new URLSearchParams(location.search).get("profile");if(q){const k=Object.keys(PROFILES).find(n=>n.endsWith(q)||n.includes("Synthetic "+q));if(k){fill(PROFILES[k]);evaluate({profile:k},k)}}
  $("submit").onclick=()=>{const p={},invalid=[];for(const v of SCHEMA.variables){const x=validateField(v);if(x===null)invalid.push(v.name);else p[v.name]=x}
   if(invalid.length){$("summary").innerHTML=`<span class="err">${invalid.length} field${invalid.length>1?"s need":" needs"} attention.</span>`;$("f_"+invalid[0]).focus();return}
   $("summary").textContent="";evaluate({patient:p},null)};
 }
-init().catch(error=>{$("hospital").innerHTML=`<p class="err">${escapeHtml(error.message)}</p>`});
+// Test-set metrics of the served model (artifacts/metrics/logistic_model_v1.json). Shown only when the hospital reports this model hash.
+const METRICS={sha:"9747116760f938ae501f96f57a3ad401324032b0ba52e20ef14b48e32c1d8b11",n:38052,positives:5302,auc:0.826,aucFloat:0.826017,aucFixed:0.826017,changed:0,
+ sensitivity:0.805,specificity:0.6914,ppv:0.2969,cm:{tp:4268,fn:1034,fp:10106,tn:22644},
+ calibration:[[0.0096,0.0024,3806],[0.0195,0.0076,3806],[0.0306,0.021,3805],[0.0458,0.0402,3805],[0.0667,0.0649,3805],[0.0951,0.1075,3805],[0.1367,0.1519,3805],[0.1974,0.2095,3805],[0.2912,0.3109,3805],[0.4974,0.4775,3805]]};
+const SESSION=[];let LAST_P=null,batching=false,THRESHOLD=null;
+const fmt=n=>n.toLocaleString("en-US"),pc=(x,d=1)=>`${(x*100).toFixed(d)}%`;
+function checkModel(sha){if(sha&&sha!==METRICS.sha){$("model").hidden=true;return}
+ if(!sha)$("model-note").textContent+=" This hospital did not report its model hash, so the match is unverified.";}
+function svgEl(w,h,body,label){return `<svg width="${w}" height="${h}" viewBox="0 0 ${w} ${h}" role="img" aria-label="${escapeHtml(label)}">${body}</svg>`}
+function width(id){return Math.max(260,$(id).clientWidth||260)}
+function drawCalibration(){const W=width("calibration"),H=262,m={l:44,r:16,t:34,b:36},top=Math.min(1,Math.max(.6,Math.ceil(((LAST_P??0)+.08)*10)/10)),step=top>.6?.2:.1;
+ const X=v=>m.l+v/top*(W-m.l-m.r),Y=v=>H-m.b-v/top*(H-m.t-m.b);let g="";
+ for(let v=0;v<=top+1e-9;v+=step){g+=`<line x1="${m.l}" x2="${W-m.r}" y1="${Y(v)}" y2="${Y(v)}" stroke="#22314F"/><text x="${m.l-8}" y="${Y(v)+4}" text-anchor="end">${Math.round(v*100)}%</text><text x="${X(v)}" y="${H-m.b+18}" text-anchor="middle">${Math.round(v*100)}%</text>`}
+ g+=`<line x1="${X(0)}" y1="${Y(0)}" x2="${X(top)}" y2="${Y(top)}" stroke="#3A4A6B" stroke-dasharray="4 4"/>`;
+ g+=`<text class="lab" x="${(m.l+W-m.r)/2}" y="${H-2}" text-anchor="middle">Average predicted risk</text><text class="lab" transform="translate(11 ${(m.t+H-m.b)/2}) rotate(-90)" text-anchor="middle">Observed</text>`;
+ if(LAST_P!==null){const x=X(Math.min(LAST_P,top)),right=x>W*.6;g+=`<line x1="${x}" x2="${x}" y1="${m.t-14}" y2="${H-m.b}" stroke="var(--raise)" stroke-width="2"/><text class="lab" x="${right?x-6:x+6}" y="${m.t-18}" text-anchor="${right?"end":"start"}" style="fill:var(--txt)">This patient · ${pc(LAST_P)}</text>`}
+ g+=`<polyline fill="none" stroke="var(--accent)" stroke-width="2" points="${METRICS.calibration.map(([p,o])=>`${X(p)},${Y(o)}`).join(" ")}"/>`;
+ g+=METRICS.calibration.map(([p,o,n],i)=>`<circle cx="${X(p)}" cy="${Y(o)}" r="5" fill="var(--accent)" stroke="#0B1426" stroke-width="2"><title>Decile ${i+1}: predicted ${pc(p)}, observed ${pc(o)}, n = ${fmt(n)}</title></circle>`).join("");
+ $("calibration").innerHTML=svgEl(W,H,g,"Calibration by decile: predicted risk closely follows observed prevalence")}
+function drawModel(){const M=METRICS,cm=M.cm,mx=Math.max(cm.tp,cm.fn,cm.fp,cm.tn),cell=(n,t)=>`<div class="cell" style="background:rgba(79,141,245,${(.12+.55*n/mx).toFixed(2)})" title="${t}: ${fmt(n)}"><b>${fmt(n)}</b><span>${t}</span></div>`;
+ $("model-tiles").innerHTML=[[M.auc.toFixed(3),"ROC AUC on the test set"],[pc(M.sensitivity),"Sensitivity at the threshold"],[pc(M.specificity),"Specificity at the threshold"],[`${M.changed} of ${fmt(M.n)}`,`Threshold decisions changed by the fixed-point encoding used for encryption (AUC ${M.aucFloat} → ${M.aucFixed})`]].map(([b,t])=>`<div class="tile"><b>${b}</b><span>${t}</span></div>`).join("");
+ $("confusion").innerHTML=`<div class="cm" role="table" aria-label="Test-set decisions at the threshold"><div class="hd"></div><div class="hd">Flagged</div><div class="hd">Not flagged</div>
+ <div class="hd">Reported diabetes<br>${fmt(cm.tp+cm.fn)}</div>${cell(cm.tp,"Caught")}${cell(cm.fn,"Missed")}
+ <div class="hd">No diabetes<br>${fmt(cm.fp+cm.tn)}</div>${cell(cm.fp,"Extra glucose tests")}${cell(cm.tn,"Correctly not flagged")}</div>`;
+ $("confusion-note").textContent=`Of every 100 flagged people, about ${Math.round(M.ppv*100)} reported diabetes. The low threshold trades extra glucose tests for missing fewer cases.`}
+function drawSession(){const rows=SESSION.slice(-20).reverse(),W=width("strip"),m={l:12,r:16,t:22,b:30},rh=16,H=m.t+m.b+Math.max(rows.length,3)*rh,X=v=>m.l+v*(W-m.l-m.r);let g="";
+ for(const v of [0,.25,.5,.75,1])g+=`<line x1="${X(v)}" x2="${X(v)}" y1="${m.t}" y2="${H-m.b}" stroke="#22314F"/><text x="${X(v)}" y="${H-m.b+18}" text-anchor="${v===0?"start":v===1?"end":"middle"}">${v*100}%</text>`;
+ if(THRESHOLD!==null){const x=X(THRESHOLD);g+=`<line x1="${x}" x2="${x}" y1="${m.t-6}" y2="${H-m.b}" stroke="var(--txt)" stroke-width="2"/><text class="lab" x="${x+6}" y="${m.t+2}">threshold ${pc(THRESHOLD)}</text>`}
+ g+=rows.map((r,i)=>`<circle cx="${X(r.p)}" cy="${m.t+12+i*rh}" r="5" fill="var(${r.flag?"--raise":"--lower"})" stroke="#0B1426" stroke-width="2"><title>${escapeHtml(r.label)}: ${pc(r.p)} · ${r.flag?"flagged":"below the threshold"}</title></circle>`).join("");
+ $("strip").innerHTML=svgEl(W,H,g,`Risk of ${rows.length} evaluated patients against the threshold`);
+ const L=SESSION.slice(-20),LW=width("latency"),LH=200,lm={l:44,r:8,t:12,b:26},top=Math.max(...L.map(r=>r.ms),1)*1.15,bw=(LW-lm.l-lm.r)/Math.max(L.length,10),Y=v=>LH-lm.b-v/top*(LH-lm.t-lm.b);let h="";
+ for(const v of [0,top/2/1.15,top/1.15])h+=`<line x1="${lm.l}" x2="${LW-lm.r}" y1="${Y(v)}" y2="${Y(v)}" stroke="#22314F"/><text x="${lm.l-8}" y="${Y(v)+4}" text-anchor="end">${Math.round(v)}</text>`;
+ h+=`<text x="${lm.l-8}" y="${lm.t-2}" text-anchor="end">ms</text>`;
+ h+=L.map((r,i)=>{const x=lm.l+i*bw+2,w=Math.max(bw-4,3),y=Y(r.ms),b=Y(0),rr=Math.min(4,w/2,b-y);return `<path d="M${x},${b}V${y+rr}Q${x},${y} ${x+rr},${y}H${x+w-rr}Q${x+w},${y} ${x+w},${y+rr}V${b}Z" fill="var(--accent)"><title>Evaluation ${SESSION.length-L.length+i+1} (${escapeHtml(r.label)}): ${r.ms} ms</title></path>`}).join("");
+ $("latency").innerHTML=svgEl(LW,LH,h,"Time inside the hospital per evaluation, in milliseconds");
+ const ms=SESSION.map(r=>r.ms).sort((a,b)=>a-b),q=f=>ms[Math.min(ms.length-1,Math.ceil(f*ms.length)-1)];
+ $("latency-note").textContent=ms.length>=5?`p50 ${q(.5)} ms · p95 ${q(.95)} ms over ${ms.length} evaluations in this browser session, on this machine.`:`${ms.length} evaluation${ms.length>1?"s":""} so far. Run more for p50 and p95.`}
+function drawCharts(){drawCalibration();if(SESSION.length)drawSession()}
+let resizeTimer;addEventListener("resize",()=>{clearTimeout(resizeTimer);resizeTimer=setTimeout(drawCharts,150)});
+init().then(()=>{drawModel();drawCalibration()}).catch(error=>{$("hospital").innerHTML=`<p class="err">${escapeHtml(error.message)}</p>`});
 </script>
 </body>
 </html>
