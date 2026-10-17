@@ -65,5 +65,6 @@ CDC UCI 891 supplies 253,680 public survey records and 21 predictors for model t
 | AI disclosure | Removed from README; publication location is still a team decision | Local draft is not completed disclosure; recorded rules require transparency |
 | Trust boundary | Hospital and service share one demo VM | Administrator is trusted; synthetic demo inputs only |
 | Contact emails | Retain with prior team agreement | No removal during translation |
-| Hosting | Keep Netlify and its badge | No paid-plan purchase or hosting migration |
+| Public project hosting | Keep Netlify and its badge | Pitch, public aggregate map, forecast and plan remain static public pages |
+| Interactive frontend and records | Serve frontend/API in Hospital; persist its encrypted vault on the approved shared VM | Browser uses Hospital over SSH; risk service stays internal. No public interactive endpoint or SQL database is introduced. See [DEPLOYMENT.md](DEPLOYMENT.md). |
 | Language | Captain requires English code, comments, site, documents and deliverables | Coordinated migration, verification and new release evidence; preserve historical records |

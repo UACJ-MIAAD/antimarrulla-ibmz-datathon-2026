@@ -46,6 +46,10 @@ Freeze the translated code commit **before** the final LinuxONE measurement and 
 | Done locally | Yazmin; Javier integrates | PR 8 grouped, coded form integrated with English v2; move to the English video and visual review | docs/YAZMIN_INTEGRATION.md; synthetic desktop/mobile screenshots. Does not certify clinical usability or LinuxONE execution. |
 | 4 | Javier and all four teammates | Pin the final version; align PDF/site/script; confirm AI attribution; build the final package and submit through the registered leader | English gate complete, `make package FINAL=1`, working public links and Hack2Skill confirmation screenshot |
 
+## Frontend and storage deployment decision
+
+Serve the interactive form and API together in the Hospital container on the approved shared VM. Keep the encrypted vault in Hospital’s persistent Docker volume and its key outside the repository. The public presentation, aggregate map, forecast and plan stay on Netlify. Team members reach Hospital through SSH; a public interactive prototype is optional and remains unimplemented. Owners and exact flow: [DEPLOYMENT.md](DEPLOYMENT.md). This placement decision does not establish completed LinuxONE deployment or measurements.
+
 ## Commands and scope
 
 Follow [LINUXONE.md](LINUXONE.md) for VM instructions. The project-specific check is `make instance-claims`, or `python tests/instance/05_test_claims.py` with the configured Python environment. It imports the real code and saves provenance in `submission/evidence/instance/`. Direct invocation does not install dependencies; the VM operator may use `tests/instance/run_all.sh`, which includes installation.

@@ -44,6 +44,8 @@ The English package/API changed to `screening` / `screening-paillier-v2`. Rebuil
 
 ## 3. View the UI through SSH
 
+**Frontend placement:** the Hospital process serves both the interactive form and its API. Its vault is the persistent Docker volume mounted at `/var/lib/screening`, with the AES key outside the repo. The separate public pitch/forecast/plan stays on Netlify. See [DEPLOYMENT.md](DEPLOYMENT.md) for ownership and storage details.
+
 The hospital binds to VM loopback by default. From the laptop:
 
 ```bash

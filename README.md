@@ -52,6 +52,10 @@ make measure-api-docker FINAL=1
 
 Use [the LinuxONE runbook](docs/LINUXONE.md) and pin the same release commit for both endpoints and measurements. The app image excludes CDC data, tests, sklearn and private keys. Secrets live outside the repository in `~/.screening` by default. `SCREENING_SECRETS` selects another directory. Generate fresh local demo credentials; do not overwrite or reuse another deployment's vault with a different key.
 
+## Where the frontend and records live
+
+The interactive form and its API are served together by the **Hospital container**. Saved synthetic evaluations stay in its persistent AES-256-GCM vault volume; the risk service receives ciphertexts only. The public pitch, map, forecast and plan stay on **Netlify**. Access the VM hospital through an SSH tunnel; the Netlify site does not expose its API. See [deployment placement and owners](docs/DEPLOYMENT.md).
+
 ## Model, evidence and limitations
 
 The 21-feature logistic model uses public CDC BRFSS 2015 data (UCI 891). The stratified 70/15/15 splits are shared by training and evaluation. Standardization is fitted on training only and folded into weights/intercept. A validation threshold targets sensitivity >=0.80; test data is reserved for reporting.
