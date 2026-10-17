@@ -1,6 +1,6 @@
 {
-  "rev": 23,
-  "actualizado": "2026-10-17T18:23:32Z",
+  "rev": 24,
+  "actualizado": "2026-10-17T18:26:24Z",
   "nota": "Evidence-based status. Update through a branch and PR; increase rev and the actual UTC timestamp. Publish the reviewed version. Current plan: docs/PLAN_CIERRE.md. Keep Netlify and its badge. English is mandatory for all authored release material; US-7.9 remains open.",
   "hitos": {
     "hora_cero": "2026-10-17T13:00:00Z",
@@ -526,7 +526,7 @@
           "quien": "Álvaro · Javier",
           "bloque": "h16",
           "prioridad": "Plus",
-          "estado": "hecho",
+          "estado": "en_curso",
           "evidencia": "submission/flowchart/arquitectura.pdf exists; English labels and visual verification remain open under US-7.9."
         },
         {
