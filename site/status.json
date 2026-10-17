@@ -1,0 +1,120 @@
+{
+  "actualizado": "2026-10-17T08:20:00Z",
+  "nota": "Para actualizar: cambia 'estado' (hecho · en_curso · pendiente · bloqueado), sube 'actualizado' y haz commit a main. El sitio lo lee de GitHub en vivo.",
+  "hitos": {
+    "hora_cero": "2026-10-17T13:00:00Z",
+    "ceremonia_cierre_virtual": "2026-10-18T05:00:00Z",
+    "demo_funcional": "2026-10-18T07:00:00Z",
+    "congelamiento": "2026-10-18T09:00:00Z",
+    "meta_envio": "2026-10-18T13:00:00Z",
+    "cierre_hack2skill": "2026-10-18T16:30:00Z"
+  },
+  "bloques": [
+    {
+      "id": "prep",
+      "titulo": "Preparación",
+      "inicio": "2026-10-17T04:50:00Z",
+      "fin": "2026-10-17T13:00:00Z",
+      "tareas": [
+        { "t": "Repo público, reglas, criterios y checklist alineados con la guía y el kick-off", "quien": "Javier", "estado": "hecho" },
+        { "t": "Ranking de 11 ideas con 3 jueces ciegos → elegimos Tamizaje a ciegas", "quien": "Equipo", "estado": "hecho" },
+        { "t": "Diseño técnico: Paillier garantizado, CKKS opcional, dos contenedores", "quien": "Javier", "estado": "hecho" },
+        { "t": "Datos: CDC, SINAVE, defunciones, egresos del sector, SIS, IMSS, CONAPO, CLUES, mapa", "quien": "Javier · Yazmin", "estado": "hecho" },
+        { "t": "Modelo de datos y mart de la cascada por entidad y año", "quien": "Javier", "estado": "hecho" },
+        { "t": "Pitch deck v1 (8 slides) y guion de 2:50", "quien": "Javier", "estado": "hecho" },
+        { "t": "VM LinuxONE (Ubuntu 24.04) y llaves SSH para los 4", "quien": "Carlos", "estado": "en_curso" },
+        { "t": "Formulario de asistencia del kick-off (los 4)", "quien": "Equipo", "estado": "pendiente" },
+        { "t": "ENSANUT 2022/2023 (requiere registro)", "quien": "Equipo", "estado": "pendiente" }
+      ]
+    },
+    {
+      "id": "h0",
+      "titulo": "H0 · Arranque",
+      "inicio": "2026-10-17T13:00:00Z",
+      "fin": "2026-10-17T14:00:00Z",
+      "tareas": [
+        { "t": "Alcance final y firmas en DECISION.md", "quien": "Javier", "estado": "pendiente" },
+        { "t": "Acceso de los 4 a la VM y al repo", "quien": "Carlos", "estado": "pendiente" }
+      ]
+    },
+    {
+      "id": "h1",
+      "titulo": "H1–H3 · Labs obligatorios",
+      "inicio": "2026-10-17T14:00:00Z",
+      "fin": "2026-10-17T16:00:00Z",
+      "tareas": [
+        { "t": "Lab 1: Predictive AI Hybrid (multi-model) + capturas", "quien": "Álvaro · Carlos", "estado": "pendiente" },
+        { "t": "Lab 2: Predictive AI + Generative AI + capturas", "quien": "Álvaro · Javier", "estado": "pendiente" },
+        { "t": "pip install phe en s390x · prueba de TenSEAL/OpenFHE", "quien": "Carlos", "estado": "pendiente" },
+        { "t": "🚩 H2: decisión CKKS vs. Paillier", "quien": "Carlos", "estado": "pendiente" }
+      ]
+    },
+    {
+      "id": "h3",
+      "titulo": "H3–H8 · Modelo base e infraestructura",
+      "inicio": "2026-10-17T16:00:00Z",
+      "fin": "2026-10-17T21:00:00Z",
+      "tareas": [
+        { "t": "Regresión logística + XGBoost de referencia (CDC)", "quien": "Álvaro", "estado": "pendiente" },
+        { "t": "EDA y particiones 70/15/15", "quien": "Yazmin", "estado": "pendiente" },
+        { "t": "Dos contenedores Docker en LinuxONE", "quien": "Carlos", "estado": "pendiente" }
+      ]
+    },
+    {
+      "id": "h8",
+      "titulo": "H8–H12 · Inferencia cifrada",
+      "inicio": "2026-10-17T21:00:00Z",
+      "fin": "2026-10-18T01:00:00Z",
+      "tareas": [
+        { "t": "Pesos en punto fijo + inferencia Paillier", "quien": "Álvaro", "estado": "pendiente" },
+        { "t": "TLS 1.3 + bóveda AES-256-GCM (CPACF)", "quien": "Carlos", "estado": "pendiente" },
+        { "t": "Mapa y cascada para el slide de impacto", "quien": "Yazmin", "estado": "pendiente" }
+      ]
+    },
+    {
+      "id": "h12",
+      "titulo": "H12–H16 · Integración",
+      "inicio": "2026-10-18T01:00:00Z",
+      "fin": "2026-10-18T05:00:00Z",
+      "tareas": [
+        { "t": "AUC cifrado vs. en claro", "quien": "Álvaro", "estado": "pendiente" },
+        { "t": "UI de pantalla dividida (servidor vs. hospital)", "quien": "Yazmin", "estado": "pendiente" },
+        { "t": "Servicio de riesgo conectado a la UI", "quien": "Carlos", "estado": "pendiente" },
+        { "t": "Slides v2 con capturas reales", "quien": "Javier", "estado": "pendiente" }
+      ]
+    },
+    {
+      "id": "h16",
+      "titulo": "H16–H18 · Empuje a demo",
+      "inicio": "2026-10-18T05:00:00Z",
+      "fin": "2026-10-18T07:00:00Z",
+      "tareas": [
+        { "t": "Granite explica el resultado al paciente", "quien": "Álvaro · Javier", "estado": "pendiente" },
+        { "t": "Latencia por paciente y capturas de evidencia", "quien": "Carlos", "estado": "pendiente" },
+        { "t": "🚩 H18: demo de punta a punta", "quien": "Equipo", "estado": "pendiente" }
+      ]
+    },
+    {
+      "id": "h18",
+      "titulo": "H18–H22 · Video y pulido",
+      "inicio": "2026-10-18T07:00:00Z",
+      "fin": "2026-10-18T11:00:00Z",
+      "tareas": [
+        { "t": "🧊 H20: congelamiento de features", "quien": "Equipo", "estado": "pendiente" },
+        { "t": "Video de 2:50 con LinuxONE y el modelo en pantalla", "quien": "Javier", "estado": "pendiente" },
+        { "t": "Pitch deck en PDF con el nombre oficial", "quien": "Javier", "estado": "pendiente" },
+        { "t": "pip freeze, README de la demo y repo limpio", "quien": "Álvaro · Carlos", "estado": "pendiente" }
+      ]
+    },
+    {
+      "id": "h22",
+      "titulo": "H22–H24 · Entrega",
+      "inicio": "2026-10-18T11:00:00Z",
+      "fin": "2026-10-18T13:00:00Z",
+      "tareas": [
+        { "t": "Checklist de entrega completo", "quien": "Javier · Carlos", "estado": "pendiente" },
+        { "t": "Envío en Hack2skill (meta 7:00 Juárez)", "quien": "Javier", "estado": "pendiente" }
+      ]
+    }
+  ]
+}

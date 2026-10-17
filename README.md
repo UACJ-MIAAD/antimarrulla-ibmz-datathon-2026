@@ -7,6 +7,8 @@
 > **"Combatimos la flojera y la procrastinación."**
 > 24 horas, un mainframe y cero excusas.
 
+**Sitio público con plan, estatus en vivo y pitch:** https://antimarrulla-tamizaje.netlify.app
+
 Repositorio oficial del equipo **Los Antimarrulla** (UACJ · Maestría en Inteligencia Artificial y Analítica de Datos, MIAAD) para el **IBM Z Datathon 2026**. Aquí vive todo: la estrategia, las reglas, las ideas candidatas, el código que construimos durante el evento y los materiales de la entrega.
 
 ---
@@ -80,6 +82,8 @@ Más detalle: [COMPETENCIA](docs/COMPETENCIA.md) · [REGLAS](docs/REGLAS.md) · 
 │   ├── catalogos/           ← entidades (tabla de cruce) y CLUES
 │   ├── geo/                 ← polígonos de los 32 estados
 │   └── marts/               ← cascada de la diabetes por entidad y año
+├── site/                    ← sitio público (Netlify): plan, estatus en vivo, pitch y mapa
+│   └── status.json          ← EL ESTATUS DEL PLAN: edítalo y haz commit; el sitio lo lee en vivo
 └── submission/
     ├── Los_Antimarrulla_Pitch_Tamizaje.pptx ← presentación del proyecto (8 slides)
     ├── PITCH.md             ← guion del video de máx. 3 minutos
