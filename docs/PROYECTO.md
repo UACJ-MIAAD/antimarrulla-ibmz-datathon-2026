@@ -34,7 +34,7 @@ sequenceDiagram
     H->>S: Enc(x₁) … Enc(x₂₁) por TLS 1.3
     S->>S: 2. Calcula Enc(w·x) = ∏ Enc(xᵢ)^wᵢ
     S->>H: 3. Regresa el puntaje cifrado
-    H->>H: 4. Descifra, aplica sigmoide y Granite explica
+    H->>H: 4. Descifra, aplica sigmoide y muestra factores (Granite: extra)
 ```
 
 - **Es tamizaje, no diagnóstico:** prioriza a quién hacerle una prueba de glucosa.
@@ -103,10 +103,10 @@ CPACF acelera AES; **no** acelera Paillier, no es Secure Execution, no protege l
 | Hospital (tiene la llave privada) | En claro: son sus pacientes | En claro |
 | Servicio de riesgo en LinuxONE | **Solo números cifrados** | **Solo cifrado** |
 | Disco, logs y respaldos | **Cifrado AES-256-GCM** | **Cifrado AES-256-GCM** |
-| Granite (dentro del entorno del hospital) | Solo lo que el hospital le pase (prompt mínimo, sin registro de prompts) | Resultado descifrado |
+| Granite (extra, aún no integrado; iría dentro del entorno del hospital) | Solo lo que el hospital le pase (prompt mínimo, sin registro de prompts) | Resultado descifrado |
 | Administrador del host donde corra el entorno del hospital | Puede acceder a ese entorno: **es parte de la frontera de confianza** | Ídem |
 
-> **Frontera de confianza:** el servicio de riesgo solo recibe cifrados y no tiene la llave. La llave y Granite viven en el **entorno del hospital**; quien administre ese entorno queda dentro de la frontera de confianza. Dos contenedores en una misma VM **no** protegen frente al administrador del host. **En la demo, los dos contenedores corren en la misma VM de LinuxONE** ([DECISION.md](DECISION.md#decisiones-tras-la-auditoría-externa-17-oct)): el equipo, como administrador de esa VM, queda dentro de la frontera de confianza, y por eso la demo usa solo pacientes sintéticos. En producción, el contenedor del hospital correría en la infraestructura del hospital y a LinuxONE solo llegarían cifrados.
+> **Frontera de confianza:** el servicio de riesgo solo recibe cifrados y no tiene la llave. La llave (y Granite, si se integra) viven en el **entorno del hospital**; quien administre ese entorno queda dentro de la frontera de confianza. Dos contenedores en una misma VM **no** protegen frente al administrador del host. **En la demo, los dos contenedores corren en la misma VM de LinuxONE** ([DECISION.md](DECISION.md#decisiones-tras-la-auditoría-externa-17-oct)): el equipo, como administrador de esa VM, queda dentro de la frontera de confianza, y por eso la demo usa solo pacientes sintéticos. En producción, el contenedor del hospital correría en la infraestructura del hospital y a LinuxONE solo llegarían cifrados.
 
 ### Ruta garantizada vs. ruta ambiciosa
 
@@ -124,7 +124,7 @@ flowchart LR
         subgraph H[Contenedor del hospital]
             K[Llave privada Paillier]
             E[Cifrar / descifrar]
-            G[Granite · llama.cpp<br/>explica al paciente]
+            G[Factores principales<br/>Granite: extra]
         end
         subgraph S[Servicio de riesgo · sin llave]
             M[Modelo logístico<br/>pesos en punto fijo]
@@ -141,7 +141,7 @@ flowchart LR
 - **Seguridad de nivel bancario:** cifrado por hardware (CPACF) y aislamiento entre cargas de trabajo.
 - **Escala por lotes:** muchos pacientes en paralelo en una sola plataforma; se mide en vivo.
 
-**Stack:** Python · scikit-learn · python-paillier · TenSEAL/OpenFHE (ruta CKKS) · Granite (llama.cpp) · OpenSSL · Docker · Jupyter Lab ML.
+**Stack implementado:** Python 3.12 · scikit-learn · python-paillier + gmpy2 · cryptography (TLS 1.3 mutuo, AES-256-GCM) · Docker sobre Ubuntu 24.04 (amd64, arm64, s390x) · `make`. Extras aún no usados: TenSEAL/OpenFHE (CKKS) y Granite (llama.cpp).
 
 ## 5. Datos
 

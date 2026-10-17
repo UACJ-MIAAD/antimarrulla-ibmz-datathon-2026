@@ -70,7 +70,7 @@ Los jueces marcaron la misma debilidad: **TenSEAL/SEAL puede no compilar en s390
 - Todo corre en **LinuxONE Community Cloud** (s390x) en **dos contenedores Docker**: el del hospital (llave privada) y el servicio de riesgo (sin llave).
 - **Cómputo pesado:** la aritmética homomórfica son exponenciaciones modulares con enteros de miles de bits.
 - **Cifrado por hardware:** AES-256-GCM en reposo vía OpenSSL, que en IBM Z puede usar CPACF. `openssl speed` solo mide la CLI: la evidencia es la de [PROYECTO.md](PROYECTO.md) (`lscpu`, `cpacfinfo`, versiones de OpenSSL de la CLI y de `cryptography`, y la medición dentro de la app).
-- **Labs obligatorios:** el patrón "predictivo + generativo" del lab 2 se refleja en Granite explicando el resultado.
+- **Labs obligatorios:** el patrón "predictivo + generativo" del lab 2 se reflejaría en Granite explicando el resultado (extra, aún no integrado).
 
 ## Dataset
 
