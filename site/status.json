@@ -1,7 +1,7 @@
 {
-  "rev": 29,
-  "updated_at": "2026-10-17T20:01:38Z",
-  "note": "Evidence-based status. Yazmin’s PR 8 form is integrated into the English release (PR 9): US-6.4 complete with local browser/Docker evidence. Human release review, LinuxONE/labs evidence and final English narration remain open. See docs/YAZMIN_INTEGRATION.md and docs/DELIVERY_PLAN.md. Keep Netlify and its badge. Hosting decided: interactive frontend/API/vault in Hospital on the approved VM; public pitch/forecast/plan on Netlify. Team access through SSH; actual VM deployment and public prototype remain unverified. docs/DEPLOYMENT.md. Carlos’s 200/200 synthetic laptop/server result is recorded as an operator report; terminal evidence reaches 125/200 and the final audit/provenance remain pending. US-6.5 stays in progress.",
+  "rev": 30,
+  "updated_at": "2026-10-17T20:03:41Z",
+  "note": "Evidence-based status. Yazmin’s PR 8 form is integrated into the English release (PR 9): US-6.4 complete with local browser/Docker evidence. Human release review, LinuxONE/labs evidence and final English narration remain open. See docs/YAZMIN_INTEGRATION.md and docs/DELIVERY_PLAN.md. Keep Netlify and its badge. Hosting decided: interactive frontend/API/vault in Hospital on the approved VM; public pitch/forecast/plan on Netlify. Team access through SSH; actual VM deployment and public prototype remain unverified. docs/DEPLOYMENT.md. Carlos’s 200/200 synthetic laptop/server result is recorded as an operator report; terminal evidence reaches 125/200 and the final audit/provenance remain pending. US-6.5 stays in progress. Álvaro’s legacy Spanish v1 screenshot reports Linux s390x, service ok and synthetic C at 66.3%; provider identity and final English v2 execution remain open. Team decision: synthetic identifiers only; do not collect real CURPs from the web.",
   "milestones": {
     "internal_start": "2026-10-17T13:00:00Z",
     "virtual_closing": "2026-10-18T05:00:00Z",
@@ -161,7 +161,7 @@
           "block": "prep",
           "priority": "MVP",
           "state": "in_progress",
-          "evidence": "Carlos reports a working server and Álvaro reconnecting (October 17 chat); provider screenshots are still absent from the repository."
+          "evidence": "Álvaro reports the application running on the server (October 17, 15:53; timezone unspecified). Supplied legacy UI reports Linux s390x and service ok. Community Cloud identity and SSH access for all four are not established by this screenshot. submission/evidence/linuxone/alvaro_20261017_legacy_ui_reported.md."
         },
         {
           "id": "US-2.2",
@@ -193,7 +193,7 @@
           "block": "h3",
           "priority": "MVP",
           "state": "done",
-          "evidence": "docker/compose.yml and tests/test_protocol.py::test_e_servicio_sin_llave_privada verified locally; LinuxONE screenshots are missing."
+          "evidence": "docker/compose.yml and tests/test_protocol.py::test_e_service_without_key_private verified locally; final LinuxONE deployment evidence remains open."
         },
         {
           "id": "US-2.5",
@@ -215,7 +215,7 @@
           "block": "h16",
           "priority": "MVP",
           "state": "in_progress",
-          "evidence": "05_test_claims.py now runs the actual 21-feature src/screening tests and saves provenance in submission/evidence/instance/. Reported 6/6 and 8/8 checks were preliminary; actual outputs, Community Cloud screenshots and REGISTRO.json are still required."
+          "evidence": "Álvaro’s legacy UI screenshot reports Linux s390x, 2048-bit key and synthetic C at 66.3%. It lacks provider dashboard, uname/lscpu, container/OpenSSL output, complete version/hashes and p50/p95. Actual project test outputs and submission/evidence/linuxone/RECORD.json remain required. submission/evidence/linuxone/alvaro_20261017_legacy_ui_reported.md."
         }
       ]
     },
@@ -400,7 +400,7 @@
           "block": "h8",
           "priority": "MVP",
           "state": "done",
-          "evidence": "src/screening/ui/index.html and submission/evidencias/local/ contain an actual local screenshot. English UI and new release screenshots remain open under US-7.9."
+          "evidence": "English split-screen UI verified locally; synthetic C shows 21 ciphertexts and 66.3%. submission/evidence/local/yazmin_form_integrated_C.png. Álvaro’s separate supplied legacy Spanish v1 screen reports the same synthetic score on Linux s390x; final English VM footage remains open under US-6.2/7.2/7.9."
         },
         {
           "id": "US-6.2",
@@ -411,7 +411,7 @@
           "block": "h12",
           "priority": "MVP",
           "state": "in_progress",
-          "evidence": "submission/evidencias/metricas/medicion_api_local-darwin-arm64_20261017T180952Z.json, commit 65ae4ef, local two-container deployment: 200/200 exact, p50 141.29 ms, p95 180.039 ms. LinuxONE evidence on the translated commit is missing. Deployment decision: serve the form and API together in Hospital, accessed through an SSH tunnel; keep its encrypted vault on the hospital volume. docs/DEPLOYMENT.md. Actual LinuxONE execution remains pending."
+          "evidence": "Supplied screenshot associated with Álvaro’s server report displays service ok, Linux s390x and synthetic C at 66.3%, with 21 input controls and ciphertext request. It visibly uses Spanish tamizaje-paillier-v1, not the final English v2 release. Full commit/provider/hashes and new English execution evidence remain pending. submission/evidence/linuxone/alvaro_20261017_legacy_ui_reported.md. Frontend/API/vault stay in Hospital; docs/DEPLOYMENT.md."
         },
         {
           "id": "US-6.3",
@@ -422,7 +422,7 @@
           "block": "h16",
           "priority": "MVP",
           "state": "in_progress",
-          "evidence": "Complete local flow verified with demo, smoke and API measurement; LinuxONE execution is missing."
+          "evidence": "Complete local flow verified. Álvaro reports the server working and supplies a legacy v1 UI screen reporting s390x and synthetic C at 66.3%; final English v2 rehearsal, provider/version evidence and measurements remain open. submission/evidence/linuxone/alvaro_20261017_legacy_ui_reported.md."
         },
         {
           "id": "US-6.4",

@@ -46,6 +46,12 @@ Freeze the translated code commit **before** the final LinuxONE measurement and 
 | Done locally | Yazmin; Javier integrates | PR 8 grouped, coded form integrated with English v2; move to the English video and visual review | docs/YAZMIN_INTEGRATION.md; synthetic desktop/mobile screenshots. Does not certify clinical usability or LinuxONE execution. |
 | 4 | Javier and all four teammates | Pin the final version; align PDF/site/script; confirm AI attribution; build the final package and submit through the registered leader | English gate complete, `make package FINAL=1`, working public links and Hack2Skill confirmation screenshot |
 
+## Latest server progress and demo identifiers
+
+Álvaro’s supplied screenshot shows the legacy Spanish v1 UI reporting Linux s390x, service `ok` and synthetic C at 66.3%. This is partial progress; it does not establish provider identity or final English v2 execution. [Evidence record](../submission/evidence/linuxone/alvaro_20261017_legacy_ui_reported.md). Álvaro and Carlos should preserve that run, rebuild both peers from the reviewed English release, and capture the English UI plus complete provider/version/measurement evidence.
+
+The team abandoned collecting real CURPs from the web. Demo patients and identifiers remain synthetic; use the existing random request IDs. Do not add identity fields to the 21-feature model.
+
 ## Frontend and storage deployment decision
 
 Serve the interactive form and API together in the Hospital container on the approved shared VM. Keep the encrypted vault in Hospital’s persistent Docker volume and its key outside the repository. The public presentation, aggregate map, forecast and plan stay on Netlify. Team members reach Hospital through SSH; a public interactive prototype is optional and remains unimplemented. Owners and exact flow: [DEPLOYMENT.md](DEPLOYMENT.md). This placement decision does not establish completed LinuxONE deployment or measurements.

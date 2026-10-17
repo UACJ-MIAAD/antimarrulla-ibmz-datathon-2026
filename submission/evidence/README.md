@@ -4,7 +4,7 @@ English release outputs belong here. Original evidence under `submission/evidenc
 
 - `local/`: actual English UI screenshot with synthetic patient C, local Docker aarch64.
 - `metrics/`: new process/API measurements with code, model, split and environment provenance.
-- `linuxone/`: actual s390x/provider evidence; currently pending.
+- `linuxone/`: partial legacy UI evidence from Álvaro reports Linux s390x and synthetic C at 66.3%; see `linuxone/alvaro_20261017_legacy_ui_reported.md`. Actual provider identity and final English v2 execution/measurements remain pending.
 - `labs/`: actual completion dates, owners and screenshots; currently pending.
 - `two_hosts/`: optional remote-flow evidence. Carlos reports 200/200 synthetic laptop/server results; the supplied terminal image shows progress through 125/200. Final strict audit and host/provenance evidence remain pending. See `two_hosts/carlos_20261017_reported.md`.
 - `private/`: ignored local originals of team-chat attachments; excluded from publication and release packages. Publish attributed English summaries, preserving original hashes.

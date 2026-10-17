@@ -1,0 +1,83 @@
+{
+  "schema": "reported-ui-evidence-v1",
+  "recorded_at_utc": "2026-10-17T20:03:41.066466+00:00",
+  "operator_report": {
+    "name": "Álvaro Hernández Jarquín",
+    "message_date": "2026-10-17",
+    "message_time": "15:53:01",
+    "timezone": null,
+    "source": "Captain-supplied chat excerpt",
+    "statement": "The application runs well on the server."
+  },
+  "source": {
+    "kind": "Captain-supplied browser screenshot associated with the operator report",
+    "sha256": "51a623aa75ed62258f356bce56b55558efa4907fde5d68055763fb18c924fe14",
+    "original_preserved_locally": true,
+    "local_path": "submission/evidence/private/alvaro_20261017_legacy_s390x_ui.png",
+    "publication": "Original browser screenshot retained locally and excluded from publication/packages; English observations recorded here."
+  },
+  "visible_ui": {
+    "browser_address": "127.0.0.1:8080",
+    "language": "Spanish",
+    "service_state": "ok",
+    "reported_machine": "s390x",
+    "reported_system": "Linux",
+    "key_public_bits": 2048,
+    "protocol": "tamizaje-paillier-v1",
+    "model": "logistico-cdc21-v1",
+    "schema": "cdc21-v1",
+    "synthetic_banner": true,
+    "editable_features": 21,
+    "profile": "Synthetic C, high risk",
+    "risk_percent": 66.3,
+    "threshold_percent": 12.3,
+    "logit_rounded": 0.6745,
+    "integer_score": "674486224",
+    "request_bytes": 26785,
+    "ciphertext_count_reported": 21
+  },
+  "classification": {
+    "status": "partial_legacy_ui_evidence",
+    "ui_reports_s390x": true,
+    "architecture_independently_verified": false,
+    "linuxone_provider_verified": false,
+    "executed_commit_verified": false,
+    "english_v2_release_verified": false,
+    "tls_negotiation_verified_by_attachment": false,
+    "vault_persistence_verified_by_attachment": false,
+    "final_latency_statistics_present": false
+  },
+  "limits": [
+    "Architecture is displayed by the application; the screenshot has no uname/lscpu output or cloud-provider dashboard.",
+    "A loopback address does not identify the host or prove an SSH tunnel.",
+    "The visible Spanish v1 UI is historical evidence and is not the final English v2 deployment.",
+    "No full commit/code/model hashes, TLS negotiation, vault persistence or timing summary are visible.",
+    "This capture is separate from Carlos’s reported 200-record laptop/server test; their versions and hosts have not been matched."
+  ],
+  "team_data_decision": {
+    "source": "Captain-supplied October 17 chat excerpt, 15:35:57–15:36:58; timezone unspecified",
+    "decision": "Do not collect real CURPs from the web. Keep demo patients and identifiers synthetic.",
+    "operator_followup": "Carlos explicitly abandoned the proposed real-CURP approach.",
+    "implementation": "Use existing random 32-hex request IDs and synthetic profiles. If a display label is needed, use DEMO-001 or similar, without changing the wire ID contract. CURP is not a model predictor.",
+    "scope": "Records the team decision; does not infer an organizer ruling or certify all external branches/datasets."
+  },
+  "next_actions": [
+    "Álvaro and Carlos: pin and rebuild both containers from the reviewed English release; capture the English UI and /api/state.",
+    "Preserve this legacy run with its original provenance; do not relabel its screenshot or metrics as English v2.",
+    "Collect Community Cloud provider, uname/lscpu, container and OpenSSL evidence plus complete version/hashes.",
+    "Run process and full API final measurements; fill submission/evidence/linuxone/RECORD.json only with actual evidence.",
+    "Yazmin and Javier: record final English narration and real VM/model footage with synthetic inputs."
+  ],
+  "plan": {
+    "stories": [
+      "US-2.1",
+      "US-2.6",
+      "US-6.2",
+      "US-6.3",
+      "US-7.2",
+      "US-7.9"
+    ],
+    "completion_change": false,
+    "reason": "Useful legacy UI progress; final English execution and provider/provenance evidence remain open."
+  }
+}

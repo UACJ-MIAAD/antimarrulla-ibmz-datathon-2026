@@ -23,3 +23,7 @@
 - [ ] Add the same URL to [HACK2SKILL.md](HACK2SKILL.md) and `submission/VIDEO_RECORD.json`, using `VIDEO_RECORD.example.json`
 
 The silent draft has no consent or voice claims. Do not check “final video” until the actual narrated recording and access check exist.
+
+## Latest server screenshot
+
+Álvaro’s captain-supplied October 17 screenshot reports Linux s390x and a synthetic C result of 66.3%, but visibly uses Spanish `tamizaje-paillier-v1`. It is historical partial evidence, not the final English recording. Rebuild both English v2 peers, then record the UI/model/provider segments with synthetic profiles and existing random IDs; do not collect real CURPs. See [evidence record](evidence/linuxone/alvaro_20261017_legacy_ui_reported.md).

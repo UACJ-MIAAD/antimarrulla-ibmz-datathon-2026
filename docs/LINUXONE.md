@@ -1,6 +1,6 @@
 # LinuxONE runbook (s390x)
 
-Actual LinuxONE execution and provider evidence remain **unverified**. Local Mac/Ubuntu containers and GitHub x86_64 CI do not replace them. Owner: Álvaro, with Carlos for measurements. Use the translated release commit throughout. The optional [two-host test](TWO_HOSTS.md) is separate from the approved one-VM/two-container MVP.
+A supplied legacy Spanish UI screenshot now reports Linux `s390x`, service `ok` and synthetic profile C at 66.3%; see [Álvaro’s partial evidence](../submission/evidence/linuxone/alvaro_20261017_legacy_ui_reported.md). **Provider identity and final English v2 execution remain unverified**. Local Mac/Ubuntu containers and GitHub x86_64 CI do not replace them. Owner: Álvaro, with Carlos for measurements. Use the translated release commit throughout. The optional [two-host test](TWO_HOSTS.md) is separate from the approved one-VM/two-container MVP.
 
 ## 0. Prerequisites
 

@@ -63,6 +63,7 @@ CDC UCI 891 supplies 253,680 public survey records and 21 predictors for model t
 |-------|----------|-------------|
 | E5 and CKKS | Retain as optional extensions | Paillier/H18 demo remain the MVP; pause extensions if H12 flow is missing |
 | AI disclosure | Removed from README; publication location is still a team decision | Local draft is not completed disclosure; recorded rules require transparency |
+| Demo identifiers | Synthetic patients and identifiers only; do not collect real CURPs from the web | October 17 team chat: Carlos abandoned the real-CURP proposal. Keep random 32-hex request IDs; CURP is not a predictor. See [legacy UI and team decision record](../submission/evidence/linuxone/alvaro_20261017_legacy_ui_reported.md). |
 | Trust boundary | Hospital and service share one demo VM | Administrator is trusted; synthetic demo inputs only |
 | Contact emails | Retain with prior team agreement | No removal during translation |
 | Public project hosting | Keep Netlify and its badge | Pitch, public aggregate map, forecast and plan remain static public pages |
