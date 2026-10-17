@@ -16,7 +16,7 @@ Repositorio oficial del equipo **Los Antimarrulla** (UACJ · Maestría en Inteli
 | Participante | Nombre |
 |--------------|--------|
 | Participante 1 | Javier Augusto Rebull Saucedo |
-| Participante 2 | Álvaro Hernández Jarquín |
+| Participante 2 | Álvaro Hernández Jarquín 2 |
 | Participante 3 | Carlos Gonzalez |
 | Participante 4 | Yazmin Ivonne Flores Martinez |
 
