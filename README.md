@@ -97,7 +97,7 @@ En LinuxONE (s390x) los pasos son los mismos; si algún paquete no trae wheel pa
 
 > _Se completa tras la reunión de decisión (hora 1). Ver [docs/DECISION.md](docs/DECISION.md)._
 
-- **Nombre del proyecto:** _por definir_SI me dejo editar a huevuki
+- **Nombre del proyecto:** _por definir_
 - **Tema oficial:** _por definir_
 - **Problema:** _por definir_
 - **Solución:** _por definir_
