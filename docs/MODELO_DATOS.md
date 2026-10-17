@@ -34,7 +34,7 @@ Dos mundos que no se mezclan:
 4. Particiones: 70 / 15 / 15 estratificadas por `Diabetes_binary`; `class_weight="balanced"` por el desbalance.
 5. Métricas: AUC, AUC-PR, sensibilidad/especificidad a un umbral fijado en validación, calibración, error numérico claro vs. cifrado y **AUC cifrado vs. en claro sobre la misma muestra** ([PROYECTO.md §6](PROYECTO.md#6-métricas-que-reportamos)).
 
-**Evaluación externa exploratoria con México: ENSANUT 2022/2023** (historia US-3.5, extra, pendiente)
+**Evaluación externa exploratoria con México: ENSANUT 2022/2023** (historia US-3.5, extra; protocolo y resultados en [ENSANUT_EXPERIMENTO.md](ENSANUT_EXPERIMENTO.md))
 
 Es un **experimento aparte**, no una validación del modelo del MVP: 11 de las 21 variables no tienen equivalente directo, y la etiqueta (diagnóstico declarado) no es idéntica a la del CDC. Antes de evaluar se fija cuál de dos variantes se corre: un **modelo reducido** entrenado en el CDC solo con las variables comunes, o el modelo completo con las 11 faltantes imputadas (reportándolo). Los microdatos no se suben al repo (ver [FUENTES_DATOS.md §8](FUENTES_DATOS.md#8-ensanut-2022-y-2023-insp--evaluación-externa-exploratoria-con-población-mexicana)).
 

@@ -1,6 +1,6 @@
 {
-  "rev": 13,
-  "actualizado": "2026-10-17T09:13:44Z",
+  "rev": 19,
+  "actualizado": "2026-10-17T10:04:26Z",
   "nota": "Para actualizar: cambia 'estado' de la historia (hecho · en_curso · pendiente · bloqueado), sube 'rev' en 1, pon 'actualizado' con la hora real en UTC y haz commit a main. El sitio muestra la copia con 'rev' mayor (GitHub o la publicada).",
   "hitos": {
     "hora_cero": "2026-10-17T13:00:00Z",
@@ -179,7 +179,8 @@
           "quien": "Álvaro",
           "bloque": "h1",
           "prioridad": "Plus",
-          "estado": "pendiente"
+          "estado": "pendiente",
+          "evidencia": "TenSEAL 0.3.18 tiene rueda para macOS arm64 pero no para s390x (habría que compilar SEAL en la VM). No se implementó; Paillier es la ruta aprobada"
         },
         {
           "id": "US-2.4",
@@ -189,7 +190,8 @@
           "quien": "Álvaro",
           "bloque": "h3",
           "prioridad": "MVP",
-          "estado": "pendiente"
+          "estado": "hecho",
+          "evidencia": "docker/compose.yml · tests/test_protocolo.py::test_e_servicio_sin_llave_privada (local; falta captura en LinuxONE)"
         },
         {
           "id": "US-2.5",
@@ -199,7 +201,8 @@
           "quien": "Álvaro",
           "bloque": "h3",
           "prioridad": "MVP",
-          "estado": "pendiente"
+          "estado": "en_curso",
+          "evidencia": "TLS 1.3 mutuo y bóveda AES-256-GCM listos y probados en local (tests/test_integracion.py); falta evidencia de CPACF en LinuxONE"
         },
         {
           "id": "US-2.6",
@@ -227,7 +230,8 @@
           "quien": "Carlos",
           "bloque": "h3",
           "prioridad": "MVP",
-          "estado": "pendiente"
+          "estado": "hecho",
+          "evidencia": "artefactos/modelo/modelo_logistico_v1.json · artefactos/metricas/modelo_logistico_v1.json (ROC-AUC 0.826 en prueba)"
         },
         {
           "id": "US-3.2",
@@ -237,7 +241,8 @@
           "quien": "Carlos",
           "bloque": "h8",
           "prioridad": "MVP",
-          "estado": "pendiente"
+          "estado": "hecho",
+          "evidencia": "src/tamizaje/protocolo.py · tests/test_protocolo.py (entero descifrado idéntico, cota de error, negativos, extremos, mensajes inválidos)"
         },
         {
           "id": "US-3.3",
@@ -247,7 +252,8 @@
           "quien": "Carlos",
           "bloque": "h12",
           "prioridad": "MVP",
-          "estado": "pendiente"
+          "estado": "hecho",
+          "evidencia": "submission/evidencias/metricas/medicion_local-darwin-arm64_20261017T094045Z.md (local, no LinuxONE): 2,000 pacientes, ROC-AUC igual en flotante, punto fijo y cifrado"
         },
         {
           "id": "US-3.4",
@@ -257,7 +263,8 @@
           "quien": "Carlos · Álvaro",
           "bloque": "h16",
           "prioridad": "Plus",
-          "estado": "pendiente"
+          "estado": "pendiente",
+          "evidencia": "no integrado: requiere llama.cpp y un modelo Granite en la VM; la UI muestra los factores que más pesan"
         },
         {
           "id": "US-3.5",
@@ -267,7 +274,8 @@
           "quien": "Yazmin · Carlos",
           "bloque": "h8",
           "prioridad": "Plus",
-          "estado": "pendiente"
+          "estado": "hecho",
+          "evidencia": "docs/ENSANUT_EXPERIMENTO.md (protocolo publicado antes de evaluar) · artefactos/metricas/ensanut_exploratorio_v1.json: ROC-AUC ponderado 0.767; subestima el riesgo y la sensibilidad cae a 0.46–0.49 con el umbral del CDC"
         }
       ]
     },
@@ -285,7 +293,8 @@
           "quien": "Yazmin",
           "bloque": "h3",
           "prioridad": "MVP",
-          "estado": "pendiente"
+          "estado": "en_curso",
+          "evidencia": "particiones 70/15/15 en artefactos/particiones/ (hecho); EDA pendiente"
         },
         {
           "id": "US-4.2",
@@ -323,7 +332,8 @@
           "quien": "Yazmin",
           "bloque": "h3",
           "prioridad": "Plus",
-          "estado": "pendiente"
+          "estado": "hecho",
+          "evidencia": "222 series SINAVE leídas de data/sinave/ (2022 en adelante; semanas no observadas interpoladas y contadas)"
         },
         {
           "id": "US-5.2",
@@ -333,7 +343,8 @@
           "quien": "Yazmin",
           "bloque": "h8",
           "prioridad": "Plus",
-          "estado": "pendiente"
+          "estado": "hecho",
+          "evidencia": "src/tamizaje/pronostico.py · ETS e ingenuo estacional con backtest de origen móvil (SMAPE por horizonte); T2 nacional: ETS, SMAPE 6.9% en h1–52"
         },
         {
           "id": "US-5.3",
@@ -343,7 +354,8 @@
           "quien": "Carlos",
           "bloque": "h16",
           "prioridad": "Plus",
-          "estado": "pendiente"
+          "estado": "hecho",
+          "evidencia": "respaldo regional (<5 casos en 52 semanas; ninguna serie lo necesitó) y coherencia proporcional nacional → regiones → estados; tests/test_pronostico.py"
         },
         {
           "id": "US-5.4",
@@ -353,7 +365,8 @@
           "quien": "Yazmin",
           "bloque": "h8",
           "prioridad": "Plus",
-          "estado": "pendiente"
+          "estado": "en_curso",
+          "evidencia": "el cálculo de presupuesto existe (casos × costo con fuente obligatoria); falta un costo unitario con fuente documentada"
         },
         {
           "id": "US-5.5",
@@ -363,7 +376,8 @@
           "quien": "Javier",
           "bloque": "h18",
           "prioridad": "Plus",
-          "estado": "pendiente"
+          "estado": "hecho",
+          "evidencia": "site/pronostico.html: curva real vs. pronóstico con bandas 80/95%, trimestres, escenarios y calidad del modelo"
         }
       ]
     },
@@ -381,7 +395,8 @@
           "quien": "Javier",
           "bloque": "h8",
           "prioridad": "MVP",
-          "estado": "pendiente"
+          "estado": "hecho",
+          "evidencia": "src/tamizaje/ui/index.html · submission/evidencias/local/ (captura real, local)"
         },
         {
           "id": "US-6.2",
@@ -391,7 +406,8 @@
           "quien": "Javier · Álvaro",
           "bloque": "h12",
           "prioridad": "MVP",
-          "estado": "pendiente"
+          "estado": "en_curso",
+          "evidencia": "UI conectada al servicio real en contenedores locales (make demo); falta correrla en LinuxONE"
         },
         {
           "id": "US-6.3",
@@ -401,7 +417,8 @@
           "quien": "Equipo",
           "bloque": "h16",
           "prioridad": "MVP",
-          "estado": "pendiente"
+          "estado": "en_curso",
+          "evidencia": "recorrido completo local verificado (make demo + prueba de humo); falta en LinuxONE"
         }
       ]
     },
@@ -439,7 +456,8 @@
           "quien": "Yazmin",
           "bloque": "h18",
           "prioridad": "MVP",
-          "estado": "pendiente"
+          "estado": "en_curso",
+          "evidencia": "borrador sin audio de 170 s (make video-borrador) y storyboard en submission/VIDEO.md; faltan voces y la grabación en LinuxONE"
         },
         {
           "id": "US-7.4",
@@ -449,7 +467,8 @@
           "quien": "Yazmin",
           "bloque": "h18",
           "prioridad": "MVP",
-          "estado": "pendiente"
+          "estado": "en_curso",
+          "evidencia": "submission/Los Antimarrulla_IBM Z Datathon 2026 Project.pdf con cifras locales; falta la versión con mediciones de LinuxONE"
         },
         {
           "id": "US-7.5",
@@ -459,7 +478,8 @@
           "quien": "Carlos · Javier",
           "bloque": "h18",
           "prioridad": "MVP",
-          "estado": "pendiente"
+          "estado": "en_curso",
+          "evidencia": "make verify probado en un clon limpio (local); falta fijar versiones en s390x y la revisión de los 4"
         },
         {
           "id": "US-7.7",
@@ -469,7 +489,8 @@
           "quien": "Álvaro · Javier",
           "bloque": "h16",
           "prioridad": "Plus",
-          "estado": "pendiente"
+          "estado": "hecho",
+          "evidencia": "submission/flowchart/arquitectura.pdf (exportado de la arquitectura implementada)"
         },
         {
           "id": "US-7.8",
@@ -479,7 +500,8 @@
           "quien": "Javier",
           "bloque": "h18",
           "prioridad": "Plus",
-          "estado": "pendiente"
+          "estado": "en_curso",
+          "evidencia": "prototipo interactivo con make demo (solo localhost); falta decidir si se publica un acceso y distinguirlo del video"
         },
         {
           "id": "US-7.6",

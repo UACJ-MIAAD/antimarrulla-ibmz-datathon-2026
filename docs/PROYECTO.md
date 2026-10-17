@@ -34,7 +34,7 @@ sequenceDiagram
     H->>S: Enc(x₁) … Enc(x₂₁) por TLS 1.3
     S->>S: 2. Calcula Enc(w·x) = ∏ Enc(xᵢ)^wᵢ
     S->>H: 3. Regresa el puntaje cifrado
-    H->>H: 4. Descifra, aplica sigmoide y Granite explica
+    H->>H: 4. Descifra, aplica sigmoide y muestra factores (Granite: extra)
 ```
 
 - **Es tamizaje, no diagnóstico:** prioriza a quién hacerle una prueba de glucosa.
@@ -61,13 +61,13 @@ Las 21 variables del CDC son **enteros** (14 binarias 0/1 y siete escalas), así
 | Paso | Regla |
 |------|-------|
 | Orden | `HighBP, HighChol, CholCheck, BMI, Smoker, Stroke, HeartDiseaseorAttack, PhysActivity, Fruits, Veggies, HvyAlcoholConsump, AnyHealthcare, NoDocbcCost, GenHlth, MentHlth, PhysHlth, DiffWalk, Sex, Age, Education, Income` (sin `ID`). El esquema se versiona junto con el modelo |
-| Rango permitido | Binarias 0–1 · `BMI` 12–98 · `GenHlth` 1–5 · `MentHlth` y `PhysHlth` 0–30 · `Age` 1–13 · `Education` 1–6 · `Income` 1–8. El hospital rechaza el vector si algo sale de rango |
+| Validación de entrada | Exactamente las **21 variables**, con estos nombres y en este orden (esquema versionado). Cada valor debe ser un **entero** finito dentro de su rango: binarias 0–1 · `BMI` 12–98 · `GenHlth` 1–5 · `MentHlth` y `PhysHlth` 0–30 · `Age` 1–13 · `Education` 1–6 · `Income` 1–8. Se rechaza el vector completo si falta un campo, sobra uno, viene vacío, es fraccionario, `NaN`/infinito o sale de rango |
 | Transformación en el hospital | Ninguna: manda los códigos enteros tal cual (`X_i = x_i`, `S_x = 1`). Si el modelo se entrena con variables estandarizadas, la estandarización se **pliega en los pesos** al exportar: `w'_i = w_i/σ_i` y `b' = b − Σ w_i·μ_i/σ_i`, con `μ` y `σ` del conjunto de entrenamiento |
 | Pesos e intercepto | `W_i = round(S_w · w'_i)` y `B = round(S_w · b')`, con **`S_w = 10^9`** |
 | Exponente | **0 para todo**: se cifran enteros (`public_key.encrypt(int(x))`) y se multiplican por enteros, así el exponente de `EncodedNumber` es el mismo para todos y no filtra magnitud |
 | Cálculo cifrado | `Enc(z) = ∏ Enc(X_i)^{W_i} · Enc(B)` (mod `n²`), es decir `z = Σ W_i·X_i + B` |
 | Negativos | Se representan módulo `n` (lo resuelve la codificación de `phe`); el hospital decodifica el entero con signo |
-| Desbordamiento | `Σ|x_i| ≤ 204` con los rangos de arriba, así que `|z| ≤ 204·max|W_i| + |B|`. Con llave de 2048 bits, `phe` admite hasta `n/3 ≈ 2^2046`; el servidor rechaza modelos con `max|W_i| > 10^15` |
+| Desbordamiento | Con `M_i` = máximo absoluto permitido de la variable `i` (1 en binarias, 98 en `BMI`, etc.), se exige **`Σ M_i·|W_i| + |B| < public_key.max_int`** al cargar el modelo (`max_int ≈ n/3`; con llave de 2048 bits, ≈ 2^2046). Si no se cumple, el modelo se rechaza; la comprobación incluye el intercepto |
 | Descifrado | El hospital calcula `logit = z / S_w` y `p = σ(logit)` |
 | Prueba 1 · cifrado exacto | El entero descifrado debe ser **idéntico** al `z` calculado en claro con los mismos `W_i`, `B` y `X_i` (error 0). Esto prueba el cifrado |
 | Prueba 2 · cuantización | Contra el modelo en flotante: `|logit_cuantizado − logit_flotante| ≤ (0.5·Σ|x_i| + 0.5) / S_w ≤ 1.03×10⁻⁷`, y el error en `p` es a lo más un cuarto de eso. Se reporta el error máximo observado y la diferencia de AUC entre flotante y punto fijo |
@@ -103,10 +103,10 @@ CPACF acelera AES; **no** acelera Paillier, no es Secure Execution, no protege l
 | Hospital (tiene la llave privada) | En claro: son sus pacientes | En claro |
 | Servicio de riesgo en LinuxONE | **Solo números cifrados** | **Solo cifrado** |
 | Disco, logs y respaldos | **Cifrado AES-256-GCM** | **Cifrado AES-256-GCM** |
-| Granite (dentro del entorno del hospital) | Solo lo que el hospital le pase (prompt mínimo, sin registro de prompts) | Resultado descifrado |
+| Granite (extra, aún no integrado; iría dentro del entorno del hospital) | Solo lo que el hospital le pase (prompt mínimo, sin registro de prompts) | Resultado descifrado |
 | Administrador del host donde corra el entorno del hospital | Puede acceder a ese entorno: **es parte de la frontera de confianza** | Ídem |
 
-> **Frontera de confianza:** el servicio de riesgo solo recibe cifrados y no tiene la llave. La llave y Granite viven en el **entorno del hospital**; quien administre ese entorno queda dentro de la frontera de confianza. Dos contenedores en una misma VM **no** protegen frente al administrador del host. **En la demo, los dos contenedores corren en la misma VM de LinuxONE** ([DECISION.md](DECISION.md#decisiones-tras-la-auditoría-externa-17-oct)): el equipo, como administrador de esa VM, queda dentro de la frontera de confianza, y por eso la demo usa solo pacientes sintéticos. En producción, el contenedor del hospital correría en la infraestructura del hospital y a LinuxONE solo llegarían cifrados.
+> **Frontera de confianza:** el servicio de riesgo solo recibe cifrados y no tiene la llave. La llave (y Granite, si se integra) viven en el **entorno del hospital**; quien administre ese entorno queda dentro de la frontera de confianza. Dos contenedores en una misma VM **no** protegen frente al administrador del host. **En la demo, los dos contenedores corren en la misma VM de LinuxONE** ([DECISION.md](DECISION.md#decisiones-tras-la-auditoría-externa-17-oct)): el equipo, como administrador de esa VM, queda dentro de la frontera de confianza, y por eso la demo usa solo pacientes sintéticos. En producción, el contenedor del hospital correría en la infraestructura del hospital y a LinuxONE solo llegarían cifrados.
 
 ### Ruta garantizada vs. ruta ambiciosa
 
@@ -124,7 +124,7 @@ flowchart LR
         subgraph H[Contenedor del hospital]
             K[Llave privada Paillier]
             E[Cifrar / descifrar]
-            G[Granite · llama.cpp<br/>explica al paciente]
+            G[Factores principales<br/>Granite: extra]
         end
         subgraph S[Servicio de riesgo · sin llave]
             M[Modelo logístico<br/>pesos en punto fijo]
@@ -141,7 +141,7 @@ flowchart LR
 - **Seguridad de nivel bancario:** cifrado por hardware (CPACF) y aislamiento entre cargas de trabajo.
 - **Escala por lotes:** muchos pacientes en paralelo en una sola plataforma; se mide en vivo.
 
-**Stack:** Python · scikit-learn · python-paillier · TenSEAL/OpenFHE (ruta CKKS) · Granite (llama.cpp) · OpenSSL · Docker · Jupyter Lab ML.
+**Stack implementado:** Python 3.12 · scikit-learn · python-paillier + gmpy2 · cryptography (TLS 1.3 mutuo, AES-256-GCM) · Docker sobre Ubuntu 24.04 (amd64, arm64, s390x) · `make`. Extras aún no usados: TenSEAL/OpenFHE (CKKS) y Granite (llama.cpp).
 
 ## 5. Datos
 
@@ -170,17 +170,40 @@ Detalle de variables y cruce entre fuentes en [FUENTES_DATOS.md](FUENTES_DATOS.m
 | Tamaño del cifrado por paciente | Costo de comunicación |
 | Pacientes por minuto en LinuxONE | Escala |
 
-Todas se miden **en vivo en LinuxONE** y se guardan en `submission/evidencias/`.
+Las del modelo vienen de `make modelo` (`artefactos/metricas/modelo_logistico_v1.json`); las del recorrido cifrado, de `make medir`, que etiqueta el entorno donde corrió (`submission/evidencias/metricas/`). Las de LinuxONE se toman al correr ahí ([LINUXONE.md](LINUXONE.md)).
+
+### 6.1 Resultados del modelo (17 oct 2026)
+
+Regresión logística (`lbfgs`, C = 1, sin `class_weight`), estandarización ajustada solo con entrenamiento y plegada en los pesos. Particiones 70/15/15 estratificadas con semilla 2026 (`artefactos/particiones/`). Umbral **0.1225**, fijado en validación (sensibilidad ≥ 0.80 con la mayor especificidad).
+
+| Partición | ROC-AUC | Average precision¹ | Sensibilidad | Especificidad | VPP | Brier | ECE² |
+|-----------|--------:|-------------------:|-------------:|--------------:|----:|------:|-----:|
+| Validación (38,052) | 0.819 | 0.398 | 0.800 | 0.692 | 0.296 | 0.100 | 0.016 |
+| Prueba (38,052) | 0.826 | 0.415 | 0.805 | 0.691 | 0.297 | 0.098 | 0.012 |
+
+Matriz de confusión en prueba: 4,268 VP · 1,034 FN · 22,644 VN · 10,106 FP.
+
+¹ `average_precision_score` de scikit-learn: suma de precisiones ponderada por el incremento de recall; no es el área trapezoidal bajo la curva PR. ² Error de calibración esperado con 10 grupos de igual tamaño.
+
+- **`class_weight="balanced"`** casi no cambia el ranking (ROC-AUC 0.827) pero infla las probabilidades: p media 0.386 contra 13.9% de positivos, Brier 0.175 y ECE 0.246. Por eso el modelo exportado no lo usa y no hace falta calibrador.
+- **Duplicados:** 24,206 filas repetidas sin `ID` en todo el CDC; 4,560 filas de prueba tienen una copia idéntica en entrenamiento. Pueden ser respuestas iguales de personas distintas. Entrenando sin duplicados (163,437 filas) el resultado en prueba casi no cambia: ROC-AUC 0.826, AP 0.415, Brier 0.098.
+- **Punto fijo:** en las 38,052 filas de prueba, el error máximo del logit frente al flotante es 5.7×10⁻⁸ (cota 9.6×10⁻⁸), el ROC-AUC es idéntico y ninguna decisión cambia en el umbral.
+- XGBoost no se entrenó: queda subordinado a la logística.
+
+### 6.2 Recorrido cifrado (medición local, no LinuxONE)
+
+Medido el 17 oct en macOS arm64 (12 CPU, Python 3.12, `phe` 1.5.0 con `gmpy2`, llave de 2048 bits), sobre **2,000 pacientes** de prueba (muestra estratificada con semilla 2026: 279 positivos): **2,000 de 2,000** enteros descifrados idénticos a la referencia; error máximo del logit 4.5×10⁻⁸ (cota 7.9×10⁻⁸); ROC-AUC **0.808** igual en flotante, punto fijo y cifrado. Tiempos p50/p95: cifrar 114/127 ms, evaluar sobre cifrados 8.3/9.8 ms, descifrar 1.6/2.1 ms; recorrido completo por HTTPS con TLS 1.3 mutuo y bóveda, 128/148 ms (≈ 459 pacientes/min en secuencia). Solicitud de 26.8 KB y respuesta de 1.4 KB. **No es velocidad de LinuxONE.** Archivo: `submission/evidencias/metricas/medicion_local-darwin-arm64_20261017T094045Z.json`.
 
 **Tamaño de la evaluación cifrada:** el conjunto de prueba completo (15%) son 38,052 personas × 21 variables = **799,092 cifrados** antes de los productos. Primero se mide cuántos pacientes por minuto procesa LinuxONE; con eso se elige una **muestra estratificada** (por ejemplo 1,000–2,000 personas) y se compara claro contra cifrado **exactamente sobre esa muestra**, reportando tamaño y composición.
 
-**Qué afirmamos y qué no:** es una **prueba técnica de inferencia privada**. El modelo clasifica una etiqueta de una encuesta de EE. UU. (prediabetes o diabetes declarada); no demuestra predicción prospectiva, ni detección de diabetes no diagnosticada en México, ni reducción de complicaciones. Una evaluación externa exploratoria con ENSANUT (US-3.5, extra) está **pendiente**: sería un experimento aparte, con predictores y objetivo definidos antes de evaluar. La validación clínica queda fuera del evento.
+**Qué afirmamos y qué no:** es una **prueba técnica de inferencia privada**. El modelo clasifica una etiqueta de una encuesta de EE. UU. (prediabetes o diabetes declarada); no demuestra predicción prospectiva, ni detección de diabetes no diagnosticada en México, ni reducción de complicaciones. La evaluación externa exploratoria con ENSANUT (US-3.5, extra) se hizo como experimento aparte con protocolo publicado antes de evaluar ([ENSANUT_EXPERIMENTO.md](ENSANUT_EXPERIMENTO.md)): un modelo reducido de 10 variables tiene ROC-AUC ponderado de 0.767 en adultos mexicanos, pero subestima el riesgo y su sensibilidad cae a 0.46–0.49 con el umbral del CDC. No valida el MVP. La validación clínica queda fuera del evento.
 
 ## 7. Demo (pantalla dividida)
 
 - **Izquierda, "lo que ve el servidor":** cada indicador como un número cifrado ilegible.
-- **Derecha, "lo que ve el hospital":** riesgo del paciente, factores principales y explicación de Granite.
-- **Abajo:** métricas en vivo.
+- **Derecha, "lo que ve el hospital":** riesgo del paciente, decisión frente al umbral y los cinco factores que más mueven el puntaje (la explicación con Granite es un extra aún no integrado).
+- **Abajo:** tiempos reales de esa solicitud (cifrar, TLS + servicio, descifrar, total).
+- Implementada en `src/tamizaje/ui/index.html`; captura real en `submission/evidencias/local/`.
 - **Momento clave:** buscar en los logs del servidor un dato del paciente → cero resultados.
 
 ## 8. Plan por horas

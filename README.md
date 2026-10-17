@@ -50,7 +50,11 @@ Más detalle: [COMPETENCIA](docs/COMPETENCIA.md) · [REGLAS](docs/REGLAS.md) · 
 ├── README.md                ← estás aquí
 ├── CONTRIBUTING.md          ← ramas, PRs y formato de commits
 ├── LICENSE                  ← MIT
-├── requirements.txt
+├── requirements.txt         ← versiones verificadas
+├── Makefile                 ← interfaz única: make verify · make demo · make medir · make package
+├── artefactos/              ← particiones 70/15/15, esquema, modelo exportado y sus métricas
+├── docker/                  ← imagen Ubuntu 24.04 (amd64, arm64, s390x) y compose de la demo
+├── tests/                   ← pruebas del protocolo, el servicio y la integración
 ├── .github/                 ← plantilla de pull request
 ├── assets/                  ← logo del equipo
 ├── docs/
@@ -66,9 +70,12 @@ Más detalle: [COMPETENCIA](docs/COMPETENCIA.md) · [REGLAS](docs/REGLAS.md) · 
 │   ├── IDEAS.md             ← ideas candidatas + matriz de decisión
 │   ├── Ranking_Ideas_Antimarrulla.pptx ← 11 ideas calificadas por jueces ciegos
 │   ├── ROLES.md             ← quién hace qué, turnos y descanso
+│   ├── LINUXONE.md          ← pasos para correr todo en la VM s390x
 │   ├── CHECKLIST_ENTREGA.md ← nada se entrega sin palomear esto
 │   └── LINKS.md             ← enlaces oficiales y de comunidad
-├── src/                     ← código del proyecto (se escribe DURANTE el evento)
+├── src/
+│   ├── tamizaje/            ← modelo, protocolo Paillier, servicio, hospital, UI, bóveda y mediciones
+│   └── datos/               ← scripts reproducibles de los datos derivados
 ├── notebooks/               ← exploración y experimentos
 ├── data/                    ← datos públicos listos para usar (inventario en data/README.md)
 │   ├── cdc_891/             ← entrenamiento del modelo (CDC, 253,680 registros)
@@ -89,32 +96,27 @@ Más detalle: [COMPETENCIA](docs/COMPETENCIA.md) · [REGLAS](docs/REGLAS.md) · 
     ├── Los_Antimarrulla_Pitch_Tamizaje.pptx ← presentación del proyecto (8 slides)
     ├── PITCH.md             ← guion del video de máx. 3 minutos
     ├── SLIDES.md            ← estructura de las slides
-    └── evidencias/          ← capturas de LinuxONE para los jueces
+    └── evidencias/          ← mediciones y capturas (locales hoy; LinuxONE al correr ahí)
 ```
 
 ---
 
-## Quickstart
+## Cómo correrlo
+
+Requisitos: Python 3.12, Docker y `make`. Probado el 17 oct 2026 en macOS arm64 (host y contenedores Linux arm64) y en un clon limpio. **Aún no se ha corrido en LinuxONE**: los pasos para la VM s390x están en [docs/LINUXONE.md](docs/LINUXONE.md).
 
 ```bash
-# 1. Clonar
 git clone https://github.com/UACJ-MIAAD/antimarrulla-ibmz-datathon-2026.git
 cd antimarrulla-ibmz-datathon-2026
-
-# 2. Entorno virtual (Python 3.10+)
-python3 -m venv .venv
-source .venv/bin/activate        # Windows: .venv\Scripts\activate
-
-# 3. Dependencias base
-pip install -r requirements.txt
-
-# 4. Exploración
-jupyter notebook notebooks/
+make verify      # crea .venv, corre todas las pruebas y verifica artefactos y re-entrenamiento
+make demo        # genera secretos en ~/.tamizaje, construye la imagen, levanta hospital + servicio y corre la prueba de humo
+open http://127.0.0.1:8080   # UI de pantalla dividida (pacientes sintéticos)
+make medir       # mediciones con evidencia del entorno → submission/evidencias/metricas/
+make package     # paquete de entrega en dist/
+make demo-down
 ```
 
-En LinuxONE (s390x) los pasos son los mismos; si algún paquete no trae wheel para s390x, se documenta aquí la alternativa que usamos.
-
->  _Esta sección se actualiza durante el evento con el comando exacto para correr la demo._
+Sin Python en el host (por ejemplo, en la VM): `make verify-docker`, `make demo-docker` y `make medir-docker` hacen lo mismo dentro de las imágenes Ubuntu 24.04.
 
 ---
 
@@ -128,12 +130,12 @@ En LinuxONE (s390x) los pasos son los mismos; si algún paquete no trae wheel pa
 
 - **Tema oficial:** T2 · AI Secured: Innovation Without Exposure
 - **Problema:** en México, 18.3% de los adultos vive con diabetes, 1 de cada 3 no lo sabe y es la 2.ª causa de muerte (112,577 defunciones registradas en 2024). En hospitales de la Secretaría de Salud, 11,550 egresos por diabetes (18.4%) incluyeron una amputación de miembro inferior. Los hospitales tienen los datos para detectar el riesgo antes, pero no pueden compartirlos.
-- **Solución:** el hospital cifra los 21 indicadores del paciente con **cifrado homomórfico (Paillier)** y se queda con la llave. LinuxONE calcula el riesgo de diabetes **sobre los datos cifrados**, sin poder leerlos. El hospital descifra el resultado y **Granite** lo explica en lenguaje claro. Es tamizaje, no diagnóstico.
-- **Uso de IBM Z / LinuxONE:** dos contenedores Docker en LinuxONE (hospital con llave · servicio de riesgo sin llave); aritmética homomórfica con enteros de miles de bits; AES-256-GCM en reposo acelerado por CPACF; TLS 1.3 en tránsito.
+- **Solución:** el hospital cifra los 21 indicadores del paciente con **cifrado homomórfico (Paillier)** y se queda con la llave. LinuxONE calcula el riesgo de diabetes **sobre los datos cifrados**, sin poder leerlos. El hospital descifra el resultado y muestra los factores que más pesan; la explicación con **Granite** es un extra que aún no está integrado. Es tamizaje, no diagnóstico.
+- **Uso de IBM Z / LinuxONE:** dos contenedores Docker en LinuxONE (hospital con llave · servicio de riesgo sin llave); aritmética homomórfica con enteros de miles de bits; TLS 1.3 mutuo en tránsito; AES-256-GCM en reposo (en IBM Z puede usar CPACF: la evidencia se toma al correr en la VM).
 - **Datos (ya en `data/`):** CDC Diabetes Health Indicators (UCI 891) para entrenar el modelo; para el contexto mexicano, casos nuevos **SINAVE** 2014–2026, **muertes** y **hospitalizaciones** por diabetes 2024 (base sectorial reportada, incluido el ISSSTE), control en el **SIS**, tamizajes del **IMSS** y población de **CONAPO**. Los archivos completos de la DGIS están en el Release [`datos-2024`](https://github.com/UACJ-MIAAD/antimarrulla-ibmz-datathon-2026/releases/tag/datos-2024).
 - **Indicador exploratorio:** en 2024 se registraron 22 muertes por diabetes (ocurridas y registradas en el año, de residentes en México) por cada 100 casos nuevos notificados en el país, con **44 en Michoacán y 9 en Sinaloa**. No es letalidad ni una medición de subdiagnóstico: mezcla cohortes distintas y no está ajustado por edad ([detalle y límites](docs/FUENTES_DATOS.md#32-muertes-por-cada-100-casos-notificados-por-estado-2024--exploratorio)).
-- **Métrica estrella:** AUC cifrado vs. AUC en claro (la privacidad no cuesta precisión).
-- **Cómo correr la demo:** _se documenta durante el evento._
+- **Métrica estrella:** AUC cifrado vs. AUC en claro sobre los mismos pacientes. Resultado (17 oct, medición **local**, no LinuxONE): en 2,000 pacientes de prueba, los 2,000 enteros descifrados son idénticos a la referencia y el ROC-AUC es el mismo en flotante, punto fijo y cifrado (0.808). Detalle en [submission/evidencias/metricas/](submission/evidencias/metricas/).
+- **Cómo correr la demo:** ver [Cómo correrlo](#cómo-correrlo).
 
 Diseño completo: [docs/PROYECTO.md](docs/PROYECTO.md) · Por qué la elegimos: [docs/DECISION.md](docs/DECISION.md) · Datos: [docs/FUENTES_DATOS.md](docs/FUENTES_DATOS.md) · Pitch: [submission/Los_Antimarrulla_Pitch_Tamizaje.pptx](submission/Los_Antimarrulla_Pitch_Tamizaje.pptx)
 
@@ -159,13 +161,15 @@ Las reglas permiten librerías open source **siempre que se citen**. Esta tabla 
 |------------------------|----------|--------------------|
 | [pandas](https://github.com/pandas-dev/pandas), [NumPy](https://github.com/numpy/numpy), [scikit-learn](https://github.com/scikit-learn/scikit-learn), [matplotlib](https://github.com/matplotlib/matplotlib), [Jupyter](https://github.com/jupyter/notebook) | BSD / PSF | Datos, modelado y visualización |
 | [python-paillier (`phe`)](https://github.com/data61/python-paillier) | GPLv3 (partes Apache 2.0) | Cifrado homomórfico Paillier (ruta garantizada) |
-| [cryptography](https://github.com/pyca/cryptography) | Apache 2.0 / BSD | AES-256-GCM en reposo |
+| [gmpy2](https://github.com/aleaxit/gmpy) | LGPL-3.0-or-later | Aritmética de enteros grandes que `phe` usa para acelerar Paillier |
+| [pytest](https://github.com/pytest-dev/pytest) | MIT | Pruebas |
+| [Ubuntu 24.04](https://hub.docker.com/_/ubuntu) (imagen de contenedor) y sus paquetes `python3-*` | Varias (libres) | Base de los contenedores en amd64, arm64 y s390x |
+| [cryptography](https://github.com/pyca/cryptography) | Apache 2.0 / BSD | AES-256-GCM en reposo y certificados TLS de la demo |
 | [ucimlrepo](https://github.com/uci-ml-repo/ucimlrepo) | MIT | Descarga del dataset CDC (UCI 891) |
 | [dbfread](https://github.com/olemb/dbfread) | MIT | Lectura de microdatos EDR de INEGI (DBF) |
-| [TenSEAL](https://github.com/OpenMined/TenSEAL) / [OpenFHE](https://github.com/openfheorg/openfhe-development) | Apache 2.0 / BSD-2 | Ruta CKKS opcional |
-| [llama.cpp](https://github.com/ggerganov/llama.cpp) + IBM Granite (modelo exacto: _a fijar en la VM_) | MIT / Apache 2.0 | Explicación generativa del resultado |
-| [statsmodels](https://github.com/statsmodels/statsmodels) | BSD | Pronóstico ETS/SARIMA (épica E5) |
-| _agregar aquí_ | | |
+| [TenSEAL](https://github.com/OpenMined/TenSEAL) / [OpenFHE](https://github.com/openfheorg/openfhe-development) | Apache 2.0 / BSD-2 | Ruta CKKS (extra): **no usada todavía** |
+| [llama.cpp](https://github.com/ggerganov/llama.cpp) + IBM Granite | MIT / Apache 2.0 | Explicación generativa (extra): **no integrada todavía** |
+| [statsmodels](https://github.com/statsmodels/statsmodels) | BSD | Pronóstico ETS (épica E5, extra) |
 
 ---
 
@@ -177,19 +181,20 @@ Las reglas permiten librerías open source **siempre que se citen**. Esta tabla 
 
 ## Uso de IA
 
-Las reglas permiten asistentes de IA generativa siempre que se declaren y que el equipo entienda lo que entrega. Usamos **[Claude](https://www.anthropic.com/claude) (Anthropic)** como asistente en estas tareas:
+Las reglas permiten asistentes de IA generativa siempre que se declaren y que el equipo entienda lo que entrega. Esto es lo que usamos:
 
-| Tarea | Qué hizo Claude | Archivos | Revisión humana |
-|-------|-----------------|----------|-----------------|
-| Estructura del repositorio | Propuso y armó la estructura de carpetas, el README y las guías internas | `README.md`, `CONTRIBUTING.md`, `docs/` | El equipo definió el contenido y aprobó cada cambio |
-| Documentación | Redactó y mantuvo la documentación técnica, de reglas, roles, fuentes y modelo de datos | `docs/*.md`, `data/README.md` | El equipo revisó y corrigió los textos |
-| Elección de la idea | Corrió el ranking de las ideas con jueces simulados y armó las presentaciones de ideas | `docs/DECISION.md`, `docs/IDEAS.md`, `docs/Ranking_Ideas_Antimarrulla.pptx` | El equipo eligió la idea |
-| Datos | Buscó y descargó fuentes oficiales, verificó cifras contra los microdatos y escribió los scripts de preparación | `data/`, `src/datos/` | El equipo validó las fuentes y las cifras usadas en el pitch |
-| Pitch | Diseñó el deck, su PDF y el guion del video | `submission/` | El equipo ajustó el guion y presenta el video |
-| Sitio público | Construyó el sitio con el plan en vivo, el deck y el mapa | `site/` | El equipo revisó contenido y datos |
-| Auditoría | Aplicó las correcciones de las auditorías externas: cifras contra las fuentes originales y consistencia de documentación, deck y sitio | Todo el repositorio | El equipo decidió qué corregir y aprobó cada cambio |
-
-El código del modelo cifrado y de la demo se escribe durante el evento; esta tabla se actualiza si también se usa IA ahí.
+| Herramienta | Tarea | Qué hizo | Archivos | Revisión humana |
+|-------------|-------|----------|----------|-----------------|
+| [Claude](https://www.anthropic.com/claude) (Anthropic) | Estructura del repositorio | Propuso y armó la estructura de carpetas, el README y las guías internas | `README.md`, `CONTRIBUTING.md`, `docs/` | Javier pidió y aprobó cada cambio |
+| Claude | Documentación | Redactó y mantuvo la documentación técnica, de reglas, roles, fuentes y modelo de datos | `docs/*.md`, `data/README.md` | Javier aprobó; revisión de los 4 pendiente antes del envío |
+| Claude | Elección de la idea | Corrió el ranking de las ideas con jueces simulados y armó las presentaciones de ideas | `docs/DECISION.md`, `docs/IDEAS.md`, `docs/Ranking_Ideas_Antimarrulla.pptx` | El equipo eligió la idea |
+| Claude | Datos | Buscó y descargó fuentes oficiales, verificó cifras contra los microdatos y escribió los scripts de preparación | `data/`, `src/datos/` | Javier aprobó; las cifras se recalcularon en dos auditorías externas |
+| Claude | **Implementación** | Escribió el código del modelo, el protocolo Paillier, el servicio de riesgo, el hospital, la UI, la bóveda, las mediciones, las pruebas, los contenedores y el `Makefile` | `src/tamizaje/`, `tests/`, `docker/`, `Makefile`, `artefactos/` | Javier lo pidió; **revisión de los 4 pendiente**: cada integrante debe poder explicar el código antes del envío |
+| Claude | Pitch | Diseñó el deck, su PDF y el guion del video | `submission/` | Javier aprobó; el equipo presenta el video |
+| Claude | Sitio público | Construyó el sitio con el plan en vivo, el deck y el mapa | `site/` | Javier aprobó |
+| Claude | Correcciones | Aplicó las correcciones de las auditorías externas | Todo el repositorio | Javier decidió qué corregir |
+| [Codex](https://openai.com/codex/) (OpenAI) | Auditorías externas | Dos auditorías completas del repositorio (cifras, criptografía, plan, sitio y entregables) | Reportes locales, no versionados | El equipo leyó los reportes y decidió qué aplicar |
+| Muse (asistente de IA usado por un integrante) | Datos | Descarga y revisión de fuentes (entre ellas ENSANUT) | `data/raw/` (local) | Las descargas se validaron después contra las cifras oficiales |
 
 ## Licencia
 

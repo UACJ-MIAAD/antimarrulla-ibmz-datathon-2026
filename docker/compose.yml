@@ -1,0 +1,48 @@
+# Demo: dos contenedores en la misma máquina (en LinuxONE, la misma VM).
+# Los secretos viven fuera del repo: ${TAMIZAJE_SECRETOS:-~/.tamizaje} (make secretos).
+name: tamizaje
+services:
+  servicio:
+    build: { context: .., dockerfile: docker/Dockerfile, target: app }
+    image: tamizaje:demo
+    command: ["python3", "-m", "tamizaje.servicio"]
+    user: "${TAMIZAJE_UID:-10001}:${TAMIZAJE_GID:-10001}"  # mismo usuario que dueño de los secretos (0600)
+    environment:
+      SERVICIO_CERT: /run/tamizaje/servicio.pem
+      SERVICIO_LLAVE: /run/tamizaje/servicio.key
+      SERVICIO_CA_CLIENTES: /run/tamizaje/ca.pem
+    volumes:
+      # Solo su certificado, su llave TLS y la CA. Ni la llave Paillier ni la de la bóveda.
+      - ${TAMIZAJE_SECRETOS}/certs/servicio.pem:/run/tamizaje/servicio.pem:ro
+      - ${TAMIZAJE_SECRETOS}/certs/servicio.key:/run/tamizaje/servicio.key:ro
+      - ${TAMIZAJE_SECRETOS}/certs/ca.pem:/run/tamizaje/ca.pem:ro
+    read_only: true
+    tmpfs: [/tmp]
+    networks: [interna]
+  hospital:
+    image: tamizaje:demo
+    depends_on: [servicio]
+    command: ["python3", "-m", "tamizaje.hospital"]
+    user: "${TAMIZAJE_UID:-10001}:${TAMIZAJE_GID:-10001}"  # mismo usuario que dueño de los secretos (0600)
+    environment:
+      HOSPITAL_HOST: 0.0.0.0
+      SERVICIO_URL: https://servicio:8443
+      TLS_CA: /run/tamizaje/ca.pem
+      TLS_CERT_CLIENTE: /run/tamizaje/hospital.pem
+      TLS_LLAVE_CLIENTE: /run/tamizaje/hospital.key
+      BOVEDA_LLAVE: /run/tamizaje/boveda.key
+      BOVEDA_ARCHIVO: /var/lib/tamizaje/boveda.jsonl
+    volumes:
+      - ${TAMIZAJE_SECRETOS}/certs/ca.pem:/run/tamizaje/ca.pem:ro
+      - ${TAMIZAJE_SECRETOS}/certs/hospital.pem:/run/tamizaje/hospital.pem:ro
+      - ${TAMIZAJE_SECRETOS}/certs/hospital.key:/run/tamizaje/hospital.key:ro
+      - ${TAMIZAJE_SECRETOS}/boveda.key:/run/tamizaje/boveda.key:ro
+      - boveda:/var/lib/tamizaje
+    ports: ["127.0.0.1:8080:8080"]
+    read_only: true
+    tmpfs: [/tmp]
+    networks: [interna]
+networks:
+  interna: {}
+volumes:
+  boveda: {}
