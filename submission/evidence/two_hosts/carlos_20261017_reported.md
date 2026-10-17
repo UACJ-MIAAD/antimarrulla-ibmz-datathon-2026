@@ -31,3 +31,7 @@ Preserve the existing run before rerunning anything. Supply the hospital summary
 ## Source preservation
 
 The original screenshot remains byte-for-byte in the ignored local directory `submission/evidence/private/`. It contains unrelated personal conversation, so it is not published or packaged. SHA-256: `8b283499035167892230d264164520ec696e67c7fb7a9db1f6123c4dd14252a8`. The [structured English record](carlos_20261017_reported.json) preserves the relevant observations and their limits.
+
+## Later supplied summary
+
+A subsequent image reports **audit 10/10 and exact results 200/200**, and Carlos reports a rounded mean of 650 ms per record. See [the follow-up registration](carlos_20261017_audit_summary_reported.md). Original audit/version/host evidence is still pending; the observations above describe the earlier attachment.

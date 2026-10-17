@@ -1,7 +1,7 @@
 {
-  "rev": 30,
-  "updated_at": "2026-10-17T20:03:41Z",
-  "note": "Evidence-based status. Yazmin’s PR 8 form is integrated into the English release (PR 9): US-6.4 complete with local browser/Docker evidence. Human release review, LinuxONE/labs evidence and final English narration remain open. See docs/YAZMIN_INTEGRATION.md and docs/DELIVERY_PLAN.md. Keep Netlify and its badge. Hosting decided: interactive frontend/API/vault in Hospital on the approved VM; public pitch/forecast/plan on Netlify. Team access through SSH; actual VM deployment and public prototype remain unverified. docs/DEPLOYMENT.md. Carlos’s 200/200 synthetic laptop/server result is recorded as an operator report; terminal evidence reaches 125/200 and the final audit/provenance remain pending. US-6.5 stays in progress. Álvaro’s legacy Spanish v1 screenshot reports Linux s390x, service ok and synthetic C at 66.3%; provider identity and final English v2 execution remain open. Team decision: synthetic identifiers only; do not collect real CURPs from the web.",
+  "rev": 31,
+  "updated_at": "2026-10-17T20:06:08Z",
+  "note": "Evidence-based status, rev 31. Carlos’s later supplied graphic reports audit 10/10 and exact results 200/200; chat reports mean 650 ms/record (≈92 sequential records/minute). Original audit/provenance/host evidence remains pending; US-6.5 stays in progress. Álvaro’s earlier screenshot is legacy Spanish v1 reporting s390x; final English v2/provider evidence remains open. Interactive frontend/API/vault stay in Hospital; public presentation/forecast/plan stay on Netlify with its badge. Synthetic patients/identifiers only. docs/DELIVERY_PLAN.md.",
   "milestones": {
     "internal_start": "2026-10-17T13:00:00Z",
     "virtual_closing": "2026-10-18T05:00:00Z",
@@ -444,7 +444,7 @@
           "block": "h12",
           "priority": "Plus",
           "state": "in_progress",
-          "evidence": "Carlos reports 200 synthetic records encrypted from laptop to server and 200/200 identical results (October 17 chat, 15:34; timezone unspecified). Terminal screenshot directly shows 125/200 with 125 identical; last-request times at five checkpoints: 612, 597, 667, 616 and 608 ms, not percentiles. Ciphertext-only audit still running at 15:33. Full audit/summary, code/model/protocol provenance, host identities and provider evidence remain missing. Does not establish two VMs, LinuxONE or the full UI/vault flow. submission/evidence/two_hosts/carlos_20261017_reported.md and .json. Earlier single-host rehearsal is separate."
+          "evidence": "Later captain-supplied image reports audit 10/10, exact results 200/200, 18.6 ms service evaluation and zero plaintext items. Carlos’s chat reports rounded mean total 650 ms: 140 ms encryption, 500 ms network plus service, 10 ms decryption; ≈92 sequential records/min. These are reported figures, not independently verified p50/p95. Original audit JSON/MD, hospital summary, full versions/hashes and host/provider evidence remain missing. Earlier terminal capture directly reached 125/200. Separate final English release measurements remain required. submission/evidence/two_hosts/carlos_20261017_audit_summary_reported.md and .json."
         }
       ]
     },

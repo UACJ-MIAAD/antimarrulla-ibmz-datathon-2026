@@ -82,5 +82,6 @@
     "story": "US-6.5",
     "state": "in_progress",
     "reason": "Reported 200-record laptop/server execution is progress; final audit, provenance and host evidence remain absent."
-  }
+  },
+  "followup_record": "submission/evidence/two_hosts/carlos_20261017_audit_summary_reported.json"
 }
