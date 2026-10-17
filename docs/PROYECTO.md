@@ -101,7 +101,7 @@ CPACF acelera AES; **no** acelera Paillier, no es Secure Execution, no protege l
 | Granite (dentro del entorno del hospital) | Solo lo que el hospital le pase (prompt mínimo, sin registro de prompts) | Resultado descifrado |
 | Administrador del host donde corra el entorno del hospital | Puede acceder a ese entorno: **es parte de la frontera de confianza** | Ídem |
 
-> **Frontera de confianza:** el servicio de riesgo solo recibe cifrados y no tiene la llave. La llave y Granite viven en el **entorno del hospital**; quien administre ese entorno queda dentro de la frontera de confianza. Dos contenedores en una misma VM **no** protegen frente al administrador del host. Dónde corre el entorno del hospital en la demo está en [DECISION.md](DECISION.md). En la demo solo se usan pacientes sintéticos.
+> **Frontera de confianza:** el servicio de riesgo solo recibe cifrados y no tiene la llave. La llave y Granite viven en el **entorno del hospital**; quien administre ese entorno queda dentro de la frontera de confianza. Dos contenedores en una misma VM **no** protegen frente al administrador del host. **En la demo, los dos contenedores corren en la misma VM de LinuxONE** ([DECISION.md](DECISION.md#decisiones-tras-la-auditoría-externa-17-oct)): el equipo, como administrador de esa VM, queda dentro de la frontera de confianza, y por eso la demo usa solo pacientes sintéticos. En producción, el contenedor del hospital correría en la infraestructura del hospital y a LinuxONE solo llegarían cifrados.
 
 ### Ruta garantizada vs. ruta ambiciosa
 

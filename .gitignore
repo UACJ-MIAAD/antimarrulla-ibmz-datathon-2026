@@ -65,3 +65,7 @@ docs/*.pdf
 
 # --- Netlify CLI (estado local) ---
 .netlify/
+
+# Reportes y planes de auditoría externa (solo locales)
+docs/AUDITORIA_*.md
+docs/PLAN_REAUDITORIA.md

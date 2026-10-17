@@ -173,6 +173,14 @@ Las reglas permiten librerías open source **siempre que se citen**. Esta tabla 
 - **Dependencia `python-paillier` (`phe`):** GPLv3 (con partes Apache 2.0). Si distribuimos una obra combinada con `phe` (por ejemplo, una imagen de contenedor), esa distribución debe cumplir la GPLv3: no se presenta como "solo MIT" y se conservan sus avisos y su texto de licencia.
 - **Datos:** cada fuente conserva su licencia y exige atribución; indicamos los cambios (recortes, agregados y armonizaciones) en `data/README.md` y `src/datos/`. CDC/BRFSS: dominio público (UCI remite a la fuente; Kaggle lo marca CC0). DGIS, IMSS, CONAPO: CC BY 4.0 o libre uso con cita. Natural Earth: dominio público. ENSANUT: no se redistribuye.
 
+## Uso de IA
+
+Las reglas permiten asistentes de IA generativa siempre que se declaren. Lo declaramos aquí:
+
+| Herramienta | Para qué la usamos | Revisión humana |
+|-------------|--------------------|-----------------|
+| [Claude](https://www.anthropic.com/claude) (Anthropic) | Auditar el repositorio: verificar cifras contra las fuentes originales y revisar la consistencia de la documentación, el deck y el sitio | El equipo revisó y aprobó cada cambio |
+
 ## Licencia
 
 [MIT](LICENSE) · Hecho con cafeína y disciplina en Ciudad Juárez, Chihuahua.
