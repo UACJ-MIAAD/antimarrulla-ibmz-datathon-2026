@@ -1,4 +1,5 @@
 # Interfaz única del proyecto. Ver README · "Cómo correrlo".
+.DEFAULT_GOAL := all
 PY ?= python3.12
 VENV := .venv
 BIN := $(VENV)/bin

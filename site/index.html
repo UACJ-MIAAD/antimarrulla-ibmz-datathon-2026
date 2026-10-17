@@ -280,7 +280,7 @@ function pass(u){return FILT==="todas"||u.prioridad===FILT||u.estado===FILT}
 function usHTML(u){const b=ST.bloques.find(x=>x.id===u.bloque);
   return `<li class="${u.estado}"><div class="uid">${u.id}</div><div><div class="story">Como <b>${esc(u.como)}</b>, quiero ${esc(u.quiero)} <em>para ${esc(u.para)}</em>.</div>
   <div class="meta"><span class="chip s-${u.estado}"><span class="dot"></span>${LABEL[u.estado]}</span><span class="prio ${u.prioridad}">${u.prioridad}</span><span>${esc(u.quien)}</span>${b?`<span>· ${esc(b.titulo)}</span>`:""}</div>
-  ${u.evidencia?`<details style="margin-top:8px;font-size:13px;color:var(--muted)"><summary>Evidencia y pendiente</summary><p>${esc(u.evidencia)}</p></details>`:""}</div></li>`}
+  ${u.evidencia?`<details style="margin-top:8px;font-size:13px;color:var(--muted);overflow-wrap:anywhere"><summary>Evidencia y pendiente</summary><p>${esc(u.evidencia)}</p></details>`:""}</div></li>`}
 function render(){
   const all=allUS(), mvp=all.filter(u=>u.prioridad==="MVP"), plus=all.filter(u=>u.prioridad==="Plus"), p=pctOf(all);
   c("pct",p+"%");c("pmvp",pctOf(mvp)+"%");c("pplus",pctOf(plus)+"%");c("minipct",p+"%");

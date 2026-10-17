@@ -22,7 +22,7 @@ DOCUMENTAL = [
     "submission/flowchart/arquitectura.pdf", "submission/flowchart/arquitectura.png", "submission/flowchart/arquitectura.svg",
     "README.md", "LICENSE", "docs/PROYECTO.md", "docs/MODELO_DATOS.md", "docs/LINUXONE.md", "docs/ENSANUT_EXPERIMENTO.md",
     "docs/PRONOSTICO.md", "docs/CHECKLIST_ENTREGA.md", "docs/REVISION.md", "docs/CRONOLOGIA.md",
-    "docs/DOS_MAQUINAS.md", "submission/USO_IA.md",
+    "docs/DOS_MAQUINAS.md", "docs/PLAN_CIERRE.md", "submission/USO_IA.md",
     "artefactos/modelo/modelo_logistico_v1.json", "artefactos/modelo/esquema_cdc21_v1.json",
     "artefactos/metricas/modelo_logistico_v1.json", "artefactos/metricas/ensanut_exploratorio_v1.json",
     "artefactos/pronostico/e5_pronostico_v1.json",
@@ -34,7 +34,7 @@ DOCUMENTAL_GLOB += ["submission/VIDEO_REGISTRO.json", "submission/evidencias/ins
 CODIGO_GLOB = ["src/**/*.py", "src/**/*.html", "src/datos/README.md", "tests/*.py", "tests/instance/*.py", "tests/instance/*.sh", "docker/*", "artefactos/**/*.json",
                "data/cdc_891/*", "data/sinave/tipo1/products.csv", "data/sinave/tipo2/products.csv", "data/catalogos/entidades.csv"]
 CODIGO = ["Makefile", "requirements.txt", ".dockerignore", "LICENSE", "README.md", "docs/LINUXONE.md", "docs/PROYECTO.md",
-          "docs/DOS_MAQUINAS.md", "submission/USO_IA.md"]
+          "docs/DOS_MAQUINAS.md", "docs/PLAN_CIERRE.md", "submission/USO_IA.md"]
 
 
 def _expandir(globs):

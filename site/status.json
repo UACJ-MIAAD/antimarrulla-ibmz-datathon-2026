@@ -1,6 +1,6 @@
 {
   "rev": 22,
-  "actualizado": "2026-10-17T18:01:57Z",
+  "actualizado": "2026-10-17T18:17:09Z",
   "nota": "Estado por evidencia, no por reporte de chat. Actualizar en rama y PR; incrementar rev y fecha UTC real. Publicar solo la versión revisada. Plan vigente: docs/PLAN_CIERRE.md. Netlify conserva su badge.",
   "hitos": {
     "hora_cero": "2026-10-17T13:00:00Z",
@@ -255,7 +255,7 @@
           "bloque": "h12",
           "prioridad": "MVP",
           "estado": "hecho",
-          "evidencia": "submission/evidencias/metricas/medicion_proceso_local-darwin-arm64_20261017T133429Z.json (commit 655763f; local, no LinuxONE). Evidencia de esa versión; repetir en la VM con el commit fijado y registrar hashes. No sustituir por los nuevos conteos de pruebas."
+          "evidencia": "submission/evidencias/metricas/medicion_proceso_local-darwin-arm64_20261017T181050Z.json (commit 65ae4ef; local): 2,000/2,000 enteros y AUC 0.808383 en las tres variantes; incluye tiempo del logit en claro/punto fijo sobre la misma muestra. Falta repetir en LinuxONE."
         },
         {
           "id": "US-3.4",
@@ -410,7 +410,7 @@
           "bloque": "h12",
           "prioridad": "MVP",
           "estado": "en_curso",
-          "evidencia": "submission/evidencias/metricas/medicion_api_local-darwin-arm64_20261017T133844Z.json (commit 655763f; local, no LinuxONE). Evidencia de esa versión; repetir en la VM con el commit fijado y registrar hashes. No sustituir por los nuevos conteos de pruebas."
+          "evidencia": "submission/evidencias/metricas/medicion_api_local-darwin-arm64_20261017T180952Z.json (commit 65ae4ef; local, dos contenedores): 200/200 enteros, p50 141.29 ms y p95 180.039 ms. Falta ejecución/capturas en LinuxONE."
         },
         {
           "id": "US-6.3",

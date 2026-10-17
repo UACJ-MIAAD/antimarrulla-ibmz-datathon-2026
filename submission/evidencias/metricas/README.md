@@ -18,3 +18,10 @@ Para reproducir las cifras de `7937f9f`, usar ese commit: el código cambió des
 | `medicion_api_local-darwin-arm64_20261017T133844Z.*` | **Trazable para `655763f`.** `make demo` + `make medir-api FINAL=1` desde el mismo clon; imagen `tamizaje:demo` `sha256:77477fa44b55543bf057d162d542d8dc4df2b23c195500493ac3479df9310775`; el hospital reporta el mismo hash de código que el cliente (`codigo_igual_al_cliente: true`). 200/200 enteros, p50 131.8 ms. Dos contenedores locales, no LinuxONE. |
 
 Las de `7937f9f` siguen siendo válidas para ese commit (`git checkout 7937f9f`).
+
+## Medición de la auditoría de equipo (`65ae4ef`)
+
+- `medicion_proceso_local-darwin-arm64_20261017T181050Z.json`: 2,000/2,000 enteros idénticos; AUC 0.808383 en claro, punto fijo y cifrado. Añade tiempos del logit en claro sobre la misma muestra: p50 1.0 µs; punto fijo 2.083 µs; evaluación cifrada 8.691 ms (sin red). No son la misma operación que el recorrido HTTPS completo.
+- `medicion_api_local-darwin-arm64_20261017T180952Z.json`: 200/200 sintéticos por la API de dos contenedores, código remoto igual al cliente, p50 141.29 ms y p95 180.039 ms; 403.6 pacientes/min en secuencia. Demo temporal con secretos/volumen propios, retirada al terminar.
+
+Ambas corridas registran procedencia limpia de `65ae4ef` y son **locales, no LinuxONE**. No se ajustaron los resultados para que repitieran latencias anteriores. Los cambios de empaquetado/documentación posteriores no son otra medición; para reproducir exactamente el código medido, usar ese commit.
