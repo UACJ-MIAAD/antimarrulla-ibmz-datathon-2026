@@ -88,6 +88,7 @@ video-draft:                         ## Build the silent 170-second editing draf
 # Optional two-host test: service on host A; hospital on host B.
 DM ?= $(HOME)/.screening-two-hosts
 N ?= 200
+CONCURRENCY ?= 1
 DATA ?= synthetic
 HOST_ID = -e SCREENING_HOST_ID=$$(cut -c1-12 /etc/machine-id 2>/dev/null || true)
 .PHONY: secrets-two-hosts service-remote-docker hospital-remote-docker audit-two-hosts-docker rehearse-two-hosts
@@ -109,7 +110,7 @@ hospital-remote-docker: image-dev     ## Synthetic by default; DATA=cdc explicit
 	@mkdir -p $(DM)/hospital_log
 	docker run --rm --network host $(PROC) $(HOST_ID) --user $(SCREENING_UID):$(SCREENING_GID) \
 	  -v $(DM)/for_hospital:/run/screening:ro -v $(DM)/hospital_log:/hospital_log \
-	  screening:dev python3 -m screening.two_hosts hospital --service $(SERVICE_URL) --certs /run/screening --output /hospital_log --n $(N) --data $(DATA)
+	  screening:dev python3 -m screening.two_hosts hospital --service $(SERVICE_URL) --certs /run/screening --output /hospital_log --n $(N) --data $(DATA) --concurrency $(CONCURRENCY)
 audit-two-hosts-docker: image-dev     ## Copy host B's log to host A before auditing both evidence directories.
 	@test -f $(DM)/hospital_log/hospital_summary.json || (echo "copy the hospital_log directory from host B to $(DM)/"; exit 1)
 	mkdir -p submission/evidence/two_hosts && chmod 777 submission/evidence/two_hosts

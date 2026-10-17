@@ -40,6 +40,9 @@ def run(tmp_path_factory):
                                                         output=str(d / "hospital"), n=8, without_evidence=False))
         two_hosts.run_hospital(argparse.Namespace(service=f"https://localhost:{port}", certs=str(d / "for_hospital"),
                                                         output=str(d / "hospital_cdc"), n=8, data="cdc", without_evidence=False))
+        two_hosts.run_hospital(argparse.Namespace(service=f"https://localhost:{port}", certs=str(d / "for_hospital"),
+                                                        output=str(d / "hospital_parallel"), n=12, data="cdc", concurrency=3,
+                                                        without_evidence=False))
     finally:
         proc.terminate(); proc.wait(10); log.close()
     return d
@@ -182,3 +185,14 @@ def test_evidence_storage_failure_does_not_acknowledge_success(tmp_path, model, 
     finally:
         srv.shutdown()
         srv.server_close()
+
+
+def test_concurrency_keeps_exact_results_and_audit(run, tmp_path):
+    """With 3 worker processes every patient still decrypts exactly and the audit still passes."""
+    res = json.loads((run / "hospital_parallel" / "hospital_summary.json").read_text())
+    assert res["concurrency"] == 3 and res["accuracy"]["identical_integers"] == 12 and res["wall_time_s"] > 0
+    lines = [json.loads(l) for l in (run / "hospital_parallel" / "hospital_log.jsonl").read_text().splitlines()]
+    assert len({l["id"] for l in lines}) == len(lines) == 12 + res["warmup"]
+    a = argparse.Namespace(service=str(run / "evidence"), hospital=str(run / "hospital_parallel"),
+                           log_service=[str(run / "service.log")], output=str(tmp_path), samples=1, allow_same_machine=True)
+    assert two_hosts.audit(a) == 0
