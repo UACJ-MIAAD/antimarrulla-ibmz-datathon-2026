@@ -11,36 +11,39 @@ Un evento global de **24 horas** organizado por la **Shooting Stars Foundation (
 - **Híbrido:** 8 sedes presenciales (India, Reino Unido, EE. UU., Australia, Malasia, Singapur) + **track virtual global**.
 - **Nosotros:** track **virtual**, región **Americas**, desde Ciudad Juárez, México.
 - **Infraestructura:** acceso gratuito a **LinuxONE Community Cloud**. Laptop, internet y herramientas corren por nuestra cuenta.
-- **Soporte:** Discord oficial; el canal `#ibm-z-sme-helpdek` con expertos de IBM abre solo el día del datathon ([LINKS.md](LINKS.md)).
+- **Soporte:** Discord oficial; el canal `#ibm-z-sme-helpdesk` con expertos de IBM abre solo el día del datathon ([LINKS.md](LINKS.md)).
 
-## Calendario Americas
+## Calendario oficial (Hack2skill)
 
-La guía publica las horas como "EST". En octubre la costa este usa horario de verano (UTC−4) y Ciudad Juárez está en UTC−6, así que **restamos 2 horas**. Confirmarlo en `#announcements`.
+Fuente: línea de tiempo de la [plataforma del evento](https://hack2skill.com/event/datathon-2026), revisada el 17 oct 2026, y el deck del kick-off ([Kickoff_IBM_Z_Datathon_2026.pdf](Kickoff_IBM_Z_Datathon_2026.pdf), local). Juárez = EDT − 2 h. **Manda Hack2skill:** si algo no cuadra con la guía, gana la plataforma.
 
-| Fecha | Evento | Hora oficial (ET) | **Hora Juárez** |
-|-------|--------|-------------------|-----------------|
-| 10 oct | Cierre de registro y de formación de equipos | Medianoche | — |
-| 15 oct | **Entrega del abstract** (problema + enfoque) | Medianoche | — |
-| 16 oct | **Get Your LinuxONE System Ready** (obligatorio) | 10:00–11:00 | 8:00–9:00 |
-| **17 oct** | **Kick-off / ceremonia de apertura** (hora 0) | 9:00–10:00 | **7:00–8:00** |
-| 17 oct | Día 1 (presencial en NYU y UTD; virtual en paralelo) | 9:00–17:00 | 7:00–15:00 |
-| 17–18 oct | Continuación virtual | 17 oct 17:00 → 18 oct 10:00 | 17 oct 15:00 → **18 oct 8:00** |
-| **18 oct** | **Ceremonia virtual de cierre** | 10:30 | **8:30** |
-| 23 oct | Encuesta de retroalimentación / video | Medianoche | — |
-| 28 oct | Panel de carreras y **anuncio de ganadores** | 10:00–11:30 | 8:00–9:30 |
-| 18 nov | IBM Z Day (oportunidad para ganadores) | Por definir | — |
+| Fecha | Evento | Hora EDT | **Hora Juárez** |
+|-------|--------|----------|-----------------|
+| 15 oct | Cierre de registro de equipos y abstract | 14:29 | 12:29 |
+| 16 oct | **Get Your LinuxONE System Ready** (obligatorio) | 9:45–11:00 | 7:45–9:00 |
+| 16 oct | **Abre la entrega de proyectos** | 19:45 | 17:45 |
+| 16 oct | **Kick-off global online** (ya ocurrió) | 23:15–0:30 | 21:15–22:30 |
+| 17 oct | Kick-off Nueva York (presencial) | 9:00–10:00 | 7:00–8:00 |
+| 17 oct | **Ceremonia virtual de cierre** | 18 oct 1:00–1:30 | **17 oct 23:00–23:30** |
+| **18 oct** | **⛔ CIERRA LA ENTREGA EN HACK2SKILL** | **12:30** | **10:30** |
+| 18–23 oct | Encuesta de retroalimentación (obligatoria) | hasta 23 oct 14:29 | hasta 12:29 |
+| 28 oct | **Anuncio de ganadores** (7:30–9:00 PM IST) | 10:00–11:30 | 8:00–9:30 |
+| 18 nov | IBM Z Day (ganadores destacados) | 8:00–16:30 ET | 6:00–14:30 |
 
-> ⚠️ **Fin de la ventana de construcción: 18 oct, 8:00 hora Juárez.** Meta interna: enviar todo a las **7:00**.
+> ⛔ **Cierre duro: 18 oct, 10:30 hora Juárez.** Meta interna sin cambios: **todo enviado a las 7:00**, con tres horas y media de colchón. El deck del kick-off insiste: *"Submit early, not in the last minutes"*.
+>
+> El kick-off global (16 oct, 21:15 Juárez) ocurrió antes de nuestro primer commit (17 oct, 00:54 EDT), así que **todo el historial del repo cae dentro de la ventana del evento**.
 
-## Premios
+## Premios (por región, según el kick-off)
 
-Bolsa total de **más de $50,000 USD**:
+| Lugar | Premio | Además |
+|-------|-------:|--------|
+| 🥇 1.º | **US$1,000** | Presentación en IBM Z Day + 6 meses de acceso a IBM Z |
+| 🥈 2.º | **US$750** | Presentación en IBM Z Day + 6 meses de acceso a IBM Z |
+| 🥉 3.º | **US$500** | Presentación en IBM Z Day + 6 meses de acceso a IBM Z |
 
-- **Campeones regionales online:** Americas, EMEA y APAC, con 1.º, 2.º y 3.er lugar por región. **Competimos en Americas.**
-- **Campeones de sede presencial:** top 3 en cada una de las 8 sedes (no aplica para nosotros).
-- **Premios especiales:** Most Innovative AI Theme, Most Creative AI Solution, Highest Participation Award, Best IBM Z Advocacy.
-- **AI Innovation Excellence Awards:** rúbrica adicional enfocada en innovación de IA y excelencia técnica ([CRITERIOS.md](CRITERIOS.md#-ai-innovation-excellence-awards-rúbrica-adicional--20-pts)).
-- Extras: exposición en IBM Z Day, reconocimiento en la comunidad IBM Z y difusión en LinkedIn.
+- **Competimos en Americas** (track online). Las sedes presenciales tienen sus propios premios con el mismo monto, más visita a un campus de IBM.
+- Bolsa global del evento: **más de $50,000 USD**, sumando regiones, sedes y premios especiales: Most Innovative AI Theme, Most Creative AI Solution, Highest Participation Award, Best IBM Z Advocacy y los **AI Innovation Excellence Awards** ([CRITERIOS.md](CRITERIOS.md#-ai-innovation-excellence-awards-rúbrica-adicional--20-pts)).
 - El reparto del dinero dentro del equipo se rige por las reglas oficiales de premios.
 
 ## Elegibilidad
@@ -53,14 +56,15 @@ Bolsa total de **más de $50,000 USD**:
 | Registro individual + "Create a Team" en Hack2skill por el líder | ✅ |
 | Abstract enviado antes del 15 oct | ☐ Confirmar |
 | Asistencia al setup obligatorio del 16 oct | ☐ Confirmar |
+| **Formulario de asistencia del kick-off** (https://forms.gle/hxTYwzJRqgwnWaPn8) | ☐ Cada integrante lo llena |
 
 ## Entregables (vía Hack2skill)
 
-**Obligatorios**
-1. **Video de máximo 3 minutos** con: el problema, datos que lo respaldan, la solución y, sobre todo, **cómo aprovecha IBM Z** (stack, **instancia LinuxONE y modelo en pantalla**).
+**Obligatorios** (deck del kick-off, "Required for Final Submission")
+1. **Video de 3 minutos o menos** con: el problema, datos que lo respaldan, la solución y cómo usa IBM Z (stack, **instancia LinuxONE y modelo en pantalla**).
 2. **Código:** link a GitHub/GitLab (o zip).
-3. **Título del proyecto con el nombre del equipo:** `Los Antimarrulla_IBM Z Datathon 2026 Project`.
-4. **Links a los recursos open source** usados.
+3. **🆕 Pitch deck en PDF** con el nombre `Los Antimarrulla_IBM Z Datathon 2026 Project.pdf`. (La guía solo pedía el título; el kick-off pide **el PDF**.)
+4. **Links a todos los recursos open source** usados.
 
 **Opcionales (recomendados)**
 - Flowchart / diagrama de arquitectura.

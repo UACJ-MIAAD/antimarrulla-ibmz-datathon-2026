@@ -1,9 +1,12 @@
 # ✅ Checklist de entrega
 
 > Nada se entrega sin palomear esta lista. Responsable: **Javier** (líder + pitch), con una segunda revisión de **Carlos** para la parte técnica.
-> Arrancar la revisión en la **hora 21**. Cierre de la ventana: **18 oct, 8:00 hora Juárez** → meta interna de envío: **7:00**.
+> Arrancar la revisión en la **hora 21**. Cierre en Hack2skill: **18 oct, 10:30 hora Juárez** → meta interna de envío: **7:00**.
 
 ## 🧪 Prerrequisitos (primeras horas)
+
+- [ ] 🆕 Los 4 llenaron el **formulario de asistencia del kick-off**: https://forms.gle/hxTYwzJRqgwnWaPn8
+- [ ] Ver la grabación del setup de LinuxONE (recomendada en el kick-off): https://www.youtube.com/watch?v=y9rZwSq8pw8
 
 - [ ] Lab 1 completado: *Predictive AI Hybrid AI scenarios (multi-model)*
 - [ ] Lab 2 completado: *Predictive AI + Generative AI*
@@ -53,7 +56,9 @@ Capturas en `submission/evidencias/`:
 - [ ] Audio claro, sin ruido de fondo
 - [ ] Subido y con link accesible (probar en incógnito)
 
-## 🖼️ Slides / material opcional
+## 🖼️ Pitch deck en PDF (obligatorio) y material opcional
+
+- [ ] 🆕 **Exportar la presentación a PDF** con el nombre exacto `Los Antimarrulla_IBM Z Datathon 2026 Project.pdf` y subirla a Hack2skill
 
 - [ ] Estructura de [submission/SLIDES.md](../submission/SLIDES.md)
 - [ ] Flowchart de diseño (opcional en la entrega, pero suma al criterio técnico)
@@ -73,6 +78,7 @@ Capturas en `submission/evidencias/`:
 - [ ] Título exacto: **`Los Antimarrulla_IBM Z Datathon 2026 Project`**
 - [ ] Tema oficial seleccionado correctamente
 - [ ] Link del video (máx. 3 min)
+- [ ] 🆕 Pitch deck en PDF `Los Antimarrulla_IBM Z Datathon 2026 Project.pdf`
 - [ ] Link del repo de GitHub
 - [ ] Links a los recursos open source usados
 - [ ] Flowchart y prototipo adjuntos si los hay
@@ -81,9 +87,9 @@ Capturas en `submission/evidencias/`:
 
 ## 🏁 Cierre y después
 
-- [ ] Entrega enviada **a las 7:00 del 18 oct (hora Juárez)**, una hora antes del cierre
+- [ ] Entrega enviada **a las 7:00 del 18 oct (hora Juárez)**, tres horas y media antes del cierre (10:30)
 - [ ] Último commit anotado: `______`
-- [ ] Ceremonia de cierre: 18 oct, 8:30 hora Juárez
+- [ ] Ceremonia virtual de cierre: **17 oct, 23:00 hora Juárez** (1:00 EDT del 18 oct)
 - [ ] Encuesta de retroalimentación / video antes del **23 oct**
-- [ ] Anuncio de ganadores: **28 oct**, 8:00 hora Juárez
+- [ ] Anuncio de ganadores: **28 oct**, 8:00 hora Juárez (7:30 PM IST)
 - [ ] Foto del equipo para el recuerdo 📸

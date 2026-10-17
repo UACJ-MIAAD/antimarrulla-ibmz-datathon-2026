@@ -29,12 +29,12 @@ Repositorio oficial del equipo **Los Antimarrulla** (UACJ · Maestría en Inteli
 | Evento | IBM Z Datathon 2026 · Shooting Stars Foundation, impulsado por IBM |
 | Fechas | **17–18 de octubre de 2026** · 24 horas continuas |
 | Modalidad | Híbrido (8 sedes + virtual); nosotros: virtual, región Americas, desde México |
-| Horario (hora Juárez) | Kick-off **17 oct 7:00** · cierre de la ventana **18 oct 8:00** |
+| Horario (hora Juárez) | Arranque del equipo **17 oct 7:00** · meta de envío **18 oct 7:00** · **cierre en Hack2skill 18 oct 10:30** |
 | Setup técnico obligatorio | **16 de octubre** · LinuxONE Community Cloud |
-| Premios | +$50,000 USD · campeones regionales (Americas, EMEA, APAC) + premios especiales + AI Innovation Excellence Awards |
+| Premios | Por región: **US$1,000 / 750 / 500** + IBM Z Day + 6 meses de IBM Z · bolsa global +$50,000 USD con premios especiales y AI Innovation Excellence |
 | Evaluación | 4 criterios × 10 pts = 40 pts ([CRITERIOS](docs/CRITERIOS.md)) |
 | Equipo | 4 a 6 estudiantes universitarios 18+, cualquier carrera |
-| Entregables | Video de máx. 3 min · link al repo · título `Los Antimarrulla_IBM Z Datathon 2026 Project` · links open source |
+| Entregables | Video de máx. 3 min · link al repo · **pitch deck en PDF** `Los Antimarrulla_IBM Z Datathon 2026 Project.pdf` · links open source |
 | Nuestro proyecto | **Tamizaje a ciegas** · Tema 2: **AI Secured: Innovation Without Exposure** |
 
 Más detalle: [COMPETENCIA](docs/COMPETENCIA.md) · [REGLAS](docs/REGLAS.md) · [CRITERIOS](docs/CRITERIOS.md) · [TEMAS](docs/TEMAS.md)

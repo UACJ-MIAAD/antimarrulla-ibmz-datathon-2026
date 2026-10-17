@@ -54,3 +54,4 @@ Detectar antes es evitar amputaciones y muertes. Tamizaje temprano, sin entregar
 - [ ] Captura de `openssl speed -evp aes-256-gcm` en `evidencias/`
 - [ ] Decir "tamizaje", nunca "diagnóstico"
 - [ ] Audio probado
+- [ ] Exportar las slides a PDF: `Los Antimarrulla_IBM Z Datathon 2026 Project.pdf` (obligatorio)

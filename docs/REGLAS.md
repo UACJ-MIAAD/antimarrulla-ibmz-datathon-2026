@@ -39,7 +39,7 @@ Se hacen en las primeras horas, en LinuxONE, y se guardan capturas como evidenci
 
 ## 5. Entrega
 
-- Video de **máximo 3 minutos** (obligatorio) y link al repo.
+- Video de **máximo 3 minutos** (obligatorio), link al repo y **pitch deck en PDF** (obligatorio según el kick-off).
 - Título del proyecto: `Los Antimarrulla_IBM Z Datathon 2026 Project`.
 - Repo **público** con historial de commits del evento.
 - Detalle en [COMPETENCIA.md](COMPETENCIA.md#entregables-vía-hack2skill).
@@ -61,5 +61,5 @@ Se hacen en las primeras horas, en LinuxONE, y se guardan capturas como evidenci
 
 1. Nada de datos sensibles reales en el repo. Datos públicos, sintéticos o anonimizados.
 2. Ninguna credencial ni token (incluido el de Jupyter Lab) en el código.
-3. Bloqueado más de 30 minutos = pedir ayuda (`#ibm-z-sme-helpdek` para dudas técnicas de LinuxONE).
+3. Bloqueado más de 30 minutos = pedir ayuda (`#ibm-z-sme-helpdesk` para dudas técnicas de LinuxONE).
 4. Dormir no es flojera: es estrategia. Respeta tu turno de descanso ([ROLES.md](ROLES.md)).

@@ -7,6 +7,9 @@
 | **Página oficial del IBM Z Datathon 2026** | https://www.starhacks.org/ibm-z-datathon-2026 | Temas, registro, reglas, fechas y premios. |
 | **Plataforma del evento (Hack2skill)** | https://hack2skill.com/event/datathon-2026 | Equipo, anuncios, FAQ, guía del participante y **envío final del proyecto**. |
 | **Video: cómo enviar el proyecto** | https://youtu.be/3_L3T__zEco | Paso a paso de la entrega en Hack2skill. |
+| **Formulario de asistencia del kick-off** | https://forms.gle/hxTYwzJRqgwnWaPn8 | Lo llena cada integrante. |
+| **Deck del kick-off** | [Kickoff_IBM_Z_Datathon_2026.pdf](Kickoff_IBM_Z_Datathon_2026.pdf) (local, no versionado) | Agenda, premios, checklist oficial y links. |
+| **IBM Z Day 2026 (18 nov)** | http://ibm.biz/ibmzday-2026 | Conferencia virtual gratuita; 6 badges. |
 | **Guía de organizadores (PDF)** | https://community.ibm.com/zsystems/uploads/document/h2t4lz57pns.pdf | Reglas detalladas y criterios de evaluación. |
 | **Participant Guidebook** | En la plataforma Hack2skill | Fuente de la rúbrica de 40 pts, el calendario y los requisitos de entrega. |
 | **Correo de SSF** | stemprograms@sstarsfoundation.org | Dudas generales (mejor por canales oficiales que por mensajes personales). |
@@ -28,7 +31,7 @@
 |-------|-----|
 | `#announcements` | Avisos, recordatorios y links del evento |
 | `#helpdesk` | Preguntas generales del datathon |
-| `#ibm-z-sme-helpdek` | Dudas técnicas con expertos de IBM (VM, código, proyecto). **Solo abre el día del datathon.** |
+| `#ibm-z-sme-helpdesk` | Dudas técnicas con más de 80 expertos de IBM Z (VM, código, proyecto). Abierto durante el datathon. |
 | `#ssf_volunteers` | Ayuda de voluntarios de SSF |
 | `#community discussion` | Intercambio con otros participantes |
 | `#teaming` | Formación de equipos |
@@ -44,6 +47,7 @@
 | VM con Jupyter Lab ML | https://github.com/linuxone-community-cloud/jupyter-lab-ml |
 | Fast Start Guides | https://community.ibm.com/zsystems/l1cc/faststart/ |
 | Video "Get Your LinuxONE Ready" | https://www.youtube.com/live/HrNNkVyFots |
+| Grabación del setup (recomendada en el kick-off) | https://www.youtube.com/watch?v=y9rZwSq8pw8 |
 
 > El token de Jupyter Lab es personal: **nunca** lo pegues en el repo, en el chat público ni en capturas.
 

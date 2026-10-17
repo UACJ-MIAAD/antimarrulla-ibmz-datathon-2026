@@ -35,7 +35,7 @@
 
 ## ⏱️ Plan de las 24 horas
 
-**Hora 0 = 17 oct, 7:00 hora Juárez** (kick-off: 9:00 ET). Hora 18 = 18 oct, 1:00. Hora 24 = 18 oct, 7:00 (envío). La ventana oficial cierra a las **8:00**.
+**Hora 0 = 17 oct, 7:00 hora Juárez** (kick-off: 9:00 ET). Hora 18 = 18 oct, 1:00. Hora 24 = 18 oct, 7:00 (envío). La entrega en Hack2skill cierra el **18 oct a las 10:30** (hora Juárez); la meta sigue siendo las 7:00.
 
 > Antes de escribir código propio, la guía exige completar los **2 labs de IA/ML** de la organización. Van en las horas 1–3.
 
