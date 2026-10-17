@@ -1,7 +1,7 @@
 {
-  "rev": 21,
-  "actualizado": "2026-10-17T17:40:16Z",
-  "nota": "Para actualizar: cambia 'estado' de la historia (hecho · en_curso · pendiente · bloqueado), sube 'rev' en 1, pon 'actualizado' con la hora real en UTC y haz commit a main. El sitio muestra la copia con 'rev' mayor (GitHub o la publicada).",
+  "rev": 22,
+  "actualizado": "2026-10-17T18:01:57Z",
+  "nota": "Estado por evidencia, no por reporte de chat. Actualizar en rama y PR; incrementar rev y fecha UTC real. Publicar solo la versión revisada. Plan vigente: docs/PLAN_CIERRE.md. Netlify conserva su badge.",
   "hitos": {
     "hora_cero": "2026-10-17T13:00:00Z",
     "ceremonia_cierre_virtual": "2026-10-18T05:00:00Z",
@@ -137,7 +137,7 @@
           "id": "US-1.7",
           "como": "científico de datos",
           "quiero": "ENSANUT 2022/2023 descargada y validada (prevalencia 2022 = 10.9%, igual a la oficial)",
-          "para": "validar el modelo con población mexicana",
+          "para": "evaluar portabilidad en México como experimento reducido exploratorio, sin afirmar validación clínica del MVP",
           "quien": "Equipo",
           "bloque": "h3",
           "prioridad": "Plus",
@@ -197,13 +197,13 @@
         {
           "id": "US-2.5",
           "como": "paciente",
-          "quiero": "TLS 1.3 en tránsito y AES-256-GCM en reposo (CPACF), listos antes de mi descanso de H8",
+          "quiero": "TLS 1.3 mutuo en tránsito y bóveda AES-256-GCM en el hospital, verificados en la VM",
           "para": "que mis datos nunca queden en claro",
           "quien": "Álvaro",
           "bloque": "h3",
           "prioridad": "MVP",
           "estado": "en_curso",
-          "evidencia": "TLS 1.3 mutuo y bóveda AES-256-GCM listos y probados en local (tests/test_integracion.py); falta evidencia de CPACF en LinuxONE"
+          "evidencia": "Implementado y probado localmente; falta evidencia de VM. CPACF es una capacidad de la plataforma, no una condición del MVP ni una aceleración medida."
         },
         {
           "id": "US-2.6",
@@ -214,7 +214,7 @@
           "bloque": "h16",
           "prioridad": "MVP",
           "estado": "en_curso",
-          "evidencia": "scripts de verificación en tests/instance/ (PR 5): Carlos reporta 6/6 del stack y 8/8 de afirmaciones en su servidor. Ojo: 05_test_claims.py usa una implementación de referencia de 6 variables, no src/tamizaje. Falta guardar salidas y capturas en submission/evidencias/linuxone/ con REGISTRO.json"
+          "evidencia": "05_test_claims.py ahora ejecuta pruebas de src/tamizaje (21 variables) y guarda salida/procedencia en submission/evidencias/instancia/. Los 6/6 y 8/8 reportados por Carlos eran preliminares; faltan sus salidas y capturas de Community Cloud con REGISTRO.json."
         }
       ]
     },
@@ -255,7 +255,7 @@
           "bloque": "h12",
           "prioridad": "MVP",
           "estado": "hecho",
-          "evidencia": "submission/evidencias/metricas/medicion_proceso_local-darwin-arm64_20261017T130843Z (commit 7937f9f, clon limpio; local, no LinuxONE): 2,000/2,000 enteros, ROC-AUC 0.808 igual en las 3 variantes"
+          "evidencia": "submission/evidencias/metricas/medicion_proceso_local-darwin-arm64_20261017T133429Z.json (commit 655763f; local, no LinuxONE). Evidencia de esa versión; repetir en la VM con el commit fijado y registrar hashes. No sustituir por los nuevos conteos de pruebas."
         },
         {
           "id": "US-3.4",
@@ -306,7 +306,8 @@
           "quien": "Yazmin",
           "bloque": "h3",
           "prioridad": "MVP",
-          "estado": "pendiente"
+          "estado": "hecho",
+          "evidencia": "docs/FUENTES_DATOS.md, data/marts/cascada_entidad_anio.csv y site/assets/cascada.json: cifras recalculadas en auditoría; registro/ocurrencia y poblaciones distintas explícitos. No es letalidad ni seguimiento de cohortes."
         },
         {
           "id": "US-4.3",
@@ -409,7 +410,7 @@
           "bloque": "h12",
           "prioridad": "MVP",
           "estado": "en_curso",
-          "evidencia": "UI conectada al servicio real en dos contenedores locales; medición de la API trazable (medicion_api_…131320Z, 129 ms p50); falta LinuxONE"
+          "evidencia": "submission/evidencias/metricas/medicion_api_local-darwin-arm64_20261017T133844Z.json (commit 655763f; local, no LinuxONE). Evidencia de esa versión; repetir en la VM con el commit fijado y registrar hashes. No sustituir por los nuevos conteos de pruebas."
         },
         {
           "id": "US-6.3",
@@ -425,13 +426,13 @@
         {
           "id": "US-6.4",
           "como": "médico",
-          "quiero": "un formulario claro para capturar o subir los datos de un paciente (sintético en la demo) y ver su riesgo",
+          "quiero": "pulir el formulario existente de 21 variables para un médico: etiquetas comprensibles, códigos CDC explícitos y validación, con pacientes sintéticos",
           "para": "usar la herramienta sin tocar código",
           "quien": "Yazmin",
           "bloque": "h12",
           "prioridad": "Plus",
           "estado": "pendiente",
-          "evidencia": "base: la UI ya permite editar las 21 variables (src/tamizaje/ui/index.html); falta el formulario de médico"
+          "evidencia": "Extra de Yazmin después de evidencia LinuxONE: ya hay editor de 21 variables y perfiles sintéticos. Cierre: captura legible, caso válido y rechazo de entradas inválidas. No añadir carga de expedientes reales antes del envío."
         },
         {
           "id": "US-6.5",
@@ -442,7 +443,7 @@
           "bloque": "h12",
           "prioridad": "Plus",
           "estado": "en_curso",
-          "evidencia": "PR 6: make ensayo-dos-maquinas aprobado en una sola máquina (no es evidencia); falta la corrida real VM A servicio (Carlos) y VM B hospital (Álvaro), docs/DOS_MAQUINAS.md"
+          "evidencia": "Ensayo local con sintéticos por defecto; CDC público solo con DATOS=cdc para benchmark. Auditoría reforzada: IDs de host distintos, hashes de código/modelo y bitácora contrastados. Falta corrida de Álvaro (hospital) y Carlos (servicio) en dos VM reales. Es extra, no bloquea MVP de una VM."
         }
       ]
     },
@@ -503,7 +504,7 @@
           "bloque": "h18",
           "prioridad": "MVP",
           "estado": "en_curso",
-          "evidencia": "make verify en clon limpio y CI verde; procedencia trazable; falta s390x y revisión de otro integrante (docs/REVISION.md)"
+          "evidencia": "Pruebas del proyecto y procedencia verificadas localmente; make medir incorpora tiempos del logit en claro/punto fijo. Declaración en submission/USO_IA.md, enlazada desde HACK2SKILL.md; falta confirmación del equipo y revisión independiente, sin autoaprobación."
         },
         {
           "id": "US-7.7",

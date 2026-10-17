@@ -3,6 +3,8 @@
 > Nada se entrega sin palomear esta lista. Responsable: **Javier** (capitán), con una segunda revisión de **Álvaro** para la parte técnica y de **Yazmin** para video y PDF.
 > Arrancar la revisión en la **hora 21**. Cierre en Hack2skill: **18 oct, 10:30 hora Juárez** → meta interna de envío: **7:00**.
 
+**Siguiente acción por persona y plan B:** [PLAN_CIERRE.md](PLAN_CIERRE.md). Pruebas locales y reportes por chat no cierran los apartados de LinuxONE/labs. La segunda VM y el formulario pulido son extras.
+
 ## 🧪 Prerrequisitos (primeras horas)
 
 - [ ] 🆕 Los 4 llenaron el **formulario de asistencia del kick-off**: https://forms.gle/hxTYwzJRqgwnWaPn8
@@ -32,7 +34,8 @@
 - [x] `requirements.txt` con versiones fijadas (verificadas en local; en s390x se usan los paquetes apt de la imagen)
 - [x] Instrucciones para obtener el dataset (fuente + licencia) en `data/README.md`
 - [x] Tabla de **librerías open source con sus links** (la guía lo exige en la entrega)
-- [ ] Declaración de **asistentes de IA**: pendiente; el equipo decide dónde va (las reglas piden declararla)
+- [x] Declaración de asistentes documentados en [submission/USO_IA.md](../submission/USO_IA.md), enlazada desde el texto de entrega; el README conserva la decisión del capitán
+- [ ] Los cuatro confirman herramientas y tareas adicionales, incluido el registro no confirmado de «Muse», y entienden el código entregado
 - [x] Diagrama de arquitectura / flowchart: `submission/flowchart/arquitectura.pdf`
 - [x] [DECISION.md](DECISION.md) lleno
 

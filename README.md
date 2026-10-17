@@ -41,6 +41,8 @@ Repositorio oficial del equipo **Los Antimarrulla** (UACJ · Maestría en Inteli
 
 Más detalle: [COMPETENCIA](docs/COMPETENCIA.md) · [REGLAS](docs/REGLAS.md) · [CRITERIOS](docs/CRITERIOS.md) · [TEMAS](docs/TEMAS.md)
 
+**Siguiente acción del equipo:** [Plan de cierre, responsables y plan B](docs/PLAN_CIERRE.md). Primero evidencia de LinuxONE, labs, revisión independiente y video; formulario y segunda VM quedan como extras.
+
 ---
 
 ## Mapa del repo
@@ -111,7 +113,7 @@ cd antimarrulla-ibmz-datathon-2026
 make verify      # crea .venv, corre todas las pruebas y verifica artefactos y re-entrenamiento
 make demo        # genera secretos en ~/.tamizaje, construye la imagen, levanta hospital + servicio y corre la prueba de humo
 open http://127.0.0.1:8080   # UI de pantalla dividida (pacientes sintéticos)
-make medir       # mediciones con evidencia del entorno → submission/evidencias/metricas/
+make medir       # misma muestra CDC: métricas + tiempos del logit en claro/punto fijo y del recorrido cifrado
 make package     # paquete de entrega en dist/
 make demo-down
 ```
@@ -126,7 +128,7 @@ Sin Python en el host (por ejemplo, en la VM): `make verify-docker`, `make demo-
 
 > **La IA ve el riesgo. Nadie ve al paciente.**
 >
-> **Alcance de esa promesa:** el servicio de riesgo recibe únicamente cifrados y nunca tiene la llave. En la demo, el entorno del hospital y el servicio corren en la misma VM de LinuxONE, así que quien administra la VM (el equipo) queda dentro del entorno de confianza; por eso la demo usa solo pacientes sintéticos. Detalle en [PROYECTO.md](docs/PROYECTO.md).
+> **Alcance de esa promesa:** el servicio de riesgo recibe únicamente cifrados y nunca tiene la llave Paillier. El MVP usa dos contenedores en una misma máquina (LinuxONE es el destino pendiente de evidencia); quien administra el host queda dentro de confianza. La demo usa sintéticos; el CDC público se reserva a benchmarks explícitos. Detalle en [PROYECTO.md](docs/PROYECTO.md).
 
 - **Tema oficial:** T2 · AI Secured: Innovation Without Exposure
 - **Problema:** en México, 18.3% de los adultos vive con diabetes, 1 de cada 3 no lo sabe y es la 2.ª causa de muerte (112,577 defunciones registradas en 2024). En hospitales de la Secretaría de Salud, 11,550 egresos por diabetes (18.4%) incluyeron una amputación de miembro inferior. Los hospitales tienen los datos para detectar el riesgo antes, pero no pueden compartirlos.
@@ -134,7 +136,7 @@ Sin Python en el host (por ejemplo, en la VM): `make verify-docker`, `make demo-
 - **Uso de IBM Z / LinuxONE:** diseñado para dos contenedores en la VM de LinuxONE (hospital con la llave Paillier y la bóveda AES-256-GCM · servicio de riesgo sin llaves) con TLS 1.3 mutuo; la aritmética homomórfica son enteros de miles de bits. **Hoy está probado en contenedores locales y en CI x86_64; la ejecución en LinuxONE está pendiente** ([docs/LINUXONE.md](docs/LINUXONE.md)). CPACF existe en IBM Z, pero su uso efectivo no está medido.
 - **Datos (ya en `data/`):** CDC Diabetes Health Indicators (UCI 891) para entrenar el modelo; para el contexto mexicano, casos nuevos **SINAVE** 2014–2026, **muertes** y **hospitalizaciones** por diabetes 2024 (base sectorial reportada, incluido el ISSSTE), control en el **SIS**, tamizajes del **IMSS** y población de **CONAPO**. Los archivos completos de la DGIS están en el Release [`datos-2024`](https://github.com/UACJ-MIAAD/antimarrulla-ibmz-datathon-2026/releases/tag/datos-2024).
 - **Indicador exploratorio:** en 2024 se registraron 22 muertes por diabetes (ocurridas y registradas en el año, de residentes en México) por cada 100 casos nuevos notificados en el país, con **44 en Michoacán y 9 en Sinaloa**. No es letalidad ni una medición de subdiagnóstico: mezcla cohortes distintas y no está ajustado por edad ([detalle y límites](docs/FUENTES_DATOS.md#32-muertes-por-cada-100-casos-notificados-por-estado-2024--exploratorio)).
-- **Métrica estrella:** AUC cifrado vs. AUC en claro sobre los mismos pacientes. Resultado (17 oct, medición **local**, no LinuxONE): en 2,000 pacientes de prueba, los 2,000 enteros descifrados son idénticos a la referencia de punto fijo y el ROC-AUC es el mismo en flotante, punto fijo y cifrado (0.808); por la API del hospital en dos contenedores, 129 ms (p50) por solicitud. Mediciones trazables desde un clon limpio de `7937f9f`; detalle en [submission/evidencias/metricas/](submission/evidencias/metricas/README.md).
+- **Métrica estrella:** AUC cifrado vs. AUC en claro sobre los mismos pacientes. Mediciones **locales**, no LinuxONE, del commit `655763f`: 2,000/2,000 enteros idénticos a la referencia de punto fijo y ROC-AUC 0.808 en las tres variantes; API en dos contenedores, 200/200 resultados y 131.8 ms p50. Las cifras pertenecen a esa versión y no se transfieren automáticamente a cambios posteriores. Detalle en [submission/evidencias/metricas/](submission/evidencias/metricas/README.md).
 - **Cómo correr la demo:** ver [Cómo correrlo](#cómo-correrlo).
 
 Diseño completo: [docs/PROYECTO.md](docs/PROYECTO.md) · Por qué la elegimos: [docs/DECISION.md](docs/DECISION.md) · Datos: [docs/FUENTES_DATOS.md](docs/FUENTES_DATOS.md) · Pitch: [submission/Los_Antimarrulla_Pitch_Tamizaje.pptx](submission/Los_Antimarrulla_Pitch_Tamizaje.pptx)

@@ -39,6 +39,8 @@ def corrida(tmp_path_factory):
             time.sleep(0.1)
         dos_maquinas.correr_hospital(argparse.Namespace(servicio=f"https://localhost:{puerto}", certs=str(d / "para_hospital"),
                                                         salida=str(d / "hospital"), n=8, sin_evidencia=False))
+        dos_maquinas.correr_hospital(argparse.Namespace(servicio=f"https://localhost:{puerto}", certs=str(d / "para_hospital"),
+                                                        salida=str(d / "hospital_cdc"), n=8, datos="cdc", sin_evidencia=False))
     finally:
         proc.terminate(); proc.wait(10); log.close()
     return d
@@ -56,13 +58,60 @@ def test_ensayo_aprueba_y_estricta_exige_dos_maquinas(corrida, tmp_path):
     rc, rep = _auditar(corrida, tmp_path / "a", "misma")
     assert rc == 0 and rep["aprobada"] and rep["veredicto"].startswith("ENSAYO")
     assert rep["hospital"]["exactitud"]["enteros_identicos"] == 8
+    assert rep["hospital"]["muestra"]["datos"] == "sintetico"
+    assert rep["hospital"]["metricas_misma_muestra"] is None
     rc, rep = _auditar(corrida, tmp_path / "b")
     fallas = [c["clave"] for c in rep["comprobaciones"] if not c["ok"]]
     assert rc == 1 and fallas == ["dos_maquinas"]
 
 
+def test_nombres_diferentes_del_mismo_host_no_acreditan_dos_maquinas(corrida, tmp_path):
+    p = corrida / "hospital" / "resumen_hospital.json"
+    original = p.read_text()
+    try:
+        m = json.loads(original)
+        m["maquina"] = "otro-contenedor-en-el-mismo-host"
+        p.write_text(json.dumps(m))
+        rc, rep = _auditar(corrida, tmp_path)
+        assert rc == 1
+        assert any(c["clave"] == "dos_maquinas" and not c["ok"] for c in rep["comprobaciones"])
+    finally:
+        p.write_text(original)
+
+
+def test_cdc_es_benchmark_explicito_con_etiquetas(corrida):
+    m = json.loads((corrida / "hospital_cdc" / "resumen_hospital.json").read_text())
+    assert m["muestra"]["datos"] == "cdc" and m["exactitud"]["enteros_identicos"] == 8
+    assert m["metricas_misma_muestra"]["flotante"]["roc_auc"] == m["metricas_misma_muestra"]["cifrado"]["roc_auc"]
+
+
+def test_detecta_bitacora_del_hospital_alterada(corrida, tmp_path):
+    p = corrida / "hospital" / "bitacora_hospital.jsonl"
+    original = p.read_bytes()
+    try:
+        p.write_bytes(original + b"\n")
+        rc, rep = _auditar(corrida, tmp_path, "misma")
+        assert rc == 1 and any(c["clave"] == "integridad" and not c["ok"] for c in rep["comprobaciones"])
+    finally:
+        p.write_bytes(original)
+
+
+def test_detecta_modelo_del_servicio_distinto(corrida, tmp_path):
+    p = corrida / "evidencia" / "servicio_inicio.json"
+    original = p.read_text()
+    try:
+        m = json.loads(original); m["modelo_sha256"] = "0" * 64
+        p.write_text(json.dumps(m))
+        rc, rep = _auditar(corrida, tmp_path, "misma")
+        assert rc == 1 and any(c["clave"] == "versiones" and not c["ok"] for c in rep["comprobaciones"])
+    finally:
+        p.write_text(original)
+
+
 def test_detecta_evidencia_alterada(corrida, tmp_path):
-    sol = sorted((corrida / "evidencia" / "solicitudes").glob("*.solicitud.json"))[-1]
+    # Seleccionar una petición de esta corrida, no un UUID aleatorio de otro benchmark.
+    rid = json.loads((corrida / "hospital" / "bitacora_hospital.jsonl").read_text().splitlines()[-1])["id"]
+    sol = corrida / "evidencia" / "solicitudes" / (rid + ".solicitud.json")
     original = sol.read_bytes()
     try:
         sol.write_bytes(original.replace(b'"exponente": 0', b'"exponente": 0, "HighBP": 1'))

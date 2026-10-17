@@ -34,6 +34,8 @@ make demo-down
 
 > PR 5 y PR 6 (17 oct) los revisó y fusionó su propio autor (cuenta AzraelNogo); tampoco cuentan como revisión de otro integrante.
 
+Los PR 3 y 4 también entraron por decisiones previas del capitán; una excepción histórica no es una aprobación técnica. La revisión actual debe identificar **commit, alcance y comandos ejecutados**. Las verificaciones de Codex son auditoría asistida, no firma de un integrante. Antes de enviar, los cuatro confirman que comprenden protocolo, límites y uso de IA.
+
 ## 4. Registro de revisiones
 
 | Integrante | Fecha y hora | Qué corrió | Comentarios |

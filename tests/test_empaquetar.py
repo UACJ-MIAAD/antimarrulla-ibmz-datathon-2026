@@ -43,7 +43,8 @@ def completo(raiz):
     url = "https://youtu.be/abcdefghijk"
     w(raiz, "submission/VIDEO_REGISTRO.json", {"url": url, "duracion_s": 172.0, "audio": True, "voces_autorizadas": True,
       "acceso_publico_verificado": True, "verificado_por": "Javier", "fecha": "2026-10-18"})
-    w(raiz, "submission/HACK2SKILL.md", f"| Video | {url} |\n")
+    w(raiz, "submission/HACK2SKILL.md", f"| Video | {url} |\n| Uso de IA | [Declaración](USO_IA.md) |\n")
+    w(raiz, "submission/USO_IA.md", "Uso declarado de asistentes y tareas; revisión humana documentada por el equipo.")
     w(raiz, "docs/REVISION.md", "| Integrante | Fecha y hora | Qué corrió | Comentarios |\n|---|---|---|---|\n| Carlos | 2026-10-18 02:00 | make verify | ok |\n")
 
 
@@ -87,3 +88,9 @@ def test_r2_cada_falla_se_detecta(tmp_path, romper):
 def test_r2_procedencia_desconocida_rechazada(tmp_path):
     completo(str(tmp_path))
     assert empaquetar.faltantes_finales({"limpio": None, "commit": "a"}, raiz=str(tmp_path))
+
+
+def test_sin_declaracion_ia_no_es_paquete_final(tmp_path):
+    completo(str(tmp_path))
+    os.unlink(tmp_path / "submission/USO_IA.md")
+    assert any("uso de IA" in f for f in empaquetar.faltantes_finales(PROV, raiz=str(tmp_path)))

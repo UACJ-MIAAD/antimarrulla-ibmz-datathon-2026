@@ -8,13 +8,13 @@ Cada corrida deja un `.json` (legible por máquina) y un `.md` (resumen). Desde 
 | `medicion_proceso_local-darwin-arm64_20261017T130843Z.*` | **Trazable.** Corrida con `make medir FINAL=1` desde un clon limpio del commit `7937f9f` (código `d6f1e9c0…`). Exactitud en 2,000 pacientes del CDC y microbenchmarks en un solo proceso. Local (macOS arm64), **no LinuxONE**. |
 | `medicion_api_local-darwin-arm64_20261017T131320Z.*` | **Trazable.** `make demo` y `make medir-api FINAL=1` desde el mismo clon limpio de `7937f9f`; imagen `tamizaje:demo` `sha256:1a106d6c632559361c385235d325aa316c31bfc55290a3c0102ae0cda020b484` (etapa app). Cliente HTTP → API del hospital → mTLS → servicio → descifrado → bóveda, en dos contenedores locales (Linux arm64 en Docker Desktop), **no LinuxONE**; 200 pacientes sintéticos. |
 
-Commits posteriores a `7937f9f` en esta rama solo cambian `src/tamizaje/empaquetar.py` (empaquetado, fuera del camino medido), documentación, deck y sitio. Por eso el hash de código de la rama ya no es `d6f1e9c0…`: para reproducir estas cifras hay que hacer `git checkout 7937f9f`.
+Para reproducir las cifras de `7937f9f`, usar ese commit: el código cambió después y el hash de la rama actual ya es otro. Una modificación de documentación no altera los cálculos, pero los cambios del servicio o medidor sí exigen identificar su propia versión.
 
-## Mediciones vigentes (código de `main` desde `655763f`)
+## Mediciones de la versión `655763f`
 
 | Archivo | Estado |
 |---------|--------|
-| `medicion_proceso_local-darwin-arm64_20261017T133429Z.*` | **Trazable y vigente.** `make medir FINAL=1` desde un clon limpio de `655763f` (código `dca22a07…`). 2,000/2,000 enteros, ROC-AUC 0.808 en las tres variantes. Local, no LinuxONE. |
-| `medicion_api_local-darwin-arm64_20261017T133844Z.*` | **Trazable y vigente.** `make demo` + `make medir-api FINAL=1` desde el mismo clon; imagen `tamizaje:demo` `sha256:77477fa44b55543bf057d162d542d8dc4df2b23c195500493ac3479df9310775`; el hospital reporta el mismo hash de código que el cliente (`codigo_igual_al_cliente: true`). 200/200 enteros, p50 131.8 ms. Dos contenedores locales, no LinuxONE. |
+| `medicion_proceso_local-darwin-arm64_20261017T133429Z.*` | **Trazable para `655763f`.** `make medir FINAL=1` desde un clon limpio de `655763f` (código `dca22a07…`). 2,000/2,000 enteros, ROC-AUC 0.808 en las tres variantes. Local, no LinuxONE. |
+| `medicion_api_local-darwin-arm64_20261017T133844Z.*` | **Trazable para `655763f`.** `make demo` + `make medir-api FINAL=1` desde el mismo clon; imagen `tamizaje:demo` `sha256:77477fa44b55543bf057d162d542d8dc4df2b23c195500493ac3479df9310775`; el hospital reporta el mismo hash de código que el cliente (`codigo_igual_al_cliente: true`). 200/200 enteros, p50 131.8 ms. Dos contenedores locales, no LinuxONE. |
 
 Las de `7937f9f` siguen siendo válidas para ese commit (`git checkout 7937f9f`).

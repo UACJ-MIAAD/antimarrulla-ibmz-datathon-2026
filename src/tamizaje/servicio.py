@@ -92,6 +92,7 @@ def _ahora():
 def crear_servidor(host, puerto, modelo_json, cert, llave, ca_clientes, evidencia=None, modelo_sha256=None):
     servicio = protocolo.ServicioRiesgo(protocolo.ModeloCuantizado.desde_json(modelo_json))
     ev = Evidencia(evidencia, modelo_json, modelo_sha256) if evidencia else None
+    codigo_sha256 = procedencia.hash_codigo()[0]
 
     class Manejador(BaseHTTPRequestHandler):
         server_version = "tamizaje-servicio"
@@ -116,6 +117,7 @@ def crear_servidor(host, puerto, modelo_json, cert, llave, ca_clientes, evidenci
                 return self._responder(404, {"error": "no existe"})
             self._responder(200, {"estado": "ok", "protocolo": protocolo.PROTOCOLO, "modelo": servicio.modelo.nombre,
                                   "esquema": servicio.modelo.esquema, "llave_privada": False,
+                                  "modelo_sha256": modelo_sha256, "codigo_sha256": codigo_sha256,
                                   "evidencia": ev is not None})
 
         def do_POST(self):

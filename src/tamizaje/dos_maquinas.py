@@ -1,11 +1,11 @@
-"""Prueba de dos máquinas con datos reales y auditoría de que el servicio nunca vio datos en claro.
+"""Prueba de dos máquinas con sintéticos por defecto y auditoría de la evidencia del servicio.
 
 Máquina A (servicio de riesgo, sin llave privada):
     SERVICIO_EVIDENCIA=<dir> python -m tamizaje.servicio      (o `make servicio-remoto-docker`)
 Máquina B (hospital, tiene la llave privada Paillier):
     python -m tamizaje.dos_maquinas hospital --servicio https://IP_DE_A:8443 --certs <paquete del hospital> --salida <dir>
-  Toma una muestra estratificada y reproducible de la partición de PRUEBA del CDC (registros reales de la encuesta
-  BRFSS 2015, públicos y anónimos), cifra cada registro, lo manda por TLS 1.3 mutuo, descifra el resultado y lo compara
+  Genera sintéticos deterministas (demo); --datos cdc selecciona explícitamente una muestra pública de prueba.
+  Cifra cada registro, lo manda por TLS 1.3 mutuo, descifra el resultado y lo compara
   con el cálculo en claro. Guarda bitacora_hospital.jsonl (hashes de los bytes enviados/recibidos y resultados
   descifrados; sin los vectores de entrada) y resumen_hospital.json (métricas, tiempos, entorno y procedencia).
 Auditoría (en cualquiera de las dos, con la evidencia de ambas en el mismo disco):
@@ -21,11 +21,11 @@ Comprobaciones de la auditoría:
      o archivos del servicio.
   5. El proceso del servicio no tenía ninguna llave privada Paillier en memoria (al arrancar y en cada solicitud).
   6. Canal: TLS 1.3 con certificado de cliente "hospital".
-  7. Dos máquinas distintas (nombre de host diferente; IP del cliente que no es loopback, salvo túnel SSH).
-  8. El hospital obtuvo enteros idénticos al cálculo en claro y las mismas métricas en cifrado y en flotante.
+  7. IDs de host presentes y distintos; los nombres de contenedor no acreditan dos máquinas.
+  8. Enteros idénticos; AUC solo si se usan registros CDC con etiquetas de ambas clases.
 """
 import argparse, datetime, glob, hashlib, json, os, platform, re, shutil, sys, time
-from . import contrato, esquema, hospital, procedencia, protocolo, servicio
+from . import contrato, esquema, hospital, procedencia, protocolo, servicio, sinteticos
 from .rutas import MODELO_JSON, PARTICIONES, RAIZ
 
 SALIDA_REPORTES = os.path.join(RAIZ, "submission", "evidencias", "dos_maquinas")
@@ -33,6 +33,28 @@ CAMPOS_SOLICITUD = {"protocolo", "esquema", "modelo", "id", "llave_publica", "ex
 CAMPOS_RESPUESTA = {"protocolo", "esquema", "modelo", "id", "exponente", "resultado", "servicio_ms"}
 VECTOR_EN_CLARO = re.compile(r"\[\s*(?:-?\d{1,3}\s*,\s*){20}-?\d{1,3}\s*\]")
 CALENTAMIENTO = 3
+
+
+def _muestra(n, origen):
+    """Sintéticos por defecto; CDC público solo al solicitar un benchmark con etiquetas."""
+    from . import medir
+    if n < 2:
+        raise ValueError("se necesitan al menos 2 registros")
+    if origen == "sintetico":
+        filas = []
+        for k in range(n + CALENTAMIENTO):
+            paciente = sinteticos.aleatorio(medir.SEMILLA_MUESTRA + k)
+            filas.append((k, [paciente[v] for v in esquema.NOMBRES], None))
+        return filas, CALENTAMIENTO
+    from . import datos
+    part = json.load(open(PARTICIONES))
+    ids, X, y = datos.cargar_cdc()
+    Xte, yte, idte = datos.cargar_particion(part, "prueba", ids, X, y)
+    fila = {int(i): k for k, i in enumerate(idte)}
+    muestra = medir.muestra_estratificada(idte.tolist(), yte.tolist(), min(n, len(idte)))
+    elegidos = set(muestra)
+    cal = [int(i) for i in idte if int(i) not in elegidos][:CALENTAMIENTO]
+    return [(i, Xte[fila[i]].tolist(), int(yte[fila[i]])) for i in cal + muestra], len(cal)
 
 
 def _sha(b):
@@ -67,19 +89,17 @@ def correr_hospital(a):
                                    os.path.join(certs, "hospital.key"), timeout=60)
     salud = cli.salud()
     print("servicio:", salud)
-    if salud.get("modelo") != modelo["modelo"]:
+    if salud.get("modelo") != modelo["modelo"] or salud.get("modelo_sha256") != _sha(crudo_modelo):
         raise SystemExit(f"el servicio corre otro modelo ({salud.get('modelo')}) que este hospital ({modelo['modelo']})")
+    if salud.get("codigo_sha256") != procedencia.hash_codigo()[0]:
+        raise SystemExit("el servicio corre otro código: usar el mismo commit en ambos extremos")
     if not salud.get("evidencia") and not a.sin_evidencia:
         raise SystemExit("el servicio no está guardando evidencia: arráncalo con SERVICIO_EVIDENCIA=<dir> "
                          "(o usa --sin-evidencia si solo quieres medir, sin auditoría)")
 
-    part = json.load(open(PARTICIONES))
-    ids, X, y = datos.cargar_cdc()
-    Xte, yte, idte = datos.cargar_particion(part, "prueba", ids, X, y)
-    fila = {int(i): k for k, i in enumerate(idte)}
-    n = min(a.n, len(idte))
-    muestra = medir.muestra_estratificada(idte.tolist(), yte.tolist(), n)
-    calentamiento = [int(i) for i in idte[:CALENTAMIENTO] if int(i) not in set(muestra)][:CALENTAMIENTO]
+    origen = getattr(a, "datos", "sintetico")
+    muestra, n_cal = _muestra(a.n, origen)
+    n = len(muestra) - n_cal
 
     h = protocolo.Hospital(modelo)
     W, B, wf, bf = modelo["pesos_enteros"], modelo["intercepto_entero"], modelo["pesos_flotantes"], modelo["intercepto_flotante"]
@@ -91,9 +111,8 @@ def correr_hospital(a):
 
     filas, valores_en_claro = [], set()
     with open(ruta_bit, "w") as bit:
-        for k, cdc_id in enumerate(calentamiento + muestra):
-            es_cal = k < len(calentamiento)
-            x = Xte[fila[cdc_id]].tolist()
+        for k, (registro_id, x, y) in enumerate(muestra):
+            es_cal = k < n_cal
             t0 = time.perf_counter()
             sol, xv = h.preparar(dict(zip(esquema.NOMBRES, x)))
             cuerpo = json.dumps(sol).encode()
@@ -106,7 +125,7 @@ def correr_hospital(a):
             t3 = time.perf_counter()
             z_ref = contrato.logit_entero(W, B, xv)
             logit_f = sum(w * v for w, v in zip(wf, xv)) + bf
-            e = {"id": sol["id"], "cdc_id": cdc_id, "calentamiento": es_cal, "y": int(yte[fila[cdc_id]]),
+            e = {"id": sol["id"], "registro_id": registro_id, "datos": origen, "calentamiento": es_cal, "y": y,
                  "sha256_solicitud": _sha(cuerpo), "sha256_respuesta": _sha(d), "bytes_in": len(cuerpo), "bytes_out": len(d),
                  "ms_cifrar": round((t1 - t0) * 1e3, 3), "ms_red_y_servicio": round((t2 - t1) * 1e3, 3),
                  "ms_descifrar": round((t3 - t2) * 1e3, 3), "ms_total": round((t3 - t0) * 1e3, 3),
@@ -119,20 +138,24 @@ def correr_hospital(a):
             if not es_cal and (len(filas) % 25 == 0 or len(filas) == n):
                 print(f"  {len(filas)}/{n} · último {e['ms_total']:.0f} ms · idénticos {sum(f['identico'] for f in filas)}/{len(filas)}")
 
-    ys = np.array([f["y"] for f in filas])
+    ys = np.array([f["y"] for f in filas]) if origen == "cdc" else None
     pc = np.array([f["probabilidad_cifrado"] for f in filas]); pf = np.array([f["probabilidad_flotante"] for f in filas])
     env = medir.entorno()
     resumen = {
         "fecha_utc": _ahora().isoformat().replace("+00:00", "Z"), "maquina": platform.node(), "maquina_id": servicio.id_maquina(),
         "arquitectura": platform.machine(),
         "servicio_url": a.servicio, "servicio_salud": salud, "modelo": modelo["modelo"], "modelo_sha256": _sha(crudo_modelo),
-        "llave_paillier_bits": h.pub.n.bit_length(), "concurrencia": 1, "calentamiento": len(calentamiento),
-        "muestra": {"origen": "partición de prueba del CDC (UCI 891, BRFSS 2015): registros reales, públicos y anónimos",
-                    "semilla": medir.SEMILLA_MUESTRA, "n": n, "positivos": int(ys.sum()), "prevalencia": round(float(ys.mean()), 4),
+        "llave_paillier_bits": h.pub.n.bit_length(), "concurrencia": 1, "calentamiento": n_cal,
+        "muestra": {"origen": "pacientes sintéticos deterministas" if origen == "sintetico" else "CDC público anonimizado (partición de prueba)",
+                    "datos": origen, "semilla": medir.SEMILLA_MUESTRA, "n": n,
+                    "positivos": int(ys.sum()) if ys is not None else None,
+                    "prevalencia": round(float(ys.mean()), 4) if ys is not None else None,
                     "ids_sha256": _sha(json.dumps(muestra).encode())},
         "exactitud": {"enteros_identicos": sum(f["identico"] for f in filas), "de": n,
                       "error_max_probabilidad_vs_flotante": float(np.abs(pc - pf).max())},
-        "metricas_misma_muestra": {"flotante": medir.metricas(ys, pf, umbral), "cifrado": medir.metricas(ys, pc, umbral)},
+        "metricas_misma_muestra": ({"flotante": medir.metricas(ys, pf, umbral), "cifrado": medir.metricas(ys, pc, umbral)}
+                                   if ys is not None and len(set(ys)) == 2 else None),
+        "nota_metricas": "Sin AUC/sensibilidad en sintéticos: no tienen etiqueta clínica observada.",
         "tiempos_ms": {k: medir.resumen([f[k] for f in filas]) for k in ("ms_total", "ms_cifrar", "ms_red_y_servicio", "ms_descifrar")},
         "tamanos_bytes": {"solicitud_p50": int(medir.pct([f["bytes_in"] for f in filas], 50)), "respuesta_p50": int(medir.pct([f["bytes_out"] for f in filas], 50))},
         "valores_en_claro_distintos": len(valores_en_claro), "valores_en_claro_total": n * len(esquema.NOMBRES),
@@ -141,9 +164,9 @@ def correr_hospital(a):
     }
     with open(os.path.join(a.salida, "resumen_hospital.json"), "w") as f:
         json.dump(resumen, f, ensure_ascii=False, indent=1)
-    t = resumen["tiempos_ms"]["ms_total"]; mc = resumen["metricas_misma_muestra"]["cifrado"]; mf = resumen["metricas_misma_muestra"]["flotante"]
-    print(f"\n{n} registros reales del CDC · enteros idénticos {resumen['exactitud']['enteros_identicos']}/{n} · "
-          f"ROC-AUC flotante {mf['roc_auc']} / cifrado {mc['roc_auc']} · p50 {t['p50_ms']} ms · p95 {t['p95_ms']} ms")
+    t = resumen["tiempos_ms"]["ms_total"]
+    print(f"\n{n} registros ({origen}) · enteros idénticos {resumen['exactitud']['enteros_identicos']}/{n} · "
+          f"p50 {t['p50_ms']} ms · p95 {t['p95_ms']} ms")
     print(f"bitácora en {ruta_bit}\nsiguiente paso: copia la carpeta {os.path.abspath(a.salida)} a la máquina del servicio y corre la auditoría")
 
 
@@ -161,6 +184,21 @@ def auditar(a):
 
     def check(clave, titulo, ok, detalle):
         checks.append({"clave": clave, "titulo": titulo, "ok": bool(ok), "detalle": detalle})
+
+    medidas = [h for h in hosp if not h.get("calentamiento")]
+    ex = res_h["exactitud"]
+    check("integridad", "Bitácora del hospital íntegra y conteos consistentes",
+          bool(medidas) and _sha_archivo(os.path.join(a.hospital, "bitacora_hospital.jsonl")) == res_h.get("bitacora_sha256")
+          and len(medidas) == res_h["muestra"]["n"] == ex["de"]
+          and sum(int(h["z_descifrado"]) == int(h["z_esperado"]) for h in medidas) == ex["enteros_identicos"],
+          "SHA-256 de bitácora, muestra y enteros contrastados con el resumen")
+    sh = res_h.get("servicio_salud") or {}
+    codigo = res_h.get("procedencia", {}).get("codigo_sha256")
+    modelo = res_h.get("modelo_sha256")
+    check("versiones", "Mismo código y modelo en hospital, salud y evidencia del servicio",
+          bool(codigo and modelo) and codigo == ini_s.get("codigo_sha256") == sh.get("codigo_sha256")
+          and modelo == ini_s.get("modelo_sha256") == sh.get("modelo_sha256"),
+          "Los nombres del modelo no sustituyen sus hashes")
 
     # 1. hashes en ambos lados y archivos intactos
     faltan = sum(1 for s in nuestras if s is None)
@@ -242,19 +280,25 @@ def auditar(a):
     ips = sorted({s["cliente_ip"] for s in filter(None, nuestras)})
     loop = all(ip.startswith("127.") or ip == "::1" for ip in ips)
     ids_m = (res_h.get("maquina_id"), ini_s.get("maquina_id"))
-    distintas = res_h["maquina"] != ini_s["maquina"] or (all(ids_m) and ids_m[0] != ids_m[1])
+    # Nombres diferentes también ocurren entre dos contenedores del mismo host.
+    distintas = bool(all(ids_m) and ids_m[0] != ids_m[1])
     detalle = (f"hospital `{res_h['maquina']}` id `{ids_m[0]}` ({res_h['arquitectura']}) · servicio `{ini_s['maquina']}` id `{ids_m[1]}` ({ini_s['arquitectura']}) · "
                f"IP del cliente vista por el servicio: {', '.join(ips)}" + (" (loopback: túnel SSH o misma máquina)" if loop else ""))
-    if distintas or not a.permitir_misma_maquina:
+    if not a.permitir_misma_maquina:
         check("dos_maquinas", "Hospital y servicio corrieron en máquinas distintas", distintas, detalle)
     else:
         detalle = "ENSAYO en una sola máquina (--permitir-misma-maquina): " + detalle
 
     # 8. exactitud y métricas
-    ex = res_h["exactitud"]; mf = res_h["metricas_misma_muestra"]["flotante"]; mc = res_h["metricas_misma_muestra"]["cifrado"]
+    ex = res_h["exactitud"]
+    metricas = res_h.get("metricas_misma_muestra")
+    auc_igual = not metricas or abs(metricas["flotante"]["roc_auc"] - metricas["cifrado"]["roc_auc"]) < 1e-4
     check("exactitud", "El hospital descifró enteros idénticos al cálculo en claro y las mismas métricas",
-          ex["enteros_identicos"] == ex["de"] and all(h["identico"] for h in hosp) and abs(mf["roc_auc"] - mc["roc_auc"]) < 1e-4,
-          f"enteros idénticos {ex['enteros_identicos']}/{ex['de']} (+{res_h['calentamiento']} de calentamiento) · ROC-AUC flotante {mf['roc_auc']} / cifrado {mc['roc_auc']} · "
+          ex["de"] > 0 and ex["enteros_identicos"] == ex["de"]
+          and all(h["identico"] and int(h["z_descifrado"]) == int(h["z_esperado"]) for h in hosp) and auc_igual,
+          f"enteros idénticos {ex['enteros_identicos']}/{ex['de']} (+{res_h['calentamiento']} de calentamiento) · "
+          + (f"ROC-AUC flotante {metricas['flotante']['roc_auc']} / cifrado {metricas['cifrado']['roc_auc']} · "
+             if metricas else "sin AUC: muestra sin etiquetas clínicas · ") +
           f"error máx. de probabilidad {ex['error_max_probabilidad_vs_flotante']:.2e}")
 
     ok = all(c["ok"] for c in checks)
@@ -271,7 +315,8 @@ def auditar(a):
     if "dos_maquinas" not in {c["clave"] for c in checks}:
         out["nota"] = detalle
 
-    adv = (f"> Ejecutado en s390x: {', '.join(s390)}." if s390 else "> ⚠️ Ninguna de las dos máquinas es s390x: no es evidencia de LinuxONE.")
+    adv = (f"> Arquitectura s390x: {', '.join(s390)}. Identidad de LinuxONE pendiente de contrastar con Community Cloud."
+           if s390 else "> ⚠️ Ninguna de las dos máquinas es s390x: no es evidencia de LinuxONE.")
     md = f"""# Auditoría de dos máquinas · {out['fecha_utc']}
 
 **{veredicto}**
@@ -281,7 +326,7 @@ def auditar(a):
 - Hospital (tiene la llave privada): `{res_h['maquina']}` · {res_h['arquitectura']} · commit `{res_h['procedencia']['commit']}` · código `{res_h['procedencia']['codigo_sha256'][:16]}`
 - Servicio de riesgo (sin llave): `{ini_s['maquina']}` · {ini_s['arquitectura']} · {ini_s['plataforma']} · código `{ini_s['codigo_sha256'][:16]}` · contenedor: {ini_s['contenedor']}
 - Mismo código en ambos lados: {res_h['procedencia']['codigo_sha256'] == ini_s['codigo_sha256']} · modelo `{res_h['modelo_sha256'][:16]}` (servicio `{(ini_s.get('modelo_sha256') or 'n/d')[:16]}`)
-- Muestra: {res_h['muestra']['n']} registros REALES de la partición de prueba del CDC (semilla {res_h['muestra']['semilla']}, {res_h['muestra']['positivos']} positivos) · llave Paillier de {res_h['llave_paillier_bits']} bits
+- Muestra: {res_h['muestra']['n']} registros · {res_h['muestra']['origen']} (semilla {res_h['muestra']['semilla']}) · llave Paillier de {res_h['llave_paillier_bits']} bits
 - Recorrido: hospital cifra → TLS 1.3 mutuo por la red → servicio calcula Enc(w·x + b) → hospital descifra · concurrencia 1
 """ + (f"- ⚠️ {out['nota']}\n" if "nota" in out else "") + f"""
 | # | Comprobación | Resultado | Detalle |
@@ -312,11 +357,13 @@ Bitácoras: hospital `{res_h['bitacora_sha256'][:16]}` · servicio `{out['servic
 def main():
     ap = argparse.ArgumentParser(description=__doc__.split("\n")[0])
     sub = ap.add_subparsers(dest="cmd", required=True)
-    h = sub.add_parser("hospital", help="máquina B: cifra registros reales del CDC y los manda al servicio remoto")
+    h = sub.add_parser("hospital", help="máquina B: cifra sintéticos (o CDC explícito) y los manda al servicio remoto")
     h.add_argument("--servicio", required=True, help="https://IP_DEL_SERVICIO:8443")
     h.add_argument("--certs", required=True, help="carpeta con ca.pem, hospital.pem y hospital.key")
     h.add_argument("--salida", required=True, help="carpeta para bitacora_hospital.jsonl y resumen_hospital.json (fuera del repo)")
-    h.add_argument("--n", type=int, default=200, help="registros de la partición de prueba (estratificados)")
+    h.add_argument("--n", type=int, default=200, help="número de registros (mínimo 2)")
+    h.add_argument("--datos", choices=["sintetico", "cdc"], default="sintetico",
+                   help="sintéticos para demo; cdc público solo para benchmark con etiquetas")
     h.add_argument("--sin-evidencia", action="store_true", help="permitir un servicio sin SERVICIO_EVIDENCIA (sin auditoría)")
     u = sub.add_parser("auditar", help="comprueba que el servicio nunca vio datos en claro")
     u.add_argument("--servicio", required=True, help="carpeta SERVICIO_EVIDENCIA de la máquina A")

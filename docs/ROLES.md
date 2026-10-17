@@ -3,6 +3,8 @@
 > Somos **4**, el mínimo de las bases. Nadie es dueño exclusivo de nada; todos revisan PRs de todos.
 > El estatus de cada tarea vive en [site/status.json](../site/status.json) y se ve en vivo en https://antimarrulla-tamizaje.netlify.app
 
+**Prioridad vigente:** seguir [PLAN_CIERRE.md](PLAN_CIERRE.md). El calendario de abajo conserva los bloques y descansos originales; las partes ya implementadas requieren evidencia y revisión, no volver a desarrollarse. Carlos lidera el servicio, Álvaro el hospital en la prueba opcional de dos hosts, Yazmin el formulario/pitch y Javier el cierre de entrega.
+
 ## Roles
 
 ### 🧭 Capitán · coordinación, documentación y entrega · Javier Augusto Rebull Saucedo
@@ -23,7 +25,7 @@
 - Labs obligatorios de IA (multi-model y predictivo + generativo) junto con Álvaro y Yazmin.
 - Regresión logística en el CDC y **contrato numérico** (orden de las 21 variables, escala, error medido) en H3–H8. XGBoost solo como referencia si sobra tiempo.
 - Pesos en punto fijo e **inferencia cifrada con Paillier**: un recorrido completo **antes de su descanso de H11**; métrica estrella: **AUC cifrado vs. en claro** sobre la misma muestra.
-- Granite (llama.cpp) explicando el resultado al paciente.
+- Granite (llama.cpp) es un extra sin integrar; solo se retoma con LinuxONE, evidencia y video encaminados.
 - Semillas fijas, scripts reproducibles en `src/` y `pip freeze` final.
 
 ### 📊🎤 Datos y pitch · Yazmin Ivonne Flores Martinez

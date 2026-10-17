@@ -9,6 +9,10 @@ export TAMIZAJE_GID := $(shell id -g)
 COMPOSE := docker compose -f docker/compose.yml
 
 .PHONY: all setup modelo test verify secretos imagen demo demo-down smoke medir package
+.PHONY: instance-claims
+
+instance-claims: setup                ## prueba el protocolo real de 21 variables y guarda salida + procedencia
+	$(BIN)/python tests/instance/05_test_claims.py
 
 all: setup verify demo                ## instala, verifica y levanta la demo
 
@@ -101,6 +105,7 @@ video-borrador:                       ## borrador sin audio con los tiempos del 
 # ---- Prueba de dos máquinas (docs/DOS_MAQUINAS.md): servicio de riesgo en una VM, hospital en otra, con auditoría
 DM ?= $(HOME)/.tamizaje-dos-maquinas
 N ?= 200
+DATOS ?= sintetico
 MAQUINA_ID = -e TAMIZAJE_MAQUINA_ID=$$(cut -c1-12 /etc/machine-id 2>/dev/null)
 .PHONY: secretos-dos-maquinas servicio-remoto-docker hospital-remoto-docker auditar-dos-maquinas-docker ensayo-dos-maquinas
 
@@ -118,13 +123,13 @@ servicio-remoto-docker: imagen        ## VM del servicio: escucha en :8443 sin l
 	  -e SERVICIO_CERT=/run/tamizaje/servicio.pem -e SERVICIO_LLAVE=/run/tamizaje/servicio.key -e SERVICIO_CA_CLIENTES=/run/tamizaje/ca.pem \
 	  -e SERVICIO_EVIDENCIA=/evidencia tamizaje:demo python3 -m tamizaje.servicio 2>&1 | tee -a $(DM)/servicio.log
 
-hospital-remoto-docker: imagen-dev    ## VM del hospital: N registros reales del CDC cifrados al servicio remoto (SERVICIO_URL=...)
+hospital-remoto-docker: imagen-dev    ## VM del hospital: sintéticos por defecto; DATOS=cdc solo para benchmark público
 	@test -n "$(SERVICIO_URL)" || (echo "uso: make hospital-remoto-docker SERVICIO_URL=https://<IP del servicio>:8443 [N=200]"; exit 1)
 	@test -f $(DM)/para_hospital/hospital.key || (echo "falta $(DM)/para_hospital: cópialo desde la VM del servicio"; exit 1)
 	@mkdir -p $(DM)/bitacora_hospital
 	docker run --rm --network host $(PROC) $(MAQUINA_ID) --user $(TAMIZAJE_UID):$(TAMIZAJE_GID) \
 	  -v $(DM)/para_hospital:/run/tamizaje:ro -v $(DM)/bitacora_hospital:/bitacora \
-	  tamizaje:dev python3 -m tamizaje.dos_maquinas hospital --servicio $(SERVICIO_URL) --certs /run/tamizaje --salida /bitacora --n $(N)
+	  tamizaje:dev python3 -m tamizaje.dos_maquinas hospital --servicio $(SERVICIO_URL) --certs /run/tamizaje --salida /bitacora --n $(N) --datos $(DATOS)
 
 auditar-dos-maquinas-docker: imagen-dev  ## VM del servicio, con la bitácora del hospital copiada: reporte → submission/evidencias/dos_maquinas/
 	@test -f $(DM)/bitacora_hospital/resumen_hospital.json || (echo "copia la carpeta bitacora_hospital de la VM del hospital a $(DM)/"; exit 1)
@@ -132,11 +137,12 @@ auditar-dos-maquinas-docker: imagen-dev  ## VM del servicio, con la bitácora de
 	docker run --rm $(PROC) -v $(DM):/dm:ro -v $(CURDIR)/submission/evidencias/dos_maquinas:/app/submission/evidencias/dos_maquinas \
 	  tamizaje:dev python3 -m tamizaje.dos_maquinas auditar --servicio /dm/evidencia_servicio --hospital /dm/bitacora_hospital --log-servicio /dm/servicio.log
 
-ensayo-dos-maquinas: setup            ## ensayo en UNA máquina (Mac o VM) con el venv: no es evidencia, solo prueba el flujo
-	@E=/tmp/tamizaje-ensayo; rm -rf $$E; $(BIN)/python -m tamizaje.secretos $$E/servicio --exportar-hospital $$E/para_hospital >/dev/null; \
-	C=$$E/servicio/certs; SERVICIO_HOST=127.0.0.1 SERVICIO_PUERTO=9443 SERVICIO_CERT=$$C/servicio.pem SERVICIO_LLAVE=$$C/servicio.key \
+ensayo-dos-maquinas: setup            ## ensayo en UNA máquina, con sintéticos: nunca acredita dos VM
+	@set -eu; E=$$(mktemp -d /tmp/tamizaje-ensayo.XXXXXX); $(BIN)/python -m tamizaje.secretos $$E/servicio --exportar-hospital $$E/para_hospital >/dev/null; \
+	P=$$($(BIN)/python -c 'import socket; s=socket.socket(); s.bind(("127.0.0.1",0)); print(s.getsockname()[1]); s.close()'); \
+	C=$$E/servicio/certs; SERVICIO_HOST=127.0.0.1 SERVICIO_PUERTO=$$P SERVICIO_CERT=$$C/servicio.pem SERVICIO_LLAVE=$$C/servicio.key \
 	SERVICIO_CA_CLIENTES=$$C/ca.pem MODELO_JSON=artefactos/modelo/modelo_logistico_v1.json SERVICIO_EVIDENCIA=$$E/evidencia_servicio \
-	$(BIN)/python -m tamizaje.servicio > $$E/servicio.log 2>&1 & PID=$$!; sleep 3; \
-	$(BIN)/python -m tamizaje.dos_maquinas hospital --servicio https://localhost:9443 --certs $$E/para_hospital --salida $$E/bitacora_hospital --n $(if $(filter 200,$(N)),20,$(N)); RC=$$?; \
-	kill $$PID; test $$RC -eq 0 && $(BIN)/python -m tamizaje.dos_maquinas auditar --servicio $$E/evidencia_servicio --hospital $$E/bitacora_hospital \
+	$(BIN)/python -m tamizaje.servicio > $$E/servicio.log 2>&1 & PID=$$!; trap 'kill "$$PID" 2>/dev/null || true' EXIT; sleep 3; \
+	$(BIN)/python -m tamizaje.dos_maquinas hospital --servicio https://localhost:$$P --certs $$E/para_hospital --salida $$E/bitacora_hospital --n $(if $(filter 200,$(N)),20,$(N)) --datos $(DATOS); \
+	kill $$PID; wait $$PID 2>/dev/null || true; $(BIN)/python -m tamizaje.dos_maquinas auditar --servicio $$E/evidencia_servicio --hospital $$E/bitacora_hospital \
 	  --log-servicio $$E/servicio.log --salida $$E/reporte --permitir-misma-maquina
