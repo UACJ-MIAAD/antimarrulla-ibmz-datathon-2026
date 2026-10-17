@@ -108,7 +108,7 @@ Requisitos: Python 3.12, Docker y `make`. Probado el 17 oct 2026 en macOS arm64 
 ```bash
 git clone https://github.com/UACJ-MIAAD/antimarrulla-ibmz-datathon-2026.git
 cd antimarrulla-ibmz-datathon-2026
-make verify      # crea .venv, corre las 41 pruebas y verifica artefactos y re-entrenamiento
+make verify      # crea .venv, corre todas las pruebas y verifica artefactos y re-entrenamiento
 make demo        # genera secretos en ~/.tamizaje, construye la imagen, levanta hospital + servicio y corre la prueba de humo
 open http://127.0.0.1:8080   # UI de pantalla dividida (pacientes sintéticos)
 make medir       # mediciones con evidencia del entorno → submission/evidencias/metricas/

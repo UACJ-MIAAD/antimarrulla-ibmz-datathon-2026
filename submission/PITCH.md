@@ -41,6 +41,8 @@ A la izquierda, lo que ve el servicio de riesgo: 21 números cifrados y el punta
 ## 7. Datos y modelo · 0:08
 Entrenamos con 253 mil registros públicos de los CDC: AUC de 0.83 y 80% de sensibilidad. Los datos de pacientes solo llegan cifrados.
 
+*(Si preguntan: en adultos mexicanos de ENSANUT, un modelo reducido baja a AUC 0.77 y subestima el riesgo; habría que recalibrar.)*
+
 ## 8. Impacto y cierre · 0:17
 En 2024, más de 11 mil hospitalizaciones por diabetes en la Secretaría de Salud incluyeron una amputación. Queremos detectar antes sin entregar un solo expediente. **La IA ve el riesgo. Nadie ve al paciente.** Gracias.
 

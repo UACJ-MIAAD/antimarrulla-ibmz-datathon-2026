@@ -11,7 +11,7 @@ jobs:
       - uses: actions/setup-python@v5
         with:
           python-version: "3.12"
-      - name: make verify (41 pruebas + artefactos + re-entrenamiento)
+      - name: make verify (pruebas + artefactos + re-entrenamiento)
         run: make verify PY=python3.12
   imagen:
     runs-on: ubuntu-24.04

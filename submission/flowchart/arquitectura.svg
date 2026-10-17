@@ -55,6 +55,6 @@
   <text x="700" y="519" text-anchor="middle" fill="#ffffff" font-size="14" font-weight="700">TLS 1.3</text>
   <text x="700" y="536" text-anchor="middle" fill="#a3a3b5" font-size="12">mutuo (mTLS)</text>
 
-  <text x="40" y="762" fill="#a3a3b5" font-size="15">Pruebas (41): entero descifrado idéntico a la referencia · error vs. flotante ≤ 1.03×10⁻⁷ en el logit · negativos, ceros, extremos y entradas inválidas ·</text><text x="40" y="784" fill="#a3a3b5" font-size="15">exportar y recargar · el servicio no tiene la llave privada y no registra datos de pacientes.</text>
+  <text x="40" y="762" fill="#a3a3b5" font-size="15">Pruebas: entero descifrado idéntico a la referencia · error vs. flotante ≤ 1.03×10⁻⁷ en el logit · negativos, ceros, extremos y entradas inválidas ·</text><text x="40" y="784" fill="#a3a3b5" font-size="15">exportar y recargar · el servicio no tiene la llave privada y no registra datos de pacientes.</text>
   <text x="40" y="806" fill="#a3a3b5" font-size="15">Tamizaje, no diagnóstico. La explicación con Granite, ENSANUT, el pronóstico E5 y CKKS son extras (ver site/status.json).</text>
 </svg>

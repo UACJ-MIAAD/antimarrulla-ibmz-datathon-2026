@@ -22,7 +22,7 @@ No hace falta instalar Python con pip en la VM: las imágenes usan Ubuntu 24.04 
 ## 2. Verificar, levantar y medir
 
 ```bash
-make verify-docker     # 41 pruebas + verificación de artefactos y re-entrenamiento, dentro de Linux s390x
+make verify-docker     # todas las pruebas + verificación de artefactos y re-entrenamiento, dentro de Linux s390x
 make demo-docker       # secretos en ~/.tamizaje, imagen, hospital + servicio y prueba de humo
 make medir-docker      # → submission/evidencias/metricas/medicion_linuxone-s390x_*.json y .md
 ```

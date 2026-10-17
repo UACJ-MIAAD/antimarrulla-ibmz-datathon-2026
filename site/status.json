@@ -1,6 +1,6 @@
 {
-  "rev": 17,
-  "actualizado": "2026-10-17T10:02:11Z",
+  "rev": 18,
+  "actualizado": "2026-10-17T10:03:06Z",
   "nota": "Para actualizar: cambia 'estado' de la historia (hecho · en_curso · pendiente · bloqueado), sube 'rev' en 1, pon 'actualizado' con la hora real en UTC y haz commit a main. El sitio muestra la copia con 'rev' mayor (GitHub o la publicada).",
   "hitos": {
     "hora_cero": "2026-10-17T13:00:00Z",
@@ -179,7 +179,8 @@
           "quien": "Álvaro",
           "bloque": "h1",
           "prioridad": "Plus",
-          "estado": "pendiente"
+          "estado": "pendiente",
+          "evidencia": "TenSEAL 0.3.18 tiene rueda para macOS arm64 pero no para s390x (habría que compilar SEAL en la VM). No se implementó; Paillier es la ruta aprobada"
         },
         {
           "id": "US-2.4",
@@ -262,7 +263,8 @@
           "quien": "Carlos · Álvaro",
           "bloque": "h16",
           "prioridad": "Plus",
-          "estado": "pendiente"
+          "estado": "pendiente",
+          "evidencia": "no integrado: requiere llama.cpp y un modelo Granite en la VM; la UI muestra los factores que más pesan"
         },
         {
           "id": "US-3.5",
