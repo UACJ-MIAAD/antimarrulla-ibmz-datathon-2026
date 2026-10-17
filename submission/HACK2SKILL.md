@@ -24,11 +24,11 @@ En México, 18.3% de los adultos vive con diabetes y 1 de cada 3 no lo sabe (ENS
 2. El servicio de riesgo, sin llave privada, calcula el logit de una regresión logística sobre los cifrados (`Enc(z) = ∏ Enc(xᵢ)^Wᵢ · Enc(B)`) y re-aleatoriza el resultado.
 3. El hospital descifra el entero, calcula el riesgo y muestra los factores que más pesan. Es tamizaje, no diagnóstico.
 
-Resultados (medición local del 17 oct, no LinuxONE): en 2,000 pacientes de prueba, 2,000 de 2,000 resultados descifrados son idénticos a la referencia y el ROC-AUC es el mismo en claro y cifrado (0.808). Modelo en prueba: ROC-AUC 0.826, sensibilidad 0.805, especificidad 0.691. _[Reemplazar por la medición de LinuxONE al tenerla.]_
+Resultados (mediciones locales y trazables del 17 oct, commit 7937f9f; no LinuxONE): en 2,000 pacientes de prueba, 2,000 de 2,000 enteros descifrados son idénticos a la referencia y el ROC-AUC es el mismo en claro y cifrado (0.808); por la API del hospital en dos contenedores, 129 ms (p50) por solicitud. Modelo en prueba: ROC-AUC 0.826, sensibilidad 0.805, especificidad 0.691. _[Reemplazar por la medición de LinuxONE al tenerla.]_
 
 ## Uso de IBM Z / LinuxONE
 
-Dos contenedores en la VM de LinuxONE (Ubuntu 24.04, s390x): el del hospital con la llave y el servicio de riesgo sin ella, conectados por TLS 1.3 mutuo; la aritmética homomórfica son exponenciaciones con enteros de miles de bits; resultados en reposo en una bóveda AES-256-GCM. En la demo ambos contenedores comparten la VM, así que quien la administra queda dentro del entorno de confianza y solo se usan pacientes sintéticos. _[Agregar la evidencia de `make medir-docker` en LinuxONE.]_
+Diseñado para dos contenedores en la VM de LinuxONE (Ubuntu 24.04, s390x): el del hospital con la llave Paillier y la bóveda AES-256-GCM, y el servicio de riesgo sin llaves, conectados por TLS 1.3 mutuo; la aritmética homomórfica son exponenciaciones con enteros de miles de bits. **Al día de hoy está probado en contenedores locales; falta correrlo y medirlo en LinuxONE.** En la demo ambos contenedores comparten la VM, así que quien la administra queda dentro del entorno de confianza y solo se usan pacientes sintéticos. _[Agregar la evidencia de `make medir-docker` en LinuxONE.]_
 
 ## Stack
 

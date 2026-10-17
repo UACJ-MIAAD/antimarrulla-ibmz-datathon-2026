@@ -3,6 +3,8 @@
 > **Prioridad: Plus.** Se construye en paralelo al núcleo cifrado (E3) y nunca a costa de la demo de la hora 18.
 > Historias US-5.1 a US-5.5 en [site/status.json](../site/status.json) · responsables: Yazmin (datos y planeación), Carlos (modelos), Javier (dashboard).
 
+> **Estado (17 oct 2026):** lo implementado está en [Implementación](#implementación-17-oct-2026). El diseño de abajo es el plan original; de él **no** se implementó: SARIMA, Prophet, la vista de mapa, el total T1 + T2 y la ejecución en LinuxONE (el ajuste corrió en local).
+
 ## Para qué
 
 Tamizar antes cambia cuántos casos llegan y cuándo. Para que una secretaría de salud **presupueste** la atención, necesita saber cuántos casos nuevos de diabetes esperar **en las próximas 52 semanas**, por estado y sexo, y cuánto cuesta atenderlos.
@@ -65,17 +67,28 @@ El ajuste de las 222 series corre en **LinuxONE** (en el contenedor del servicio
 
 ## Implementación (17 oct 2026)
 
-`make pronostico` → `src/tamizaje/pronostico.py` → `artefactos/pronostico/e5_pronostico_v1.json` y el tablero [site/pronostico.html](../site/pronostico.html).
+`make pronostico` → `src/tamizaje/pronostico.py` → `artefactos/pronostico/e5_pronostico_v1.json` y el tablero [site/pronostico.html](../site/pronostico.html). Corrió en local (macOS), no en LinuxONE.
 
 | Decisión | Implementado |
 |----------|--------------|
-| Horizonte | Última observación 27 jul 2026; 11 semanas de *nowcast* hasta la semana de referencia (17 oct) y **52 semanas** del 19 oct 2026 al 11 oct 2027 |
+| Horizonte | Última observación 27 jul 2026: **63 pasos** = 11 semanas de puente hasta la semana de referencia (17 oct) + **52 semanas** (19 oct 2026 a 11 oct 2027) |
 | Ajuste | Solo 2022 en adelante (COVID fuera); semanas no observadas interpoladas linealmente y contadas por serie |
-| Modelos | Ingenuo estacional (referencia) y ETS Holt-Winters aditivo con tendencia amortiguada (s = 52) |
-| Selección | Backtest de origen móvil con 4 orígenes cada 13 semanas; SMAPE por tramo (1–13, 14–26, 27–52) y en 1–52; empate a 5% → MAE. Resultado: 148 series ETS, 74 ingenuo estacional |
-| Intervalos | 80% y 95% empíricos: cuantiles de los errores del backtest del modelo elegido por tramo de horizonte. Son **marginales** por serie y semana |
+| Modelos | Ingenuo estacional y ETS Holt-Winters aditivo con tendencia amortiguada (s = 52). 148 series ETS, 74 ingenuo estacional |
+| Selección | Backtest con hasta 4 orígenes de 52 semanas (≥ 104 de ajuste); SMAPE h1–52, empate a 5% → MAE. **Es selección, no un error independiente** |
+| Bandas 80/95 | **Exploratorias**: cuantiles de los errores de la selección por tramo (h > 52 usa el último). Marginales por serie y semana |
 | Pocos casos | < 5 casos en 52 semanas → proporción dentro de su región (ninguna serie lo necesitó) |
 | Coherencia | Proporcional de arriba abajo por tipo y sexo: nacional → regiones → estados. "General" no se fuerza a hombres + mujeres |
-| Presupuesto | Casos × costo unitario **solo con fuente**: sin costo documentado no se calcula. Los escenarios suman límites semanales y **no son un intervalo conjunto** del total |
+| Evaluación | **Anidada y fuera de muestra**: en 2 orígenes (17 feb y 19 may 2025) el sistema completo (selección, bandas, respaldo y reconciliación) se corre solo con datos previos y se compara contra las 63 semanas reales siguientes |
+| Presupuesto | Casos × costo unitario **solo con fuente**: sin costo documentado no se calcula. Los escenarios suman límites semanales y **no son un intervalo conjunto** |
 
-Nacional, 52 semanas (punto): T2 general 574,746 casos (últimas 52 observadas: 555,474; ETS, SMAPE 6.9%); T1 general 3,834 (últimas 52: 3,857; ETS, SMAPE 17.3%). Casos **notificados**, no casos reales.
+**Evaluación fuera de muestra del sistema reconciliado** (promedio de series y orígenes):
+
+| Nivel | SMAPE h1–13 | h14–26 | h27–52 | h53–63 | h12–63 | Cobertura real 80% (h12–63) | Cobertura real 95% (h12–63) |
+|-------|------------:|-------:|-------:|-------:|-------:|----------------------------:|----------------------------:|
+| Nacional | 14.6% | 13.7% | 12.9% | 13.3% | 13.1% | 64% | 87% |
+| Regiones | 23.2% | 23.7% | 25.6% | 26.4% | 25.0% | 65% | 81% |
+| Estados | 59.0% | 58.1% | 60.0% | 61.3% | 59.7% | 63% | 79% |
+
+Lectura: las bandas son **más angostas de lo que dicen** (80% nominal cubre ~63–65%; 95% cubre 79–87%), y a nivel estado el error es alto (incluye T1 con pocos casos). Solo 2 orígenes: es una evaluación orientativa.
+
+Nacional, 52 semanas (punto): T2 general 574,746 casos (últimas 52 observadas: 555,474); T1 general 3,834 (últimas 52: 3,857). Casos **notificados**, no casos reales.

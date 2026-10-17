@@ -25,13 +25,13 @@ Dos mundos que no se mezclan:
 | Salud percibida | `GenHlth` (1–5), `MentHlth` (0–30), `PhysHlth` (0–30), `DiffWalk` | ordinal · conteo | |
 | Demografía | `Sex`, `Age` (13 grupos), `Education` (1–6), `Income` (1–8) | categórica ordinal | |
 
-**Calidad del dataset:** sin nulos. Hay **24,206 filas repetidas** si se excluye `ID` (mismas respuestas e indicadores). No prueban que sean la misma persona: con 21 variables mayormente binarias, respuestas idénticas son esperables. Se entrena con todas las filas y se reporta una prueba de sensibilidad sin duplicados. `ID` nunca entra al modelo.
+**Calidad del dataset:** sin nulos. Hay **24,206 filas repetidas** si se excluye `ID` (mismas respuestas e indicadores). No prueban que sean la misma persona: con 21 variables mayormente binarias, respuestas idénticas son esperables. Se entrena con todas las filas y se reporta una prueba de sensibilidad sin duplicados en entrenamiento. Ojo: **4,560 perfiles de prueba (11.98%) también aparecen idénticos en entrenamiento**, así que esa sensibilidad no demuestra independencia por perfil; separar por grupos sería otro experimento. `ID` nunca entra al modelo.
 
-**Preparación para el cifrado (Paillier):**
-1. Escalar cada variable a un rango fijo **ajustado solo con el conjunto de entrenamiento** y codificar pesos y variables en **punto fijo** (protocolo en [PROYECTO.md §3](PROYECTO.md#protocolo-numérico-lo-que-fija-us-32)).
-2. Entrenar la regresión logística en claro con datos públicos; guardar `w` y `b`.
-3. En inferencia, el hospital cifra el vector `x` (21 valores); el servidor calcula `Enc(w·x + b)`.
-4. Particiones: 70 / 15 / 15 estratificadas por `Diabetes_binary`; `class_weight="balanced"` por el desbalance.
+**Preparación para el cifrado (Paillier)** — contrato único en [PROYECTO.md · Protocolo numérico](PROYECTO.md#protocolo-numérico-lo-que-fija-us-32), implementado en `src/tamizaje/contrato.py`:
+1. Las 21 variables se usan **como enteros originales del CDC**, sin escalar (el hospital no redondea nada).
+2. La regresión logística se entrena con variables estandarizadas (media y desviación **solo de entrenamiento**) y esa estandarización se **pliega en pesos e intercepto** al exportar.
+3. Solo los pesos y el intercepto pasan a punto fijo: `W = round(10⁹ · w')`, `B = round(10⁹ · b')`, exponente 0.
+4. Particiones 70 / 15 / 15 estratificadas por `Diabetes_binary` (semilla 2026, `artefactos/particiones/`); **`class_weight=None`** (con `balanced` las probabilidades se inflan; ver PROYECTO.md §6.1).
 5. Métricas: AUC, AUC-PR, sensibilidad/especificidad a un umbral fijado en validación, calibración, error numérico claro vs. cifrado y **AUC cifrado vs. en claro sobre la misma muestra** ([PROYECTO.md §6](PROYECTO.md#6-métricas-que-reportamos)).
 
 **Evaluación externa exploratoria con México: ENSANUT 2022/2023** (historia US-3.5, extra; protocolo y resultados en [ENSANUT_EXPERIMENTO.md](ENSANUT_EXPERIMENTO.md))
@@ -47,12 +47,15 @@ Es un **experimento aparte**, no una validación del modelo del MVP: 11 de las 2
 | `BMI` | `an01_1`/`an12_1` (peso) y `an04_1`/`an15_1` (talla) | Antropometría; excluir `222.22`/`222.2` |
 | `Stroke` | `a0502d` | Embolia o infarto cerebral |
 | `Smoker` | `a1301` + `a1305` | Fumador actual y antecedente |
-| `PhysActivity` | `fa0401`, `fa0403`, `fa0405` | Días de actividad vigorosa, moderada y caminata |
+| `PhysActivity` | `fa0401`, `fa0403`, `fa0405` | Días de actividad vigorosa, moderada y caminata (no usado en el modelo reducido: solo existe en un submódulo) |
 | `Sex`, `Age` | `h0302`, `h0303` (residentes) | Recodificar edad a los 13 grupos del CDC |
 | `Education` | `h0317a` (residentes) | Nivel escolar; armonizar a la escala 1–6 |
-| `Income`, `GenHlth`, `MentHlth`, `PhysHlth`, `DiffWalk`, `Fruits`, `Veggies`, `HvyAlcoholConsump`, `AnyHealthcare`, `NoDocbcCost`, `HeartDiseaseorAttack` | Sin equivalente directo verificado | Opciones: modelo reducido solo con las variables comunes, o imputar con la mediana del CDC (y reportarlo) |
+| `HeartDiseaseorAttack` | `a0502a` (infarto) y `a0502b` (angina) | Usado en el modelo reducido de ENSANUT |
+| `Income`, `GenHlth`, `MentHlth`, `PhysHlth`, `DiffWalk`, `Fruits`, `Veggies`, `HvyAlcoholConsump`, `AnyHealthcare`, `NoDocbcCost` | Sin equivalente directo verificado | Opciones: modelo reducido solo con las variables comunes, o imputar con la mediana del CDC (y reportarlo) |
 
-Muestra utilizable: **8,628 adultos (2022) + 3,089 (2023)** con IMC válido y diagnóstico sí/no (regla exacta en [FUENTES_DATOS.md §8](FUENTES_DATOS.md#8-ensanut-2022-y-2023-insp--evaluación-externa-exploratoria-con-población-mexicana)). Reportar AUC, AUC-PR y calibración **ponderados con `ponde_f`** y sin ponderar.
+Lo que se corrió (ver [ENSANUT_EXPERIMENTO.md](ENSANUT_EXPERIMENTO.md)): un **modelo reducido distinto, de 10 predictores**, sin imputar, con **8,414 (2022) y 3,010 (2023)** adultos incluidos tras todas las exclusiones. Etiqueta: diagnóstico declarado (no riesgo futuro ni diabetes no diagnosticada). No valida el modelo de 21 variables ni es validación clínica.
+
+Muestra base: **8,628 adultos (2022) + 3,089 (2023)** con IMC válido y diagnóstico sí/no (regla exacta en [FUENTES_DATOS.md §8](FUENTES_DATOS.md#8-ensanut-2022-y-2023-insp--evaluación-externa-exploratoria-con-población-mexicana)). Reportar AUC, AUC-PR y calibración **ponderados con `ponde_f`** y sin ponderar.
 
 **Puente con México** (para la narrativa, no para entrenar):
 

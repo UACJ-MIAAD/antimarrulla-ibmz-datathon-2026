@@ -1,6 +1,6 @@
 {
-  "rev": 19,
-  "actualizado": "2026-10-17T10:04:26Z",
+  "rev": 20,
+  "actualizado": "2026-10-17T13:16:47Z",
   "nota": "Para actualizar: cambia 'estado' de la historia (hecho · en_curso · pendiente · bloqueado), sube 'rev' en 1, pon 'actualizado' con la hora real en UTC y haz commit a main. El sitio muestra la copia con 'rev' mayor (GitHub o la publicada).",
   "hitos": {
     "hora_cero": "2026-10-17T13:00:00Z",
@@ -212,7 +212,8 @@
           "quien": "Álvaro",
           "bloque": "h16",
           "prioridad": "MVP",
-          "estado": "pendiente"
+          "estado": "pendiente",
+          "evidencia": "no verificado: esta sesión no tiene acceso a la VM; pasos en docs/LINUXONE.md"
         }
       ]
     },
@@ -253,7 +254,7 @@
           "bloque": "h12",
           "prioridad": "MVP",
           "estado": "hecho",
-          "evidencia": "submission/evidencias/metricas/medicion_local-darwin-arm64_20261017T094045Z.md (local, no LinuxONE): 2,000 pacientes, ROC-AUC igual en flotante, punto fijo y cifrado"
+          "evidencia": "submission/evidencias/metricas/medicion_proceso_local-darwin-arm64_20261017T130843Z (commit 7937f9f, clon limpio; local, no LinuxONE): 2,000/2,000 enteros, ROC-AUC 0.808 igual en las 3 variantes"
         },
         {
           "id": "US-3.4",
@@ -344,7 +345,7 @@
           "bloque": "h8",
           "prioridad": "Plus",
           "estado": "hecho",
-          "evidencia": "src/tamizaje/pronostico.py · ETS e ingenuo estacional con backtest de origen móvil (SMAPE por horizonte); T2 nacional: ETS, SMAPE 6.9% en h1–52"
+          "evidencia": "src/tamizaje/pronostico.py · evaluación anidada fuera de muestra hasta h63 con reconciliación (SMAPE nacional h12–63: 13.1%); bandas exploratorias con cobertura real 63–65% (80%) y 79–87% (95%)"
         },
         {
           "id": "US-5.3",
@@ -407,7 +408,7 @@
           "bloque": "h12",
           "prioridad": "MVP",
           "estado": "en_curso",
-          "evidencia": "UI conectada al servicio real en contenedores locales (make demo); falta correrla en LinuxONE"
+          "evidencia": "UI conectada al servicio real en dos contenedores locales; medición de la API trazable (medicion_api_…131320Z, 129 ms p50); falta LinuxONE"
         },
         {
           "id": "US-6.3",
@@ -418,7 +419,7 @@
           "bloque": "h16",
           "prioridad": "MVP",
           "estado": "en_curso",
-          "evidencia": "recorrido completo local verificado (make demo + prueba de humo); falta en LinuxONE"
+          "evidencia": "recorrido completo local verificado (make demo + smoke + make medir-api desde clon limpio); falta LinuxONE"
         }
       ]
     },
@@ -479,7 +480,7 @@
           "bloque": "h18",
           "prioridad": "MVP",
           "estado": "en_curso",
-          "evidencia": "make verify probado en un clon limpio (local); falta fijar versiones en s390x y la revisión de los 4"
+          "evidencia": "make verify en clon limpio y CI verde; procedencia trazable; falta s390x y revisión de otro integrante (docs/REVISION.md)"
         },
         {
           "id": "US-7.7",
