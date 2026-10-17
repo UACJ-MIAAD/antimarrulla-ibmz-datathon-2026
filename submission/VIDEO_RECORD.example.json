@@ -1,0 +1,10 @@
+{
+  "_instructions": "Copy to VIDEO_RECORD.json after publishing the final video. Measure duration with: ffprobe -v error -show_entries format=duration -of csv=p=0 video.mp4",
+  "url": "https://...",
+  "duration_s": 0,
+  "audio": true,
+  "voices_authorized": true,
+  "access_public_verified": true,
+  "verified_by": "...",
+  "date": "YYYY-MM-DDTHH:MM:SS-04:00"
+}

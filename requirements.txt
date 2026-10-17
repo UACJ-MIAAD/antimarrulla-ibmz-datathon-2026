@@ -1,24 +1,24 @@
-# Versiones verificadas el 17 oct 2026 en macOS arm64 con Python 3.12 (make setup && make verify).
-# En LinuxONE (s390x) los contenedores usan Ubuntu 24.04 y sus paquetes apt (ver docker/Dockerfile y docs/LINUXONE.md);
-# estas versiones se vuelven a fijar con `pip freeze` en la VM cuando se ejecute ahí.
+# Verified on 17 October 2026 with macOS arm64 and Python 3.12 (make setup, make verify).
+# LinuxONE containers use Ubuntu 24.04 apt packages; see docker/Dockerfile and docs/LINUXONE.md.
+# Record exact installed VM versions when the release is executed there.
 
-# Entrenamiento, evaluación y mediciones
+# Training, evaluation and measurements
 numpy==2.5.4
 scikit-learn==1.9.1
 scipy==1.18.1
-statsmodels==0.15.0  # pronóstico ETS (épica E5, extra)
+statsmodels==0.15.0  # Optional E5 ETS forecasting
 patsy==1.0.3
 
-# Protocolo y servicios
-phe==1.5.0            # python-paillier (GPLv3): cifrado homomórfico Paillier
-gmpy2==2.3.2          # aritmética de enteros grandes (LGPL-3.0); phe la usa si está instalada
-cryptography==50.0.2  # TLS de prueba (certificados) y bóveda AES-256-GCM
+# Protocol and services
+phe==1.5.0            # python-paillier (GPLv3): Paillier homomorphic encryption
+gmpy2==2.3.2          # Large-integer arithmetic (LGPL-3.0); used by phe when installed
+cryptography==50.0.2  # Test certificates and AES-256-GCM vault
 
-# Pruebas
+# Tests
 pytest==9.1.1
 
-# Herramientas de datos (opcionales)
-ucimlrepo==0.0.7      # descarga del CDC (UCI 891)
-dbfread==2.0.7        # microdatos EDR de INEGI en DBF
-pandas==3.0.6         # requerido por ucimlrepo
-# tenseal             # ruta CKKS opcional (extra): solo si está disponible en LinuxONE
+# Optional data tools
+ucimlrepo==0.0.7      # CDC download (UCI 891)
+dbfread==2.0.7        # INEGI EDR microdata in DBF format
+pandas==3.0.6         # Required by ucimlrepo
+# tenseal             # Optional CKKS route only if available on LinuxONE

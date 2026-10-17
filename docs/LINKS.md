@@ -1,61 +1,52 @@
-# 🔗 Links de interés
+# Project and event links
 
-## Oficiales del evento
+## Official event resources
 
-| Recurso | Link | Para qué sirve |
-|---------|------|----------------|
-| **Página oficial del IBM Z Datathon 2026** | https://www.starhacks.org/ibm-z-datathon-2026 | Temas, registro, reglas, fechas y premios. |
-| **Plataforma del evento (Hack2skill)** | https://hack2skill.com/event/datathon-2026 | Equipo, anuncios, FAQ, guía del participante y **envío final del proyecto**. |
-| **Video: cómo enviar el proyecto** | https://youtu.be/3_L3T__zEco · https://youtu.be/KIYu1iqtXTU (compartido por el SME de SSF, 17 oct) | Paso a paso de la entrega en Hack2skill desde el dashboard del equipo. |
-| **Formulario de asistencia del kick-off** | https://forms.gle/hxTYwzJRqgwnWaPn8 | Lo llena cada integrante. |
-| **Deck del kick-off** | [Kickoff_IBM_Z_Datathon_2026.pdf](Kickoff_IBM_Z_Datathon_2026.pdf) (local, no versionado) | Agenda, premios, checklist oficial y links. |
-| **IBM Z Day 2026 (18 nov)** | http://ibm.biz/ibmzday-2026 | Conferencia virtual gratuita; 6 badges. |
-| **Guía de organizadores (PDF)** | https://community.ibm.com/zsystems/uploads/document/h2t4lz57pns.pdf | Reglas detalladas y criterios de evaluación. |
-| **Participant Guidebook** | En la plataforma Hack2skill | Fuente de la rúbrica de 40 pts, el calendario y los requisitos de entrega. |
-| **Correo de SSF** | stemprograms@sstarsfoundation.org | Dudas generales (mejor por canales oficiales que por mensajes personales). |
-| **Formulario de incidencias** | Link "Issue Form" en la guía | Problemas durante el evento; responden en 48 h. |
+| Resource | Link | Purpose |
+|----------|------|---------|
+| IBM Z Datathon 2026 | https://www.starhacks.org/ibm-z-datathon-2026 | Themes, registration and event information |
+| Hack2Skill | https://hack2skill.com/event/datathon-2026 | Team dashboard, announcements, guide and final submission |
+| Submission walkthroughs | https://youtu.be/3_L3T__zEco · https://youtu.be/KIYu1iqtXTU | Dashboard process; the latter was supplied by the SSF SME on October 17 |
+| Kick-off attendance | https://forms.gle/hxTYwzJRqgwnWaPn8 | Each member completes the form |
+| Original kick-off deck | Kickoff_IBM_Z_Datathon_2026.pdf, local/untracked | Original organizer material, not redistributed or rewritten |
+| IBM Z Day | http://ibm.biz/ibmzday-2026 | November 18 event referenced by the organizer |
+| Organizer guide | https://community.ibm.com/zsystems/uploads/document/h2t4lz57pns.pdf | Recorded rules/rubric reference |
+| Participant Guidebook | Hack2Skill platform | Primary guide for requirements and judging |
+| SSF contact | stemprograms@sstarsfoundation.org | General organizer questions; sending requires a team decision |
+| Issue Form | Organizer guide | Event support route; consult actual response expectations there |
 
-## Comunidad
+## Community
 
-| Recurso | Link | Para qué sirve |
-|---------|------|----------------|
-| **Discord oficial del IBM Z Datathon** | https://discord.gg/vVUwEJh3fH | Canal principal del evento (ver canales abajo). |
-| **Discord del chapter UACJ** | https://discord.gg/knAyPZP8CZ | Dudas, equipos y avisos del chapter UACJ. |
-| **IBM Z Xplore** | https://learn.ibm.com/z | Retos prácticos y **badges** digitales de IBM Z / LinuxONE. |
-| **Comunidad IBM Z / LinuxONE** | https://community.ibm.com/zsystems/ | Foros, documentación y ejemplos; útil para problemas en s390x. |
-| **IBM Z Day 2026** | http://ibm.biz/ibmzday-2026 | Evento del 18 nov; oportunidad para equipos ganadores. |
+| Resource | Link |
+|----------|------|
+| Official Discord | https://discord.gg/vVUwEJh3fH |
+| UACJ chapter Discord | https://discord.gg/knAyPZP8CZ |
+| IBM Z Xplore | https://learn.ibm.com/z |
+| IBM Z/LinuxONE community | https://community.ibm.com/zsystems/ |
 
-### Canales del Discord oficial
-
-| Canal | Uso |
-|-------|-----|
-| `#announcements` | Avisos, recordatorios y links del evento |
-| `#helpdesk` | Preguntas generales del datathon |
-| `#ibm-z-sme-helpdesk` | Dudas técnicas con más de 80 expertos de IBM Z (VM, código, proyecto). Abierto durante el datathon. |
-| `#ssf_volunteers` | Ayuda de voluntarios de SSF |
-| `#community discussion` | Intercambio con otros participantes |
-| `#teaming` | Formación de equipos |
+Official Discord channel identifiers: #announcements (updates), #helpdesk (general questions), #ibm-z-sme-helpdesk (event technical support), #ssf_volunteers (volunteer help), #community discussion and #teaming. Identifiers retain their official spelling.
 
 ## LinuxONE Community Cloud
 
-| Recurso | Link |
-|---------|------|
-| Registro (VM) | https://linuxone.cloud.marist.edu/#/register?flag=VM |
-| **Código del evento** (va en la descripción del proyecto al registrarse) | `SSF2026` |
-| Dashboard del servidor | https://linuxone.cloud.marist.edu/#/login |
-| Instrucciones | https://ibm.biz/BdPcL8 |
-| VM con Jupyter Lab ML | https://github.com/linuxone-community-cloud/jupyter-lab-ml |
+| Resource | Link/value |
+|----------|------------|
+| VM registration | https://linuxone.cloud.marist.edu/#/register?flag=VM |
+| Event registration code | `SSF2026` |
+| Server dashboard | https://linuxone.cloud.marist.edu/#/login |
+| Instructions | https://ibm.biz/BdPcL8 |
+| Jupyter Lab ML image | https://github.com/linuxone-community-cloud/jupyter-lab-ml |
 | Fast Start Guides | https://community.ibm.com/zsystems/l1cc/faststart/ |
-| Video "Get Your LinuxONE Ready" | https://www.youtube.com/live/HrNNkVyFots |
-| Grabación del setup (recomendada en el kick-off) | https://www.youtube.com/watch?v=y9rZwSq8pw8 |
+| Setup video | https://www.youtube.com/live/HrNNkVyFots |
+| Recommended setup recording | https://www.youtube.com/watch?v=y9rZwSq8pw8 |
 
-> El token de Jupyter Lab es personal: **nunca** lo pegues en el repo, en el chat público ni en capturas.
+Jupyter tokens and SSH credentials are private: exclude them from the repository, public chat and screenshots.
 
-## Técnicos (llenar durante el evento)
+## Submission resources
 
-| Recurso | Link | Notas |
-|---------|------|-------|
-| Dataset elegido | | Fuente y licencia también en `data/README.md` |
-| Video del pitch | | Máx. 3 min |
-| Slides | | |
-| Flowchart / arquitectura | | Opcional en la entrega |
+| Resource | Location/status |
+|----------|-----------------|
+| Dataset sources/licenses | data/README.md and DATA_SOURCES.md |
+| Final pitch video | Pending authorized English narration, LinuxONE footage and public-link verification |
+| Editable English pitch and PDF | submission/ |
+| Optional architecture | submission/flowchart/architecture.pdf |
+| Current delivery plan | DELIVERY_PLAN.md |

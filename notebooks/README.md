@@ -1,11 +1,5 @@
-# 📓 notebooks/
+# Notebooks
 
-Exploración y experimentos. Convención de nombres: `NN_tema.ipynb`.
+Use English names and text: `NN_topic.ipynb`, for example `01_eda.ipynb`, `02_baseline.ipynb` or `03_privacy.ipynb`. Data exploration belongs to Yazmin; model experiments to Carlos. There are currently no committed experiment notebooks, so these names describe the convention rather than completed evidence.
 
-| Notebook | Dueño | Contenido |
-|----------|-------|-----------|
-| `01_eda.ipynb` | Datos | Exploración del dataset |
-| `02_baseline.ipynb` | Modelado ML | Modelo base y métricas |
-| `03_privacidad.ipynb` | Modelado ML | Versión con privacidad y su costo |
-
-Antes de commitear: **Kernel → Restart & Run All** para que el notebook corra de arriba abajo, y limpia salidas pesadas.
+Restart and run all cells before committing, remove large outputs, and commit/push VM work. Import reusable logic from `src/screening/`; do not create a second protocol implementation in a notebook.

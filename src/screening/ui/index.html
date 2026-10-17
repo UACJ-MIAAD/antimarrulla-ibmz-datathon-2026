@@ -1,0 +1,141 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Blind Screening · demo</title>
+<style>
+:root{--bg:#0e0e13;--card:#17171f;--card2:#1e1e28;--line:#2a2a36;--txt:#e8e8ef;--muted:#a3a3b5;--blue:#0f62fe;--lblue:#78a9ff;--green:#24a148;--lgreen:#42be65;--red:#fa4d56;--yel:#f1c21b;--mono:#c6c6d4}
+@media (prefers-color-scheme:light){:root{--bg:#f4f4f6;--card:#fff;--card2:#f2f2f5;--line:#dcdce3;--txt:#161616;--muted:#5b5b6b;--lblue:#0043ce;--lgreen:#198038;--mono:#393946}}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--txt);font:15px/1.45 system-ui,-apple-system,Segoe UI,Roboto,sans-serif}
+header{padding:14px 20px;border-bottom:1px solid var(--line);display:flex;gap:12px 16px;align-items:center;flex-wrap:wrap}
+h1{font-size:18px;margin:0}.synthetic{background:var(--yel);color:#111;font-weight:700;padding:3px 10px;border-radius:99px;font-size:12px;letter-spacing:.04em}
+.environment{color:var(--muted);font-size:13px;margin-left:auto;display:flex;align-items:center;gap:6px}
+.dot{width:8px;height:8px;border-radius:50%;background:var(--muted)}.dot.ok{background:var(--green)}.dot.bad{background:var(--red)}
+.ctrl{padding:14px 20px 6px;display:flex;gap:8px;flex-wrap:wrap;align-items:center}.ctrl .lbl{color:var(--muted);font-size:13px;margin-right:4px}
+button{background:var(--card);color:var(--txt);border:1px solid var(--line);border-radius:8px;padding:8px 12px;font:inherit;cursor:pointer}
+button:hover{border-color:var(--lblue)}button.pri{background:var(--blue);border-color:var(--blue);color:#fff}button:disabled{opacity:.55;cursor:wait}
+button[aria-pressed=true]{border-color:var(--lblue);box-shadow:inset 0 0 0 1px var(--lblue)}
+button:focus-visible,input:focus-visible,select:focus-visible,summary:focus-visible{outline:2px solid var(--lblue);outline-offset:2px}
+details.ed{margin:8px 20px 0;background:var(--card);border:1px solid var(--line);border-radius:12px;padding:12px 16px}
+summary{cursor:pointer;color:var(--lblue);font-weight:600}
+.note{color:var(--muted);font-size:13px;margin:8px 0 0}
+fieldset{border:0;padding:0;margin:14px 0 0}legend{font-size:13px;font-weight:700;text-transform:uppercase;letter-spacing:.06em;color:var(--muted);margin-bottom:8px}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(min(230px,100%),1fr));gap:10px}
+.fld{display:flex;flex-direction:column;gap:4px;font-size:13px}
+.fld .q{color:var(--txt)}.fld code{font:11px ui-monospace,SFMono-Regular,Menlo,monospace;color:var(--muted)}
+.fld input,.fld select{background:var(--card2);color:var(--txt);border:1px solid var(--line);border-radius:6px;padding:7px 8px;font:inherit;width:100%}
+.fld.bad input,.fld.bad select{border-color:var(--red)}.fld .msg{color:var(--red);font-size:12px;min-height:0}
+.acts{display:flex;gap:10px;align-items:center;flex-wrap:wrap;margin-top:16px}#summary{font-size:13px}
+main{display:grid;grid-template-columns:1fr 1fr;gap:16px;padding:16px 20px}@media(max-width:820px){main{grid-template-columns:1fr}}
+section{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:16px;min-height:280px;min-width:0}
+section h2{font-size:15px;margin:0 0 4px}.sub{color:var(--muted);font-size:13px;margin:0 0 12px}
+.service h2{color:var(--lblue)}.hospital h2{color:var(--lgreen)}
+.mono{font:12px/1.5 ui-monospace,SFMono-Regular,Menlo,monospace;color:var(--mono);word-break:break-all}
+.ciphertexts{display:grid;grid-template-columns:auto 1fr;gap:2px 10px;max-height:300px;overflow:auto}.ciphertexts span:nth-child(odd){color:var(--muted);white-space:nowrap}
+.big{font-size:44px;font-weight:700;line-height:1.1}.badge{display:inline-block;padding:3px 10px;border-radius:99px;font-weight:700;font-size:13px}
+.high{background:var(--red);color:#fff}.low{background:var(--green);color:#fff}
+.meter{position:relative;height:10px;border-radius:5px;background:var(--card2);border:1px solid var(--line);margin:10px 0 4px}
+.meter i{position:absolute;inset:0 auto 0 0;border-radius:5px}.meter b{position:absolute;top:-4px;bottom:-4px;width:2px;background:var(--txt)}
+.bar{display:grid;grid-template-columns:minmax(120px,190px) 1fr 56px;gap:8px;align-items:center;font-size:13px;margin:4px 0}
+.bar i{display:block;height:10px;border-radius:5px;min-width:2px}.bar span:last-child{text-align:right;font-variant-numeric:tabular-nums}
+footer{padding:4px 20px 18px;color:var(--muted);font-size:13px}
+.kpis{display:flex;gap:18px;flex-wrap:wrap}.kpis b{display:block;font-size:20px;color:var(--txt);font-variant-numeric:tabular-nums}
+.err{color:var(--red)}
+</style>
+</head>
+<body>
+<header>
+  <h1>Privacy-preserving screening</h1><span class="synthetic">SYNTHETIC PATIENTS · DEMO</span>
+  <span class="environment"><i class="dot" id="dot"></i><span id="environment">connecting…</span></span>
+</header>
+<div class="ctrl" id="profiles"><span class="lbl">Synthetic patient:</span></div>
+<details class="ed" id="editor"><summary>Edit the 21 screening questions (synthetic patient entry)</summary>
+  <p class="note">Answers use the codes of the CDC Diabetes Health Indicators dataset (UCI 891, BRFSS 2015). These are recoded dataset values, not raw BRFSS response codes. Every field is required. Do not enter real patient data.</p>
+  <form id="form" novalidate></form>
+  <div class="acts"><button class="pri" id="submit" type="button">Encrypt and evaluate</button><span id="summary" role="status"></span></div>
+</details>
+<main>
+  <section class="service" aria-live="polite"><h2>What the risk service sees</h2><p class="sub">Only numbers encrypted with the hospital's public key. It does not hold the private key.</p><div id="service"><p class="sub">Choose a synthetic patient.</p></div></section>
+  <section class="hospital" aria-live="polite"><h2>What the hospital sees</h2><p class="sub">It decrypts the score with its private key and computes the risk.</p><div id="hospital"></div></section>
+</main>
+<footer><div class="kpis" id="timings"></div><p>Screening, not diagnosis. The score concerns reported prediabetes/diabetes in the source survey; it does not estimate mortality or future onset. Calibration in Mexico has not been established. Both containers share one host in this demo; the host administrator is trusted.</p></footer>
+<script>
+const $=id=>document.getElementById(id);let SCHEMA=null,PROFILES={},busy=false;
+const YN={0:"No",1:"Yes"};
+// CDC/BRFSS 2015 codebook, as published for UCI 891. Ranges always come from /api/synthetic.
+const META={
+ HighBP:{g:0,q:"Ever told they have high blood pressure",c:YN},
+ HighChol:{g:0,q:"Ever told they have high cholesterol",c:YN},
+ CholCheck:{g:0,q:"Cholesterol check in the past 5 years",c:YN},
+ BMI:{g:0,q:"Body mass index",u:"kg/m²"},
+ Stroke:{g:0,q:"Ever told they had a stroke",c:YN},
+ HeartDiseaseorAttack:{g:0,q:"Coronary heart disease or heart attack",c:YN},
+ DiffWalk:{g:0,q:"Serious difficulty walking or climbing stairs",c:YN},
+ Smoker:{g:1,q:"Smoked at least 100 cigarettes in their life",c:YN},
+ PhysActivity:{g:1,q:"Physical activity outside work, past 30 days",c:YN},
+ Fruits:{g:1,q:"Eats fruit at least once a day",c:YN},
+ Veggies:{g:1,q:"Eats vegetables at least once a day",c:YN},
+ HvyAlcoholConsump:{g:1,q:"Heavy drinking (men >14, women >7 drinks/week)",c:YN},
+ GenHlth:{g:2,q:"Self-rated general health",c:{1:"Excellent",2:"Very good",3:"Good",4:"Fair",5:"Poor"}},
+ MentHlth:{g:2,q:"Days of poor mental health, past 30",u:"days"},
+ PhysHlth:{g:2,q:"Days of physical illness or injury, past 30",u:"days"},
+ AnyHealthcare:{g:3,q:"Has any health care coverage",c:YN},
+ NoDocbcCost:{g:3,q:"Could not see a doctor due to cost, past 12 months",c:YN},
+ Sex:{g:4,q:"Sex",c:{0:"Female",1:"Male"}},
+ Age:{g:4,q:"Age group",c:{1:"18–24",2:"25–29",3:"30–34",4:"35–39",5:"40–44",6:"45–49",7:"50–54",8:"55–59",9:"60–64",10:"65–69",11:"70–74",12:"75–79",13:"80 or older"}},
+ Education:{g:4,q:"Highest education level",c:{1:"Never attended or kindergarten only",2:"Grades 1–8",3:"Grades 9–11",4:"Grade 12 or GED",5:"College 1–3 years",6:"College 4+ years"}},
+ Income:{g:4,q:"Annual household income (2015 US dollars)",c:{1:"Under $10,000",2:"$10,000–14,999",3:"$15,000–19,999",4:"$20,000–24,999",5:"$25,000–34,999",6:"$35,000–49,999",7:"$50,000–74,999",8:"$75,000 or more"}},
+};
+const GROUPS=["Clinical history","Lifestyle","Health status","Access to care","Demographics","Other"];
+const featureLabel=n=>META[n]?.q||n;
+async function api(u,b){const r=await fetch(u,b?{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify(b)}:{});const j=await r.json();if(!r.ok)throw new Error(j.error||r.status);return j}
+function escapeHtml(s){return String(s).replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]))}
+function fieldMarkup(v){const m=META[v.name]||{},id="f_"+v.name,c=m.c&&Object.keys(m.c).every(k=>k>=v.min&&k<=v.max)&&Object.keys(m.c).length===v.max-v.min+1?m.c:null;
+ const ctl=c?`<select id="${id}" aria-describedby="m_${v.name}" required><option value="">Select…</option>${Object.entries(c).map(([k,t])=>`<option value="${k}">${escapeHtml(t)} (${k})</option>`).join("")}</select>`
+  :`<input id="${id}" aria-describedby="m_${v.name}" type="number" inputmode="numeric" step="1" min="${v.min}" max="${v.max}" required placeholder="${v.min}–${v.max}${m.u?" "+m.u:""}">`;
+ return `<label class="fld" id="w_${v.name}"><span class="q">${escapeHtml(featureLabel(v.name))}</span><code>${escapeHtml(v.name)} · ${v.min}–${v.max}${m.u?" "+escapeHtml(m.u):""}</code>${ctl}<span class="msg" id="m_${v.name}"></span></label>`}
+function validateField(v){const x=$("f_"+v.name).value.trim();let e="";
+ if(x==="")e="Required.";else if(!/^-?\d+$/.test(x))e="Whole number only.";else if(+x<v.min||+x>v.max)e=`Must be between ${v.min} and ${v.max}.`;
+ $("m_"+v.name).textContent=e;$("w_"+v.name).classList.toggle("bad",!!e);$("f_"+v.name).setAttribute("aria-invalid",!!e);return e?null:Number(x)}
+function fill(p){for(const v of SCHEMA.variables){$("f_"+v.name).value=p[v.name]??"";validateField(v)}$("summary").textContent=""}
+function markProfile(k){for(const b of $("profiles").querySelectorAll("button"))b.setAttribute("aria-pressed",b.dataset.profile===k)}
+async function evaluate(body,k){if(busy)return;busy=true;markProfile(k);for(const b of document.querySelectorAll("button"))b.disabled=true;
+ $("service").innerHTML='<p class="sub">Encrypting and sending…</p>';$("hospital").innerHTML="";
+ try{render(await api("/api/evaluate",body))}catch(e){$("service").innerHTML=`<p class="err">Evaluation failed: ${escapeHtml(e.message)}</p>`}
+ finally{busy=false;for(const b of document.querySelectorAll("button"))b.disabled=false}}
+function render(r){const s=r.server,h=r.hospital;fill(h.input);
+ $("service").innerHTML=`<div class="mono">protocol ${escapeHtml(s.received.protocol)} · model ${escapeHtml(s.received.model)} · schema ${escapeHtml(s.received.schema)}<br>public key: ${s.received.key_public_bits} bits · request ${s.received.bytes.toLocaleString("en-US")} bytes</div>
+ <p class="sub" style="margin-top:10px">Received ${s.received.ciphertexts.length} ciphertexts (leading hex digits):</p>
+ <div class="ciphertexts mono">${s.received.ciphertexts.map((c,i)=>`<span>Enc(x${i+1})</span><span>${escapeHtml(c.hex)}</span>`).join("")}</div>
+ <p class="sub" style="margin-top:10px">Returned the encrypted score (${s.returned.bytes.toLocaleString("en-US")} bytes, ${s.returned.service_ms} ms of compute):</p><div class="mono">Enc(z) = ${escapeHtml(s.returned.result.hex)}</div>`;
+ const pct=h.probability*100,u=h.threshold*100,max=Math.max(...h.factors.map(f=>Math.abs(f.contribution_logit)),.01);
+ $("hospital").innerHTML=`<div class="sub">${escapeHtml(String(r.profile))} · id ${escapeHtml(r.id.slice(0,8))}</div><div class="big">${pct.toFixed(1)}%</div>
+ <div class="meter" role="img" aria-label="Risk ${pct.toFixed(1)}% against threshold ${u.toFixed(1)}%"><i style="width:${Math.min(pct,100)}%;background:${h.risk_high?"var(--red)":"var(--green)"}"></i><b style="left:${Math.min(u,100)}%"></b></div>
+ <span class="badge ${h.risk_high?"high":"low"}">${h.risk_high?"Prioritize a glucose test":"Risk below the threshold"}</span>
+ <p class="sub" style="margin-top:8px">Threshold ${u.toFixed(1)}% (set on validation data) · logit ${h.logit.toFixed(4)} · z = ${escapeHtml(h.z_integer)}</p>
+ <p class="sub">Largest model contributions relative to the training mean (not causal effects):</p>
+ ${h.factors.map(f=>`<div class="bar"><span title="${escapeHtml(f.variable)}">${escapeHtml(featureLabel(f.variable))}</span><i style="width:${Math.abs(f.contribution_logit)/max*100}%;background:${f.contribution_logit>0?"var(--red)":"var(--green)"}"></i><span>${f.contribution_logit>0?"+":""}${f.contribution_logit}</span></div>`).join("")}`;
+ const t=r.timings_ms;$("timings").innerHTML=`<span><b>${t.encrypt} ms</b>encrypt (hospital)</span><span><b>${t.network_and_service} ms</b>TLS + service</span><span><b>${t.decrypt} ms</b>decrypt (hospital)</span><span><b>${t.vault} ms</b>AES-GCM vault + fsync</span><span><b>${t.total_in_hospital} ms</b>total inside the hospital (excluding browser)</span>`}
+async function init(){
+ try{const e=await api("/api/state"),ok=e.service.state==="ok";$("dot").className="dot "+(ok?"ok":"bad");
+  $("environment").textContent=`service: ${e.service.state} · machine ${e.machine} (${e.system}) · key ${e.key_bits} bits · ${e.model}`}
+ catch(e){$("dot").className="dot bad";$("environment").textContent="status unavailable"}
+ let s;try{s=await api("/api/synthetic")}catch(e){$("service").innerHTML=`<p class="err">Could not load the synthetic profiles: ${escapeHtml(e.message)}</p>`;return}
+ SCHEMA=s.schema;PROFILES=s.profiles;
+ $("profiles").insertAdjacentHTML("beforeend",Object.keys(PROFILES).map(k=>`<button type="button" data-profile="${escapeHtml(k)}" aria-pressed="false">${escapeHtml(String(k))}</button>`).join("")+'<button type="button" id="random" data-profile="random" aria-pressed="false">Random synthetic</button>');
+ $("profiles").onclick=ev=>{const b=ev.target.closest("button");if(!b)return;if(b.id==="random")return evaluate({random_patient:true},"random");fill(PROFILES[b.dataset.profile]);evaluate({profile:b.dataset.profile},b.dataset.profile)};
+ const groups={};for(const v of SCHEMA.variables)(groups[META[v.name]?.g??5]??=[]).push(v);
+ $("form").innerHTML=Object.keys(groups).sort((a,b)=>a-b).map(g=>`<fieldset><legend>${GROUPS[g]}</legend><div class="grid">${groups[g].map(fieldMarkup).join("")}</div></fieldset>`).join("");
+ $("form").addEventListener("submit",event=>{event.preventDefault();$("submit").click()});
+ for(const v of SCHEMA.variables){const el=$("f_"+v.name);el.addEventListener(el.tagName==="SELECT"?"change":"input",()=>{validateField(v);markProfile(null)})}
+ fill(Object.values(PROFILES)[0]);
+ const q=new URLSearchParams(location.search).get("profile");if(q){const k=Object.keys(PROFILES).find(n=>n.endsWith(q)||n.includes("Synthetic "+q));if(k){fill(PROFILES[k]);evaluate({profile:k},k)}}
+ $("submit").onclick=()=>{const p={},invalid=[];for(const v of SCHEMA.variables){const x=validateField(v);if(x===null)invalid.push(v.name);else p[v.name]=x}
+  if(invalid.length){$("summary").innerHTML=`<span class="err">${invalid.length} field${invalid.length>1?"s need":" needs"} attention.</span>`;$("f_"+invalid[0]).focus();return}
+  $("summary").textContent="";evaluate({patient:p},null)};
+}
+init().catch(error=>{$("service").innerHTML=`<p class="err">${escapeHtml(error.message)}</p>`});
+</script>
+</body>
+</html>

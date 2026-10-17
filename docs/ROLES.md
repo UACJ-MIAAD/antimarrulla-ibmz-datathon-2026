@@ -1,6 +1,6 @@
 # Roles, responsibilities and rest rota
 
-> Four team members. Another member must review each PR. Current priorities and English workstreams are in [PLAN_CIERRE.md](PLAN_CIERRE.md); story status is in [site/status.json](../site/status.json).
+> Four team members. Another member must review each PR. Current priorities and English workstreams are in [DELIVERY_PLAN.md](DELIVERY_PLAN.md); story status is in [site/status.json](../site/status.json).
 
 ## Current release requirements
 
@@ -39,14 +39,14 @@ The submission portal is open from **October 16, 2026, 23:45 UTC** until **Octob
 ### Yazmin Ivonne Flores Martinez — data, English narrative and pitch
 
 - Own CDC exploratory analysis, splits, Mexican statistics and source/population explanations.
-- Review English labels, source coding and validation in the existing form; physician-focused polish is optional.
+- Form implementation US-6.4 is integrated from Yazmin’s PR 8 into English PR 9 and verified locally; see [YAZMIN_INTEGRATION.md](YAZMIN_INTEGRATION.md). Move next to English narration and real LinuxONE demo footage with Javier. Further form polish is optional.
 - Translate and review slides, diagram and PDF; assemble the <=180-second English video with Javier.
 - Use actual LinuxONE/model footage and versioned measurements; do not relabel local screenshots as VM evidence.
 - Keep sensitive data out of the repository and review the English AI declaration and final submission text.
 
 ## Existing 24-hour schedule
 
-Internal H0 is **October 17, 07:00 Ciudad Juárez / 09:00 EDT**, distinct from the portal opening. H18 is October 18, 01:00 Juárez; H24 is October 18, 07:00 Juárez, the internal submission target. This rota is retained as planning history; it does not certify that labs preceded coding. Follow [CRONOLOGIA.md](CRONOLOGIA.md) for actual facts.
+Internal H0 is **October 17, 07:00 Ciudad Juárez / 09:00 EDT**, distinct from the portal opening. H18 is October 18, 01:00 Juárez; H24 is October 18, 07:00 Juárez, the internal submission target. This rota is retained as planning history; it does not certify that labs preceded coding. Follow [TIMELINE.md](TIMELINE.md) for actual facts.
 
 | Hours | Javier | Álvaro | Carlos | Yazmin |
 |-------|--------|--------|--------|--------|

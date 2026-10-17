@@ -1,47 +1,51 @@
-# 📋 Texto para el envío en Hack2skill
+# Hack2Skill submission text
 
-> Lo llena **el líder del equipo registrado en Hack2skill**, desde el dashboard del equipo, después de que los 4 revisen la versión final ([CHECKLIST_ENTREGA.md](../docs/CHECKLIST_ENTREGA.md)). Este archivo solo prepara el texto; no confirma nada del portal.
+The registered team leader submits through the team dashboard after all four review. This file prepares the English text; it does not confirm a portal submission. Window: October 16, 23:45 UTC through October 18, 16:30 UTC. Internal target: October 18, 13:00 UTC.
 
-## Título
+## Required title
 
 `Los Antimarrulla_IBM Z Datathon 2026 Project`
 
-## Tema
+## Theme
 
 T2 · AI Secured: Innovation Without Exposure
 
-## Descripción corta
+## Short description
 
-Tamizaje a ciegas: una IA que calcula el riesgo de diabetes sobre datos cifrados. El hospital cifra los 21 indicadores del paciente con cifrado homomórfico Paillier y se queda con la llave; el servicio de riesgo en IBM LinuxONE evalúa el modelo sin descifrar nada y devuelve un puntaje cifrado que solo el hospital puede abrir.
+Privacy-preserving screening evaluates diabetes risk on encrypted data. The hospital encrypts 21 indicators with Paillier and retains the private key. A risk service designed for IBM LinuxONE evaluates a logistic model without decrypting the inputs, returning a ciphertext that only the hospital can open.
 
-## Planteamiento del problema
+## Problem
 
-En México, 18.3% de los adultos vive con diabetes y 1 de cada 3 no lo sabe (ENSANUT 2022). En 2024 se registraron 112,577 muertes por diabetes, la segunda causa de muerte del país (microdatos DGIS/INEGI), y 11,550 egresos por diabetes en hospitales de la Secretaría de Salud incluyeron una amputación de miembro inferior (18.4%). Los hospitales tienen los datos para detectar el riesgo antes, pero no pueden compartirlos con un servicio externo de IA sin exponer a sus pacientes.
+ENSANUT 2022 reports that 18.3% of adults in Mexico have diabetes and about one in three is unaware of it. DGIS/INEGI microdata records 112,577 diabetes deaths in 2024. In SSA diabetes admissions, 11,550 discharges included a lower-limb amputation, 18.4% of 62,771 admissions. These are different populations and events, not a linked patient cohort. Hospitals need ways to evaluate screening models while limiting disclosure of patient records to an external service.
 
-## Solución
+## Solution
 
-1. El hospital valida y cifra las 21 variables del paciente (enteros, esquema `cdc21-v1`) con su llave pública Paillier de 2048 bits.
-2. El servicio de riesgo, sin llave privada, calcula el logit de una regresión logística sobre los cifrados (`Enc(z) = ∏ Enc(xᵢ)^Wᵢ · Enc(B)`) y re-aleatoriza el resultado.
-3. El hospital descifra el entero, calcula el riesgo y muestra los factores que más pesan. Es tamizaje, no diagnóstico.
+1. The hospital validates the 21 original integer feature codes and encrypts them with a 2048-bit Paillier public key.
+2. The keyless service evaluates the fixed-point logit: `Enc(z) = product(Enc(x_i)^W_i) * Enc(B)`, then rerandomizes the result.
+3. The hospital decrypts the integer, applies the sigmoid and shows the risk and largest model contributions. This demonstrates screening, not diagnosis, future disease prediction or mortality prediction.
 
-Resultados (mediciones locales y trazables del 17 oct, commit 7937f9f; no LinuxONE): en 2,000 pacientes de prueba, 2,000 de 2,000 enteros descifrados son idénticos a la referencia y el ROC-AUC es el mismo en claro y cifrado (0.808); por la API del hospital en dos contenedores, 129 ms (p50) por solicitud. Modelo en prueba: ROC-AUC 0.826, sensibilidad 0.805, especificidad 0.691. _[Reemplazar por la medición de LinuxONE al tenerla.]_
+The held-out CDC test split has ROC-AUC 0.826, sensitivity 0.805, specificity 0.691 and PPV 0.297, with threshold chosen on validation. The English v2 local benchmark at clean code commit `5412abe` matched 2,000/2,000 decrypted integers, with AUC 0.808383 in all three variants and maximum logit error 4.50×10^-8. The two-container API matched 200/200 synthetic inputs, with client p50 149.015 ms and p95 183.317 ms. These are Mac/arm64 and Docker results. Add actual translated-release LinuxONE measurements before submission; keep their platform and commit labels.
 
-## Uso de IBM Z / LinuxONE
+## IBM Z / LinuxONE
 
-Diseñado para dos contenedores en la VM de LinuxONE (Ubuntu 24.04, s390x): el del hospital con la llave Paillier y la bóveda AES-256-GCM, y el servicio de riesgo sin llaves, conectados por TLS 1.3 mutuo; la aritmética homomórfica son exponenciaciones con enteros de miles de bits. **Al día de hoy está probado en contenedores locales; falta correrlo y medirlo en LinuxONE.** En la demo ambos contenedores comparten la VM, así que quien la administra queda dentro del entorno de confianza y solo se usan pacientes sintéticos. _[Agregar la evidencia de `make medir-docker` en LinuxONE.]_
+The approved deployment design uses two Ubuntu 24.04 s390x containers: hospital with its private key and AES-256-GCM vault; risk service without private keys; mutual TLS 1.3 between them. Homomorphic evaluation uses modular arithmetic on integers thousands of bits long. The demo shares a VM, so its administrator is trusted and synthetic inputs are required. Intended production separation places the hospital component on hospital premises; this is a design, not a deployed clinical system.
+
+**LinuxONE execution/provider evidence remains pending.** Add the actual release commit, VM screenshots and outputs of `make measure-docker FINAL=1` and `make measure-api-docker FINAL=1`. CPACF is a platform capability; application acceleration has not been demonstrated.
 
 ## Stack
 
-Python 3.12 · scikit-learn · python-paillier (`phe`) + gmpy2 · cryptography (TLS 1.3, AES-256-GCM) · Docker sobre Ubuntu 24.04 (s390x) · `make`.
+Python 3.12 · scikit-learn · python-paillier (`phe`) + gmpy2 · cryptography · mutual TLS 1.3 · AES-256-GCM · Docker · Ubuntu 24.04 · Make.
 
-## Enlaces
+## Links and completion checks
 
-| Campo | Valor |
+| Field | Value |
 |-------|-------|
-| Repo de GitHub | https://github.com/UACJ-MIAAD/antimarrulla-ibmz-datathon-2026 |
-| Video (máx. 3 min) | **Pendiente**: hay borrador sin audio y storyboard en [VIDEO.md](VIDEO.md); faltan voces y la grabación en LinuxONE |
-| Pitch deck en PDF | [`Los Antimarrulla_IBM Z Datathon 2026 Project.pdf`](Los%20Antimarrulla_IBM%20Z%20Datathon%202026%20Project.pdf) |
-| Flowchart (opcional) | [flowchart/arquitectura.pdf](flowchart/arquitectura.pdf) |
-| Prototipo (opcional) | Prototipo interactivo: se corre con `make demo` y se abre en `http://127.0.0.1:8080` (no hay URL pública: la UI solo escucha en localhost). Es distinto del video de la demo |
-| Recursos open source | Tabla de [Créditos y librerías](../README.md#créditos-y-librerías) |
-| Uso de IA | Pendiente: el equipo decide dónde va la declaración (borrador local, no versionado: `submission/USO_IA.md`) |
+| Public repository | https://github.com/UACJ-MIAAD/antimarrulla-ibmz-datathon-2026 |
+| Final video, <=3 minutes | **Pending:** English script/editing draft exists; authorized narration, actual LinuxONE footage and public access verification remain required |
+| Required PDF | [Official project PDF](Los%20Antimarrulla_IBM%20Z%20Datathon%202026%20Project.pdf) |
+| Optional flowchart | [Architecture](flowchart/architecture.pdf) |
+| Optional prototype | `make demo`, then `http://127.0.0.1:8080`; no public prototype URL is established |
+| Open-source resources | [Credits](../README.md#open-source-credits) |
+| AI use | Team publication decision pending; separate local English draft: `submission/AI_USE.md` |
+
+Complete `submission/VIDEO_RECORD.json` and the [submission checklist](../docs/SUBMISSION_CHECKLIST.md). Keep the final video URL identical in this file and the record. Save the portal confirmation screenshot.

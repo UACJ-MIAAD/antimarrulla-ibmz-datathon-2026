@@ -1,0 +1,73 @@
+{
+  "schema": "reported-audit-summary-v1",
+  "recorded_at_utc": "2026-10-17T20:06:08.970256+00:00",
+  "operator": "Carlos Enrique Gonzalez Moran",
+  "source": {
+    "kind": "Captain-supplied presentation screenshot and October 17 chat excerpt",
+    "sha256": "0868e41bd67c384066d730aa48b2e12d043d0acd3c7b03b37cdc500ae4d5dad5",
+    "local_path": "submission/evidence/private/carlos_20261017_audit_summary.png",
+    "message_timezone": null,
+    "original_preserved_locally": true,
+    "original_published": false
+  },
+  "classification": {
+    "status": "audit_pass_reported_summary_only",
+    "strict_audit_independently_verified": false,
+    "raw_audit_available": false,
+    "release_commit_identified": false,
+    "linuxone_provider_verified": false,
+    "distinct_hosts_verified": false
+  },
+  "screenshot_summary": {
+    "language": "Spanish",
+    "audit_passed_checks_reported": 10,
+    "audit_total_checks_reported": 10,
+    "exact_results_reported": 200,
+    "total_results_reported": 200,
+    "displayed_record_probability_percent": 5.0,
+    "encrypted_input_decimal_digits_reported": 1233,
+    "encrypted_output_decimal_digits_reported": 1233,
+    "server_evaluation_ms_per_record_reported": 18.6,
+    "server_evaluation_statistic": null,
+    "batch_duration_label": "approximately 2 minutes",
+    "plaintext_items_on_server_reported": 0,
+    "title_uses_real_patient_wording": true
+  },
+  "chat_timings_reported": {
+    "message_time": "15:55:11",
+    "statistic": "rounded mean as reported by operator",
+    "total_seconds_per_record": 0.65,
+    "encryption_seconds": 0.14,
+    "network_and_service_seconds": 0.5,
+    "decryption_seconds": 0.01,
+    "records_per_minute_reported_approx": 92,
+    "concurrency": 1
+  },
+  "arithmetic_only": {
+    "component_sum_seconds": 0.65,
+    "reciprocal_throughput_records_per_minute": 92.3076923077,
+    "duration_for_200_at_reported_mean_seconds": 130,
+    "scope": "Arithmetic consistency, not independent measurement. Do not infer p50/p95 or pure network latency."
+  },
+  "interpretation": {
+    "audit": "The supplied graphic now reports 10/10 and 200/200. This advances the earlier in-progress chat report but does not replace audit JSON/Markdown, execution status or provenance.",
+    "computation": "The reported 18.6 ms service evaluation is different from the 0.50 s network-plus-service component and the 0.65 s complete client path. Do not call all 0.50 s LinuxONE CPU time.",
+    "data_kind": "Carlos previously declared this 200-record experiment synthetic. The graphic title says real patient; use one synthetic record from the measured run in final English material, and confirm against the original sample summary.",
+    "ciphertext": "The service returns the encrypted linear score; Hospital decrypts and applies the sigmoid. The service does not return a plaintext risk probability.",
+    "privacy": "A displayed zero-plaintext counter is a summary claim about audit scope, not formal proof that data or keys were never exposed.",
+    "samples": "The 5.0% example is a different record from the earlier synthetic C screen at 66.3%; no request identifier links the attachments.",
+    "last_test": "Compare floating-point, fixed-point and encrypted screening predictions on the same labeled CDC sample; E5 forecasts are a separate unencrypted module."
+  },
+  "required_followup": [
+    "Original hospital_summary.json and final audit JSON/Markdown, including exit status, check details and sample definition.",
+    "Executed commit, code/model hashes and protocol at both endpoints; preserve this run separately from English v2 if applicable.",
+    "Complete timing statistics with p50/p95, warmup, sample size and operation scope.",
+    "Host identities/architectures and provider evidence if LinuxONE or two-host separation is claimed.",
+    "Review final English release, rebuild both peers together and rerun final process/API measurements."
+  ],
+  "plan": {
+    "story": "US-6.5",
+    "state": "in_progress",
+    "reason": "Reported final audit summary is present; underlying audit and host/version evidence remain unavailable."
+  }
+}

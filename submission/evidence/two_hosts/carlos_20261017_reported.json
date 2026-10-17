@@ -1,0 +1,87 @@
+{
+  "schema": "reported-test-v1",
+  "recorded_at_utc": "2026-10-17T20:01:38.782814+00:00",
+  "operator": "Carlos Enrique Gonzalez Moran",
+  "event_date": {
+    "value": "2026-10-17",
+    "basis": "Captain-supplied conversation context; the screenshot does not display a calendar date."
+  },
+  "source": {
+    "kind": "captain-supplied chat screenshot",
+    "sha256": "8b283499035167892230d264164520ec696e67c7fb7a9db1f6123c4dd14252a8",
+    "original_preserved_locally": true,
+    "local_path": "submission/evidence/private/carlos_20261017_laptop_server_chat.png",
+    "publication": "The original chat image is ignored and excluded from release packages. This English record contains only relevant test observations and attributed reports.",
+    "message_timezone": null
+  },
+  "classification": {
+    "status": "reported_partial_evidence",
+    "strict_audit_verified": false,
+    "linuxone_provider_verified": false,
+    "distinct_hosts_verified": false,
+    "release_commit_verified": false,
+    "covers_hospital_ui_and_vault": null
+  },
+  "operator_report": {
+    "topology": "Laptop to server, encrypted request processing and return to laptop.",
+    "input_kind": "synthetic",
+    "requested_records": 200,
+    "reported_identical_results": 200,
+    "reported_total_results": 200,
+    "completion_message_time": "15:34",
+    "ciphertext_only_audit_status": "In progress in the 15:33 message; no completed audit output is visible."
+  },
+  "visible_terminal_progress": [
+    {
+      "processed": 25,
+      "planned": 200,
+      "identical": 25,
+      "last_request_ms": 612
+    },
+    {
+      "processed": 50,
+      "planned": 200,
+      "identical": 50,
+      "last_request_ms": 597
+    },
+    {
+      "processed": 75,
+      "planned": 200,
+      "identical": 75,
+      "last_request_ms": 667
+    },
+    {
+      "processed": 100,
+      "planned": 200,
+      "identical": 100,
+      "last_request_ms": 616
+    },
+    {
+      "processed": 125,
+      "planned": 200,
+      "identical": 125,
+      "last_request_ms": 608
+    }
+  ],
+  "interpretation": {
+    "numerical_equality": "The terminal reports identical comparisons through 125 records; Carlos reports 200/200 at completion. The exact comparison definition and final counters await the machine-readable summary.",
+    "latency": "Five last-request times only. They are not a latency distribution, p50, p95 or throughput measurement.",
+    "source_version": "Spanish output and truncated hashes are visible. They do not identify a complete commit or establish compatibility with the English v2 release.",
+    "privacy": "The chat does not establish that the service never saw plaintext or a private key. Preserve and review the completed service audit and wire evidence.",
+    "clinical": "Synthetic inputs do not support clinical accuracy, AUC or calibration claims."
+  },
+  "required_followup": [
+    "Original hospital summary and corresponding final audit JSON/Markdown with exit status and exact equality definition.",
+    "Full executed commit, code/model hashes and protocol versions at both ends; preserve this run under its original version.",
+    "Corroborated client/server host identities and architectures, plus LinuxONE provider evidence if claimed.",
+    "Service startup/request audit and wire-file integrity checks supporting the ciphertext-only and key-isolation claims.",
+    "Complete timing summary and operation scope; identify whether UI API, browser and vault were included.",
+    "Run the final English release separately if this run used the earlier Spanish contract."
+  ],
+  "plan": {
+    "story": "US-6.5",
+    "state": "in_progress",
+    "reason": "Reported 200-record laptop/server execution is progress; final audit, provenance and host evidence remain absent."
+  },
+  "followup_record": "submission/evidence/two_hosts/carlos_20261017_audit_summary_reported.json"
+}

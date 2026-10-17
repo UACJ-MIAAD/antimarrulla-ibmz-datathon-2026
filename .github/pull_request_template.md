@@ -1,8 +1,8 @@
-## Qué cambia
+## Change
 
-<!-- Una o dos líneas. Título del PR con formato `tipo: descripción`. -->
+<!-- Describe the problem and resulting behavior in English. -->
 
-## Cómo probarlo
+## Verification
 
 ```bash
 
@@ -10,8 +10,9 @@
 
 ## Checklist
 
-- [ ] Corre en mi máquina (y en LinuxONE si aplica)
-- [ ] Sin datos sensibles ni credenciales
-- [ ] Librerías nuevas agregadas a `requirements.txt` y a la tabla de créditos del README
-- [ ] Si usé IA generativa, está declarada y entiendo el código
-- [ ] Revisor asignado: @
+- [ ] Runs locally and on LinuxONE when applicable
+- [ ] Code, comments, UI, documentation and deliverables reviewed in English
+- [ ] No sensitive records or credentials
+- [ ] New dependencies pinned and credited in README
+- [ ] AI assistance declared through the team's agreed disclosure process; authors understand the code
+- [ ] Reviewed by another team member: @

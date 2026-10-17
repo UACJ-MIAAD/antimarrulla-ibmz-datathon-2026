@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
-# 04_docker_check.sh - Preflight de Docker y bibliotecas en Ubuntu 24.04.
-# Para las pruebas completas del proyecto: make verify-docker desde la raíz.
+# 04_docker_check.sh - Docker and library preflight on Ubuntu 24.04.
+# Run the complete project tests with make verify-docker from the repository root.
 set -euo pipefail
 cd "$(dirname "$0")"
 
