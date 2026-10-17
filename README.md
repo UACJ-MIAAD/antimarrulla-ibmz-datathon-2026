@@ -13,12 +13,12 @@ Repositorio oficial del equipo **Los Antimarrulla** (UACJ · Maestría en Inteli
 
 ## Equipo
 
-| Participante | Nombre |
-|--------------|--------|
-| Participante 1 | Javier Augusto Rebull Saucedo |
-| Participante 2 | Álvaro Hernández Jarquín |
-| Participante 3 | Carlos Gonzalez |
-| Participante 4 | Yazmin Ivonne Flores Martinez |
+| Participante | Nombre | Correo |
+|--------------|--------|--------|
+| Participante 1 (capitán) | Javier Augusto Rebull Saucedo | al263483@alumnos.uacj.mx |
+| Participante 2 | Álvaro Hernández Jarquín | al263150@alumnos.uacj.mx |
+| Participante 3 | Carlos Enrique Gonzalez Moran | al271771@alumnos.uacj.mx |
+| Participante 4 | Yazmin Ivonne Flores Martinez | al261548@alumnos.uacj.mx |
 
 ---
 

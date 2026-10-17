@@ -66,5 +66,5 @@
 |------------|:--:|
 | Javier Augusto Rebull Saucedo | |
 | Álvaro Hernández Jarquín | |
-| Carlos Gonzalez | |
+| Carlos Enrique Gonzalez Moran | |
 | Yazmin Ivonne Flores Martinez | |

@@ -24,7 +24,7 @@
 - Semillas fijas y script reproducible en `src/`.
 - Apoya a Yazmin con datos en las horas 8–10 para liberarla hacia la demo.
 
-### 🖥️ Backend / infra LinuxONE · Carlos Gonzalez
+### 🖥️ Backend / infra LinuxONE · Carlos Enrique Gonzalez Moran
 - Lleva el entorno de LinuxONE desde el setup del 16 oct: accesos de todo el equipo, Python, dependencias en s390x.
 - Hora 0–2: confirma qué librerías críticas corren en s390x (alarma temprana).
 - Servicio que corre en IBM Z (inferencia, agregador o asistente) y su cifrado.
