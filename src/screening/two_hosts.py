@@ -11,6 +11,8 @@ and exact results. Hostnames alone do not prove separation; provider identity ne
 Compute AUC only for labeled CDC samples containing both classes. Same-host runs remain REHEARSAL.
 """
 import argparse, datetime, glob, hashlib, json, os, platform, re, shutil, sys, time
+from concurrent.futures import ProcessPoolExecutor, as_completed
+from phe import paillier
 from . import contract, schema, hospital, provenance, protocol, service, synthetic
 from .paths import MODEL_JSON, SPLITS, ROOT
 
@@ -63,6 +65,41 @@ def _jsonl(p):
 
 # ------------------------------------------------------------------ Host B: hospital
 
+_W = {}  # per-worker state: hospital sharing the run's key pair and its own mutual-TLS client
+
+
+def _init_worker(model, keys, url, certs):
+    _W["h"] = protocol.hospital(model, keys=keys)
+    _W["cli"] = hospital.ServiceClient(url, os.path.join(certs, "ca.pem"), os.path.join(certs, "hospital.pem"),
+                                       os.path.join(certs, "hospital.key"), timeout=120)
+    _W["m"] = model
+
+
+def _evaluate_one(task):
+    """One patient: encrypt → remote service → decrypt → compare with the plaintext computation."""
+    k, record_id, x, y, is_cal, source = task
+    h, cli, m = _W["h"], _W["cli"], _W["m"]
+    t0 = time.perf_counter()
+    sol, xv = h.prepare(dict(zip(schema.FEATURE_NAMES, x)))
+    body = json.dumps(sol).encode()
+    t1 = time.perf_counter()
+    st, d = cli._request("POST", "/v2/evaluate", body)
+    t2 = time.perf_counter()
+    if st != 200:
+        raise RuntimeError(f"service returned HTTP {st}: {d[:200]!r}")
+    z, _ = h.decrypt(json.loads(d))
+    t3 = time.perf_counter()
+    z_ref = contract.logit_integer(m["weights_integers"], m["intercept_integer"], xv)
+    logit_f = sum(w * v for w, v in zip(m["weights_floating"], xv)) + m["intercept_floating"]
+    e = {"id": sol["id"], "record_id": record_id, "data": source, "warmup": is_cal, "y": y,
+         "sha256_request": _sha(body), "sha256_response": _sha(d), "bytes_in": len(body), "bytes_out": len(d),
+         "ms_encrypt": round((t1 - t0) * 1e3, 3), "ms_network_and_service": round((t2 - t1) * 1e3, 3),
+         "ms_decrypt": round((t3 - t2) * 1e3, 3), "ms_total": round((t3 - t0) * 1e3, 3),
+         "z_decrypted": str(z), "z_expected": str(z_ref), "identical": z == z_ref,
+         "probability_ciphertext": contract.sigmoid(contract.logit_from_integer(z)), "probability_floating": contract.sigmoid(logit_f)}
+    return e, xv
+
+
 def run_hospital(a):
     import numpy as np
     from . import data, measure
@@ -87,42 +124,40 @@ def run_hospital(a):
     sample, n_cal = _sample(a.n, source)
     n = len(sample) - n_cal
 
-    h = protocol.hospital(model)
-    W, B, wf, bf = model["weights_integers"], model["intercept_integer"], model["weights_floating"], model["intercept_floating"]
+    c = max(1, int(getattr(a, "concurrency", 1) or 1))
+    keys = paillier.generate_paillier_keypair(n_length=protocol.KEY_BITS)
+    h = protocol.hospital(model, keys=keys)
     threshold = model["threshold"]["probability"]
     os.makedirs(a.output, exist_ok=True)
     path_bit = os.path.join(a.output, "hospital_log.jsonl")
     if os.path.exists(path_bit):
         os.replace(path_bit, path_bit + "." + _now().strftime("%Y%m%dT%H%M%SZ") + ".previous")
 
+    params = (model, keys, a.service, certs)
+    tasks = [(k, record_id, x, y, k < n_cal, source) for k, (record_id, x, y) in enumerate(sample)]
     rows, values_in_plaintext = [], set()
-    with open(path_bit, "w") as bit:
-        for k, (record_id, x, y) in enumerate(sample):
-            is_cal = k < n_cal
-            t0 = time.perf_counter()
-            sol, xv = h.prepare(dict(zip(schema.FEATURE_NAMES, x)))
-            body = json.dumps(sol).encode()
-            t1 = time.perf_counter()
-            st, d = cli._request("POST", "/v2/evaluate", body)
-            t2 = time.perf_counter()
-            if st != 200:
-                raise SystemExit(f"service returned HTTP {st}: {d[:200]!r}")
-            z, _ = h.decrypt(json.loads(d))
-            t3 = time.perf_counter()
-            z_ref = contract.logit_integer(W, B, xv)
-            logit_f = sum(w * v for w, v in zip(wf, xv)) + bf
-            e = {"id": sol["id"], "record_id": record_id, "data": source, "warmup": is_cal, "y": y,
-                 "sha256_request": _sha(body), "sha256_response": _sha(d), "bytes_in": len(body), "bytes_out": len(d),
-                 "ms_encrypt": round((t1 - t0) * 1e3, 3), "ms_network_and_service": round((t2 - t1) * 1e3, 3),
-                 "ms_decrypt": round((t3 - t2) * 1e3, 3), "ms_total": round((t3 - t0) * 1e3, 3),
-                 "z_decrypted": str(z), "z_expected": str(z_ref), "identical": z == z_ref,
-                 "probability_ciphertext": contract.sigmoid(contract.logit_from_integer(z)), "probability_floating": contract.sigmoid(logit_f)}
-            bit.write(json.dumps(e) + "\n")
-            if not is_cal:
-                rows.append(e)
-                values_in_plaintext.update((i, v) for i, v in enumerate(xv))
-            if not is_cal and (len(rows) % 25 == 0 or len(rows) == n):
-                print(f"  {len(rows)}/{n} · last {e['ms_total']:.0f} ms · exact integers {sum(f['identical'] for f in rows)}/{len(rows)}")
+    pool = ProcessPoolExecutor(max_workers=c, initializer=_init_worker, initargs=params) if c > 1 else None
+    if pool is None:
+        _init_worker(*params)
+    try:
+        with open(path_bit, "w") as bit:
+            # warmup first, then the measured sample with c worker processes
+            for group in (tasks[:n_cal], tasks[n_cal:]):
+                t_start = time.perf_counter()
+                done = (f.result() for f in as_completed([pool.submit(_evaluate_one, t) for t in group])) if pool else map(_evaluate_one, group)
+                for e, xv in done:
+                    bit.write(json.dumps(e) + "\n")
+                    if not e["warmup"]:
+                        rows.append(e)
+                        values_in_plaintext.update((i, v) for i, v in enumerate(xv))
+                        if len(rows) % 25 == 0 or len(rows) == n:
+                            print(f"  {len(rows)}/{n} · {time.perf_counter() - t_start:.0f} s · exact integers {sum(f['identical'] for f in rows)}/{len(rows)}")
+            wall_s = time.perf_counter() - t_start
+    except RuntimeError as err:
+        raise SystemExit(str(err))
+    finally:
+        if pool:
+            pool.shutdown(cancel_futures=True)
 
     ys = np.array([f["y"] for f in rows]) if source == "cdc" else None
     pc = np.array([f["probability_ciphertext"] for f in rows]); pf = np.array([f["probability_floating"] for f in rows])
@@ -131,7 +166,8 @@ def run_hospital(a):
         "date_utc": _now().isoformat().replace("+00:00", "Z"), "machine": platform.node(), "machine_id": service.machine_id(),
         "architecture": platform.machine(),
         "service_url": a.service, "service_health": health, "model": model["model"], "model_sha256": _sha(raw_model),
-        "key_paillier_bits": h.pub.n.bit_length(), "concurrency": 1, "warmup": n_cal,
+        "key_paillier_bits": h.pub.n.bit_length(), "concurrency": c, "warmup": n_cal,
+        "wall_time_s": round(wall_s, 2), "patients_per_minute": round(n / wall_s * 60, 1),
         "sample": {"source": "deterministic synthetic inputs" if source == "synthetic" else "publicly anonymized CDC test split",
                     "data": source, "seed": measure.SAMPLE_SEED, "n": n,
                     "positives": int(ys.sum()) if ys is not None else None,
@@ -152,7 +188,8 @@ def run_hospital(a):
         json.dump(summary, f, ensure_ascii=False, indent=1)
     t = summary["timings_ms"]["ms_total"]
     print(f"\n{n} records ({source}) · exact integers {summary["accuracy"]["identical_integers"]}/{n} · "
-          f"p50 {t['p50_ms']} ms · p95 {t['p95_ms']} ms")
+          f"concurrency {c} · total {wall_s:.1f} s ({summary['patients_per_minute']} patients/min) · "
+          f"per patient p50 {t['p50_ms']} ms · p95 {t['p95_ms']} ms")
     print(f"hospital log: {path_bit}\nnext: copy directory {os.path.abspath(a.output)} to the service host and run the audit")
 
 
@@ -303,6 +340,7 @@ def audit(a):
 
     adv = (f"> s390x architecture: {', '.join(s390)}. LinuxONE identity still requires Community Cloud evidence."
            if s390 else "> Neither architecture is s390x: this does not establish LinuxONE execution.")
+    total_txt = f" · total {result_h['wall_time_s']} s ({result_h['patients_per_minute']} patients/min)" if result_h.get("wall_time_s") else ""
     md = f"""# Two-host audit · {out['date_utc']}
 
 **{verdict}**
@@ -313,7 +351,7 @@ def audit(a):
 - Risk service (no private key): `{ini_s['machine']}` · {ini_s['architecture']} · {ini_s['platform']} · code `{ini_s['code_sha256'][:16]}` · container: {ini_s['container']}
 - Matching code at both ends: {result_h['provenance']['code_sha256'] == ini_s['code_sha256']} · model `{result_h['model_sha256'][:16]}` (service `{(ini_s.get('model_sha256') or 'n/a')[:16]}`)
 - Sample: {result_h['sample']['n']} records · {result_h['sample']['source']} (seed {result_h['sample']['seed']}) · Paillier key: {result_h['key_paillier_bits']} bits
-- Flow: hospital encrypts → network/mutual TLS 1.3 → service evaluates Enc(w·x+B) → hospital decrypts · concurrency 1
+- Flow: hospital encrypts → network/mutual TLS 1.3 → service evaluates Enc(w·x+B) → hospital decrypts · concurrency {result_h.get('concurrency', 1)}{total_txt}
 """ + (f"- ⚠️ {out['note']}\n" if "note" in out else "") + f"""
 | # | Check | Result | Detail |
 |---|---|---|---|
@@ -349,6 +387,7 @@ def main():
     h.add_argument("--n", type=int, default=200, help="number of records, at least two")
     h.add_argument("--data", choices=["synthetic", "cdc"], default="synthetic",
                    help="synthetic demo inputs; public CDC only for a labeled benchmark")
+    h.add_argument("--concurrency", type=int, default=1, help="patients in parallel (worker processes); 4–8 on a laptop")
     h.add_argument("--without-evidence", action="store_true", help="allow a service without SERVICE_EVIDENCE; disables auditable evidence")
     u = sub.add_parser("audit", help="check that the service never received plaintext inputs/results")
     u.add_argument("--service", required=True, help="SERVICE_EVIDENCE directory from host A")
