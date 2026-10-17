@@ -1,83 +1,79 @@
-# 👥 Roles, responsabilidades y turnos
+# Roles, responsibilities and rest rota
 
-> Somos **4**, el mínimo de las bases. Nadie es dueño exclusivo de nada; todos revisan PRs de todos.
-> El estatus de cada tarea vive en [site/status.json](../site/status.json) y se ve en vivo en https://antimarrulla-tamizaje.netlify.app
+> Four team members. Another member must review each PR. Current priorities and English workstreams are in [PLAN_CIERRE.md](PLAN_CIERRE.md); story status is in [site/status.json](../site/status.json).
 
-**Prioridad vigente:** seguir [PLAN_CIERRE.md](PLAN_CIERRE.md). El calendario de abajo conserva los bloques y descansos originales; las partes ya implementadas requieren evidencia y revisión, no volver a desarrollarse. Carlos lidera el servicio, Álvaro el hospital en la prueba opcional de dos hosts, Yazmin el formulario/pitch y Javier el cierre de entrega.
+## Current release requirements
 
-## Roles
+The submission portal is open from **October 16, 2026, 23:45 UTC** until **October 18, 16:30 UTC** (12:30 EDT / 10:30 Ciudad Juárez / 18:30 SAST). Keep the internal target of **October 18, 13:00 UTC / 09:00 EDT / 07:00 Ciudad Juárez**. The opening of submissions does not establish the permitted coding start or resolve the labs chronology.
 
-### 🧭 Capitán · coordinación, documentación y entrega · Javier Augusto Rebull Saucedo
-- Cuida el reloj: stand-ups cada 4 horas, demo funcional en la hora 18, congelamiento en la 20.
-- Desbloquea: si alguien lleva 30 min atorado, reasigna o se sienta con esa persona.
-- README, [DECISION.md](DECISION.md), créditos de librerías y [CHECKLIST_ENTREGA.md](CHECKLIST_ENTREGA.md) al día.
-- UI de la demo (pantalla dividida servidor vs. hospital) y su integración con el servicio.
-- Integración final en `main` y **envío en Hack2skill**.
+**All authored release material must be in English**, including code, comments, UI, documentation, diagrams, slides/PDF, narration and submission text. Complete US-7.9 alongside VM evidence; pin the translated release commit before final tests, measurements and recording. This is the captain's instruction. Historical evidence and source identifiers retain their original form.
 
-### 🖥️ Infraestructura LinuxONE y cifrado · Álvaro Hernández Jarquín
-- VM de LinuxONE (Ubuntu 24.04): accesos SSH de los 4, Python, Docker y dependencias en s390x.
-- Horas 1–3: prueba `phe` (Paillier) en s390x. En la hora 2 **comprueba** si TenSEAL/OpenFHE están disponibles: CKKS es extra; si no están, se sigue con Paillier sin tocar el MVP.
-- Dos contenedores (hospital con llave · servicio de riesgo sin llave), TLS 1.3 y bóveda AES-256-GCM (CPACF), listos **antes de su descanso de H8**.
-- Latencia p50/p95 por paciente y **capturas de evidencia** de LinuxONE (`uname -m`, contenedores, `lscpu`/`cpacfinfo`, versiones de OpenSSL de la CLI y de `cryptography`).
-- Segunda revisión técnica del checklist de entrega.
+## Team owners
 
-### 🧠 Modelado ML · Carlos Enrique Gonzalez Moran
-- Labs obligatorios de IA (multi-model y predictivo + generativo) junto con Álvaro y Yazmin.
-- Regresión logística en el CDC y **contrato numérico** (orden de las 21 variables, escala, error medido) en H3–H8. XGBoost solo como referencia si sobra tiempo.
-- Pesos en punto fijo e **inferencia cifrada con Paillier**: un recorrido completo **antes de su descanso de H11**; métrica estrella: **AUC cifrado vs. en claro** sobre la misma muestra.
-- Granite (llama.cpp) es un extra sin integrar; solo se retoma con LinuxONE, evidencia y video encaminados.
-- Semillas fijas, scripts reproducibles en `src/` y `pip freeze` final.
+### Javier Augusto Rebull Saucedo — coordination, documentation, integration and submission
 
-### 📊🎤 Datos y pitch · Yazmin Ivonne Flores Martinez
-- EDA y particiones del CDC; etapas de la atención, indicador exploratorio por estado y mapa con los datos mexicanos (`data/marts/`).
-- Dueña de la narrativa de impacto: cifras con fuente en las slides.
-- Slides v2 con capturas reales, **pitch deck en PDF** con el nombre oficial y **video de 2:50**.
-- Vigila que nada sensible llegue al repo.
+- Confirm the registered Hack2Skill leader and dashboard access now.
+- Maintain the English README, delivery plan, checklist, source credits and AI declaration with technical owners.
+- Integrate English UI/site/plan changes and coordinate the language review; do not mark all material English until reviewed.
+- Coordinate independent PR review, H18 demo, H20 freeze and submission after all four review.
+- Escalate blockers after 30 minutes and protect the video/submission buffer.
 
----
+### Álvaro Hernández Jarquín — LinuxONE infrastructure, hospital and encryption
 
-## ⏱️ Plan de las 24 horas
+- Provide VM/SSH access for all four and Ubuntu 24.04 Docker support on s390x.
+- Complete labs with Carlos and Yazmin; record actual completion dates and screenshots.
+- Verify hospital key isolation, mutual TLS 1.3 and the AES-256-GCM vault before the H8 rest block.
+- Own the infrastructure/hospital portion of the English code, comments, CLI and log migration with Carlos.
+- Run the translated release on the real VM and capture provider dashboard, architecture, containers, OpenSSL and p50/p95 measurements. CPACF acceleration must remain unclaimed unless actually measured.
+- Operate the hospital in the optional two-host test and review the final technical checklist.
 
-**Hora 0 = 17 oct, 7:00 hora Juárez.** Hora 18 = 18 oct, 1:00. Hora 24 = 18 oct, 7:00 (meta de envío). La entrega en Hack2skill cierra el **18 oct a las 10:30** (hora Juárez).
+### Carlos Enrique Gonzalez Moran — ML model, protocol and risk service
 
-> Antes de escribir código propio, la guía exige completar los **2 labs de IA/ML** de la organización. Van en las horas 1–3.
+- Complete both required labs with Álvaro and Yazmin.
+- Own logistic regression, the 21-feature contract, fixed-point weights and Paillier inference; preserve the H11 handoff before rest.
+- Lead the English code/test/contract migration with Álvaro, updating imports, callers, schemas and tests together.
+- Compare plaintext/fixed-point/encrypted outputs on the same sample and measure plaintext logit cost separately from the full HTTPS flow.
+- Run the actual project tests and measurements on the pinned translated LinuxONE release; keep random seeds and dependencies reproducible.
+- Granite/CKKS remain optional and unimplemented; resume only after MVP evidence, English release review and video are secure.
 
-| Hora | Javier · capitán | Álvaro · infra LinuxONE | Carlos · modelado | Yazmin · datos y pitch |
-|------|------------------|-------------------------|-------------------|------------------------|
-| 0–1 | **Arranque y alcance** · firmas en DECISION.md | Acceso de los 4 a la VM y al repo | Plan del modelo | Plan de datos y del pitch |
-| 1–3 | Capturas de labs a `submission/evidencias/` | **Labs** · `phe` en s390x · H2: ¿CKKS disponible? (extra) | **Labs obligatorios** | **Labs** · EDA del CDC |
-| 3–5 | Stand-up · boceto de la UI | **Dos contenedores Docker** | **Regresión logística** | Particiones 70/15/15 y esquema de 21 variables → **a Carlos en H5** |
-| 5–8 | 😴 Descansa | **TLS 1.3 + bóveda AES-256-GCM** | **Contrato numérico** (escala y error medido) · XGBoost si sobra | Cifras por etapa y mapa |
-| 8–11 | Stand-up · UI de pantalla dividida | 😴 Descansa | **Punto fijo + inferencia Paillier: recorrido completo antes de H11** | Slide de impacto · extra: series y presupuesto E5, preparación ENSANUT |
-| 11–12 | UI de pantalla dividida | Servicio de riesgo con el código de Carlos | 😴 Descansa | Extras E5 / ENSANUT |
-| 12–14 | 🚩 **H12: chequeo del recorrido** (petición → cálculo cifrado → descifrado → UI) · UI conectada | **Servicio conectado** · evidencias de CPACF | 😴 Descansa | **Slides v2** con capturas |
-| 14–16 | UI conectada al servicio | Latencia p50/p95 · tamaño de cifrados | **Métricas claro vs. cifrado** sobre la muestra | 😴 Descansa |
-| 16–18 | **Empuje a demo** | Capturas de evidencia · flowchart (extra) | Tabla de métricas · extras: Granite, respaldo regional E5 | 😴 hasta H17 · **guion final** H17–18 |
-| **18** | 🚩 **DEMO FUNCIONAL** | | | |
-| 18–20 | Ensayo general · checklist · extras: dashboard E5 y prototipo publicado | Medición final · capturas | Tabla final de métricas | Video de respaldo de la demo |
-| 20 | 🧊 **Congelamiento de features** | | | |
-| 20–22 | README de la demo · repo limpio | Revisión técnica del checklist | `pip freeze` · reproducibilidad | **Grabación del video (2:50)** · PDF del deck |
-| 22–24 | **Envío en Hack2skill (meta 7:00)** · título `Los Antimarrulla_IBM Z Datathon 2026 Project` | Revisión final | Revisión final | Revisión final |
+### Yazmin Ivonne Flores Martinez — data, English narrative and pitch
 
-**Regla de extras.** Cada quien empieza un extra (E5, ENSANUT, Granite, CKKS, flowchart, prototipo) **solo cuando entregó su tarea MVP** del bloque. En el chequeo de H12, si no existe el recorrido completo (petición → cálculo cifrado → descifrado → resultado en la UI), **se pausan los extras** sin sacarlos del plan: Carlos vuelve a Paillier al regresar de su descanso (H14), Álvaro integra, Javier sigue con la UI y Yazmin junta evidencia y pitch.
+- Own CDC exploratory analysis, splits, Mexican statistics and source/population explanations.
+- Review English labels, source coding and validation in the existing form; physician-focused polish is optional.
+- Translate and review slides, diagram and PDF; assemble the <=180-second English video with Javier.
+- Use actual LinuxONE/model footage and versioned measurements; do not relabel local screenshots as VM evidence.
+- Keep sensitive data out of the repository and review the English AI declaration and final submission text.
 
-**Plan por épicas e historias de usuario:** 7 épicas (E1 base · E2 infraestructura · E3 modelo cifrado · E4 datos e impacto · E5 pronóstico y planeación financiera · E6 demo · E7 pitch y entrega) en [site/status.json](../site/status.json), visibles en el sitio.
+## Existing 24-hour schedule
 
-**Épica E5 (Plus):** Yazmin prepara las 222 series (111 por tipo), el pronóstico de base y el presupuesto después de entregar las particiones (H8–H12); Carlos agrega el respaldo regional solo con el MVP entregado (H16–H18) y Javier arma el dashboard solo si la demo de H18 pasó (H18–H20). Diseño en [PRONOSTICO.md](PRONOSTICO.md).
+Internal H0 is **October 17, 07:00 Ciudad Juárez / 09:00 EDT**, distinct from the portal opening. H18 is October 18, 01:00 Juárez; H24 is October 18, 07:00 Juárez, the internal submission target. This rota is retained as planning history; it does not certify that labs preceded coding. Follow [CRONOLOGIA.md](CRONOLOGIA.md) for actual facts.
 
-## 😴 Turnos de descanso
+| Hours | Javier | Álvaro | Carlos | Yazmin |
+|-------|--------|--------|--------|--------|
+| 0–1 | Scope, decision and owners | VM/repo access | Model plan | Data/pitch plan |
+| 1–3 | Collect lab evidence | Labs; Paillier on s390x; optional CKKS check | Required labs | Labs; CDC exploratory analysis |
+| 3–5 | Stand-up and UI outline | Two containers | Logistic regression | Splits and 21-feature schema handed to Carlos at H5 |
+| 5–8 | Rest | TLS 1.3 and AES-256-GCM vault | Numerical contract; XGBoost only if time remains | Official statistics and map |
+| 8–11 | Stand-up; split-screen UI | Rest | Complete encrypted flow before H11 | Impact slide; optional E5/ENSANUT |
+| 11–12 | Split-screen UI | Connect the service | Rest | Optional experiments |
+| 12–14 | H12 full-flow checkpoint; UI integration; English docs/site | Connected service and VM evidence; English infrastructure review | Rest | English slides and screenshots |
+| 14–16 | UI integration; English release coordination | Latency, ciphertext sizes; English code review with Carlos | Same-sample metrics; English code/tests/contracts | Rest |
+| 16–18 | Demo readiness; integrate language changes | VM screenshots; optional flowchart | Metrics and service handoff | Rest until H17, then final English script |
+| 18 | **Working demo** | | | |
+| 18–20 | Rehearsal and English checklist | Final measurements and screenshots | Final metrics table | Backup demo recording; English visual review |
+| 20 | **Feature freeze** | | | |
+| 20–22 | English README and clean release | Independent technical review | Dependencies and reproducibility | English video, PDF and visual checks |
+| 22–24 | Registered leader submits after all four review | Final review | Final review | Final review |
 
-Dormir es estrategia, no flojera. Cada quien toma **un bloque de 3 horas**, de a uno por bloque, para que **siempre haya 3 personas despiertas**.
+Each person starts an optional extension only after delivering their MVP work. If the H12 request → encrypted evaluation → decryption → UI flow is missing, pause extensions: Álvaro integrates, Javier handles the UI, Yazmin prepares evidence/pitch, and Carlos returns to Paillier after H14. English release work is mandatory and cannot be replaced by an extra.
 
-| Bloque | Descansa | Se quedan de guardia |
-|--------|----------|----------------------|
-| Horas 5–8 | Javier | Álvaro, Carlos, Yazmin |
-| Horas 8–11 | Álvaro | Javier, Carlos, Yazmin |
-| Horas 11–14 | Carlos | Javier, Álvaro, Yazmin |
-| Horas 14–17 | Yazmin | Javier, Álvaro, Carlos |
+## Rest rota
 
-Reglas:
-- Antes de dormir: commit, push, actualizar [site/status.json](../site/status.json) y un mensaje en el canal con "dónde me quedé".
-- Javier no descansa durante el empuje a demo (16–18) ni en el envío (22–24).
-- Pausas de 10 minutos cada 2 horas: agua, estirarse, alejarse de la pantalla.
-- Si alguien está fundido, se le manda a dormir. Ese es un acto antimarrulla.
+| Hours | Resting | On duty |
+|-------|---------|---------|
+| 5–8 | Javier | Álvaro, Carlos, Yazmin |
+| 8–11 | Álvaro | Javier, Carlos, Yazmin |
+| 11–14 | Carlos | Javier, Álvaro, Yazmin |
+| 14–17 | Yazmin | Javier, Álvaro, Carlos |
+
+Before resting, commit/push, update status and leave the next owner a clear handoff. Javier remains available for the H16–18 demo push and H22–24 submission. Take ten-minute breaks every two hours and reassign work if fatigue affects execution.

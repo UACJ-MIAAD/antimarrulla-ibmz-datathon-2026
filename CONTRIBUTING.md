@@ -1,76 +1,52 @@
-# 🤝 Guía de contribución · Los Antimarrulla
+# Contribution guide · Los Antimarrulla
 
-Reglas cortas para que 24 horas de trabajo no terminen en 24 horas de conflictos de merge.
+## 1. Language and release requirements
 
-## 1. Ramas
+**All authored project material must be in English**, as instructed by the captain: code identifiers, comments/docstrings, tests, logs/errors, CLI help, UI/site, notebooks, documentation, diagrams, slides, video and submission text. Use English for new commits and PR descriptions.
 
-- `main` siempre debe correr. Nadie hace push directo a `main`.
-- Una rama por integrante o por feature:
+Keep proper names, the exact required submission title, official source identifiers and verbatim quotations intact. Never rewrite historical commits, dates, measured evidence or raw data to translate them. Explain source fields in English. Coordinate identifier/module/schema changes with every import, caller, CLI target and test; validate the same translated commit before recording final LinuxONE evidence. See US-7.9 and [PLAN_CIERRE.md](docs/PLAN_CIERRE.md). The language migration remains open until the team reviews all release material.
 
-| Tipo | Ejemplo |
-|------|---------|
-| Por integrante | `javier/coordinacion`, `yazmin/datos` |
-| Por feature | `feat/modelo-base`, `feat/demo-ui`, `infra/linuxone-setup` |
-| Corrección urgente | `fix/demo-crash` |
+## 2. Branches
 
-```bash
-git checkout main && git pull
-git checkout -b feat/modelo-base
-```
+- `main` must remain runnable. No direct pushes to `main`.
+- Use a branch for each contributor or change, such as `javier/coordination`, `feat/base-model` or `fix/demo-crash`.
+- Codex branches use the `codex/` prefix.
 
-## 2. Pull requests
+## 3. Pull requests
 
-- Todo cambio entra a `main` por **pull request**.
-- **Revisión obligatoria de otro miembro** (no tú mismo). Revisar = leer, correr y entender.
-- PR pequeño > PR gigante. Si tu PR toca más de ~300 líneas, pártelo.
-- Título del PR con el mismo formato que los commits.
-- A partir de la **hora 20**, solo entran PRs de corrección, documentación y pitch. Nada de features nuevas.
+- Every change enters `main` through a pull request.
+- **Review by another team member is required.** Read, run and understand the change; self-review is not independent review.
+- Prefer small PRs. Split changes larger than approximately 300 lines into reviewable parts when possible.
+- Use a clear English title describing the resulting behavior and record relevant verification.
+- After H20, accept fixes, documentation and pitch updates only. No new features.
 
-## 3. Commits
+## 4. Commits and history
 
-En español, formato **`tipo: descripción`**, en minúsculas y en presente:
+Use English, in the form `type: description`, for example `fix: reject mismatched remote code` or `docs: update the submission window`.
 
-| Tipo | Uso | Ejemplo |
-|------|-----|---------|
-| `datos` | Carga, limpieza, transformación de datos | `datos: limpieza inicial del dataset` |
-| `modelo` | Entrenamiento, evaluación, métricas | `modelo: baseline de regresión logística` |
-| `infra` | LinuxONE, despliegue, entorno, cifrado | `infra: configura entorno python en linuxone` |
-| `demo` | Interfaz y demo en vivo | `demo: pantalla dividida cifrado vs predicción` |
-| `docs` | README, docs/, comentarios | `docs: registra decisión de la idea` |
-| `pitch` | Slides, guion, video | `pitch: primer borrador del guion` |
-| `fix` | Corrección de errores | `fix: maneja valores nulos en edad` |
-| `chore` | Mantenimiento, dependencias | `chore: agrega tenseal a requirements` |
+Commit frequently and keep changes reviewable. Project code must follow the event's permitted coding window. Preserve existing factual history; do not rebase published `main`, force-push, backdate commits or import code from previous projects. Check the system clock. The submission portal opening does not by itself establish the permitted coding start; the unresolved facts are recorded in [CRONOLOGIA.md](docs/CRONOLOGIA.md).
 
-Commits frecuentes y pequeños. Un commit cada 30–60 min de trabajo es buena señal para los jueces.
+## 5. Notebooks
 
-## 4. ⚠️ Fechas del historial
+- Store notebooks in `notebooks/`, named `NN_topic.ipynb`, for example `02_baseline.ipynb`.
+- VM work must be committed and pushed; files left only on a VM are not release evidence.
+- Restart and run all cells before committing; remove oversized outputs.
+- Put reusable code in `src/`; notebooks import the project implementation so their results match verification.
 
-**Todo commit de código debe ser del 17–18 de octubre de 2026.** El historial de commits es la evidencia de que construimos durante el evento.
+## 6. Data and secrets
 
-- No reescribas historia (`git rebase` sobre `main`, `git push --force`) después de que algo se publicó.
-- No traigas código de proyectos anteriores. Ideas e investigación sí; código no.
-- Antes de commitear revisa que tu reloj del sistema esté bien.
+- Do not commit large datasets or sensitive records. Follow [data/README.md](data/README.md).
+- Keep credentials, keys and tokens outside version control, in ignored local configuration.
+- If a secret is exposed, notify the team and rotate it before cleaning the exposure. Never print secret values in reports.
+- The demo uses synthetic patients. Explicit CDC benchmarks use publicly anonymized survey data.
 
-## 4.1 Notebooks
+## 7. Team cadence and submission
 
-- Viven en el repo, en `notebooks/`, con nombre `NN_tema.ipynb` (por ejemplo `02_baseline.ipynb`). Se pueden editar y correr en el servidor, pero **siempre con commit y push**: lo que se queda solo en la VM no cuenta para la entrega y se pierde si la VM se cae.
-- Antes de commitear: *Kernel → Restart & Run All* y limpiar salidas pesadas.
-- El código reutilizable va en `src/tamizaje/` y el notebook lo importa, para que los resultados coincidan con `make verify`.
+Follow [PLAN_CIERRE.md](docs/PLAN_CIERRE.md) and [ROLES.md](docs/ROLES.md).
 
-## 5. Datos y secretos
-
-- Nada de datasets grandes ni datos sensibles en el repo. Ver [data/README.md](data/README.md).
-- Credenciales, llaves y tokens viven en `.env` (ignorado por git). **Nunca** en el código.
-- Si subiste un secreto por error: avisa en el canal, rota la llave y luego limpia.
-
-## 6. Ritmo del equipo
-
-| Momento | Qué pasa |
-|---------|----------|
-| Hora 0–1 | Reunión de decisión de idea → [docs/DECISION.md](docs/DECISION.md) |
-| Cada 4 h | Stand-up de 10 min: qué hice, qué sigue, qué me bloquea |
-| **Hora 18** | **Deadline interno: demo funcional de punta a punta** |
-| Hora 20 | Congelamiento de features |
-| Hora 22–24 | Video, slides, checklist y entrega |
-
-Bloqueado más de 30 minutos = pedir ayuda. Aquí no hay marrulla, hay equipo.
+- Stand-up every four hours; ask for help after 30 minutes blocked.
+- H18: working demo. H20: feature freeze.
+- Registered team leader submits after all four review.
+- Portal window: October 16, 2026, 23:45 UTC through October 18, 2026, 16:30 UTC.
+- Internal target: October 18, 13:00 UTC (09:00 EDT / 07:00 Ciudad Juárez), leaving 3 hours 30 minutes.
+- Complete the English release review, labs, LinuxONE evidence, independent review and final video before submission.

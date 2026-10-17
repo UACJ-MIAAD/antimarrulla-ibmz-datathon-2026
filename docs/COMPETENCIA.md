@@ -1,73 +1,77 @@
-# 🏆 La competencia: IBM Z Datathon 2026
+# IBM Z Datathon 2026 — event and submission plan
 
-> Fuente: *Participant Guidebook – IBM Z Datathon 2026*. Si algo aquí contradice a las reglas oficiales, ganan las reglas oficiales.
+> Sources: the participant guidebook, the kick-off material and the Hack2Skill event notice supplied by the captain. Official organizer instructions take precedence over this planning document.
 
-## Qué es
+## Event context
 
-Un evento global de **24 horas** organizado por la **Shooting Stars Foundation (SSF)** en alianza con **IBM**. Estudiantes universitarios construyen soluciones de IA sobre infraestructura **IBM Z / LinuxONE**, bajo la misión general **AI for Good**. No hay un solo problema: cada equipo elige el suyo dentro de uno de los temas ([TEMAS.md](TEMAS.md)).
+A global 24-hour event organized by Shooting Stars Foundation (SSF) with IBM. University teams build AI solutions using IBM Z / LinuxONE under the **AI for Good** mission. Los Antimarrulla participates in the **virtual Americas track**, from Ciudad Juárez, Mexico.
 
-## Formato
+LinuxONE Community Cloud access is provided for the event. The team supplies its own laptop, connectivity and tools. The official Discord IBM SME helpdesk is listed in [LINKS.md](LINKS.md).
 
-- **Híbrido:** 8 sedes presenciales (India, Reino Unido, EE. UU., Australia, Malasia, Singapur) + **track virtual global**.
-- **Nosotros:** track **virtual**, región **Americas**, desde Ciudad Juárez, México.
-- **Infraestructura:** acceso gratuito a **LinuxONE Community Cloud**. Laptop, internet y herramientas corren por nuestra cuenta.
-- **Soporte:** Discord oficial; el canal `#ibm-z-sme-helpdesk` con expertos de IBM abre solo el día del datathon ([LINKS.md](LINKS.md)).
+## Confirmed project submission window
 
-## Calendario oficial (Hack2skill)
+The captain supplied the live **IBM Z Datathon — Project Submissions** notice for [Hack2Skill](https://hack2skill.com/event/datathon-2026):
 
-Fuente: línea de tiempo de la [plataforma del evento](https://hack2skill.com/event/datathon-2026), revisada el 17 oct 2026, y el deck del kick-off ([Kickoff_IBM_Z_Datathon_2026.pdf](Kickoff_IBM_Z_Datathon_2026.pdf), local). Juárez = EDT − 2 h. **Manda Hack2skill:** si algo no cuadra con la guía, gana la plataforma.
+| Milestone | UTC | EDT | Ciudad Juárez | SAST |
+|-----------|-----|-----|---------------|------|
+| Opens | **Friday, October 16, 23:45** | Friday, October 16, 19:45 | Friday, October 16, 17:45 | Saturday, October 17, 01:45 |
+| Internal submission target | Sunday, October 18, 13:00 | Sunday, October 18, 09:00 | Sunday, October 18, 07:00 | Sunday, October 18, 15:00 |
+| Closes | **Sunday, October 18, 16:30** | **Sunday, October 18, 12:30** | **Sunday, October 18, 10:30** | **Sunday, October 18, 18:30** |
 
-| Fecha | Evento | Hora EDT | **Hora Juárez** |
-|-------|--------|----------|-----------------|
-| 15 oct | Cierre de registro de equipos y abstract | 14:29 | 12:29 |
-| 16 oct | **Get Your LinuxONE System Ready** (obligatorio) | 9:45–11:00 | 7:45–9:00 |
-| 16 oct | **Abre la entrega de proyectos** | 19:45 | 17:45 |
-| 16 oct | **Kick-off global online** (ya ocurrió) | 23:15–0:30 | 21:15–22:30 |
-| 17 oct | Kick-off Nueva York (presencial) | 9:00–10:00 | 7:00–8:00 |
-| 17 oct | **Ceremonia virtual de cierre** | 18 oct 1:00–1:30 | **17 oct 23:00–23:30** |
-| **18 oct** | **⛔ CIERRA LA ENTREGA EN HACK2SKILL** | **12:30** | **10:30** |
-| 18–23 oct | Encuesta de retroalimentación (obligatoria) | hasta 23 oct 14:29 | hasta 12:29 |
-| 28 oct | **Anuncio de ganadores** (7:30–9:00 PM IST) | 10:00–11:30 | 8:00–9:30 |
-| 18 nov | IBM Z Day (ganadores destacados) | 8:00–16:30 ET | 6:00–14:30 |
+The portal is already open. The registered team leader should confirm dashboard access now. Keep the internal target, with **3 hours 30 minutes of buffer**. The notice establishes submission availability only; it does not settle the permitted coding start or the labs-before-coding requirement. Preserve the facts and unresolved questions in [CRONOLOGIA.md](CRONOLOGIA.md); never rewrite dates or infer an organizer waiver.
 
-> ⛔ **Cierre duro: 18 oct, 10:30 hora Juárez.** Meta interna sin cambios: **todo enviado a las 7:00**, con tres horas y media de colchón. El deck del kick-off insiste: *"Submit early, not in the last minutes"*.
->
-> El primer commit del repo (17 oct, 00:54 EDT) es posterior al kick-off global (16 oct, 23:15 EDT). Tres commits aparecen como "16 oct 23:xx −0600": son las 01:xx EDT del 17 oct, no son anteriores. **Pendiente:** confirmar con la organización (`#helpdesk`) qué hora de inicio aplica al track online de Americas y si el sitio y la documentación hechos antes de los labs obligatorios cuentan como preparación. Mientras tanto, el código del proyecto se escribe después de los labs y con capturas que lo prueben. Nunca reescribir fechas del historial.
+## Other dates retained from the event planning record
 
-## Premios (por región, según el kick-off)
+| Event | EDT | Ciudad Juárez |
+|-------|-----|---------------|
+| Team registration/abstract closes | October 15, 14:29 | October 15, 12:29 |
+| Required LinuxONE setup | October 16, 09:45–11:00 | October 16, 07:45–09:00 |
+| Global online kick-off | October 16, 23:15 through October 17, 00:30 | October 16, 21:15–22:30 |
+| New York in-person kick-off | October 17, 09:00–10:00 | October 17, 07:00–08:00 |
+| Virtual closing ceremony | October 18, 01:00–01:30 | October 17, 23:00–23:30 |
+| Required feedback survey | Through October 23, 14:29 | Through October 23, 12:29 |
+| Winners announcement | October 28, 10:00–11:30 | October 28, 08:00–09:30 |
+| IBM Z Day | November 18, 08:00–16:30 ET | November 18, 06:00–14:30 |
 
-| Lugar | Premio | Además |
-|-------|-------:|--------|
-| 🥇 1.º | **US$1,000** | Presentación en IBM Z Day + 6 meses de acceso a IBM Z |
-| 🥈 2.º | **US$750** | Presentación en IBM Z Day + 6 meses de acceso a IBM Z |
-| 🥉 3.º | **US$500** | Presentación en IBM Z Day + 6 meses de acceso a IBM Z |
+The first repository commit is October 17, 00:54 EDT, after the global kick-off. Commits shown as October 16 at 23:xx with offset −0600 are October 17 at 01:xx EDT. This timestamp conversion does not establish compliance; the coding/labs questions remain open in the factual chronology.
 
-- **Competimos en Americas** (track online). Las sedes presenciales tienen sus propios premios con el mismo monto, más visita a un campus de IBM.
-- Bolsa global del evento: **más de $50,000 USD**, sumando regiones, sedes y premios especiales: Most Innovative AI Theme, Most Creative AI Solution, Highest Participation Award, Best IBM Z Advocacy y los **AI Innovation Excellence Awards** ([CRITERIOS.md](CRITERIOS.md#-ai-innovation-excellence-awards-rúbrica-adicional--20-pts)).
-- El reparto del dinero dentro del equipo se rige por las reglas oficiales de premios.
+## Release language — captain requirement
 
-## Elegibilidad
+**All authored material must be in English:** code identifiers, comments/docstrings, tests, CLI/log/error messages, UI/site, documentation/notebooks, diagrams, slides/PDF, narration/captions and submission text. Proper names, original source identifiers/data, the exact required title and historical evidence retain their original spelling.
 
-| Requisito | Nosotros |
-|-----------|----------|
-| Estudiantes universitarios inscritos (licenciatura o posgrado) | ✅ UACJ, MIAAD |
-| Cualquier carrera, sin experiencia previa en IBM Z | ✅ |
-| Equipos de 4 a 6 integrantes | ✅ Somos 4 ([ROLES.md](ROLES.md)) |
-| Registro individual + "Create a Team" en Hack2skill por el líder | ✅ |
-| Abstract enviado antes del 15 oct | ☐ Confirmar |
-| Asistencia al setup obligatorio del 16 oct | ☐ Confirmar |
-| **Formulario de asistencia del kick-off** (https://forms.gle/hxTYwzJRqgwnWaPn8) | ☐ Cada integrante lo llena |
+Track translation and independent review in **US-7.9**. English planning documents do not close the entire migration. Final tests, LinuxONE measurements and recording must use the pinned translated release commit. Owners and completion criteria are in [PLAN_CIERRE.md](PLAN_CIERRE.md). This language requirement comes from the captain; it is not presented as an official rule without evidence.
 
-## Entregables (vía Hack2skill)
+## Required deliverables
 
-**Obligatorios** (deck del kick-off, "Required for Final Submission")
-1. **Video de 3 minutos o menos** con: el problema, datos que lo respaldan, la solución y cómo usa IBM Z (stack, **instancia LinuxONE y modelo en pantalla**).
-2. **Código:** link a GitHub/GitLab (o zip).
-3. **🆕 Pitch deck en PDF** con el nombre `Los Antimarrulla_IBM Z Datathon 2026 Project.pdf`. (La guía solo pedía el título; el kick-off pide **el PDF**.)
-4. **Links a todos los recursos open source** usados.
+From the kick-off required-submission list:
 
-**Opcionales (recomendados)**
-- Flowchart / diagrama de arquitectura.
-- Prototipo funcionando.
+1. A public video **no longer than three minutes**: problem, supporting data, solution and IBM Z usage, with technology stack, **LinuxONE instance and model visible on screen**. English narration/captions are required by the captain.
+2. A public code repository link, or accepted ZIP.
+3. An English pitch deck exported to **`Los Antimarrulla_IBM Z Datathon 2026 Project.pdf`**.
+4. Links to all open-source resources used.
 
-Checklist completo: [CHECKLIST_ENTREGA.md](CHECKLIST_ENTREGA.md).
+Optional: an English flowchart/architecture diagram and a working prototype link. These do not replace required evidence, labs, review or video. Use the exact submission title **`Los Antimarrulla_IBM Z Datathon 2026 Project`**.
+
+## Eligibility and team checks
+
+| Requirement | Team status |
+|-------------|-------------|
+| Enrolled university students | UACJ, MIAAD; confirm registration records |
+| Team of four to six | Four members; see [ROLES.md](ROLES.md) |
+| Individual registration and leader-created Hack2Skill team | Confirm all four are linked and identify the registered leader |
+| Abstract submitted by October 15 | Confirmation pending |
+| Required October 16 setup attendance | Confirmation pending |
+| Kick-off attendance form | Each member must complete [the form](https://forms.gle/hxTYwzJRqgwnWaPn8) |
+| Two labs before building | Actual completion evidence and chronology question remain open |
+
+## Awards recorded in the kick-off material
+
+| Regional place | Prize | Additional recognition |
+|----------------|-------|------------------------|
+| First | US$1,000 | IBM Z Day presentation and six months of IBM Z access |
+| Second | US$750 | IBM Z Day presentation and six months of IBM Z access |
+| Third | US$500 | IBM Z Day presentation and six months of IBM Z access |
+
+The existing event record also lists theme/creativity/participation/advocacy awards and AI Innovation Excellence. The standard and innovation rubrics are documented in [CRITERIOS.md](CRITERIOS.md). These are planning references, not a promise of eligibility or an award.
+
+Use [CHECKLIST_ENTREGA.md](CHECKLIST_ENTREGA.md) for final submission checks.
