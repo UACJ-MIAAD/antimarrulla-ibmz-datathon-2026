@@ -52,8 +52,8 @@ medir: setup                          ## exactitud + microbenchmarks en proceso,
 medir-api: setup                      ## mide la API del hospital desplegado (make demo) de punta a punta
 	$(BIN)/python -m tamizaje.medir --modo api --url http://127.0.0.1:8080 $(if $(FINAL),--final,)
 
-package: verify                       ## paquete de entrega en dist/
-	$(BIN)/python -m tamizaje.empaquetar
+package: verify                       ## paquetes documental y de código en dist/ (BORRADOR; FINAL=1 exige evidencias)
+	$(BIN)/python -m tamizaje.empaquetar --tipo ambos $(if $(FINAL),--final,)
 
 # ---- Linux / LinuxONE (s390x) sin ruedas de pip: todo dentro de las imágenes de Ubuntu 24.04
 COMMIT := $(shell git rev-parse HEAD 2>/dev/null)
