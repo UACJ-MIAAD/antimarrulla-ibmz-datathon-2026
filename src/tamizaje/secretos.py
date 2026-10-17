@@ -4,9 +4,16 @@
   de cliente del hospital (TLS 1.3 mutuo).
 - Llave de 32 bytes de la bóveda AES-256-GCM.
 
-Uso: python -m tamizaje.secretos [directorio]
+Dos máquinas (servicio en una VM, hospital en otra):
+  --servicio-san IP_O_NOMBRE  agrega la IP pública o el nombre de la VM del servicio al certificado (repetible);
+                              sin esto el hospital rechaza la conexión porque el nombre no coincide.
+  --exportar-hospital DIR     MUEVE el certificado y la llave de cliente del hospital (más ca.pem) a DIR para
+                              llevarlos a la otra máquina; la VM del servicio se queda sin credenciales de hospital
+                              y no se genera llave de bóveda (la bóveda es del hospital).
+
+Uso: python -m tamizaje.secretos [directorio] [--servicio-san IP ...] [--exportar-hospital DIR]
 """
-import datetime, ipaddress, os, sys
+import argparse, datetime, ipaddress, os, shutil, sys
 from cryptography import x509
 from cryptography.hazmat.primitives import hashes, serialization
 from cryptography.hazmat.primitives.asymmetric import ec
@@ -46,7 +53,14 @@ def _cert(sujeto, llave_pub, emisor, llave_emisor, ca=False, san=None, uso=None,
     return b.sign(llave_emisor, hashes.SHA256())
 
 
-def generar(dir_=DEFECTO):
+def _san(valor):
+    try:
+        return x509.IPAddress(ipaddress.ip_address(valor))
+    except ValueError:
+        return x509.DNSName(valor)
+
+
+def generar(dir_=DEFECTO, san_extra=(), exportar_hospital=None):
     dir_ = os.path.abspath(dir_)
     if dir_.startswith(os.path.realpath(RAIZ) + os.sep):
         sys.exit("los secretos no pueden vivir dentro del repositorio")
@@ -55,7 +69,8 @@ def generar(dir_=DEFECTO):
     ca = _cert("Tamizaje demo CA", ca_k.public_key(), ca_nombre, ca_k, ca=True)
     sv_k = _llave()
     sv = _cert("servicio", sv_k.public_key(), ca_nombre, ca_k, uso=ExtendedKeyUsageOID.SERVER_AUTH,
-               san=[x509.DNSName("servicio"), x509.DNSName("localhost"), x509.IPAddress(ipaddress.ip_address("127.0.0.1"))])
+               san=[x509.DNSName("servicio"), x509.DNSName("localhost"), x509.IPAddress(ipaddress.ip_address("127.0.0.1"))]
+               + [_san(v) for v in san_extra if v not in ("servicio", "localhost", "127.0.0.1")])
     ho_k = _llave()
     ho = _cert("hospital", ho_k.public_key(), ca_nombre, ca_k, uso=ExtendedKeyUsageOID.CLIENT_AUTH)
     pem = lambda c: c.public_bytes(serialization.Encoding.PEM)
@@ -64,13 +79,28 @@ def generar(dir_=DEFECTO):
     _escribir(os.path.join(certs, "servicio.key"), _pem_llave(sv_k))
     _escribir(os.path.join(certs, "hospital.pem"), pem(ho), 0o644)
     _escribir(os.path.join(certs, "hospital.key"), _pem_llave(ho_k))
-    llave_boveda = os.path.join(dir_, "boveda.key")
-    if not os.path.exists(llave_boveda):
-        boveda.crear_llave(llave_boveda)
+    if exportar_hospital:
+        destino = os.path.abspath(exportar_hospital)
+        if destino.startswith(os.path.realpath(RAIZ) + os.sep):
+            sys.exit("el paquete del hospital no puede vivir dentro del repositorio")
+        os.makedirs(destino, mode=0o700, exist_ok=True)
+        shutil.copy2(os.path.join(certs, "ca.pem"), os.path.join(destino, "ca.pem"))
+        for n in ("hospital.pem", "hospital.key"):
+            shutil.move(os.path.join(certs, n), os.path.join(destino, n))
+        print("paquete del hospital en", destino, "(ca.pem, hospital.pem, hospital.key): cópialo a la otra máquina y bórralo de aquí")
+    else:
+        llave_boveda = os.path.join(dir_, "boveda.key")
+        if not os.path.exists(llave_boveda):
+            boveda.crear_llave(llave_boveda)
     # La llave de la CA no se guarda: solo sirve para firmar estos certificados.
-    print("secretos en", dir_)
+    print("secretos en", dir_, "· SAN del servicio:", ", ".join(["servicio", "localhost", "127.0.0.1", *san_extra]))
     return dir_
 
 
 if __name__ == "__main__":
-    generar(sys.argv[1] if len(sys.argv) > 1 else DEFECTO)
+    ap = argparse.ArgumentParser()
+    ap.add_argument("directorio", nargs="?", default=DEFECTO)
+    ap.add_argument("--servicio-san", action="append", default=[], metavar="IP_O_NOMBRE")
+    ap.add_argument("--exportar-hospital", metavar="DIR")
+    a = ap.parse_args()
+    generar(a.directorio, a.servicio_san, a.exportar_hospital)

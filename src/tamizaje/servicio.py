@@ -2,12 +2,18 @@
 
 No tiene la llave privada. Registra únicamente id de solicitud, tiempos y tamaños; nunca el cuerpo.
 
-Variables de entorno: SERVICIO_PUERTO (8443), SERVICIO_CERT, SERVICIO_LLAVE, SERVICIO_CA_CLIENTES, MODELO_JSON.
+Evidencia opcional (SERVICIO_EVIDENCIA=<directorio>, para la prueba de dos máquinas): guarda los bytes EXACTOS que
+recibió y que devolvió cada solicitud aceptada, más una línea de auditoría con sus SHA-256, el certificado del cliente,
+la versión de TLS y la comprobación de que no hay ninguna llave privada Paillier en la memoria del proceso. Lo que se
+guarda es lo mismo que vio el servicio: solo cifrados. `python -m tamizaje.dos_maquinas auditar` lo verifica.
+
+Variables de entorno: SERVICIO_PUERTO (8443), SERVICIO_CERT, SERVICIO_LLAVE, SERVICIO_CA_CLIENTES, MODELO_JSON, SERVICIO_EVIDENCIA.
 Uso: python -m tamizaje.servicio
 """
-import json, logging, os, ssl, time
+import datetime, gc, hashlib, json, logging, os, platform, ssl, threading, time
 from http.server import BaseHTTPRequestHandler, ThreadingHTTPServer
-from . import contrato, protocolo
+from phe.paillier import PaillierPrivateKey
+from . import contrato, procedencia, protocolo
 
 MAX_CUERPO = 512 * 1024
 log = logging.getLogger("servicio")
@@ -22,8 +28,70 @@ def contexto_tls(cert, llave, ca_clientes):
     return ctx
 
 
-def crear_servidor(host, puerto, modelo_json, cert, llave, ca_clientes):
+def llave_privada_en_memoria():
+    """True si este proceso tiene algún objeto PaillierPrivateKey vivo (el servicio nunca debería)."""
+    return any(isinstance(o, PaillierPrivateKey) for o in gc.get_objects())
+
+
+def _sha(b):
+    return hashlib.sha256(b).hexdigest()
+
+
+def id_maquina():
+    """Identificador de la VM: TAMIZAJE_MAQUINA_ID (lo pasa el Makefile al contenedor) o /etc/machine-id."""
+    if os.environ.get("TAMIZAJE_MAQUINA_ID"):
+        return os.environ["TAMIZAJE_MAQUINA_ID"].strip()[:12]
+    try:
+        return open("/etc/machine-id").read().strip()[:12] or None
+    except OSError:
+        return None
+
+
+class Evidencia:
+    """Bytes exactos recibidos y enviados + una línea de auditoría por solicitud aceptada."""
+
+    def __init__(self, directorio, modelo_json, modelo_sha256=None):
+        self.dir = os.path.abspath(directorio)
+        self.solicitudes = os.path.join(self.dir, "solicitudes")
+        os.makedirs(self.solicitudes, exist_ok=True)
+        self.bitacora = os.path.join(self.dir, "auditoria_servicio.jsonl")
+        self._candado = threading.Lock()
+        codigo, n = procedencia.hash_codigo()
+        self.inicio = {
+            "fecha_utc": _ahora(), "maquina": platform.node(), "maquina_id": id_maquina(), "arquitectura": platform.machine(),
+            "plataforma": platform.platform(), "python": platform.python_version(), "openssl_python": ssl.OPENSSL_VERSION,
+            "contenedor": os.path.exists("/.dockerenv"), "codigo_sha256": codigo, "codigo_archivos": n,
+            "modelo": modelo_json["modelo"], "modelo_sha256": modelo_sha256, "llave_privada_en_memoria": llave_privada_en_memoria(),
+        }
+        with open(os.path.join(self.dir, "servicio_inicio.json"), "w") as f:
+            json.dump(self.inicio, f, ensure_ascii=False, indent=1)
+
+    def registrar(self, rid, crudo, enviado, ms, conexion, cliente_ip):
+        cert = conexion.getpeercert() or {}
+        cn = dict(x[0] for x in cert.get("subject", ())).get("commonName")
+        entrada = {
+            "id": rid, "fecha_utc": _ahora(), "maquina": platform.node(), "cliente_ip": cliente_ip, "cliente_cn": cn,
+            "tls": conexion.version(), "cifrado_tls": (conexion.cipher() or [None])[0],
+            "bytes_in": len(crudo), "bytes_out": len(enviado), "sha256_solicitud": _sha(crudo), "sha256_respuesta": _sha(enviado),
+            "servicio_ms": round(ms, 3), "llave_privada_en_memoria": llave_privada_en_memoria(),
+        }
+        base = os.path.join(self.solicitudes, rid)  # rid ya validado: 32 hexadecimales
+        with open(base + ".solicitud.json", "wb") as f:
+            f.write(crudo)
+        with open(base + ".respuesta.json", "wb") as f:
+            f.write(enviado)
+        with self._candado, open(self.bitacora, "a") as f:
+            f.write(json.dumps(entrada) + "\n")
+        return entrada
+
+
+def _ahora():
+    return datetime.datetime.now(datetime.timezone.utc).isoformat(timespec="milliseconds").replace("+00:00", "Z")
+
+
+def crear_servidor(host, puerto, modelo_json, cert, llave, ca_clientes, evidencia=None, modelo_sha256=None):
     servicio = protocolo.ServicioRiesgo(protocolo.ModeloCuantizado.desde_json(modelo_json))
+    ev = Evidencia(evidencia, modelo_json, modelo_sha256) if evidencia else None
 
     class Manejador(BaseHTTPRequestHandler):
         server_version = "tamizaje-servicio"
@@ -40,13 +108,15 @@ def crear_servidor(host, puerto, modelo_json, cert, llave, ca_clientes):
             self.send_header("Content-Length", str(len(cuerpo)))
             self.end_headers()
             self.wfile.write(cuerpo)
+            self._enviado = cuerpo
             return len(cuerpo)
 
         def do_GET(self):
             if self.path != "/salud":
                 return self._responder(404, {"error": "no existe"})
             self._responder(200, {"estado": "ok", "protocolo": protocolo.PROTOCOLO, "modelo": servicio.modelo.nombre,
-                                  "esquema": servicio.modelo.esquema, "llave_privada": False})
+                                  "esquema": servicio.modelo.esquema, "llave_privada": False,
+                                  "evidencia": ev is not None})
 
         def do_POST(self):
             if self.path != "/v1/evaluar":
@@ -74,19 +144,30 @@ def crear_servidor(host, puerto, modelo_json, cert, llave, ca_clientes):
             resp["servicio_ms"] = round(ms, 3)
             enviados = self._responder(200, resp)
             log.info("evaluada id=%s ms=%.1f bytes_in=%d bytes_out=%d", sol["id"], ms, largo, enviados)
+            if ev is not None:
+                try:
+                    e = ev.registrar(sol["id"], crudo, self._enviado, ms, self.connection, self.client_address[0])
+                    log.info("evidencia id=%s cliente=%s cn=%s %s llave_privada_en_memoria=%s sha256_solicitud=%s…",
+                             e["id"], e["cliente_ip"], e["cliente_cn"], e["tls"], e["llave_privada_en_memoria"], e["sha256_solicitud"][:16])
+                except OSError:
+                    log.exception("no se pudo guardar la evidencia")
 
     srv = ThreadingHTTPServer((host, puerto), Manejador)
     srv.socket = contexto_tls(cert, llave, ca_clientes).wrap_socket(srv.socket, server_side=True)
+    srv.evidencia = ev
     return srv, servicio
 
 
 def main():
     logging.basicConfig(level=logging.INFO, format="%(asctime)s servicio %(message)s")
-    with open(os.environ["MODELO_JSON"]) as f:
-        modelo = json.load(f)
+    with open(os.environ["MODELO_JSON"], "rb") as f:
+        crudo = f.read()
+    modelo = json.loads(crudo)
     srv, servicio = crear_servidor(os.environ.get("SERVICIO_HOST", "0.0.0.0"), int(os.environ.get("SERVICIO_PUERTO", "8443")), modelo,
-                                   os.environ["SERVICIO_CERT"], os.environ["SERVICIO_LLAVE"], os.environ["SERVICIO_CA_CLIENTES"])
-    log.info("escuchando TLS 1.3 · modelo=%s · esquema=%s · sin llave privada", servicio.modelo.nombre, servicio.modelo.esquema)
+                                   os.environ["SERVICIO_CERT"], os.environ["SERVICIO_LLAVE"], os.environ["SERVICIO_CA_CLIENTES"],
+                                   evidencia=os.environ.get("SERVICIO_EVIDENCIA") or None, modelo_sha256=_sha(crudo))
+    log.info("escuchando TLS 1.3 en el puerto %d · modelo=%s · esquema=%s · sin llave privada · evidencia=%s", srv.server_address[1],
+             servicio.modelo.nombre, servicio.modelo.esquema, srv.evidencia.dir if srv.evidencia else "no")
     srv.serve_forever()
 
 

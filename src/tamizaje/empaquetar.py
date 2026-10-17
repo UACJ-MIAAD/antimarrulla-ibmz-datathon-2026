@@ -27,7 +27,8 @@ DOCUMENTAL = [
     "artefactos/pronostico/e5_pronostico_v1.json",
 ]
 DOCUMENTAL_GLOB = ["submission/evidencias/README.md", "submission/evidencias/metricas/*", "submission/evidencias/local/*",
-                   "submission/evidencias/linuxone/*", "submission/evidencias/labs/*"]
+                   "submission/evidencias/linuxone/*", "submission/evidencias/labs/*",
+                   "submission/evidencias/dos_maquinas/*"]
 CODIGO_GLOB = ["src/**/*.py", "src/**/*.html", "src/datos/README.md", "tests/*.py", "docker/*", "artefactos/**/*.json",
                "data/cdc_891/*", "data/sinave/tipo1/products.csv", "data/sinave/tipo2/products.csv", "data/catalogos/entidades.csv"]
 CODIGO = ["Makefile", "requirements.txt", ".dockerignore", "LICENSE", "README.md", "docs/LINUXONE.md", "docs/PROYECTO.md"]
