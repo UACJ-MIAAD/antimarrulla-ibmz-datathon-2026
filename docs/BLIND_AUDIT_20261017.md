@@ -81,3 +81,7 @@ The factual coding/labs chronology remains open in `TIMELINE.md`; this audit doe
 3. **Secure submission logistics.** Confirm the registered Hack2Skill leader/dashboard, all four members, real lab/attendance records and the team's AI-publication decision. Then rerun the final package gate, review public links and submit.
 
 Internal submission target: **October 18, 09:00 EDT / 07:00 Ciudad Juárez / 13:00 UTC**. Hard deadline: **12:30 EDT / 10:30 Ciudad Juárez / 16:30 UTC**. Keep the 3-hour-30-minute buffer.
+
+## Late teammate update included
+
+During the audit, Yazmin opened PR 10 (`cfe0343`) with four small screening-UI fixes: matching English title, explanation of the validation sensitivity target, a specific malformed-number error, and stacked factor bars below 520 pixels. The compatible branch is merged into the audit release with its original authored commit preserved. Actual rebuilt-container browser checks confirm synthetic C remains 66.3%, malformed `e` reports “Enter a number.”, BMI 150 is rejected, and the 390-pixel page has no overflow with two-column factor bars. This does not constitute a human approval of either PR.

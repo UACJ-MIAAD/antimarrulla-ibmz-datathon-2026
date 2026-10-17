@@ -39,5 +39,19 @@
   "published_ai_declaration": false,
   "unit_cost_mxn": null,
   "source_cost": null,
-  "scope": "Fresh automated repository/browser/evidence audit; not independent teammate approval or organizer eligibility determination."
+  "scope": "Fresh automated repository/browser/evidence audit; not independent teammate approval or organizer eligibility determination.",
+  "late_ui_commit": "cfe0343",
+  "late_ui_tests": {
+    "rebuilt_container_smoke": true,
+    "profile_c_percent": 66.3,
+    "malformed_number_error": "Enter a number.",
+    "bmi_150_rejected": true,
+    "mobile_viewport": [
+      390,
+      844
+    ],
+    "mobile_document_width": 390,
+    "factor_grid_columns": 2,
+    "console_errors": 0
+  }
 }

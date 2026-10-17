@@ -1,7 +1,7 @@
 {
-  "rev": 32,
-  "updated_at": "2026-10-17T20:32:50Z",
-  "note": "Fresh evidence audit: English PR 9 merged into main d71d363; production forecast JSON matches the repo. All 222 dashboard combinations render, and the complete forecast/nested evaluation reproduces after canonical series ordering. E5 is ready for an exploratory demo, not a sourced operating budget. Audit fixes are under separate review; no final LinuxONE/lab/video/human-review/AI-publication records yet. docs/BLIND_AUDIT_20261017.md. Keep Netlify and its badge.",
+  "rev": 33,
+  "updated_at": "2026-10-17T20:36:07Z",
+  "note": "Fresh evidence audit: English PR 9 merged into main d71d363; production forecast JSON matches the repo. All 222 dashboard combinations render, and the complete forecast/nested evaluation reproduces after canonical series ordering. E5 is ready for an exploratory demo, not a sourced operating budget. Audit fixes are under separate review; no final LinuxONE/lab/video/human-review/AI-publication records yet. docs/BLIND_AUDIT_20261017.md. Keep Netlify and its badge. Late Yazmin PR 10 (cfe0343) UI polish is included in the audit branch and checked in rebuilt containers; main integration still requires teammate review.",
   "milestones": {
     "internal_start": "2026-10-17T13:00:00Z",
     "virtual_closing": "2026-10-18T05:00:00Z",
@@ -433,7 +433,7 @@
           "block": "h12",
           "priority": "Plus",
           "state": "done",
-          "evidence": "Yazmin’s commit 09cadf5 (PR 8) integrated at src/screening/ui/index.html with English v2 callers. Five question groups, 21 coded/required controls, integer/range validation, selected-profile/busy state, threshold meter and responsive layout. Local Docker/browser: C 66.3%; custom BMI 30 gives 57.8%; invalid, fractional and missing values rejected; random response repopulates fields; 390px layout without overflow. docs/YAZMIN_INTEGRATION.md; submission/evidence/local/yazmin_form_integrated_C.png and yazmin_form_mobile.png. Synthetic demonstration only; not clinical validation or LinuxONE evidence."
+          "evidence": "Yazmin’s commit 09cadf5 (PR 8) integrated at src/screening/ui/index.html with English v2 callers. Five question groups, 21 coded/required controls, integer/range validation, selected-profile/busy state, threshold meter and responsive layout. Local Docker/browser: C 66.3%; custom BMI 30 gives 57.8%; invalid, fractional and missing values rejected; random response repopulates fields; 390px layout without overflow. docs/YAZMIN_INTEGRATION.md; submission/evidence/local/yazmin_form_integrated_C.png and yazmin_form_mobile.png. Synthetic demonstration only; not clinical validation or LinuxONE evidence. Late PR 10 cfe0343 is incorporated into the audit branch: matching title, sensitivity-target explanation, malformed-number message and stacked mobile factors. Rebuilt container browser confirms C 66.3%, invalid number/range rejection and no overflow at 390px."
         },
         {
           "id": "US-6.5",
