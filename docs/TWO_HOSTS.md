@@ -95,3 +95,9 @@ Strict mode returns PASSED or FAILED, with exit code 1 on failure. The same-host
 - The direct hospital client includes inter-host networking but excludes the UI API, browser and vault. Use `make measure-api-docker` for the complete deployed hospital API/vault path; these are different timing operations.
 - The hospital log contains decrypted results. Copying it for operator audit is a later operation, outside the inference service process; do not claim those audit copies are ciphertext-only.
 - Public CDC `record_id` can reconstruct the public source row. Renaming an ID does not increase anonymity.
+
+## Carlos’s October 17 reported run
+
+Carlos reports a 200-record synthetic laptop-to-server run with 200/200 identical results in the captain-supplied chat. The attached terminal progress reaches 125/200 with 125 identical comparisons. His ciphertext-only audit was still running in the visible conversation. Record and source digest: [reported-test evidence](../submission/evidence/two_hosts/carlos_20261017_reported.md).
+
+This is progress, not a completed strict audit or proof of LinuxONE/two real VMs. Preserve the actual hospital summary, final audit JSON/Markdown, exit status and full code/model/host provenance before marking US-6.5 done. Do not derive percentiles from the five last-request times visible in the image. Preserve its historical Spanish output/version; final English release evidence must identify the version actually executed.

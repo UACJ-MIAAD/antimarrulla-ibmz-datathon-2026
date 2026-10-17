@@ -1,7 +1,7 @@
 {
-  "rev": 28,
-  "updated_at": "2026-10-17T19:59:28Z",
-  "note": "Evidence-based status. Yazmin’s PR 8 form is integrated into the English release (PR 9): US-6.4 complete with local browser/Docker evidence. Human release review, LinuxONE/labs evidence and final English narration remain open. See docs/YAZMIN_INTEGRATION.md and docs/DELIVERY_PLAN.md. Keep Netlify and its badge. Hosting decided: interactive frontend/API/vault in Hospital on the approved VM; public pitch/forecast/plan on Netlify. Team access through SSH; actual VM deployment and public prototype remain unverified. docs/DEPLOYMENT.md.",
+  "rev": 29,
+  "updated_at": "2026-10-17T20:01:38Z",
+  "note": "Evidence-based status. Yazmin’s PR 8 form is integrated into the English release (PR 9): US-6.4 complete with local browser/Docker evidence. Human release review, LinuxONE/labs evidence and final English narration remain open. See docs/YAZMIN_INTEGRATION.md and docs/DELIVERY_PLAN.md. Keep Netlify and its badge. Hosting decided: interactive frontend/API/vault in Hospital on the approved VM; public pitch/forecast/plan on Netlify. Team access through SSH; actual VM deployment and public prototype remain unverified. docs/DEPLOYMENT.md. Carlos’s 200/200 synthetic laptop/server result is recorded as an operator report; terminal evidence reaches 125/200 and the final audit/provenance remain pending. US-6.5 stays in progress.",
   "milestones": {
     "internal_start": "2026-10-17T13:00:00Z",
     "virtual_closing": "2026-10-18T05:00:00Z",
@@ -444,7 +444,7 @@
           "block": "h12",
           "priority": "Plus",
           "state": "in_progress",
-          "evidence": "Local rehearsal passes as ENSAYO only. Strict mode now checks distinct host IDs, matching code/model hashes and the hospital log. Real-host evidence is still missing; synthetic inputs are the default."
+          "evidence": "Carlos reports 200 synthetic records encrypted from laptop to server and 200/200 identical results (October 17 chat, 15:34; timezone unspecified). Terminal screenshot directly shows 125/200 with 125 identical; last-request times at five checkpoints: 612, 597, 667, 616 and 608 ms, not percentiles. Ciphertext-only audit still running at 15:33. Full audit/summary, code/model/protocol provenance, host identities and provider evidence remain missing. Does not establish two VMs, LinuxONE or the full UI/vault flow. submission/evidence/two_hosts/carlos_20261017_reported.md and .json. Earlier single-host rehearsal is separate."
         }
       ]
     },

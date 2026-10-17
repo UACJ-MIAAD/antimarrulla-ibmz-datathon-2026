@@ -6,7 +6,8 @@ English release outputs belong here. Original evidence under `submission/evidenc
 - `metrics/`: new process/API measurements with code, model, split and environment provenance.
 - `linuxone/`: actual s390x/provider evidence; currently pending.
 - `labs/`: actual completion dates, owners and screenshots; currently pending.
-- `two_hosts/`: strict two-real-host audit; currently pending and optional.
+- `two_hosts/`: optional remote-flow evidence. Carlos reports 200/200 synthetic laptop/server results; the supplied terminal image shows progress through 125/200. Final strict audit and host/provenance evidence remain pending. See `two_hosts/carlos_20261017_reported.md`.
+- `private/`: ignored local originals of team-chat attachments; excluded from publication and release packages. Publish attributed English summaries, preserving original hashes.
 - `instance/`: project-specific tests on the real instance; currently pending.
 
 Copy each `RECORD.example.json` to `RECORD.json` only after gathering the real evidence. Examples are incomplete templates, not completion records. Use the release commit from `docs/ENGLISH_MIGRATION.md`.
