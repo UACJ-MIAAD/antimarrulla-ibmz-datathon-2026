@@ -339,3 +339,42 @@ Notas: los egresos cubren solo unidades de la Secretaría de Salud e IMSS-Bienes
 | 2,976 (4.7%) murieron en el hospital; estancia media 5.1 días | Egresos hospitalarios SSA 2024, DGIS (conteo propio) (`MOTEGRE` = 5) |
 
 > El boletín preliminar de INEGI publicó 112,641 defunciones por diabetes en 2024; los microdatos dan 112,577. Usamos la cifra de los microdatos porque la podemos reproducir.
+
+---
+
+## 8. ENSANUT 2022 y 2023 (INSP) · validación externa con población mexicana
+
+Encuesta Nacional de Salud y Nutrición Continua. Es el **único conjunto mexicano con datos por persona** que junta diagnóstico de diabetes, IMC, presión arterial y hábitos.
+
+> 🔒 **No está en el repo.** Los microdatos viven en `data/raw/ensanut/` (ignorado por git) hasta revisar los términos de uso y redistribución del INSP. El reporte de descarga e integridad está en `data/raw/ensanut/REPORTE.md`.
+
+| Campo | Valor |
+|-------|-------|
+| Fuente | INSP · https://ensanut.insp.mx/encuestas/ensanutcontinua2022/descargas.php y …/ensanutcontinua2023/descargas.php |
+| Descarga | Botones de formulario POST (no hay URL directa); se hace desde el navegador |
+| Módulos | Residentes, hogar, adultos (20+), antropometría y tensión arterial, actividad física; con catálogo `.xlsx` y cuestionarios PDF |
+| Archivos 2022 | `integrantes_ensanut2022_w`, `hogar_ensanut2022_w`, `ensadul2022_entrega_w`, `ensaantro2022_entrega_w`, `ensafisica2022_adultos_entrega_w` |
+| Archivos 2023 | `integrantes_ensanut2023_w_n`, `hogar_ensanut2023_w_n`, `adultos_ensanut2023_w_n`, `antropometria_hta_4mar24`, `actividad_fisica_w_adultos` |
+| Llaves | `FOLIO_I` (hogar) · `FOLIO_INT` (persona); guardar como texto |
+| Ponderador | `ponde_f` (expansión); diseño muestral con `upm` |
+
+**Validación (17 oct 2026):**
+
+| Chequeo | 2022 | 2023 |
+|---------|-----:|-----:|
+| ZIP íntegros (CRC) y CSV idénticos al ZIP | ✅ 5/5 | ✅ 5/5 |
+| Adultos (filas) · `FOLIO_INT` únicos | 11,913 · 11,913 | 6,772 · 6,772 |
+| Adultos sin registro de residente | 0 | 0 |
+| `a0301` = 1 (diagnóstico previo de diabetes) | 1,544 | 857 |
+| **Prevalencia ponderada de diagnóstico previo** | **10.9%** | **11.0%** |
+| Población adulta representada | 85.5 millones | 86.0 millones |
+| Adultos con IMC válido y diagnóstico sí/no | 8,628 (13.4% con diabetes) | 3,089 (13.1%) |
+
+La prevalencia ponderada de 2022 (10.9%) **coincide con la publicada** para ENSANUT 2022 (diagnóstico previo). Sin ponderar sale 13.0%: siempre usar `ponde_f` para cifras poblacionales.
+
+**Cuidados:**
+- `a0301` es diagnóstico **declarado** (1 sí · 2 solo en el embarazo · 3 no), no laboratorio. ENSANUT 2022 no publica glucosa ni HbA1c en estos módulos.
+- Códigos de "no se midió": peso `222.22`, talla y cintura `222.2`, tensión arterial `999`. Excluirlos antes de calcular IMC.
+- Antropometría 2022 incluye menores de 20 años y una edad `869`; filtrar por edad desde residentes.
+- `a0301a` (prediabetes) solo existe en 2023.
+- También trae **gasto de bolsillo** (por ejemplo `a03061c`, "¿cuánto pagó la última vez que estuvo hospitalizado por su diabetes?"), útil como referencia de costo para la épica E5.

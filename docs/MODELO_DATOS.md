@@ -32,7 +32,28 @@ Dos mundos que no se mezclan:
 4. Particiones: 70 / 15 / 15 estratificadas por `Diabetes_binary`; `class_weight="balanced"` por el desbalance.
 5. Métricas: AUC, AUC-PR, recall y F1 en claro, y **AUC cifrado vs. en claro**.
 
+**Validación externa con México: ENSANUT 2022/2023** (historia US-3.5, prioridad Plus)
+
+El modelo se entrena con el CDC y se **evalúa** en adultos mexicanos de ENSANUT con las variables equivalentes. Los microdatos no se suben al repo (ver [FUENTES_DATOS.md §8](FUENTES_DATOS.md#8-ensanut-2022-y-2023-insp--validación-externa-con-población-mexicana)).
+
+| Variable del CDC | ENSANUT (2022 y 2023) | Nota |
+|------------------|-----------------------|------|
+| `Diabetes_binary` | `a0301` = 1 | Diagnóstico declarado; `2` (embarazo) se excluye. El CDC incluye prediabetes: en 2023 sumar `a0301a` para una variante comparable |
+| `HighBP` | `a0401` | "¿Algún médico le ha dicho que tiene la presión alta?" |
+| `HighChol` | `a0604` | Colesterol alto diagnosticado |
+| `CholCheck` | `a0603` | Le han medido colesterol y triglicéridos |
+| `BMI` | `an01_1`/`an12_1` (peso) y `an04_1`/`an15_1` (talla) | Antropometría; excluir `222.22`/`222.2` |
+| `Stroke` | `a0502d` | Embolia o infarto cerebral |
+| `Smoker` | `a1301` + `a1305` | Fumador actual y antecedente |
+| `PhysActivity` | `fa0401`, `fa0403`, `fa0405` | Días de actividad vigorosa, moderada y caminata |
+| `Sex`, `Age` | `h0302`, `h0303` (residentes) | Recodificar edad a los 13 grupos del CDC |
+| `Education` | `h0317a` (residentes) | Nivel escolar; armonizar a la escala 1–6 |
+| `Income`, `GenHlth`, `MentHlth`, `PhysHlth`, `DiffWalk`, `Fruits`, `Veggies`, `HvyAlcoholConsump`, `AnyHealthcare`, `NoDocbcCost`, `HeartDiseaseorAttack` | Sin equivalente directo verificado | Opciones: modelo reducido solo con las variables comunes, o imputar con la mediana del CDC (y reportarlo) |
+
+Muestra utilizable: **8,628 adultos (2022) + 3,089 (2023)** con IMC válido y diagnóstico sí/no. Reportar AUC, AUC-PR y calibración **ponderados con `ponde_f`** y sin ponderar.
+
 **Puente con México** (para la narrativa, no para entrenar):
+
 
 | Variable del CDC | Fuente mexicana con algo equivalente |
 |------------------|--------------------------------------|
@@ -231,6 +252,6 @@ flowchart LR
 
 | Qué | Por qué importa | Cómo |
 |-----|-----------------|------|
-| **ENSANUT 2022/2023 (INSP)** | Único dataset **mexicano individual** con diabetes diagnosticada, glucosa/HbA1c, IMC y presión: validaría el modelo en población mexicana | Descarga en ensanut.insp.mx tras llenar un registro (lo hace una persona del equipo) |
+| ~~ENSANUT 2022/2023 (INSP)~~ | ✅ Descargada y validada (prevalencia 2022 = 10.9%, igual a la oficial). Pendiente: revisar términos de redistribución antes de subirla | `data/raw/ensanut/` (local) |
 | SINAVE por grupo de edad | La serie semanal no trae edad | Anuarios de Morbilidad (tablas PDF) |
 | Defunciones 2025 | Aún no publicadas | — |

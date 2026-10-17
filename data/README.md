@@ -63,6 +63,12 @@ Esquema, llaves y reglas de armonización: [docs/MODELO_DATOS.md](../docs/MODELO
 | `conapo/indicadores_demograficos_1950_2070.csv` | Indicadores demográficos por entidad (población, nacimientos, defunciones, esperanza de vida…) | 3,353 | 2 MB |
 | `conapo/ime_2020.csv` · `imm_2020.csv` | Índice de marginación 2020, estatal y municipal | 32 · 2,469 | 0.6 MB |
 
+### Solo local (no versionado)
+
+| Carpeta | Qué es | Por qué no está en el repo |
+|---------|--------|----------------------------|
+| `raw/ensanut/2022/`, `raw/ensanut/2023/` | Microdatos ENSANUT (residentes, hogar, adultos, antropometría, actividad física) + catálogos, cuestionarios y `REPORTE.md` | Revisar términos de redistribución del INSP antes de publicarlos. Cómo bajarlos: [docs/FUENTES_DATOS.md §8](../docs/FUENTES_DATOS.md#8-ensanut-2022-y-2023-insp--validación-externa-con-población-mexicana) |
+
 ### Archivos completos (Release `datos-2024`)
 
 | Archivo | Qué es | Tamaño |
