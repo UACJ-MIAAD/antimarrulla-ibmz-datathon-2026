@@ -2,6 +2,8 @@
 
 > Estado (17 oct 2026, 13:20 UTC): todo está probado en local (macOS arm64, contenedores Linux arm64) y en CI (Ubuntu x86_64). **Todavía no se ha corrido en LinuxONE: `no_verificado`** (la sesión que preparó esto no tiene acceso SSH a la VM). Estos son los pasos para hacerlo en la VM Ubuntu 24.04 de la Community Cloud. Responsable: Álvaro, con Carlos para las mediciones.
 
+> Prueba con **dos VM** (servicio en una, hospital en otra, registros reales del CDC y auditoría de que el servicio solo vio cifrados): [DOS_MAQUINAS.md](DOS_MAQUINAS.md).
+
 ## 0. Antes de empezar
 
 - [ ] Los **dos labs obligatorios** completados, con capturas en `submission/evidencias/` (la guía los exige antes de construir la solución propia).
