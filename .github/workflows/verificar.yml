@@ -1,0 +1,23 @@
+name: verificar
+on:
+  pull_request:
+  push:
+    branches: [main]
+jobs:
+  verificar:
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: make verify (41 pruebas + artefactos + re-entrenamiento)
+        run: make verify PY=python3.12
+  imagen:
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@v4
+      - name: imagen dev y pruebas dentro de Ubuntu 24.04 (paquetes apt, la misma ruta que en s390x)
+        run: make verify-docker
+      - name: demo con contenedores y prueba de humo
+        run: make demo-docker
