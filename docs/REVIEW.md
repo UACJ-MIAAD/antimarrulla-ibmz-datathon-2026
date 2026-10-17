@@ -47,6 +47,10 @@ Use the release commit under review, including the English migration. Record com
 
 A full review must identify the commit, scope, commands and findings. Yazmin's partial check does not certify the later English release. Keep partial checks labeled partial; the current independent review remains open.
 
+PR 11, including audit fixes and Yazmin's PR 10, was merged by jrebull on October 17 at 20:42:57 UTC as `679c287`. Its GitHub review list is also empty. Passing CI and the captain's merge do not close independent teammate review. The diagram/plan update retains this gate and does not add a human signature.
+
 ## Yazmin form integration
 
 PR 8 (`09cadf5`) is incorporated into English PR 9 with its authored commit preserved. The automated integration audit and local verification are recorded in [YAZMIN_INTEGRATION.md](YAZMIN_INTEGRATION.md). Yazmin authored this form; her earlier clone check remains partial and does not approve the combined release. PR 9 was merged by jrebull on October 17 at 20:12 UTC as `d71d363`, with no GitHub review recorded. Another teammate’s complete review of the submitted release remains required; the merge itself is not that approval.
+
+PR 12 (concurrency, macOS host identity and raw historical audit) was merged by its author AzraelNogo at 21:00:21 UTC as `b04fadb`, also with no GitHub review recorded. Review remains open. Yazmin's PR 13 redesign is an active, unmerged workstream at this checkpoint.

@@ -1,5 +1,7 @@
 # Data model · Privacy-preserving screening
 
+For the implemented operational vault envelope and public diagrams of both data stores, see [SYSTEM_DIAGRAMS.md](SYSTEM_DIAGRAMS.md) and the [web atlas](https://antimarrulla-tamizaje.netlify.app/architecture#data-model). The star model below is conceptual; the implementation uses files, with no SQL engine or patient-level cross-source joins.
+
 ## Separate predictive and analytical data
 
 | Purpose | Data | Location |

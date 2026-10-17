@@ -142,7 +142,7 @@ header.top .brand{white-space:nowrap;overflow:hidden;text-overflow:ellipsis;min-
 <header class="top"><div class="wrap" style="position:relative">
   <img src="assets/logo.png" alt="Los Antimarrulla team logo">
   <div class="brand"><b>Los Antimarrulla</b> <span>· IBM Z Datathon 2026</span></div>
-  <nav><a href="#deck">Pitch</a><a href="#data">Data</a><a href="#plan">Plan</a><a href="forecast.html">Forecast</a><a href="#team">Team</a>
+  <nav><a href="#deck">Pitch</a><a href="#data">Data</a><a href="#plan">Plan</a><a href="architecture.html">Diagrams</a><a href="forecast.html">Forecast</a><a href="#team">Team</a>
     <span class="minibar" title="Overall progress"><i id="minibar"></i></span><span class="minipct" id="minipct">—</span></nav>
   <div id="prog"></div>
 </div></header>
@@ -155,6 +155,7 @@ header.top .brand{white-space:nowrap;overflow:hidden;text-overflow:ellipsis;min-
       <p class="sub">AI evaluates diabetes screening risk <b>on encrypted patient inputs</b>: designed for IBM LinuxONE. Local containers have been verified; actual LinuxONE execution still requires evidence. An optional 52-week forecast explores notified cases by state and sex.</p>
       <div class="lema">AI sees the risk. <span>The service never sees the patient.</span></div>
       <p class="scope">The risk service receives ciphertexts and has no private key. In the approved demo, hospital and service share a host/VM: its administrator remains trusted. The demo therefore uses synthetic inputs.</p>
+      <p><a class="btn ghost" href="architecture.html">Explore system and database diagrams →</a></p>
     </div>
     <div class="ringbox">
       <div class="ring">
@@ -201,6 +202,13 @@ header.top .brand{white-space:nowrap;overflow:hidden;text-overflow:ellipsis;min-
 <li>Data and model: CDC UCI 891, 253,680 records and 21 features. Test ROC-AUC 0.826, AP 0.415, sensitivity 0.805, specificity 0.691, PPV 0.297 and Brier 0.098, with the threshold chosen on validation. A separate exploratory reduced ENSANUT model has AUC about 0.77 and underestimates risk; it does not clinically validate the MVP in Mexico.</li>
 <li>Impact: earlier screening with less disclosure. The service sees ciphertexts; the hospital sees the result. The demo uses synthetic inputs and a trusted host administrator.</li></ol></details>
   <div><a class="btn" href="assets/Los%20Antimarrulla_IBM%20Z%20Datathon%202026%20Project.pdf?v=english-26" download>Download PDF</a> <a class="btn ghost" href="https://github.com/UACJ-MIAAD/antimarrulla-ibmz-datathon-2026">View repository</a></div>
+</div></section>
+
+<section id="architecture"><div class="wrap">
+  <h2>Inside the system</h2>
+  <p class="lead">Ten flowcharts show the implemented architecture, each component and both data stores. Follow the full encrypted request, inspect the hospital and risk service separately, or open the vault schema and analytical data model.</p>
+  <p><a class="btn" href="architecture.html">Open all diagrams →</a> <a class="btn ghost" href="architecture.html#vault">Encrypted vault schema</a> <a class="btn ghost" href="architecture.html#data-model">Analytical data model</a></p>
+  <p class="note">The operational store is an AES-256-GCM encrypted JSONL vault; analytical data uses CSV/JSON files. These diagrams document implementation and trust boundaries. Final English LinuxONE execution evidence remains open.</p>
 </div></section>
 
 <section id="data"><div class="wrap">

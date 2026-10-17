@@ -1,7 +1,7 @@
 {
-  "rev": 33,
-  "updated_at": "2026-10-17T20:36:07Z",
-  "note": "Fresh evidence audit: English PR 9 merged into main d71d363; production forecast JSON matches the repo. All 222 dashboard combinations render, and the complete forecast/nested evaluation reproduces after canonical series ordering. E5 is ready for an exploratory demo, not a sourced operating budget. Audit fixes are under separate review; no final LinuxONE/lab/video/human-review/AI-publication records yet. docs/BLIND_AUDIT_20261017.md. Keep Netlify and its badge. Late Yazmin PR 10 (cfe0343) UI polish is included in the audit branch and checked in rebuilt containers; main integration still requires teammate review.",
+  "rev": 34,
+  "updated_at": "2026-10-17T21:22:19Z",
+  "note": "Plan audit: main b04fadb includes English/audit PRs 9/11 and Carlos PR 12 concurrency plus original legacy two-host audit. Legacy report records 200/200 exact, p50 606.919 ms, p95 804.967 ms; historical source/model hashes match Git. Final English v2/provider evidence remains open. Yazmin PR 13 redesign is active and unmerged; coordinate code hashes before final measurements. Requested ten-diagram web atlas is complete. E5 exploratory demo ready; no sourced budget. VM, labs, English video, independent review, approved AI declaration and submission confirmations remain open. docs/PLAN_AUDIT_20261017.md. Keep Netlify and its badge.",
   "milestones": {
     "internal_start": "2026-10-17T13:00:00Z",
     "virtual_closing": "2026-10-18T05:00:00Z",
@@ -215,7 +215,7 @@
           "block": "h16",
           "priority": "MVP",
           "state": "in_progress",
-          "evidence": "Álvaro’s legacy UI screenshot reports Linux s390x, 2048-bit key and synthetic C at 66.3%. It lacks provider dashboard, uname/lscpu, container/OpenSSL output, complete version/hashes and p50/p95. Actual project test outputs and submission/evidence/linuxone/RECORD.json remain required. submission/evidence/linuxone/alvaro_20261017_legacy_ui_reported.md."
+          "evidence": "PR 12 adds the original legacy remote audit: s390x Linux container, Python/OpenSSL versions and 200-record hospital-observed p50 606.919 ms/p95 804.967 ms. Historical source/model hashes independently match commit 037ee1b. Community Cloud dashboard, final English v2 captures, uname/lscpu, complete container/CLI evidence and RECORD.json still missing. docs/CARLOS_REMOTE_AUDIT.md."
         }
       ]
     },
@@ -337,7 +337,7 @@
           "block": "h3",
           "priority": "Plus",
           "state": "done",
-          "evidence": "222 SINAVE series read from data/sinave/ from 2022 onward; missing observations interpolated and counted."
+          "evidence": "222 complete finite weekly SINAVE series from 2022 onward; zero missing observations in current data. Main 679c287 rejects missing/non-finite observations and nonweekly calendars until fold-local imputation is implemented. No global interpolation used on current data."
         },
         {
           "id": "US-5.2",
@@ -433,7 +433,7 @@
           "block": "h12",
           "priority": "Plus",
           "state": "done",
-          "evidence": "Yazmin’s commit 09cadf5 (PR 8) integrated at src/screening/ui/index.html with English v2 callers. Five question groups, 21 coded/required controls, integer/range validation, selected-profile/busy state, threshold meter and responsive layout. Local Docker/browser: C 66.3%; custom BMI 30 gives 57.8%; invalid, fractional and missing values rejected; random response repopulates fields; 390px layout without overflow. docs/YAZMIN_INTEGRATION.md; submission/evidence/local/yazmin_form_integrated_C.png and yazmin_form_mobile.png. Synthetic demonstration only; not clinical validation or LinuxONE evidence. Late PR 10 cfe0343 is incorporated into the audit branch: matching title, sensitivity-target explanation, malformed-number message and stacked mobile factors. Rebuilt container browser confirms C 66.3%, invalid number/range rejection and no overflow at 390px."
+          "evidence": "Yazmin’s commit 09cadf5 (PR 8) integrated at src/screening/ui/index.html with English v2 callers. Five question groups, 21 coded/required controls, integer/range validation, selected-profile/busy state, threshold meter and responsive layout. Local Docker/browser: C 66.3%; custom BMI 30 gives 57.8%; invalid, fractional and missing values rejected; random response repopulates fields; 390px layout without overflow. docs/YAZMIN_INTEGRATION.md; submission/evidence/local/yazmin_form_integrated_C.png and yazmin_form_mobile.png. Synthetic demonstration only; not clinical validation or LinuxONE evidence. Late PR 10 cfe0343 is merged into main 679c287 through PR 11: matching title, sensitivity-target explanation, malformed-number message and stacked mobile factors. Rebuilt container browser confirms C 66.3%, invalid number/range rejection and no overflow at 390px."
         },
         {
           "id": "US-6.5",
@@ -444,7 +444,7 @@
           "block": "h12",
           "priority": "Plus",
           "state": "in_progress",
-          "evidence": "Later captain-supplied image reports audit 10/10, exact results 200/200, 18.6 ms service evaluation and zero plaintext items. Carlos’s chat reports rounded mean total 650 ms: 140 ms encryption, 500 ms network plus service, 10 ms decryption; ≈92 sequential records/min. These are reported figures, not independently verified p50/p95. Original audit JSON/MD, hospital summary, full versions/hashes and host/provider evidence remain missing. Earlier terminal capture directly reached 125/200. Separate final English release measurements remain required. submission/evidence/two_hosts/carlos_20261017_audit_summary_reported.md and .json."
+          "evidence": "Original JSON/MD audit and one ciphertext request/response are now tracked via PR 12. Legacy Mac arm64 hospital → s390x service: 200/200 exact (+3 warmups), all ten reported checks pass, p50 606.919 ms, p95 804.967 ms, mean 650.537 ms. Audit code/model hashes independently match historical Git 037ee1b; sample shape/group/ID checked. Full log directories needed to replay every check. Provider identity and final English v2 run remain open; this report is not current-version UI/API/vault evidence. docs/CARLOS_REMOTE_AUDIT.md."
         }
       ]
     },
@@ -463,7 +463,7 @@
           "block": "h12",
           "priority": "MVP",
           "state": "in_progress",
-          "evidence": "English package screening, v2 protocol, API/CLI, comments/tests/messages, UI/site/dashboard, guides, three decks (8/19/17 slides), official PDF, flowchart and silent 170-second draft implemented and checked. make verify: 90 pass; Ubuntu: 86 pass/4 Git-dependent skips. Original data/evidence preserved; nine CSVs reproduced byte for byte; all 222 forecasts reproduced. docs/ENGLISH_MIGRATION.md. Still open: independent teammate review of this release and final authorized English narration with real LinuxONE footage. Fresh clone passes all 90 tests; both GitHub CI jobs pass. ENSANUT rerun identical except timestamp. Media URLs are versioned to prevent stale Spanish thumbnails. Yazmin’s grouped coded form from PR 8 integrated into PR 9 and checked against the English v2 backend; see docs/YAZMIN_INTEGRATION.md. This automated audit does not satisfy independent teammate approval. PR 9 is now merged into main; no human review recorded. Fresh audit corrects residual English log/error/fallback text and site clock IDs. Audit branch tests: 97 host, 93 Ubuntu plus four Git skips. Final English VM capture/narration and teammate sign-off remain open."
+          "evidence": "English package screening, v2 protocol, API/CLI, comments/tests/messages, UI/site/dashboard, guides, three decks (8/19/17 slides), official PDF, flowchart and silent 170-second draft implemented and checked. make verify: 90 pass; Ubuntu: 86 pass/4 Git-dependent skips. Original data/evidence preserved; nine CSVs reproduced byte for byte; all 222 forecasts reproduced. docs/ENGLISH_MIGRATION.md. Still open: independent teammate review of this release and final authorized English narration with real LinuxONE footage. Fresh clone passes all 90 tests; both GitHub CI jobs pass. ENSANUT rerun identical except timestamp. Media URLs are versioned to prevent stale Spanish thumbnails. Yazmin’s grouped coded form from PR 8 integrated into PR 9 and checked against the English v2 backend; see docs/YAZMIN_INTEGRATION.md. This automated audit does not satisfy independent teammate approval. PR 9 is now merged into main; no human review recorded. Fresh audit corrects residual English log/error/fallback text and site clock IDs. Audit branch tests: 97 host, 93 Ubuntu plus four Git skips. Final English VM capture/narration and teammate sign-off remain open. PR 11 merged into main 679c287 at 2026-10-17 20:42:57 UTC with no recorded independent GitHub review. Final narration and teammate sign-off remain open."
         },
         {
           "id": "US-7.1",
@@ -517,7 +517,7 @@
           "block": "h18",
           "priority": "MVP",
           "state": "in_progress",
-          "evidence": "PR 9 merged into main d71d363 at 2026-10-17 20:12 UTC. CI verify/image pass; fresh baseline main passes 90 tests and reproduces the model. No human GitHub review recorded. Audit-fix branch adds regression coverage and passes 97 host/93 Ubuntu plus four Git skips. Final release review and original VM/evidence records remain open."
+          "evidence": "Main 679c287 merges English PR 9 and audit PR 11, including Yazmin PR 10. Audit runtime: 97 host tests; 93 Ubuntu plus four Git skips; both CI jobs passed. No independent GitHub review recorded. Final release review and original LinuxONE/evidence records remain open. docs/PLAN_AUDIT_20261017.md. Current main b04fadb also includes Carlos PR 12; its raw historical audit is reconciled in docs/CARLOS_REMOTE_AUDIT.md. Yazmin PR 13 redesign is unmerged at this checkpoint."
         },
         {
           "id": "US-7.7",
@@ -550,6 +550,17 @@
           "block": "h22",
           "priority": "MVP",
           "state": "pending"
+        },
+        {
+          "id": "US-7.10",
+          "role": "a judge",
+          "goal": "public English flowcharts for the complete system, independent components, operational vault schema and analytical data model",
+          "benefit": "inspect the implemented flow, deployment, data relationships and trust boundaries",
+          "owners": "Javier",
+          "block": "h8",
+          "priority": "Plus",
+          "state": "done",
+          "evidence": "Ten source-referenced SVG diagrams and text equivalents in site/architecture.html; operational vault schema and analytical file relationships in docs/SYSTEM_DIAGRAMS.md. All ten SVGs render with no text outside cards; 390px browser layout has no page overflow and supports scoped diagram scrolling/expanded text. Deterministic rebuild and local file links pass; Own changes are documentation-only atop merged PR 12: screening runtime hash/model unchanged. Publication/review through its own PR."
         }
       ]
     }

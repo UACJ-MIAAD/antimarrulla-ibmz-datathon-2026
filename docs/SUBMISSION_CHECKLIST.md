@@ -13,7 +13,7 @@ The submission window is **October 16, 23:45 UTC → October 18, 16:30 UTC**, fr
 - [x] Slides, exported PDF and flowchart in English and visually checked
 - [ ] Video narration/captions and Hack2Skill title/description in English; preserve the exact required title and proper names
 - [x] Original source identifiers/raw data and historical evidence preserved; English explanations provided
-- [x] Automated English code checks pass (90 host; 86 Ubuntu plus four Git-dependent skips); local measurements at clean code 5412abe are recorded. Final LinuxONE measurements/captures still required
+- [x] Current main b04fadb passes 98 host tests, including PR 12 concurrency; prior audit runtime passed 93 Ubuntu tests plus four Git-dependent skips. Historical local measurements at clean code 5412abe remain versioned; final LinuxONE measurements/captures still required
 - [ ] Independent teammate signs off on the English release and records the reviewed commit
 
 English implementation and existing artifacts are translated and checked; see [ENGLISH_MIGRATION.md](ENGLISH_MIGRATION.md). Final English narration, teammate sign-off, real LinuxONE evidence and submission remain open. Checked boxes describe implementation evidence, not human approval.
@@ -35,7 +35,7 @@ English implementation and existing artifacts are translated and checked; see [E
 - [ ] Event-window history reviewed with frequent, reviewable commits; chronology issues documented
 - [ ] No final all-project dump
 - [ ] Branches merged through PRs with another member's review
-- [x] `main` baseline d71d363 passes 90 tests/model reproduction and CI container demo; real final LinuxONE evidence remains separate
+- [x] `main` baseline b04fadb includes PRs 11/12, passes 98 host tests/model reproduction, and both PR 12 CI checks passed; real final LinuxONE evidence remains separate
 - [x] Large raw datasets and ENSANUT microdata are not tracked (checked October 17)
 - [x] No credentials, keys or tokens found in the October 17 review; demo secrets remain outside the repo
 - [x] `LICENSE` present
@@ -50,6 +50,7 @@ English implementation and existing artifacts are translated and checked; see [E
 - [ ] Team approves and publishes its AI-use declaration; the English local draft `submission/AI_USE.md` remains excluded from Git and draft ZIPs
 - [ ] All four confirm additional tools/tasks, including the unconfirmed “Muse” entry, and understand the submitted code
 - [x] English architecture diagram exists and is visually checked in `submission/flowchart/architecture.pdf`
+- [x] Web atlas documents the full system, independent components, operational vault schema and analytical file relationships; see `docs/SYSTEM_DIAGRAMS.md`
 - [x] Decision document exists in [DECISION.md](DECISION.md)
 
 ## LinuxONE evidence

@@ -1,0 +1,46 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1040 646" role="img" aria-labelledby="title desc">
+<title id="title">Cryptography and numerical contract</title><desc id="desc">Paillier protects the linear score. The sigmoid and threshold are applied only after hospital decryption.</desc>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="#a8b8cd"/></marker></defs>
+<rect width="1040" height="646" fill="#10141e" rx="16"/>
+<path d="M480 104 H560" fill="none" stroke="#a8b8cd" stroke-width="2.4" marker-end="url(#arrow)"/>
+<path d="M785 180 V230" fill="none" stroke="#a8b8cd" stroke-width="2.4" marker-end="url(#arrow)"/>
+<path d="M560 306 H480" fill="none" stroke="#a8b8cd" stroke-width="2.4" marker-end="url(#arrow)"/>
+<path d="M255 382 V432" fill="none" stroke="#a8b8cd" stroke-width="2.4" marker-end="url(#arrow)"/>
+<path d="M480 508 H560" fill="none" stroke="#a8b8cd" stroke-width="2.4" marker-end="url(#arrow)"/>
+<g transform="translate(30 28)"><rect width="450" height="152" rx="12" fill="#1a2232" stroke="#79d7de" stroke-opacity=".6"/>
+<rect x="0" y="16" width="4" height="120" rx="2" fill="#79d7de"/>
+<text x="20" y="34" fill="#79d7de" font-family="system-ui, sans-serif" font-size="21" font-weight="650">1 / Export the trained model</text>
+<text x="20" y="72" fill="#e8edf5" font-family="system-ui, sans-serif" font-size="19">Fold training-only standardization</text>
+<text x="20" y="102" fill="#e8edf5" font-family="system-ui, sans-serif" font-size="19">Float weights w and intercept b</text>
+</g>
+<g transform="translate(560 28)"><rect width="450" height="152" rx="12" fill="#1a2232" stroke="#79d7de" stroke-opacity=".6"/>
+<rect x="0" y="16" width="4" height="120" rx="2" fill="#79d7de"/>
+<text x="20" y="34" fill="#79d7de" font-family="system-ui, sans-serif" font-size="21" font-weight="650">2 / Quantize model parameters</text>
+<text x="20" y="72" fill="#e8edf5" font-family="system-ui, sans-serif" font-size="19">W = round(10^9 × w)</text>
+<text x="20" y="102" fill="#e8edf5" font-family="system-ui, sans-serif" font-size="19">B = round(10^9 × b)</text>
+</g>
+<g transform="translate(560 230)"><rect width="450" height="152" rx="12" fill="#1a2232" stroke="#6fdc8c" stroke-opacity=".6"/>
+<rect x="0" y="16" width="4" height="120" rx="2" fill="#6fdc8c"/>
+<text x="20" y="34" fill="#6fdc8c" font-family="system-ui, sans-serif" font-size="21" font-weight="650">3 / Encrypt original inputs</text>
+<text x="20" y="72" fill="#e8edf5" font-family="system-ui, sans-serif" font-size="19">21 unscaled integer CDC codes</text>
+<text x="20" y="102" fill="#e8edf5" font-family="system-ui, sans-serif" font-size="19">Paillier 2048 bits; exponent = 0</text>
+</g>
+<g transform="translate(30 230)"><rect width="450" height="152" rx="12" fill="#1a2232" stroke="#78a9ff" stroke-opacity=".6"/>
+<rect x="0" y="16" width="4" height="120" rx="2" fill="#78a9ff"/>
+<text x="20" y="34" fill="#78a9ff" font-family="system-ui, sans-serif" font-size="21" font-weight="650">4 / Service computes Enc(z)</text>
+<text x="20" y="72" fill="#e8edf5" font-family="system-ui, sans-serif" font-size="19">z = B + sum(W[i] × x[i])</text>
+<text x="20" y="102" fill="#e8edf5" font-family="system-ui, sans-serif" font-size="19">Only additions and known scalars</text>
+</g>
+<g transform="translate(30 432)"><rect width="450" height="152" rx="12" fill="#1a2232" stroke="#6fdc8c" stroke-opacity=".6"/>
+<rect x="0" y="16" width="4" height="120" rx="2" fill="#6fdc8c"/>
+<text x="20" y="34" fill="#6fdc8c" font-family="system-ui, sans-serif" font-size="21" font-weight="650">5 / Hospital decrypts z</text>
+<text x="20" y="72" fill="#e8edf5" font-family="system-ui, sans-serif" font-size="19">Exact match to fixed-point reference</text>
+<text x="20" y="102" fill="#e8edf5" font-family="system-ui, sans-serif" font-size="19">Separate float quantization bound</text>
+</g>
+<g transform="translate(560 432)"><rect width="450" height="152" rx="12" fill="#1a2232" stroke="#6fdc8c" stroke-opacity=".6"/>
+<rect x="0" y="16" width="4" height="120" rx="2" fill="#6fdc8c"/>
+<text x="20" y="34" fill="#6fdc8c" font-family="system-ui, sans-serif" font-size="21" font-weight="650">6 / Hospital interprets z</text>
+<text x="20" y="72" fill="#e8edf5" font-family="system-ui, sans-serif" font-size="19">logit = z / 10^9; p = sigmoid(logit)</text>
+<text x="20" y="102" fill="#e8edf5" font-family="system-ui, sans-serif" font-size="19">Compare p with validation threshold</text>
+</g>
+</svg>

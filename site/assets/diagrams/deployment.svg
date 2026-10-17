@@ -1,0 +1,45 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1040 646" role="img" aria-labelledby="title desc">
+<title id="title">Where each component lives</title><desc id="desc">The approved MVP uses two containers on one VM. A second host is optional; the VM administrator remains trusted.</desc>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="#a8b8cd"/></marker></defs>
+<rect width="1040" height="646" fill="#10141e" rx="16"/>
+<path d="M480 104 H560" fill="none" stroke="#a8b8cd" stroke-width="2.4" marker-end="url(#arrow)"/>
+<path d="M785 180 V230" fill="none" stroke="#a8b8cd" stroke-width="2.4" marker-end="url(#arrow)"/>
+<path d="M560 306 H480" fill="none" stroke="#a8b8cd" stroke-width="2.4" marker-end="url(#arrow)"/>
+<path d="M785 382 V407 H255 V432" fill="none" stroke="#a8b8cd" stroke-width="2.4" marker-end="url(#arrow)"/>
+<g transform="translate(30 28)"><rect width="450" height="152" rx="12" fill="#1a2232" stroke="#6fdc8c" stroke-opacity=".6"/>
+<rect x="0" y="16" width="4" height="120" rx="2" fill="#6fdc8c"/>
+<text x="20" y="34" fill="#6fdc8c" font-family="system-ui, sans-serif" font-size="21" font-weight="650">Team browser</text>
+<text x="20" y="72" fill="#e8edf5" font-family="system-ui, sans-serif" font-size="19">Local browser on an operator laptop</text>
+<text x="20" y="102" fill="#e8edf5" font-family="system-ui, sans-serif" font-size="19">Synthetic demo only</text>
+</g>
+<g transform="translate(560 28)"><rect width="450" height="152" rx="12" fill="#1a2232" stroke="#6fdc8c" stroke-opacity=".6"/>
+<rect x="0" y="16" width="4" height="120" rx="2" fill="#6fdc8c"/>
+<text x="20" y="34" fill="#6fdc8c" font-family="system-ui, sans-serif" font-size="21" font-weight="650">SSH tunnel</text>
+<text x="20" y="72" fill="#e8edf5" font-family="system-ui, sans-serif" font-size="19">Laptop loopback → VM loopback</text>
+<text x="20" y="102" fill="#e8edf5" font-family="system-ui, sans-serif" font-size="19">VM: 127.0.0.1:8080</text>
+</g>
+<g transform="translate(560 230)"><rect width="450" height="152" rx="12" fill="#1a2232" stroke="#6fdc8c" stroke-opacity=".6"/>
+<rect x="0" y="16" width="4" height="120" rx="2" fill="#6fdc8c"/>
+<text x="20" y="34" fill="#6fdc8c" font-family="system-ui, sans-serif" font-size="21" font-weight="650">Hospital container / VM</text>
+<text x="20" y="72" fill="#e8edf5" font-family="system-ui, sans-serif" font-size="19">Serves frontend + API on port 8080</text>
+<text x="20" y="102" fill="#e8edf5" font-family="system-ui, sans-serif" font-size="19">Paillier private key lives in memory</text>
+</g>
+<g transform="translate(30 230)"><rect width="450" height="152" rx="12" fill="#1a2232" stroke="#78a9ff" stroke-opacity=".6"/>
+<rect x="0" y="16" width="4" height="120" rx="2" fill="#78a9ff"/>
+<text x="20" y="34" fill="#78a9ff" font-family="system-ui, sans-serif" font-size="21" font-weight="650">Risk-service container / same VM</text>
+<text x="20" y="72" fill="#e8edf5" font-family="system-ui, sans-serif" font-size="19">Internal Docker network, port 8443</text>
+<text x="20" y="102" fill="#e8edf5" font-family="system-ui, sans-serif" font-size="19">TLS identity; no Paillier private key</text>
+</g>
+<g transform="translate(30 432)"><rect width="450" height="152" rx="12" fill="#1a2232" stroke="#d4bbff" stroke-opacity=".6"/>
+<rect x="0" y="16" width="4" height="120" rx="2" fill="#d4bbff"/>
+<text x="20" y="34" fill="#d4bbff" font-family="system-ui, sans-serif" font-size="21" font-weight="650">Hospital vault / Docker volume</text>
+<text x="20" y="72" fill="#e8edf5" font-family="system-ui, sans-serif" font-size="19">/var/lib/screening/vault.jsonl</text>
+<text x="20" y="102" fill="#e8edf5" font-family="system-ui, sans-serif" font-size="19">AES key mounted from outside Git</text>
+</g>
+<g transform="translate(560 432)"><rect width="450" height="152" rx="12" fill="#1a2232" stroke="#ffcf70" stroke-opacity=".6"/>
+<rect x="0" y="16" width="4" height="120" rx="2" fill="#ffcf70"/>
+<text x="20" y="34" fill="#ffcf70" font-family="system-ui, sans-serif" font-size="21" font-weight="650">Netlify / separate public site</text>
+<text x="20" y="72" fill="#e8edf5" font-family="system-ui, sans-serif" font-size="19">Pitch, map, forecast, plan, diagrams</text>
+<text x="20" y="102" fill="#e8edf5" font-family="system-ui, sans-serif" font-size="19">No Hospital API or vault connection</text>
+</g>
+</svg>

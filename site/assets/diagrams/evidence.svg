@@ -1,0 +1,46 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1040 646" role="img" aria-labelledby="title desc">
+<title id="title">Evidence and release flow</title><desc id="desc">Execution evidence must identify the code and environment actually measured. The public site reports status; it does not create missing VM or human evidence.</desc>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="#a8b8cd"/></marker></defs>
+<rect width="1040" height="646" fill="#10141e" rx="16"/>
+<path d="M480 104 H560" fill="none" stroke="#a8b8cd" stroke-width="2.4" marker-end="url(#arrow)"/>
+<path d="M785 180 V230" fill="none" stroke="#a8b8cd" stroke-width="2.4" marker-end="url(#arrow)"/>
+<path d="M560 306 H480" fill="none" stroke="#a8b8cd" stroke-width="2.4" marker-end="url(#arrow)"/>
+<path d="M255 382 V432" fill="none" stroke="#a8b8cd" stroke-width="2.4" marker-end="url(#arrow)"/>
+<path d="M480 508 H560" fill="none" stroke="#a8b8cd" stroke-width="2.4" marker-end="url(#arrow)"/>
+<g transform="translate(30 28)"><rect width="450" height="152" rx="12" fill="#1a2232" stroke="#79d7de" stroke-opacity=".6"/>
+<rect x="0" y="16" width="4" height="120" rx="2" fill="#79d7de"/>
+<text x="20" y="34" fill="#79d7de" font-family="system-ui, sans-serif" font-size="21" font-weight="650">1 / Agree on a clean code version</text>
+<text x="20" y="72" fill="#e8edf5" font-family="system-ui, sans-serif" font-size="19">Pin commit; record code/model hashes</text>
+<text x="20" y="102" fill="#e8edf5" font-family="system-ui, sans-serif" font-size="19">Build both endpoints from that version</text>
+</g>
+<g transform="translate(560 28)"><rect width="450" height="152" rx="12" fill="#1a2232" stroke="#6fdc8c" stroke-opacity=".6"/>
+<rect x="0" y="16" width="4" height="120" rx="2" fill="#6fdc8c"/>
+<text x="20" y="34" fill="#6fdc8c" font-family="system-ui, sans-serif" font-size="21" font-weight="650">2 / Execute the real environment</text>
+<text x="20" y="72" fill="#e8edf5" font-family="system-ui, sans-serif" font-size="19">Process and full Hospital API metrics</text>
+<text x="20" y="102" fill="#e8edf5" font-family="system-ui, sans-serif" font-size="19">Synthetic inputs for the demo</text>
+</g>
+<g transform="translate(560 230)"><rect width="450" height="152" rx="12" fill="#1a2232" stroke="#d4bbff" stroke-opacity=".6"/>
+<rect x="0" y="16" width="4" height="120" rx="2" fill="#d4bbff"/>
+<text x="20" y="34" fill="#d4bbff" font-family="system-ui, sans-serif" font-size="21" font-weight="650">3 / Preserve service audit files</text>
+<text x="20" y="72" fill="#e8edf5" font-family="system-ui, sans-serif" font-size="19">Optional SERVICE_EVIDENCE mode</text>
+<text x="20" y="102" fill="#e8edf5" font-family="system-ui, sans-serif" font-size="19">Wire bytes + TLS/hash metadata</text>
+</g>
+<g transform="translate(30 230)"><rect width="450" height="152" rx="12" fill="#1a2232" stroke="#79d7de" stroke-opacity=".6"/>
+<rect x="0" y="16" width="4" height="120" rx="2" fill="#79d7de"/>
+<text x="20" y="34" fill="#79d7de" font-family="system-ui, sans-serif" font-size="21" font-weight="650">4 / Compare original run artifacts</text>
+<text x="20" y="72" fill="#e8edf5" font-family="system-ui, sans-serif" font-size="19">Match request/response hashes and IDs</text>
+<text x="20" y="102" fill="#e8edf5" font-family="system-ui, sans-serif" font-size="19">Check exact integers and scoped claims</text>
+</g>
+<g transform="translate(30 432)"><rect width="450" height="152" rx="12" fill="#1a2232" stroke="#ffcf70" stroke-opacity=".6"/>
+<rect x="0" y="16" width="4" height="120" rx="2" fill="#ffcf70"/>
+<text x="20" y="34" fill="#ffcf70" font-family="system-ui, sans-serif" font-size="21" font-weight="650">5 / Collect human-owned records</text>
+<text x="20" y="72" fill="#e8edf5" font-family="system-ui, sans-serif" font-size="19">VM/provider, labs, review, narration</text>
+<text x="20" y="102" fill="#e8edf5" font-family="system-ui, sans-serif" font-size="19">Leader access and AI-use approval</text>
+</g>
+<g transform="translate(560 432)"><rect width="450" height="152" rx="12" fill="#1a2232" stroke="#d4bbff" stroke-opacity=".6"/>
+<rect x="0" y="16" width="4" height="120" rx="2" fill="#d4bbff"/>
+<text x="20" y="34" fill="#d4bbff" font-family="system-ui, sans-serif" font-size="21" font-weight="650">6 / Build final delivery</text>
+<text x="20" y="72" fill="#e8edf5" font-family="system-ui, sans-serif" font-size="19">Final gate rejects missing records</text>
+<text x="20" y="102" fill="#e8edf5" font-family="system-ui, sans-serif" font-size="19">Team reviews; registered leader submits</text>
+</g>
+</svg>
