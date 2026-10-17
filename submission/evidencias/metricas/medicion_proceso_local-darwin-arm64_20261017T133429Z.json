@@ -1,0 +1,180 @@
+{
+ "modo": "proceso",
+ "fecha_utc": "2026-10-17T13:34:29Z",
+ "entorno_etiqueta": "local-darwin-arm64",
+ "advertencia": "Medición LOCAL: no es LinuxONE. No usar como velocidad de IBM Z.",
+ "comando": "python -m tamizaje.medir --presupuesto-s 600 --max 2000 --https 100 --final",
+ "modelo": "logistico-cdc21-v1",
+ "llave_paillier_bits": 2048,
+ "concurrencia": 1,
+ "calentamiento": 5,
+ "piloto": {
+  "pacientes": 20,
+  "ms_por_paciente": 123.79,
+  "presupuesto_s": 600
+ },
+ "muestra": {
+  "origen": "partición de prueba del CDC",
+  "semilla": 2026,
+  "n": 2000,
+  "positivos": 279,
+  "prevalencia": 0.1395,
+  "ids_sha256": "f600c31f55198c57096b7ed642b51ef4f3cb407cb08fefb23218701b27f7d101"
+ },
+ "exactitud": {
+  "enteros_identicos": 2000,
+  "de": 2000,
+  "error_max_logit_vs_flotante": 4.500013051078611e-08,
+  "cota_max_aplicable": 7.9e-08,
+  "todos_dentro_de_cota": true,
+  "error_max_probabilidad": 9.373485876373877e-09
+ },
+ "metricas_misma_muestra": {
+  "flotante": {
+   "roc_auc": 0.808383,
+   "average_precision": 0.396343,
+   "sensibilidad": 0.7921,
+   "especificidad": 0.688,
+   "matriz_confusion": {
+    "vn": 1184,
+    "fp": 537,
+    "fn": 58,
+    "vp": 221
+   }
+  },
+  "punto_fijo": {
+   "roc_auc": 0.808383,
+   "average_precision": 0.396343,
+   "sensibilidad": 0.7921,
+   "especificidad": 0.688,
+   "matriz_confusion": {
+    "vn": 1184,
+    "fp": 537,
+    "fn": 58,
+    "vp": 221
+   }
+  },
+  "cifrado": {
+   "roc_auc": 0.808383,
+   "average_precision": 0.396343,
+   "sensibilidad": 0.7921,
+   "especificidad": 0.688,
+   "matriz_confusion": {
+    "vn": 1184,
+    "fp": 537,
+    "fn": 58,
+    "vp": 221
+   }
+  }
+ },
+ "microbenchmark_en_proceso": {
+  "cifrar_hospital": {
+   "n": 2000,
+   "p50_ms": 105.817,
+   "p95_ms": 112.345,
+   "media_ms": 106.616
+  },
+  "evaluar_servicio": {
+   "n": 2000,
+   "p50_ms": 7.793,
+   "p95_ms": 8.211,
+   "media_ms": 7.857
+  },
+  "descifrar_hospital": {
+   "n": 2000,
+   "p50_ms": 1.523,
+   "p95_ms": 1.623,
+   "media_ms": 1.538
+  },
+  "pacientes_por_minuto_secuencial": 516.6,
+  "nota": "sin red ni bóveda"
+ },
+ "microbenchmark_https_mismo_proceso": {
+  "solicitud_completa": {
+   "n": 100,
+   "p50_ms": 127.244,
+   "p95_ms": 152.245,
+   "media_ms": 129.424
+  },
+  "componentes": {
+   "cifrar": {
+    "n": 100,
+    "p50_ms": 113.6,
+    "p95_ms": 136.9,
+    "media_ms": 115.395
+   },
+   "red_y_servicio": {
+    "n": 100,
+    "p50_ms": 11.1,
+    "p95_ms": 13.7,
+    "media_ms": 11.473
+   },
+   "descifrar": {
+    "n": 100,
+    "p50_ms": 1.6,
+    "p95_ms": 1.9,
+    "media_ms": 1.648
+   },
+   "interpretar": {
+    "n": 100,
+    "p50_ms": 0.02,
+    "p95_ms": 0.03,
+    "media_ms": 0.024
+   },
+   "boveda": {
+    "n": 100,
+    "p50_ms": 0.3,
+    "p95_ms": 0.6,
+    "media_ms": 0.338
+   },
+   "total_en_hospital": {
+    "n": 100,
+    "p50_ms": 126.7,
+    "p95_ms": 151.7,
+    "media_ms": 128.886
+   }
+  },
+  "pacientes_por_minuto_secuencial": 463.6,
+  "nota": "hospital lógico y servicio HTTPS (TLS 1.3 mutuo, conexión nueva por solicitud) en el MISMO proceso, con bóveda y fsync; no es el recorrido de dos contenedores ni incluye navegador"
+ },
+ "tamanos_bytes": {
+  "solicitud_p50": 26779,
+  "respuesta_p50": 1400
+ },
+ "aes256gcm_microbenchmark_mb_s": 6634.3,
+ "procedencia": {
+  "commit": "655763fb6fd9be8cf20cb24b8405aa0095789b8a",
+  "fuente_commit": "git",
+  "limpio": true,
+  "cambios_relevantes": [],
+  "archivos_ajenos_al_experimento": [],
+  "codigo_sha256": "dca22a07d5f34d2f9c94a2899676167df9beca82a75596ea40581ae0e1a523f3",
+  "codigo_archivos": 21,
+  "modelo_sha256": "0455e46245761df61fd717dfaa57da8ff4815ef0edd9b34f719d97e23e79ddb2",
+  "particiones_sha256": "691e273dab9ace2d57ad6e4214d273abb340c8df3974bb07ebe0ea8831f5d348",
+  "cdc_sha256": "c75c2d1fd66c86883e996a80977ae0eea83e1a1b56d39272c1abcea46574afcb",
+  "imagen": null
+ },
+ "entorno": {
+  "maquina": "arm64",
+  "sistema": "Darwin",
+  "plataforma": "macOS-27.2-arm64-arm-64bit",
+  "procesador": "arm",
+  "cpus": 12,
+  "python": "3.12.12",
+  "contenedor": false,
+  "es_linuxone_s390x": false,
+  "versiones": {
+   "phe": "1.5.0",
+   "gmpy2": "2.3.2",
+   "cryptography": "50.0.2",
+   "numpy": "2.5.4",
+   "scikit_learn": "1.9.1"
+  },
+  "openssl_cli": "OpenSSL 4.0.3 29 Sep 2026 (Library: OpenSSL 4.0.3 29 Sep 2026)\nbuilt on: Tue Sep 29 13:44:55 2026 UTC\nplatform: darwin64-arm64-cc\noptions:  bn(64,64)\ncompiler: clang -fPIC -arch arm64 -O3 -Wall -DL_ENDIAN -DOPENSSL_PIC -D_REENTRANT -DNDEBUG\nOPENSSLDIR: \"/opt/homebrew/etc/openssl@4\"\nMODULESDIR: \"/opt/homebrew/Cellar/openssl@4/4.0.3/lib/ossl-modules\"\nSeeding source: os-specific\nCPUINFO: OPENSSL_armcap=0x987d",
+  "openssl_de_cryptography": "OpenSSL 4.0.3 29 Sep 2026",
+  "uname": "Darwin MacBook-Pro.local 27.2.0 Darwin Kernel Version 27.2.0: Sun Sep 13 19:46:58 PDT 2026; root:xnu-13432.40.162~92/RELEASE_ARM64_T6030 arm64",
+  "cpu": "Apple M3 Pro",
+  "memoria_bytes": "38654705664"
+ }
+}
