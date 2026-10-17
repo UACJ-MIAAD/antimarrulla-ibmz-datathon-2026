@@ -179,23 +179,6 @@ Las reglas permiten librerías open source **siempre que se citen**. Esta tabla 
 - **Dependencia `python-paillier` (`phe`):** GPLv3 (con partes Apache 2.0). Si distribuimos una obra combinada con `phe` (por ejemplo, una imagen de contenedor), esa distribución debe cumplir la GPLv3: no se presenta como "solo MIT" y se conservan sus avisos y su texto de licencia.
 - **Datos:** cada fuente conserva su licencia y exige atribución; indicamos los cambios (recortes, agregados y armonizaciones) en `data/README.md` y `src/datos/`. CDC/BRFSS: dominio público (UCI remite a la fuente; Kaggle lo marca CC0). DGIS, IMSS, CONAPO: CC BY 4.0 o libre uso con cita. Natural Earth: dominio público. ENSANUT: no se redistribuye.
 
-## Uso de IA
-
-Las reglas permiten asistentes de IA generativa siempre que se declaren y que el equipo entienda lo que entrega. Esto es lo que usamos:
-
-| Herramienta | Tarea | Qué hizo | Archivos | Revisión humana |
-|-------------|-------|----------|----------|-----------------|
-| [Claude](https://www.anthropic.com/claude) (Anthropic) | Estructura del repositorio | Propuso y armó la estructura de carpetas, el README y las guías internas | `README.md`, `CONTRIBUTING.md`, `docs/` | Javier pidió y aprobó cada cambio |
-| Claude | Documentación | Redactó y mantuvo la documentación técnica, de reglas, roles, fuentes y modelo de datos | `docs/*.md`, `data/README.md` | Javier aprobó; revisión de los 4 pendiente antes del envío |
-| Claude | Elección de la idea | Corrió el ranking de las ideas con jueces simulados y armó las presentaciones de ideas | `docs/DECISION.md`, `docs/IDEAS.md`, `docs/Ranking_Ideas_Antimarrulla.pptx` | El equipo eligió la idea |
-| Claude | Datos | Buscó y descargó fuentes oficiales, verificó cifras contra los microdatos y escribió los scripts de preparación | `data/`, `src/datos/` | Javier aprobó; las cifras se recalcularon en dos auditorías externas |
-| Claude | **Implementación** | Escribió el código del modelo, el protocolo Paillier, el servicio de riesgo, el hospital, la UI, la bóveda, las mediciones, las pruebas, los contenedores y el `Makefile` | `src/tamizaje/`, `tests/`, `docker/`, `Makefile`, `artefactos/` | Javier lo pidió; **revisión de los 4 pendiente**: cada integrante debe poder explicar el código antes del envío |
-| Claude | Pitch | Diseñó el deck, su PDF y el guion del video | `submission/` | Javier aprobó; el equipo presenta el video |
-| Claude | Sitio público | Construyó el sitio con el plan en vivo, el deck y el mapa | `site/` | Javier aprobó |
-| Claude | Correcciones | Aplicó las correcciones de las auditorías externas | Todo el repositorio | Javier decidió qué corregir |
-| [Codex](https://openai.com/codex/) (OpenAI) | Auditorías externas | Dos auditorías completas del repositorio (cifras, criptografía, plan, sitio y entregables) | Reportes locales, no versionados | El equipo leyó los reportes y decidió qué aplicar |
-| Muse (asistente de IA usado por un integrante) | Datos | Descarga y revisión de fuentes (entre ellas ENSANUT) | `data/raw/` (local) | Las descargas se validaron después contra las cifras oficiales |
-
 ## Licencia
 
 [MIT](LICENSE) · Hecho con cafeína y disciplina en Ciudad Juárez, Chihuahua.
