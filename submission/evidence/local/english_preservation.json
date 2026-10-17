@@ -1,5 +1,5 @@
 {
-  "preserved_original_files": 53,
+  "preserved_original_files": 49,
   "original_file_sha256": {
     "data/.gitkeep": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
     "data/catalogos/clues_202608.csv": "5a71484a8c51ff61a17bb738f59472c0915b54bdf65c175fcf0939b01f4484e5",
@@ -33,13 +33,9 @@
     "data/sis_cronicas/DA_EC_SIS_2022.zip": "a8a6216e93a356e70e538e59ce883be016b483d626440c31a505a129a9c8b8e9",
     "data/sis_cronicas/DA_EC_SIS_2023.zip": "0024713cddefb8961c14550fa777e37b8205a0736170f70515aec422be83d61a",
     "data/sis_cronicas/descriptor_servicios_2010_2023.xlsx": "92bb4b01f1a7e134d73e29f220cb19b960041a5f6303ae4047d2fd60257f1cf6",
-    "submission/evidencias/README.md": "5499d546b7fda8c54df14451045bf67684ff54edd14a745feead20bba47ea6cf",
-    "submission/evidencias/labs/REGISTRO.ejemplo.json": "4d81c97edef960c92e9a16da36ba307ec1508e3150094e31bad2b57171de0aeb",
-    "submission/evidencias/linuxone/REGISTRO.ejemplo.json": "6c908597560e3d7b2004ad7184e8cd6be07b652c3954fa8194683d6b7e1c78e1",
     "submission/evidencias/local/local-docker-aarch64_7937f9f_ui_pantalla_dividida_C.png": "fc19a5c9c1075fbc9bb971fb062b60e909b8600c2b2728257d2ef30c2748382d",
     "submission/evidencias/local/local-docker-aarch64_ui_pantalla_dividida_A.png": "0a7b125bd4124d8f875758863adcd2c13a9a544288a28a01155a09301a6c1112",
     "submission/evidencias/local/local-docker-aarch64_ui_pantalla_dividida_C.png": "120a4b6bf4ccfc44d940a635f46700117ad0cdca06434783bd05032bfb3e7ee7",
-    "submission/evidencias/metricas/README.md": "4cf7013ef4591bf9f2b72bbd91fa214d898cdf7059b3c46f24f316f645009789",
     "submission/evidencias/metricas/medicion_api_local-darwin-arm64_20261017T131320Z.json": "ace26139ac03d2c71693e0e63e17c56fc8ba9891878d97d5470ebe593f2e42d1",
     "submission/evidencias/metricas/medicion_api_local-darwin-arm64_20261017T131320Z.md": "e2371cf594592d0effc0c8d868caf0e3c02f975d8ea531ac79090e92027e1237",
     "submission/evidencias/metricas/medicion_api_local-darwin-arm64_20261017T133844Z.json": "4bac686c29b035d1e35819b5dee8ccb2bdf198a240d420ea09f90d6ab663f492",
@@ -95,5 +91,13 @@
     "data/egresos_ssa/procedimientos_diabetes_2024.csv",
     "data/egresos_ssa/egresos_diabetes_2024.csv",
     "data/egresos_ssa/afecciones_diabetes_2024.csv"
+  ],
+  "baseline_commit": "037ee1be38f75a4ddd5e22d58687fdc20692778a",
+  "translated_or_retired_indexes_not_measured_evidence": [
+    "data/README.md",
+    "submission/evidencias/README.md",
+    "submission/evidencias/labs/REGISTRO.ejemplo.json",
+    "submission/evidencias/linuxone/REGISTRO.ejemplo.json",
+    "submission/evidencias/metricas/README.md"
   ]
 }

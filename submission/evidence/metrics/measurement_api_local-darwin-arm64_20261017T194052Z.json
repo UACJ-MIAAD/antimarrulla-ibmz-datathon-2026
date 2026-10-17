@@ -1,0 +1,121 @@
+{
+ "mode": "api",
+ "date_utc": "2026-10-17T19:40:52Z",
+ "environment_label": "local-darwin-arm64",
+ "warning": "LOCAL measurement. This is not LinuxONE performance.",
+ "command": "python -m screening.measure --mode api --url http://127.0.0.1:18080 --n 200 --final",
+ "flow": "HTTP client → deployed hospital API → mutual TLS 1.3 → risk service → decryption → interpretation → AES-256-GCM vault with fsync (no browser)",
+ "hospital_remote": {
+  "url": "http://127.0.0.1:18080",
+  "machine": "aarch64",
+  "system": "Linux",
+  "model_sha256": "9747116760f938ae501f96f57a3ad401324032b0ba52e20ef14b48e32c1d8b11",
+  "code_sha256": "fa44bfe5f31989c2722e48b94080d3ec3bef807551fdd27a89eb9e5de8b4e9b4",
+  "code_equal_to_client": true,
+  "key_bits": 2048
+ },
+ "sample": {
+  "kind": "deterministic synthetic inputs (screening.synthetic.random_patient)",
+  "initial_seed": 2026,
+  "n": 200,
+  "warmup": 3,
+  "sha256": "b5ec28181e5a4ade3cb65e65272e9b9b0f587e346680776d3ded9e4a9e15b6f6"
+ },
+ "accuracy": {
+  "identical_integers": 200,
+  "of": 200
+ },
+ "client_ms": {
+  "n": 200,
+  "p50_ms": 149.015,
+  "p95_ms": 183.317,
+  "mean_ms": 153.094
+ },
+ "hospital_components_ms": {
+  "encrypt": {
+   "n": 200,
+   "p50_ms": 128.9,
+   "p95_ms": 161.2,
+   "mean_ms": 132.569
+  },
+  "network_and_service": {
+   "n": 200,
+   "p50_ms": 13.1,
+   "p95_ms": 17.4,
+   "mean_ms": 13.826
+  },
+  "decrypt": {
+   "n": 200,
+   "p50_ms": 1.7,
+   "p95_ms": 2.9,
+   "mean_ms": 1.87
+  },
+  "interpret": {
+   "n": 200,
+   "p50_ms": 0.04,
+   "p95_ms": 0.07,
+   "mean_ms": 0.039
+  },
+  "vault": {
+   "n": 200,
+   "p50_ms": 1.1,
+   "p95_ms": 2.4,
+   "mean_ms": 1.38
+  },
+  "total_in_hospital": {
+   "n": 200,
+   "p50_ms": 146.0,
+   "p95_ms": 179.5,
+   "mean_ms": 149.682
+  }
+ },
+ "patients_per_minute": 391.7,
+ "concurrency": 1,
+ "provenance": {
+  "commit": "5412abe7ed82efdf91b5afba846079f0f58584b1",
+  "source_commit": "git",
+  "clean": true,
+  "changes_relevant": [],
+  "files_unrelated_to_experiment": [
+   "M docs/ENGLISH_MIGRATION.md",
+   "M site/index.html",
+   "M submission/evidence/local/english_preservation.json",
+   "M submission/evidencias/README.md",
+   "D submission/evidencias/labs/REGISTRO.ejemplo.json",
+   "D submission/evidencias/linuxone/REGISTRO.ejemplo.json",
+   "M submission/evidencias/metricas/README.md",
+   "?? submission/Los_Antimarrulla_Pitch.pptx",
+   "?? submission/evidence/local/english_artifact_checks.json",
+   "?? submission/evidence/metrics/measurement_process_local-darwin-arm64_20261017T193517Z.json",
+   "?? submission/evidence/metrics/measurement_process_local-darwin-arm64_20261017T193517Z.md"
+  ],
+  "code_sha256": "fa44bfe5f31989c2722e48b94080d3ec3bef807551fdd27a89eb9e5de8b4e9b4",
+  "code_files": 22,
+  "model_sha256": "9747116760f938ae501f96f57a3ad401324032b0ba52e20ef14b48e32c1d8b11",
+  "splits_sha256": "8394d9f07d189298a247adaf13ed348f38deddc4b704e49926f2e9459483110e",
+  "cdc_sha256": "c75c2d1fd66c86883e996a80977ae0eea83e1a1b56d39272c1abcea46574afcb",
+  "image": null
+ },
+ "environment": {
+  "machine": "arm64",
+  "system": "Darwin",
+  "platform": "macOS-27.2-arm64-arm-64bit",
+  "processor": "arm",
+  "cpus": 12,
+  "python": "3.12.12",
+  "container": false,
+  "is_linuxone_s390x": false,
+  "versions": {
+   "phe": "1.5.0",
+   "gmpy2": "2.3.2",
+   "cryptography": "50.0.2",
+   "numpy": "2.5.4",
+   "scikit_learn": "1.9.1"
+  },
+  "openssl_cli": "OpenSSL 4.0.3 29 Sep 2026 (Library: OpenSSL 4.0.3 29 Sep 2026)\nbuilt on: Tue Sep 29 13:44:55 2026 UTC\nplatform: darwin64-arm64-cc\noptions:  bn(64,64)\ncompiler: clang -fPIC -arch arm64 -O3 -Wall -DL_ENDIAN -DOPENSSL_PIC -D_REENTRANT -DNDEBUG\nOPENSSLDIR: \"/opt/homebrew/etc/openssl@4\"\nMODULESDIR: \"/opt/homebrew/Cellar/openssl@4/4.0.3/lib/ossl-modules\"\nSeeding source: os-specific\nCPUINFO: OPENSSL_armcap=0x987d",
+  "openssl_of_cryptography": "OpenSSL 4.0.3 29 Sep 2026",
+  "uname": "Darwin MacBook-Pro.local 27.2.0 Darwin Kernel Version 27.2.0: Sun Sep 13 19:46:58 PDT 2026; root:xnu-13432.40.162~92/RELEASE_ARM64_T6030 arm64",
+  "cpu": "Apple M3 Pro",
+  "memory_bytes": "38654705664"
+ }
+}

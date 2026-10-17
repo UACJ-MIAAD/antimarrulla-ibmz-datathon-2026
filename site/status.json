@@ -1,6 +1,6 @@
 {
-  "rev": 25,
-  "updated_at": "2026-10-17T19:31:46Z",
+  "rev": 26,
+  "updated_at": "2026-10-17T19:45:50Z",
   "note": "Evidence-based status. English implementation and existing artifacts translated; final narration and independent teammate sign-off remain open. See docs/ENGLISH_MIGRATION.md and docs/DELIVERY_PLAN.md. Keep Netlify and its badge. Increase rev and actual UTC timestamp for every status update.",
   "milestones": {
     "internal_start": "2026-10-17T13:00:00Z",
@@ -256,7 +256,7 @@
           "block": "h12",
           "priority": "MVP",
           "state": "done",
-          "evidence": "submission/evidencias/metricas/medicion_proceso_local-darwin-arm64_20261017T181050Z.json, commit 65ae4ef, local: 2,000/2,000 exact integers; AUC 0.808383 across all three variants; same-sample plaintext/fixed-point logit timings. Final translated-commit LinuxONE run is still required."
+          "evidence": "English v2, clean code 5412abe: 2,000/2,000 exact integers and AUC 0.808383 in float/fixed-point/encrypted. submission/evidence/metrics/measurement_process_local-darwin-arm64_20261017T193517Z.json. Separate 200/200 synthetic Docker API run: client p50 149.015 ms, p95 183.317 ms; submission/evidence/metrics/measurement_api_local-darwin-arm64_20261017T194052Z.json. Local Mac/arm64 and Docker; LinuxONE remains pending."
         },
         {
           "id": "US-3.4",
@@ -463,7 +463,7 @@
           "block": "h12",
           "priority": "MVP",
           "state": "in_progress",
-          "evidence": "English package screening, v2 protocol, API/CLI, comments/tests/messages, UI/site/dashboard, guides, three decks (8/19/17 slides), official PDF, flowchart and silent 170-second draft implemented and checked. make verify: 90 pass; Ubuntu: 86 pass/4 platform-specific skips. Original data/evidence preserved; nine CSVs reproduced byte for byte; all 222 forecasts reproduced. docs/ENGLISH_MIGRATION.md. Still open: independent teammate review of this release and final authorized English narration with real LinuxONE footage."
+          "evidence": "English package screening, v2 protocol, API/CLI, comments/tests/messages, UI/site/dashboard, guides, three decks (8/19/17 slides), official PDF, flowchart and silent 170-second draft implemented and checked. make verify: 90 pass; Ubuntu: 86 pass/4 Git-dependent skips. Original data/evidence preserved; nine CSVs reproduced byte for byte; all 222 forecasts reproduced. docs/ENGLISH_MIGRATION.md. Still open: independent teammate review of this release and final authorized English narration with real LinuxONE footage. Fresh clone passes all 90 tests; both GitHub CI jobs pass. ENSANUT rerun identical except timestamp. Media URLs are versioned to prevent stale Spanish thumbnails."
         },
         {
           "id": "US-7.1",

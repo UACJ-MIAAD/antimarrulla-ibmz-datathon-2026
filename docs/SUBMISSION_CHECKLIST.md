@@ -13,7 +13,7 @@ The submission window is **October 16, 23:45 UTC → October 18, 16:30 UTC**, fr
 - [x] Slides, exported PDF and flowchart in English and visually checked
 - [ ] Video narration/captions and Hack2Skill title/description in English; preserve the exact required title and proper names
 - [x] Original source identifiers/raw data and historical evidence preserved; English explanations provided
-- [ ] `make verify` and `make verify-docker` pass on the translated release commit; final measurements/captures use that commit
+- [x] Automated English code checks pass (90 host; 86 Ubuntu plus four Git-dependent skips); local measurements at clean code 5412abe are recorded. Final LinuxONE measurements/captures still required
 - [ ] Independent teammate signs off on the English release and records the reviewed commit
 
 English implementation and existing artifacts are translated and checked; see [ENGLISH_MIGRATION.md](ENGLISH_MIGRATION.md). Final English narration, teammate sign-off, real LinuxONE evidence and submission remain open. Checked boxes describe implementation evidence, not human approval.

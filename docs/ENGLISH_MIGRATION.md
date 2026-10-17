@@ -24,14 +24,14 @@ Environment variables now use `SCREENING_*`, `SERVICE_*`, `TLS_CLIENT_*`, `VAULT
 
 ## Preservation and scope
 
-Original datasets, source field names/codes, proper names, source URLs, the team logo and original event documents retain their original spelling. The original `data/` paths remain stable to preserve source lineage. English comments and explanations describe them. Immutable historical evidence remains under `submission/evidencias/`; new records use the English evidence schema. Local audit history and the personal untracked PowerPoint are excluded from release packaging.
+Original datasets, source field names/codes, proper names, source URLs, the team logo and original event documents retain their original spelling. The original `data/` paths remain stable to preserve source lineage. English comments and explanations describe them. Immutable historical measurements/screenshots remain under `submission/evidencias/`; its archive indexes are translated and obsolete templates retired. New records use the English evidence schema. Local audit history and the personal untracked PowerPoint are excluded from release packaging.
 
-`submission/evidence/local/english_preservation.json` verifies 53 original data/evidence files unchanged, seven artifact numeric streams unchanged and nine regenerated CSV outputs identical byte for byte. Model/split metadata fields are English, so their file hashes intentionally changed even though numeric content did not. New provenance must use the translated release hashes.
+`submission/evidence/local/english_preservation.json` verifies 49 original data/evidence files unchanged, seven artifact numeric streams unchanged and nine regenerated CSV outputs identical byte for byte. Model/split metadata fields are English, so their file hashes intentionally changed even though numeric content did not. New provenance must use the translated release hashes.
 
 ## Verification
 
 - `make verify`: **90 passed**, including actual 21-feature Paillier checks, TLS integration, vault, measurement and two-host audit tests. Model retraining matches exactly on the Mac.
-- `make verify-docker`: **86 passed, 4 platform-specific skips** in Ubuntu 24.04 arm64; model differences below 10^-13. This exercises the apt dependency route, not s390x execution.
+- `make verify-docker`: **86 passed, 4 Git-dependent skips** in Ubuntu 24.04 arm64; model differences below 10^-13. This exercises the apt dependency route, not s390x execution.
 - Isolated English Docker demo and smoke test pass; the minimal app image excludes CDC data, tests, sklearn and private keys.
 - Actual English UI screenshot: `submission/evidence/local/english_demo_synthetic_C.png`; synthetic C yields approximately 66.3% model output.
 - The release-gate regression prevents a **partial** clone check from closing full independent review.
@@ -44,3 +44,11 @@ The full forecast rerun reproduces all 222 series after canonical key ordering; 
 A teammate must review the migrated release commit and answer [REVIEW.md](REVIEW.md). Run on the real LinuxONE VM, provide provider/architecture/labs evidence, record authorized English narration and VM/model footage, confirm AI-use attribution/publication and submit via the registered leader. The 170-second silent editing draft remains a draft.
 
 The portal deadline is **October 18, 2026, 16:30 UTC**; internal target **13:00 UTC**. Neither the migration nor the portal opening resolves the actual labs-before-coding chronology. Keep [TIMELINE.md](TIMELINE.md) factual. Netlify and its badge remain.
+
+## New English execution evidence
+
+Clean inference code commit `5412abe`: 2,000/2,000 stratified CDC integers match exactly; float/fixed-point/encrypted AUC is 0.808383. Maximum logit error is 4.50×10^-8 within the applicable sample bound 7.9×10^-8. The separate 200-request synthetic Docker API run matches 200/200 expected integers, with client p50 149.015 ms and p95 183.317 ms. See `submission/evidence/metrics/`. These are local Mac/arm64 and Docker runs. Later changes to protocol help text, an ENSANUT console label and ZIP documentation are recorded separately; the inference computation and model are unchanged. Final LinuxONE evidence must use its actual reviewed release commit.
+
+The reduced ENSANUT experiment also reproduces exactly except for its execution timestamp, including all weights, sample counts and reported metrics. No microdata is redistributed.
+
+Full verification record: [ENGLISH_VALIDATION.md](ENGLISH_VALIDATION.md). The extracted code ZIP passes all 90 tests and model verification. Final-mode packaging correctly remains blocked by the real external evidence requirements.

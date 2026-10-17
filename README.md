@@ -58,7 +58,7 @@ The 21-feature logistic model uses public CDC BRFSS 2015 data (UCI 891). The str
 
 - Test split: 38,052 records; ROC-AUC 0.826, AP 0.415, sensitivity 0.805, specificity 0.691, PPV 0.297 and Brier 0.098.
 - Fixed point uses unscaled integer inputs and weights/intercept rounded at scale 10^9. Decrypted integer equality and floating-point quantization error are separate checks.
-- Historical clean local measurements at `65ae4ef`: 2,000/2,000 exact integers and AUC 0.808383 across the same sample. The local container API had 141.29 ms p50 and 180.039 ms p95 over 200 synthetic inputs. These numbers identify that commit, not the English release or LinuxONE performance.
+- English v2 local measurements at clean code commit `5412abe`: 2,000/2,000 exact integers, AUC 0.808383 across the same sample, and maximum logit error 4.50×10^-8 (sample bound 7.9×10^-8). The local Docker API matched 200/200 synthetic cases, with client p50 149.015 ms and p95 183.317 ms. These are Mac/arm64 plus Docker measurements; LinuxONE remains pending. See [process evidence](submission/evidence/metrics/measurement_process_local-darwin-arm64_20261017T193517Z.json) and [deployed API evidence](submission/evidence/metrics/measurement_api_local-darwin-arm64_20261017T194052Z.json).
 - The reduced ten-feature ENSANUT experiment is separate from the MVP: weighted AUC about 0.77, underestimated risk and sensitivity 0.46–0.49 at the CDC threshold. It does not establish clinical validity in Mexico.
 - E5 is an optional 222-series forecast. Nested evaluation and actual band coverage are reported; nominal 80/95% coverage is not guaranteed. Budget scenarios require a sourced unit cost.
 

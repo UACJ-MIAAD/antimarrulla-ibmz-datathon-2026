@@ -1,0 +1,74 @@
+{
+  "decks": {
+    "submission/Los_Antimarrulla_Screening_Pitch.pptx": {
+      "slides": 8,
+      "sha256": "40f55e0140fea8357a204a192a4a1170077b3ffc53054135d72388aacc6939b7",
+      "structural_and_layout_validation_passed": true,
+      "first_party_import_passed": true,
+      "individual_visual_review": true,
+      "checked_in_PowerPoint": false,
+      "final_file_matches_validated_sha256": true,
+      "layout_warnings": []
+    },
+    "docs/Project_Ideas.pptx": {
+      "slides": 19,
+      "sha256": "c4cfd7bebf265a581db8f9dbdcf2c562c995b8aae416d496ae52d75884994e73",
+      "structural_and_layout_validation_passed": true,
+      "first_party_import_passed": true,
+      "individual_visual_review": true,
+      "checked_in_PowerPoint": false,
+      "final_file_matches_validated_sha256": true,
+      "layout_warnings": [
+        {
+          "kind": "object_outside_slide_boundary",
+          "object_id": "263",
+          "object_kind": "graphicFrame",
+          "slide": 15
+        }
+      ]
+    },
+    "docs/Idea_Ranking_Antimarrulla.pptx": {
+      "slides": 17,
+      "sha256": "7b4f53ba54267d82434589e73de00f77fab7a2df3eaf6426100704b114af40b4",
+      "structural_and_layout_validation_passed": true,
+      "first_party_import_passed": true,
+      "individual_visual_review": true,
+      "checked_in_PowerPoint": false,
+      "final_file_matches_validated_sha256": true,
+      "layout_warnings": [
+        {
+          "available_bottom_in": 6.32,
+          "columns": 11,
+          "declared_bottom_in": 6.17,
+          "estimated_native_bottom_in": 6.5,
+          "footer_object_ids": [
+            "5"
+          ],
+          "kind": "native_table_overflow",
+          "overflow_in": 0.18,
+          "rows": 12,
+          "slide": 3,
+          "table_id": "4"
+        }
+      ]
+    }
+  },
+  "pdf": {
+    "submission/Los Antimarrulla_IBM Z Datathon 2026 Project.pdf": {
+      "sha256": "18f14b2d174686773a2c45196c96d995f72d352dcd50a78b9879437012507fd1",
+      "visual_review": true
+    },
+    "submission/flowchart/architecture.pdf": {
+      "sha256": "5ba938f82ed81126f435549d0dcd401857801243cc43674f269d2a3d9fc4d590",
+      "visual_review": true
+    }
+  },
+  "video": {
+    "draft": "dist/video/silent_edit_draft.mp4",
+    "duration_s": 170.0,
+    "audio": false,
+    "linuxone_footage": false,
+    "final_submission_ready": false
+  },
+  "ranking_workbook_repair": "Restore all 12 original embedded workbooks, formulas and numeric cells; translate labels; represent 22 mutually exclusive theme intersections as structural zeroes. No original nonblank score changed."
+}

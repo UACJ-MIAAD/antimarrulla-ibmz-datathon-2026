@@ -1,5 +1,0 @@
-{
-  "_instrucciones": "Copiar como REGISTRO.json al completar los labs, con fechas reales y capturas PNG/JPEG en esta carpeta. No inventar fechas.",
-  "lab1": {"nombre": "Predictive AI Hybrid AI scenarios (multi-model)", "completado": true, "fecha": "AAAA-MM-DDTHH:MM-06:00", "responsables": ["..."], "capturas": ["lab1_final.png"]},
-  "lab2": {"nombre": "Predictive AI + Generative AI", "completado": true, "fecha": "AAAA-MM-DDTHH:MM-06:00", "responsables": ["..."], "capturas": ["lab2_final.png"]}
-}

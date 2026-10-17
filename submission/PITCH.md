@@ -37,7 +37,7 @@ The design uses two containers: a hospital holding the key and a keyless risk se
 
 ## 6. Actual demo
 
-The service sees 21 ciphertexts and returns an encrypted score. The hospital sees the risk, threshold decision and contributing factors. Our historical local test matched all 2,000 fixed-point reference integers, with the same AUC in plaintext and encrypted evaluation.
+The service sees 21 ciphertexts and returns an encrypted score. The hospital sees the risk, threshold decision and contributing factors. Our English-release local test matched all 2,000 fixed-point reference integers, with the same AUC in plaintext and encrypted evaluation.
 
 *Replace or supplement this sentence with the measured translated-release LinuxONE results. Record the synthetic profile C flow; keep the environment label visible.*
 

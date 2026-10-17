@@ -189,7 +189,7 @@ header.top .brand{white-space:nowrap;overflow:hidden;text-overflow:ellipsis;min-
 <section id="deck"><div class="wrap">
   <h2>The pitch</h2>
   <p class="lead">Eight slides: problem, solution, homomorphic encryption, LinuxONE architecture, actual demo, model evidence and impact.</p>
-  <div class="stage"><img id="slide" src="assets/slides/s-1.jpg" alt="Pitch slide 1"><button class="navbtn prev" aria-label="Previous slide">‹</button><button class="navbtn next" aria-label="Next slide">›</button></div>
+  <div class="stage"><img id="slide" src="assets/slides/s-1.jpg?v=english-26" alt="Pitch slide 1"><button class="navbtn prev" aria-label="Previous slide">‹</button><button class="navbtn next" aria-label="Next slide">›</button></div>
   <div class="thumbs" id="thumbs"></div>
   <details class="note" style="margin:0 0 14px"><summary>Slide text</summary><ol>
 <li>Los Antimarrulla · Privacy-preserving screening. The hospital encrypts patient indicators; a service designed for IBM LinuxONE evaluates the model without decrypting them.</li>
@@ -197,10 +197,10 @@ header.top .brand{white-space:nowrap;overflow:hidden;text-overflow:ellipsis;min-
 <li>Solution: the hospital encrypts 21 indicators and keeps the private key. The service evaluates ciphertexts; the hospital decrypts the score and shows model contributions. The service receives no plaintext age, BMI or other feature.</li>
 <li>Paillier homomorphic encryption supports addition and multiplication by known scalars without decryption. Mutual TLS 1.3 protects transport; AES-256-GCM protects the hospital vault.</li>
 <li>Architecture: hospital container with Paillier/vault keys and a keyless risk service, connected through mutual TLS 1.3. Operational logs contain metadata only. Demo containers share a trusted-admin VM; intended production separation places the hospital component on hospital premises. Actual LinuxONE evidence is still required.</li>
-<li>Actual demo: an English UI capture uses a synthetic input. The service sees 21 ciphertexts; the hospital sees risk and model contributions. Historical local evidence at commit 65ae4ef has 2,000/2,000 exact fixed-point integers and AUC 0.808383 across all three variants. Its local deployed API had p50 141.29 ms and p95 180.039 ms over 200 synthetic inputs. These numbers do not establish English-release or LinuxONE performance.</li>
+<li>Actual demo: an English UI capture uses a synthetic input. The service sees 21 ciphertexts; the hospital sees risk and model contributions. English v2 local evidence at clean code commit 5412abe matched 2,000/2,000 fixed-point integers with AUC 0.808383 across all variants. The separate local Docker API matched 200/200 synthetic inputs, with client p50 149.015 ms and p95 183.317 ms. Mac/arm64 plus Docker; real LinuxONE measurements remain pending.</li>
 <li>Data and model: CDC UCI 891, 253,680 records and 21 features. Test ROC-AUC 0.826, AP 0.415, sensitivity 0.805, specificity 0.691, PPV 0.297 and Brier 0.098, with the threshold chosen on validation. A separate exploratory reduced ENSANUT model has AUC about 0.77 and underestimates risk; it does not clinically validate the MVP in Mexico.</li>
 <li>Impact: earlier screening with less disclosure. The service sees ciphertexts; the hospital sees the result. The demo uses synthetic inputs and a trusted host administrator.</li></ol></details>
-  <div><a class="btn" href="assets/Los%20Antimarrulla_IBM%20Z%20Datathon%202026%20Project.pdf" download>Download PDF</a> <a class="btn ghost" href="https://github.com/UACJ-MIAAD/antimarrulla-ibmz-datathon-2026">View repository</a></div>
+  <div><a class="btn" href="assets/Los%20Antimarrulla_IBM%20Z%20Datathon%202026%20Project.pdf?v=english-26" download>Download PDF</a> <a class="btn ghost" href="https://github.com/UACJ-MIAAD/antimarrulla-ibmz-datathon-2026">View repository</a></div>
 </div></section>
 
 <section id="data"><div class="wrap">
@@ -314,8 +314,8 @@ load(true);setInterval(tick,1000);tick();setInterval(()=>load(false),120000);
 
 // ---- Deck ----
 const N=8; let cur=1; const img=document.getElementById("slide"), th=document.getElementById("thumbs");
-th.innerHTML=Array.from({length:N},(_,i)=>`<button type="button" class="th" data-i="${i+1}" aria-label="Go to slide ${i+1}"><img src="assets/slides/s-${i+1}.jpg" alt="" loading="lazy"></button>`).join("");
-function go(i){ cur=(i-1+N)%N+1; img.src=`assets/slides/s-${cur}.jpg`; img.alt=`Pitch slide ${cur}`; th.querySelectorAll(".th").forEach(x=>{const on=+x.dataset.i===cur;x.classList.toggle("on",on);x.setAttribute("aria-current",on?"true":"false")}); }
+th.innerHTML=Array.from({length:N},(_,i)=>`<button type="button" class="th" data-i="${i+1}" aria-label="Go to slide ${i+1}"><img src="assets/slides/s-${i+1}.jpg?v=english-26" alt="" loading="lazy"></button>`).join("");
+function go(i){ cur=(i-1+N)%N+1; img.src=`assets/slides/s-${cur}.jpg?v=english-26`; img.alt=`Pitch slide ${cur}`; th.querySelectorAll(".th").forEach(x=>{const on=+x.dataset.i===cur;x.classList.toggle("on",on);x.setAttribute("aria-current",on?"true":"false")}); }
 document.querySelector(".prev").onclick=()=>go(cur-1); document.querySelector(".next").onclick=()=>go(cur+1);
 th.onclick=e=>{ const b=e.target.closest(".th"); if(b) go(+b.dataset.i); };
 document.addEventListener("keydown",e=>{ const a=document.activeElement, deck=document.getElementById("deck"); if(a && /^(INPUT|SELECT|TEXTAREA)$/.test(a.tagName)) return; if(a && a!==document.body && !deck.contains(a)) return; const r=deck.getBoundingClientRect(); if(r.bottom<0||r.top>innerHeight) return; if(e.key==="ArrowRight") go(cur+1); if(e.key==="ArrowLeft") go(cur-1); }); go(1);

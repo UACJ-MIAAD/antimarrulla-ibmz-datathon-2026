@@ -24,7 +24,7 @@ ENSANUT 2022 reports that 18.3% of adults in Mexico have diabetes and about one 
 2. The keyless service evaluates the fixed-point logit: `Enc(z) = product(Enc(x_i)^W_i) * Enc(B)`, then rerandomizes the result.
 3. The hospital decrypts the integer, applies the sigmoid and shows the risk and largest model contributions. This demonstrates screening, not diagnosis, future disease prediction or mortality prediction.
 
-The held-out CDC test split has ROC-AUC 0.826, sensitivity 0.805, specificity 0.691 and PPV 0.297, with threshold chosen on validation. Historical local evidence at `65ae4ef` has 2,000/2,000 exact decrypted integers and AUC 0.808383 across the same sample. Its local deployed API p50 was 141.29 ms over 200 synthetic inputs. These results describe that commit and environment; replace or supplement them with the translated release's actual LinuxONE measurements before submitting. Never relabel local evidence as IBM Z evidence.
+The held-out CDC test split has ROC-AUC 0.826, sensitivity 0.805, specificity 0.691 and PPV 0.297, with threshold chosen on validation. The English v2 local benchmark at clean code commit `5412abe` matched 2,000/2,000 decrypted integers, with AUC 0.808383 in all three variants and maximum logit error 4.50×10^-8. The two-container API matched 200/200 synthetic inputs, with client p50 149.015 ms and p95 183.317 ms. These are Mac/arm64 and Docker results. Add actual translated-release LinuxONE measurements before submission; keep their platform and commit labels.
 
 ## IBM Z / LinuxONE
 
