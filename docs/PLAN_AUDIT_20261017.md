@@ -4,7 +4,7 @@ Scope: all 40 existing stories, required delivery checklist, actual remote histo
 
 ## Remote and integration status
 
-The remote check found main at **679c287**, including English PR 9, the PR 11 audit fixes and Yazmin's PR 10 UI corrections. PR 11 was merged by jrebull at **20:42:57 UTC / 16:42:57 EDT**. That initial check was superseded during validation: Carlos's PR 12 merged as **b04fadb** at 21:00:21 UTC, adding concurrency, macOS host identification and a raw legacy two-host report. Those main changes are integrated here. Yazmin's **PR 13** (`feat/demo-ui-redesign`) is open with passing CI; leave this active UI stream with Yazmin and coordinate its source hash before final measurements. No independent GitHub review is recorded for PRs 9/11/12. Earlier status saying audit fixes awaited integration is stale and has been corrected in the current plan.
+The remote check found main at **679c287**, including English PR 9, the PR 11 audit fixes and Yazmin's PR 10 UI corrections. PR 11 was merged by jrebull at **20:42:57 UTC / 16:42:57 EDT**. That initial check was superseded during validation: Carlos's PR 12 merged as **b04fadb** at 21:00:21 UTC, adding concurrency, macOS host identification and a raw legacy two-host report. Those main changes are integrated here. Yazmin's **PR 13** (`feat/demo-ui-redesign`) subsequently merged at 21:24:20 UTC as **ef1e21d**, with passing CI and no independent GitHub review. This update includes that main version; Yazmin keeps visual-review/video ownership. Pin its changed runtime HTML hash before final measurements. No independent GitHub review is recorded for PRs 9/11/12/13. Earlier status saying audit fixes awaited integration is stale and has been corrected in the current plan.
 
 ## All story groups reviewed
 
@@ -42,7 +42,7 @@ The remote check found main at **679c287**, including English PR 9, the PR 11 au
 3. Link the atlas from the home page and forecast dashboard, including mobile-accessible entry links.
 4. Reconcile merged PR status, current test counts, forecast gap handling and diagram evidence in the plan/checklist.
 
-The website documentation remains reviewable in its own PR. This does not change the screening runtime hash, trained coefficients, observed data or published forecast numbers. Do not require a fresh 2,000-patient run merely because public documentation changed. Record the actual runtime commit and hashes for final VM runs.
+The website documentation remains reviewable in PR 14. This does not change the screening runtime hash, trained coefficients, observed data or published forecast numbers. Do not require a fresh 2,000-patient run merely because public documentation changed. Record the actual runtime commit and hashes for final VM runs.
 
 Verification for this update: **98 host tests pass** after integrating PR 12, including its parallel-worker regression, with exact model reproduction; all ten SVGs render with text inside their cards; deterministic rebuild/local file links pass; desktop page width is 1280/1280 and mobile 390/390, with diagram-only scrolling and expandable text. See `submission/evidence/local/system_diagrams_validation.json`. After adding completed US-7.10, the plan has 41 stories: 23 done, 13 in progress, 5 pending. This does not close any release gate.
 
@@ -57,8 +57,10 @@ The original Carlos report now supplies p50/p95; source/model hashes and the exa
 ## Javier's next 30 minutes
 
 1. Confirm who is the registered leader and open Hack2Skill's submission form. Check required links/uploads before the deadline.
-2. Confirm Carlos and Álvaro use current main `b04fadb` (or the same agreed later runtime, including a deliberate decision about PR 13), and collect original JSON/Markdown records plus English VM/provider captures. Preserve their current work; do not ask for a new model or new feature.
+2. Confirm Carlos and Álvaro use current main `ef1e21d` (or the same agreed later runtime), and collect original JSON/Markdown records plus English VM/provider captures. Preserve their current work; do not ask for a new model or new feature.
 3. Record the existing English script with Yazmin while VM footage arrives. Show the encrypted screening flow first; E5 is an optional short segment. Show the model and instance explicitly.
 4. Obtain actual lab/attendance dates, independent teammate review, and the team's AI-publication decision. These need people; an automated audit cannot complete them.
 
 Internal target: **October 18, 09:00 EDT / 13:00 UTC / 07:00 Ciudad Juárez**. Portal closes **12:30 EDT / 16:30 UTC / 10:30 Ciudad Juárez**. Preserve the 3-hour-30-minute buffer. Defer Granite, CKKS, new E5 models/maps, SQL migration and public Hospital hosting.
+
+Final merged-UI check: native local Hospital and real mutual-TLS service serve PR 13 at ef1e21d. Synthetic C remains 66.3%, with 21 answer rows, 21 ciphertexts plus Enc(z), calibration/session charts and BMI-range validation; a batch of ten random synthetic inputs completes and the 375px UI has no page overflow or console errors. Local Docker rebuild failed because the engine returned HTTP 500, so no new local Docker success is claimed. Prior/new PR CI container results remain separate evidence.
