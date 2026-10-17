@@ -43,6 +43,9 @@ Merged audit corrections save evidence before successful HTTP acknowledgment, re
 
 ## Where to start now
 
+Minute-by-minute closing timeline, on-screen run of show and judge Q&A: [DEMO_RUNBOOK.md](DEMO_RUNBOOK.md).
+
+
 **Javier / coordination: use the next 30 minutes to secure the release, real VM evidence and the video.** Yazmin's form and PR 10 polish are integrated into main through PRs 9/11; US-6.4 is complete for synthetic inputs. Confirm the registered leader/dashboard access; tell Carlos and Álvaro PR 13 is merged and pin the agreed current main release (runtime content `ef1e21d` or a common later runtime) before the final measurements; secure a human review; collect original lab/attendance and Carlos audit records; rehearse the English script with Yazmin. Protect the submission buffer. The website diagrams can be reviewed independently while the runtime remains stable.
 
 | Priority | Owner | Next concrete action | Completion evidence |

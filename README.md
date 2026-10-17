@@ -101,6 +101,9 @@ Original datasets, source fields, proper names, the required submission title an
 
 ## Project and event documents
 
+**Closing and demo:** [demo runbook and closing timeline](docs/DEMO_RUNBOOK.md) — recording order, VM commands, fallback ladder and judge Q&A.
+
+
 [Project design](docs/PROJECT.md) · [decision](docs/DECISION.md) · [data model](docs/DATA_MODEL.md) · [data sources](docs/DATA_SOURCES.md) · [event](docs/EVENT.md) · [rules](docs/RULES.md) · [judging criteria](docs/JUDGING_CRITERIA.md) · [themes](docs/THEMES.md) · [roles](docs/ROLES.md) · [independent review](docs/REVIEW.md) · [factual timeline](docs/TIMELINE.md).
 
 ## Contribution and review
