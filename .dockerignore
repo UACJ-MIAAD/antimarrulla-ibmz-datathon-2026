@@ -1,7 +1,7 @@
-# Contexto mínimo para docker build: solo lo que copia docker/Dockerfile (src/tamizaje, artefactos, tests, data/cdc_891).
+# Minimal app/dev build context; exclude credentials and Python caches.
 *
-!src/tamizaje/**
-!artefactos/**
+!src/screening/**
+!artifacts/**
 !tests/**
 !data/cdc_891/**
 **/__pycache__

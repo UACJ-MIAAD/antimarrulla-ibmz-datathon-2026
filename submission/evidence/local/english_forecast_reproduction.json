@@ -1,0 +1,5 @@
+{
+  "series": 222,
+  "canonical_content_identical": true,
+  "reason_byte_order_differs": "English level labels sort differently from Spanish source labels; comparisons use kind/level/id/sex keys."
+}

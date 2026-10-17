@@ -1,0 +1,99 @@
+{
+  "preserved_original_files": 53,
+  "original_file_sha256": {
+    "data/.gitkeep": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "data/catalogos/clues_202608.csv": "5a71484a8c51ff61a17bb738f59472c0915b54bdf65c175fcf0939b01f4484e5",
+    "data/catalogos/entidades.csv": "ce94f5644269feb294c87cb0ff8dd4bfa12a881c43e07e7c337b9e56a773934f",
+    "data/cdc_891/cdc_diabetes_891.csv": "c75c2d1fd66c86883e996a80977ae0eea83e1a1b56d39272c1abcea46574afcb",
+    "data/conapo/ime_2020.csv": "d23d1fd1847f2ca0d3171c480fe53ae3f15d182efcb70085ae54576d5c84a4bb",
+    "data/conapo/imm_2020.csv": "9725794248f2c2ae86a15580f2b1130868e307837e9b86b4900d8fa562ca669e",
+    "data/conapo/indicadores_demograficos_1950_2070.csv": "e0407d1640f38232023cf97656a0cb7be46049b1cb2344198c7e4aaec7cae6cd",
+    "data/conapo/pobproy_quinq1.csv": "1a8f07be08de082a0c33404f0fbce9d9292845a8c8290153a6ad2e1889bab31a",
+    "data/defunciones/defunciones_diabetes_2024.csv": "78409c6af1ef3e9a31f876e08247ac28d580480bfb02d54c371deea8b9a229d9",
+    "data/egresos_sector/descriptor_sectorial_2018_2024.xlsx": "ffcda5090eb1f94a975c4e7d18b5b0a427bfdc339b4374ec9023fe2d4b707ea0",
+    "data/egresos_sector/egresos_sector_diabetes_2024.csv": "280861337f005a316069ae7b95a4f248e59c121ab7117f7285a53babd3a2be25",
+    "data/egresos_ssa/afecciones_diabetes_2024.csv": "9632eb06176330b1ee1120cfca4ab8ad9682a4c212968e2e4365464085a5531d",
+    "data/egresos_ssa/descriptor_egresos_2023_2025.xlsx": "e1b8c6c7ab35118018e3d2747b142dda864f4d7712b26b08b0ced2b956f11f19",
+    "data/egresos_ssa/egresos_diabetes_2024.csv": "7668373d37ae8e449ca6aa84dc75090d2446cd90c53e95f119d0b776b9283f30",
+    "data/egresos_ssa/procedimientos_diabetes_2024.csv": "9a0635f7235a509adc0ef1dc980b4075b40d6ce65f7f5caf0512ea896f9f91f3",
+    "data/geo/estados_mx.geojson": "1cb576d0cf92bd85d4aff96bfaf455fc1dd373f944c672364a14b8f3425df909",
+    "data/historicos/defunciones_diabetes_2017_2024.csv": "c06f4b4d64c4fde44b2a2b69e32b06419e75c79da85a751be7429034e0af1d10",
+    "data/historicos/defunciones_todas_causas_2017_2024.csv": "5d60cc7095f3963e9506e99ea2053df0b335bdba44071dc6c4bff50cc89f33b6",
+    "data/historicos/egresos_diabetes_2018_2024.csv": "27af73c7217a05f4d8c6d3a393cb4cc162bec87ca11d4d0d4fc9574fd2679f24",
+    "data/historicos/egresos_todas_causas_2018_2024.csv": "1d08f82bf6c349321866d14a527144c37b57edf7218c6fc57abe36826b1a6d9d",
+    "data/imss_detecciones/deteccion_diabetes.csv": "90a316926bc731c7fbc1ed7eaae5b81b3183444f9db95d131ff659fdc975c27b",
+    "data/marts/cascada_entidad_anio.csv": "a481334b6aab00f42efaa4cf3cf090962cf0f08276f17348b2df42415df1dfd3",
+    "data/sinave/boletin/data_raw_Diabetes_T1.csv": "dbcbc2b8311acd608fa556d9357e44a52fdab957b2331ef0d5bbb10057b214df",
+    "data/sinave/boletin/data_raw_Diabetes_T2.csv": "c2f04e5a9942174453d2eed2af1a61b071d87aef0b71e575c5850809f16f963a",
+    "data/sinave/tipo1/epi_dataset_v2.csv": "e1223ba1ef026b8cbe2cf48ff62a62fdedd1e40bc2bf19749563d8b2ed3eb246",
+    "data/sinave/tipo1/products.csv": "5b745e815730f9d52c89e8ad7fb80187e7bf2ce02e785a4502983558e2d28557",
+    "data/sinave/tipo2/epi_dataset_v2.csv": "1d5511b464025b93eb21744710dccf94633483e6b6154cd941eb1f1416eb0db4",
+    "data/sinave/tipo2/products.csv": "926b0fb8a6636ed35923aea0cc63610b805549ee294f1ad14e3d46784d8a5add",
+    "data/sis_cronicas/DA_EC_SIS_2021.zip": "8076b8af25cbcd41ea5edbce22dd4a55d81d1f3fe85a47ed82c4127894f818ad",
+    "data/sis_cronicas/DA_EC_SIS_2022.zip": "a8a6216e93a356e70e538e59ce883be016b483d626440c31a505a129a9c8b8e9",
+    "data/sis_cronicas/DA_EC_SIS_2023.zip": "0024713cddefb8961c14550fa777e37b8205a0736170f70515aec422be83d61a",
+    "data/sis_cronicas/descriptor_servicios_2010_2023.xlsx": "92bb4b01f1a7e134d73e29f220cb19b960041a5f6303ae4047d2fd60257f1cf6",
+    "submission/evidencias/README.md": "5499d546b7fda8c54df14451045bf67684ff54edd14a745feead20bba47ea6cf",
+    "submission/evidencias/labs/REGISTRO.ejemplo.json": "4d81c97edef960c92e9a16da36ba307ec1508e3150094e31bad2b57171de0aeb",
+    "submission/evidencias/linuxone/REGISTRO.ejemplo.json": "6c908597560e3d7b2004ad7184e8cd6be07b652c3954fa8194683d6b7e1c78e1",
+    "submission/evidencias/local/local-docker-aarch64_7937f9f_ui_pantalla_dividida_C.png": "fc19a5c9c1075fbc9bb971fb062b60e909b8600c2b2728257d2ef30c2748382d",
+    "submission/evidencias/local/local-docker-aarch64_ui_pantalla_dividida_A.png": "0a7b125bd4124d8f875758863adcd2c13a9a544288a28a01155a09301a6c1112",
+    "submission/evidencias/local/local-docker-aarch64_ui_pantalla_dividida_C.png": "120a4b6bf4ccfc44d940a635f46700117ad0cdca06434783bd05032bfb3e7ee7",
+    "submission/evidencias/metricas/README.md": "4cf7013ef4591bf9f2b72bbd91fa214d898cdf7059b3c46f24f316f645009789",
+    "submission/evidencias/metricas/medicion_api_local-darwin-arm64_20261017T131320Z.json": "ace26139ac03d2c71693e0e63e17c56fc8ba9891878d97d5470ebe593f2e42d1",
+    "submission/evidencias/metricas/medicion_api_local-darwin-arm64_20261017T131320Z.md": "e2371cf594592d0effc0c8d868caf0e3c02f975d8ea531ac79090e92027e1237",
+    "submission/evidencias/metricas/medicion_api_local-darwin-arm64_20261017T133844Z.json": "4bac686c29b035d1e35819b5dee8ccb2bdf198a240d420ea09f90d6ab663f492",
+    "submission/evidencias/metricas/medicion_api_local-darwin-arm64_20261017T133844Z.md": "433cf77d39015a72487a424bb021b7f5bdb4f680dde7b17202a9e449097ea6a2",
+    "submission/evidencias/metricas/medicion_api_local-darwin-arm64_20261017T180952Z.json": "1626771e94465a079277b1a82ce2471db817b814ce5837eaee0c755a31ef1a3c",
+    "submission/evidencias/metricas/medicion_api_local-darwin-arm64_20261017T180952Z.md": "0535c3b49cd72b4f8ea0d938c515a423b8462cd190ef509b405235501eeb8aa2",
+    "submission/evidencias/metricas/medicion_local-darwin-arm64_20261017T094045Z.json": "74228ad6332b8651380d1b5a4e88aaa6fed9f8fd4ef598c2d011250685ed8abd",
+    "submission/evidencias/metricas/medicion_local-darwin-arm64_20261017T094045Z.md": "f3d67d1ac984e36f00b7ba11a6b25fdfeb13f47dc82238fc4ff5aec74fbdf6a6",
+    "submission/evidencias/metricas/medicion_proceso_local-darwin-arm64_20261017T130843Z.json": "98aceeafa9ef0806e499337f1a79776ea2626b3f37565778f789f044eda3e78a",
+    "submission/evidencias/metricas/medicion_proceso_local-darwin-arm64_20261017T130843Z.md": "0192e78d16e096b2cbf179ba033bbeadc020afaa13d9d4e53d544f4ab8e6f4ab",
+    "submission/evidencias/metricas/medicion_proceso_local-darwin-arm64_20261017T133429Z.json": "640004cbb70824eb1f706ebf0ccdb60f62f75d51bed695181c68e9c8ec20550e",
+    "submission/evidencias/metricas/medicion_proceso_local-darwin-arm64_20261017T133429Z.md": "097f2a526a475b3801abca9fcca3e23fea431532fe92ba6171d17048c9c31e22",
+    "submission/evidencias/metricas/medicion_proceso_local-darwin-arm64_20261017T181050Z.json": "6021207af710a5424026b179f7b369eb3dd8cba162b6051013ec7e85ae13fe2c",
+    "submission/evidencias/metricas/medicion_proceso_local-darwin-arm64_20261017T181050Z.md": "96bd515c5d495089ee549cc4a37c1396745e7e2037448e38cb01b29377f532d5"
+  },
+  "numeric_artifact_checks": [
+    {
+      "file": "artifacts/model/logistic_model_v1.json",
+      "numeric_values_identical": 112
+    },
+    {
+      "file": "artifacts/model/cdc21_schema_v1.json",
+      "numeric_values_identical": 42
+    },
+    {
+      "file": "artifacts/metrics/logistic_model_v1.json",
+      "numeric_values_identical": 195
+    },
+    {
+      "file": "artifacts/metrics/ensanut_exploratory_v1.json",
+      "numeric_values_identical": 59
+    },
+    {
+      "file": "artifacts/splits/cdc891_splits_v1.json",
+      "numeric_values_identical": 253687
+    },
+    {
+      "file": "artifacts/forecast/e5_forecast_v1.json",
+      "numeric_values_identical": 97746
+    },
+    {
+      "file": "site/assets/care_stages.json",
+      "numeric_values_identical": 2304
+    }
+  ],
+  "reproduced_csv_outputs": [
+    "data/defunciones/defunciones_diabetes_2024.csv",
+    "data/historicos/defunciones_diabetes_2017_2024.csv",
+    "data/historicos/defunciones_todas_causas_2017_2024.csv",
+    "data/historicos/egresos_todas_causas_2018_2024.csv",
+    "data/historicos/egresos_diabetes_2018_2024.csv",
+    "data/marts/cascada_entidad_anio.csv",
+    "data/egresos_ssa/procedimientos_diabetes_2024.csv",
+    "data/egresos_ssa/egresos_diabetes_2024.csv",
+    "data/egresos_ssa/afecciones_diabetes_2024.csv"
+  ]
+}

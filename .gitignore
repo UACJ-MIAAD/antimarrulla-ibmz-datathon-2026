@@ -8,7 +8,7 @@ dist/
 *.egg-info/
 .eggs/
 
-# --- Entornos virtuales ---
+# --- Virtual environments ---
 venv/
 .venv/
 env/
@@ -17,14 +17,14 @@ ENV/
 # --- Jupyter ---
 .ipynb_checkpoints/
 
-# --- Secretos y configuración local ---
+# --- Secrets and local configuration ---
 .env
 .env.*
 !.env.example
 *.pem
 *.key
 
-# --- Datos: los originales y crudos van en data/raw/ (ignorado); los datos públicos curados sí se versionan en subcarpetas de data/ ---
+# --- Raw downloads remain ignored; curated public source data is tracked in subdirectories. ---
 data/*.csv
 data/*.tsv
 data/*.parquet
@@ -42,36 +42,38 @@ data/processed/
 !data/README.md
 !data/.gitkeep
 
-# --- Modelos pesados ---
+# --- Large model binaries ---
 *.joblib
 *.h5
 *.pt
 *.onnx
 
-# --- Pruebas y cobertura ---
+# --- Tests and coverage ---
 .pytest_cache/
 .coverage
 htmlcov/
 
-# --- Editores y sistema ---
+# --- Editors and system files ---
 .vscode/
 .idea/
 .DS_Store
 Thumbs.db
 
-# --- Documentos oficiales del evento (no redistribuir) ---
+# --- Original event documents: do not redistribute ---
 docs/*.docx
 docs/*.pdf
 
-# --- Netlify CLI (estado local) ---
+# --- Netlify CLI local state ---
 .netlify/
 
-# Reportes y planes de auditoría externa (solo locales)
+# Private external audit reports and working plans
 docs/AUDITORIA_*.md
 docs/PLAN_REAUDITORIA.md
 
-# Declaración de IA en local mientras el equipo decide dónde va
+# Local AI declaration pending the team publication decision
+docs/AI_USE.local.md
 docs/USO_IA.local.md
+submission/USO_IA.md
 .venv/
 *.pem
 *.key
@@ -79,4 +81,7 @@ stack-check-*.log
 tests/instance/Dockerfile.test
 __pycache__/
 .DS_Store
-submission/USO_IA.md
+submission/AI_USE.md
+
+# Temporary presentation chart-workbook validation
+/.chart-data-*/

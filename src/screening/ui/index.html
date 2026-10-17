@@ -1,0 +1,79 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Privacy-preserving screening · demo</title>
+<style>
+:root{--bg:#0e0e13;--card:#17171f;--line:#2a2a36;--txt:#e8e8ef;--muted:#a3a3b5;--blue:#0f62fe;--lblue:#78a9ff;--green:#24a148;--red:#fa4d56;--yel:#f1c21b}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--txt);font:15px/1.45 system-ui,-apple-system,Segoe UI,Roboto,sans-serif}
+header{padding:14px 20px;border-bottom:1px solid var(--line);display:flex;gap:16px;align-items:center;flex-wrap:wrap}
+h1{font-size:18px;margin:0}.synthetic{background:var(--yel);color:#111;font-weight:700;padding:3px 10px;border-radius:99px;font-size:12px;letter-spacing:.04em}
+.env{color:var(--muted);font-size:13px;margin-left:auto}
+.ctrl{padding:14px 20px;display:flex;gap:8px;flex-wrap:wrap;align-items:center}
+button{background:var(--card);color:var(--txt);border:1px solid var(--line);border-radius:8px;padding:8px 12px;font:inherit;cursor:pointer}
+button.pri{background:var(--blue);border-color:var(--blue)}button:focus-visible{outline:2px solid var(--lblue);outline-offset:2px}
+details{padding:0 20px}summary{cursor:pointer;color:var(--lblue)}
+.form{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:8px;margin:10px 0}
+.form label{font-size:12px;color:var(--muted);display:flex;flex-direction:column;gap:3px}.form input{background:var(--card);color:var(--txt);border:1px solid var(--line);border-radius:6px;padding:6px}
+main{display:grid;grid-template-columns:1fr 1fr;gap:16px;padding:16px 20px}@media(max-width:820px){main{grid-template-columns:1fr}}
+section{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:16px;min-height:280px}
+section h2{font-size:15px;margin:0 0 4px}.sub{color:var(--muted);font-size:13px;margin:0 0 12px}
+.service h2{color:var(--lblue)}.hospital h2{color:var(--green)}
+.mono{font:12px/1.5 ui-monospace,SFMono-Regular,Menlo,monospace;color:#c6c6d4;word-break:break-all}
+.ciphertexts{display:grid;grid-template-columns:150px 1fr;gap:2px 8px}.ciphertexts span:nth-child(odd){color:var(--muted)}
+.big{font-size:44px;font-weight:700}.badge{display:inline-block;padding:3px 10px;border-radius:99px;font-weight:700;font-size:13px}
+.high{background:var(--red);color:#fff}.low{background:var(--green);color:#fff}
+.bar{display:grid;grid-template-columns:150px 1fr 60px;gap:8px;align-items:center;font-size:13px;margin:4px 0}
+.bar i{display:block;height:10px;border-radius:5px}
+footer{padding:4px 20px 18px;color:var(--muted);font-size:13px}
+.kpis{display:flex;gap:18px;flex-wrap:wrap}.kpis b{display:block;font-size:20px;color:var(--txt)}
+.err{color:var(--red)}
+</style>
+</head>
+<body>
+<header>
+ <h1>Privacy-preserving screening</h1><span class="synthetic">SYNTHETIC INPUTS · DEMO</span>
+ <span class="env" id="environment">connecting…</span>
+</header>
+<div class="ctrl" id="profiles"></div>
+<details><summary>Edit the 21 features (custom synthetic input)</summary><form class="form" id="form"></form><button class="pri" id="submit" type="button">Evaluate these values</button></details>
+<main>
+ <section class="service" aria-live="polite"><h2>What the risk service sees</h2><p class="sub">Ciphertexts encrypted with the hospital's public key. The service has no private key.</p><div id="service"><p class="sub">Choose a synthetic profile.</p></div></section>
+ <section class="hospital" aria-live="polite"><h2>What the hospital sees</h2><p class="sub">The hospital decrypts the score using its private key and computes the risk.</p><div id="hospital"></div></section>
+</main>
+<footer><div class="kpis" id="timings"></div><p>Screening, not diagnosis. Both containers share one host in this demo; the host administrator is trusted. Synthetic profiles do not represent real patients.</p></footer>
+<script>
+const $=id=>document.getElementById(id);let SCHEMA=null,PROFILES={};
+const LABELS={HighBP:'High blood pressure',HighChol:'High cholesterol',CholCheck:'Cholesterol checked',BMI:'Body mass index',Smoker:'Smoking history',Stroke:'Stroke history',HeartDiseaseorAttack:'Heart disease/attack',PhysActivity:'Physical activity',Fruits:'Daily fruit',Veggies:'Daily vegetables',HvyAlcoholConsump:'Heavy alcohol use',AnyHealthcare:'Healthcare coverage',NoDocbcCost:'Cost barrier to care',GenHlth:'General health code',MentHlth:'Poor mental-health days',PhysHlth:'Poor physical-health days',DiffWalk:'Walking difficulty',Sex:'Sex code',Age:'Age category code',Education:'Education category',Income:'Income category'};
+async function api(url,body){const r=await fetch(url,body?{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(body)}:{});const data=await r.json();if(!r.ok)throw new Error(data.error||r.status);return data}
+function escapeHtml(text){return String(text).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]))}
+function fill(profile){for(const feature of SCHEMA.variables){$('f_'+feature.name).value=profile[feature.name]}}
+async function evaluate(body){$('service').innerHTML='<p class="sub">Encrypting and sending…</p>';$('hospital').innerHTML='';
+ try{render(await api('/api/evaluate',body))}catch(error){$('service').innerHTML=`<p class="err">${escapeHtml(error.message)}</p>`}}
+function render(result){const service=result.server,hospital=result.hospital;
+ $('service').innerHTML=`<div class="mono">protocol ${escapeHtml(service.received.protocol)} · model ${escapeHtml(service.received.model)} · schema ${escapeHtml(service.received.schema)}<br>public key: ${service.received.key_public_bits} bits · request ${service.received.bytes.toLocaleString('en-US')} bytes</div>
+ <p class="sub" style="margin-top:10px">Received 21 ciphertexts (leading hexadecimal digits):</p>
+ <div class="ciphertexts mono">${service.received.ciphertexts.map((cipher,i)=>`<span>Enc(feature ${i+1})</span><span>${escapeHtml(cipher.hex)}</span>`).join('')}</div>
+ <p class="sub" style="margin-top:10px">Returned encrypted score (${service.returned.bytes.toLocaleString('en-US')} bytes, ${service.returned.service_ms} ms evaluation):</p><div class="mono">Enc(z) = ${escapeHtml(service.returned.result.hex)}</div>`;
+ const percent=(hospital.probability*100).toFixed(1),max=Math.max(...hospital.factors.map(f=>Math.abs(f.contribution_logit)),.01);
+ $('hospital').innerHTML=`<div class="sub">${escapeHtml(result.profile)} · id ${escapeHtml(result.id.slice(0,8))}</div><div class="big">${percent}%</div>
+ <span class="badge ${hospital.risk_high?'high':'low'}">${hospital.risk_high?'Prioritize a glucose test':'Risk below the threshold'}</span>
+ <p class="sub" style="margin-top:8px">Threshold ${(hospital.threshold*100).toFixed(1)}% (chosen on validation) · logit ${hospital.logit.toFixed(4)} · z = ${escapeHtml(hospital.z_integer)}</p>
+ <p class="sub">Largest model contributions relative to the training mean (not causal effects):</p>
+ ${hospital.factors.map(f=>`<div class="bar"><span>${escapeHtml(f.variable)}</span><i style="width:${Math.abs(f.contribution_logit)/max*100}%;background:${f.contribution_logit>0?'var(--red)':'var(--green)'}"></i><span>${f.contribution_logit>0?'+':''}${f.contribution_logit}</span></div>`).join('')}`;
+ const time=result.timings_ms;$('timings').innerHTML=`<span><b>${time.encrypt} ms</b>encrypt (hospital)</span><span><b>${time.network_and_service} ms</b>TLS + service</span><span><b>${time.decrypt} ms</b>decrypt (hospital)</span><span><b>${time.vault} ms</b>AES-GCM vault + fsync</span><span><b>${time.total_in_hospital} ms</b>total inside hospital (excludes browser)</span>`}
+async function init(){
+ try{const state=await api('/api/state');$('environment').textContent=`service: ${state.service.state} · architecture ${state.machine} (${state.system}) · ${state.key_bits}-bit key · ${state.model}`}catch(error){$('environment').textContent='service state unavailable'}
+ const result=await api('/api/synthetic');SCHEMA=result.schema;PROFILES=result.profiles;
+ $('profiles').innerHTML=Object.keys(PROFILES).map(name=>`<button type="button" data-profile="${escapeHtml(name)}">${escapeHtml(name)}</button>`).join('')+'<button type="button" id="random">Random synthetic input</button>';
+ $('profiles').onclick=event=>{const button=event.target.closest('button');if(!button)return;if(button.id==='random')return evaluate({random_patient:true});fill(PROFILES[button.dataset.profile]);evaluate({profile:button.dataset.profile})};
+ $('form').innerHTML=SCHEMA.variables.map(feature=>`<label>${escapeHtml(LABELS[feature.name]||feature.name)} · ${escapeHtml(feature.name)} (${feature.min}–${feature.max})<input id="f_${feature.name}" type="number" step="1" min="${feature.min}" max="${feature.max}" required></label>`).join('');
+ fill(Object.values(PROFILES)[0]);
+ const query=new URLSearchParams(location.search).get('profile');if(query){const name=Object.keys(PROFILES).find(n=>n.endsWith(query)||n.includes('Synthetic '+query));if(name){fill(PROFILES[name]);evaluate({profile:name})}}
+ $('submit').onclick=()=>{const patient={};for(const feature of SCHEMA.variables){const value=$('f_'+feature.name).value;patient[feature.name]=value===''?null:Number(value)}evaluate({patient})};
+}
+init().catch(error=>{$('service').innerHTML=`<p class="err">${escapeHtml(error.message)}</p>`});
+</script>
+</body>
+</html>

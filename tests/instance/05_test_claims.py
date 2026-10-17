@@ -1,8 +1,7 @@
 #!/usr/bin/env python3
-"""Pruebas del proyecto real (21 variables), no un protocolo de referencia aparte.
-
-Ejecutar desde cualquier carpeta con el Python del entorno del proyecto.
-Guarda salida de pytest y procedencia; s390x por sí solo no identifica al proveedor.
+"""Run the actual 21-feature project tests rather than a separate reference protocol.
+Use the project environment Python from any working directory. Save pytest output and
+execution provenance; s390x alone does not identify the cloud provider.
 """
 import argparse
 import datetime
@@ -13,33 +12,33 @@ import platform
 import subprocess
 import sys
 
-RAIZ = Path(__file__).resolve().parents[2]
-sys.path.insert(0, str(RAIZ / "src"))
-from tamizaje import procedencia
+ROOT = Path(__file__).resolve().parents[2]
+sys.path.insert(0, str(ROOT / "src"))
+from screening import provenance
 
 
 def main():
     ap = argparse.ArgumentParser(description=__doc__)
-    ap.add_argument("--salida", type=Path, default=RAIZ / "submission/evidencias/instancia")
+    ap.add_argument("--output", type=Path, default=ROOT / "submission/evidence/instance")
     args = ap.parse_args()
-    pruebas = ["tests/test_protocolo.py", "tests/test_integracion.py", "tests/test_medicion.py"]
-    comando = [sys.executable, "-m", "pytest", "-q", "-p", "no:cacheprovider", *pruebas]
-    env = {**os.environ, "PYTHONPATH": str(RAIZ / "src")}
-    run = subprocess.run(comando, cwd=RAIZ, env=env, text=True, stdout=subprocess.PIPE, stderr=subprocess.STDOUT)
+    tests = ["tests/test_protocol.py", "tests/test_integration.py", "tests/test_measurement.py"]
+    command = [sys.executable, "-m", "pytest", "-q", "-p", "no:cacheprovider", *tests]
+    env = {**os.environ, "PYTHONPATH": str(ROOT / "src")}
+    run = subprocess.run(command, cwd=ROOT, env=env, text=True, stdout=subprocess.PIPE, stderr=subprocess.STDOUT)
     print(run.stdout, end="")
-    ahora = datetime.datetime.now(datetime.timezone.utc)
-    args.salida.mkdir(parents=True, exist_ok=True)
-    base = args.salida / ("claims_proyecto_" + ahora.strftime("%Y%m%dT%H%M%S%fZ"))
+    now = datetime.datetime.now(datetime.timezone.utc)
+    args.output.mkdir(parents=True, exist_ok=True)
+    base = args.output / ("claims_proyecto_" + now.strftime("%Y%m%dT%H%M%S%fZ"))
     log = base.with_suffix(".log")
     log.write_text(run.stdout, encoding="utf-8")
-    registro = {"fecha_utc": ahora.isoformat(), "tipo": "pruebas_del_proyecto_cdc21",
-                "arquitectura": platform.machine(), "python": platform.python_version(),
-                "linuxone": "no_verificado: contrastar con dashboard de Community Cloud",
-                "pruebas": pruebas, "pytest_exit_code": run.returncode,
-                "procedencia": procedencia.registrar(), "log": log.name,
-                "log_sha256": procedencia.sha256(log)}
-    base.with_suffix(".json").write_text(json.dumps(registro, ensure_ascii=False, indent=2), encoding="utf-8")
-    print("Evidencia del proyecto:", base.with_suffix(".json"))
+    record = {"date_utc": now.isoformat(), "kind": "tests_of_proyecto_cdc21",
+                "architecture": platform.machine(), "python": platform.python_version(),
+                "linuxone": "unverified: compare with the Community Cloud dashboard",
+                "tests": tests, "pytest_exit_code": run.returncode,
+                "provenance": provenance.capture(), "log": log.name,
+                "log_sha256": provenance.sha256(log)}
+    base.with_suffix(".json").write_text(json.dumps(record, ensure_ascii=False, indent=2), encoding="utf-8")
+    print("Project evidence:", base.with_suffix(".json"))
     return run.returncode
 
 

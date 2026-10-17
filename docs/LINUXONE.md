@@ -1,77 +1,78 @@
-# 🖥️ Correr Tamizaje a ciegas en LinuxONE (s390x)
+# LinuxONE runbook (s390x)
 
-> Estado (17 oct 2026, 13:20 UTC): todo está probado en local (macOS arm64, contenedores Linux arm64) y en CI (Ubuntu x86_64). **Todavía no se ha corrido en LinuxONE: `no_verificado`** (la sesión que preparó esto no tiene acceso SSH a la VM). Estos son los pasos para hacerlo en la VM Ubuntu 24.04 de la Community Cloud. Responsable: Álvaro, con Carlos para las mediciones.
+Actual LinuxONE execution and provider evidence remain **unverified**. Local Mac/Ubuntu containers and GitHub x86_64 CI do not replace them. Owner: Álvaro, with Carlos for measurements. Use the translated release commit throughout. The optional [two-host test](TWO_HOSTS.md) is separate from the approved one-VM/two-container MVP.
 
-> Prueba con **dos VM** (servicio en una, hospital en otra, registros reales del CDC y auditoría de que el servicio solo vio cifrados): [DOS_MAQUINAS.md](DOS_MAQUINAS.md).
+## 0. Prerequisites
 
-## 0. Antes de empezar
+- [ ] Both required labs completed, with actual dates and screenshots in `submission/evidence/labs/`
+- [ ] SSH access for the operator; no private keys, tokens or passwords in Git, screenshots or chat
+- [ ] Registered leader and submission access confirmed
+- [ ] Same translated commit for hospital, service, measurements and recording
 
-- [ ] Los **dos labs obligatorios** completados, con capturas en `submission/evidencias/` (la guía los exige antes de construir la solución propia).
-- [ ] Acceso SSH de quien vaya a correrlo. Nunca pegar llaves, contraseñas ni tokens en el repo, en capturas o en el chat.
+The labs-before-coding chronology remains disclosed in [TIMELINE.md](TIMELINE.md). Do not infer an organizer waiver.
 
-## 1. Preparar la VM (una sola vez)
+## 1. Prepare the VM
 
 ```bash
 sudo apt-get update
 sudo apt-get install -y git make docker.io docker-compose-v2
-sudo usermod -aG docker $USER      # cerrar sesión y volver a entrar
+sudo usermod -aG docker "$USER"
+# Log out and back in before using the Docker group.
 git clone https://github.com/UACJ-MIAAD/antimarrulla-ibmz-datathon-2026.git
 cd antimarrulla-ibmz-datathon-2026
+git checkout RELEASE_COMMIT
 ```
 
-No hace falta instalar Python con pip en la VM: las imágenes usan Ubuntu 24.04 y sus paquetes `python3-*` de apt, que existen para s390x. Solo `phe` (Python puro) se instala con pip dentro de la imagen.
+Ubuntu 24.04 `python3-*` apt packages support s390x; only pure-Python `phe` is installed through pip in the image. No native pip wheels are required on the host.
 
-## 2. Verificar, levantar y medir
+## 2. Verify, start and measure
 
-Las pruebas preliminares de `03_test_stack.py` verifican bibliotecas. `05_test_claims.py` ahora ejecuta el protocolo real de 21 variables y guarda salida con procedencia en `submission/evidencias/instancia/`. Con el entorno del proyecto listo: `make instance-claims`; sin instalar nada en el host, `make verify-docker` prueba la implementación dentro de Ubuntu. Guardar salidas y capturas; una cifra por chat no cierra la evidencia de VM.
+`03_test_stack.py` is library preflight. `05_test_claims.py` runs the actual project tests and saves provenance under `submission/evidence/instance/`; `make instance-claims` uses a configured host environment. Without host Python setup, use `make verify-docker`.
 
 ```bash
-git checkout <commit fijado>             # el mismo que se quiere evidenciar; sin cambios locales
-make verify-docker                         # todas las pruebas + verificación de artefactos y re-entrenamiento, dentro de Linux s390x
-make imagen-inspeccion                     # la imagen app solo trae modelo y UI (sin CDC, pruebas ni llaves)
-make demo-docker                           # secretos en ~/.tamizaje, hospital + servicio y prueba de humo
-make medir-docker FINAL=1                  # exactitud + microbenchmarks dentro de Linux s390x
-make medir-api-docker FINAL=1              # cliente → API del hospital → mTLS → servicio → bóveda (dos contenedores)
-docker image inspect -f '{{.Id}}' tamizaje:demo tamizaje:dev   # anotar los digests
+make verify-docker
+make image-inspect
+make demo-docker
+make measure-docker FINAL=1
+make measure-api-docker FINAL=1
+docker image inspect -f '{{.Id}}' screening:demo screening:dev
 ```
 
-Con `FINAL=1` la medición se rechaza si hay cambios relevantes sin commit, y guarda commit, hash del código ejecutado dentro de la imagen, digest de la imagen, modelo y particiones. Se etiqueta como `s390x` cuando `uname -m` es `s390x` (eso **no** prueba que sea LinuxONE: s390x también puede ser emulado; por eso hace falta la captura del dashboard de la Community Cloud), y registra `lscpu`, `cpacfinfo` (si `s390-tools` está instalado en la imagen), versiones de OpenSSL de la CLI y de `cryptography`, commit y hashes.
+Keep output JSON/MD and screenshots. `FINAL=1` requires an identifiable clean code commit. The API measurement also requires matching remote code/model. Records include hashes for executed code, model, splits and input data, plus image identity and environment. Architecture `s390x` is insufficient to identify the provider; a Community Cloud dashboard capture is required. Record `lscpu`, `cpacfinfo` where available, CLI OpenSSL and the OpenSSL used by `cryptography`.
 
-## 3. Ver la UI sin exponer puertos
+The English package/API changed to `screening` / `screening-paillier-v2`. Rebuild both containers together; an old Spanish endpoint is not a compatible peer. Generate credentials in an appropriate external directory and keep existing deployments' vaults and keys paired.
 
-La demo solo escucha en `127.0.0.1:8080` de la VM. Desde la laptop:
+## 3. View the UI through SSH
+
+The hospital binds to VM loopback by default. From the laptop:
 
 ```bash
-ssh -L 8080:127.0.0.1:8080 <usuario>@<ip-de-la-vm>
-# y abrir http://127.0.0.1:8080
+ssh -L 8080:127.0.0.1:8080 USER@VM_IP
 ```
 
-## 4. Evidencia para jueces (capturas sin secretos)
+Open `http://127.0.0.1:8080`. Keep English labels and environment visible in the recording; use synthetic inputs only. `SCREENING_UI_PORT` can select another local Compose host port.
 
-Guardar en `submission/evidencias/linuxone/`:
+## 4. Capture evidence without secrets
 
-| Captura | Comando |
-|---------|---------|
-| Identidad de la VM | captura del dashboard de LinuxONE Community Cloud con la VM (sin datos de acceso) |
-| Arquitectura | `uname -m` → `s390x` y `lscpu` |
-| CPACF disponible | `cpacfinfo -a` (paquete `s390-tools`) |
-| OpenSSL de la CLI y de la app | `openssl version -a` y el campo `openssl_de_cryptography` de la medición |
-| Contenedores corriendo | `docker compose -f docker/compose.yml ps` |
-| El servicio no tiene la llave privada | `docker compose -f docker/compose.yml exec servicio ls /run/tamizaje` (solo certificado TLS, su llave TLS y la CA) |
-| Logs sin datos de pacientes | `docker compose -f docker/compose.yml logs servicio` |
-| UI con un paciente sintético | captura del navegador por el túnel SSH |
-| Versiones efectivas | `docker run --rm tamizaje:dev dpkg -l 'python3-*' \| grep ^ii` |
+| Evidence | Command or source |
+|----------|-------------------|
+| VM provider identity | LinuxONE Community Cloud dashboard, with access secrets hidden |
+| Architecture | `uname -m` and `lscpu` |
+| CPACF availability | `cpacfinfo -a` where installed |
+| CLI and application OpenSSL | `openssl version -a`; measurement `openssl_of_cryptography` |
+| Running containers | `docker compose -f docker/compose.yml ps` |
+| Service-mounted files | `docker compose -f docker/compose.yml exec service ls /run/screening` |
+| Operational logs | `docker compose -f docker/compose.yml logs service` |
+| Synthetic UI and loaded model | Browser through SSH tunnel; `/api/state` |
+| Effective package versions | `docker run --rm screening:dev dpkg -l 'python3-*'` |
+| Model execution and resource use | Verification/measurement outputs and CPU/memory capture |
 
-> CPACF acelera AES; **no** acelera Paillier. Solo se atribuye aceleración por hardware a lo que la evidencia sostenga.
+CPACF can accelerate AES, not Paillier. Do not claim measured hardware acceleration, Secure Execution or protection from the host administrator without actual evidence.
 
-## 5. Registro para el paquete final
+## 5. Final evidence record
 
-Copiar `submission/evidencias/linuxone/REGISTRO.ejemplo.json` como `REGISTRO.json`, con responsable, fecha y el nombre de cada captura real. `make package FINAL=1` revisa que existan, que sean PNG/JPEG y que las mediciones `s390x` tengan resultados completos y procedencia limpia (no certifica el contenido de las capturas).
+Copy `submission/evidence/linuxone/RECORD.example.json` to `RECORD.json`; fill the actual owner/date and real screenshot names. Save new measurements under `submission/evidence/metrics/`. `make package FINAL=1` checks required records, substantive measurement results, clean provenance and actual PNG/JPEG files. It cannot certify screenshot content or an organizer decision.
 
-## 6. Después
+## 6. Commit and hand off
 
-Mantener el mismo commit durante cada corrida. Un cambio nuevo modifica el hash del código aunque no cambie el modelo; las mediciones anteriores se conservan como evidencia de su propia versión. Seguir [PLAN_CIERRE.md](PLAN_CIERRE.md): la segunda VM y el formulario pulido son extras, sin bloquear el MVP aprobado de una VM.
-
-- Hacer commit de `submission/evidencias/metricas/` y `submission/evidencias/linuxone/`.
-- Actualizar las historias US-2.5, US-2.6, US-6.2 y US-6.3 en `site/status.json` solo con esa evidencia.
-- Reemplazar en el deck y el guion las cifras locales por las de LinuxONE.
+Commit measurements and VM evidence. Update US-2.5, US-2.6, US-6.2 and US-6.3 only when their evidence exists. Replace local deck/script figures with actual VM results, preserving environment/version labels. Any code edit changes the source hash; earlier measurements remain evidence of their own commit. Follow [DELIVERY_PLAN.md](DELIVERY_PLAN.md) for freeze/submission deadlines.

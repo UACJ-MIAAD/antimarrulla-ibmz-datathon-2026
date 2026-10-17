@@ -4,7 +4,7 @@
 
 **All authored project material must be in English**, as instructed by the captain: code identifiers, comments/docstrings, tests, logs/errors, CLI help, UI/site, notebooks, documentation, diagrams, slides, video and submission text. Use English for new commits and PR descriptions.
 
-Keep proper names, the exact required submission title, official source identifiers and verbatim quotations intact. Never rewrite historical commits, dates, measured evidence or raw data to translate them. Explain source fields in English. Coordinate identifier/module/schema changes with every import, caller, CLI target and test; validate the same translated commit before recording final LinuxONE evidence. See US-7.9 and [PLAN_CIERRE.md](docs/PLAN_CIERRE.md). The language migration remains open until the team reviews all release material.
+Keep proper names, the exact required submission title, official source identifiers and verbatim quotations intact. Never rewrite historical commits, dates, measured evidence or raw data to translate them. Explain source fields in English. Coordinate identifier/module/schema changes with every import, caller, CLI target and test; validate the same translated commit before recording final LinuxONE evidence. See US-7.9 and [DELIVERY_PLAN.md](docs/DELIVERY_PLAN.md). The language migration remains open until the team reviews all release material.
 
 ## 2. Branches
 
@@ -24,7 +24,7 @@ Keep proper names, the exact required submission title, official source identifi
 
 Use English, in the form `type: description`, for example `fix: reject mismatched remote code` or `docs: update the submission window`.
 
-Commit frequently and keep changes reviewable. Project code must follow the event's permitted coding window. Preserve existing factual history; do not rebase published `main`, force-push, backdate commits or import code from previous projects. Check the system clock. The submission portal opening does not by itself establish the permitted coding start; the unresolved facts are recorded in [CRONOLOGIA.md](docs/CRONOLOGIA.md).
+Commit frequently and keep changes reviewable. Project code must follow the event's permitted coding window. Preserve existing factual history; do not rebase published `main`, force-push, backdate commits or import code from previous projects. Check the system clock. The submission portal opening does not by itself establish the permitted coding start; the unresolved facts are recorded in [TIMELINE.md](docs/TIMELINE.md).
 
 ## 5. Notebooks
 
@@ -42,7 +42,7 @@ Commit frequently and keep changes reviewable. Project code must follow the even
 
 ## 7. Team cadence and submission
 
-Follow [PLAN_CIERRE.md](docs/PLAN_CIERRE.md) and [ROLES.md](docs/ROLES.md).
+Follow [DELIVERY_PLAN.md](docs/DELIVERY_PLAN.md) and [ROLES.md](docs/ROLES.md).
 
 - Stand-up every four hours; ask for help after 30 minutes blocked.
 - H18: working demo. H20: feature freeze.

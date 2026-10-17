@@ -1,26 +1,25 @@
-# 🎬 Video (máx. 3 min) · montaje
+# Video editing and recording
 
-> **Estado:** hay un **borrador sin audio** de 170 s (`make video-borrador` → `dist/video/borrador_montaje_sin_audio.mp4`, no se versiona) con los tiempos del [guion](PITCH.md). **El video final no está hecho**: faltan las voces del equipo y la grabación real en LinuxONE (en el borrador hay un marcador amarillo en su lugar).
+**Final video pending:** the English 170-second silent editing draft is not a completed submission. Authorized English narration and actual LinuxONE/model footage must still be recorded. Run `make video-draft` to generate `dist/video/silent_edit_draft.mp4` without audio. A clear English placeholder occupies the missing VM segment.
 
-## Storyboard (170 s)
+| Segment | Time | Draft image | Final recording | Voice |
+|---------|------|-------------|-----------------|-------|
+| 1 | 0:00–0:10 | Slide 1 | Introduction | Yazmin |
+| 2 | 0:10–0:35 | Slide 2 | Problem | Yazmin |
+| 3 | 0:35–0:55 | Slide 3 | Solution | Carlos |
+| 4 | 0:55–1:20 | Slide 4 | Encryption | Carlos |
+| 5 | 1:20–1:35 | Slide 5 | Architecture | Álvaro |
+| 5b | 1:35–1:50 | English pending-footage marker | Actual VM: provider identity, `uname -m`, Compose containers and loaded model (`/api/state`) | Álvaro |
+| 6 | 1:50–2:00 | Slide 6 | Results | Javier |
+| 6b | 2:00–2:25 | Local English UI screenshot | English UI recorded through the LinuxONE SSH tunnel, synthetic profile C | Javier |
+| 7 | 2:25–2:33 | Slide 7 | Data/model | Yazmin |
+| 8 | 2:33–2:50 | Slide 8 | Close | Yazmin |
 
-| # | Tiempo | Imagen en el borrador | Qué grabar para el final | Voz |
-|---|-------:|-----------------------|--------------------------|-----|
-| 1 | 0:00–0:10 | Slide 1 | — | Yazmin |
-| 2 | 0:10–0:35 | Slide 2 | — | Yazmin |
-| 3 | 0:35–0:55 | Slide 3 | — | Carlos |
-| 4 | 0:55–1:20 | Slide 4 | — | Carlos |
-| 5 | 1:20–1:35 | Slide 5 | — | Álvaro |
-| 5b | 1:35–1:50 | **Marcador** | Terminal en la VM: `uname -m` → `s390x`, `docker compose -f docker/compose.yml ps`, modelo cargado (`/api/estado`) | Álvaro |
-| 6 | 1:50–2:00 | Slide 6 | — | Javier |
-| 6b | 2:00–2:25 | Captura local de la UI | Grabación de la UI por el túnel SSH a LinuxONE con el paciente sintético C | Javier |
-| 7 | 2:25–2:33 | Slide 7 | — | Yazmin |
-| 8 | 2:33–2:50 | Slide 8 | — | Yazmin |
+- [ ] Record 5b/6b on LinuxONE without credentials visible; replace the placeholder/local capture
+- [ ] Record authorized English voices using [PITCH.md](PITCH.md)
+- [ ] Review synchronization, legibility and audio
+- [ ] Verify final duration with `ffprobe`, at most 180 seconds
+- [ ] Publish and test the URL without a login
+- [ ] Add the same URL to [HACK2SKILL.md](HACK2SKILL.md) and `submission/VIDEO_RECORD.json`, using `VIDEO_RECORD.example.json`
 
-## Para cerrar el video
-
-- [ ] Grabar 5b y 6b en LinuxONE (sin tokens ni contraseñas en pantalla) y reemplazar el marcador y la captura local.
-- [ ] Grabar las voces con el guion de [PITCH.md](PITCH.md) y montarlas sobre el borrador.
-- [ ] Medir la duración del archivo final (≤ 3:00) con `ffprobe`; revisar audio y legibilidad.
-- [ ] Subirlo y probar el link en una ventana de incógnito.
-- [ ] Anotar el link en [HACK2SKILL.md](HACK2SKILL.md) y llenar `submission/VIDEO_REGISTRO.json` (copia de `VIDEO_REGISTRO.ejemplo.json`) con URL, duración medida, audio y verificación de acceso.
+The silent draft has no consent or voice claims. Do not check “final video” until the actual narrated recording and access check exist.

@@ -1,6 +1,6 @@
 # Roles, responsibilities and rest rota
 
-> Four team members. Another member must review each PR. Current priorities and English workstreams are in [PLAN_CIERRE.md](PLAN_CIERRE.md); story status is in [site/status.json](../site/status.json).
+> Four team members. Another member must review each PR. Current priorities and English workstreams are in [DELIVERY_PLAN.md](DELIVERY_PLAN.md); story status is in [site/status.json](../site/status.json).
 
 ## Current release requirements
 
@@ -46,7 +46,7 @@ The submission portal is open from **October 16, 2026, 23:45 UTC** until **Octob
 
 ## Existing 24-hour schedule
 
-Internal H0 is **October 17, 07:00 Ciudad Juárez / 09:00 EDT**, distinct from the portal opening. H18 is October 18, 01:00 Juárez; H24 is October 18, 07:00 Juárez, the internal submission target. This rota is retained as planning history; it does not certify that labs preceded coding. Follow [CRONOLOGIA.md](CRONOLOGIA.md) for actual facts.
+Internal H0 is **October 17, 07:00 Ciudad Juárez / 09:00 EDT**, distinct from the portal opening. H18 is October 18, 01:00 Juárez; H24 is October 18, 07:00 Juárez, the internal submission target. This rota is retained as planning history; it does not certify that labs preceded coding. Follow [TIMELINE.md](TIMELINE.md) for actual facts.
 
 | Hours | Javier | Álvaro | Carlos | Yazmin |
 |-------|--------|--------|--------|--------|

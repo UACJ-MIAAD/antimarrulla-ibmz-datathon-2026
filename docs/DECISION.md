@@ -1,101 +1,69 @@
-# 🗳️ Acta de decisión
+# Project decision record
 
-> Insumos: [IDEAS.md](IDEAS.md) y el ranking de 11 ideas con jueces ciegos ([Ranking_Ideas_Antimarrulla.pptx](Ranking_Ideas_Antimarrulla.pptx)).
+Inputs: [candidate ideas](IDEAS.md) and the [simulated blind ranking](Idea_Ranking_Antimarrulla.pptx). The ranking used AI-simulated judges; its scores are not official event scores or evidence of clinical performance.
 
-## Datos de la reunión
+## Meeting
 
-| Campo | Valor |
+| Field | Value |
 |-------|-------|
-| Fecha | 17 de octubre de 2026 (antes del kick-off de las 7:00, hora Juárez) |
-| Asistentes | Javier, Álvaro, Carlos, Yazmin |
-| Moderó | Javier Augusto Rebull Saucedo |
+| Date | October 17, 2026, before the internal 07:00 Ciudad Juárez start |
+| Participants | Javier, Álvaro, Carlos, Yazmin |
+| Moderator | Javier Augusto Rebull Saucedo |
 
-## Ranking que usamos para decidir
+Three simulated judge profiles (IBM Z expert, AI for Good leader and AI/security researcher) scored eleven anonymized ideas using the 40-point rubric.
 
-Tres jueces ciegos simulados con IA (perfiles: experto IBM Z, líder AI for Good, investigador de IA y seguridad) calificaron 11 ideas anonimizadas con la rúbrica oficial de 40 pts. Top 5:
+| Rank | Idea | Theme | /40 | AI innovation /20 | Feasibility /5 |
+|------|------|-------|----:|------------------:|---------------:|
+| 1 | Borderless transfers: remittances and OFAC/AML | T1/T2 | 29.3 | 13.7 | 3.0 |
+| **2** | **Encrypted-data diabetes screening** | **T2** | **29.0** | **15.0** | **2.7** |
+| 3 | Federated remittance fraud detection | T2 | 28.3 | 13.0 | 4.0 |
+| 4 | SPEI fraud shield | T1 | 28.0 | 12.0 | 4.7 |
+| 5 | Post-quantum banking scanner | T2 | 27.3 | 10.7 | 3.7 |
 
-| # | Idea | Tema | Total /40 | AI Innovation /20 | Factibilidad /5 |
-|---|------|------|----------:|------------------:|----------------:|
-| 1 | Transferencias sin fronteras (remesas + OFAC/AML) | T1 · T2 | 29.3 | 13.7 | 3.0 |
-| **2** | **Diagnóstico sobre datos cifrados (diabetes)** | **T2** | **29.0** | **15.0** | **2.7** |
-| 3 | Antifraude federado en remesas | T2 | 28.3 | 13.0 | 4.0 |
-| 4 | Escudo antifraude SPEI | T1 | 28.0 | 12.0 | 4.7 |
-| 5 | Escáner post-cuántico para banca | T2 | 27.3 | 10.7 | 3.7 |
+## Selected project
 
-## Idea elegida
+Privacy-preserving screening (original planning name retained in historical evidence). Theme **T2 · AI Secured: Innovation Without Exposure**. The service evaluates encrypted inputs; the hospital retains its private key and sees the result.
 
-- **Idea:** #2 del ranking · Diagnóstico sobre datos cifrados
-- **Nombre del proyecto:** **Tamizaje a ciegas**
-- **Tema oficial:** **T2 · AI Secured: Innovation Without Exposure**
-- **Frase de una línea:** *La IA ve el riesgo. Nadie ve al paciente.*
+Selection reasons: strong Theme 2 fit; highest simulated innovation subtotal; consistent 29/40 across the three profiles; a measurable encrypted-versus-plaintext comparison; relevant Mexican diabetes context and existing team familiarity with SINAVE/EDR data. These are reasons for choosing the idea, not a prediction of winning.
 
-## Por qué esta idea
+The first-ranked remittance idea had a riskier three-layer scope and ambiguous theme fit. Federated fraud was visually demonstrable but familiar. SPEI fraud was feasible but less original in the simulated comparison.
 
-1. **Es la que mejor encarna el Tema 2.** Es la única que demuestra "IA sobre datos que nadie ve" con una métrica verificable: AUC cifrado vs. AUC en claro.
-2. **Tiene el techo más alto en el premio AI Innovation Excellence** (15.0 / 20, el mejor de las 11) y fue la ganadora del juez de innovación.
-3. **Consistencia:** los tres jueces le dieron 29 / 40; no depende del gusto de un solo perfil.
-4. **Impacto en México medible:** 18.3% de los adultos vive con diabetes, 1 de cada 3 no lo sabe y es la 2.ª causa de muerte (detalle en [FUENTES_DATOS.md](FUENTES_DATOS.md)).
-5. **El equipo ya trabaja con datos de diabetes** (incidencia SINAVE y mortalidad EDR): ventaja real para la narrativa y los datos.
+## Main technical risk and response
 
-## Por qué no las otras
+TenSEAL/SEAL may not build on s390x. **Paillier with pure-Python `phe` is the MVP** and is sufficient for logistic regression. At H2, check optional CKKS availability; if unavailable, keep Paillier without changing the MVP. The project does not require a different fallback idea.
 
-- **#1 Remesas:** mejor promedio, pero dos de tres jueces la ven como T1 y su alcance (tres capas) es el más arriesgado para 24 h.
-- **#3 Federado:** demo muy visual, pero FedAvg sobre fraude es un clásico de hackatón (novedad 5.7).
-- **#4 SPEI:** la más factible, pero la menos original del top 4.
+| MVP by H18 | Optional after MVP | Out of scope |
+|------------|--------------------|--------------|
+| Public-data logistic regression | CKKS via TenSEAL/OpenFHE | Definitive clinical diagnosis |
+| Paillier inference on actual LinuxONE | Granite explanation | Private patient data |
+| Split-screen ciphertext/hospital demo | SINAVE/EDR map and E5 extensions | Mobile app |
+| Same-sample accuracy and sequential latency | Additional throughput experiments | Encrypted training |
+| Two containers and actual platform evidence | Second physical/virtual host | Protection from the trusted demo host administrator |
 
-## El riesgo #1 y cómo lo neutralizamos
+## Intended platform use
 
-Los jueces marcaron la misma debilidad: **TenSEAL/SEAL puede no compilar en s390x** y frenar todo el proyecto. La respuesta de diseño:
+Ubuntu 24.04 s390x containers on LinuxONE Community Cloud. Hospital holds Paillier/vault keys; the service has no Paillier private key. Homomorphic modular arithmetic uses integers thousands of bits long. Mutual TLS protects transport and AES-256-GCM protects vault records. OpenSSL may use CPACF on the platform, but the application has not demonstrated effective acceleration. CLI `openssl speed` alone does not establish application acceleration. Required labs and optional Granite remain distinct from an implemented feature claim.
 
-| Ruta | Tecnología | Cuándo |
-|------|------------|--------|
-| **Garantizada** | **Paillier con `python-paillier` (`phe`)**: Python puro, corre en s390x sin compilar nada; basta para una regresión logística | Desde la hora 1 |
-| Ambiciosa (extra) | CKKS con TenSEAL u OpenFHE | En la **hora 2** se comprueba si está disponible en LinuxONE |
+## Data
 
-- **Comprobación:** hora 2. Si CKKS no está disponible, seguimos con Paillier sin tocar el MVP.
-- **Plan B de proyecto:** ninguno; la ruta Paillier ya es el plan B técnico.
+CDC UCI 891 supplies 253,680 public survey records and 21 predictors for model training. Source terms are documented in [DATA_SOURCES.md](DATA_SOURCES.md) and [data/README.md](../data/README.md). SINAVE incidence and INEGI/DGIS death data support Mexican context. The label concerns reported diagnosis; the model is not a future-diabetes or mortality predictor.
 
-## Alcance
+## Agreement record
 
-| Mínimo viable (hora 18, obligatorio) | Deseable (si sobra tiempo) | Fuera de alcance |
-|--------------------------------------|----------------------------|------------------|
-| Regresión logística entrenada con datos públicos (CDC) | Ruta CKKS con TenSEAL/OpenFHE | Diagnóstico clínico definitivo |
-| Inferencia cifrada con Paillier en LinuxONE | Granite explicando el resultado al paciente | Datos reales de pacientes |
-| Pantalla dividida: servidor (cifrado) vs. hospital (riesgo) | Mapa de incidencia SINAVE y mortalidad EDR por entidad | App móvil |
-| Métrica: AUC en claro vs. cifrado + latencia por paciente | Procesamiento por lotes y pacientes/minuto | Entrenamiento cifrado |
-| Dos contenedores Docker en LinuxONE con capturas de evidencia | | |
-
-## Uso de IBM Z comprometido
-
-- Todo corre en **LinuxONE Community Cloud** (s390x) en **dos contenedores Docker**: el del hospital (llave privada) y el servicio de riesgo (sin llave).
-- **Cómputo pesado:** la aritmética homomórfica son exponenciaciones modulares con enteros de miles de bits.
-- **Cifrado por hardware:** AES-256-GCM en reposo vía OpenSSL, que en IBM Z puede usar CPACF. `openssl speed` solo mide la CLI: la evidencia es la de [PROYECTO.md](PROYECTO.md) (`lscpu`, `cpacfinfo`, versiones de OpenSSL de la CLI y de `cryptography`, y la medición dentro de la app).
-- **Labs obligatorios:** el patrón "predictivo + generativo" del lab 2 se reflejaría en Granite explicando el resultado (extra, aún no integrado).
-
-## Dataset
-
-| Uso | Dataset | Licencia |
-|-----|---------|----------|
-| Entrenar el modelo | CDC Diabetes Health Indicators (UCI ID 891): 253,680 registros, 21 indicadores | Dominio público (UCI remite a la fuente; Kaggle lo marca CC0) |
-| Contexto e impacto en México | Incidencia SINAVE (SUIVE-1, Anuarios de Morbilidad DGE) y mortalidad EDR (INEGI) | Información pública; citar fuente |
-
-Detalle en [FUENTES_DATOS.md](FUENTES_DATOS.md) y [data/README.md](../data/README.md).
-
-## Firmas (✅ = de acuerdo)
-
-| Integrante | ✅ |
-|------------|:--:|
+| Member | Agreement recorded |
+|--------|--------------------|
 | Javier Augusto Rebull Saucedo | |
 | Álvaro Hernández Jarquín | |
 | Carlos Enrique Gonzalez Moran | |
 | Yazmin Ivonne Flores Martinez | |
 
-## Decisiones tras la auditoría externa (17 oct)
+## Decisions retained after external audits
 
-| # | Tema | Decisión | Consecuencia |
-|---|------|----------|--------------|
-| 1 | Épica E5 (pronóstico a 52 semanas) y ruta CKKS | **Se quedan como extra (Plus).** No se saca nada del plan. | El MVP sigue siendo Paillier + demo de la hora 18. E5 y CKKS no bloquean el MVP; si en la hora 12 la demo cifrada va atrasada, E5 se congela en lo que tenga ([PRONOSTICO.md](PRONOSTICO.md)). |
-| 2 | Declaración de uso de IA | **Pendiente:** se quitó del README el 17 oct; el equipo decide dónde va. | Las reglas piden declararla ([REGLAS.md](REGLAS.md) §4). |
-| 3 | Frontera de confianza | **Hospital y servicio de riesgo en la misma VM**, con la frontera declarada. | Quien administra la VM queda dentro de la frontera; la demo usa solo pacientes sintéticos. Detalle en [PROYECTO.md](PROYECTO.md) y en la slide 5. |
-| 4 | Correos del equipo en el README | **Se quedan**, con acuerdo de los cuatro. | Sin cambios. |
-
+| Topic | Decision | Consequence |
+|-------|----------|-------------|
+| E5 and CKKS | Retain as optional extensions | Paillier/H18 demo remain the MVP; pause extensions if H12 flow is missing |
+| AI disclosure | Removed from README; publication location is still a team decision | Local draft is not completed disclosure; recorded rules require transparency |
+| Trust boundary | Hospital and service share one demo VM | Administrator is trusted; synthetic demo inputs only |
+| Contact emails | Retain with prior team agreement | No removal during translation |
+| Hosting | Keep Netlify and its badge | No paid-plan purchase or hosting migration |
+| Language | Captain requires English code, comments, site, documents and deliverables | Coordinated migration, verification and new release evidence; preserve historical records |

@@ -1,0 +1,15 @@
+{
+  "_instructions": "Record the actual dates and owners; do not rewrite the build chronology.",
+  "lab1": {
+    "completed": false,
+    "date": "",
+    "owners": [],
+    "screenshots": []
+  },
+  "lab2": {
+    "completed": false,
+    "date": "",
+    "owners": [],
+    "screenshots": []
+  }
+}

@@ -1,554 +1,555 @@
 {
-  "rev": 24,
-  "actualizado": "2026-10-17T18:26:24Z",
-  "nota": "Evidence-based status. Update through a branch and PR; increase rev and the actual UTC timestamp. Publish the reviewed version. Current plan: docs/PLAN_CIERRE.md. Keep Netlify and its badge. English is mandatory for all authored release material; US-7.9 remains open.",
-  "hitos": {
-    "hora_cero": "2026-10-17T13:00:00Z",
-    "ceremonia_cierre_virtual": "2026-10-18T05:00:00Z",
-    "demo_funcional": "2026-10-18T07:00:00Z",
-    "congelamiento": "2026-10-18T09:00:00Z",
-    "meta_envio": "2026-10-18T13:00:00Z",
-    "cierre_hack2skill": "2026-10-18T16:30:00Z",
-    "apertura_hack2skill": "2026-10-16T23:45:00Z"
+  "rev": 25,
+  "updated_at": "2026-10-17T19:31:46Z",
+  "note": "Evidence-based status. English implementation and existing artifacts translated; final narration and independent teammate sign-off remain open. See docs/ENGLISH_MIGRATION.md and docs/DELIVERY_PLAN.md. Keep Netlify and its badge. Increase rev and actual UTC timestamp for every status update.",
+  "milestones": {
+    "internal_start": "2026-10-17T13:00:00Z",
+    "virtual_closing": "2026-10-18T05:00:00Z",
+    "working_demo": "2026-10-18T07:00:00Z",
+    "feature_freeze": "2026-10-18T09:00:00Z",
+    "internal_submission_target": "2026-10-18T13:00:00Z",
+    "submissions_close": "2026-10-18T16:30:00Z",
+    "submissions_open": "2026-10-16T23:45:00Z"
   },
-  "bloques": [
+  "blocks": [
     {
       "id": "prep",
-      "titulo": "Preparation",
-      "inicio": "2026-10-17T04:50:00Z",
-      "fin": "2026-10-17T13:00:00Z"
+      "title": "Preparation",
+      "start": "2026-10-17T04:50:00Z",
+      "end": "2026-10-17T13:00:00Z"
     },
     {
       "id": "h0",
-      "titulo": "H0 · Kick-off",
-      "inicio": "2026-10-17T13:00:00Z",
-      "fin": "2026-10-17T14:00:00Z"
+      "title": "H0 · Kick-off",
+      "start": "2026-10-17T13:00:00Z",
+      "end": "2026-10-17T14:00:00Z"
     },
     {
       "id": "h1",
-      "titulo": "H1–H3 · Required labs",
-      "inicio": "2026-10-17T14:00:00Z",
-      "fin": "2026-10-17T16:00:00Z"
+      "title": "H1–H3 · Required labs",
+      "start": "2026-10-17T14:00:00Z",
+      "end": "2026-10-17T16:00:00Z"
     },
     {
       "id": "h3",
-      "titulo": "H3–H8 · Foundations",
-      "inicio": "2026-10-17T16:00:00Z",
-      "fin": "2026-10-17T21:00:00Z"
+      "title": "H3–H8 · Foundations",
+      "start": "2026-10-17T16:00:00Z",
+      "end": "2026-10-17T21:00:00Z"
     },
     {
       "id": "h8",
-      "titulo": "H8–H12 · Encrypted core",
-      "inicio": "2026-10-17T21:00:00Z",
-      "fin": "2026-10-18T01:00:00Z"
+      "title": "H8–H12 · Encrypted core",
+      "start": "2026-10-17T21:00:00Z",
+      "end": "2026-10-18T01:00:00Z"
     },
     {
       "id": "h12",
-      "titulo": "H12–H16 · Integration",
-      "inicio": "2026-10-18T01:00:00Z",
-      "fin": "2026-10-18T05:00:00Z"
+      "title": "H12–H16 · Integration",
+      "start": "2026-10-18T01:00:00Z",
+      "end": "2026-10-18T05:00:00Z"
     },
     {
       "id": "h16",
-      "titulo": "H16–H18 · Demo readiness",
-      "inicio": "2026-10-18T05:00:00Z",
-      "fin": "2026-10-18T07:00:00Z"
+      "title": "H16–H18 · Demo readiness",
+      "start": "2026-10-18T05:00:00Z",
+      "end": "2026-10-18T07:00:00Z"
     },
     {
       "id": "h18",
-      "titulo": "H18–H22 · Video and polish",
-      "inicio": "2026-10-18T07:00:00Z",
-      "fin": "2026-10-18T11:00:00Z"
+      "title": "H18–H22 · Video and polish",
+      "start": "2026-10-18T07:00:00Z",
+      "end": "2026-10-18T11:00:00Z"
     },
     {
       "id": "h22",
-      "titulo": "H22–H24 · Submission",
-      "inicio": "2026-10-18T11:00:00Z",
-      "fin": "2026-10-18T13:00:00Z"
+      "title": "H22–H24 · Submission",
+      "start": "2026-10-18T11:00:00Z",
+      "end": "2026-10-18T13:00:00Z"
     }
   ],
-  "epicas": [
+  "epics": [
     {
       "id": "E1",
-      "nombre": "Project foundations",
-      "objetivo": "Decide, document and prepare the data; preserve the actual coding and labs chronology.",
-      "responsable": "Javier",
-      "historias": [
+      "name": "Project foundations",
+      "objective": "Decide, document and prepare the data; preserve the actual coding and labs chronology.",
+      "owner": "Javier",
+      "stories": [
         {
           "id": "US-1.1",
-          "como": "a judge",
-          "quiero": "a public, organized repository with rules, criteria and a checklist aligned with the guide and kick-off",
-          "para": "assess the team process",
-          "quien": "Javier",
-          "bloque": "prep",
-          "prioridad": "MVP",
-          "estado": "hecho"
+          "role": "a judge",
+          "goal": "a public, organized repository with rules, criteria and a checklist aligned with the guide and kick-off",
+          "benefit": "assess the team process",
+          "owners": "Javier",
+          "block": "prep",
+          "priority": "MVP",
+          "state": "done"
         },
         {
           "id": "US-1.2",
-          "como": "a team member",
-          "quiero": "to select the idea through blind judging",
-          "para": "choose the strongest expected entry",
-          "quien": "Whole team",
-          "bloque": "prep",
-          "prioridad": "MVP",
-          "estado": "hecho"
+          "role": "a team member",
+          "goal": "to select the idea through blind judging",
+          "benefit": "choose the strongest expected entry",
+          "owners": "Whole team",
+          "block": "prep",
+          "priority": "MVP",
+          "state": "done"
         },
         {
           "id": "US-1.3",
-          "como": "a team member",
-          "quiero": "a reliable Paillier design with CKKS as an optional extension",
-          "para": "avoid depending on an s390x library build",
-          "quien": "Javier",
-          "bloque": "prep",
-          "prioridad": "MVP",
-          "estado": "hecho"
+          "role": "a team member",
+          "goal": "a reliable Paillier design with CKKS as an optional extension",
+          "benefit": "avoid depending on an s390x library build",
+          "owners": "Javier",
+          "block": "prep",
+          "priority": "MVP",
+          "state": "done"
         },
         {
           "id": "US-1.4",
-          "como": "an analyst",
-          "quiero": "official sources downloaded, checked and available through the repository instructions",
-          "para": "work without download blockers",
-          "quien": "Javier · Yazmin",
-          "bloque": "prep",
-          "prioridad": "MVP",
-          "estado": "hecho"
+          "role": "an analyst",
+          "goal": "official sources downloaded, checked and available through the repository instructions",
+          "benefit": "work without download blockers",
+          "owners": "Javier · Yazmin",
+          "block": "prep",
+          "priority": "MVP",
+          "state": "done"
         },
         {
           "id": "US-1.5",
-          "como": "an analyst",
-          "quiero": "catalogs, geometry and a documented care-stage data mart",
-          "para": "join sources using consistent keys",
-          "quien": "Javier",
-          "bloque": "prep",
-          "prioridad": "MVP",
-          "estado": "hecho"
+          "role": "an analyst",
+          "goal": "catalogs, geometry and a documented care-stage data mart",
+          "benefit": "join sources using consistent keys",
+          "owners": "Javier",
+          "block": "prep",
+          "priority": "MVP",
+          "state": "done"
         },
         {
           "id": "US-1.6",
-          "como": "a team member",
-          "quiero": "all four members to complete the kick-off attendance form",
-          "para": "meet the attendance requirement",
-          "quien": "Whole team",
-          "bloque": "prep",
-          "prioridad": "MVP",
-          "estado": "pendiente"
+          "role": "a team member",
+          "goal": "all four members to complete the kick-off attendance form",
+          "benefit": "meet the attendance requirement",
+          "owners": "Whole team",
+          "block": "prep",
+          "priority": "MVP",
+          "state": "pending"
         },
         {
           "id": "US-1.7",
-          "como": "a data scientist",
-          "quiero": "ENSANUT 2022/2023 downloaded and checked against the reported 2022 prevalence of 10.9%",
-          "para": "explore a reduced Mexican experiment without claiming clinical validation of the MVP",
-          "quien": "Whole team",
-          "bloque": "h3",
-          "prioridad": "Plus",
-          "estado": "hecho"
+          "role": "a data scientist",
+          "goal": "ENSANUT 2022/2023 downloaded and checked against the reported 2022 prevalence of 10.9%",
+          "benefit": "explore a reduced Mexican experiment without claiming clinical validation of the MVP",
+          "owners": "Whole team",
+          "block": "h3",
+          "priority": "Plus",
+          "state": "done"
         }
       ]
     },
     {
       "id": "E2",
-      "nombre": "LinuxONE infrastructure",
-      "objetivo": "Run containers and encrypted computation on IBM Z with verifiable evidence.",
-      "responsable": "Álvaro",
-      "historias": [
+      "name": "LinuxONE infrastructure",
+      "objective": "Run containers and encrypted computation on IBM Z with verifiable evidence.",
+      "owner": "Álvaro",
+      "stories": [
         {
           "id": "US-2.1",
-          "como": "a team member",
-          "quiero": "an Ubuntu 24.04 LinuxONE VM with SSH access for all four members",
-          "para": "work on the same platform",
-          "quien": "Álvaro",
-          "bloque": "prep",
-          "prioridad": "MVP",
-          "estado": "en_curso",
-          "evidencia": "Carlos reports a working server and Álvaro reconnecting (October 17 chat); provider screenshots are still absent from the repository."
+          "role": "a team member",
+          "goal": "an Ubuntu 24.04 LinuxONE VM with SSH access for all four members",
+          "benefit": "work on the same platform",
+          "owners": "Álvaro",
+          "block": "prep",
+          "priority": "MVP",
+          "state": "in_progress",
+          "evidence": "Carlos reports a working server and Álvaro reconnecting (October 17 chat); provider screenshots are still absent from the repository."
         },
         {
           "id": "US-2.2",
-          "como": "a team member",
-          "quiero": "both required labs completed with screenshots",
-          "para": "meet the technical prerequisite",
-          "quien": "Álvaro · Carlos · Yazmin",
-          "bloque": "h1",
-          "prioridad": "MVP",
-          "estado": "pendiente"
+          "role": "a team member",
+          "goal": "both required labs completed with screenshots",
+          "benefit": "meet the technical prerequisite",
+          "owners": "Álvaro · Carlos · Yazmin",
+          "block": "h1",
+          "priority": "MVP",
+          "state": "pending"
         },
         {
           "id": "US-2.3",
-          "como": "an engineer",
-          "quiero": "to check TenSEAL/OpenFHE availability on s390x at H2 and keep Paillier if unavailable",
-          "para": "assess optional CKKS without delaying the MVP",
-          "quien": "Álvaro",
-          "bloque": "h1",
-          "prioridad": "Plus",
-          "estado": "pendiente",
-          "evidencia": "TenSEAL 0.3.18 has a macOS arm64 wheel but no s390x wheel; a VM build would be required. Not implemented. Paillier remains the approved path."
+          "role": "an engineer",
+          "goal": "to check TenSEAL/OpenFHE availability on s390x at H2 and keep Paillier if unavailable",
+          "benefit": "assess optional CKKS without delaying the MVP",
+          "owners": "Álvaro",
+          "block": "h1",
+          "priority": "Plus",
+          "state": "pending",
+          "evidence": "TenSEAL 0.3.18 has a macOS arm64 wheel but no s390x wheel; a VM build would be required. Not implemented. Paillier remains the approved path."
         },
         {
           "id": "US-2.4",
-          "como": "a hospital operator",
-          "quiero": "the private key in a container separate from the risk service",
-          "para": "prevent the risk service from decrypting",
-          "quien": "Álvaro",
-          "bloque": "h3",
-          "prioridad": "MVP",
-          "estado": "hecho",
-          "evidencia": "docker/compose.yml and tests/test_protocolo.py::test_e_servicio_sin_llave_privada verified locally; LinuxONE screenshots are missing."
+          "role": "a hospital operator",
+          "goal": "the private key in a container separate from the risk service",
+          "benefit": "prevent the risk service from decrypting",
+          "owners": "Álvaro",
+          "block": "h3",
+          "priority": "MVP",
+          "state": "done",
+          "evidence": "docker/compose.yml and tests/test_protocol.py::test_e_servicio_sin_llave_privada verified locally; LinuxONE screenshots are missing."
         },
         {
           "id": "US-2.5",
-          "como": "a patient",
-          "quiero": "mutual TLS 1.3 in transit and an AES-256-GCM vault at the hospital, verified on the VM",
-          "para": "protect transport and stored hospital records",
-          "quien": "Álvaro",
-          "bloque": "h3",
-          "prioridad": "MVP",
-          "estado": "en_curso",
-          "evidencia": "Implemented and verified locally; VM evidence is missing. CPACF is a platform capability, not a measured acceleration or MVP prerequisite."
+          "role": "a patient",
+          "goal": "mutual TLS 1.3 in transit and an AES-256-GCM vault at the hospital, verified on the VM",
+          "benefit": "protect transport and stored hospital records",
+          "owners": "Álvaro",
+          "block": "h3",
+          "priority": "MVP",
+          "state": "in_progress",
+          "evidence": "Implemented and verified locally; VM evidence is missing. CPACF is a platform capability, not a measured acceleration or MVP prerequisite."
         },
         {
           "id": "US-2.6",
-          "como": "a judge",
-          "quiero": "VM/container screenshots, lscpu/cpacfinfo where available, OpenSSL versions and p50/p95 latency",
-          "para": "verify actual IBM Z execution",
-          "quien": "Álvaro",
-          "bloque": "h16",
-          "prioridad": "MVP",
-          "estado": "en_curso",
-          "evidencia": "05_test_claims.py now runs the actual 21-feature src/tamizaje tests and saves provenance in submission/evidencias/instancia/. Reported 6/6 and 8/8 checks were preliminary; actual outputs, Community Cloud screenshots and REGISTRO.json are still required."
+          "role": "a judge",
+          "goal": "VM/container screenshots, lscpu/cpacfinfo where available, OpenSSL versions and p50/p95 latency",
+          "benefit": "verify actual IBM Z execution",
+          "owners": "Álvaro",
+          "block": "h16",
+          "priority": "MVP",
+          "state": "in_progress",
+          "evidence": "05_test_claims.py now runs the actual 21-feature src/screening tests and saves provenance in submission/evidence/instance/. Reported 6/6 and 8/8 checks were preliminary; actual outputs, Community Cloud screenshots and REGISTRO.json are still required."
         }
       ]
     },
     {
       "id": "E3",
-      "nombre": "Encrypted risk model",
-      "objetivo": "Evaluate the diabetes risk model on ciphertexts and measure numerical error.",
-      "responsable": "Carlos",
-      "historias": [
+      "name": "Encrypted risk model",
+      "objective": "Evaluate the diabetes risk model on ciphertexts and measure numerical error.",
+      "owner": "Carlos",
+      "stories": [
         {
           "id": "US-3.1",
-          "como": "a data scientist",
-          "quiero": "a CDC logistic regression and a numerical contract covering 21-feature order, scale and error; XGBoost only if time remains",
-          "para": "report an honest baseline",
-          "quien": "Carlos",
-          "bloque": "h3",
-          "prioridad": "MVP",
-          "estado": "hecho",
-          "evidencia": "artefactos/modelo/modelo_logistico_v1.json and artefactos/metricas/modelo_logistico_v1.json; test ROC-AUC 0.826."
+          "role": "a data scientist",
+          "goal": "a CDC logistic regression and a numerical contract covering 21-feature order, scale and error; XGBoost only if time remains",
+          "benefit": "report an honest baseline",
+          "owners": "Carlos",
+          "block": "h3",
+          "priority": "MVP",
+          "state": "done",
+          "evidence": "artifacts/model/logistic_model_v1.json and artifacts/metrics/logistic_model_v1.json; test ROC-AUC 0.826."
         },
         {
           "id": "US-3.2",
-          "como": "a risk service operator",
-          "quiero": "fixed-point weights and a complete Paillier inference flow before H11",
-          "para": "compute Enc(w·x) without the private key",
-          "quien": "Carlos",
-          "bloque": "h8",
-          "prioridad": "MVP",
-          "estado": "hecho",
-          "evidencia": "src/tamizaje/protocolo.py and tests/test_protocolo.py: exact decrypted integer, quantization bound, negatives, extremes and invalid messages."
+          "role": "a risk service operator",
+          "goal": "fixed-point weights and a complete Paillier inference flow before H11",
+          "benefit": "compute Enc(w·x) without the private key",
+          "owners": "Carlos",
+          "block": "h8",
+          "priority": "MVP",
+          "state": "done",
+          "evidence": "src/screening/protocol.py and tests/test_protocol.py: exact decrypted integer, quantization bound, negatives, extremes and invalid messages."
         },
         {
           "id": "US-3.3",
-          "como": "a judge",
-          "quiero": "encrypted and plaintext AUC/metrics on exactly the same sample",
-          "para": "measure whether encryption changes the predictions",
-          "quien": "Carlos",
-          "bloque": "h12",
-          "prioridad": "MVP",
-          "estado": "hecho",
-          "evidencia": "submission/evidencias/metricas/medicion_proceso_local-darwin-arm64_20261017T181050Z.json, commit 65ae4ef, local: 2,000/2,000 exact integers; AUC 0.808383 across all three variants; same-sample plaintext/fixed-point logit timings. Final translated-commit LinuxONE run is still required."
+          "role": "a judge",
+          "goal": "encrypted and plaintext AUC/metrics on exactly the same sample",
+          "benefit": "measure whether encryption changes the predictions",
+          "owners": "Carlos",
+          "block": "h12",
+          "priority": "MVP",
+          "state": "done",
+          "evidence": "submission/evidencias/metricas/medicion_proceso_local-darwin-arm64_20261017T181050Z.json, commit 65ae4ef, local: 2,000/2,000 exact integers; AUC 0.808383 across all three variants; same-sample plaintext/fixed-point logit timings. Final translated-commit LinuxONE run is still required."
         },
         {
           "id": "US-3.4",
-          "como": "a patient",
-          "quiero": "Granite to explain the result in plain English",
-          "para": "understand the next steps",
-          "quien": "Carlos · Álvaro",
-          "bloque": "h16",
-          "prioridad": "Plus",
-          "estado": "pendiente",
-          "evidencia": "Not integrated. Requires llama.cpp and a Granite model on the VM. The existing UI shows the largest contributing factors."
+          "role": "a patient",
+          "goal": "Granite to explain the result in plain English",
+          "benefit": "understand the next steps",
+          "owners": "Carlos · Álvaro",
+          "block": "h16",
+          "priority": "Plus",
+          "state": "pending",
+          "evidence": "Not integrated. Requires llama.cpp and a Granite model on the VM. The existing UI shows the largest contributing factors."
         },
         {
           "id": "US-3.5",
-          "como": "a judge",
-          "quiero": "a separate exploratory reduced ENSANUT experiment with predictors and outcome fixed before evaluation, after the MVP",
-          "para": "investigate transfer limits in Mexican adults",
-          "quien": "Yazmin · Carlos",
-          "bloque": "h8",
-          "prioridad": "Plus",
-          "estado": "hecho",
-          "evidencia": "docs/ENSANUT_EXPERIMENTO.md committed before evaluation; artefactos/metricas/ensanut_exploratorio_v1.json: weighted ROC-AUC 0.767, underestimated risk and sensitivity 0.46–0.49 at the CDC threshold."
+          "role": "a judge",
+          "goal": "a separate exploratory reduced ENSANUT experiment with predictors and outcome fixed before evaluation, after the MVP",
+          "benefit": "investigate transfer limits in Mexican adults",
+          "owners": "Yazmin · Carlos",
+          "block": "h8",
+          "priority": "Plus",
+          "state": "done",
+          "evidence": "docs/ENSANUT_EXPERIMENT.md committed before evaluation; artifacts/metrics/ensanut_exploratory_v1.json: weighted ROC-AUC 0.767, underestimated risk and sensitivity 0.46–0.49 at the CDC threshold."
         }
       ]
     },
     {
       "id": "E4",
-      "nombre": "Mexican data and impact",
-      "objetivo": "Explain the scale of the problem in Mexico using official data and explicit population limits.",
-      "responsable": "Yazmin",
-      "historias": [
+      "name": "Mexican data and impact",
+      "objective": "Explain the scale of the problem in Mexico using official data and explicit population limits.",
+      "owner": "Yazmin",
+      "stories": [
         {
           "id": "US-4.1",
-          "como": "a data scientist",
-          "quiero": "CDC exploratory analysis and 70/15/15 splits",
-          "para": "train without data leakage",
-          "quien": "Yazmin",
-          "bloque": "h3",
-          "prioridad": "MVP",
-          "estado": "en_curso",
-          "evidencia": "70/15/15 split artifacts exist in artefactos/particiones/; exploratory analysis remains open."
+          "role": "a data scientist",
+          "goal": "CDC exploratory analysis and 70/15/15 splits",
+          "benefit": "train without data leakage",
+          "owners": "Yazmin",
+          "block": "h3",
+          "priority": "MVP",
+          "state": "in_progress",
+          "evidence": "70/15/15 split artifacts exist in artifacts/splits/; exploratory analysis remains open."
         },
         {
           "id": "US-4.2",
-          "como": "a judge",
-          "quiero": "national care-stage figures and an exploratory deaths-per-100-notified-cases state indicator",
-          "para": "understand the scale of the problem",
-          "quien": "Yazmin",
-          "bloque": "h3",
-          "prioridad": "MVP",
-          "estado": "hecho",
-          "evidencia": "docs/FUENTES_DATOS.md, data/marts/cascada_entidad_anio.csv and site/assets/cascada.json recalculated in audit. Registration/occurrence and population differences are explicit. Not case fatality or cohort follow-up."
+          "role": "a judge",
+          "goal": "national care-stage figures and an exploratory deaths-per-100-notified-cases state indicator",
+          "benefit": "understand the scale of the problem",
+          "owners": "Yazmin",
+          "block": "h3",
+          "priority": "MVP",
+          "state": "done",
+          "evidence": "docs/DATA_SOURCES.md, data/marts/cascada_entidad_anio.csv and site/assets/care_stages.json recalculated in audit. Registration/occurrence and population differences are explicit. Not case fatality or cohort follow-up."
         },
         {
           "id": "US-4.3",
-          "como": "a viewer",
-          "quiero": "an interactive state indicator map",
-          "para": "compare official state statistics",
-          "quien": "Yazmin",
-          "bloque": "prep",
-          "prioridad": "MVP",
-          "estado": "hecho"
+          "role": "a viewer",
+          "goal": "an interactive state indicator map",
+          "benefit": "compare official state statistics",
+          "owners": "Yazmin",
+          "block": "prep",
+          "priority": "MVP",
+          "state": "done"
         }
       ]
     },
     {
       "id": "E5",
-      "nombre": "Forecasting and budget planning",
-      "objetivo": "Forecast 52 weeks of new cases by state and sex; show budgets only with a sourced cost.",
-      "responsable": "Yazmin",
-      "historias": [
+      "name": "Forecasting and budget planning",
+      "objective": "Forecast 52 weeks of new cases by state and sex; show budgets only with a sourced cost.",
+      "owner": "Yazmin",
+      "stories": [
         {
           "id": "US-5.1",
-          "como": "a health planner",
-          "quiero": "222 weekly diabetes series ready for forecasting (111 per type: state, region and national by men, women and total)",
-          "para": "start with checked time series",
-          "quien": "Yazmin",
-          "bloque": "h3",
-          "prioridad": "Plus",
-          "estado": "hecho",
-          "evidencia": "222 SINAVE series read from data/sinave/ from 2022 onward; missing observations interpolated and counted."
+          "role": "a health planner",
+          "goal": "222 weekly diabetes series ready for forecasting (111 per type: state, region and national by men, women and total)",
+          "benefit": "start with checked time series",
+          "owners": "Yazmin",
+          "block": "h3",
+          "priority": "Plus",
+          "state": "done",
+          "evidence": "222 SINAVE series read from data/sinave/ from 2022 onward; missing observations interpolated and counted."
         },
         {
           "id": "US-5.2",
-          "como": "a health planner",
-          "quiero": "a 52-week forecast and exploratory bands, comparing seasonal naive and ETS through rolling-origin selection",
-          "para": "estimate future reported cases",
-          "quien": "Yazmin",
-          "bloque": "h8",
-          "prioridad": "Plus",
-          "estado": "hecho",
-          "evidencia": "src/tamizaje/pronostico.py: nested out-of-sample evaluation through h63 with reconciliation; national h12–63 SMAPE 13.1%. Actual exploratory-band coverage: 63–65% for nominal 80%, 79–87% for nominal 95%."
+          "role": "a health planner",
+          "goal": "a 52-week forecast and exploratory bands, comparing seasonal naive and ETS through rolling-origin selection",
+          "benefit": "estimate future reported cases",
+          "owners": "Yazmin",
+          "block": "h8",
+          "priority": "Plus",
+          "state": "done",
+          "evidence": "src/screening/forecast.py: nested out-of-sample evaluation through h63 with reconciliation; national h12–63 SMAPE 13.1%. Actual exploratory-band coverage: 63–65% for nominal 80%, 79–87% for nominal 95%."
         },
         {
           "id": "US-5.3",
-          "como": "a health planner",
-          "quiero": "a regional fallback for sparse series and coherent state/region/national totals, after MVP delivery",
-          "para": "retain a forecast for every state",
-          "quien": "Carlos",
-          "bloque": "h16",
-          "prioridad": "Plus",
-          "estado": "hecho",
-          "evidencia": "Regional fallback below five cases in 52 weeks; no series required it. Proportional national/region/state coherence tested in tests/test_pronostico.py."
+          "role": "a health planner",
+          "goal": "a regional fallback for sparse series and coherent state/region/national totals, after MVP delivery",
+          "benefit": "retain a forecast for every state",
+          "owners": "Carlos",
+          "block": "h16",
+          "priority": "Plus",
+          "state": "done",
+          "evidence": "Regional fallback below five cases in 52 weeks; no series required it. Proportional national/region/state coherence tested in tests/test_forecast.py."
         },
         {
           "id": "US-5.4",
-          "como": "a finance director",
-          "quiero": "expected cases converted into a budget using an editable, sourced unit cost",
-          "para": "explore resource scenarios by state and sex",
-          "quien": "Yazmin",
-          "bloque": "h8",
-          "prioridad": "Plus",
-          "estado": "en_curso",
-          "evidencia": "Budget calculation exists (cases × cost, requiring a source); a documented unit cost is still missing."
+          "role": "a finance director",
+          "goal": "expected cases converted into a budget using an editable, sourced unit cost",
+          "benefit": "explore resource scenarios by state and sex",
+          "owners": "Yazmin",
+          "block": "h8",
+          "priority": "Plus",
+          "state": "in_progress",
+          "evidence": "Budget calculation exists (cases × cost, requiring a source); a documented unit cost is still missing."
         },
         {
           "id": "US-5.5",
-          "como": "a finance director",
-          "quiero": "a dashboard with state/sex/type filters and observed-versus-forecast curves, after the H18 demo and before H20",
-          "para": "explore scenarios quickly",
-          "quien": "Javier",
-          "bloque": "h18",
-          "prioridad": "Plus",
-          "estado": "hecho",
-          "evidencia": "site/pronostico.html: observed/forecast curves, 80/95% exploratory bands, quarterly totals, scenarios and model evaluation. English migration remains open under US-7.9."
+          "role": "a finance director",
+          "goal": "a dashboard with state/sex/type filters and observed-versus-forecast curves, after the H18 demo and before H20",
+          "benefit": "explore scenarios quickly",
+          "owners": "Javier",
+          "block": "h18",
+          "priority": "Plus",
+          "state": "done",
+          "evidence": "site/forecast.html: observed/forecast curves, 80/95% exploratory bands, quarterly totals, scenarios and model evaluation. English migration remains open under US-7.9."
         }
       ]
     },
     {
       "id": "E6",
-      "nombre": "Demo and integration",
-      "objetivo": "An end-to-end demo that can be understood in 45 seconds.",
-      "responsable": "Javier",
-      "historias": [
+      "name": "Demo and integration",
+      "objective": "An end-to-end demo that can be understood in 45 seconds.",
+      "owner": "Javier",
+      "stories": [
         {
           "id": "US-6.1",
-          "como": "a judge",
-          "quiero": "a split screen showing the service ciphertexts and hospital risk output",
-          "para": "see the privacy boundary in the demo",
-          "quien": "Javier",
-          "bloque": "h8",
-          "prioridad": "MVP",
-          "estado": "hecho",
-          "evidencia": "src/tamizaje/ui/index.html and submission/evidencias/local/ contain an actual local screenshot. English UI and new release screenshots remain open under US-7.9."
+          "role": "a judge",
+          "goal": "a split screen showing the service ciphertexts and hospital risk output",
+          "benefit": "see the privacy boundary in the demo",
+          "owners": "Javier",
+          "block": "h8",
+          "priority": "MVP",
+          "state": "done",
+          "evidence": "src/screening/ui/index.html and submission/evidencias/local/ contain an actual local screenshot. English UI and new release screenshots remain open under US-7.9."
         },
         {
           "id": "US-6.2",
-          "como": "a team member",
-          "quiero": "the UI connected to the actual service on LinuxONE",
-          "para": "demonstrate the complete deployed flow",
-          "quien": "Javier · Álvaro",
-          "bloque": "h12",
-          "prioridad": "MVP",
-          "estado": "en_curso",
-          "evidencia": "submission/evidencias/metricas/medicion_api_local-darwin-arm64_20261017T180952Z.json, commit 65ae4ef, local two-container deployment: 200/200 exact, p50 141.29 ms, p95 180.039 ms. LinuxONE evidence on the translated commit is missing."
+          "role": "a team member",
+          "goal": "the UI connected to the actual service on LinuxONE",
+          "benefit": "demonstrate the complete deployed flow",
+          "owners": "Javier · Álvaro",
+          "block": "h12",
+          "priority": "MVP",
+          "state": "in_progress",
+          "evidence": "submission/evidencias/metricas/medicion_api_local-darwin-arm64_20261017T180952Z.json, commit 65ae4ef, local two-container deployment: 200/200 exact, p50 141.29 ms, p95 180.039 ms. LinuxONE evidence on the translated commit is missing."
         },
         {
           "id": "US-6.3",
-          "como": "a team member",
-          "quiero": "the full demo working at H18",
-          "para": "retain six hours for video and submission",
-          "quien": "Whole team",
-          "bloque": "h16",
-          "prioridad": "MVP",
-          "estado": "en_curso",
-          "evidencia": "Complete local flow verified with demo, smoke and API measurement; LinuxONE execution is missing."
+          "role": "a team member",
+          "goal": "the full demo working at H18",
+          "benefit": "retain six hours for video and submission",
+          "owners": "Whole team",
+          "block": "h16",
+          "priority": "MVP",
+          "state": "in_progress",
+          "evidence": "Complete local flow verified with demo, smoke and API measurement; LinuxONE execution is missing."
         },
         {
           "id": "US-6.4",
-          "como": "a physician",
-          "quiero": "the existing 21-feature form polished with English labels, explicit CDC codes and validation using synthetic inputs",
-          "para": "use it without editing code",
-          "quien": "Yazmin",
-          "bloque": "h12",
-          "prioridad": "Plus",
-          "estado": "pendiente",
-          "evidencia": "An existing synthetic profile selector and 21-feature editor are implemented. Optional physician-focused polish must use English labels and source coding. Required English UI migration is tracked separately in US-7.9."
+          "role": "a physician",
+          "goal": "the existing 21-feature form polished with English labels, explicit CDC codes and validation using synthetic inputs",
+          "benefit": "use it without editing code",
+          "owners": "Yazmin",
+          "block": "h12",
+          "priority": "Plus",
+          "state": "in_progress",
+          "evidence": "English 21-feature synthetic editor now shows human-readable labels, original CDC codes and ranges. Browser rejects BMI 99 outside [12,98]. English code/UI migration implemented; Yazmin’s physician-focused review remains open. submission/evidence/local/english_demo_synthetic_C.png."
         },
         {
           "id": "US-6.5",
-          "como": "a judge",
-          "quiero": "the hospital and risk service running on two real hosts and exchanging ciphertexts",
-          "para": "verify the optional host separation",
-          "quien": "Álvaro · Carlos",
-          "bloque": "h12",
-          "prioridad": "Plus",
-          "estado": "en_curso",
-          "evidencia": "Local rehearsal passes as ENSAYO only. Strict mode now checks distinct host IDs, matching code/model hashes and the hospital log. Real-host evidence is still missing; synthetic inputs are the default."
+          "role": "a judge",
+          "goal": "the hospital and risk service running on two real hosts and exchanging ciphertexts",
+          "benefit": "verify the optional host separation",
+          "owners": "Álvaro · Carlos",
+          "block": "h12",
+          "priority": "Plus",
+          "state": "in_progress",
+          "evidence": "Local rehearsal passes as ENSAYO only. Strict mode now checks distinct host IDs, matching code/model hashes and the hospital log. Real-host evidence is still missing; synthetic inputs are the default."
         }
       ]
     },
     {
       "id": "E7",
-      "nombre": "Pitch and submission",
-      "objetivo": "Submit every required artifact in English by October 18, 07:00 Ciudad Juárez / 09:00 EDT.",
-      "responsable": "Yazmin",
-      "historias": [
+      "name": "Pitch and submission",
+      "objective": "Submit every required artifact in English by October 18, 07:00 Ciudad Juárez / 09:00 EDT.",
+      "owner": "Yazmin",
+      "stories": [
         {
           "id": "US-7.9",
-          "como": "a judge",
-          "quiero": "all authored code, comments, tests, UI, documentation, slides/PDF, diagram, video and submission text in English",
-          "para": "review a consistent English release",
-          "quien": "Javier · Carlos · Álvaro · Yazmin",
-          "bloque": "h12",
-          "prioridad": "MVP",
-          "estado": "en_curso",
-          "evidencia": "Captain instruction, October 17. English delivery plan/checklist and public story text updated. Code/comments, remaining guides, UI/dashboard, deck/diagram and video still require translation and review. Owners and acceptance criteria: docs/PLAN_CIERRE.md. Preserve historical evidence and raw source identifiers; rerun tests and final LinuxONE measurements on the translated release commit."
+          "role": "a judge",
+          "goal": "all authored code, comments, tests, UI, documentation, slides/PDF, diagram, video and submission text in English",
+          "benefit": "review a consistent English release",
+          "owners": "Javier · Carlos · Álvaro · Yazmin",
+          "block": "h12",
+          "priority": "MVP",
+          "state": "in_progress",
+          "evidence": "English package screening, v2 protocol, API/CLI, comments/tests/messages, UI/site/dashboard, guides, three decks (8/19/17 slides), official PDF, flowchart and silent 170-second draft implemented and checked. make verify: 90 pass; Ubuntu: 86 pass/4 platform-specific skips. Original data/evidence preserved; nine CSVs reproduced byte for byte; all 222 forecasts reproduced. docs/ENGLISH_MIGRATION.md. Still open: independent teammate review of this release and final authorized English narration with real LinuxONE footage."
         },
         {
           "id": "US-7.1",
-          "como": "a judge",
-          "quiero": "a clear pitch deck with sourced statistics",
-          "para": "review the problem and solution quickly",
-          "quien": "Yazmin",
-          "bloque": "prep",
-          "prioridad": "MVP",
-          "estado": "hecho"
+          "role": "a judge",
+          "goal": "a clear pitch deck with sourced statistics",
+          "benefit": "review the problem and solution quickly",
+          "owners": "Yazmin",
+          "block": "prep",
+          "priority": "MVP",
+          "state": "done"
         },
         {
           "id": "US-7.2",
-          "como": "a judge",
-          "quiero": "English slides with actual demo and LinuxONE screenshots",
-          "para": "inspect evidence instead of mockups",
-          "quien": "Yazmin",
-          "bloque": "h12",
-          "prioridad": "MVP",
-          "estado": "pendiente"
+          "role": "a judge",
+          "goal": "English slides with actual demo and LinuxONE screenshots",
+          "benefit": "inspect evidence instead of mockups",
+          "owners": "Yazmin",
+          "block": "h12",
+          "priority": "MVP",
+          "state": "in_progress",
+          "evidence": "English slides include the actual English local Docker UI screenshot. Real LinuxONE screenshots remain missing; never relabel local capture as VM evidence."
         },
         {
           "id": "US-7.3",
-          "como": "a judge",
-          "quiero": "a public English video no longer than three minutes (target 2:50), showing the problem, supporting data, solution, stack, LinuxONE instance and model",
-          "para": "assess the execution",
-          "quien": "Yazmin",
-          "bloque": "h18",
-          "prioridad": "MVP",
-          "estado": "en_curso",
-          "evidencia": "Only a silent 170-second draft exists. Final English narration and LinuxONE/model footage are missing; see submission/VIDEO.md."
+          "role": "a judge",
+          "goal": "a public English video no longer than three minutes (target 2:50), showing the problem, supporting data, solution, stack, LinuxONE instance and model",
+          "benefit": "assess the execution",
+          "owners": "Yazmin",
+          "block": "h18",
+          "priority": "MVP",
+          "state": "in_progress",
+          "evidence": "English 170-second silent editing draft regenerated with translated slides, actual English synthetic UI and a clearly labeled LinuxONE placeholder. Final authorized English narration, VM/model footage and public URL remain open. submission/VIDEO.md."
         },
         {
           "id": "US-7.4",
-          "como": "an organizer",
-          "quiero": "the English deck exported to PDF with the exact required filename",
-          "para": "receive the required document",
-          "quien": "Yazmin",
-          "bloque": "h18",
-          "prioridad": "MVP",
-          "estado": "en_curso",
-          "evidencia": "An existing PDF has local measurements. English slide/PDF translation, visual review and final VM evidence are still required."
+          "role": "an organizer",
+          "goal": "the English deck exported to PDF with the exact required filename",
+          "benefit": "receive the required document",
+          "owners": "Yazmin",
+          "block": "h18",
+          "priority": "MVP",
+          "state": "done",
+          "evidence": "English 8-page PDF with exact required filename: submission/Los Antimarrulla_IBM Z Datathon 2026 Project.pdf. All pages rendered and visually checked; site copy identical. Historical local results explicitly labeled; VM captures still tracked in US-7.2."
         },
         {
           "id": "US-7.5",
-          "como": "a judge",
-          "quiero": "a public reproducible repository link with English run instructions, pinned dependencies and open-source resource links",
-          "para": "run and inspect the submitted code",
-          "quien": "Carlos · Javier",
-          "bloque": "h18",
-          "prioridad": "MVP",
-          "estado": "en_curso",
-          "evidencia": "Public repo and CI exist; the final English release, independent teammate review and final evidence remain open."
+          "role": "a judge",
+          "goal": "a public reproducible repository link with English run instructions, pinned dependencies and open-source resource links",
+          "benefit": "run and inspect the submitted code",
+          "owners": "Carlos · Javier",
+          "block": "h18",
+          "priority": "MVP",
+          "state": "in_progress",
+          "evidence": "Public repo and CI exist; the final English release, independent teammate review and final evidence remain open."
         },
         {
           "id": "US-7.7",
-          "como": "a judge",
-          "quiero": "an English architecture flowchart showing the hospital and LinuxONE boundaries in PNG/PDF",
-          "para": "understand the implemented design; this artifact is optional",
-          "quien": "Álvaro · Javier",
-          "bloque": "h16",
-          "prioridad": "Plus",
-          "estado": "en_curso",
-          "evidencia": "submission/flowchart/arquitectura.pdf exists; English labels and visual verification remain open under US-7.9."
+          "role": "a judge",
+          "goal": "an English architecture flowchart showing the hospital and LinuxONE boundaries in PNG/PDF",
+          "benefit": "understand the implemented design; this artifact is optional",
+          "owners": "Álvaro · Javier",
+          "block": "h16",
+          "priority": "Plus",
+          "state": "done",
+          "evidence": "English editable SVG, PNG and PDF in submission/flowchart/architecture.*; visually checked. Describes implemented protocol and planned same-VM trust boundary; LinuxONE execution remains pending."
         },
         {
           "id": "US-7.8",
-          "como": "a judge",
-          "quiero": "an accessible English prototype link, if public access is feasible, without new features after the freeze",
-          "para": "try the optional interactive artifact separately from the demo video",
-          "quien": "Javier",
-          "bloque": "h18",
-          "prioridad": "Plus",
-          "estado": "en_curso",
-          "evidencia": "The local demo runs; a publicly accessible prototype URL has not been established. Public prototype hosting is optional."
+          "role": "a judge",
+          "goal": "an accessible English prototype link, if public access is feasible, without new features after the freeze",
+          "benefit": "try the optional interactive artifact separately from the demo video",
+          "owners": "Javier",
+          "block": "h18",
+          "priority": "Plus",
+          "state": "in_progress",
+          "evidence": "The local demo runs; a publicly accessible prototype URL has not been established. Public prototype hosting is optional."
         },
         {
           "id": "US-7.6",
-          "como": "a team member",
-          "quiero": "the registered leader to submit from the dashboard after all four review, by October 18 at 07:00 Ciudad Juárez, with the exact title, English details, video, repository, PDF and optional links",
-          "para": "keep a 3-hour-30-minute buffer before the confirmed portal deadline",
-          "quien": "Javier",
-          "bloque": "h22",
-          "prioridad": "MVP",
-          "estado": "pendiente"
+          "role": "a team member",
+          "goal": "the registered leader to submit from the dashboard after all four review, by October 18 at 07:00 Ciudad Juárez, with the exact title, English details, video, repository, PDF and optional links",
+          "benefit": "keep a 3-hour-30-minute buffer before the confirmed portal deadline",
+          "owners": "Javier",
+          "block": "h22",
+          "priority": "MVP",
+          "state": "pending"
         }
       ]
     }
@@ -581,5 +582,6 @@
       "historical commits, dates and measured evidence"
     ],
     "source": "Captain instruction; not asserted as an organizer rule."
-  }
+  },
+  "schema_version": 2
 }

@@ -1,48 +1,48 @@
-# Demo: dos contenedores en la misma máquina (en LinuxONE, la misma VM).
-# Los secretos viven fuera del repo: ${TAMIZAJE_SECRETOS:-~/.tamizaje} (make secretos).
-name: tamizaje
+# Demo: two containers on one host. The host administrator remains trusted.
+# Store secrets outside the repository; generate them with make secrets.
+name: screening
 services:
-  servicio:
+  service:
     build: { context: .., dockerfile: docker/Dockerfile, target: app }
-    image: tamizaje:demo
-    command: ["python3", "-m", "tamizaje.servicio"]
-    user: "${TAMIZAJE_UID:-10001}:${TAMIZAJE_GID:-10001}"  # mismo usuario que dueño de los secretos (0600)
+    image: screening:demo
+    command: ["python3", "-m", "screening.service"]
+    user: "${SCREENING_UID:-10001}:${SCREENING_GID:-10001}"
     environment:
-      SERVICIO_CERT: /run/tamizaje/servicio.pem
-      SERVICIO_LLAVE: /run/tamizaje/servicio.key
-      SERVICIO_CA_CLIENTES: /run/tamizaje/ca.pem
+      SERVICE_CERT: /run/screening/service.pem
+      SERVICE_KEY: /run/screening/service.key
+      SERVICE_CLIENT_CA: /run/screening/ca.pem
     volumes:
-      # Solo su certificado, su llave TLS y la CA. Ni la llave Paillier ni la de la bóveda.
-      - ${TAMIZAJE_SECRETOS}/certs/servicio.pem:/run/tamizaje/servicio.pem:ro
-      - ${TAMIZAJE_SECRETOS}/certs/servicio.key:/run/tamizaje/servicio.key:ro
-      - ${TAMIZAJE_SECRETOS}/certs/ca.pem:/run/tamizaje/ca.pem:ro
+      # Service TLS identity and CA only; no hospital Paillier or vault key.
+      - ${SCREENING_SECRETS}/certs/service.pem:/run/screening/service.pem:ro
+      - ${SCREENING_SECRETS}/certs/service.key:/run/screening/service.key:ro
+      - ${SCREENING_SECRETS}/certs/ca.pem:/run/screening/ca.pem:ro
     read_only: true
     tmpfs: [/tmp]
-    networks: [interna]
+    networks: [internal]
   hospital:
-    image: tamizaje:demo
-    depends_on: [servicio]
-    command: ["python3", "-m", "tamizaje.hospital"]
-    user: "${TAMIZAJE_UID:-10001}:${TAMIZAJE_GID:-10001}"  # mismo usuario que dueño de los secretos (0600)
+    image: screening:demo
+    depends_on: [service]
+    command: ["python3", "-m", "screening.hospital"]
+    user: "${SCREENING_UID:-10001}:${SCREENING_GID:-10001}"
     environment:
       HOSPITAL_HOST: 0.0.0.0
-      SERVICIO_URL: https://servicio:8443
-      TLS_CA: /run/tamizaje/ca.pem
-      TLS_CERT_CLIENTE: /run/tamizaje/hospital.pem
-      TLS_LLAVE_CLIENTE: /run/tamizaje/hospital.key
-      BOVEDA_LLAVE: /run/tamizaje/boveda.key
-      BOVEDA_ARCHIVO: /var/lib/tamizaje/boveda.jsonl
+      SERVICE_URL: https://service:8443
+      TLS_CA: /run/screening/ca.pem
+      TLS_CLIENT_CERT: /run/screening/hospital.pem
+      TLS_CLIENT_KEY: /run/screening/hospital.key
+      VAULT_KEY: /run/screening/vault.key
+      VAULT_FILE: /var/lib/screening/vault.jsonl
     volumes:
-      - ${TAMIZAJE_SECRETOS}/certs/ca.pem:/run/tamizaje/ca.pem:ro
-      - ${TAMIZAJE_SECRETOS}/certs/hospital.pem:/run/tamizaje/hospital.pem:ro
-      - ${TAMIZAJE_SECRETOS}/certs/hospital.key:/run/tamizaje/hospital.key:ro
-      - ${TAMIZAJE_SECRETOS}/boveda.key:/run/tamizaje/boveda.key:ro
-      - boveda:/var/lib/tamizaje
-    ports: ["127.0.0.1:8080:8080"]
+      - ${SCREENING_SECRETS}/certs/ca.pem:/run/screening/ca.pem:ro
+      - ${SCREENING_SECRETS}/certs/hospital.pem:/run/screening/hospital.pem:ro
+      - ${SCREENING_SECRETS}/certs/hospital.key:/run/screening/hospital.key:ro
+      - ${SCREENING_SECRETS}/vault.key:/run/screening/vault.key:ro
+      - vault:/var/lib/screening
+    ports: ["127.0.0.1:${SCREENING_UI_PORT:-8080}:8080"]
     read_only: true
     tmpfs: [/tmp]
-    networks: [interna]
+    networks: [internal]
 networks:
-  interna: {}
+  internal: {}
 volumes:
-  boveda: {}
+  vault: {}

@@ -1,0 +1,321 @@
+{
+ "model": "logistic-cdc21-v1",
+ "model_sha256": "9747116760f938ae501f96f57a3ad401324032b0ba52e20ef14b48e32c1d8b11",
+ "date_utc": "2026-10-17T09:27:53Z",
+ "environment": "Darwin arm64",
+ "definitions": {
+  "average_precision": "sklearn.metrics.average_precision_score: precision weighted by recall increments, not trapezoidal PR area",
+  "threshold": "sensibilidad >= 0.8 en validación con la mayor especificidad",
+  "ece": "expected calibration error in ten equal-sized bins"
+ },
+ "threshold_probability": 0.122536,
+ "validation": {
+  "n": 38052,
+  "positives": 5302,
+  "prevalence": 0.1393,
+  "roc_auc": 0.8186,
+  "average_precision": 0.3979,
+  "sensitivity": 0.8001,
+  "specificity": 0.6915,
+  "ppv": 0.2957,
+  "matrix_confusion": {
+   "tn": 22648,
+   "fp": 10102,
+   "fn": 1060,
+   "tp": 4242
+  },
+  "brier": 0.0998,
+  "p_mean": 0.1373,
+  "ece_10_quantiles": 0.0156,
+  "calibration_by_decile": [
+   {
+    "n": 3806,
+    "p_mean": 0.0097,
+    "observed": 0.0039
+   },
+   {
+    "n": 3806,
+    "p_mean": 0.0193,
+    "observed": 0.0102
+   },
+   {
+    "n": 3805,
+    "p_mean": 0.0305,
+    "observed": 0.0229
+   },
+   {
+    "n": 3805,
+    "p_mean": 0.0453,
+    "observed": 0.0371
+   },
+   {
+    "n": 3805,
+    "p_mean": 0.0658,
+    "observed": 0.071
+   },
+   {
+    "n": 3805,
+    "p_mean": 0.0948,
+    "observed": 0.1038
+   },
+   {
+    "n": 3805,
+    "p_mean": 0.136,
+    "observed": 0.1608
+   },
+   {
+    "n": 3805,
+    "p_mean": 0.1954,
+    "observed": 0.2247
+   },
+   {
+    "n": 3805,
+    "p_mean": 0.2868,
+    "observed": 0.3064
+   },
+   {
+    "n": 3805,
+    "p_mean": 0.4896,
+    "observed": 0.4526
+   }
+  ]
+ },
+ "test": {
+  "n": 38052,
+  "positives": 5302,
+  "prevalence": 0.1393,
+  "roc_auc": 0.826,
+  "average_precision": 0.4151,
+  "sensitivity": 0.805,
+  "specificity": 0.6914,
+  "ppv": 0.2969,
+  "matrix_confusion": {
+   "tn": 22644,
+   "fp": 10106,
+   "fn": 1034,
+   "tp": 4268
+  },
+  "brier": 0.0982,
+  "p_mean": 0.139,
+  "ece_10_quantiles": 0.0115,
+  "calibration_by_decile": [
+   {
+    "n": 3806,
+    "p_mean": 0.0096,
+    "observed": 0.0024
+   },
+   {
+    "n": 3806,
+    "p_mean": 0.0195,
+    "observed": 0.0076
+   },
+   {
+    "n": 3805,
+    "p_mean": 0.0306,
+    "observed": 0.021
+   },
+   {
+    "n": 3805,
+    "p_mean": 0.0458,
+    "observed": 0.0402
+   },
+   {
+    "n": 3805,
+    "p_mean": 0.0667,
+    "observed": 0.0649
+   },
+   {
+    "n": 3805,
+    "p_mean": 0.0951,
+    "observed": 0.1075
+   },
+   {
+    "n": 3805,
+    "p_mean": 0.1367,
+    "observed": 0.1519
+   },
+   {
+    "n": 3805,
+    "p_mean": 0.1974,
+    "observed": 0.2095
+   },
+   {
+    "n": 3805,
+    "p_mean": 0.2912,
+    "observed": 0.3109
+   },
+   {
+    "n": 3805,
+    "p_mean": 0.4974,
+    "observed": 0.4775
+   }
+  ]
+ },
+ "quantization_in_test": {
+  "n": 38052,
+  "weight_scale": 1000000000,
+  "error_max_logit": 5.7110067785970386e-08,
+  "error_mean_logit": 1.658002534796036e-08,
+  "applicable_max_bound": 9.6e-08,
+  "all_within_bound": true,
+  "error_max_probability": 1.199995219858252e-08,
+  "roc_auc_floating": 0.826017,
+  "roc_auc_point_fijo": 0.826017,
+  "decisions_different_in_threshold": 0
+ },
+ "class_weight_balanced": {
+  "note": "class_weight='balanced' increases positive-class probabilities while changing ranking little. The exported model omits class weighting and chooses its threshold on validation; this does not guarantee external calibration.",
+  "test": {
+   "n": 38052,
+   "positives": 5302,
+   "prevalence": 0.1393,
+   "roc_auc": 0.827,
+   "average_precision": 0.4142,
+   "sensitivity": 0.8052,
+   "specificity": 0.6929,
+   "ppv": 0.2979,
+   "matrix_confusion": {
+    "tn": 22691,
+    "fp": 10059,
+    "fn": 1033,
+    "tp": 4269
+   },
+   "brier": 0.1752,
+   "p_mean": 0.3855,
+   "ece_10_quantiles": 0.2462,
+   "calibration_by_decile": [
+    {
+     "n": 3806,
+     "p_mean": 0.0445,
+     "observed": 0.0026
+    },
+    {
+     "n": 3806,
+     "p_mean": 0.0925,
+     "observed": 0.0068
+    },
+    {
+     "n": 3805,
+     "p_mean": 0.1455,
+     "observed": 0.0205
+    },
+    {
+     "n": 3805,
+     "p_mean": 0.2112,
+     "observed": 0.0386
+    },
+    {
+     "n": 3805,
+     "p_mean": 0.2916,
+     "observed": 0.0654
+    },
+    {
+     "n": 3805,
+     "p_mean": 0.3834,
+     "observed": 0.1072
+    },
+    {
+     "n": 3805,
+     "p_mean": 0.4892,
+     "observed": 0.1498
+    },
+    {
+     "n": 3805,
+     "p_mean": 0.6048,
+     "observed": 0.2121
+    },
+    {
+     "n": 3805,
+     "p_mean": 0.7259,
+     "observed": 0.3133
+    },
+    {
+     "n": 3805,
+     "p_mean": 0.8671,
+     "observed": 0.477
+    }
+   ]
+  },
+  "threshold_validation": 0.459189
+ },
+ "duplicates": {
+  "rows_repeated_without_id_in_all_the_cdc": 24206,
+  "rows_of_test_with_copy_identical_in_training": 4560,
+  "note": "Identical categorical responses can belong to different people; identical rows do not establish duplicate participants.",
+  "sensitivity_training_without_duplicates": {
+   "rows_training": 163437,
+   "test": {
+    "n": 38052,
+    "positives": 5302,
+    "prevalence": 0.1393,
+    "roc_auc": 0.8258,
+    "average_precision": 0.4149,
+    "sensitivity": 0.8054,
+    "specificity": 0.6913,
+    "ppv": 0.2969,
+    "matrix_confusion": {
+     "tn": 22640,
+     "fp": 10110,
+     "fn": 1032,
+     "tp": 4270
+    },
+    "brier": 0.0981,
+    "p_mean": 0.1422,
+    "ece_10_quantiles": 0.0108,
+    "calibration_by_decile": [
+     {
+      "n": 3806,
+      "p_mean": 0.0109,
+      "observed": 0.0024
+     },
+     {
+      "n": 3806,
+      "p_mean": 0.0219,
+      "observed": 0.0076
+     },
+     {
+      "n": 3805,
+      "p_mean": 0.0339,
+      "observed": 0.0218
+     },
+     {
+      "n": 3805,
+      "p_mean": 0.0499,
+      "observed": 0.0389
+     },
+     {
+      "n": 3805,
+      "p_mean": 0.0717,
+      "observed": 0.0647
+     },
+     {
+      "n": 3805,
+      "p_mean": 0.1007,
+      "observed": 0.1085
+     },
+     {
+      "n": 3805,
+      "p_mean": 0.143,
+      "observed": 0.149
+     },
+     {
+      "n": 3805,
+      "p_mean": 0.2033,
+      "observed": 0.2142
+     },
+     {
+      "n": 3805,
+      "p_mean": 0.2945,
+      "observed": 0.3093
+     },
+     {
+      "n": 3805,
+      "p_mean": 0.4925,
+      "observed": 0.477
+     }
+    ]
+   }
+  }
+ },
+ "xgboost": "not trained: optional after logistic regression is completed and verified"
+}

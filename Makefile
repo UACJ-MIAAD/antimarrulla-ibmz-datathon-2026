@@ -1,149 +1,126 @@
-# Interfaz única del proyecto. Ver README · "Cómo correrlo".
+# Project command interface. See README.md for setup and deployment.
 .DEFAULT_GOAL := all
+SHELL := /bin/bash
+.SHELLFLAGS := -eu -o pipefail -c
 PY ?= python3.12
 VENV := .venv
 BIN := $(VENV)/bin
 export PYTHONPATH := src
-export TAMIZAJE_SECRETOS ?= $(HOME)/.tamizaje
-export TAMIZAJE_UID := $(shell id -u)
-export TAMIZAJE_GID := $(shell id -g)
-COMPOSE := docker compose -f docker/compose.yml
+export SCREENING_SECRETS ?= $(HOME)/.screening
+export SCREENING_UID := $(shell id -u)
+export SCREENING_GID := $(shell id -g)
+export SCREENING_UI_PORT ?= 8080
+UI_URL ?= http://127.0.0.1:$(SCREENING_UI_PORT)
+COMPOSE ?= docker compose -f docker/compose.yml
+MEASUREMENT_DIR ?= submission/evidence/metrics
 
-.PHONY: all setup modelo test verify secretos imagen demo demo-down smoke medir package
-.PHONY: instance-claims
-
-instance-claims: setup                ## prueba el protocolo real de 21 variables y guarda salida + procedencia
-	$(BIN)/python tests/instance/05_test_claims.py
-
-all: setup verify demo                ## instala, verifica y levanta la demo
-
-setup: $(VENV)/.instalado             ## crea .venv con las versiones fijadas
-$(VENV)/.instalado: requirements.txt
+.PHONY: all setup model test verify secrets image demo demo-down smoke measure measure-api package instance-claims
+all: setup verify demo                ## Install, verify and start the demo.
+setup: $(VENV)/.installed             ## Install pinned Python dependencies.
+$(VENV)/.installed: requirements.txt
 	$(PY) -m venv $(VENV)
 	$(BIN)/pip install -q --upgrade pip
 	$(BIN)/pip install -q -r requirements.txt
 	touch $@
-
-modelo: setup                         ## regenera particiones (si faltan) y re-entrena el modelo exportado
-	$(BIN)/python -m tamizaje.datos
-	$(BIN)/python -m tamizaje.entrenar
-
-test: setup                           ## pruebas del protocolo, servicio e integración
+model: setup                         ## Create missing splits and retrain the exported model.
+	$(BIN)/python -m screening.data
+	$(BIN)/python -m screening.train
+test: setup                          ## Protocol, service, provenance and integration tests.
 	$(BIN)/python -m pytest -q tests
-
-verify: test                          ## pruebas + verificación de artefactos (no modifica nada)
-	$(BIN)/python -m tamizaje.verificar
-
-secretos: setup                       ## certificados TLS y llave de la bóveda, fuera del repo
-	@test -f $(TAMIZAJE_SECRETOS)/certs/servicio.pem -a -f $(TAMIZAJE_SECRETOS)/boveda.key || $(BIN)/python -m tamizaje.secretos $(TAMIZAJE_SECRETOS)
-
-imagen:                               ## imagen de la demo, etapa app (sin CDC, pruebas ni herramientas de entrenamiento)
-	docker build -f docker/Dockerfile --target app -t tamizaje:demo .
-
-demo: secretos imagen                 ## levanta hospital + servicio y corre la prueba de humo
+verify: test                         ## Verify artifacts and reproduce the model without modifying it.
+	$(BIN)/python -m screening.verify
+instance-claims: setup               ## Run actual 21-feature project tests and save provenance.
+	$(BIN)/python tests/instance/05_test_claims.py
+secrets: setup                       ## Create TLS credentials and the vault key outside the repo.
+	@test -f $(SCREENING_SECRETS)/certs/service.pem -a -f $(SCREENING_SECRETS)/vault.key || $(BIN)/python -m screening.secrets_setup $(SCREENING_SECRETS)
+image:                               ## Build the app image without CDC, tests or training tools.
+	docker build -f docker/Dockerfile --target app -t screening:demo .
+demo: secrets image                  ## Start hospital/service containers and run the smoke test.
 	$(COMPOSE) up -d
-	$(BIN)/python -m tamizaje.smoke http://127.0.0.1:8080
-	@echo "UI: http://127.0.0.1:8080"
-
+	$(BIN)/python -m screening.smoke $(UI_URL)
+	@echo "UI: $(UI_URL)"
 smoke: setup
-	$(BIN)/python -m tamizaje.smoke http://127.0.0.1:8080
-
+	$(BIN)/python -m screening.smoke $(UI_URL)
 demo-down:
 	$(COMPOSE) down
+measure: setup                       ## Same-sample numerical comparison and process microbenchmarks.
+	$(BIN)/python -m screening.measure $(if $(FINAL),--final,)
+measure-api: setup                   ## Measure the deployed hospital API end to end.
+	$(BIN)/python -m screening.measure --mode api --url $(UI_URL) $(if $(FINAL),--final,)
+package: verify                      ## Build DRAFT ZIPs; FINAL=1 requires final evidence.
+	$(BIN)/python -m screening.package --kind both $(if $(FINAL),--final,)
 
-medir: setup                          ## exactitud + microbenchmarks en proceso, con procedencia → submission/evidencias/metricas/
-	$(BIN)/python -m tamizaje.medir $(if $(FINAL),--final,)
-
-medir-api: setup                      ## mide la API del hospital desplegado (make demo) de punta a punta
-	$(BIN)/python -m tamizaje.medir --modo api --url http://127.0.0.1:8080 $(if $(FINAL),--final,)
-
-package: verify                       ## paquetes documental y de código en dist/ (BORRADOR; FINAL=1 exige evidencias)
-	$(BIN)/python -m tamizaje.empaquetar --tipo ambos $(if $(FINAL),--final,)
-
-# ---- Linux / LinuxONE (s390x) sin ruedas de pip: todo dentro de las imágenes de Ubuntu 24.04
+# Ubuntu apt packages support amd64, arm64 and LinuxONE s390x without native pip wheels.
 COMMIT := $(shell git rev-parse HEAD 2>/dev/null)
-# Cambios relevantes, incluidos archivos nuevos sin versionar (un PPTX personal fuera de estas rutas no cuenta)
-RELEVANTES := src tests docker Makefile requirements.txt artefactos/modelo artefactos/particiones .dockerignore
-CAMBIOS := $(shell test -n "$$(git status --porcelain --untracked-files=all -- $(RELEVANTES) 2>/dev/null)" && echo 1 || echo 0)
-PROC = -e TAMIZAJE_COMMIT=$(COMMIT) -e TAMIZAJE_CAMBIOS_RELEVANTES=$(CAMBIOS) -e TAMIZAJE_IMAGEN=$$(docker image inspect -f '{{.Id}}' tamizaje:dev)
-DEV = docker run --rm $(PROC) tamizaje:dev
-
-imagen-dev:
-	docker build -f docker/Dockerfile --target dev -t tamizaje:dev .
-
-secretos-docker: imagen               ## genera los secretos con la imagen (sin venv en el host)
-	@mkdir -p $(TAMIZAJE_SECRETOS)
-	@test -f $(TAMIZAJE_SECRETOS)/certs/servicio.pem -a -f $(TAMIZAJE_SECRETOS)/boveda.key || docker run --rm --user $(TAMIZAJE_UID):$(TAMIZAJE_GID) -v $(TAMIZAJE_SECRETOS):/secretos tamizaje:demo python3 -m tamizaje.secretos /secretos
-
-verify-docker: imagen-dev             ## pruebas + verificación dentro de Linux
-	$(DEV) sh -c "python3 -m pytest -q -p no:cacheprovider tests && python3 -m tamizaje.verificar"
-
-demo-docker: secretos-docker imagen   ## demo sin venv en el host
+RELEVANT := src tests docker Makefile requirements.txt artifacts/model artifacts/splits .dockerignore
+CHANGES := $(shell test -n "$$(git status --porcelain --untracked-files=all -- $(RELEVANT) 2>/dev/null)" && echo 1 || echo 0)
+PROC = -e SCREENING_COMMIT=$(COMMIT) -e SCREENING_RELEVANT_CHANGES=$(CHANGES) -e SCREENING_IMAGE=$$(docker image inspect -f '{{.Id}}' screening:dev)
+DEV = docker run --rm $(PROC) screening:dev
+.PHONY: image-dev secrets-docker verify-docker demo-docker image-inspect measure-docker measure-api-docker
+image-dev:
+	docker build -f docker/Dockerfile --target dev -t screening:dev .
+secrets-docker: image                ## Generate credentials using the image, without a host venv.
+	@mkdir -p $(SCREENING_SECRETS)
+	@test -f $(SCREENING_SECRETS)/certs/service.pem -a -f $(SCREENING_SECRETS)/vault.key || docker run --rm --user $(SCREENING_UID):$(SCREENING_GID) -v $(SCREENING_SECRETS):/secrets screening:demo python3 -m screening.secrets_setup /secrets
+verify-docker: image-dev             ## Run tests and model verification inside Ubuntu.
+	$(DEV) sh -c "python3 -m pytest -q -p no:cacheprovider tests && python3 -m screening.verify"
+demo-docker: secrets-docker image    ## Run the demo and container smoke test without host Python.
 	$(COMPOSE) up -d
-	docker run --rm --network host tamizaje:demo python3 -m tamizaje.smoke http://127.0.0.1:8080
+	docker run --rm --network host screening:demo python3 -m screening.smoke $(UI_URL)
+image-inspect: image                 ## Verify the app image excludes data, tests, sklearn and keys.
+	docker run --rm screening:demo sh -c 'test ! -e /app/data && test ! -e /app/tests && ! python3 -c "import sklearn" 2>/dev/null && ! find / -xdev \( -name "*.key" -o -name "vault.key" \) 2>/dev/null | grep -q . && test -f /app/artifacts/model/logistic_model_v1.json && test -f /app/screening/ui/index.html && echo "app image OK: model/UI present; no CDC, tests, sklearn or keys"'
+measure-docker: image-dev            ## Write process measurements with container provenance.
+	mkdir -p $(MEASUREMENT_DIR) && chmod 777 $(MEASUREMENT_DIR)
+	docker run --rm $(PROC) -v $(CURDIR)/$(MEASUREMENT_DIR):/app/submission/evidence/metrics screening:dev python3 -m screening.measure $(if $(FINAL),--final,)
+measure-api-docker: image-dev        ## Measure the Compose hospital API from a client container.
+	mkdir -p $(MEASUREMENT_DIR) && chmod 777 $(MEASUREMENT_DIR)
+	docker run --rm --network host $(PROC) -v $(CURDIR)/$(MEASUREMENT_DIR):/app/submission/evidence/metrics screening:dev python3 -m screening.measure --mode api --url $(UI_URL) $(if $(FINAL),--final,)
 
-imagen-inspeccion: imagen             ## comprueba que la imagen de la demo no trae CDC, pruebas, sklearn ni llaves
-	docker run --rm tamizaje:demo sh -c 'test ! -e /app/data && test ! -e /app/tests && ! python3 -c "import sklearn" 2>/dev/null && ! find / -xdev \( -name "*.key" -o -name "boveda.key" \) 2>/dev/null | grep -q . && test -f /app/artefactos/modelo/modelo_logistico_v1.json && test -f /app/tamizaje/ui/index.html && echo "imagen app OK: modelo y UI; sin CDC, pruebas, sklearn ni llaves"' 
+.PHONY: ensanut forecast video-draft
+ensanut: setup                       ## Optional reduced ENSANUT experiment with local microdata.
+	$(BIN)/python -m screening.ensanut
+forecast: setup                      ## Optional 52-week forecasts, evaluation and dashboard data.
+	$(BIN)/python -m screening.forecast
+	cp artifacts/forecast/e5_forecast_v1.json site/assets/forecast.json
+video-draft:                         ## Build the silent 170-second editing draft; requires ffmpeg.
+	PYTHONPATH=src $(BIN)/python -m screening.video_draft
 
-medir-docker: imagen-dev              ## mediciones dentro de Linux → submission/evidencias/metricas/
-	mkdir -p submission/evidencias/metricas && chmod 777 submission/evidencias/metricas
-	docker run --rm $(PROC) -v $(CURDIR)/submission/evidencias/metricas:/app/submission/evidencias/metricas tamizaje:dev python3 -m tamizaje.medir $(if $(FINAL),--final,)
-
-medir-api-docker: imagen-dev          ## mide la API del hospital de Compose desde un contenedor cliente (sin Python en el host)
-	mkdir -p submission/evidencias/metricas && chmod 777 submission/evidencias/metricas
-	docker run --rm --network host $(PROC) -v $(CURDIR)/submission/evidencias/metricas:/app/submission/evidencias/metricas tamizaje:dev python3 -m tamizaje.medir --modo api --url http://127.0.0.1:8080 $(if $(FINAL),--final,)
-
-ensanut: setup                        ## extra: evaluación exploratoria con ENSANUT (microdatos locales)
-	$(BIN)/python -m tamizaje.ensanut
-
-pronostico: setup                     ## extra E5: pronóstico a 52 semanas (222 series) → artefactos/pronostico/ y el sitio
-	$(BIN)/python -m tamizaje.pronostico
-	cp artefactos/pronostico/e5_pronostico_v1.json site/assets/pronostico.json
-
-video-borrador:                       ## borrador sin audio con los tiempos del guion → dist/video/ (requiere ffmpeg)
-	PYTHONPATH=src $(BIN)/python -m tamizaje.video_borrador
-
-# ---- Prueba de dos máquinas (docs/DOS_MAQUINAS.md): servicio de riesgo en una VM, hospital en otra, con auditoría
-DM ?= $(HOME)/.tamizaje-dos-maquinas
+# Optional two-host test: service on host A; hospital on host B.
+DM ?= $(HOME)/.screening-two-hosts
 N ?= 200
-DATOS ?= sintetico
-MAQUINA_ID = -e TAMIZAJE_MAQUINA_ID=$$(cut -c1-12 /etc/machine-id 2>/dev/null)
-.PHONY: secretos-dos-maquinas servicio-remoto-docker hospital-remoto-docker auditar-dos-maquinas-docker ensayo-dos-maquinas
-
-secretos-dos-maquinas: imagen         ## VM del servicio: certificados con su IP + paquete para el hospital (SERVICIO_IP=...)
-	@test -n "$(SERVICIO_IP)" || (echo "uso: make secretos-dos-maquinas SERVICIO_IP=<IP pública de esta VM>"; exit 1)
+DATA ?= synthetic
+HOST_ID = -e SCREENING_HOST_ID=$$(cut -c1-12 /etc/machine-id 2>/dev/null || true)
+.PHONY: secrets-two-hosts service-remote-docker hospital-remote-docker audit-two-hosts-docker rehearse-two-hosts
+secrets-two-hosts: image              ## SERVICE_IP must match the service certificate SAN.
+	@test -n "$(SERVICE_IP)" || (echo "usage: make secrets-two-hosts SERVICE_IP=<service VM IP>"; exit 1)
 	@mkdir -p $(DM) && chmod 700 $(DM)
-	docker run --rm --user $(TAMIZAJE_UID):$(TAMIZAJE_GID) -v $(DM):/dm tamizaje:demo python3 -m tamizaje.secretos /dm/servicio --servicio-san $(SERVICIO_IP) --exportar-hospital /dm/para_hospital
-	@echo "Copia $(DM)/para_hospital a la VM del hospital (misma ruta) y bórralo de aquí: rm -r $(DM)/para_hospital"
-
-servicio-remoto-docker: imagen        ## VM del servicio: escucha en :8443 sin llave privada y guarda evidencia (Ctrl+C para parar)
-	@test -f $(DM)/servicio/certs/servicio.pem || (echo "primero: make secretos-dos-maquinas SERVICIO_IP=..."; exit 1)
-	@mkdir -p $(DM)/evidencia_servicio
-	docker run --rm --name tamizaje-servicio-remoto --hostname $$(hostname) $(MAQUINA_ID) --user $(TAMIZAJE_UID):$(TAMIZAJE_GID) -p 8443:8443 \
-	  -v $(DM)/servicio/certs:/run/tamizaje:ro -v $(DM)/evidencia_servicio:/evidencia \
-	  -e SERVICIO_CERT=/run/tamizaje/servicio.pem -e SERVICIO_LLAVE=/run/tamizaje/servicio.key -e SERVICIO_CA_CLIENTES=/run/tamizaje/ca.pem \
-	  -e SERVICIO_EVIDENCIA=/evidencia tamizaje:demo python3 -m tamizaje.servicio 2>&1 | tee -a $(DM)/servicio.log
-
-hospital-remoto-docker: imagen-dev    ## VM del hospital: sintéticos por defecto; DATOS=cdc solo para benchmark público
-	@test -n "$(SERVICIO_URL)" || (echo "uso: make hospital-remoto-docker SERVICIO_URL=https://<IP del servicio>:8443 [N=200]"; exit 1)
-	@test -f $(DM)/para_hospital/hospital.key || (echo "falta $(DM)/para_hospital: cópialo desde la VM del servicio"; exit 1)
-	@mkdir -p $(DM)/bitacora_hospital
-	docker run --rm --network host $(PROC) $(MAQUINA_ID) --user $(TAMIZAJE_UID):$(TAMIZAJE_GID) \
-	  -v $(DM)/para_hospital:/run/tamizaje:ro -v $(DM)/bitacora_hospital:/bitacora \
-	  tamizaje:dev python3 -m tamizaje.dos_maquinas hospital --servicio $(SERVICIO_URL) --certs /run/tamizaje --salida /bitacora --n $(N) --datos $(DATOS)
-
-auditar-dos-maquinas-docker: imagen-dev  ## VM del servicio, con la bitácora del hospital copiada: reporte → submission/evidencias/dos_maquinas/
-	@test -f $(DM)/bitacora_hospital/resumen_hospital.json || (echo "copia la carpeta bitacora_hospital de la VM del hospital a $(DM)/"; exit 1)
-	mkdir -p submission/evidencias/dos_maquinas && chmod 777 submission/evidencias/dos_maquinas
-	docker run --rm $(PROC) -v $(DM):/dm:ro -v $(CURDIR)/submission/evidencias/dos_maquinas:/app/submission/evidencias/dos_maquinas \
-	  tamizaje:dev python3 -m tamizaje.dos_maquinas auditar --servicio /dm/evidencia_servicio --hospital /dm/bitacora_hospital --log-servicio /dm/servicio.log
-
-ensayo-dos-maquinas: setup            ## ensayo en UNA máquina, con sintéticos: nunca acredita dos VM
-	@set -eu; E=$$(mktemp -d /tmp/tamizaje-ensayo.XXXXXX); $(BIN)/python -m tamizaje.secretos $$E/servicio --exportar-hospital $$E/para_hospital >/dev/null; \
+	docker run --rm --user $(SCREENING_UID):$(SCREENING_GID) -v $(DM):/dm screening:demo python3 -m screening.secrets_setup /dm/service --service-san $(SERVICE_IP) --export-hospital /dm/for_hospital
+	@echo "Transfer $(DM)/for_hospital securely to the hospital VM, then remove the transfer copy."
+service-remote-docker: image          ## Listen on :8443 with ciphertext evidence; stop with Ctrl+C.
+	@test -f $(DM)/service/certs/service.pem || (echo "first run: make secrets-two-hosts SERVICE_IP=..."; exit 1)
+	@mkdir -p $(DM)/service_evidence
+	docker run --rm --name screening-service-remote --hostname $$(hostname) $(HOST_ID) --user $(SCREENING_UID):$(SCREENING_GID) -p 8443:8443 \
+	  -v $(DM)/service/certs:/run/screening:ro -v $(DM)/service_evidence:/evidence \
+	  -e SERVICE_CERT=/run/screening/service.pem -e SERVICE_KEY=/run/screening/service.key -e SERVICE_CLIENT_CA=/run/screening/ca.pem \
+	  -e SERVICE_EVIDENCE=/evidence screening:demo python3 -m screening.service 2>&1 | tee -a $(DM)/service.log
+hospital-remote-docker: image-dev     ## Synthetic by default; DATA=cdc explicitly selects labeled public data.
+	@test -n "$(SERVICE_URL)" || (echo "usage: make hospital-remote-docker SERVICE_URL=https://<service IP>:8443 [N=200]"; exit 1)
+	@test -f $(DM)/for_hospital/hospital.key || (echo "missing hospital credential bundle: $(DM)/for_hospital"; exit 1)
+	@mkdir -p $(DM)/hospital_log
+	docker run --rm --network host $(PROC) $(HOST_ID) --user $(SCREENING_UID):$(SCREENING_GID) \
+	  -v $(DM)/for_hospital:/run/screening:ro -v $(DM)/hospital_log:/hospital_log \
+	  screening:dev python3 -m screening.two_hosts hospital --service $(SERVICE_URL) --certs /run/screening --output /hospital_log --n $(N) --data $(DATA)
+audit-two-hosts-docker: image-dev     ## Copy host B's log to host A before auditing both evidence directories.
+	@test -f $(DM)/hospital_log/hospital_summary.json || (echo "copy the hospital_log directory from host B to $(DM)/"; exit 1)
+	mkdir -p submission/evidence/two_hosts && chmod 777 submission/evidence/two_hosts
+	docker run --rm $(PROC) -v $(DM):/dm:ro -v $(CURDIR)/submission/evidence/two_hosts:/app/submission/evidence/two_hosts \
+	  screening:dev python3 -m screening.two_hosts audit --service /dm/service_evidence --hospital /dm/hospital_log --log-service /dm/service.log
+rehearse-two-hosts: setup             ## Single-host synthetic rehearsal; never accredits two real VMs.
+	@set -eu; E=$$(mktemp -d /tmp/screening-rehearsal.XXXXXX); $(BIN)/python -m screening.secrets_setup $$E/service --export-hospital $$E/for_hospital >/dev/null; \
 	P=$$($(BIN)/python -c 'import socket; s=socket.socket(); s.bind(("127.0.0.1",0)); print(s.getsockname()[1]); s.close()'); \
-	C=$$E/servicio/certs; SERVICIO_HOST=127.0.0.1 SERVICIO_PUERTO=$$P SERVICIO_CERT=$$C/servicio.pem SERVICIO_LLAVE=$$C/servicio.key \
-	SERVICIO_CA_CLIENTES=$$C/ca.pem MODELO_JSON=artefactos/modelo/modelo_logistico_v1.json SERVICIO_EVIDENCIA=$$E/evidencia_servicio \
-	$(BIN)/python -m tamizaje.servicio > $$E/servicio.log 2>&1 & PID=$$!; trap 'kill "$$PID" 2>/dev/null || true' EXIT; sleep 3; \
-	$(BIN)/python -m tamizaje.dos_maquinas hospital --servicio https://localhost:$$P --certs $$E/para_hospital --salida $$E/bitacora_hospital --n $(if $(filter 200,$(N)),20,$(N)) --datos $(DATOS); \
-	kill $$PID; wait $$PID 2>/dev/null || true; $(BIN)/python -m tamizaje.dos_maquinas auditar --servicio $$E/evidencia_servicio --hospital $$E/bitacora_hospital \
-	  --log-servicio $$E/servicio.log --salida $$E/reporte --permitir-misma-maquina
+	C=$$E/service/certs; SERVICE_HOST=127.0.0.1 SERVICE_PORT=$$P SERVICE_CERT=$$C/service.pem SERVICE_KEY=$$C/service.key \
+	SERVICE_CLIENT_CA=$$C/ca.pem MODEL_JSON=artifacts/model/logistic_model_v1.json SERVICE_EVIDENCE=$$E/service_evidence \
+	$(BIN)/python -m screening.service > $$E/service.log 2>&1 & PID=$$!; trap 'kill "$$PID" 2>/dev/null || true' EXIT; sleep 3; \
+	$(BIN)/python -m screening.two_hosts hospital --service https://localhost:$$P --certs $$E/for_hospital --output $$E/hospital_log --n $(if $(filter 200,$(N)),20,$(N)) --data $(DATA); \
+	kill $$PID; wait $$PID 2>/dev/null || true; $(BIN)/python -m screening.two_hosts audit --service $$E/service_evidence --hospital $$E/hospital_log \
+	  --log-service $$E/service.log --output $$E/report --allow-same-machine

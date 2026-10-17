@@ -1,0 +1,12 @@
+{
+  "_instructions": "Fill with actual LinuxONE execution evidence, not local screenshots.",
+  "owner": "",
+  "date": "",
+  "commit": "",
+  "screenshots": {
+    "dashboard_community_cloud": "",
+    "uname_lscpu": "",
+    "containers": "",
+    "openssl": ""
+  }
+}

@@ -1,135 +1,120 @@
-# 📁 data/
+# Public source data
 
-Datos públicos oficiales, anonimizados en origen, listos para usar. Cada archivo pesa menos de 50 MB; los archivos completos más grandes están en el Release [`datos-2024`](https://github.com/UACJ-MIAAD/antimarrulla-ibmz-datathon-2026/releases/tag/datos-2024).
+Official public data, anonymized at source where applicable. Tracked individual files are below 50 MB. Larger originals are in the [`datos-2024` release](https://github.com/UACJ-MIAAD/antimarrulla-ibmz-datathon-2026/releases/tag/datos-2024).
 
-> ⚠️ **Nunca** subir datos personales, clínicos reales ni nada sensible. `data/raw/` es para descargas locales y está ignorada por git.
+Never publish sensitive or private patient records. `data/raw/` is an ignored local download directory. Original filenames, source columns and codes retain their spelling for reproducibility; explanations and preparation code are in English. Field/relationship details: [DATA_SOURCES.md](../docs/DATA_SOURCES.md) and [DATA_MODEL.md](../docs/DATA_MODEL.md).
 
-Detalle de variables, catálogos y cruces entre fuentes: [docs/FUENTES_DATOS.md](../docs/FUENTES_DATOS.md).
+## Model input
 
----
+| File | Description | Rows × columns | Approximate size |
+|------|-------------|----------------|------------------|
+| `cdc_891/cdc_diabetes_891.csv` | CDC BRFSS 2015 / UCI 891: ID, Diabetes_binary and 21 indicators; 13.93% positive | 253,680 × 23 | 13 MB |
 
-## Inventario
+## Mexican diabetes context
 
-### Entrenamiento del modelo
+| File | Description | Rows | Approximate size |
+|------|-------------|-----:|------------------|
+| `sinave/boletin/data_raw_Diabetes_T1.csv`, `_T2.csv` | Original epidemiological bulletin: year/week/state, weekly and cumulative cases by sex; 2014 through week 31 of 2026 | 21,024 each | 2 MB |
+| `sinave/tipo1/epi_dataset_v2.csv`, `sinave/tipo2/epi_dataset_v2.csv` | Reconciled weekly state/sex series, Census 2020 exposure and quality flags | 42,048 each | 12 MB |
+| `sinave/tipo1/products.csv`, `sinave/tipo2/products.csv` | 111 series/type, 222 total: state/region/national × men/women/all | 72,927 each | 14 MB |
+| `defunciones/defunciones_diabetes_2024.csv` | Registered deaths: E10–E14 (112,577) plus O24 (9); 74 EDR columns | 112,586 | 24 MB |
+| `egresos_sector/egresos_sector_diabetes_2024.csv` | Reported sector diabetes discharges; institutional code DH, ISSSTE=4 | 120,385 | 8 MB |
+| `egresos_sector/descriptor_sectorial_2018_2024.xlsx` | Sector-discharge dictionary/catalogs | — | — |
+| `egresos_ssa/egresos_diabetes_2024.csv` | SSA/IMSS-Bienestar diabetes admissions, including anthropometry and coverage | 62,771 | 11 MB |
+| `egresos_ssa/afecciones_diabetes_2024.csv`, `procedimientos_diabetes_2024.csv` | Secondary diagnoses and ICD-9 procedures from those admissions | 104,556 / 142,999 | 8 MB |
+| `egresos_ssa/descriptor_egresos_2023_2025.xlsx` | SSA-discharge dictionary/catalogs | — | — |
+| `sis_cronicas/DA_EC_SIS_2021.zip`, `_2022.zip`, `_2023.zip` | Chronic-disease treatment/control by facility/month | About 50 MB each uncompressed | 16 MB |
+| `sis_cronicas/descriptor_servicios_2010_2023.xlsx` | SIS dictionary, sheet Descriptor-ECRON | — | — |
+| `imss_detecciones/deteccion_diabetes.csv` | IMSS screening encounters by delegation, 2000–2023 | 840 | 40 KB |
 
-| Archivo | Qué es | Filas × columnas | Tamaño |
-|---------|--------|------------------|-------:|
-| `cdc_891/cdc_diabetes_891.csv` | CDC Diabetes Health Indicators (UCI 891, BRFSS 2015): `ID` + `Diabetes_binary` + 21 indicadores · 13.93% positivos | 253,680 × 23 | 13 MB |
+## Historical aggregates
 
-### Contexto mexicano de la diabetes
+| File | Description | Rows | Approximate size |
+|------|-------------|-----:|------------------|
+| `historicos/defunciones_diabetes_2017_2024.csv` | E10–E14/O24 deaths by registration/occurrence year, residence, sex, age band and cause | 9,137 | 0.3 MB |
+| `historicos/defunciones_todas_causas_2017_2024.csv` | All-cause deaths by year/state/sex | 792 | 12 KB |
+| `historicos/egresos_diabetes_2018_2024.csv` | Sector diabetes discharges by year, treatment state, institution, sex, age, reason and condition; includes length of stay | 60,944 | 1.9 MB |
+| `historicos/egresos_todas_causas_2018_2024.csv` | All-cause discharges by year/state/institution | 1,026 | 17 KB |
 
-| Archivo | Qué es | Filas | Tamaño |
-|---------|--------|------:|-------:|
-| `sinave/boletin/data_raw_Diabetes_T1.csv` · `_T2.csv` | Boletín Epidemiológico SINAVE tal cual: año, semana, entidad, casos de la semana y acumulados por sexo · 2014 → 2026 sem. 31 | 21,024 c/u | 2 MB |
-| `sinave/tipo1/epi_dataset_v2.csv` · `sinave/tipo2/epi_dataset_v2.csv` | Serie semanal reconciliada: 32 estados × 2 sexos (64 series), con exposición (Censo 2020) y banderas de calidad | 42,048 c/u | 12 MB |
-| `sinave/tipo1/products.csv` · `sinave/tipo2/products.csv` | 111 series por tipo (222 entre T1 y T2) listas para graficar: estado · región · nacional × hombres · mujeres · general | 72,927 c/u | 14 MB |
-| `defunciones/defunciones_diabetes_2024.csv` | Defunciones registradas 2024 con causa E10–E14 (112,577) u O24 (9); las 74 columnas de la EDR | 112,586 | 24 MB |
-| `egresos_sector/egresos_sector_diabetes_2024.csv` | Egresos por diabetes 2024 de la **base sectorial reportada** (IMSS, ISSSTE, SSA, IMSS-Bienestar, PEMEX, SEDENA, SEMAR…); `DH` = institución, ISSSTE = 4 | 120,385 | 8 MB |
-| `egresos_sector/descriptor_sectorial_2018_2024.xlsx` | Diccionario y catálogos de egresos sectoriales | — | — |
-| `egresos_ssa/egresos_diabetes_2024.csv` | Hospitalizaciones por diabetes 2024 en SSA / IMSS-Bienestar, con más variables (peso, talla, derechohabiencia…) | 62,771 | 11 MB |
-| `egresos_ssa/afecciones_diabetes_2024.csv` · `procedimientos_diabetes_2024.csv` | Diagnósticos secundarios y procedimientos CIE-9 de esos egresos (amputaciones, hemodiálisis) | 104,556 · 142,999 | 8 MB |
-| `egresos_ssa/descriptor_egresos_2023_2025.xlsx` | Diccionario y catálogos de egresos SSA | — | — |
-| `sis_cronicas/DA_EC_SIS_{2021,2022,2023}.zip` | Control de diabetes, hipertensión, obesidad… por unidad médica y mes (SIS) | ~50 MB c/u descomprimido | 16 MB |
-| `sis_cronicas/descriptor_servicios_2010_2023.xlsx` | Diccionario del SIS (hoja `Descriptor-ECRON`) | — | — |
-| `imss_detecciones/deteccion_diabetes.csv` | Detecciones (tamizajes) de diabetes del IMSS por delegación, 2000–2023 | 840 | 40 KB |
+E10–E14 registered-death totals: **151,019 in 2020** and **110,059 in 2023**. Exclude O24 when reproducing these figures. Source age bands are `<20`, `20-59`, `60+`.
 
-### Históricos agregados (2017–2024)
+## Mart, catalogs and geography
 
-| Archivo | Qué es | Filas | Tamaño |
-|---------|--------|------:|-------:|
-| `historicos/defunciones_diabetes_2017_2024.csv` | Muertes E10–E14 y O24 por año de registro, año de ocurrencia, entidad de residencia, sexo, grupo de edad (`<20`, `20-59`, `60+`) y causa | 9,137 | 0.3 MB |
-| `historicos/defunciones_todas_causas_2017_2024.csv` | Total de muertes por año, entidad y sexo (denominador) | 792 | 12 KB |
-| `historicos/egresos_diabetes_2018_2024.csv` | Hospitalizaciones por diabetes de todo el sector por año, entidad de atención, institución, sexo, edad, motivo y afección; con días de estancia | 60,944 | 1.9 MB |
-| `historicos/egresos_todas_causas_2018_2024.csv` | Total de egresos por año, entidad e institución (denominador) | 1,026 | 17 KB |
+| File | Description | Rows | Approximate size |
+|------|-------------|-----:|------------------|
+| `marts/cascada_entidad_anio.csv` | State/year care-stage indicators, 2017–2024; population, notified cases, screenings, treatment/control, discharges, deaths and rates | 256 | 30 KB |
+| `catalogos/entidades.csv` | INEGI state codes, names, ISO codes, SINAVE region and IMSS delegation crosswalk | 32 | 2 KB |
+| `catalogos/clues_202608.csv` | DGIS CLUES facility catalog, August 2026, institutions/locations/coordinates | 64,450 | 16 MB |
+| `geo/estados_mx.geojson` | Natural Earth state polygons | 32 | 0.4 MB |
 
-Validación: 151,019 muertes por diabetes registradas en 2020 y 110,059 en 2023, iguales a las cifras oficiales de INEGI.
+The mart combines independent aggregate sources. It is not a linked patient cascade and does not measure case fatality, individual progression or underdiagnosis.
 
-### Modelo de datos listo para usar
+## Denominators and social determinants
 
-| Archivo | Qué es | Filas | Tamaño |
-|---------|--------|------:|-------:|
-| `marts/cascada_entidad_anio.csv` | **Cascada de la diabetes por entidad y año**: población, casos nuevos, detecciones, en tratamiento y controlados, hospitalizaciones, muertes y tasas | 256 | 30 KB |
-| `catalogos/entidades.csv` | 32 entidades: clave INEGI, nombres, ISO 3166-2, región SINAVE y delegaciones IMSS (tabla de cruce) | 32 | 2 KB |
-| `catalogos/clues_202608.csv` | Catálogo CLUES de la DGIS (agosto 2026): 64,450 establecimientos con institución, ubicación y coordenadas | 64,450 | 16 MB |
-| `geo/estados_mx.geojson` | Polígonos de los 32 estados para mapas (Natural Earth, dominio público) | 32 | 0.4 MB |
+| File | Description | Rows | Approximate size |
+|------|-------------|-----:|------------------|
+| `conapo/pobproy_quinq1.csv` | Mid-year municipal population by sex/five-year age, 1990–2040 | 252,450 | 35 MB |
+| `conapo/indicadores_demograficos_1950_2070.csv` | State demographic indicators | 3,353 | 2 MB |
+| `conapo/ime_2020.csv`, `imm_2020.csv` | State/municipal marginalization indices, 2020 | 32 / 2,469 | 0.6 MB |
 
-Esquema, llaves y reglas de armonización: [docs/MODELO_DATOS.md](../docs/MODELO_DATOS.md).
+## Local-only ENSANUT inputs
 
-### Denominadores y determinantes sociales
+`raw/ensanut/2022/` and `raw/ensanut/2023/` contain source questionnaires, adults/residents/anthropometry/activity microdata and catalogs. They are not redistributed. Review INSP source terms before any publication; acquisition details are in [DATA_SOURCES.md](../docs/DATA_SOURCES.md). The reduced experiment exports aggregate metrics only.
 
-| Archivo | Qué es | Filas | Tamaño |
-|---------|--------|------:|-------:|
-| `conapo/pobproy_quinq1.csv` | Población a mitad de año por municipio, sexo y edad quinquenal, 1990–2040 | 252,450 | 35 MB |
-| `conapo/indicadores_demograficos_1950_2070.csv` | Indicadores demográficos por entidad (población, nacimientos, defunciones, esperanza de vida…) | 3,353 | 2 MB |
-| `conapo/ime_2020.csv` · `imm_2020.csv` | Índice de marginación 2020, estatal y municipal | 32 · 2,469 | 0.6 MB |
+## Full original release
 
-### Solo local (no versionado)
-
-| Carpeta | Qué es | Por qué no está en el repo |
-|---------|--------|----------------------------|
-| `raw/ensanut/2022/`, `raw/ensanut/2023/` | Microdatos ENSANUT (residentes, hogar, adultos, antropometría, actividad física) + catálogos, cuestionarios y `REPORTE.md` | Revisar términos de redistribución del INSP antes de publicarlos. Cómo bajarlos: [docs/FUENTES_DATOS.md §8](../docs/FUENTES_DATOS.md#8-ensanut-2022-y-2023-insp--evaluación-externa-exploratoria-con-población-mexicana) |
-
-### Archivos completos (Release `datos-2024`)
-
-| Archivo | Qué es | Tamaño |
-|---------|--------|-------:|
-| `DEFUN_2024.zip` | Defunciones registradas 2024, todas las causas | 31 MB |
-| `ssa_egresos_2024.zip` | Egresos SSA 2024 completos (Egresos, Afecciones, Procedimientos, Productos) | 111 MB |
-| `sectorial_egresos_2024.zip` | Egresos de la base sectorial 2024 | 82 MB |
+| Archive | Contents | Size |
+|---------|----------|-----:|
+| `DEFUN_2024.zip` | Registered deaths, all causes | 31 MB |
+| `ssa_egresos_2024.zip` | SSA admissions, secondary conditions, procedures and products | 111 MB |
+| `sectorial_egresos_2024.zip` | Reported sector discharge database | 82 MB |
 
 ```bash
 gh release download datos-2024 --repo UACJ-MIAAD/antimarrulla-ibmz-datathon-2026 --dir data/raw
+python src/data_prep/prepare_raw.py .
+python src/data_prep/extract_2024.py .
+python src/data_prep/history.py .
+python src/data_prep/care_stage_mart.py data
 ```
 
----
+The four 2024 extracts, four historical CSVs and mart have byte-for-byte reproduction checks. The individual sector extract, catalog conversions and geometry were prepared separately and are distributed as source inputs. SINAVE reconciliation predates the event; its source preparation code is not submitted as event-built solution code. See [preparation details](../src/data_prep/README.md).
 
-## Fuentes y licencias
+## Source terms and attribution recorded by the project
 
-| Fuente | Institución | Licencia | Origen |
-|--------|-------------|----------|--------|
-| CDC Diabetes Health Indicators | CDC (BRFSS 2015) vía UCI ML Repository | Datos del CDC de dominio público; UCI remite a la fuente y Kaggle lo marca CC0 · citar CDC y UCI | https://archive.ics.uci.edu/dataset/891 |
-| Boletín Epidemiológico (diabetes T1 y T2) | DGE · SINAVE | Información pública; citar fuente | https://www.gob.mx/salud/acciones-y-programas/direccion-general-de-epidemiologia-boletin-epidemiologico |
-| Defunciones registradas | DGIS / INEGI | Libre uso con cita | http://www.dgis.salud.gob.mx/contenidos/basesdedatos/da_defunciones_gobmx.html |
-| Egresos hospitalarios (SSA y sector) | DGIS | Libre uso con cita | http://www.dgis.salud.gob.mx/contenidos/basesdedatos/da_egresoshosp_gobmx.html |
-| Enfermedades crónicas (SIS) | DGIS | CC BY 4.0 | http://www.dgis.salud.gob.mx/contenidos/basesdedatos/da_sis_gobmx.html |
-| Detecciones de padecimientos | IMSS | CC BY 4.0 | https://www.datos.gob.mx/dataset/deteccion_padecimientos_delegacion |
-| Proyecciones de población · marginación | CONAPO | CC BY 4.0 | https://www.datos.gob.mx/dataset/proyecciones-de-poblacion |
-| Catálogo CLUES | DGIS | Libre uso con cita | http://www.dgis.salud.gob.mx/contenidos/intercambio/clues_gobmx.html |
-| Límites estatales | Natural Earth | Dominio público | https://www.naturalearthdata.com |
+| Source | Institution / source terms | Link |
+|--------|----------------------------|------|
+| CDC indicators | CDC public-domain source; UCI points to source, Kaggle marks CC0; cite CDC/UCI | https://archive.ics.uci.edu/dataset/891 |
+| Epidemiological bulletin | DGE/SINAVE public information; cite source | https://www.gob.mx/salud/acciones-y-programas/direccion-general-de-epidemiologia-boletin-epidemiologico |
+| Registered deaths | DGIS/INEGI, use with attribution | http://www.dgis.salud.gob.mx/contenidos/basesdedatos/da_defunciones_gobmx.html |
+| Hospital discharges | DGIS, use with attribution | http://www.dgis.salud.gob.mx/contenidos/basesdedatos/da_egresoshosp_gobmx.html |
+| SIS chronic diseases | DGIS, CC BY 4.0 | http://www.dgis.salud.gob.mx/contenidos/basesdedatos/da_sis_gobmx.html |
+| Screening encounters | IMSS, CC BY 4.0 | https://www.datos.gob.mx/dataset/deteccion_padecimientos_delegacion |
+| Population/marginalization | CONAPO, CC BY 4.0 | https://www.datos.gob.mx/dataset/proyecciones-de-poblacion |
+| CLUES facilities | DGIS, use with attribution | http://www.dgis.salud.gob.mx/contenidos/intercambio/clues_gobmx.html |
+| State boundaries | Natural Earth, public domain | https://www.naturalearthdata.com |
 
-> **ISSSTE:** el CSV de egresos del ISSSTE en datos.gob.mx (`repodatos.atdt.gob.mx`) no se puede descargar ni por script ni, a veces, por navegador. **No hace falta:** el ISSSTE viene completo en los egresos del sector (`DH = 4`, 6,924 hospitalizaciones por diabetes en 2024).
+The separate ISSSTE download was unavailable during preparation; ISSSTE is already represented by `DH=4` in the sector extract, with 6,924 diabetes admissions in 2024.
 
-## Cifras: por qué no coinciden exactamente
+## Why death totals differ
 
-| Cifra | Qué cuenta | Dónde |
-|-------|-----------|-------|
-| **112,577** | Muertes registradas en 2024 con causa E10–E14 (la que usamos en el pitch) | Microdatos DGIS |
-| 112,586 | Las mismas + 9 por diabetes en el embarazo (O24) | `defunciones/defunciones_diabetes_2024.csv` |
-| 112,641 | Cifra preliminar del boletín de prensa de INEGI | Comunicado INEGI |
-| 109,603 | Solo las ocurridas en 2024 con residencia en México (usada en el indicador exploratorio por estado) | Cálculo del equipo |
+| Count | Definition |
+|------:|------------|
+| **112,577** | E10–E14 registered in 2024, used in the pitch |
+| 112,586 | Above plus nine O24 pregnancy-diabetes deaths |
+| 112,641 | Preliminary INEGI press-release figure, not the final microdata count |
+| 109,603 | Occurred/registered in 2024, residents of Mexican states, used by the mart indicator |
 
-## Reproducir los datos derivados
-
-Scripts en [src/datos/](../src/datos/README.md): partiendo del Release `datos-2024` y de los históricos de la DGIS, los recortes 2024, los históricos y el mart se regeneran idénticos byte por byte.
-
-## Descarga desde las fuentes originales
+## Original-source download examples
 
 ```bash
-# Descargas locales en data/raw/ (ignorado por git)
 mkdir -p data/raw
-
-# CDC (entrenamiento)
-python -c "from ucimlrepo import fetch_ucirepo; d = fetch_ucirepo(id=891); d.data.original.to_csv('data/raw/cdc_diabetes_891.csv', index=False)"
-
-# DGIS: defunciones (2017–2024), egresos SSA (2019–2026), egresos del sector (2004–2024), SIS (2010–2023)
+python -c "from ucimlrepo import fetch_ucirepo; d=fetch_ucirepo(id=891); d.data.original.to_csv('data/raw/cdc_diabetes_891.csv', index=False)"
 curl -L -o data/raw/DEFUN_2024.zip "http://www.dgis.salud.gob.mx/descargas/datosabiertos/defunciones/registro/DEFUN_2024.zip"
 curl -L -o data/raw/ssa_egresos_2024.zip "http://www.dgis.salud.gob.mx/descargas/datosabiertos/egresos/ssa_egresos_2024.zip"
 curl -L -o data/raw/sectorial_egresos_2024.zip "http://www.dgis.salud.gob.mx/descargas/datosabiertos/egresos/sectorial_egresos_2024.zip"
 curl -L -o data/raw/DA_EC_SIS_2023.zip "http://www.dgis.salud.gob.mx/descargas/datosabiertos/serviciosOtorgados/Enfermedades_cronicas_no_transmisibles_en_el_adulto_y_en_el_anciano/DA_EC_SIS_2023.zip"
-
-# INEGI EDR (DBF)
 curl -L -o data/raw/defunciones_base_datos_2024_dbf.zip "https://www.inegi.org.mx/contenidos/programas/edr/microdatos/defunciones/2024/defunciones_base_datos_2024_dbf.zip"
-
-# Verificar que ningún archivo sea HTML disfrazado
 file data/raw/*
 ```
+
+Check archive integrity and reject HTML/error responses masquerading as data files. Do not overwrite a valid original with a failed download.

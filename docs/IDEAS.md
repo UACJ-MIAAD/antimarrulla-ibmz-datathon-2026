@@ -1,164 +1,70 @@
-# 💡 Ideas candidatas
+# Candidate ideas — planning record
 
-> ✅ **Decisión tomada:** vamos con la **Idea A, ahora llamada *Tamizaje a ciegas***. Ver [DECISION.md](DECISION.md) y el diseño en [PROYECTO.md](PROYECTO.md).
->
-> Además de estas tres, el equipo evaluó 8 ideas más (SPEI, triage, seguros, cruces fronterizos, anonimizador, CFDI, escáner post-cuántico y remesas con OFAC/AML). Las 11 se calificaron con tres jueces ciegos simulados con IA: [Ranking_Ideas_Antimarrulla.pptx](Ranking_Ideas_Antimarrulla.pptx).
+**Selected:** Idea A, now Privacy-preserving screening. [DECISION.md](DECISION.md) and [PROJECT.md](PROJECT.md) define the actual implementation. The exploratory proposals below are historical ideas, not claims of implemented capabilities.
 
-Las tres ideas originales del equipo, las tres en el **Tema 2: AI Secured: Innovation Without Exposure**.
+The team considered three initial Theme 2 ideas and eight additional ideas: SPEI fraud, triage, insurance, border crossings, anonymization, CFDI, post-quantum scanning and remittances with OFAC/AML. Eleven ideas were ranked by three AI-simulated blind judges; see [the ranking deck](Idea_Ranking_Antimarrulla.pptx).
 
-| | Idea | Una línea |
-|---|------|-----------|
-| A | 🩺 Diagnóstico médico sobre datos cifrados | Predecir riesgo de diabetes sin ver jamás los datos del paciente |
-| B | 💸 Antifraude en remesas con aprendizaje federado | Tres bancos entrenan juntos sin compartir una sola transacción |
-| C | 🤝 Asistente privado para personas vulnerables | Orientación confidencial, cifrada de extremo a extremo, sin logs |
+| Idea | One-line concept | Guide/lab connection |
+|------|------------------|---------------------|
+| A: encrypted medical inference | Evaluate diabetes risk without disclosing patient inputs to the service | Sensitive Data Protection; predictive hybrid/multi-model lab |
+| B: federated remittance fraud | Three simulated banks learn together without sharing transaction rows | Sensitive Data Protection/Fraud Detection; predictive hybrid lab |
+| C: private support assistant | Confidential guidance with encrypted transport and no plaintext logs | Secure AI; predictive/generative lab |
 
-### Validación contra la guía oficial
+## Platform constraints
 
-| Idea | Ejemplo de la guía con el que encaja | Lab que la inspira |
-|------|---------------------------------------|--------------------|
-| A | Tema 2 · *Sensitive Data Protection* | Predictive AI Hybrid (multi-model) |
-| B | Tema 2 · *Sensitive Data Protection* + Tema 1 · *Fraud Detection* | Predictive AI Hybrid (multi-model) |
-| C | Tema 2 · *Secure AI* (asistente que protege información e identidades) | Predictive AI + Generative AI |
+The technical criterion requires actual LinuxONE Community Cloud execution, open-source AI/ML and screenshots supporting claimed container/security/compute capabilities. Secure Execution, Hyper Protect, Crypto Express and on-chip AI acceleration may not be exposed by the VM. Check availability before promising them. The selected implementation guarantees none of these capabilities and does not claim protection from its trusted demo administrator.
 
-> ⚠️ **Realidad de la plataforma.** El criterio técnico evalúa el uso de **LinuxONE Community Cloud** (una VM s390x con Jupyter Lab ML) y de **paquetes open source de IA/ML corriendo ahí**, más contenedores, seguridad, escalabilidad y cómputo **con capturas como evidencia**. Capacidades como Secure Execution, Hyper Protect, Crypto Express o el acelerador de IA del chip **pueden no estar expuestas en la VM**: confirmarlo en la hora 1 antes de prometerlas en el pitch. Lo seguro: entrenar e inferir en la VM, contenerizar el servicio y cifrar con librerías open source.
+## Idea A: encrypted medical inference
 
----
+Clinical records are sensitive and difficult to share. The proposal explores privacy-preserving diabetes screening rather than definitive diagnosis.
 
-## 🩺 Idea A · Diagnóstico médico sobre datos cifrados
+Original proposal: hospital encrypts inputs, LinuxONE computes in a protected environment or homomorphically, and only the hospital decrypts the result. The original brainstorming also mentioned encrypted training and CKKS; the selected scope **uses public plaintext training and Paillier inference only**. Hardware AES acceleration or confidential execution was conditional on platform availability, not a completed feature.
 
-**Tema:** 2 · AI Secured
+Demo concept: split screen with ciphertexts at the server and risk at the hospital, same-sample AUC and measured latency. Suggested datasets were CDC BRFSS/UCI 891 (about 250,000 records) or Pima (768 records); CDC was selected. Difficulty: medium-high, driven by encryption parameters, speed and s390x library support.
 
-### Problema
-Los datos clínicos son de los más sensibles que existen, y por eso casi nunca se comparten para entrenar modelos. México tiene una de las prevalencias de diabetes más altas del mundo; detectar el riesgo a tiempo cambia vidas, pero los hospitales no pueden mandar expedientes a un tercero.
+| Risk | Planned mitigation |
+|------|--------------------|
+| Homomorphic library unavailable on s390x | Pure-Python Paillier; optional CKKS check at H2 |
+| Slow inference | Small linear model, measured sample and sequential timings |
+| Excessive medical claims | Screening terminology and explicit clinical/population limits |
 
-### Solución
-Un modelo que predice riesgo de diabetes **entrenado y evaluado sobre datos que el equipo nunca ve en texto plano**:
-- El "hospital" cifra los datos antes de enviarlos.
-- El cómputo ocurre en un entorno protegido en LinuxONE, o directamente sobre datos cifrados con **cifrado homomórfico** (por ejemplo, regresión logística en esquema CKKS).
-- Solo el hospital puede descifrar el resultado.
+## Idea B: simplified federated remittance fraud
 
-### Cómo se usa IBM Z de forma estructural
-- El servicio de inferencia vive en **LinuxONE**; es la única pieza que toca los datos.
-- Cifrado/descifrado acelerado por hardware (**CPACF**) y, si el entorno lo ofrece, ejecución en **entorno confidencial** (Secure Execution / Hyper Protect) para que ni el operador del servidor vea los datos.
-- Métrica para la slide: costo en latencia del cifrado en LinuxONE vs. laptop.
+Each institution sees only part of the fraud problem. The proposal uses three simulated banks with local training; only model weights/updates reach a central FedAvg aggregator. Optional differential-privacy noise was considered. Updates alone do not establish privacy against every attack.
 
-### Demo en vivo
-**Pantalla dividida:**
-- Izquierda: lo que ve el servidor → bloques cifrados ilegibles.
-- Derecha: lo que ve el hospital → predicciones de riesgo correctas, con su AUC comparado contra el modelo en texto plano.
-- Botón "nuevo paciente": se captura un registro, se cifra, viaja, se predice y regresa en segundos.
+The intended LinuxONE role is the trusted aggregator and possibly global-model inference. Encrypt transport and assess any confidential-compute capability before claiming it. No actual federated system was built for this submission.
 
-### Dataset sugerido
-- **CDC Diabetes Health Indicators** (BRFSS 2015, UCI ML Repository): ~250 mil registros, indicadores de salud y estilo de vida.
-- **Pima Indians Diabetes** (UCI / Kaggle): 768 registros, ideal para prototipo rápido.
+Demo concept: bank-specific recall before/after rounds and a central panel showing weights rather than transaction rows. Improvement must be measured, not guaranteed. Suggested data: synthetic PaySim or PCA-anonymized ULB credit-card fraud, partitioned non-identically across banks. Estimated difficulty: medium; a light SGD/logistic implementation avoids heavy frameworks.
 
-### Dificultad estimada
-🟠 **Media-alta.** El modelo es sencillo; lo difícil es el cifrado homomórfico (rendimiento, parámetros) y que las librerías funcionen en s390x.
+| Risk | Planned mitigation |
+|------|--------------------|
+| Federation offers no improvement | Measure results on non-identical partitions |
+| Extreme imbalance | Report recall/AP with an appropriate validation strategy |
+| Appears to be only averaging | Explain the threat model and show exactly what the aggregator receives |
 
-### Riesgos
-| Riesgo | Mitigación |
-|--------|-----------|
-| Librería de cifrado homomórfico sin soporte en s390x | Ruta garantizada con Paillier (`python-paillier`, Python puro); CKKS solo si compila antes de la hora 2 |
-| Inferencia cifrada lenta | Modelo lineal, pocas variables, lotes pequeños en la demo |
-| Narrativa médica exagerada | Presentarlo como herramienta de **tamizaje**, no de diagnóstico definitivo |
+## Idea C: private support assistant
 
----
+The proposal addresses sensitive requests from vulnerable people who fear disclosure. It considered encrypted client/server communication, protected processing, no plaintext query logs and verified official guidance. End-to-end privacy against administrators would require actually available confidential execution and a demonstrated threat model; ordinary TLS alone would not establish that property.
 
-## 💸 Idea B · Antifraude en remesas con aprendizaje federado simplificado
+Demo concept: user-visible conversation beside ciphertext-only operational evidence, plus a plaintext-log search. Suggested knowledge base: team-curated official resources and synthetic example questions, never real private conversations. Verify any current resource through its official provider before using it. The prototype alternative is intent classification plus retrieval; a large generative model on s390x was considered high risk in 24 hours.
 
-**Tema:** 2 · AI Secured
+| Risk | Planned mitigation |
+|------|--------------------|
+| LLM unavailable or slow | Light intent model/retrieval; LLM optional |
+| Incorrect sensitive guidance | Reviewed bounded responses and verified official resources |
+| Weak data/methodology evidence | Explicit intent-classification evaluation |
+| Ethical risk | Clear professional/emergency-care limits; no private conversation dataset |
 
-### Problema
-México es de los mayores receptores de remesas del mundo, y Ciudad Juárez vive en la frontera de ese flujo. Cada banco o remesadora ve solo su pedazo del fraude; juntar los datos ayudaría, pero compartir transacciones de clientes es inviable legal y comercialmente.
+This proposal is not an operational helpline or a recommendation of unverified services.
 
-### Solución
-**Tres "bancos" simulados** entrenan juntos un detector de fraude **sin compartir transacciones**:
-- Cada banco entrena localmente con sus datos.
-- Solo viajan los **ajustes del modelo** (pesos/gradientes) a un agregador.
-- El agregador combina (promedio federado, FedAvg) y devuelve el modelo global mejorado.
-- Opcional: ruido de privacidad diferencial en las actualizaciones.
+## Original decision matrix
 
-### Cómo se usa IBM Z de forma estructural
-- El **agregador central** corre en **LinuxONE**: es el "tercero de confianza" entre bancos, el papel que IBM Z juega en la banca real.
-- Las actualizaciones viajan cifradas y se descifran solo dentro del agregador (CPACF; entorno confidencial si está disponible).
-- El modelo global puede servir inferencia en tiempo real desde LinuxONE, cerca de donde ocurren las transacciones.
+At the initial meeting, all four members score 1–5 and record the average. This blank matrix is the historical template, not a completed vote.
 
-### Demo en vivo
-- Tres paneles, uno por banco, cada uno con su recall de fraude **entrenando solo**.
-- Se activan las rondas federadas: las métricas de los tres suben en vivo.
-- Panel del agregador: muestra que solo recibe vectores de pesos, nunca filas de transacciones.
-- Cierre: "Banco A detecta un patrón de fraude que solo había visto Banco C, sin que C le enseñara un solo dato".
+| Idea | 24-hour feasibility | Demo strength | IBM Z role | Social value | Decision |
+|------|:-------------------:|:-------------:|:----------:|:------------:|:--------:|
+| A: encrypted inference | | | | | |
+| B: federated fraud | | | | | |
+| C: private assistant | | | | | |
 
-### Dataset sugerido
-- **PaySim** (Kaggle): transacciones sintéticas de dinero móvil, muy cercano al caso de remesas.
-- **Credit Card Fraud Detection** (ULB, Kaggle): transacciones reales anonimizadas con PCA.
-- Partición no idéntica entre bancos (cada uno con distinto perfil de fraude) para que la federación tenga valor.
-
-### Dificultad estimada
-🟢 **Media.** FedAvg con scikit-learn (`SGDClassifier`/regresión logística) se implementa a mano en pocas horas, sin depender de frameworks pesados.
-
-### Riesgos
-| Riesgo | Mitigación |
-|--------|-----------|
-| La federación no mejora a los bancos individuales | Diseñar particiones no idénticas; medir y mostrar la ganancia |
-| Desbalance extremo de clases | Pesos de clase, métricas AUC-PR y recall |
-| Parecer "solo un promedio" | Explicar la amenaza que se evita y mostrar el panel del agregador |
-
----
-
-## 🤝 Idea C · Asistente privado para personas vulnerables
-
-**Tema:** 2 · AI Secured
-
-### Problema
-Personas en situación de violencia, migrantes o personas con problemas de salud mental necesitan orientación, pero no buscan ayuda porque temen que su consulta quede registrada o expuesta. Un chatbot común guarda todo en texto plano.
-
-### Solución
-Un **chatbot de orientación** que:
-- Cifra cada consulta **de extremo a extremo** en el dispositivo del usuario.
-- Procesa la consulta solo dentro de un entorno protegido.
-- **Cero logs en texto plano**: no queda rastro legible de quién preguntó qué.
-- Responde con orientación y canales oficiales de ayuda (verificados y vigentes).
-
-### Cómo se usa IBM Z de forma estructural
-- El motor del asistente corre en **LinuxONE**, en un **entorno confidencial** si está disponible, de modo que ni los administradores pueden leer las conversaciones.
-- Llaves de cifrado protegidas por el hardware de la plataforma.
-- Logs de auditoría cifrados: se puede demostrar que el servicio funcionó sin revelar el contenido.
-
-### Demo en vivo
-- Izquierda: la conversación como la ve el usuario.
-- Derecha: lo que ve un administrador con acceso total al servidor → solo texto cifrado.
-- Prueba en vivo: buscar en los logs una palabra que el usuario escribió → **cero resultados**.
-
-### Dataset sugerido
-- Base de conocimiento curada por el equipo con recursos públicos oficiales (líneas de ayuda, instituciones, procedimientos), **verificando cada dato contra la fuente oficial**.
-- Conjunto de preguntas de ejemplo escritas por el equipo para clasificar intenciones.
-- Evitar datos de conversaciones reales.
-
-### Dificultad estimada
-🔴 **Alta.** Un modelo generativo grande en s390x es arriesgado en 24 horas; la versión factible usa **clasificación de intenciones + recuperación** sobre la base curada.
-
-### Riesgos
-| Riesgo | Mitigación |
-|--------|-----------|
-| Modelo de lenguaje que no corre en s390x o es lento | Clasificador ligero + recuperación; LLM solo si sobra tiempo |
-| Respuestas incorrectas en temas delicados | Respuestas cerradas y revisadas; siempre derivar a canales oficiales |
-| Parte de "datos y metodología" débil | Medir la clasificación de intenciones con métricas claras |
-| Riesgo ético | Aviso claro: no sustituye atención profesional ni de emergencia |
-
----
-
-## 📊 Matriz de decisión
-
-Se llena **en la primera hora del evento**. Escala sugerida 1–5 en cada columna (5 = mejor). Todo el equipo vota y se anota el promedio.
-
-| Idea | Factibilidad 24h | Fuerza de la demo | Puntos IBM Z | Impacto social | Decisión |
-|------|:----------------:|:-----------------:|:------------:|:--------------:|:--------:|
-| A · Diagnóstico sobre datos cifrados | | | | | |
-| B · Antifraude federado en remesas | | | | | |
-| C · Asistente privado | | | | | |
-
-**Reglas de desempate:**
-1. Si una idea saca 1–2 en factibilidad, queda fuera aunque gane lo demás.
-2. Empate → gana la de mejor demo (es lo que el juez recuerda).
-3. Empate persistente → decide el líder. Sin marrulla, sin rondas eternas: **15 minutos máximo**.
+An idea scoring only 1–2 on feasibility is excluded. Break ties by demo strength, then captain decision. Limit the decision meeting to fifteen minutes. The recorded simulated ranking and final selection are in DECISION.md.
