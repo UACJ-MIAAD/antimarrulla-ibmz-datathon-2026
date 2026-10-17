@@ -28,6 +28,7 @@ def crear_servidor(host, puerto, modelo_json, cert, llave, ca_clientes):
     class Manejador(BaseHTTPRequestHandler):
         server_version = "tamizaje-servicio"
         sys_version = ""
+        timeout = 15  # segundos para leer la solicitud completa
 
         def log_message(self, fmt, *args):  # sin rutas de consulta ni cuerpos
             pass
@@ -56,6 +57,8 @@ def crear_servidor(host, puerto, modelo_json, cert, llave, ca_clientes):
                 largo = -1
             if not 0 < largo <= MAX_CUERPO:
                 return self._responder(413, {"error": "cuerpo vacío o demasiado grande"})
+            if self.headers.get("Content-Type", "").split(";")[0].strip() != "application/json":
+                return self._responder(415, {"error": "se espera application/json"})
             crudo = self.rfile.read(largo)
             t0 = time.perf_counter()
             try:

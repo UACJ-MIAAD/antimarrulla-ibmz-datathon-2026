@@ -28,13 +28,16 @@ def main(base="http://127.0.0.1:8080"):
     else:
         sys.exit("la demo no respondió en 30 s")
     assert estado["servicio"]["llave_privada"] is False
-    print(f"servicio ok · máquina {estado['maquina']} · llave {estado['llave_bits']} bits")
+    import hashlib
+    local = hashlib.sha256(open(MODELO_JSON, "rb").read()).hexdigest()
+    assert estado.get("modelo_sha256") == local, f"el hospital corre otro modelo ({estado.get('modelo_sha256')}) que el local ({local})"
+    print(f"servicio ok · máquina {estado['maquina']} · llave {estado['llave_bits']} bits · modelo {local[:12]}")
     for perfil, p in sinteticos.PERFILES.items():
         r = pedir(base + "/api/evaluar", {"perfil": perfil})
         x = [p[n] for n in modelo["variables"]]
         ref = contrato.logit_entero(modelo["pesos_enteros"], modelo["intercepto_entero"], x)
         assert int(r["hospital"]["z_entero"]) == ref, "el entero descifrado no coincide"
-        print(f"{perfil}: p={r['hospital']['probabilidad']:.3f} · z exacto · {r['tiempos_ms']['total']} ms")
+        print(f"{perfil}: p={r['hospital']['probabilidad']:.3f} · z exacto · {r['tiempos_ms']['total_en_hospital']} ms dentro del hospital")
     print("smoke OK")
 
 

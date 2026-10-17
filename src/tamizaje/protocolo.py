@@ -7,7 +7,7 @@ Mensajes versionados (JSON):
 El servicio valida estructura y compatibilidad (versiones, tamaño de llave, rango de cada cifrado);
 no puede inspeccionar los valores que van cifrados.
 """
-import math, secrets
+import math, re, secrets
 from phe import paillier
 from phe.paillier import EncryptedNumber, PaillierPublicKey
 from . import contrato, esquema
@@ -15,6 +15,8 @@ from . import contrato, esquema
 PROTOCOLO = "tamizaje-paillier-v1"
 BITS_LLAVE = 2048
 BITS_LLAVE_MIN = 2048
+BITS_LLAVE_MAX = 4096
+ID_VALIDO = re.compile(r"^[0-9a-f]{32}$")  # el formato que genera Hospital.preparar (secrets.token_hex(16))
 
 
 class MensajeInvalido(ValueError):
@@ -58,21 +60,22 @@ class ServicioRiesgo:
             raise MensajeInvalido("esquema o modelo incompatibles")
         if sol["exponente"] != contrato.EXPONENTE:
             raise MensajeInvalido("exponente distinto de 0")
-        if not isinstance(sol["id"], str) or not 8 <= len(sol["id"]) <= 64:
-            raise MensajeInvalido("id inválido")
-        try:
-            n = int(sol["llave_publica"]["n"])
-        except (KeyError, TypeError, ValueError):
+        if not isinstance(sol["id"], str) or not ID_VALIDO.match(sol["id"]):
+            raise MensajeInvalido("id inválido (se esperan 32 hexadecimales)")
+        lp = sol["llave_publica"]
+        if not isinstance(lp, dict) or set(lp) != {"n"} or not isinstance(lp["n"], str) or not lp["n"].isdigit() or len(lp["n"]) > 1300:
             raise MensajeInvalido("llave pública inválida")
-        if n.bit_length() < self.bits_min or n % 2 == 0:
-            raise MensajeInvalido(f"llave pública menor a {self.bits_min} bits o inválida")
+        n = int(lp["n"])
+        if not self.bits_min <= n.bit_length() <= BITS_LLAVE_MAX or n % 2 == 0:
+            raise MensajeInvalido(f"llave pública fuera de {self.bits_min}–{BITS_LLAVE_MAX} bits o inválida")
         cif = sol["cifrados"]
         if not isinstance(cif, list) or len(cif) != len(esquema.NOMBRES):
             raise MensajeInvalido(f"se esperaban {len(esquema.NOMBRES)} cifrados")
         n2 = n * n
+        max_digitos = len(str(n2))
         valores = []
         for c in cif:
-            if not isinstance(c, str) or not c.isdigit():
+            if not isinstance(c, str) or not c.isdigit() or len(c) > max_digitos:
                 raise MensajeInvalido("cifrado no es un entero en texto")
             v = int(c)
             if not 0 < v < n2 or math.gcd(v, n) != 1:

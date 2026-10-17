@@ -1,18 +1,23 @@
-"""Mediciones del recorrido cifrado y evidencia del entorno.
+"""Mediciones con procedencia verificable.
 
-1. Piloto de 20 pacientes para estimar el costo; con eso se elige el tamaño de la muestra (presupuesto de tiempo).
-2. Muestra estratificada y reproducible de la partición de PRUEBA (misma prevalencia, semilla fija).
-3. Sobre los mismos registros: flotante, punto fijo (enteros) y cifrado (Paillier) → métricas y errores.
-4. Tiempos por fase (cifrar, evaluar, descifrar) en proceso, y recorrido completo por HTTPS con TLS 1.3 mutuo.
-5. Bóveda AES-256-GCM medida con la misma biblioteca que usa la app.
-6. Entorno: arquitectura, CPU, versiones, OpenSSL (CLI y cryptography), commit y hashes.
+Modo `proceso` (por defecto), todo dentro de UN proceso:
+  - Exactitud: muestra estratificada y reproducible de la partición de PRUEBA del CDC; flotante, punto fijo y cifrado
+    sobre los mismos registros (enteros idénticos, error vs. flotante, métricas).
+  - microbenchmark_en_proceso: cifrar / evaluar / descifrar sin red.
+  - microbenchmark_https_mismo_proceso: hospital lógico + servicio HTTPS con TLS 1.3 mutuo + bóveda, en el mismo proceso.
+    NO es el recorrido de dos contenedores.
+Modo `api` (--url): cliente HTTP → API del hospital desplegado (Compose) → mTLS → servicio → descifrado → bóveda.
+  Pacientes sintéticos deterministas; verifica el hash del modelo remoto y el entero esperado de cada respuesta.
+Siempre: procedencia (commit, cambios relevantes, hash del código ejecutado, modelo, particiones, imagen) y entorno.
+`--final` rechaza la corrida si hay cambios relevantes sin commit.
 
-Uso: python -m tamizaje.medir [--presupuesto-s 600] [--max 2000] [--https 100]
+Uso: python -m tamizaje.medir [--presupuesto-s 600] [--max 2000] [--https 100] [--final]
+     python -m tamizaje.medir --modo api --url http://127.0.0.1:8080 [--n 200] [--final]
 """
 import argparse, datetime, json, math, os, platform, random, shutil, statistics, subprocess, tempfile, threading, time
 import numpy as np
 from sklearn.metrics import average_precision_score, roc_auc_score
-from . import contrato, datos, esquema, hospital, protocolo, secretos, servicio
+from . import contrato, datos, esquema, hospital, procedencia, protocolo, secretos, servicio, sinteticos
 from .rutas import MEDICIONES, MODELO_JSON, PARTICIONES, RAIZ
 
 SEMILLA_MUESTRA = 2026
@@ -49,8 +54,7 @@ def entorno():
         "versiones": {"phe": phe.__version__ if hasattr(phe, "__version__") else "1.5.0", "gmpy2": g, "cryptography": cryptography.__version__,
                       "numpy": np.__version__, "scikit_learn": sklearn.__version__},
         "openssl_cli": cmd("openssl", "version", "-a"), "openssl_de_cryptography": backend.openssl_version_text(),
-        "uname": cmd("uname", "-a"), "commit": cmd("git", "-C", RAIZ, "rev-parse", "HEAD") or os.environ.get("TAMIZAJE_COMMIT"),
-        "cambios_sin_commit": bool(cmd("git", "-C", RAIZ, "status", "--porcelain", "--untracked-files=no")) if os.path.isdir(os.path.join(RAIZ, ".git")) else os.environ.get("TAMIZAJE_CAMBIOS") == "1",
+        "uname": cmd("uname", "-a"),
     }
     if platform.system() == "Linux":
         info["lscpu"] = cmd("lscpu")
@@ -81,14 +85,110 @@ def metricas(y, p, umbral):
             "matriz_confusion": {"vn": tn, "fp": fp, "fn": fn, "vp": tp}}
 
 
+def _guardar(out, modo, etiqueta, ahora, md):
+    os.makedirs(MEDICIONES, exist_ok=True)
+    base = os.path.join(MEDICIONES, f"medicion_{modo}_{etiqueta}_{ahora.strftime('%Y%m%dT%H%M%SZ')}")
+    with open(base + ".json", "w") as f:
+        json.dump(out, f, ensure_ascii=False, indent=1)
+    with open(base + ".md", "w") as f:
+        f.write(md)
+    print(md)
+    print("guardado en", base + ".json")
+
+
+def _encabezado(out, env, prov):
+    adv = ("> ⚠️ " + out["advertencia"]) if out["advertencia"] else "> Ejecutado en s390x (verificar identidad de LinuxONE Community Cloud con la evidencia de la VM)."
+    sucio = "**con cambios relevantes sin commit**: " + ", ".join(prov["cambios_relevantes"]) if prov["limpio"] is False else ("limpio" if prov["limpio"] else "estado no declarado")
+    return f"""{adv}
+
+- Commit `{prov['commit']}` ({prov['fuente_commit']}, {sucio}) · código `{prov['codigo_sha256'][:16]}` ({prov['codigo_archivos']} archivos) · modelo `{prov['modelo_sha256'][:16]}` · particiones `{prov['particiones_sha256'][:16]}`{' · imagen `' + prov['imagen'] + '`' if prov['imagen'] else ''}
+- Máquina: {env['maquina']} · {env['plataforma']} · {env['cpus']} CPU · contenedor: {env['contenedor']}
+- Python {env['python']} · phe {env['versiones']['phe']} · gmpy2 {env['versiones']['gmpy2']} · cryptography {env['versiones']['cryptography']} ({env['openssl_de_cryptography']}) · OpenSSL CLI: {(env['openssl_cli'] or 'n/d').splitlines()[0]}
+- Comando: `{out['comando']}` · concurrencia 1
+"""
+
+
+def modo_api(a, modelo, prov, env, ahora, etiqueta):
+    import hashlib, urllib.request
+    local = procedencia.sha256(MODELO_JSON)
+    with urllib.request.urlopen(a.url + "/api/estado", timeout=30) as r:
+        estado = json.loads(r.read())
+    if estado.get("modelo_sha256") != local:
+        raise SystemExit(f"el hospital en {a.url} corre otro modelo ({estado.get('modelo_sha256')}) que el local ({local})")
+    W, B = modelo["pesos_enteros"], modelo["intercepto_entero"]
+
+    def pedir(paciente):
+        cuerpo = json.dumps({"paciente": paciente}).encode()
+        req = urllib.request.Request(a.url + "/api/evaluar", data=cuerpo, headers={"Content-Type": "application/json"})
+        t0 = time.perf_counter()
+        with urllib.request.urlopen(req, timeout=60) as r:
+            resp = json.loads(r.read())
+        return resp, (time.perf_counter() - t0) * 1e3
+
+    pacientes = [sinteticos.aleatorio(SEMILLA_MUESTRA + k) for k in range(a.n + 3)]
+    for p in pacientes[:3]:
+        pedir(p)  # calentamiento
+    cliente, comp, exactos = [], {}, 0
+    t_ini = time.perf_counter()
+    for p in pacientes[3:]:
+        resp, ms = pedir(p)
+        cliente.append(ms)
+        esperado = contrato.logit_entero(W, B, [p[nm] for nm in esquema.NOMBRES])
+        exactos += int(int(resp["hospital"]["z_entero"]) == esperado)
+        for k, v in resp["tiempos_ms"].items():
+            comp.setdefault(k, []).append(v)
+    pared = time.perf_counter() - t_ini
+    out = {
+        "modo": "api", "fecha_utc": ahora.isoformat().replace("+00:00", "Z"), "entorno_etiqueta": etiqueta,
+        "advertencia": None if env["es_linuxone_s390x"] else "Medición LOCAL: no es LinuxONE. No usar como velocidad de IBM Z.",
+        "comando": f"python -m tamizaje.medir --modo api --url {a.url} --n {a.n}" + (" --final" if a.final else ""),
+        "recorrido": "cliente HTTP → API del hospital desplegado → TLS 1.3 mutuo → servicio de riesgo → descifrado → interpretación → bóveda AES-256-GCM con fsync (sin navegador)",
+        "hospital_remoto": {"url": a.url, "maquina": estado.get("maquina"), "sistema": estado.get("sistema"), "modelo_sha256": estado.get("modelo_sha256"), "llave_bits": estado.get("llave_bits")},
+        "muestra": {"tipo": "pacientes sintéticos deterministas (sinteticos.aleatorio)", "semilla_inicial": SEMILLA_MUESTRA, "n": a.n, "calentamiento": 3,
+                    "sha256": hashlib.sha256(json.dumps(pacientes[3:]).encode()).hexdigest()},
+        "exactitud": {"enteros_identicos": exactos, "de": a.n},
+        "cliente_ms": resumen(cliente), "componentes_en_hospital_ms": {k: resumen(v) for k, v in comp.items()},
+        "pacientes_por_minuto": round(a.n / pared * 60, 1), "concurrencia": 1, "procedencia": prov, "entorno": env,
+    }
+    c = out["componentes_en_hospital_ms"]
+    md = f"# Medición API del hospital · {etiqueta} · {out['fecha_utc']}\n\n" + _encabezado(out, env, prov) + f"""- Recorrido: {out['recorrido']}
+- Hospital remoto: {a.url} · máquina {estado.get('maquina')} ({estado.get('sistema')}) · modelo `{local[:16]}` verificado
+
+Muestra: {a.n} pacientes sintéticos deterministas (semilla {SEMILLA_MUESTRA}) · enteros idénticos al esperado: {exactos} de {a.n}
+
+| Tramo | p50 (ms) | p95 (ms) | media (ms) |
+|---|---:|---:|---:|
+| Cliente: solicitud completa | {out['cliente_ms']['p50_ms']} | {out['cliente_ms']['p95_ms']} | {out['cliente_ms']['media_ms']} |
+""" + "".join(f"| Hospital: {k} | {v['p50_ms']} | {v['p95_ms']} | {v['media_ms']} |\n" for k, v in c.items()) + f"""
+Rendimiento secuencial: {out['pacientes_por_minuto']} pacientes/min (n / tiempo de pared).
+"""
+    _guardar(out, "api", etiqueta, ahora, md)
+
+
 def main():
     ap = argparse.ArgumentParser()
+    ap.add_argument("--modo", choices=["proceso", "api"], default="proceso")
+    ap.add_argument("--url", default=None, help="URL de la API del hospital (modo api)")
+    ap.add_argument("--n", type=int, default=200, help="solicitudes en modo api")
     ap.add_argument("--presupuesto-s", type=float, default=600, help="tiempo máximo para la parte en proceso")
     ap.add_argument("--max", type=int, default=2000)
-    ap.add_argument("--https", type=int, default=100, help="recorridos completos por HTTPS")
+    ap.add_argument("--https", type=int, default=100, help="recorridos en el microbenchmark HTTPS del mismo proceso")
+    ap.add_argument("--final", action="store_true", help="falla si hay cambios relevantes sin commit")
     a = ap.parse_args()
 
-    modelo = json.load(open(MODELO_JSON)); part = json.load(open(PARTICIONES))
+    prov = procedencia.registrar()
+    if a.final:
+        procedencia.exigir_limpio(prov)
+    env = entorno()
+    ahora = datetime.datetime.now(datetime.timezone.utc).replace(microsecond=0)
+    etiqueta = ("s390x" if env["es_linuxone_s390x"] else f"local-{env['sistema'].lower()}-{env['maquina']}") + ("-contenedor" if env["contenedor"] else "")
+    modelo = json.load(open(MODELO_JSON))
+    if a.modo == "api":
+        if not a.url:
+            raise SystemExit("--modo api requiere --url")
+        return modo_api(a, modelo, prov, env, ahora, etiqueta)
+
+    part = json.load(open(PARTICIONES))
     ids, X, y = datos.cargar_cdc()
     Xte, yte, idte = datos.cargar_particion(part, "prueba", ids, X, y)
     fila = {int(i): k for k, i in enumerate(idte)}
@@ -105,18 +205,15 @@ def main():
         t4 = time.perf_counter(); z, _ = h.descifrar(json.loads(rcuerpo)); t5 = time.perf_counter()
         return z, (t1 - t0) * 1e3, (t3 - t2) * 1e3, (t5 - t4) * 1e3, len(cuerpo.encode()), len(rcuerpo.encode())
 
-    # 1) calentamiento y piloto
     for x in Xte[:5].tolist():
         uno(x)
     t = time.perf_counter()
     for x in Xte[5:25].tolist():
         uno(x)
     por_paciente = (time.perf_counter() - t) / 20
-    n = int(min(a.max, max(100, a.presupuesto_s / por_paciente)))
-    n = min(n, len(idte))
+    n = min(int(min(a.max, max(100, a.presupuesto_s / por_paciente))), len(idte))
     print(f"piloto: {por_paciente * 1e3:.1f} ms por paciente → muestra de {n}")
 
-    # 2-3) muestra estratificada: flotante, punto fijo y cifrado sobre los mismos registros
     muestra = muestra_estratificada(idte.tolist(), yte.tolist(), n)
     cif, ev, des, b_in, b_out, zs, xs, ys = [], [], [], [], [], [], [], []
     t_ini = time.perf_counter()
@@ -127,13 +224,12 @@ def main():
     t_total = time.perf_counter() - t_ini
     ys = np.array(ys)
     z_ref = [contrato.logit_entero(W, B, x) for x in xs]
-    exactos = sum(int(a == b) for a, b in zip(zs, z_ref))
+    exactos = sum(int(a_ == b_) for a_, b_ in zip(zs, z_ref))
     lf = np.array([sum(w * v for w, v in zip(wf, x)) + bf for x in xs])
     lq = np.array([int(z) / contrato.S_W for z in z_ref]); lc = np.array([int(z) / contrato.S_W for z in zs])
     sig = lambda v: 1 / (1 + np.exp(-v))
     err = np.abs(lc - lf); cotas = np.array([contrato.cota_error_logit(x) for x in xs])
 
-    # 4) recorrido completo por HTTPS (TLS 1.3 mutuo, conexión nueva por solicitud)
     tmp = tempfile.mkdtemp(prefix="tamizaje-medir-")
     secretos.generar(tmp); c = os.path.join(tmp, "certs")
     srv, _ = servicio.crear_servidor("127.0.0.1", 0, modelo, f"{c}/servicio.pem", f"{c}/servicio.key", f"{c}/ca.pem")
@@ -142,12 +238,15 @@ def main():
     from . import boveda
     bov = boveda.Boveda(os.path.join(tmp, "boveda.jsonl"), boveda.cargar_llave(os.path.join(tmp, "boveda.key")))
     clin = hospital.Clinica(modelo, cli, bov)
-    rec = []
+    rec, comp = [], {}
+    t_https = time.perf_counter()
     for i in muestra[: a.https]:
         t0 = time.perf_counter(); r = clin.evaluar(dict(zip(esquema.NOMBRES, Xte[fila[i]].tolist())), "medición"); rec.append((time.perf_counter() - t0) * 1e3)
+        for k, v in r["tiempos_ms"].items():
+            comp.setdefault(k, []).append(v)
+    pared_https = time.perf_counter() - t_https
     srv.shutdown(); shutil.rmtree(tmp, ignore_errors=True)
 
-    # 5) bóveda AES-256-GCM con la biblioteca de la app
     from cryptography.hazmat.primitives.ciphers.aead import AESGCM
     aes = AESGCM(AESGCM.generate_key(bit_length=256)); bloque = os.urandom(1 << 20)
     t0 = time.perf_counter()
@@ -155,45 +254,29 @@ def main():
         aes.encrypt(os.urandom(12), bloque, None)
     mb_s = 50 / (time.perf_counter() - t0)
 
-    ahora = datetime.datetime.now(datetime.timezone.utc).replace(microsecond=0)
-    env = entorno()
-    etiqueta = "linuxone-s390x" if env["es_linuxone_s390x"] else f"local-{env['sistema'].lower()}-{env['maquina']}"
     out = {
-        "fecha_utc": ahora.isoformat().replace("+00:00", "Z"), "entorno_etiqueta": etiqueta,
+        "modo": "proceso", "fecha_utc": ahora.isoformat().replace("+00:00", "Z"), "entorno_etiqueta": etiqueta,
         "advertencia": None if env["es_linuxone_s390x"] else "Medición LOCAL: no es LinuxONE. No usar como velocidad de IBM Z.",
-        "comando": "python -m tamizaje.medir " + " ".join(f"--{k.replace('_', '-')} {v}" for k, v in vars(a).items()),
-        "modelo": modelo["modelo"], "modelo_sha256": datos.sha256(MODELO_JSON), "particiones_sha256": datos.sha256(PARTICIONES),
-        "llave_paillier_bits": h.pub.n.bit_length(), "concurrencia": 1, "calentamiento": 5,
+        "comando": "python -m tamizaje.medir " + " ".join(f"--{k.replace('_', '-')} {v}" for k, v in vars(a).items() if k not in ("modo", "url", "n", "final")) + (" --final" if a.final else ""),
+        "modelo": modelo["modelo"], "llave_paillier_bits": h.pub.n.bit_length(), "concurrencia": 1, "calentamiento": 5,
         "piloto": {"pacientes": 20, "ms_por_paciente": round(por_paciente * 1e3, 2), "presupuesto_s": a.presupuesto_s},
-        "muestra": {"origen": "partición de prueba", "semilla": SEMILLA_MUESTRA, "n": n, "positivos": int(ys.sum()),
+        "muestra": {"origen": "partición de prueba del CDC", "semilla": SEMILLA_MUESTRA, "n": n, "positivos": int(ys.sum()),
                     "prevalencia": round(float(ys.mean()), 4), "ids_sha256": __import__("hashlib").sha256(json.dumps(muestra).encode()).hexdigest()},
         "exactitud": {"enteros_identicos": exactos, "de": n, "error_max_logit_vs_flotante": float(err.max()),
                       "cota_max_aplicable": float(cotas.max()), "todos_dentro_de_cota": bool(np.all(err <= cotas)),
                       "error_max_probabilidad": float(np.abs(sig(lc) - sig(lf)).max())},
         "metricas_misma_muestra": {"flotante": metricas(ys, sig(lf), umbral), "punto_fijo": metricas(ys, sig(lq), umbral), "cifrado": metricas(ys, sig(lc), umbral)},
-        "tiempos_en_proceso": {"cifrar_hospital": resumen(cif), "evaluar_servicio": resumen(ev), "descifrar_hospital": resumen(des),
-                               "pacientes_por_minuto_secuencial": round(n / t_total * 60, 1)},
-        "recorrido_https_tls13": {**resumen(rec), "pacientes_por_minuto_secuencial": round(len(rec) / (sum(rec) / 1e3) * 60, 1),
-                                  "nota": "incluye cifrado, handshake TLS 1.3 mutuo por solicitud, evaluación, descifrado y escritura en la bóveda"},
+        "microbenchmark_en_proceso": {"cifrar_hospital": resumen(cif), "evaluar_servicio": resumen(ev), "descifrar_hospital": resumen(des),
+                                      "pacientes_por_minuto_secuencial": round(n / t_total * 60, 1), "nota": "sin red ni bóveda"},
+        "microbenchmark_https_mismo_proceso": {"solicitud_completa": resumen(rec), "componentes": {k: resumen(v) for k, v in comp.items()},
+                                               "pacientes_por_minuto_secuencial": round(len(rec) / pared_https * 60, 1),
+                                               "nota": "hospital lógico y servicio HTTPS (TLS 1.3 mutuo, conexión nueva por solicitud) en el MISMO proceso, con bóveda y fsync; no es el recorrido de dos contenedores ni incluye navegador"},
         "tamanos_bytes": {"solicitud_p50": int(pct(b_in, 50)), "respuesta_p50": int(pct(b_out, 50))},
-        "boveda_aes256gcm_mb_s": round(mb_s, 1),
-        "entorno": env,
+        "aes256gcm_microbenchmark_mb_s": round(mb_s, 1), "procedencia": prov, "entorno": env,
     }
-    os.makedirs(MEDICIONES, exist_ok=True)
-    base = os.path.join(MEDICIONES, f"medicion_{etiqueta}_{ahora.strftime('%Y%m%dT%H%M%SZ')}")
-    with open(base + ".json", "w") as f:
-        json.dump(out, f, ensure_ascii=False, indent=1)
-    tp = out["tiempos_en_proceso"]; mc = out["metricas_misma_muestra"]["cifrado"]
-    md = f"""# Medición · {etiqueta} · {out['fecha_utc']}
-
-{('> ⚠️ ' + out['advertencia']) if out['advertencia'] else '> Ejecutado en LinuxONE (s390x).'}
-
-- Commit: `{env['commit']}`{' (con cambios sin commit)' if env['cambios_sin_commit'] else ''} · modelo `{out['modelo_sha256'][:16]}` · particiones `{out['particiones_sha256'][:16]}`
-- Máquina: {env['maquina']} · {env['plataforma']} · {env['cpus']} CPU · contenedor: {env['contenedor']}
-- Python {env['python']} · phe {env['versiones']['phe']} · gmpy2 {env['versiones']['gmpy2']} · cryptography {env['versiones']['cryptography']} ({env['openssl_de_cryptography']}) · OpenSSL CLI: {(env['openssl_cli'] or 'n/d').splitlines()[0]}
-- Comando: `{out['comando']}` · llave Paillier {out['llave_paillier_bits']} bits · concurrencia 1 · calentamiento 5
-
-| Muestra (prueba, estratificada, semilla {SEMILLA_MUESTRA}) | Valor |
+    tp = out["microbenchmark_en_proceso"]; mh = out["microbenchmark_https_mismo_proceso"]; mc = out["metricas_misma_muestra"]["cifrado"]
+    md = f"# Medición en proceso · {etiqueta} · {out['fecha_utc']}\n\n" + _encabezado(out, env, prov) + f"""
+| Muestra (prueba del CDC, estratificada, semilla {SEMILLA_MUESTRA}) | Valor |
 |---|---|
 | Pacientes | {n} ({out['muestra']['positivos']} positivos, prevalencia {out['muestra']['prevalencia']}) |
 | Enteros descifrados idénticos a la referencia | {exactos} de {n} |
@@ -201,19 +284,16 @@ def main():
 | ROC-AUC flotante / punto fijo / cifrado | {out['metricas_misma_muestra']['flotante']['roc_auc']} / {out['metricas_misma_muestra']['punto_fijo']['roc_auc']} / {mc['roc_auc']} |
 | Sensibilidad · especificidad (cifrado, umbral {umbral:.4f}) | {mc['sensibilidad']} · {mc['especificidad']} |
 
-| Fase | p50 (ms) | p95 (ms) |
-|---|---:|---:|
-| Cifrar 21 variables (hospital) | {tp['cifrar_hospital']['p50_ms']} | {tp['cifrar_hospital']['p95_ms']} |
-| Evaluar sobre cifrados (servicio) | {tp['evaluar_servicio']['p50_ms']} | {tp['evaluar_servicio']['p95_ms']} |
-| Descifrar (hospital) | {tp['descifrar_hospital']['p50_ms']} | {tp['descifrar_hospital']['p95_ms']} |
-| Recorrido completo HTTPS + bóveda ({len(rec)} solicitudes) | {out['recorrido_https_tls13']['p50_ms']} | {out['recorrido_https_tls13']['p95_ms']} |
+| Microbenchmark | p50 (ms) | p95 (ms) | media (ms) |
+|---|---:|---:|---:|
+| En proceso · cifrar 21 variables | {tp['cifrar_hospital']['p50_ms']} | {tp['cifrar_hospital']['p95_ms']} | {tp['cifrar_hospital']['media_ms']} |
+| En proceso · evaluar sobre cifrados | {tp['evaluar_servicio']['p50_ms']} | {tp['evaluar_servicio']['p95_ms']} | {tp['evaluar_servicio']['media_ms']} |
+| En proceso · descifrar | {tp['descifrar_hospital']['p50_ms']} | {tp['descifrar_hospital']['p95_ms']} | {tp['descifrar_hospital']['media_ms']} |
+| HTTPS en el mismo proceso + bóveda ({len(rec)} solicitudes) | {mh['solicitud_completa']['p50_ms']} | {mh['solicitud_completa']['p95_ms']} | {mh['solicitud_completa']['media_ms']} |
 
-Pacientes por minuto (secuencial, en proceso): {tp['pacientes_por_minuto_secuencial']} · por HTTPS: {out['recorrido_https_tls13']['pacientes_por_minuto_secuencial']} · solicitud {out['tamanos_bytes']['solicitud_p50']} bytes · respuesta {out['tamanos_bytes']['respuesta_p50']} bytes · bóveda AES-256-GCM {out['boveda_aes256gcm_mb_s']} MB/s.
+Rendimiento secuencial: {tp['pacientes_por_minuto_secuencial']} pacientes/min sin red; {mh['pacientes_por_minuto_secuencial']} con HTTPS en el mismo proceso (n / tiempo de pared). Solicitud {out['tamanos_bytes']['solicitud_p50']} bytes · respuesta {out['tamanos_bytes']['respuesta_p50']} bytes · AES-256-GCM (microbenchmark de la biblioteca) {out['aes256gcm_microbenchmark_mb_s']} MB/s.
 """
-    with open(base + ".md", "w") as f:
-        f.write(md)
-    print(md)
-    print("guardado en", base + ".json")
+    _guardar(out, "proceso", etiqueta, ahora, md)
 
 
 if __name__ == "__main__":

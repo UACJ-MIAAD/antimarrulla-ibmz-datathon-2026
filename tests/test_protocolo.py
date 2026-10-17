@@ -136,3 +136,19 @@ def test_e_servicio_sin_llave_privada(servicio):
     import inspect
     fuente = inspect.getsource(protocolo.ServicioRiesgo)
     assert "_priv" not in fuente and "PrivateKey" not in fuente and "decrypt" not in fuente
+
+
+# F11: el servicio solo acepta el formato que genera el hospital
+def test_f11_id_llave_y_tamanos(hospital, servicio):
+    sol, _ = hospital.preparar(registro(muestra_valida(1)[0]))
+    casos = []
+    c = copy.deepcopy(sol); c["id"] = "Paciente: Juan Pérez\n"; casos.append(c)
+    c = copy.deepcopy(sol); c["id"] = "A" * 32; casos.append(c)
+    c = copy.deepcopy(sol); c["llave_publica"] = {"n": str(2 ** 5000 + 1)}; casos.append(c)
+    c = copy.deepcopy(sol); c["llave_publica"] = {"n": sol["llave_publica"]["n"], "g": "2"}; casos.append(c)
+    c = copy.deepcopy(sol); c["llave_publica"] = {"n": int(sol["llave_publica"]["n"])}; casos.append(c)
+    c = copy.deepcopy(sol); c["cifrados"][0] = "1" * 5000; casos.append(c)
+    for c in casos:
+        with pytest.raises(MensajeInvalido):
+            servicio.evaluar(c)
+    assert protocolo.ID_VALIDO.match(sol["id"])

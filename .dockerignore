@@ -1,0 +1,10 @@
+# Contexto mínimo para docker build: solo lo que copia docker/Dockerfile (src/tamizaje, artefactos, tests, data/cdc_891).
+*
+!src/tamizaje/**
+!artefactos/**
+!tests/**
+!data/cdc_891/**
+**/__pycache__
+**/*.pyc
+**/*.key
+**/*.pem
