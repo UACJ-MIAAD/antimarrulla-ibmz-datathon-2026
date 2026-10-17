@@ -20,6 +20,8 @@ Pitch: [submission/Los_Antimarrulla_Pitch_Tamizaje.pptx](../submission/Los_Antim
 | **11,550** de esas hospitalizaciones (**18.4%**) incluyeron una **amputación de miembro inferior** | Egresos hospitalarios SSA 2024, DGIS (conteo propio) (procedimientos CIE-9 84.1x) |
 | **4.7%** de los hospitalizados por diabetes murió en el hospital; estancia media de 5.1 días | Egresos hospitalarios SSA 2024, DGIS (conteo propio) |
 
+**La brecha de detección:** en 2024 hubo 22 muertes por cada 100 casos nuevos notificados en el país, pero **44 en Michoacán contra 9 en Sinaloa**. Donde se notifica poco en proporción a las muertes, probablemente se detecta tarde ([detalle y cuidados](FUENTES_DATOS.md#32-la-brecha-de-detección-por-estado-2024)).
+
 Los hospitales tienen los datos para detectar el riesgo antes, pero **no pueden compartirlos**: hacerlo es un riesgo legal y de privacidad; no hacerlo significa detectar tarde.
 
 ## 2. La solución en 4 pasos
@@ -107,7 +109,7 @@ flowchart LR
 | Uso | Fuente | Qué aporta |
 |-----|--------|------------|
 | Entrenar y evaluar | CDC Diabetes Health Indicators (UCI 891) | 253,680 registros, 21 indicadores, 13.9% positivos |
-| Contexto de impacto | Incidencia SINAVE (SUIVE-1) | Casos nuevos de E10, E11–E14, O24.4 por entidad, sexo, edad y semana |
+| Contexto de impacto | Incidencia SINAVE (`data/sinave/`, en el repo) | Casos nuevos semanales de E10 y E11–E14 por estado y sexo, 2014–2026 |
 | Contexto de impacto | Mortalidad EDR (INEGI) | Defunciones individuales con causa CIE-10 y variables sociales |
 | Contexto de impacto | SIS crónicas (Secretaría de Salud) | Pacientes en tratamiento y **controlados**, HbA1c y pie diabético por unidad médica y mes |
 | Contexto de impacto | Detecciones IMSS · egresos ISSSTE · CONAPO | Tamizajes por delegación, hospitalizaciones por diabetes y denominadores de población |

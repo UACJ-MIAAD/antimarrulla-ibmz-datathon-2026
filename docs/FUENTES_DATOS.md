@@ -109,6 +109,55 @@ Notificación **semanal y agregada** de casos nuevos por unidad médica. No es b
 | Casos nuevos por sexo y grupo de edad | <1 · 1-4 · 5-9 · 10-14 · 15-19 · 20-24 · **25-44** · 45-49 · 50-59 · 60-64 · 65+ · Ign. |
 | Derivadas (anuario) | Tasa de incidencia por 100,000 habitantes · fuente de notificación · principales causas |
 
+### 3.1 Series del equipo (en el repo: `data/sinave/`)
+
+Series semanales del Boletín Epidemiológico de **diabetes tipo 1 (E10)** y **tipo 2 (E11–E14)**, de la semana 1 de 2014 a la semana 30 de 2026, compiladas por el equipo. Tres niveles:
+
+| Nivel | Archivo | Contenido |
+|-------|---------|-----------|
+| Crudo | `boletin/data_raw_Diabetes_T{1,2}.csv` | `Anio`, `Semana`, `Entidad`, `Padecimiento`, `Casos_semana`, `Acumulado_hombres`, `Acumulado_mujeres`, `Acumulado_anio_anterior` |
+| Reconciliado | `tipo{1,2}/epi_dataset_v2.csv` | 64 series estado × sexo: `cve_ent`, `epi_year`, `epi_week`, `ds`, `sexo`, `y_cases`, `exposure`, `observed`, `quality_flags`, … |
+| Productos | `tipo{1,2}/products.csv` | 111 series: `geography_level` (estado · región · nacional) × `sex` (hombres · mujeres · general), `y_cases`, `exposure` |
+
+**Validación (17 oct 2026)**
+
+| Chequeo | Tipo 1 | Tipo 2 |
+|---------|--------|--------|
+| Suma semanal vs. acumulado del boletín (por año) | −2.5% a +7.8% (la mayoría < 3%) | −3.3% a +1.7% (la mayoría ≈ −1%) |
+| Valores negativos | 0 | 0 |
+| Semanas imputadas (`observed = False`) | 9 (0.0%) | 120 (0.2%) |
+| Casos nacionales 2024 | 3,938 | 494,049 |
+| Reparto por sexo 2024 (H · M) | 1,639 · 2,299 | 205,270 · 288,779 |
+
+**Cuidados al usar:**
+- `exposure` es la población del **Censo 2020** para todos los años: sirve para tasas aproximadas. Para tasas exactas, usar CONAPO por año.
+- **Tipo 1:** el reparto por sexo viene en buena parte **imputado** (bandera `sex_fallback_state_13w`); preferir `sex = general`.
+- **Tipo 2:** muchas semanas traen `sex_delta_total_mismatch` (hombres + mujeres ≠ total del boletín) y se ajustaron; el total es confiable.
+- 2026 es parcial (hasta la semana 30).
+- Son casos **notificados**, no casos reales: dependen de cuánto se detecta y se reporta en cada estado.
+
+### 3.2 La brecha de detección por estado (2024)
+
+Cruce de los casos nuevos notificados (SINAVE T1 + T2) con las muertes por diabetes ocurridas en 2024 por estado de residencia (EDR):
+
+| | Casos nuevos notificados | Muertes | Muertes por cada 100 casos notificados |
+|---|---:|---:|---:|
+| **Nacional** | 497,987 | 109,603 | **22.0** |
+| Michoacán | 9,330 | 4,129 | **44.3** |
+| Oaxaca | 11,891 | 4,577 | 38.5 |
+| Puebla | 18,887 | 7,042 | 37.3 |
+| Estado de México | 53,776 | 17,081 | 31.8 |
+| Veracruz | 33,819 | 10,473 | 31.0 |
+| Chihuahua | 12,552 | 2,649 | 21.1 |
+| Baja California | 27,751 | 2,504 | 9.0 |
+| Sinaloa | 17,681 | 1,537 | **8.7** |
+
+- Entre estados, la tasa de notificación y la de mortalidad **no se mueven juntas** (correlación de Pearson −0.19).
+- **Lectura:** donde se notifican pocos casos en proporción a las muertes, es probable que la diabetes **se esté detectando tarde o no se esté detectando**. En Michoacán hay 5 veces más muertes por caso notificado que en Sinaloa.
+- **Cuidado:** es un indicador ilustrativo. No está ajustado por edad, las muertes de 2024 no son los mismos casos notificados en 2024 y la notificación varía por institución. Presentarlo como **señal**, no como medición de subdiagnóstico.
+
+---
+
 ## 4. Fuentes adicionales en datos.gob.mx
 
 Revisadas el 17 de octubre de 2026 a sugerencia de Álvaro. Todas tienen licencia **CC BY 4.0** (citar la fuente).
@@ -196,6 +245,15 @@ flowchart LR
 | 5. Complicaciones | Egresos ISSSTE · SIS | Egresos E10–E14 · `PDM03` | Individual · CLUES × mes |
 | 6. Muertes | EDR / Defunciones SSA | `CAUSA_DEF` E10–E14 | Individual |
 | Denominador | CONAPO | Población 20+ por entidad y sexo | Entidad × año |
+
+**Cascada nacional 2024 (cifras del equipo):**
+
+| Escalón | 2024 | Fuente |
+|---------|-----:|--------|
+| Casos nuevos notificados (T1 + T2) | 497,987 | SINAVE · `data/sinave/` |
+| Hospitalizaciones por diabetes (solo SSA / IMSS-Bienestar) | 62,771 | Egresos SSA · `data/egresos_ssa/` |
+| … con amputación de miembro inferior | 11,550 | Egresos SSA (CIE-9 84.1x) |
+| Muertes por diabetes registradas | 112,577 | EDR / DGIS · `data/defunciones/` |
 
 **Por qué importa para el pitch:** cada escalón donde se pierde gente es un lugar donde el tamizaje temprano ayuda. Y el mensaje cierra solo: **para detectar antes hacen falta datos que hoy nadie comparte**, justo lo que Tamizaje a ciegas resuelve.
 

@@ -1,6 +1,29 @@
 # 📁 data/
 
-> ⚠️ **NOTA: no subir datasets grandes ni datos sensibles al repo.**
+> ⚠️ **NOTA: nada de datos sensibles. Datos públicos del equipo sí van en el repo, siempre que cada archivo pese menos de 50 MB; lo más grande va como [Release](https://github.com/UACJ-MIAAD/antimarrulla-ibmz-datathon-2026/releases/tag/datos-2024).**
+
+## Datos en el repo (listos para usar)
+
+Todo es información pública oficial, anonimizada en origen. Detalle de cada fuente en [docs/FUENTES_DATOS.md](../docs/FUENTES_DATOS.md).
+
+| Carpeta / archivo | Qué es | Filas | Tamaño |
+|-------------------|--------|------:|-------:|
+| `sinave/boletin/data_raw_Diabetes_T1.csv` · `_T2.csv` | Boletín Epidemiológico SINAVE tal cual: año, semana, entidad, casos de la semana y acumulados por sexo · 2014–2026 (sem. 31) | 21,024 c/u | 2 MB |
+| `sinave/tipo1/epi_dataset_v2.csv` · `sinave/tipo2/epi_dataset_v2.csv` | Serie semanal reconciliada: 32 estados × 2 sexos (64 series), con exposición (población Censo 2020) y banderas de calidad | 42,048 c/u | 12 MB |
+| `sinave/tipo1/products.csv` · `sinave/tipo2/products.csv` | 111 productos listos para graficar: estado, región y nacional × hombres, mujeres y general | 72,927 c/u | 14 MB |
+| `defunciones/defunciones_diabetes_2024.csv` | Defunciones registradas 2024 con causa E10–E14 u O24 (las 80 columnas de la EDR) | 112,586 | 24 MB |
+| `egresos_ssa/egresos_diabetes_2024.csv` | Egresos SSA 2024 con afección principal E10–E14 | 62,771 | 11 MB |
+| `egresos_ssa/afecciones_diabetes_2024.csv` · `procedimientos_diabetes_2024.csv` | Diagnósticos secundarios y procedimientos (CIE-9) de esos egresos | 104,556 · 142,999 | 8 MB |
+| `egresos_ssa/descriptor_egresos_2023_2025.xlsx` | Diccionario de variables y catálogos de egresos (DGIS) | — | — |
+
+**Archivos completos (Release [`datos-2024`](https://github.com/UACJ-MIAAD/antimarrulla-ibmz-datathon-2026/releases/tag/datos-2024)):** `DEFUN_2024.zip` (todas las causas, 31 MB) y `ssa_egresos_2024.zip` (todos los egresos, 111 MB).
+
+```bash
+gh release download datos-2024 --repo UACJ-MIAAD/antimarrulla-ibmz-datathon-2026 --dir data/raw
+```
+
+---
+
 
 - Archivos de más de ~5 MB: **fuera** del repo. Se documenta cómo descargarlos.
 - Datos personales, clínicos, financieros o de conversaciones reales: **nunca**, aunque estén "anonimizados".
