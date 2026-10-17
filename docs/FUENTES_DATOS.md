@@ -6,6 +6,28 @@ El **CDC** entrena el modelo. Las fuentes mexicanas (**SINAVE**, **EDR**, **SIS 
 
 ---
 
+## 0. Descarga automatizable: rutas directas
+
+Probadas con `curl` el 17 de octubre de 2026. Todas responden con el ZIP/CSV real (no HTML).
+
+| Fuente | Qué trae | URL directa | Tamaño |
+|--------|----------|-------------|--------|
+| **DGIS · Defunciones** | Mortalidad individual (mismas variables que la EDR) · **2017–2024** | `http://www.dgis.salud.gob.mx/descargas/datosabiertos/defunciones/registro/DEFUN_{año}.zip` | 31 MB (2024) |
+| **DGIS · Egresos hospitalarios SSA** | Hospitalizaciones en unidades de la Secretaría de Salud · **2019–2026** | `http://www.dgis.salud.gob.mx/descargas/datosabiertos/egresos/ssa_egresos_{año}.zip` | 111 MB (2024) |
+| **DGIS · Urgencias** | Atenciones de urgencias SSA · 2019–2026 | `http://www.dgis.salud.gob.mx/descargas/datosabiertos/urgencias/Urgencias_{año}.zip` | — |
+| **DGIS · Enfermedades crónicas (SIS)** | Control de diabetes por unidad médica y mes · 2010–2023 | `http://www.dgis.salud.gob.mx/descargas/datosabiertos/serviciosOtorgados/Enfermedades_cronicas_no_transmisibles_en_el_adulto_y_en_el_anciano/DA_EC_SIS_{año}.zip` | ~5 MB |
+| **DGIS · Descriptor SIS** | Diccionario de variables (hoja `Descriptor-ECRON`) | `http://www.dgis.salud.gob.mx/descargas/datosabiertos/serviciosOtorgados/Descriptor-Datos_Servicios_2010_2023.xlsx` | 209 KB |
+| **INEGI · EDR microdatos** | Mortalidad individual (DBF) · 2020–2024 por año | `https://www.inegi.org.mx/contenidos/programas/edr/microdatos/defunciones/{año}/defunciones_base_datos_{año}_dbf.zip` | — |
+| **INEGI · EDR histórico** | DBF por quinquenio 1990–2019 | `https://www.inegi.org.mx/contenidos/programas/edr/microdatos/defunciones/datos/defunciones_generales_base_datos_{1990_1994…2015_2019}_dbf.zip` | — |
+| **IMSS · Detecciones de diabetes** | Tamizajes por delegación · 2000–2023 | `https://www.datos.gob.mx/dataset/0ad05edd-1c6b-469e-b52b-a58234b29e65/resource/25261f00-c346-446d-84a4-943691569af9/download/deteccion_diabetes.csv` | 37 KB |
+| **UCI · CDC 891** | Entrenamiento del modelo | `ucimlrepo.fetch_ucirepo(id=891)` | — |
+
+Las URLs de la DGIS aceptan un `?v=` de versión que se puede omitir. Índice de todas sus bases: http://www.dgis.salud.gob.mx/contenidos/basesdedatos/Datos_Abiertos_gobmx.html
+
+**Solo navegador** (bloquean scripts): todo lo que vive en `repodatos.atdt.gob.mx` (CSV de datos.gob.mx de defunciones, crónicas, egresos ISSSTE y CONAPO). Para defunciones y crónicas hay equivalente en la DGIS; para egresos del ISSSTE y CONAPO, bajar a mano.
+
+---
+
 ## 1. CDC Diabetes Health Indicators (entrenamiento)
 
 | Campo | Valor |
@@ -32,7 +54,9 @@ Base anual de registros individuales de defunción, generada a partir del certif
 | Nota de microdatos | https://www.inegi.org.mx/contenidos/programas/edr/microdatos/defunciones_registradas_notas_microdatos.pdf |
 | Licencia | Términos de libre uso de la información del INEGI (citar la fuente) |
 
-> ⚠️ INEGI bloquea descargas por script (`curl` recibe HTML). Descargar desde el navegador. Para leer DBF en Python: `dbfread` o `geopandas`/`pyogrio`.
+> ✅ **Los ZIP de microdatos de INEGI sí se descargan con `curl`** (probado el 17 oct 2026). Lo que no funciona es *scrapear* la página del programa, porque arma los enlaces con JavaScript: usar las URLs directas de esta tabla. Para leer DBF en Python: `dbfread` o `geopandas`/`pyogrio`.
+>
+> INEGI no tiene API para microdatos. Su [API del Banco de Indicadores](https://www.inegi.org.mx/servicios/api_indicadores.html) (token gratuito) solo da indicadores agregados.
 
 > 💡 **Alternativa en CSV:** la Secretaría de Salud publica la misma base, **con las mismas columnas más fechas armadas**, en datos.gob.mx para 1998–2023 (ver [sección 4.1](#41-defunciones-registradas-secretaría-de-salud)). Para 2024 solo está el DBF de INEGI.
 
@@ -89,7 +113,7 @@ Notificación **semanal y agregada** de casos nuevos por unidad médica. No es b
 
 Revisadas el 17 de octubre de 2026 a sugerencia de Álvaro. Todas tienen licencia **CC BY 4.0** (citar la fuente).
 
-> ⚠️ Los archivos en `repodatos.atdt.gob.mx` bloquean `curl` ("Access Denied"). **Descargar desde el navegador.** La API del catálogo sí responde: `https://www.datos.gob.mx/api/3/action/package_show?id=<conjunto>`.
+> ⚠️ Los archivos en `repodatos.atdt.gob.mx` bloquean `curl` ("Access Denied") y solo bajan desde el navegador. **Para automatizar, usar las rutas equivalentes de la DGIS** ([sección 0](#0-descarga-automatizable-rutas-directas)), que sí aceptan `curl`. La API del catálogo de datos.gob.mx sí responde para metadatos: `https://www.datos.gob.mx/api/3/action/package_show?id=<conjunto>`.
 
 | # | Conjunto | Institución | Cobertura | Nivel | Para qué nos sirve |
 |---|----------|-------------|-----------|-------|--------------------|
@@ -104,6 +128,7 @@ Revisadas el 17 de octubre de 2026 a sugerencia de Álvaro. Todas tienen licenci
 - URL por año: `https://repodatos.atdt.gob.mx/all_data/secretaria_salud/6fecbbb3-afd9-44a1-8665-679a80ce4a15/defunciones_registradas_{año}.csv`
 - Columnas: las 74 de la EDR (sección 2) **más** `FECHA_OCURR`, `FECHA_NACIM`, `FECHA_REGIS`, `FECHA_CERT`, `fn_LISTA_MEX`, `fn_GR_LISMEX`.
 - Filtro de diabetes: `CAUSA_DEF` empieza con `E10`–`E14` (y `O24` en el embarazo).
+- **Ruta automatizable:** el mismo registro está en la DGIS como `DEFUN_{año}.zip` (2017–2024, incluye 2024).
 
 ### 4.2 Enfermedades crónicas en adultos (SIS)
 
@@ -111,6 +136,7 @@ Revisadas el 17 de octubre de 2026 a sugerencia de Álvaro. Todas tienen licenci
 - También en la DGIS como ZIP, con el **descriptor de variables**: http://www.dgis.salud.gob.mx/contenidos/basesdedatos/da_sis_gobmx.html (`Descriptor-Datos_Servicios_2010_2023.xlsx`, hoja `Descriptor-ECRON`).
 - Llaves: `CLAVE_ENTIDAD`, `ENTIDAD`, `CLAVE_MUNICIPIO`, `MUNICIPIO`, `CLUES`, `NOMBRE_CLUES`, `MES`, `ANIO`, `FECHA`.
 - Los valores vienen como `NULL` cuando no hay registro.
+- **Ruta automatizable:** `DA_EC_SIS_{año}.zip` en la DGIS (ver sección 0).
 
 | Prefijo | Apartado | Variables (sufijo = sexo y edad) |
 |---------|----------|----------------------------------|
@@ -139,6 +165,7 @@ Revisadas el 17 de octubre de 2026 a sugerencia de Álvaro. Todas tienen licenci
 - URL 2024: `https://repodatos.atdt.gob.mx/api_update/issste/datos_egresos_hospitalarios/egresos_hospitalarios_issste2024.csv`
 - Columnas: `entidad`, `unidad`, `clues`, `edad_anios`, `sexo`, `servicio_troncal`, `tipo_derechohabiente`, `fecha_ingreso`, `fecha_egreso`, `diagnostico_principal_cie10`, `descripcion_cie_010`.
 - Filtro: `diagnostico_principal_cie10` empieza con `E10`–`E14`. La estancia sale de `fecha_egreso − fecha_ingreso`.
+- **Más grande y automatizable:** los egresos de la Secretaría de Salud (`ssa_egresos_{año}.zip`, 2019–2026) están en la DGIS; revisar su descriptor antes de usarlos.
 
 ### Fuentes revisadas que no nos sirven
 
