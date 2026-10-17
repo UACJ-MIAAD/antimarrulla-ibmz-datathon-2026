@@ -74,3 +74,13 @@ demo-docker: secretos-docker imagen   ## demo sin venv en el host
 medir-docker: imagen-dev              ## mediciones dentro de Linux → submission/evidencias/metricas/
 	mkdir -p submission/evidencias/metricas && chmod 777 submission/evidencias/metricas
 	docker run --rm -e TAMIZAJE_COMMIT=$(COMMIT) -e TAMIZAJE_CAMBIOS=$(CAMBIOS) -v $(CURDIR)/submission/evidencias/metricas:/app/submission/evidencias/metricas tamizaje:dev python3 -m tamizaje.medir
+
+ensanut: setup                        ## extra: evaluación exploratoria con ENSANUT (microdatos locales)
+	$(BIN)/python -m tamizaje.ensanut
+
+pronostico: setup                     ## extra E5: pronóstico a 52 semanas (222 series) → artefactos/pronostico/ y el sitio
+	$(BIN)/python -m tamizaje.pronostico
+	cp artefactos/pronostico/e5_pronostico_v1.json site/assets/pronostico.json
+
+video-borrador:                       ## borrador sin audio con los tiempos del guion → dist/video/ (requiere ffmpeg)
+	PYTHONPATH=src $(BIN)/python -m tamizaje.video_borrador

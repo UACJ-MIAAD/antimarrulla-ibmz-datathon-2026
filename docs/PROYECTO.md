@@ -196,7 +196,7 @@ Medido el 17 oct en macOS arm64 (12 CPU, Python 3.12, `phe` 1.5.0 con `gmpy2`, l
 
 **Tamaño de la evaluación cifrada:** el conjunto de prueba completo (15%) son 38,052 personas × 21 variables = **799,092 cifrados** antes de los productos. Primero se mide cuántos pacientes por minuto procesa LinuxONE; con eso se elige una **muestra estratificada** (por ejemplo 1,000–2,000 personas) y se compara claro contra cifrado **exactamente sobre esa muestra**, reportando tamaño y composición.
 
-**Qué afirmamos y qué no:** es una **prueba técnica de inferencia privada**. El modelo clasifica una etiqueta de una encuesta de EE. UU. (prediabetes o diabetes declarada); no demuestra predicción prospectiva, ni detección de diabetes no diagnosticada en México, ni reducción de complicaciones. Una evaluación externa exploratoria con ENSANUT (US-3.5, extra) está **pendiente**: sería un experimento aparte, con predictores y objetivo definidos antes de evaluar. La validación clínica queda fuera del evento.
+**Qué afirmamos y qué no:** es una **prueba técnica de inferencia privada**. El modelo clasifica una etiqueta de una encuesta de EE. UU. (prediabetes o diabetes declarada); no demuestra predicción prospectiva, ni detección de diabetes no diagnosticada en México, ni reducción de complicaciones. La evaluación externa exploratoria con ENSANUT (US-3.5, extra) se hizo como experimento aparte con protocolo publicado antes de evaluar ([ENSANUT_EXPERIMENTO.md](ENSANUT_EXPERIMENTO.md)): un modelo reducido de 10 variables tiene ROC-AUC ponderado de 0.767 en adultos mexicanos, pero subestima el riesgo y su sensibilidad cae a 0.46–0.49 con el umbral del CDC. No valida el MVP. La validación clínica queda fuera del evento.
 
 ## 7. Demo (pantalla dividida)
 

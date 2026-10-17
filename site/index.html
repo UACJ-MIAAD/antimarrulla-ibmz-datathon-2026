@@ -142,7 +142,7 @@ header.top .brand{white-space:nowrap;overflow:hidden;text-overflow:ellipsis;min-
 <header class="top"><div class="wrap" style="position:relative">
   <img src="assets/logo.png" alt="Logo de Los Antimarrulla">
   <div class="brand"><b>Los Antimarrulla</b> <span>· IBM Z Datathon 2026</span></div>
-  <nav><a href="#deck">Pitch</a><a href="#datos">Datos</a><a href="#plan">Plan</a><a href="#equipo">Equipo</a>
+  <nav><a href="#deck">Pitch</a><a href="#datos">Datos</a><a href="#plan">Plan</a><a href="pronostico.html">Pronóstico</a><a href="#equipo">Equipo</a>
     <span class="minibar" title="Avance total"><i id="minibar"></i></span><span class="minipct" id="minipct">—</span></nav>
   <div id="prog"></div>
 </div></header>
@@ -197,7 +197,7 @@ header.top .brand{white-space:nowrap;overflow:hidden;text-overflow:ellipsis;min-
 <li>Cifrado homomórfico Paillier: suma y multiplicación por escalares sin descifrar. TLS 1.3 en tránsito, AES-256-GCM en reposo. Tabla de quién ve qué.</li>
 <li>Arquitectura en LinuxONE: contenedor del hospital con la llave y servicio de riesgo sin llave; cómputo pesado de aritmética homomórfica. En la demo, ambos contenedores corren en la misma VM: quien la administra queda dentro de la frontera de confianza. En producción, el del hospital corre en sus instalaciones.</li>
 <li>Demo real: captura de la UI con un paciente sintético. El servicio ve 21 cifrados; el hospital ve el riesgo (66.3%) y los factores. En 2,000 pacientes de prueba, 2,000 de 2,000 resultados descifrados son idénticos y el ROC-AUC es 0.808 en flotante, punto fijo y cifrado; recorrido completo de 128 ms (p50). Medición local, no LinuxONE.</li>
-<li>Datos y modelo: CDC 891 (253,680 registros, 21 indicadores). En prueba: ROC-AUC 0.826, AP 0.415, sensibilidad 0.805, especificidad 0.691, Brier 0.098, con umbral fijado en validación. Es una prueba técnica con datos de EE. UU.; la evaluación externa exploratoria con adultos mexicanos de ENSANUT está pendiente.</li>
+<li>Datos y modelo: CDC 891 (253,680 registros, 21 indicadores). En prueba: ROC-AUC 0.826, AP 0.415, sensibilidad 0.805, especificidad 0.691, Brier 0.098, con umbral fijado en validación. Es una prueba técnica con datos de EE. UU.: en adultos mexicanos (ENSANUT, exploratorio) un modelo reducido baja a ROC-AUC 0.77 y subestima el riesgo.</li>
 <li>Impacto: tamizaje temprano sin entregar expedientes. La IA ve el riesgo. Nadie ve al paciente: el servicio de riesgo solo recibe cifrados; la demo usa pacientes sintéticos.</li></ol></details>
   <div><a class="btn" href="assets/Los%20Antimarrulla_IBM%20Z%20Datathon%202026%20Project.pdf" download>Descargar PDF</a> <a class="btn ghost" href="https://github.com/UACJ-MIAAD/antimarrulla-ibmz-datathon-2026">Ver el repositorio</a></div>
 </div></section>
