@@ -25,7 +25,7 @@ Somos Los Antimarrulla, de la UACJ. Nuestro proyecto es **Tamizaje a ciegas**: u
 En México, **18.3%** de los adultos vive con diabetes y **uno de cada tres** no lo sabe. Es la segunda causa de muerte: **112 mil** en 2024. Los hospitales tienen los datos para detectarla antes, pero no pueden compartirlos. ¿Y si la IA calculara el riesgo sin ver esos datos?
 
 ## 3. La solución · 0:20
-El hospital cifra los 21 indicadores del paciente y se queda con la llave. LinuxONE calcula el riesgo sobre números cifrados; solo el hospital abre el resultado y Granite lo explica. Es tamizaje: decide a quién hacerle primero una prueba de glucosa.
+El hospital cifra los 21 indicadores del paciente y se queda con la llave. LinuxONE calcula el riesgo sobre números cifrados; solo el hospital abre el resultado y ve los factores que más pesan. Es tamizaje: decide a quién hacerle primero una prueba de glucosa.
 
 ## 4. Cifrado homomórfico · 0:25
 Usamos cifrado homomórfico Paillier: multiplicar cifrados suma sus valores y elevarlos a una potencia los multiplica. Así el servidor calcula el puntaje del modelo **sin descifrar nada**. Además, TLS 1.3 en tránsito y AES-256-GCM en reposo.
@@ -35,11 +35,11 @@ Usamos cifrado homomórfico Paillier: multiplicar cifrados suma sus valores y el
 Todo corre en LinuxONE, en dos contenedores: el del hospital, con la llave, y el servicio de riesgo, sin ella. En la demo comparten VM; en producción, el del hospital vive en sus instalaciones. La aritmética homomórfica son exponenciaciones con enteros de miles de bits: cómputo pesado, justo para IBM Z.
 
 ## 6. Demo en vivo · 0:35
-*(Pantalla dividida.)*
-A la izquierda, lo que ve el servidor: solo números cifrados. A la derecha, lo que ve el hospital: el riesgo, los factores principales y la explicación de Granite. Abajo, medido en LinuxONE sobre [**n**] pacientes: el AUC en claro contra el cifrado [**cifra real**] y la latencia por paciente [**cifra real**].
+*(Pantalla dividida real: `make demo`, paciente sintético C.)*
+A la izquierda, lo que ve el servicio de riesgo: 21 números cifrados y el puntaje cifrado que devuelve. A la derecha, lo que ve el hospital: el riesgo, la decisión frente al umbral y los factores que más pesan. En 2,000 pacientes de prueba, los 2,000 resultados descifrados son idénticos y el AUC cifrado es igual al de claro [**reemplazar por la medición de LinuxONE**].
 
 ## 7. Datos y modelo · 0:08
-Entrenamos con 253 mil registros públicos de los CDC. Los datos de pacientes solo llegan cifrados.
+Entrenamos con 253 mil registros públicos de los CDC: AUC de 0.83 y 80% de sensibilidad. Los datos de pacientes solo llegan cifrados.
 
 ## 8. Impacto y cierre · 0:17
 En 2024, más de 11 mil hospitalizaciones por diabetes en la Secretaría de Salud incluyeron una amputación. Queremos detectar antes sin entregar un solo expediente. **La IA ve el riesgo. Nadie ve al paciente.** Gracias.
@@ -48,7 +48,7 @@ En 2024, más de 11 mil hospitalizaciones por diabetes en la Secretaría de Salu
 
 ## ✅ Antes de grabar
 
-- [ ] Reemplazar las [**cifras reales**] de la demo con lo medido en LinuxONE (nunca inventar)
+- [ ] Reemplazar las cifras locales de la demo por las de `make medir-docker` en LinuxONE (nunca inventar)
 - [ ] Cronometrado en 2:50 o menos, dos veces seguidas, **con las pantallas** (instancia, modelo y resultado deben verse al menos 10 s en total); anotar la duración del archivo final
 - [ ] Se ven en pantalla la instancia LinuxONE, los contenedores y el modelo
 - [ ] Capturas de `lscpu`/`cpacfinfo` y de las versiones de OpenSSL (CLI y `cryptography`) en `evidencias/`

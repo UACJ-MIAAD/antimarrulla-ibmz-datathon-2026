@@ -170,7 +170,29 @@ Detalle de variables y cruce entre fuentes en [FUENTES_DATOS.md](FUENTES_DATOS.m
 | Tamaño del cifrado por paciente | Costo de comunicación |
 | Pacientes por minuto en LinuxONE | Escala |
 
-Todas se miden **en vivo en LinuxONE** y se guardan en `submission/evidencias/`.
+Las del modelo vienen de `make modelo` (`artefactos/metricas/modelo_logistico_v1.json`); las del recorrido cifrado, de `make medir`, que etiqueta el entorno donde corrió (`submission/evidencias/metricas/`). Las de LinuxONE se toman al correr ahí ([LINUXONE.md](LINUXONE.md)).
+
+### 6.1 Resultados del modelo (17 oct 2026)
+
+Regresión logística (`lbfgs`, C = 1, sin `class_weight`), estandarización ajustada solo con entrenamiento y plegada en los pesos. Particiones 70/15/15 estratificadas con semilla 2026 (`artefactos/particiones/`). Umbral **0.1225**, fijado en validación (sensibilidad ≥ 0.80 con la mayor especificidad).
+
+| Partición | ROC-AUC | Average precision¹ | Sensibilidad | Especificidad | VPP | Brier | ECE² |
+|-----------|--------:|-------------------:|-------------:|--------------:|----:|------:|-----:|
+| Validación (38,052) | 0.819 | 0.398 | 0.800 | 0.692 | 0.296 | 0.100 | 0.016 |
+| Prueba (38,052) | 0.826 | 0.415 | 0.805 | 0.691 | 0.297 | 0.098 | 0.012 |
+
+Matriz de confusión en prueba: 4,268 VP · 1,034 FN · 22,644 VN · 10,106 FP.
+
+¹ `average_precision_score` de scikit-learn: suma de precisiones ponderada por el incremento de recall; no es el área trapezoidal bajo la curva PR. ² Error de calibración esperado con 10 grupos de igual tamaño.
+
+- **`class_weight="balanced"`** casi no cambia el ranking (ROC-AUC 0.827) pero infla las probabilidades: p media 0.386 contra 13.9% de positivos, Brier 0.175 y ECE 0.246. Por eso el modelo exportado no lo usa y no hace falta calibrador.
+- **Duplicados:** 24,206 filas repetidas sin `ID` en todo el CDC; 4,560 filas de prueba tienen una copia idéntica en entrenamiento. Pueden ser respuestas iguales de personas distintas. Entrenando sin duplicados (163,437 filas) el resultado en prueba casi no cambia: ROC-AUC 0.826, AP 0.415, Brier 0.098.
+- **Punto fijo:** en las 38,052 filas de prueba, el error máximo del logit frente al flotante es 5.7×10⁻⁸ (cota 9.6×10⁻⁸), el ROC-AUC es idéntico y ninguna decisión cambia en el umbral.
+- XGBoost no se entrenó: queda subordinado a la logística.
+
+### 6.2 Recorrido cifrado (medición local, no LinuxONE)
+
+Medido el 17 oct en macOS arm64 (12 CPU, Python 3.12, `phe` 1.5.0 con `gmpy2`, llave de 2048 bits), sobre **2,000 pacientes** de prueba (muestra estratificada con semilla 2026: 279 positivos): **2,000 de 2,000** enteros descifrados idénticos a la referencia; error máximo del logit 4.5×10⁻⁸ (cota 7.9×10⁻⁸); ROC-AUC **0.808** igual en flotante, punto fijo y cifrado. Tiempos p50/p95: cifrar 114/127 ms, evaluar sobre cifrados 8.3/9.8 ms, descifrar 1.6/2.1 ms; recorrido completo por HTTPS con TLS 1.3 mutuo y bóveda, 128/148 ms (≈ 459 pacientes/min en secuencia). Solicitud de 26.8 KB y respuesta de 1.4 KB. **No es velocidad de LinuxONE.** Archivo: `submission/evidencias/metricas/medicion_local-darwin-arm64_20261017T094045Z.json`.
 
 **Tamaño de la evaluación cifrada:** el conjunto de prueba completo (15%) son 38,052 personas × 21 variables = **799,092 cifrados** antes de los productos. Primero se mide cuántos pacientes por minuto procesa LinuxONE; con eso se elige una **muestra estratificada** (por ejemplo 1,000–2,000 personas) y se compara claro contra cifrado **exactamente sobre esa muestra**, reportando tamaño y composición.
 
@@ -179,8 +201,9 @@ Todas se miden **en vivo en LinuxONE** y se guardan en `submission/evidencias/`.
 ## 7. Demo (pantalla dividida)
 
 - **Izquierda, "lo que ve el servidor":** cada indicador como un número cifrado ilegible.
-- **Derecha, "lo que ve el hospital":** riesgo del paciente, factores principales y explicación de Granite.
-- **Abajo:** métricas en vivo.
+- **Derecha, "lo que ve el hospital":** riesgo del paciente, decisión frente al umbral y los cinco factores que más mueven el puntaje (la explicación con Granite es un extra aún no integrado).
+- **Abajo:** tiempos reales de esa solicitud (cifrar, TLS + servicio, descifrar, total).
+- Implementada en `src/tamizaje/ui/index.html`; captura real en `submission/evidencias/local/`.
 - **Momento clave:** buscar en los logs del servidor un dato del paciente → cero resultados.
 
 ## 8. Plan por horas

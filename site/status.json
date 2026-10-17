@@ -1,6 +1,6 @@
 {
-  "rev": 13,
-  "actualizado": "2026-10-17T09:13:44Z",
+  "rev": 14,
+  "actualizado": "2026-10-17T09:48:31Z",
   "nota": "Para actualizar: cambia 'estado' de la historia (hecho · en_curso · pendiente · bloqueado), sube 'rev' en 1, pon 'actualizado' con la hora real en UTC y haz commit a main. El sitio muestra la copia con 'rev' mayor (GitHub o la publicada).",
   "hitos": {
     "hora_cero": "2026-10-17T13:00:00Z",
@@ -189,7 +189,8 @@
           "quien": "Álvaro",
           "bloque": "h3",
           "prioridad": "MVP",
-          "estado": "pendiente"
+          "estado": "hecho",
+          "evidencia": "docker/compose.yml · tests/test_protocolo.py::test_e_servicio_sin_llave_privada (local; falta captura en LinuxONE)"
         },
         {
           "id": "US-2.5",
@@ -199,7 +200,8 @@
           "quien": "Álvaro",
           "bloque": "h3",
           "prioridad": "MVP",
-          "estado": "pendiente"
+          "estado": "en_curso",
+          "evidencia": "TLS 1.3 mutuo y bóveda AES-256-GCM listos y probados en local (tests/test_integracion.py); falta evidencia de CPACF en LinuxONE"
         },
         {
           "id": "US-2.6",
@@ -227,7 +229,8 @@
           "quien": "Carlos",
           "bloque": "h3",
           "prioridad": "MVP",
-          "estado": "pendiente"
+          "estado": "hecho",
+          "evidencia": "artefactos/modelo/modelo_logistico_v1.json · artefactos/metricas/modelo_logistico_v1.json (ROC-AUC 0.826 en prueba)"
         },
         {
           "id": "US-3.2",
@@ -237,7 +240,8 @@
           "quien": "Carlos",
           "bloque": "h8",
           "prioridad": "MVP",
-          "estado": "pendiente"
+          "estado": "hecho",
+          "evidencia": "src/tamizaje/protocolo.py · tests/test_protocolo.py (entero descifrado idéntico, cota de error, negativos, extremos, mensajes inválidos)"
         },
         {
           "id": "US-3.3",
@@ -247,7 +251,8 @@
           "quien": "Carlos",
           "bloque": "h12",
           "prioridad": "MVP",
-          "estado": "pendiente"
+          "estado": "hecho",
+          "evidencia": "submission/evidencias/metricas/medicion_local-darwin-arm64_20261017T094045Z.md (local, no LinuxONE): 2,000 pacientes, ROC-AUC igual en flotante, punto fijo y cifrado"
         },
         {
           "id": "US-3.4",
@@ -285,7 +290,8 @@
           "quien": "Yazmin",
           "bloque": "h3",
           "prioridad": "MVP",
-          "estado": "pendiente"
+          "estado": "en_curso",
+          "evidencia": "particiones 70/15/15 en artefactos/particiones/ (hecho); EDA pendiente"
         },
         {
           "id": "US-4.2",
@@ -381,7 +387,8 @@
           "quien": "Javier",
           "bloque": "h8",
           "prioridad": "MVP",
-          "estado": "pendiente"
+          "estado": "hecho",
+          "evidencia": "src/tamizaje/ui/index.html · submission/evidencias/local/ (captura real, local)"
         },
         {
           "id": "US-6.2",
@@ -391,7 +398,8 @@
           "quien": "Javier · Álvaro",
           "bloque": "h12",
           "prioridad": "MVP",
-          "estado": "pendiente"
+          "estado": "en_curso",
+          "evidencia": "UI conectada al servicio real en contenedores locales (make demo); falta correrla en LinuxONE"
         },
         {
           "id": "US-6.3",
@@ -401,7 +409,8 @@
           "quien": "Equipo",
           "bloque": "h16",
           "prioridad": "MVP",
-          "estado": "pendiente"
+          "estado": "en_curso",
+          "evidencia": "recorrido completo local verificado (make demo + prueba de humo); falta en LinuxONE"
         }
       ]
     },
@@ -459,7 +468,8 @@
           "quien": "Carlos · Javier",
           "bloque": "h18",
           "prioridad": "MVP",
-          "estado": "pendiente"
+          "estado": "en_curso",
+          "evidencia": "make verify probado en un clon limpio (local); falta fijar versiones en s390x y la revisión de los 4"
         },
         {
           "id": "US-7.7",
