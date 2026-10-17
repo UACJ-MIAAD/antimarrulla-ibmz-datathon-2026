@@ -1,0 +1,43 @@
+{
+  "checked_at_utc": "2026-10-17T20:33:36.190011+00:00",
+  "baseline_main": "d71d3635c05ca9209a3195eef76cfb8e2c26a45c",
+  "baseline_host_tests": 90,
+  "corrected_host_tests": 97,
+  "corrected_ubuntu_tests": 93,
+  "ubuntu_skipped": 4,
+  "skip_reason": "Git executable absent from the image",
+  "screening_model_reproduced": true,
+  "forecast_reproduced_after_canonical_series_order": true,
+  "series": 222,
+  "current_missing_forecast_values": 0,
+  "production_url": "https://antimarrulla-tamizaje.netlify.app/forecast",
+  "production_revision_at_start": 31,
+  "production_forecast_matches_repo_bytes": true,
+  "browser_combinations_before": 222,
+  "browser_combinations_after": 222,
+  "browser_normal_failures": 0,
+  "mobile_viewport": [
+    390,
+    844
+  ],
+  "mobile_document_width": 390,
+  "demo_smoke": true,
+  "minimal_image_check": true,
+  "single_host_rehearsal": {
+    "records": 20,
+    "exact": 20,
+    "status": "REHEARSAL PASSED",
+    "real_host_separation_verified": false
+  },
+  "audit_acknowledgment_regression_fixed": true,
+  "evidence_storage_failure_returns_503": true,
+  "final_submission_ready": false,
+  "original_linuxone_process_api_records_present": false,
+  "lab_record_present": false,
+  "final_video_record_present": false,
+  "independent_human_review_recorded": false,
+  "published_ai_declaration": false,
+  "unit_cost_mxn": null,
+  "source_cost": null,
+  "scope": "Fresh automated repository/browser/evidence audit; not independent teammate approval or organizer eligibility determination."
+}

@@ -49,4 +49,4 @@ A full review must identify the commit, scope, commands and findings. Yazmin's p
 
 ## Yazmin form integration
 
-PR 8 (`09cadf5`) is incorporated into English PR 9 with its authored commit preserved. The automated integration audit and local verification are recorded in [YAZMIN_INTEGRATION.md](YAZMIN_INTEGRATION.md). Yazmin authored this form; her earlier clone check remains partial and does not approve the combined release. Another teammate must review the final combined commit before main is updated.
+PR 8 (`09cadf5`) is incorporated into English PR 9 with its authored commit preserved. The automated integration audit and local verification are recorded in [YAZMIN_INTEGRATION.md](YAZMIN_INTEGRATION.md). Yazmin authored this form; her earlier clone check remains partial and does not approve the combined release. PR 9 was merged by jrebull on October 17 at 20:12 UTC as `d71d363`, with no GitHub review recorded. Another teammate’s complete review of the submitted release remains required; the merge itself is not that approval.

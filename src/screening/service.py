@@ -99,8 +99,8 @@ def create_server(host, port, model_json, cert, key, client_ca, evidence=None, m
         def log_message(self, fmt, *args):  # Omit request paths and bodies.
             pass
 
-        def _respond(self, code, obj):
-            body = json.dumps(obj).encode()
+        def _respond(self, code, obj, body=None):
+            body = json.dumps(obj).encode() if body is None else body
             self.send_response(code)
             self.send_header("Content-Type", "application/json")
             self.send_header("Content-Length", str(len(body)))
@@ -141,15 +141,19 @@ def create_server(host, port, model_json, cert, key, client_ca, evidence=None, m
                 return self._respond(500, {"error": "internal error"})
             ms = (time.perf_counter() - t0) * 1000
             resp["service_ms"] = round(ms, 3)
-            sent = self._respond(200, resp)
-            log.info("evaluada id=%s ms=%.1f bytes_in=%d bytes_out=%d", sol["id"], ms, length, sent)
+            sent_body = json.dumps(resp).encode()
             if ev is not None:
                 try:
-                    e = ev.capture(sol["id"], raw, self._sent, ms, self.connection, self.client_address[0])
-                    log.info("evidence id=%s client=%s cn=%s %s private_key_in_memory=%s request_sha256=%s…",
-                             e["id"], e["client_ip"], e["client_cn"], e["tls"], e["private_key_in_memory"], e["sha256_request"][:16])
+                    e = ev.capture(sol["id"], raw, sent_body, ms, self.connection, self.client_address[0])
                 except OSError:
                     log.exception("could not save evidence")
+                    return self._respond(503, {"error": "evidence capture failed"})
+            # Success acknowledges completed evidence capture when audit mode is enabled.
+            sent = self._respond(200, resp, body=sent_body)
+            log.info("evaluated id=%s ms=%.1f bytes_in=%d bytes_out=%d", sol["id"], ms, length, sent)
+            if ev is not None:
+                log.info("evidence id=%s client=%s cn=%s %s private_key_in_memory=%s request_sha256=%s…",
+                         e["id"], e["client_ip"], e["client_cn"], e["tls"], e["private_key_in_memory"], e["sha256_request"][:16])
 
     srv = ThreadingHTTPServer((host, port), Handler)
     srv.socket = context_tls(cert, key, client_ca).wrap_socket(srv.socket, server_side=True)

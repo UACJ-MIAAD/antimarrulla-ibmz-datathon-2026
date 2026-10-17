@@ -26,7 +26,7 @@ table{width:100%;border-collapse:collapse;font-size:14px}th,td{padding:6px 8px;b
   <a href="index.html">← Plan and pitch</a>
   <h1>New-case forecasts and budget scenarios</h1>
   <p class="sub">Optional E5 · diabetes cases notified to SINAVE · <span id="hz"></span></p>
-  <div class="notice" id="notice"></div>
+  <div class="notice" id="notice" role="status">Loading forecasts…</div>
   <div class="ctrl">
     <label>Type<select id="kind"><option value="diabetes_t2">Type 2</option><option value="diabetes_t1">Type 1</option></select></label>
     <label>Geography<select id="geo"></select></label>
@@ -37,7 +37,7 @@ table{width:100%;border-collapse:collapse;font-size:14px}th,td{padding:6px 8px;b
     <div class="legend"><span><i style="background:var(--muted)"></i>Observed (last 104 weeks)</span><span><i style="background:var(--lblue)"></i>Forecast</span><span><i style="background:var(--lblue);opacity:.35"></i>80% band (exploratory)</span><span><i style="background:var(--lblue);opacity:.15"></i>95% band (exploratory)</span><span><i style="background:var(--yel)"></i>Start of the 52-week horizon</span></div>
   </div>
   <div class="grid">
-    <div class="card"><h3 style="margin-top:0">Expected cases over 52 weeks</h3><table id="quarters"></table><p class="sub" style="margin-top:8px;font-size:13px">Conservative and stress scenarios sum weekly 80% and 95% upper bounds: <b>these are not joint confidence intervals for the total</b>.</p></div>
+    <div class="card"><h3 style="margin-top:0">Expected cases over 52 weeks</h3><table id="quarters"></table><p class="sub" style="margin-top:8px;font-size:13px">Weekly values are rounded separately; quarterly sums may differ slightly from the 52-week aggregate. Conservative and stress scenarios sum weekly 80% and 95% upper bounds: <b>these are not joint confidence intervals for the total</b>.</p></div>
     <div class="card"><h3 style="margin-top:0">Budget</h3>
       <div class="ctrl"><label>Unit cost per new case (MXN)<input id="cost" type="number" min="0" step="1" placeholder="no cost entered"></label><label style="flex:1">Cost source (required)<input id="source" type="text" placeholder="e.g. a dated tariff or study"></label></div>
       <div id="budget"><p class="sub">Enter a cost and its source; no cost is assumed.</p></div>
@@ -73,10 +73,13 @@ function render(){const s=selectedSeries();if(!s)return;const H=s.history.cases,
  renderBudget()}
 function renderBudget(){const s=selectedSeries(),c=parseFloat($("cost").value),f=$("source").value.trim();if(!s)return;
  if(!(c>0)||!f){$("budget").innerHTML='<p class="sub">Enter a cost and its source; no cost is assumed.</p>';return}
- const T=s.total_52;$("budget").innerHTML=`<table><tr><th>Scenario</th><th>MXN</th></tr><tr><td>Base</td><td>$${fmt(T.point*c)}</td></tr><tr><td>Conservative (sum of 80% upper bounds)</td><td>$${fmt(T.conservative_scenario_total_hi80*c)}</td></tr><tr><td>Stress (sum of 95% upper bounds)</td><td>$${fmt(T.stress_scenario_total_hi95*c)}</td></tr></table><p class="sub" style="font-size:13px">Cost source: ${esc(f)}</p>`}
-fetch("assets/forecast.json").then(r=>r.json()).then(d=>{D=d;$("hz").textContent=`last observation ${d.last_observation} · nowcast: ${d.weeks_nowcast} weeks · horizon ${d.horizon.from} through ${d.horizon.through}`;
+ const T=s.total_52;
+ if(!Number.isFinite(c)||!Object.values(T).every(v=>Number.isFinite(v*c))){$("budget").textContent="Enter a finite unit cost that keeps scenario totals in range.";return}
+ const points=s.forecast.point.slice(D.weeks_nowcast),quarterRows=Array.from({length:4},(_,q)=>`<tr><td>Quarter ${q+1} (base)</td><td>$${fmt(points.slice(q*13,q*13+13).reduce((a,b)=>a+b,0)*c)}</td></tr>`).join("");
+ $("budget").innerHTML=`<table><tr><th>Period / scenario</th><th>MXN</th></tr>${quarterRows}<tr><td>52-week base</td><td>$${fmt(T.point*c)}</td></tr><tr><td>Conservative (sum of 80% upper bounds)</td><td>$${fmt(T.conservative_scenario_total_hi80*c)}</td></tr><tr><td>Stress (sum of 95% upper bounds)</td><td>$${fmt(T.stress_scenario_total_hi95*c)}</td></tr></table><p class="sub" style="font-size:13px">User-supplied cost source (not independently verified): ${esc(f)}. Quarterly sums use rounded weekly cases; aggregate totals may differ slightly.</p>`}
+fetch("assets/forecast.json").then(r=>{if(!r.ok)throw new Error(`HTTP ${r.status}`);return r.json()}).then(d=>{D=d;$("hz").textContent=`last observation ${d.last_observation} · nowcast: ${d.weeks_nowcast} weeks · horizon ${d.horizon.from} through ${d.horizon.through}`;
  $("notice").innerHTML=d.warnings.map(esc).join(" ")+` Fit data from ${d.fit_start} (COVID years excluded). Models: ${Object.entries(d.models_selected).map(([k,v])=>`${v} ${k}`).join(", ")}.`;
- populateGeography();["kind","geo","sex"].forEach(i=>$(i).onchange=render);["cost","source"].forEach(i=>$(i).oninput=renderBudget);render()});
+ populateGeography();["kind","geo","sex"].forEach(i=>$(i).onchange=render);["cost","source"].forEach(i=>$(i).oninput=renderBudget);render()}).catch(()=>{$("notice").textContent="Forecast data could not be loaded. Reload the page or try again later.";document.querySelectorAll("select,input").forEach(el=>el.disabled=true)});
 </script>
 </body>
 </html>

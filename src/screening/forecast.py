@@ -1,5 +1,6 @@
 """Optional E5 weekly diabetes T1/T2 forecasting and budget scenarios.
-Use 222 series (111 per type), fitting 2022 onward and counting linearly interpolated missing weeks.
+Use 222 series (111 per type), fitting complete weekly observations from 2022 onward. Reject missing/non-finite values
+until fold-local imputation is implemented; global interpolation could leak future values.
 Publish 11 bridge weeks plus 52 forecast weeks: 63 steps after the last July 27, 2026 observation.
 Select seasonal naive versus damped additive ETS using rolling origins, >=104 training weeks,
 up to four 52-week validation origins, SMAPE then MAE for a 5% tie. Derive exploratory
@@ -35,11 +36,12 @@ def load():
     return series
 
 
-def interpolate(y):
-    y = np.array(y, dtype=float); m = np.isnan(y)
-    if m.any():
-        idx = np.arange(len(y)); y[m] = np.interp(idx[m], idx[~m], y[~m])
-    return y, int(m.sum())
+def prepare_observations(y):
+    "Reject gaps before splitting: global interpolation can leak future holdout values."
+    y = np.array(y, dtype=float)
+    if not np.all(np.isfinite(y)):
+        raise ValueError("complete finite weekly observations required; missing weeks need fold-local imputation")
+    return y, 0
 
 
 def snaive(y, h):
@@ -130,7 +132,7 @@ def system(ys, h_total, region_of):
             prop = c["y"][-2 * S:].sum() / tot if tot else 0.0
             for field in FIELDS:
                 c[field] = reg[field] * prop
-            c["model"] = f"respaldo_regional ({prop:.4f} of its region)"
+            c["model"] = f"regional_fallback ({prop:.4f} of its region)"
     for kind in {k[0] for k in raw}:  # Top-down reconciliation
         for sex in {k[3] for k in raw if k[0] == kind}:
             national = raw[(kind, "national", "mx", sex)]
@@ -196,6 +198,9 @@ def main():
     if (a.cost_mxn is None) != (a.source_cost is None):
         raise SystemExit("a unit cost requires its source (--source-cost)")
 
+    if a.cost_mxn is not None and (not np.isfinite(a.cost_mxn) or a.cost_mxn <= 0 or not a.source_cost.strip()):
+        raise SystemExit("unit cost must be positive and finite, with a nonblank source")
+
     series = load()
     region_of = {r["cve_ent"]: r["region_sinave"] for r in csv.DictReader(open(os.path.join(ROOT, "data", "catalogos", "entidades.csv"), encoding="utf-8"))}
     last = max(d for v in series.values() for d, _ in v)
@@ -207,7 +212,10 @@ def main():
     ys, dates_hist, missing = {}, {}, {}
     for k, v in series.items():
         v = [(d, y) for d, y in v if d >= FIT_START]
-        ys[k], missing[k] = interpolate([y for _, y in v])
+        if any(datetime.date.fromisoformat(b) - datetime.date.fromisoformat(a) != datetime.timedelta(weeks=1)
+               for (a, _), (b, _) in zip(v, v[1:])):
+            raise ValueError(f"nonweekly or missing calendar rows in series {k}")
+        ys[k], missing[k] = prepare_observations([y for _, y in v])
         dates_hist[k] = [d for d, _ in v]
 
     raw = system(ys, h_total, region_of)

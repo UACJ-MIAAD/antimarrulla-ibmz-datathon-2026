@@ -1,0 +1,26 @@
+{
+  "production_status": {
+    "status": 200,
+    "url": "https://antimarrulla-tamizaje.netlify.app/status.json",
+    "sha256": "d803b161b8934123ae85993f8923da1175b4c67dc69986def8aa15b6ae3b187a",
+    "revision": 31
+  },
+  "production_forecast": {
+    "status": 200,
+    "url": "https://antimarrulla-tamizaje.netlify.app/assets/forecast.json",
+    "sha256": "89dc492df10182cdf81925e127308c73c49aa6dbaaae812c03645becb7c8f19f",
+    "matches_repo": true
+  },
+  "production_page": {
+    "status": 200,
+    "url": "https://antimarrulla-tamizaje.netlify.app/forecast",
+    "sha256": "2961789957011d661b62fd35631601307e2e358504a422fde7b719b3141ea910",
+    "matches_repo": false
+  },
+  "preview_status": {
+    "status": 200,
+    "url": "https://english-release--antimarrulla-tamizaje.netlify.app/status.json",
+    "sha256": "d803b161b8934123ae85993f8923da1175b4c67dc69986def8aa15b6ae3b187a",
+    "revision": 31
+  }
+}

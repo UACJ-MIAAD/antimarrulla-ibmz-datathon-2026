@@ -175,10 +175,10 @@ header.top .brand{white-space:nowrap;overflow:hidden;text-overflow:ellipsis;min-
 
   <p class="note" lang="en"><b>Submissions are open.</b> Oct 16, 23:45 UTC (19:45 EDT / 17:45 Juárez) → Oct 18, 16:30 UTC (12:30 EDT / 10:30 Juárez / 18:30 SAST). <a href="https://hack2skill.com/event/datathon-2026">Hack2Skill team dashboard</a>. Keep the internal target and the 3 h 30 min buffer. All authored release material must be in English; implementation is translated; final narration and teammate sign-off remain open under US-7.9.</p>
   <div class="clocks">
-    <div class="clock main"><div class="lbl">Submission deadline</div><div class="val mono" id="c-cierre">--:--:--</div><div class="when">Oct 18 · 10:30 Juárez / 12:30 EDT / 16:30 UTC</div></div>
-    <div class="clock"><div class="lbl">Internal submission target</div><div class="val mono" id="c-meta">--:--:--</div><div class="when">Oct 18 · 07:00 Juárez / 09:00 EDT</div></div>
+    <div class="clock main"><div class="lbl">Submission deadline</div><div class="val mono" id="c-deadline">--:--:--</div><div class="when">Oct 18 · 10:30 Juárez / 12:30 EDT / 16:30 UTC</div></div>
+    <div class="clock"><div class="lbl">Internal submission target</div><div class="val mono" id="c-target">--:--:--</div><div class="when">Oct 18 · 07:00 Juárez / 09:00 EDT</div></div>
     <div class="clock"><div class="lbl">Working demo (H18)</div><div class="val mono" id="c-demo">--:--:--</div><div class="when">Oct 18 · 01:00 Juárez</div></div>
-    <div class="clock"><div class="lbl">Current time in Juárez</div><div class="val mono" id="c-ahora">--:--</div><div class="when" id="c-hora">—</div></div>
+    <div class="clock"><div class="lbl">Current time in Juárez</div><div class="val mono" id="c-now">--:--</div><div class="when" id="c-time">—</div></div>
   </div>
   <div class="bar"><i id="bar"></i></div>
   <div class="barlbl"><span>H0 · Oct 17, 07:00 Juárez</span><span id="barpct">0%</span><span>H24 · Oct 18, 07:00 Juárez</span></div>
@@ -270,8 +270,8 @@ const pctOf=list=>list.length?Math.round(list.reduce((a,u)=>a+W8[u.state],0)/lis
 function cd(ms){if(ms<=0)return"00:00:00";const s=Math.floor(ms/1000),h=Math.floor(s/3600),m=Math.floor(s%3600/60),x=s%60;return`${String(h).padStart(2,"0")}:${String(m).padStart(2,"0")}:${String(x).padStart(2,"0")}`}
 function tick(){
   const now=new Date(),h0=new Date(H.internal_start);
-  c("c-cierre",cd(new Date(H.submissions_close)-now));c("c-meta",cd(new Date(H.internal_submission_target)-now));c("c-demo",cd(new Date(H.working_demo)-now));c("c-ahora",fmtT(now));
-  const hrs=(now-h0)/3.6e6;c("c-hora",hrs<0?`${(-hrs).toFixed(1)} h until internal H0`:(hrs<=24?`Internal plan: H${Math.floor(hrs)}`:"Internal plan complete"));
+  c("c-deadline",cd(new Date(H.submissions_close)-now));c("c-target",cd(new Date(H.internal_submission_target)-now));c("c-demo",cd(new Date(H.working_demo)-now));c("c-now",fmtT(now));
+  const hrs=(now-h0)/3.6e6;c("c-time",hrs<0?`${(-hrs).toFixed(1)} h until internal H0`:(hrs<=24?`Internal plan: H${Math.floor(hrs)}`:"Internal plan complete"));
   const p=Math.max(0,Math.min(100,hrs/24*100));document.getElementById("bar").style.width=p+"%";c("barpct",p.toFixed(0)+"% of planned time");
   if(ST)markNow();
 }

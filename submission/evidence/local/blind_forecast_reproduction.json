@@ -1,0 +1,11 @@
+{
+  "baseline_commit": "d71d3635c05ca9209a3195eef76cfb8e2c26a45c",
+  "series": 222,
+  "full_nested_pipeline_reproduced": true,
+  "identical_after_canonical_series_order": true,
+  "array_order_differs": true,
+  "artifact_sha256": "89dc492df10182cdf81925e127308c73c49aa6dbaaae812c03645becb7c8f19f",
+  "forecast_values_modified": false,
+  "current_input_missing_weeks": 0,
+  "guard_effect_on_current_data": "All 222 input arrays remain identical; future incomplete inputs are rejected before global interpolation. Current recorded selections contain no regional fallback label."
+}
