@@ -8,6 +8,7 @@
 - [ ] 🆕 Los 4 llenaron el **formulario de asistencia del kick-off**: https://forms.gle/hxTYwzJRqgwnWaPn8
 - [ ] Ver la grabación del setup de LinuxONE (recomendada en el kick-off): https://www.youtube.com/watch?v=y9rZwSq8pw8
 
+- [ ] Registro de labs en `submission/evidencias/labs/REGISTRO.json` (ver `REGISTRO.ejemplo.json`), con fechas reales
 - [ ] Lab 1 completado: *Predictive AI Hybrid AI scenarios (multi-model)*
 - [ ] Lab 2 completado: *Predictive AI + Generative AI*
 - [ ] Capturas de ambos labs en `submission/evidencias/`

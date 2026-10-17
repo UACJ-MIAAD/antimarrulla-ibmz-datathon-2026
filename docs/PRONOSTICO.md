@@ -89,6 +89,6 @@ El ajuste de las 222 series corre en **LinuxONE** (en el contenedor del servicio
 | Regiones | 23.2% | 23.7% | 25.6% | 26.4% | 25.0% | 65% | 81% |
 | Estados | 59.0% | 58.1% | 60.0% | 61.3% | 59.7% | 63% | 79% |
 
-Lectura: las bandas son **más angostas de lo que dicen** (80% nominal cubre ~63–65%; 95% cubre 79–87%), y a nivel estado el error es alto (incluye T1 con pocos casos). Solo 2 orígenes: es una evaluación orientativa.
+Son promedios de **todas** las series de cada nivel: no es la cobertura de cada serie (por ejemplo, T2 general: nacional 52.9% y estados 55.8% a 80%, con SMAPE estatal de 21.7%). Lectura: las bandas son **más angostas de lo que dicen** (80% nominal cubre ~63–65%; 95% cubre 79–87%), y a nivel estado el error es alto (incluye T1 con pocos casos). Solo 2 orígenes: es una evaluación orientativa.
 
 Nacional, 52 semanas (punto): T2 general 574,746 casos (últimas 52 observadas: 555,474); T1 general 3,834 (últimas 52: 3,857). Casos **notificados**, no casos reales.

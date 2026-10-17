@@ -1,0 +1,12 @@
+{
+  "_instrucciones": "Copiar como REGISTRO.json en esta carpeta al tener las capturas reales (PNG o JPEG, sin secretos). make package FINAL=1 lo valida.",
+  "responsable": "Álvaro Hernández Jarquín",
+  "fecha": "2026-10-18T00:00:00-06:00",
+  "vm": "LinuxONE Community Cloud (código SSF2026), Ubuntu 24.04 s390x",
+  "capturas": {
+    "dashboard_community_cloud": "dashboard.png",
+    "uname_lscpu": "uname_lscpu.png",
+    "contenedores": "docker_compose_ps.png",
+    "openssl": "openssl_version.png"
+  }
+}

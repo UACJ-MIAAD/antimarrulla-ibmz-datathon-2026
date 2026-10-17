@@ -152,3 +152,11 @@ def test_f11_id_llave_y_tamanos(hospital, servicio):
         with pytest.raises(MensajeInvalido):
             servicio.evaluar(c)
     assert protocolo.ID_VALIDO.match(sol["id"])
+
+
+def test_r3_id_con_salto_de_linea_final_rechazado(hospital, servicio):
+    sol, _ = hospital.preparar(registro(muestra_valida(1)[0]))
+    c = copy.deepcopy(sol); c["id"] = sol["id"] + "\n"
+    with pytest.raises(MensajeInvalido):
+        servicio.evaluar(c)
+    assert protocolo.ID_VALIDO.fullmatch("a" * 32 + "\n") is None

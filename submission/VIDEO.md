@@ -23,4 +23,4 @@
 - [ ] Grabar las voces con el guion de [PITCH.md](PITCH.md) y montarlas sobre el borrador.
 - [ ] Medir la duración del archivo final (≤ 3:00) con `ffprobe`; revisar audio y legibilidad.
 - [ ] Subirlo y probar el link en una ventana de incógnito.
-- [ ] Anotar el link en [HACK2SKILL.md](HACK2SKILL.md).
+- [ ] Anotar el link en [HACK2SKILL.md](HACK2SKILL.md) y llenar `submission/VIDEO_REGISTRO.json` (copia de `VIDEO_REGISTRO.ejemplo.json`) con URL, duración medida, audio y verificación de acceso.

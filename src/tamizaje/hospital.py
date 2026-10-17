@@ -9,7 +9,7 @@ Uso: python -m tamizaje.hospital
 """
 import hashlib, http.client, json, logging, os, platform, ssl, time, urllib.parse
 from http.server import BaseHTTPRequestHandler, ThreadingHTTPServer
-from . import boveda, esquema, protocolo, sinteticos
+from . import boveda, esquema, procedencia, protocolo, sinteticos
 
 log = logging.getLogger("hospital")
 UI = os.path.join(os.path.dirname(__file__), "ui", "index.html")
@@ -57,6 +57,7 @@ class Clinica:
 
     def __init__(self, modelo_json, cliente, bov, modelo_sha256=None):
         self.h, self.cliente, self.boveda, self.modelo_sha256 = protocolo.Hospital(modelo_json), cliente, bov, modelo_sha256
+        self.codigo_sha256 = procedencia.hash_codigo()[0]  # identidad del código desplegado (el de la imagen)
 
     def evaluar(self, paciente, etiqueta):
         t0 = time.perf_counter()
@@ -121,7 +122,7 @@ def crear_servidor(host, puerto, clinica):
                     salud = clinica.cliente.salud()
                 except OSError as e:
                     salud = {"estado": f"sin conexión ({type(e).__name__})"}
-                return self._json(200, {"servicio": salud, "modelo": clinica.h.cuantizado.nombre, "modelo_sha256": clinica.modelo_sha256, "esquema": esquema.VERSION,
+                return self._json(200, {"servicio": salud, "modelo": clinica.h.cuantizado.nombre, "modelo_sha256": clinica.modelo_sha256, "codigo_sha256": clinica.codigo_sha256, "esquema": esquema.VERSION,
                                         "llave_bits": clinica.h.pub.n.bit_length(), "maquina": platform.machine(),
                                         "sistema": platform.system(), "umbral": clinica.h.modelo_json["umbral"]})
             self._json(404, {"error": "no existe"})

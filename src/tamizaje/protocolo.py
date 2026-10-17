@@ -16,7 +16,7 @@ PROTOCOLO = "tamizaje-paillier-v1"
 BITS_LLAVE = 2048
 BITS_LLAVE_MIN = 2048
 BITS_LLAVE_MAX = 4096
-ID_VALIDO = re.compile(r"^[0-9a-f]{32}$")  # el formato que genera Hospital.preparar (secrets.token_hex(16))
+ID_VALIDO = re.compile(r"[0-9a-f]{32}")  # se usa con fullmatch: sin saltos de línea ni nada extra  # el formato que genera Hospital.preparar (secrets.token_hex(16))
 
 
 class MensajeInvalido(ValueError):
@@ -60,7 +60,7 @@ class ServicioRiesgo:
             raise MensajeInvalido("esquema o modelo incompatibles")
         if sol["exponente"] != contrato.EXPONENTE:
             raise MensajeInvalido("exponente distinto de 0")
-        if not isinstance(sol["id"], str) or not ID_VALIDO.match(sol["id"]):
+        if not isinstance(sol["id"], str) or not ID_VALIDO.fullmatch(sol["id"]):
             raise MensajeInvalido("id inválido (se esperan 32 hexadecimales)")
         lp = sol["llave_publica"]
         if not isinstance(lp, dict) or set(lp) != {"n"} or not isinstance(lp["n"], str) or not lp["n"].isdigit() or len(lp["n"]) > 1300:

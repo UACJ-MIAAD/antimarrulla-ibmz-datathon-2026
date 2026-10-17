@@ -60,7 +60,11 @@ Guardar en `submission/evidencias/linuxone/`:
 
 > CPACF acelera AES; **no** acelera Paillier. Solo se atribuye aceleración por hardware a lo que la evidencia sostenga.
 
-## 5. Después
+## 5. Registro para el paquete final
+
+Copiar `submission/evidencias/linuxone/REGISTRO.ejemplo.json` como `REGISTRO.json`, con responsable, fecha y el nombre de cada captura real. `make package FINAL=1` revisa que existan, que sean PNG/JPEG y que las mediciones `s390x` tengan resultados completos y procedencia limpia (no certifica el contenido de las capturas).
+
+## 6. Después
 
 - Hacer commit de `submission/evidencias/metricas/` y `submission/evidencias/linuxone/`.
 - Actualizar las historias US-2.5, US-2.6, US-6.2 y US-6.3 en `site/status.json` solo con esa evidencia.

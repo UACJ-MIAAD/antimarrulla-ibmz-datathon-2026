@@ -57,7 +57,9 @@ def estado_git(raiz=RAIZ):
         return {"fuente": "entorno", "commit": os.environ.get("TAMIZAJE_COMMIT"), "relevantes": rel, "ajenos": None,
                 "nota": "sin .git (contenedor): commit y estado los declara el Makefile; el código se identifica por su hash dentro de la imagen"}
     commit = (_git(raiz, "rev-parse", "HEAD") or "").strip() or None
-    salida = _git(raiz, "status", "--porcelain", "--untracked-files=all") or ""
+    salida = _git(raiz, "status", "--porcelain", "--untracked-files=all")
+    if commit is None or salida is None:  # git falló: el estado es desconocido, no limpio
+        return {"fuente": "git", "commit": commit, "relevantes": None, "ajenos": None, "nota": "git no respondió: estado desconocido"}
     relevantes, ajenos = [], []
     for linea in salida.splitlines():
         estado, ruta = linea[:2], linea[3:].strip().strip('"')
@@ -94,7 +96,9 @@ class ProcedenciaSucia(RuntimeError):
 
 
 def exigir_limpio(reg):
-    if reg["limpio"] is False:
-        raise ProcedenciaSucia("modo final: hay cambios relevantes sin commit: " + ", ".join(reg["cambios_relevantes"]))
-    if reg["fuente_commit"] == "entorno" and not reg["commit"]:
-        raise ProcedenciaSucia("modo final: el contenedor no declara TAMIZAJE_COMMIT")
+    """Modo final: exige commit presente y limpieza DEMOSTRADA (limpio is True). Desconocido o sucio se rechaza."""
+    if not reg.get("commit"):
+        raise ProcedenciaSucia("modo final: no hay commit identificable (git falló o el contenedor no declara TAMIZAJE_COMMIT)")
+    if reg.get("limpio") is not True:
+        detalle = ", ".join(reg.get("cambios_relevantes") or []) or "estado de cambios desconocido"
+        raise ProcedenciaSucia("modo final: no está demostrado que no haya cambios relevantes sin commit: " + detalle)

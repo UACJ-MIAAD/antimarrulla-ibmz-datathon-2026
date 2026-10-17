@@ -25,14 +25,14 @@ Somos Los Antimarrulla, de la UACJ. Nuestro proyecto es **Tamizaje a ciegas**: u
 En México, **18.3%** de los adultos vive con diabetes y **uno de cada tres** no lo sabe. Es la segunda causa de muerte: **112 mil** en 2024. Los hospitales tienen los datos para detectarla antes, pero no pueden compartirlos. ¿Y si la IA calculara el riesgo sin ver esos datos?
 
 ## 3. La solución · 0:20
-El hospital cifra los 21 indicadores del paciente y se queda con la llave. LinuxONE calcula el riesgo sobre números cifrados; solo el hospital abre el resultado y ve los factores que más pesan. Es tamizaje: decide a quién hacerle primero una prueba de glucosa.
+El hospital cifra los 21 indicadores del paciente y se queda con la llave. El servicio de riesgo calcula sobre números cifrados; solo el hospital abre el resultado y ve los factores que más pesan. Es tamizaje: decide a quién hacerle primero una prueba de glucosa.
 
 ## 4. Cifrado homomórfico · 0:25
 Usamos cifrado homomórfico Paillier: multiplicar cifrados suma sus valores y elevarlos a una potencia los multiplica. Así el servidor calcula el puntaje del modelo **sin descifrar nada**. Además, TLS 1.3 en tránsito y AES-256-GCM en reposo.
 
 ## 5. Por qué IBM Z · 0:30
 *(Mostrar la terminal de la VM: `uname -m` → `s390x`, los dos contenedores corriendo y el modelo cargado.)*
-*(Decir "corre en LinuxONE" solo si ya se grabó la VM; si no, "está hecho para LinuxONE".)* Todo corre en LinuxONE, en dos contenedores: el del hospital, con la llave, y el servicio de riesgo, sin ella. En la demo comparten VM; en producción, el del hospital vive en sus instalaciones. La aritmética homomórfica son exponenciaciones con enteros de miles de bits: cómputo pesado, justo para IBM Z.
+*(Usar "corre en LinuxONE" solo si ya se grabó la VM con `make demo-docker`; si no, decir "está hecho para LinuxONE".)* Está hecho para LinuxONE, en dos contenedores: el del hospital, con la llave, y el servicio de riesgo, sin ella. En la demo comparten VM; en producción, el del hospital vive en sus instalaciones. La aritmética homomórfica son exponenciaciones con enteros de miles de bits: cómputo pesado, justo para IBM Z.
 
 ## 6. Demo en vivo · 0:35
 *(Pantalla dividida real: `make demo`, paciente sintético C.)*

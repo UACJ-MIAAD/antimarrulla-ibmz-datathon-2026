@@ -76,3 +76,16 @@ def test_contenedor_sin_git_usa_lo_declarado(tmp_path, monkeypatch):
     monkeypatch.setenv("TAMIZAJE_COMMIT", "abc123"); monkeypatch.setenv("TAMIZAJE_CAMBIOS_RELEVANTES", "1")
     e = procedencia.estado_git(str(tmp_path))
     assert e["commit"] == "abc123" and e["relevantes"]
+
+
+def test_r1_final_rechaza_estado_desconocido_y_commit_ausente():
+    with pytest.raises(procedencia.ProcedenciaSucia):
+        procedencia.exigir_limpio({"limpio": None, "fuente_commit": "entorno", "commit": "declarado", "cambios_relevantes": None})
+    with pytest.raises(procedencia.ProcedenciaSucia):
+        procedencia.exigir_limpio({"limpio": True, "fuente_commit": "git", "commit": None, "cambios_relevantes": []})
+
+
+def test_r1_git_que_falla_da_estado_desconocido(tmp_path):
+    (tmp_path / ".git").mkdir()  # carpeta .git rota: git no responde
+    e = procedencia.estado_git(str(tmp_path))
+    assert e["relevantes"] is None and e["commit"] is None

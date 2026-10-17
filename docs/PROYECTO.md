@@ -101,7 +101,7 @@ CPACF acelera AES; **no** acelera Paillier, no es Secure Execution, no protege l
 | Componente | Datos del paciente | Resultado de riesgo |
 |------------|--------------------|---------------------|
 | Hospital (tiene la llave privada) | En claro: son sus pacientes | En claro |
-| Servicio de riesgo en LinuxONE | **Solo números cifrados** | **Solo cifrado** |
+| Servicio de riesgo (destino: LinuxONE) | **Solo números cifrados** | **Solo cifrado** |
 | Registros de la bóveda (en el hospital) | **Cifrado AES-256-GCM** (llave de 32 bytes fuera del repo) | **Cifrado AES-256-GCM** |
 | Logs del servicio y del hospital | No: solo id, milisegundos y bytes, en claro | No |
 | Discos y respaldos de la VM | La app no los cifra: dependen de la configuración de la VM (no demostrado) | Ídem |
