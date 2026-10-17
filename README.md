@@ -66,7 +66,14 @@ Más detalle: [COMPETENCIA](docs/COMPETENCIA.md) · [REGLAS](docs/REGLAS.md) · 
 │   └── LINKS.md             ← enlaces oficiales y de comunidad
 ├── src/                     ← código del proyecto (se escribe DURANTE el evento)
 ├── notebooks/               ← exploración y experimentos
-├── data/                    ← SOLO datos pequeños y públicos (lee data/README.md)
+├── data/                    ← datos públicos listos para usar (inventario en data/README.md)
+│   ├── cdc_891/             ← entrenamiento del modelo (CDC, 253,680 registros)
+│   ├── sinave/              ← casos nuevos semanales de diabetes T1 y T2, 2014–2026
+│   ├── defunciones/         ← muertes por diabetes 2024
+│   ├── egresos_ssa/         ← hospitalizaciones por diabetes 2024 (+ procedimientos)
+│   ├── sis_cronicas/        ← control de diabetes por unidad médica, 2021–2023
+│   ├── imss_detecciones/    ← tamizajes de diabetes del IMSS, 2000–2023
+│   └── conapo/              ← población y marginación (denominadores)
 └── submission/
     ├── Los_Antimarrulla_Pitch_Tamizaje.pptx ← presentación del proyecto (8 slides)
     ├── PITCH.md             ← guion del video de máx. 3 minutos
@@ -110,7 +117,8 @@ En LinuxONE (s390x) los pasos son los mismos; si algún paquete no trae wheel pa
 - **Problema:** en México, 18.3% de los adultos vive con diabetes, 1 de cada 3 no lo sabe y es la 2.ª causa de muerte (112,577 defunciones en 2024) y causó más de 11 mil amputaciones solo en hospitales de la Secretaría de Salud. Los hospitales tienen los datos para detectar el riesgo antes, pero no pueden compartirlos.
 - **Solución:** el hospital cifra los 21 indicadores del paciente con **cifrado homomórfico (Paillier)** y se queda con la llave. LinuxONE calcula el riesgo de diabetes **sobre los datos cifrados**, sin poder leerlos. El hospital descifra el resultado y **Granite** lo explica en lenguaje claro. Es tamizaje, no diagnóstico.
 - **Uso de IBM Z / LinuxONE:** dos contenedores Docker en LinuxONE (hospital con llave · servicio de riesgo sin llave); aritmética homomórfica con enteros de miles de bits; AES-256-GCM en reposo acelerado por CPACF; TLS 1.3 en tránsito.
-- **Datos:** CDC Diabetes Health Indicators (UCI 891) para entrenar; incidencia **SINAVE** y mortalidad **EDR (INEGI)** para el contexto mexicano.
+- **Datos (ya en `data/`):** CDC Diabetes Health Indicators (UCI 891) para entrenar el modelo; para el contexto mexicano, casos nuevos **SINAVE** 2014–2026, **muertes** y **hospitalizaciones** por diabetes 2024, control en el **SIS**, tamizajes del **IMSS** y población de **CONAPO**. Los archivos completos de la DGIS están en el Release [`datos-2024`](https://github.com/UACJ-MIAAD/antimarrulla-ibmz-datathon-2026/releases/tag/datos-2024).
+- **Hallazgo clave:** en 2024 hubo 22 muertes por diabetes por cada 100 casos nuevos notificados en el país: **44 en Michoacán contra 9 en Sinaloa**. Donde se notifica poco, la diabetes probablemente se detecta tarde ([detalle](docs/FUENTES_DATOS.md#32-la-brecha-de-detección-por-estado-2024)).
 - **Métrica estrella:** AUC cifrado vs. AUC en claro (la privacidad no cuesta precisión).
 - **Cómo correr la demo:** _se documenta durante el evento._
 

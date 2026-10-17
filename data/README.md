@@ -15,6 +15,13 @@ Todo es información pública oficial, anonimizada en origen. Detalle de cada fu
 | `egresos_ssa/egresos_diabetes_2024.csv` | Egresos SSA 2024 con afección principal E10–E14 | 62,771 | 11 MB |
 | `egresos_ssa/afecciones_diabetes_2024.csv` · `procedimientos_diabetes_2024.csv` | Diagnósticos secundarios y procedimientos (CIE-9) de esos egresos | 104,556 · 142,999 | 8 MB |
 | `egresos_ssa/descriptor_egresos_2023_2025.xlsx` | Diccionario de variables y catálogos de egresos (DGIS) | — | — |
+| `cdc_891/cdc_diabetes_891.csv` | **Entrenamiento del modelo.** CDC Diabetes Health Indicators (UCI 891): `ID`, `Diabetes_binary` y 21 indicadores · 13.93% positivos | 253,680 | 13 MB |
+| `sis_cronicas/DA_EC_SIS_{2021,2022,2023}.zip` | Control de diabetes, hipertensión, obesidad, etc. por unidad médica y mes (SIS, DGIS) | ~50 MB c/u descomprimido | 16 MB |
+| `sis_cronicas/descriptor_servicios_2010_2023.xlsx` | Diccionario del SIS (hoja `Descriptor-ECRON`) | — | — |
+| `imss_detecciones/deteccion_diabetes.csv` | Detecciones (tamizajes) de diabetes del IMSS por delegación, 2000–2023 | 840 | 40 KB |
+| `conapo/pobproy_quinq1.csv` | Población a mitad de año por municipio, sexo y edad quinquenal, 1990–2040 | 252,450 | 35 MB |
+| `conapo/indicadores_demograficos_1950_2070.csv` | Indicadores demográficos por entidad (población, defunciones, esperanza de vida…) | 3,353 | 2 MB |
+| `conapo/ime_2020.csv` · `imm_2020.csv` | Índice de marginación 2020, estatal y municipal | 32 · 2,469 | 0.6 MB |
 
 **Archivos completos (Release [`datos-2024`](https://github.com/UACJ-MIAAD/antimarrulla-ibmz-datathon-2026/releases/tag/datos-2024)):** `DEFUN_2024.zip` (todas las causas, 31 MB) y `ssa_egresos_2024.zip` (todos los egresos, 111 MB).
 
