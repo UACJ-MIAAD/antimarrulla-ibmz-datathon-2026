@@ -69,3 +69,6 @@ docs/*.pdf
 # Reportes y planes de auditoría externa (solo locales)
 docs/AUDITORIA_*.md
 docs/PLAN_REAUDITORIA.md
+
+# Declaración de IA en local mientras el equipo decide dónde va
+docs/USO_IA.local.md

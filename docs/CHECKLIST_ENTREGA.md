@@ -31,7 +31,7 @@
 - [x] `requirements.txt` con versiones fijadas (verificadas en local; en s390x se usan los paquetes apt de la imagen)
 - [x] Instrucciones para obtener el dataset (fuente + licencia) en `data/README.md`
 - [x] Tabla de **librerías open source con sus links** (la guía lo exige en la entrega)
-- [x] Declaración de **asistentes de IA** (sección *Uso de IA* al final del README), incluida la implementación y las auditorías externas
+- [ ] Declaración de **asistentes de IA**: pendiente; el equipo decide dónde va (las reglas piden declararla)
 - [x] Diagrama de arquitectura / flowchart: `submission/flowchart/arquitectura.pdf`
 - [x] [DECISION.md](DECISION.md) lleno
 

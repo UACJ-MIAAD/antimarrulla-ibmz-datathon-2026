@@ -95,7 +95,7 @@ Detalle en [FUENTES_DATOS.md](FUENTES_DATOS.md) y [data/README.md](../data/READM
 | # | Tema | Decisión | Consecuencia |
 |---|------|----------|--------------|
 | 1 | Épica E5 (pronóstico a 52 semanas) y ruta CKKS | **Se quedan como extra (Plus).** No se saca nada del plan. | El MVP sigue siendo Paillier + demo de la hora 18. E5 y CKKS no bloquean el MVP; si en la hora 12 la demo cifrada va atrasada, E5 se congela en lo que tenga ([PRONOSTICO.md](PRONOSTICO.md)). |
-| 2 | Declaración de uso de IA | **Se declara al final del README** (sección *Uso de IA*), con todos los usos de Claude: estructura, documentación, ranking, datos, deck, sitio y auditoría. | Cumple [REGLAS.md](REGLAS.md) §4 y el checklist de entrega. |
+| 2 | Declaración de uso de IA | **Pendiente:** se quitó del README el 17 oct; el equipo decide dónde va. | Las reglas piden declararla ([REGLAS.md](REGLAS.md) §4). |
 | 3 | Frontera de confianza | **Hospital y servicio de riesgo en la misma VM**, con la frontera declarada. | Quien administra la VM queda dentro de la frontera; la demo usa solo pacientes sintéticos. Detalle en [PROYECTO.md](PROYECTO.md) y en la slide 5. |
 | 4 | Correos del equipo en el README | **Se quedan**, con acuerdo de los cuatro. | Sin cambios. |
 
