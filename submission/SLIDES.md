@@ -6,7 +6,7 @@
 |---|-------|---------|--------|--------------------|
 | 1 | **Portada** | Los Antimarrulla · Tamizaje a ciegas | Pulso cardiaco sobre datos cifrados, logo, equipo | Ejecución y pitch |
 | 2 | **El problema** | La diabetes avanza y sus datos siguen bajo llave | 3 cifras (18.3%, 1 de 3, 112,577) + dato de egresos con amputación en el cierre + diagrama del dilema del hospital | Valor comunitario y tema |
-| 3 | **La solución** | El riesgo se calcula sobre datos que nadie puede leer | Flujo de 4 pasos + 3 garantías | Novedad y originalidad |
+| 3 | **La solución** | El riesgo se calcula sobre datos cifrados | Flujo de 4 pasos + 3 garantías | Novedad y originalidad |
 | 4 | **Cifrado homomórfico** | Cómo se calcula un riesgo sin descifrar nada | Propiedad de Paillier + 3 capas de cifrado + tabla "¿Quién ve qué?" | Valor y tema · técnico |
 | 5 | **Por qué IBM Z** | Dos contenedores, una regla: la llave nunca cruza | Arquitectura en LinuxONE con dos contenedores | Diseño técnico y LinuxONE |
 | 6 | **Demo en vivo** | El servidor no ve nada, el hospital ve todo | Pantalla dividida (maqueta) + 4 métricas en vivo | Ejecución y pitch |

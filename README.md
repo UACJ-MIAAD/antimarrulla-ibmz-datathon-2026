@@ -123,13 +123,15 @@ En LinuxONE (s390x) los pasos son los mismos; si algún paquete no trae wheel pa
 ### Tamizaje a ciegas
 
 > **La IA ve el riesgo. Nadie ve al paciente.**
+>
+> **Alcance de esa promesa:** el servicio de riesgo recibe únicamente cifrados y nunca tiene la llave. En la demo, el entorno del hospital y el servicio corren en la misma VM de LinuxONE, así que quien administra la VM (el equipo) queda dentro del entorno de confianza; por eso la demo usa solo pacientes sintéticos. Detalle en [PROYECTO.md](docs/PROYECTO.md).
 
 - **Tema oficial:** T2 · AI Secured: Innovation Without Exposure
 - **Problema:** en México, 18.3% de los adultos vive con diabetes, 1 de cada 3 no lo sabe y es la 2.ª causa de muerte (112,577 defunciones registradas en 2024). En hospitales de la Secretaría de Salud, 11,550 egresos por diabetes (18.4%) incluyeron una amputación de miembro inferior. Los hospitales tienen los datos para detectar el riesgo antes, pero no pueden compartirlos.
 - **Solución:** el hospital cifra los 21 indicadores del paciente con **cifrado homomórfico (Paillier)** y se queda con la llave. LinuxONE calcula el riesgo de diabetes **sobre los datos cifrados**, sin poder leerlos. El hospital descifra el resultado y **Granite** lo explica en lenguaje claro. Es tamizaje, no diagnóstico.
 - **Uso de IBM Z / LinuxONE:** dos contenedores Docker en LinuxONE (hospital con llave · servicio de riesgo sin llave); aritmética homomórfica con enteros de miles de bits; AES-256-GCM en reposo acelerado por CPACF; TLS 1.3 en tránsito.
 - **Datos (ya en `data/`):** CDC Diabetes Health Indicators (UCI 891) para entrenar el modelo; para el contexto mexicano, casos nuevos **SINAVE** 2014–2026, **muertes** y **hospitalizaciones** por diabetes 2024 (base sectorial reportada, incluido el ISSSTE), control en el **SIS**, tamizajes del **IMSS** y población de **CONAPO**. Los archivos completos de la DGIS están en el Release [`datos-2024`](https://github.com/UACJ-MIAAD/antimarrulla-ibmz-datathon-2026/releases/tag/datos-2024).
-- **Indicador exploratorio:** en 2024 se registraron 22 muertes por diabetes por cada 100 casos nuevos notificados en el país, con **44 en Michoacán y 9 en Sinaloa**. No es letalidad ni una medición de subdiagnóstico: mezcla cohortes distintas y no está ajustado por edad ([detalle y límites](docs/FUENTES_DATOS.md#32-muertes-por-cada-100-casos-notificados-por-estado-2024--exploratorio)).
+- **Indicador exploratorio:** en 2024 se registraron 22 muertes por diabetes (ocurridas y registradas en el año, de residentes en México) por cada 100 casos nuevos notificados en el país, con **44 en Michoacán y 9 en Sinaloa**. No es letalidad ni una medición de subdiagnóstico: mezcla cohortes distintas y no está ajustado por edad ([detalle y límites](docs/FUENTES_DATOS.md#32-muertes-por-cada-100-casos-notificados-por-estado-2024--exploratorio)).
 - **Métrica estrella:** AUC cifrado vs. AUC en claro (la privacidad no cuesta precisión).
 - **Cómo correr la demo:** _se documenta durante el evento._
 

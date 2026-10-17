@@ -140,7 +140,7 @@ Series semanales del Boletín Epidemiológico de **diabetes tipo 1 (E10)** y **t
 
 ### 3.2 Muertes por cada 100 casos notificados, por estado (2024) · exploratorio
 
-Cruce de los casos nuevos notificados (SINAVE T1 + T2) con las muertes por diabetes ocurridas en 2024 por estado de residencia (EDR):
+Cruce de los casos nuevos notificados (SINAVE T1 + T2) con las muertes por diabetes ocurridas en 2024 por estado de residencia (EDR). El numerador son **109,603 muertes ocurridas y registradas en 2024 de residentes en México**, no las 112,577 registradas en el año (que incluyen ocurridas en años previos y residentes en el extranjero); con ese otro numerador el cociente nacional sería 22.6:
 
 | | Casos nuevos notificados | Muertes | Muertes por cada 100 casos notificados |
 |---|---:|---:|---:|
@@ -238,7 +238,7 @@ Revisadas el 17 de octubre de 2026 a sugerencia de Álvaro. Todas tienen licenci
 | SEDENA · PEMEX · SEMAR · otros | 4,071 | — |
 | **Total** | **120,385** | 2.0% |
 
-Murieron en el hospital: 5,707 (4.7%). En la base sectorial, SSA + IMSS-Bienestar (`DH` 1, 3 y 13) suman 62,635, frente a 62,771 del archivo SSA: difieren en cobertura y fecha de corte, así que no se presentan como subconjuntos idénticos. Es la cobertura de la **base sectorial reportada**, no necesariamente todo el universo hospitalario.
+Murieron en el hospital: 5,707 (4.7%). En la base sectorial, SSA + IMSS-Bienestar (`DH` 1, 3 y 13) suman 62,635, frente a 62,771 del archivo SSA: es una **diferencia pendiente de reconciliar** (no está probado si viene de cobertura, corte u otra causa), así que no se presentan como subconjuntos idénticos. Es la cobertura de la **base sectorial reportada**, no necesariamente todo el universo hospitalario.
 
 ### Fuentes revisadas que no nos sirven
 
@@ -345,7 +345,7 @@ Notas: los egresos cubren solo unidades de la Secretaría de Salud e IMSS-Bienes
 
 ---
 
-## 8. ENSANUT 2022 y 2023 (INSP) · validación externa con población mexicana
+## 8. ENSANUT 2022 y 2023 (INSP) · evaluación externa exploratoria con población mexicana
 
 Encuesta Nacional de Salud y Nutrición Continua. Es el **único conjunto mexicano con datos por persona** que junta diagnóstico de diabetes, IMC, presión arterial y hábitos.
 
@@ -371,7 +371,9 @@ Encuesta Nacional de Salud y Nutrición Continua. Es el **único conjunto mexica
 | `a0301` = 1 (diagnóstico previo de diabetes) | 1,544 | 857 |
 | **Prevalencia ponderada de diagnóstico previo** | **10.9%** | **11.0%** |
 | Población adulta representada | 85.5 millones | 86.0 millones |
-| Adultos con IMC válido y diagnóstico sí/no | 8,628 (13.4% con diabetes) | 3,089 (13.1%) |
+| Adultos con IMC válido y diagnóstico sí/no¹ | 8,628 (13.4% con diabetes) | 3,089 (13.1%) |
+
+¹ Regla exacta: adultos de antropometría unidos con adultos por `FOLIO_INT`; peso = `an01_1` (si falta o es `222.22`, `an12_1`); talla = `an04_1` (si falta o es `222.2`, `an15_1`); se excluyen los códigos `222.22`, `222.2` y `999`; peso entre 25 y 250 kg y talla entre 100 y 220 cm (límites exclusivos); `a0301` igual a 1 (sí) o 3 (no). Otra regla de exclusión puede dar ±1 (por ejemplo, 8,629 en 2022).
 
 La prevalencia ponderada de 2022 (10.9%) **coincide con la publicada** para ENSANUT 2022 (diagnóstico previo). Sin ponderar sale 13.0%: siempre usar `ponde_f` para cifras poblacionales.
 

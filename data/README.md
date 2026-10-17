@@ -67,7 +67,7 @@ Esquema, llaves y reglas de armonización: [docs/MODELO_DATOS.md](../docs/MODELO
 
 | Carpeta | Qué es | Por qué no está en el repo |
 |---------|--------|----------------------------|
-| `raw/ensanut/2022/`, `raw/ensanut/2023/` | Microdatos ENSANUT (residentes, hogar, adultos, antropometría, actividad física) + catálogos, cuestionarios y `REPORTE.md` | Revisar términos de redistribución del INSP antes de publicarlos. Cómo bajarlos: [docs/FUENTES_DATOS.md §8](../docs/FUENTES_DATOS.md#8-ensanut-2022-y-2023-insp--validación-externa-con-población-mexicana) |
+| `raw/ensanut/2022/`, `raw/ensanut/2023/` | Microdatos ENSANUT (residentes, hogar, adultos, antropometría, actividad física) + catálogos, cuestionarios y `REPORTE.md` | Revisar términos de redistribución del INSP antes de publicarlos. Cómo bajarlos: [docs/FUENTES_DATOS.md §8](../docs/FUENTES_DATOS.md#8-ensanut-2022-y-2023-insp--evaluación-externa-exploratoria-con-población-mexicana) |
 
 ### Archivos completos (Release `datos-2024`)
 
@@ -110,7 +110,7 @@ gh release download datos-2024 --repo UACJ-MIAAD/antimarrulla-ibmz-datathon-2026
 
 ## Reproducir los datos derivados
 
-Scripts en [src/datos/](../src/datos/README.md). El mart se regenera idéntico byte por byte.
+Scripts en [src/datos/](../src/datos/README.md): partiendo del Release `datos-2024` y de los históricos de la DGIS, los recortes 2024, los históricos y el mart se regeneran idénticos byte por byte.
 
 ## Descarga desde las fuentes originales
 

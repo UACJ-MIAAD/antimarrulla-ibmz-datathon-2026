@@ -50,9 +50,9 @@ Los jueces marcaron la misma debilidad: **TenSEAL/SEAL puede no compilar en s390
 | Ruta | Tecnología | Cuándo |
 |------|------------|--------|
 | **Garantizada** | **Paillier con `python-paillier` (`phe`)**: Python puro, corre en s390x sin compilar nada; basta para una regresión logística | Desde la hora 1 |
-| Ambiciosa | CKKS con TenSEAL u OpenFHE | Solo si compila en LinuxONE antes de la **hora 2** |
+| Ambiciosa (extra) | CKKS con TenSEAL u OpenFHE | En la **hora 2** se comprueba si está disponible en LinuxONE |
 
-- **Señal de alarma:** hora 2. Si CKKS no compila, nos quedamos en Paillier sin perder la demo.
+- **Comprobación:** hora 2. Si CKKS no está disponible, seguimos con Paillier sin tocar el MVP.
 - **Plan B de proyecto:** ninguno; la ruta Paillier ya es el plan B técnico.
 
 ## Alcance
@@ -69,14 +69,14 @@ Los jueces marcaron la misma debilidad: **TenSEAL/SEAL puede no compilar en s390
 
 - Todo corre en **LinuxONE Community Cloud** (s390x) en **dos contenedores Docker**: el del hospital (llave privada) y el servicio de riesgo (sin llave).
 - **Cómputo pesado:** la aritmética homomórfica son exponenciaciones modulares con enteros de miles de bits.
-- **Cifrado por hardware:** AES-256-GCM en reposo vía OpenSSL, que en IBM Z usa CPACF (evidencia con `openssl speed -evp aes-256-gcm`).
+- **Cifrado por hardware:** AES-256-GCM en reposo vía OpenSSL, que en IBM Z puede usar CPACF. `openssl speed` solo mide la CLI: la evidencia es la de [PROYECTO.md](PROYECTO.md) (`lscpu`, `cpacfinfo`, versiones de OpenSSL de la CLI y de `cryptography`, y la medición dentro de la app).
 - **Labs obligatorios:** el patrón "predictivo + generativo" del lab 2 se refleja en Granite explicando el resultado.
 
 ## Dataset
 
 | Uso | Dataset | Licencia |
 |-----|---------|----------|
-| Entrenar el modelo | CDC Diabetes Health Indicators (UCI ID 891): 253,680 registros, 21 indicadores | CC BY 4.0 |
+| Entrenar el modelo | CDC Diabetes Health Indicators (UCI ID 891): 253,680 registros, 21 indicadores | Dominio público (UCI remite a la fuente; Kaggle lo marca CC0) |
 | Contexto e impacto en México | Incidencia SINAVE (SUIVE-1, Anuarios de Morbilidad DGE) y mortalidad EDR (INEGI) | Información pública; citar fuente |
 
 Detalle en [FUENTES_DATOS.md](FUENTES_DATOS.md) y [data/README.md](../data/README.md).

@@ -16,7 +16,7 @@ Pitch: [submission/Los_Antimarrulla_Pitch_Tamizaje.pptx](../submission/Los_Antim
 | **18.3%** de los adultos en México vive con diabetes | ENSANUT 2022 (Basto-Abreu et al., *Salud Pública de México*, 2023) |
 | **1 de cada 3** casos no está diagnosticado (5.8% de 18.3%) | ENSANUT 2022 |
 | **112,577** muertes por diabetes registradas en 2024 (13.7% de todas): **2.ª causa de muerte** del país | Defunciones registradas 2024, microdatos DGIS/INEGI (conteo propio de `causa_def` E10–E14) |
-| **120,385** egresos hospitalarios por diabetes en 2024 en la base sectorial reportada; el archivo SSA registra 62,771 para Secretaría de Salud / IMSS-Bienestar (la base sectorial suma 62,635 para esas instituciones: difieren cobertura y corte) | Egresos hospitalarios SSA 2024, DGIS (conteo propio) |
+| **120,385** egresos hospitalarios por diabetes en 2024 en la base sectorial reportada; el archivo SSA registra 62,771 para Secretaría de Salud / IMSS-Bienestar (la base sectorial suma 62,635 para esas instituciones: **diferencia pendiente de reconciliar**) | Egresos hospitalarios SSA 2024, DGIS (conteo propio) |
 | **11,550 egresos** SSA por diabetes (**18.4%**) con al menos un procedimiento de **amputación de miembro inferior** (11,759 procedimientos; no son personas únicas) | Egresos hospitalarios SSA 2024, DGIS (conteo propio) (procedimientos CIE-9 84.1x) |
 | **4.7%** de los hospitalizados por diabetes murió en el hospital; estancia media de 5.1 días | Egresos hospitalarios SSA 2024, DGIS (conteo propio) |
 
@@ -56,16 +56,21 @@ Una regresión logística es `σ(w·x + b)`. El servidor calcula `Enc(w·x + b)`
 
 Los **pesos son públicos y en claro** (se entrenan con datos públicos); solo las variables del paciente van cifradas.
 
+Las 21 variables del CDC son **enteros** (14 binarias 0/1 y siete escalas), así que el hospital no redondea nada: solo el modelo se lleva a punto fijo. Eso deja un único error de cuantización, con cota conocida.
+
 | Paso | Regla |
 |------|-------|
-| Orden y rango | Vector fijo de 21 variables en el orden de `MODELO_DATOS.md`, con su rango documentado; el esquema se versiona junto con el modelo |
-| Escalado | `X_i = round(S_x · x_i)` en el hospital; `W_i = round(S_w · w_i)` en el servidor. Proponemos `S_x = S_w = 10^4` (se ajusta midiendo el error) |
-| Intercepto | Se codifica en la escala del producto: `B = round(S_x · S_w · b)` |
+| Orden | `HighBP, HighChol, CholCheck, BMI, Smoker, Stroke, HeartDiseaseorAttack, PhysActivity, Fruits, Veggies, HvyAlcoholConsump, AnyHealthcare, NoDocbcCost, GenHlth, MentHlth, PhysHlth, DiffWalk, Sex, Age, Education, Income` (sin `ID`). El esquema se versiona junto con el modelo |
+| Rango permitido | Binarias 0–1 · `BMI` 12–98 · `GenHlth` 1–5 · `MentHlth` y `PhysHlth` 0–30 · `Age` 1–13 · `Education` 1–6 · `Income` 1–8. El hospital rechaza el vector si algo sale de rango |
+| Transformación en el hospital | Ninguna: manda los códigos enteros tal cual (`X_i = x_i`, `S_x = 1`). Si el modelo se entrena con variables estandarizadas, la estandarización se **pliega en los pesos** al exportar: `w'_i = w_i/σ_i` y `b' = b − Σ w_i·μ_i/σ_i`, con `μ` y `σ` del conjunto de entrenamiento |
+| Pesos e intercepto | `W_i = round(S_w · w'_i)` y `B = round(S_w · b')`, con **`S_w = 10^9`** |
+| Exponente | **0 para todo**: se cifran enteros (`public_key.encrypt(int(x))`) y se multiplican por enteros, así el exponente de `EncodedNumber` es el mismo para todos y no filtra magnitud |
 | Cálculo cifrado | `Enc(z) = ∏ Enc(X_i)^{W_i} · Enc(B)` (mod `n²`), es decir `z = Σ W_i·X_i + B` |
-| Negativos | Los coeficientes negativos se representan módulo `n` (lo resuelve la codificación de `phe`); el hospital decodifica el entero con signo |
-| Descifrado | El hospital calcula `logit = z / (S_x·S_w)` y `p = σ(logit)` |
-| Exponente | **Fijo por protocolo** antes de transmitir: el exponente de `EncodedNumber` es público y puede filtrar magnitud |
-| Prueba de igualdad | Para cada paciente de prueba: `|logit_claro − logit_cifrado| < 1e-6` y `|p_claro − p_cifrado| < 1e-6`; se reporta el error máximo |
+| Negativos | Se representan módulo `n` (lo resuelve la codificación de `phe`); el hospital decodifica el entero con signo |
+| Desbordamiento | `Σ|x_i| ≤ 204` con los rangos de arriba, así que `|z| ≤ 204·max|W_i| + |B|`. Con llave de 2048 bits, `phe` admite hasta `n/3 ≈ 2^2046`; el servidor rechaza modelos con `max|W_i| > 10^15` |
+| Descifrado | El hospital calcula `logit = z / S_w` y `p = σ(logit)` |
+| Prueba 1 · cifrado exacto | El entero descifrado debe ser **idéntico** al `z` calculado en claro con los mismos `W_i`, `B` y `X_i` (error 0). Esto prueba el cifrado |
+| Prueba 2 · cuantización | Contra el modelo en flotante: `|logit_cuantizado − logit_flotante| ≤ (0.5·Σ|x_i| + 0.5) / S_w ≤ 1.03×10⁻⁷`, y el error en `p` es a lo más un cuarto de eso. Se reporta el error máximo observado y la diferencia de AUC entre flotante y punto fijo |
 
 **Cuidados de seguridad** (avisos de la [documentación de `phe`](https://python-paillier.readthedocs.io/en/stable/caveats.html)):
 - Re-aleatorizar (`obfuscate`) el cifrado del resultado antes de devolverlo.
@@ -108,7 +113,7 @@ CPACF acelera AES; **no** acelera Paillier, no es Secure Execution, no protege l
 | Ruta | Tecnología | Por qué |
 |------|------------|---------|
 | **Garantizada** | Paillier con `phe` (python-paillier) | Python puro: corre en s390x sin compilar. Suficiente para regresión logística |
-| Ambiciosa | CKKS con TenSEAL u OpenFHE | Permite aproximar la sigmoide cifrada y más modelos. Solo si compila en LinuxONE antes de la **hora 2** |
+| Ambiciosa | CKKS con TenSEAL u OpenFHE | Permite aproximar la sigmoide cifrada y más modelos. Extra: en la hora 2 se comprueba si está disponible en LinuxONE; si no, se sigue con Paillier |
 
 ## 4. Arquitectura en IBM LinuxONE
 
@@ -148,7 +153,7 @@ flowchart LR
 | Contexto de impacto | SIS crónicas (Secretaría de Salud) | Pacientes en tratamiento y **controlados**, HbA1c y pie diabético por unidad médica y mes |
 | Contexto de impacto | Detecciones IMSS · egresos ISSSTE · CONAPO | Tamizajes por delegación, hospitalizaciones por diabetes y denominadores de población |
 
-**Slide de impacto:** la [cascada de atención de la diabetes](FUENTES_DATOS.md#5-la-cascada-de-atención-de-la-diabetes) por entidad (detectados → casos nuevos → en tratamiento → controlados → complicaciones → muertes) muestra dónde se pierde la gente y por qué detectar antes importa.
+**Slide de impacto:** la [cascada de atención de la diabetes](FUENTES_DATOS.md#5-la-cascada-de-atención-de-la-diabetes) por entidad pone lado a lado cifras de **etapas distintas** (detecciones, casos nuevos, pacientes en tratamiento y controlados, egresos y muertes). Vienen de fuentes y poblaciones diferentes: **no** siguen a las mismas personas ni miden cuántas se pierden entre etapas; dan contexto de la carga de la enfermedad.
 
 Detalle de variables y cruce entre fuentes en [FUENTES_DATOS.md](FUENTES_DATOS.md).
 
@@ -169,7 +174,7 @@ Todas se miden **en vivo en LinuxONE** y se guardan en `submission/evidencias/`.
 
 **Tamaño de la evaluación cifrada:** el conjunto de prueba completo (15%) son 38,052 personas × 21 variables = **799,092 cifrados** antes de los productos. Primero se mide cuántos pacientes por minuto procesa LinuxONE; con eso se elige una **muestra estratificada** (por ejemplo 1,000–2,000 personas) y se compara claro contra cifrado **exactamente sobre esa muestra**, reportando tamaño y composición.
 
-**Qué afirmamos y qué no:** es una **prueba técnica de inferencia privada**. El modelo clasifica una etiqueta de una encuesta de EE. UU. (prediabetes o diabetes declarada); no demuestra predicción prospectiva, ni detección de diabetes no diagnosticada en México, ni reducción de complicaciones. La validación con población mexicana se hace con ENSANUT (US-3.5); la validación clínica queda fuera del evento.
+**Qué afirmamos y qué no:** es una **prueba técnica de inferencia privada**. El modelo clasifica una etiqueta de una encuesta de EE. UU. (prediabetes o diabetes declarada); no demuestra predicción prospectiva, ni detección de diabetes no diagnosticada en México, ni reducción de complicaciones. Una evaluación externa exploratoria con ENSANUT (US-3.5, extra) está **pendiente**: sería un experimento aparte, con predictores y objetivo definidos antes de evaluar. La validación clínica queda fuera del evento.
 
 ## 7. Demo (pantalla dividida)
 
@@ -178,20 +183,9 @@ Todas se miden **en vivo en LinuxONE** y se guardan en `submission/evidencias/`.
 - **Abajo:** métricas en vivo.
 - **Momento clave:** buscar en los logs del servidor un dato del paciente → cero resultados.
 
-## 8. Plan por horas (sobre [ROLES.md](ROLES.md))
+## 8. Plan por horas
 
-| Hora (Juárez) | Javier · capitán | Álvaro · infra LinuxONE | Carlos · modelado | Yazmin · datos y pitch |
-|---------------|------------------|-------------------------|-------------------|------------------------|
-| 0–1 (7:00) | Arranque y alcance | Acceso de los 4 a la VM | Plan del modelo | Plan de datos y pitch |
-| 1–3 | Capturas de labs | Labs + `pip install phe` en s390x | Labs obligatorios | Labs + EDA del CDC |
-| **2** | | 🚩 **Decisión CKKS vs. Paillier** | | |
-| 3–8 | Boceto de la UI | Dos contenedores Docker | Regresión logística + XGBoost de referencia | Particiones · cascada y mapa |
-| 8–12 | UI de pantalla dividida | TLS + bóveda AES-GCM | Pesos en punto fijo + inferencia Paillier | Slide de impacto |
-| 12–16 | UI conectada al servicio | Servicio de riesgo conectado | AUC cifrado vs. en claro | Slides v2 |
-| 16–18 | Empuje a demo | Latencia y evidencias | Granite explica el resultado | Guion final |
-| **18 (1:00)** | 🚩 **Demo de punta a punta** | | | |
-| 18–22 | Checklist · README de la demo | Capturas y revisión técnica | `pip freeze` y reproducibilidad | **Video (2:50)** · PDF del deck |
-| 22–24 | **Envío (meta 7:00)** | Revisión final | Revisión final | Revisión final |
+El horario completo por persona, con los turnos de descanso y la **regla de extras**, vive en [ROLES.md](ROLES.md). Hitos: labs H1–H3 · recorrido cifrado completo antes de H11 · chequeo en H12 · **demo funcional H18** · congelamiento H20 · envío H24 (meta 7:00).
 
 ## 8.1 Épica E5 · Pronóstico y planeación financiera (Plus)
 

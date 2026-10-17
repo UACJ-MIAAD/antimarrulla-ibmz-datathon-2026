@@ -6,7 +6,7 @@
 |---------|------|----------------|
 | **Página oficial del IBM Z Datathon 2026** | https://www.starhacks.org/ibm-z-datathon-2026 | Temas, registro, reglas, fechas y premios. |
 | **Plataforma del evento (Hack2skill)** | https://hack2skill.com/event/datathon-2026 | Equipo, anuncios, FAQ, guía del participante y **envío final del proyecto**. |
-| **Video: cómo enviar el proyecto** | https://youtu.be/3_L3T__zEco | Paso a paso de la entrega en Hack2skill. |
+| **Video: cómo enviar el proyecto** | https://youtu.be/3_L3T__zEco · https://youtu.be/KIYu1iqtXTU (compartido por el SME de SSF, 17 oct) | Paso a paso de la entrega en Hack2skill desde el dashboard del equipo. |
 | **Formulario de asistencia del kick-off** | https://forms.gle/hxTYwzJRqgwnWaPn8 | Lo llena cada integrante. |
 | **Deck del kick-off** | [Kickoff_IBM_Z_Datathon_2026.pdf](Kickoff_IBM_Z_Datathon_2026.pdf) (local, no versionado) | Agenda, premios, checklist oficial y links. |
 | **IBM Z Day 2026 (18 nov)** | http://ibm.biz/ibmzday-2026 | Conferencia virtual gratuita; 6 badges. |

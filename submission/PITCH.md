@@ -1,7 +1,7 @@
 # 🎤 Guion del video · Tamizaje a ciegas
 
 > Presentación: [Los_Antimarrulla_Pitch_Tamizaje.pptx](Los_Antimarrulla_Pitch_Tamizaje.pptx) (8 slides; el guion también está en las notas del orador).
-> **Límite duro: 3:00. Meta: 2:50.** ~130 palabras por minuto → ~370 palabras.
+> **Límite duro: 3:00. Meta: 2:50.** ~130 palabras por minuto. El guion tiene **~300 palabras habladas (≈2:20)**: el resto queda para pausas y para mostrar la instancia, el modelo y los resultados.
 >
 > La guía exige que el video cubra: el problema, **datos que lo respaldan**, la solución y, sobre todo, **cómo aprovecha IBM Z**: stack tecnológico, **instancia LinuxONE y modelo en pantalla**.
 
@@ -13,8 +13,8 @@
 | 4 | Cifrado homomórfico | 0:25 | 1:20 | Carlos |
 | 5 | Por qué IBM Z (+ **pantalla de LinuxONE**) | 0:30 | 1:50 | Álvaro |
 | 6 | Demo en vivo | 0:35 | 2:25 | Javier |
-| 7 | Datos y modelo | 0:12 | 2:37 | Yazmin |
-| 8 | Impacto y cierre | 0:13 | 2:50 | Yazmin |
+| 7 | Datos y modelo | 0:08 | 2:33 | Yazmin |
+| 8 | Impacto y cierre | 0:17 | 2:50 | Yazmin |
 
 ---
 
@@ -25,33 +25,33 @@ Somos Los Antimarrulla, de la UACJ. Nuestro proyecto es **Tamizaje a ciegas**: u
 En México, **18.3%** de los adultos vive con diabetes y **uno de cada tres** no lo sabe. Es la segunda causa de muerte: **112 mil** en 2024. Los hospitales tienen los datos para detectarla antes, pero no pueden compartirlos. ¿Y si la IA calculara el riesgo sin ver esos datos?
 
 ## 3. La solución · 0:20
-El hospital cifra los 21 indicadores del paciente y se queda con la llave. LinuxONE calcula el riesgo sobre números cifrados. El resultado regresa cifrado; solo el hospital lo abre, y Granite lo explica en lenguaje claro. Es tamizaje: decide a quién hacerle una prueba de glucosa primero.
+El hospital cifra los 21 indicadores del paciente y se queda con la llave. LinuxONE calcula el riesgo sobre números cifrados; solo el hospital abre el resultado y Granite lo explica. Es tamizaje: decide a quién hacerle primero una prueba de glucosa.
 
 ## 4. Cifrado homomórfico · 0:25
-Usamos cifrado homomórfico Paillier: multiplicar dos cifrados suma sus valores, y elevar un cifrado a una potencia lo multiplica. Con eso, el servidor calcula el puntaje del modelo **sin descifrar nada**. Sumamos TLS 1.3 en tránsito y AES-256-GCM acelerado por el hardware de IBM Z en reposo. El servicio de riesgo nunca ve un dato en claro: la llave se queda con el hospital.
+Usamos cifrado homomórfico Paillier: multiplicar cifrados suma sus valores y elevarlos a una potencia los multiplica. Así el servidor calcula el puntaje del modelo **sin descifrar nada**. Además, TLS 1.3 en tránsito y AES-256-GCM en reposo.
 
 ## 5. Por qué IBM Z · 0:30
 *(Mostrar la terminal de la VM: `uname -m` → `s390x`, los dos contenedores corriendo y el modelo cargado.)*
-Todo corre en LinuxONE, en dos contenedores: el del hospital, con la llave, y el servicio de riesgo, sin llave. En la demo ambos viven en la misma VM; en producción, el del hospital corre en sus instalaciones. La aritmética homomórfica son exponenciaciones con enteros de miles de bits: cómputo pesado y seguro, justo para lo que está hecho IBM Z.
+Todo corre en LinuxONE, en dos contenedores: el del hospital, con la llave, y el servicio de riesgo, sin ella. En la demo comparten VM; en producción, el del hospital vive en sus instalaciones. La aritmética homomórfica son exponenciaciones con enteros de miles de bits: cómputo pesado, justo para IBM Z.
 
 ## 6. Demo en vivo · 0:35
 *(Pantalla dividida.)*
-A la izquierda, lo que ve el servidor: solo números cifrados. A la derecha, lo que ve el hospital: riesgo alto, los factores principales y la explicación de Granite. Abajo, medido en vivo en LinuxONE: el AUC en claro contra el cifrado [**cifra real**], y la latencia por paciente [**cifra real**].
+A la izquierda, lo que ve el servidor: solo números cifrados. A la derecha, lo que ve el hospital: el riesgo, los factores principales y la explicación de Granite. Abajo, medido en LinuxONE sobre [**n**] pacientes: el AUC en claro contra el cifrado [**cifra real**] y la latencia por paciente [**cifra real**].
 
-## 7. Datos y modelo · 0:12
+## 7. Datos y modelo · 0:08
 Entrenamos con 253 mil registros públicos de los CDC. Los datos de pacientes solo llegan cifrados.
 
-## 8. Impacto y cierre · 0:13
-En 2024, más de 11 mil hospitalizaciones por diabetes en la Secretaría de Salud incluyeron una amputación. Detectar antes es la primera oportunidad de cambiar eso, sin entregar un solo expediente. **La IA ve el riesgo. Nadie ve al paciente.** Somos Los Antimarrulla. Gracias.
+## 8. Impacto y cierre · 0:17
+En 2024, más de 11 mil hospitalizaciones por diabetes en la Secretaría de Salud incluyeron una amputación. Queremos detectar antes sin entregar un solo expediente. **La IA ve el riesgo. Nadie ve al paciente.** Gracias.
 
 ---
 
 ## ✅ Antes de grabar
 
 - [ ] Reemplazar las [**cifras reales**] de la demo con lo medido en LinuxONE (nunca inventar)
-- [ ] Cronometrado en 2:50 o menos, dos veces seguidas
+- [ ] Cronometrado en 2:50 o menos, dos veces seguidas, **con las pantallas** (instancia, modelo y resultado deben verse al menos 10 s en total); anotar la duración del archivo final
 - [ ] Se ven en pantalla la instancia LinuxONE, los contenedores y el modelo
-- [ ] Captura de `openssl speed -evp aes-256-gcm` en `evidencias/`
+- [ ] Capturas de `lscpu`/`cpacfinfo` y de las versiones de OpenSSL (CLI y `cryptography`) en `evidencias/`
 - [ ] Decir "tamizaje", nunca "diagnóstico"
 - [ ] Audio probado
 - [ ] Exportar las slides a PDF: `Los Antimarrulla_IBM Z Datathon 2026 Project.pdf` (obligatorio)

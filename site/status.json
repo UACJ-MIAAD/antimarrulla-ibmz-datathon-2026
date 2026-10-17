@@ -1,6 +1,7 @@
 {
-  "actualizado": "2026-10-17T11:30:00Z",
-  "nota": "Para actualizar: cambia 'estado' de la historia (hecho · en_curso · pendiente · bloqueado), sube 'actualizado' y haz commit a main. El sitio lo lee de GitHub en vivo.",
+  "rev": 13,
+  "actualizado": "2026-10-17T09:13:44Z",
+  "nota": "Para actualizar: cambia 'estado' de la historia (hecho · en_curso · pendiente · bloqueado), sube 'rev' en 1, pon 'actualizado' con la hora real en UTC y haz commit a main. El sitio muestra la copia con 'rev' mayor (GitHub o la publicada).",
   "hitos": {
     "hora_cero": "2026-10-17T13:00:00Z",
     "ceremonia_cierre_virtual": "2026-10-18T05:00:00Z",
@@ -173,11 +174,11 @@
         {
           "id": "US-2.3",
           "como": "ingeniero",
-          "quiero": "saber en la hora 2 si TenSEAL/OpenFHE compilan en s390x",
+          "quiero": "comprobar en la hora 2 si TenSEAL/OpenFHE están disponibles en s390x; si no, seguimos con Paillier sin tocar el MVP",
           "para": "decidir CKKS vs. Paillier sin perder tiempo",
           "quien": "Álvaro",
           "bloque": "h1",
-          "prioridad": "MVP",
+          "prioridad": "Plus",
           "estado": "pendiente"
         },
         {
@@ -193,17 +194,17 @@
         {
           "id": "US-2.5",
           "como": "paciente",
-          "quiero": "TLS 1.3 en tránsito y AES-256-GCM en reposo (CPACF)",
+          "quiero": "TLS 1.3 en tránsito y AES-256-GCM en reposo (CPACF), listos antes de mi descanso de H8",
           "para": "que mis datos nunca queden en claro",
           "quien": "Álvaro",
-          "bloque": "h8",
+          "bloque": "h3",
           "prioridad": "MVP",
           "estado": "pendiente"
         },
         {
           "id": "US-2.6",
           "como": "jurado",
-          "quiero": "capturas de la VM, contenedores, openssl speed y latencia",
+          "quiero": "capturas de la VM, los contenedores, lscpu/cpacfinfo, versiones de OpenSSL y latencia p50/p95",
           "para": "verificar que IBM Z es estructural",
           "quien": "Álvaro",
           "bloque": "h16",
@@ -221,7 +222,7 @@
         {
           "id": "US-3.1",
           "como": "científico de datos",
-          "quiero": "una regresión logística entrenada en el CDC con XGBoost de referencia",
+          "quiero": "una regresión logística entrenada en el CDC y el contrato numérico (orden de las 21 variables, escala y error medido); XGBoost solo como referencia si sobra tiempo",
           "para": "tener un modelo base con métricas honestas",
           "quien": "Carlos",
           "bloque": "h3",
@@ -231,7 +232,7 @@
         {
           "id": "US-3.2",
           "como": "servicio de riesgo",
-          "quiero": "pesos en punto fijo e inferencia con Paillier",
+          "quiero": "pesos en punto fijo e inferencia con Paillier: un recorrido cifrado completo antes de H11",
           "para": "calcular Enc(w·x) sin la llave",
           "quien": "Carlos",
           "bloque": "h8",
@@ -241,7 +242,7 @@
         {
           "id": "US-3.3",
           "como": "jurado",
-          "quiero": "ver el AUC cifrado contra el AUC en claro",
+          "quiero": "ver el AUC y las métricas cifradas contra las de claro sobre exactamente la misma muestra",
           "para": "comprobar que la privacidad no cuesta precisión",
           "quien": "Carlos",
           "bloque": "h12",
@@ -261,10 +262,10 @@
         {
           "id": "US-3.5",
           "como": "jurado",
-          "quiero": "ver el modelo evaluado en adultos mexicanos de ENSANUT con las variables equivalentes al CDC",
+          "quiero": "una evaluación externa exploratoria en adultos mexicanos de ENSANUT, como experimento aparte con predictores y objetivo definidos antes de evaluar (se corre solo si el MVP ya pasó)",
           "para": "saber si el tamizaje sirve en México y no solo en EE. UU.",
-          "quien": "Carlos · Yazmin",
-          "bloque": "h12",
+          "quien": "Yazmin · Carlos",
+          "bloque": "h8",
           "prioridad": "Plus",
           "estado": "pendiente"
         }
@@ -327,9 +328,9 @@
         {
           "id": "US-5.2",
           "como": "planeador de salud",
-          "quiero": "un pronóstico a 52 semanas con intervalos, elegido por SMAPE en las semanas más recientes",
+          "quiero": "un pronóstico a 52 semanas con intervalos (ingenuo estacional y ETS de base), elegido por SMAPE con origen móvil",
           "para": "saber cuántos casos esperar",
-          "quien": "Carlos · Yazmin",
+          "quien": "Yazmin",
           "bloque": "h8",
           "prioridad": "Plus",
           "estado": "pendiente"
@@ -337,10 +338,10 @@
         {
           "id": "US-5.3",
           "como": "planeador de salud",
-          "quiero": "respaldo regional para series con pocos casos y coherencia estado → región → nacional",
+          "quiero": "respaldo regional para series con pocos casos y coherencia estado → región → nacional (solo con el MVP entregado)",
           "para": "que ningún estado quede sin pronóstico",
           "quien": "Carlos",
-          "bloque": "h8",
+          "bloque": "h16",
           "prioridad": "Plus",
           "estado": "pendiente"
         },
@@ -350,17 +351,17 @@
           "quiero": "convertir casos esperados en presupuesto con un costo unitario editable",
           "para": "planear recursos por estado y sexo",
           "quien": "Yazmin",
-          "bloque": "h12",
+          "bloque": "h8",
           "prioridad": "Plus",
           "estado": "pendiente"
         },
         {
           "id": "US-5.5",
           "como": "director financiero",
-          "quiero": "un dashboard con filtros de estado, sexo y tipo, y la curva real vs. pronóstico",
+          "quiero": "un dashboard con filtros de estado, sexo y tipo, y la curva real vs. pronóstico (solo si la demo de H18 pasó; antes del congelamiento de H20)",
           "para": "decidir en minutos",
-          "quien": "Javier · Yazmin",
-          "bloque": "h12",
+          "quien": "Javier",
+          "bloque": "h18",
           "prioridad": "Plus",
           "estado": "pendiente"
         }
@@ -473,17 +474,17 @@
         {
           "id": "US-7.8",
           "como": "jurado",
-          "quiero": "un prototipo accesible: link a la demo o al sitio con la demo grabada",
-          "para": "probar la solución sin instalar nada (entregable opcional)",
+          "quiero": "publicar el prototipo ya integrado (link al prototipo interactivo si es accesible públicamente), sin funciones nuevas después del congelamiento",
+          "para": "que el jurado lo pueda abrir; es un entregable opcional distinto del video de la demo",
           "quien": "Javier",
-          "bloque": "h20",
+          "bloque": "h18",
           "prioridad": "Plus",
           "estado": "pendiente"
         },
         {
           "id": "US-7.6",
           "como": "equipo",
-          "quiero": "enviar en Hack2skill a las 7:00 con el título \"Los Antimarrulla_IBM Z Datathon 2026 Project\", link del video, link del repo, PDF y opcionales",
+          "quiero": "que el líder del equipo envíe desde el dashboard de Hack2skill a las 7:00, después de que los 4 revisen: título \"Los Antimarrulla_IBM Z Datathon 2026 Project\", detalles y problema, link del repo, video, PDF y opcionales",
           "para": "no depender de los últimos minutos",
           "quien": "Javier",
           "bloque": "h22",

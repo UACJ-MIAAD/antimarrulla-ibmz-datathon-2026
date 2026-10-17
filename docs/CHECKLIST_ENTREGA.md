@@ -79,6 +79,19 @@ Capturas en `submission/evidencias/`:
 
 ## 📋 Envío en Hack2skill
 
+**Cómo se envía** (confirmado por el SME de SSF en Discord, 17 oct; [video del proceso](https://youtu.be/KIYu1iqtXTU)):
+1. Abrir el **dashboard del equipo** en Hack2skill → sección de envío final del proyecto.
+2. Llenar los detalles del proyecto y el planteamiento del problema.
+3. Agregar el link del repo de GitHub.
+4. Subir o enlazar el video de la demo (máx. 3 min).
+5. Subir la presentación si el portal la pide (llevamos el PDF con el nombre oficial).
+6. Revisar todo una vez y enviar antes del cierre.
+
+> El envío es **por equipo**: lo hace **el líder del equipo registrado en Hack2skill** desde el dashboard, después de que los 4 revisen la versión final. Confirmar desde ya quién es el líder en la plataforma (por plan, Javier).
+
+- [ ] Líder del equipo en Hack2skill confirmado y con acceso al dashboard
+- [ ] Los 4 revisaron la versión final antes de enviar
+- [ ] El video muestra el uso de LinuxONE (instancia, contenedores y modelo): es un requisito importante
 - [ ] Título exacto: **`Los Antimarrulla_IBM Z Datathon 2026 Project`**
 - [ ] Tema oficial seleccionado correctamente
 - [ ] Link del video (máx. 3 min)
