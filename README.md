@@ -1,8 +1,8 @@
 <p align="center">
-
-> **Release update (October 17):** [English delivery plan](docs/PLAN_CIERRE.md). Hack2Skill submissions are open from October 16, 23:45 UTC until October 18, 16:30 UTC (12:30 EDT / 10:30 Ciudad Juárez / 18:30 SAST). Internal target: October 18, 13:00 UTC. All authored release material must be in English; the migration and independent review remain open under US-7.9. Existing historical evidence is preserved.
   <img src="assets/logo.png" alt="Logo de Los Antimarrulla" width="320">
 </p>
+
+> **Release update (October 17):** [English delivery plan](docs/PLAN_CIERRE.md). Hack2Skill submissions are open from October 16, 23:45 UTC until October 18, 16:30 UTC (12:30 EDT / 10:30 Ciudad Juárez / 18:30 SAST). Internal target: October 18, 13:00 UTC. All authored release material must be in English; the migration and independent review remain open under US-7.9. Existing historical evidence is preserved.
 
 # Los Antimarrulla · IBM Z Datathon 2026
 

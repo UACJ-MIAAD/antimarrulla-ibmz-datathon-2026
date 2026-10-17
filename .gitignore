@@ -79,3 +79,4 @@ stack-check-*.log
 tests/instance/Dockerfile.test
 __pycache__/
 .DS_Store
+submission/USO_IA.md

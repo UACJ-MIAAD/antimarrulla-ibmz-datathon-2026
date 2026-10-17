@@ -154,6 +154,8 @@ def armar(tipo, final, prov):
     else:
         archivos = CODIGO + _expandir(CODIGO_GLOB)
     archivos = sorted({a for a in archivos if not EXCLUIR.search(a)})
+    opcionales = {"submission/USO_IA.md"}  # borrador local, fuera de git hasta que el equipo decida dónde va
+    archivos = [a for a in archivos if a not in opcionales or os.path.exists(os.path.join(RAIZ, a))]
     faltan = [a for a in archivos if not os.path.exists(os.path.join(RAIZ, a))]
     if faltan:
         raise SystemExit(f"faltan archivos del paquete {tipo}: {faltan}")
