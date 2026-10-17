@@ -1,6 +1,6 @@
 {
-  "rev": 16,
-  "actualizado": "2026-10-17T09:55:24Z",
+  "rev": 17,
+  "actualizado": "2026-10-17T10:02:11Z",
   "nota": "Para actualizar: cambia 'estado' de la historia (hecho · en_curso · pendiente · bloqueado), sube 'rev' en 1, pon 'actualizado' con la hora real en UTC y haz commit a main. El sitio muestra la copia con 'rev' mayor (GitHub o la publicada).",
   "hitos": {
     "hora_cero": "2026-10-17T13:00:00Z",
@@ -330,7 +330,8 @@
           "quien": "Yazmin",
           "bloque": "h3",
           "prioridad": "Plus",
-          "estado": "pendiente"
+          "estado": "hecho",
+          "evidencia": "222 series SINAVE leídas de data/sinave/ (2022 en adelante; semanas no observadas interpoladas y contadas)"
         },
         {
           "id": "US-5.2",
@@ -340,7 +341,8 @@
           "quien": "Yazmin",
           "bloque": "h8",
           "prioridad": "Plus",
-          "estado": "pendiente"
+          "estado": "hecho",
+          "evidencia": "src/tamizaje/pronostico.py · ETS e ingenuo estacional con backtest de origen móvil (SMAPE por horizonte); T2 nacional: ETS, SMAPE 6.9% en h1–52"
         },
         {
           "id": "US-5.3",
@@ -350,7 +352,8 @@
           "quien": "Carlos",
           "bloque": "h16",
           "prioridad": "Plus",
-          "estado": "pendiente"
+          "estado": "hecho",
+          "evidencia": "respaldo regional (<5 casos en 52 semanas; ninguna serie lo necesitó) y coherencia proporcional nacional → regiones → estados; tests/test_pronostico.py"
         },
         {
           "id": "US-5.4",
@@ -360,7 +363,8 @@
           "quien": "Yazmin",
           "bloque": "h8",
           "prioridad": "Plus",
-          "estado": "pendiente"
+          "estado": "en_curso",
+          "evidencia": "el cálculo de presupuesto existe (casos × costo con fuente obligatoria); falta un costo unitario con fuente documentada"
         },
         {
           "id": "US-5.5",
@@ -370,7 +374,8 @@
           "quien": "Javier",
           "bloque": "h18",
           "prioridad": "Plus",
-          "estado": "pendiente"
+          "estado": "hecho",
+          "evidencia": "site/pronostico.html: curva real vs. pronóstico con bandas 80/95%, trimestres, escenarios y calidad del modelo"
         }
       ]
     },

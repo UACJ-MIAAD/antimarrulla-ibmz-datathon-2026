@@ -77,3 +77,7 @@ medir-docker: imagen-dev              ## mediciones dentro de Linux → submissi
 
 ensanut: setup                        ## extra: evaluación exploratoria con ENSANUT (microdatos locales)
 	$(BIN)/python -m tamizaje.ensanut
+
+pronostico: setup                     ## extra E5: pronóstico a 52 semanas (222 series) → artefactos/pronostico/ y el sitio
+	$(BIN)/python -m tamizaje.pronostico
+	cp artefactos/pronostico/e5_pronostico_v1.json site/assets/pronostico.json

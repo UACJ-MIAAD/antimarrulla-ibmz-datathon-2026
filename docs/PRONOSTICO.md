@@ -62,3 +62,20 @@ El ajuste de las 222 series corre en **LinuxONE** (en el contenedor del servicio
 
 - El código se escribe **durante el evento**. Tomamos ideas de enfoque de trabajos previos del equipo (horizonte, selección por SMAPE, respaldo regional), **no código**.
 - Si en la hora 12 la demo cifrada (E3 + E6) va atrasada, E5 se congela en lo que tenga (por ejemplo, solo la curva nacional de T2) y se presenta como siguiente paso.
+
+## Implementación (17 oct 2026)
+
+`make pronostico` → `src/tamizaje/pronostico.py` → `artefactos/pronostico/e5_pronostico_v1.json` y el tablero [site/pronostico.html](../site/pronostico.html).
+
+| Decisión | Implementado |
+|----------|--------------|
+| Horizonte | Última observación 27 jul 2026; 11 semanas de *nowcast* hasta la semana de referencia (17 oct) y **52 semanas** del 19 oct 2026 al 11 oct 2027 |
+| Ajuste | Solo 2022 en adelante (COVID fuera); semanas no observadas interpoladas linealmente y contadas por serie |
+| Modelos | Ingenuo estacional (referencia) y ETS Holt-Winters aditivo con tendencia amortiguada (s = 52) |
+| Selección | Backtest de origen móvil con 4 orígenes cada 13 semanas; SMAPE por tramo (1–13, 14–26, 27–52) y en 1–52; empate a 5% → MAE. Resultado: 148 series ETS, 74 ingenuo estacional |
+| Intervalos | 80% y 95% empíricos: cuantiles de los errores del backtest del modelo elegido por tramo de horizonte. Son **marginales** por serie y semana |
+| Pocos casos | < 5 casos en 52 semanas → proporción dentro de su región (ninguna serie lo necesitó) |
+| Coherencia | Proporcional de arriba abajo por tipo y sexo: nacional → regiones → estados. "General" no se fuerza a hombres + mujeres |
+| Presupuesto | Casos × costo unitario **solo con fuente**: sin costo documentado no se calcula. Los escenarios suman límites semanales y **no son un intervalo conjunto** del total |
+
+Nacional, 52 semanas (punto): T2 general 574,746 casos (últimas 52 observadas: 555,474; ETS, SMAPE 6.9%); T1 general 3,834 (últimas 52: 3,857; ETS, SMAPE 17.3%). Casos **notificados**, no casos reales.
