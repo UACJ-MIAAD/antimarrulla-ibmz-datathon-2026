@@ -1,80 +1,56 @@
-# 🎤 Guion del pitch · 3 minutos
+# 🎤 Guion del video · Tamizaje a ciegas
 
-> Plantilla. Se llena desde la hora 12 y se congela en la hora 20.
-> Regla de oro: **~130 palabras por minuto** → el guion completo no debe pasar de **~400 palabras**.
-> Grabar durante el fin de semana del evento.
+> Presentación: [Los_Antimarrulla_Pitch_Tamizaje.pptx](Los_Antimarrulla_Pitch_Tamizaje.pptx) (8 slides; el guion también está en las notas del orador).
+> **Límite duro: 3:00. Meta: 2:50.** ~130 palabras por minuto → ~370 palabras.
 >
-> **La guía exige que el video (máx. 3 min) cubra:** el problema, **datos que lo respaldan**, la solución y, sobre todo, **cómo aprovecha IBM Z**: stack tecnológico, **instancia LinuxONE y modelo en pantalla**. Pasarse de 3:00 baja el criterio de *Ejecución y entrega*. Meta: **2:50**.
+> La guía exige que el video cubra: el problema, **datos que lo respaldan**, la solución y, sobre todo, **cómo aprovecha IBM Z**: stack tecnológico, **instancia LinuxONE y modelo en pantalla**.
 
-| Bloque | Tiempo | Acumulado | Quién habla |
-|--------|-------:|----------:|-------------|
-| 1. Gancho | 0:15 | 0:15 | |
-| 2. Problema + datos que lo respaldan | 0:25 | 0:40 | |
-| 3. Solución | 0:20 | 1:00 | |
-| 4. Demo | 0:45 | 1:45 | |
-| 5. IBM Z: stack, instancia LinuxONE y modelo | 0:35 | 2:20 | |
-| 6. Impacto | 0:20 | 2:40 | |
-| 7. Cierre | 0:10 | 2:50 | |
+| # | Slide | Tiempo | Acumulado | Quién habla |
+|---|-------|-------:|----------:|-------------|
+| 1 | Portada | 0:10 | 0:10 | Javier |
+| 2 | El problema | 0:25 | 0:35 | Javier |
+| 3 | La solución | 0:20 | 0:55 | Álvaro |
+| 4 | Cifrado homomórfico | 0:25 | 1:20 | Álvaro |
+| 5 | Por qué IBM Z (+ **pantalla de LinuxONE**) | 0:30 | 1:50 | Carlos |
+| 6 | Demo en vivo | 0:35 | 2:25 | Yazmin |
+| 7 | Datos y modelo | 0:12 | 2:37 | Yazmin |
+| 8 | Impacto y cierre | 0:13 | 2:50 | Javier |
 
 ---
 
-## 1. Gancho · 0:15
-_Una persona y un dato. Nada de arquitectura todavía._
+## 1. Portada · 0:10
+Somos Los Antimarrulla, de la UACJ. Nuestro proyecto es **Tamizaje a ciegas**: una IA que calcula el riesgo de diabetes sobre datos cifrados en IBM LinuxONE.
 
-> Ejemplo de forma: "María vive en Ciudad Juárez y tiene [dato]. Hoy, para [necesidad], tendría que [exponer sus datos]."
+## 2. El problema · 0:25
+En México, **18.3%** de los adultos vive con diabetes y **uno de cada tres** no lo sabe. En 2024 murieron **112 mil** personas por diabetes: la segunda causa de muerte del país. Los hospitales tienen los datos para detectarla antes, pero no pueden compartirlos. ¿Y si la IA pudiera calcular el riesgo sin ver jamás los datos del paciente?
 
-**Texto:**
+## 3. La solución · 0:20
+El hospital cifra los 21 indicadores del paciente y se queda con la llave. LinuxONE calcula el riesgo sobre números cifrados. El resultado regresa cifrado; solo el hospital lo abre, y Granite lo explica en lenguaje claro. Es tamizaje: decide a quién hacerle una prueba de glucosa primero.
 
+## 4. Cifrado homomórfico · 0:25
+Usamos cifrado homomórfico Paillier: multiplicar dos cifrados suma sus valores, y elevar un cifrado a una potencia lo multiplica. Con eso, el servidor calcula el puntaje del modelo **sin descifrar nada**. Sumamos TLS 1.3 en tránsito y AES-256-GCM acelerado por el hardware de IBM Z en reposo. Ni el servidor ni nosotros vemos un solo dato.
 
-## 2. Problema + datos que lo respaldan · 0:25
-_Qué está roto, a cuántas personas afecta y por qué nadie lo ha resuelto: los datos son demasiado sensibles para compartirse. **Mostrar 1–2 datos con fuente** (la guía lo pide explícitamente)._
+## 5. Por qué IBM Z · 0:30
+*(Mostrar la terminal de la VM: `uname -m` → `s390x`, los dos contenedores corriendo y el modelo cargado.)*
+Todo corre en LinuxONE, en dos contenedores: el del hospital, con la llave, y el servicio de riesgo, sin llave. La aritmética homomórfica son exponenciaciones con enteros de miles de bits: cómputo pesado y seguro, justo para lo que está hecho IBM Z.
 
-**Texto:**
+## 6. Demo en vivo · 0:35
+*(Pantalla dividida.)*
+A la izquierda, lo que ve el servidor: solo números cifrados. A la derecha, lo que ve el hospital: riesgo alto, los factores principales y la explicación de Granite. Abajo, medido en vivo en LinuxONE: el AUC en claro contra el cifrado [**cifra real**], y la latencia por paciente [**cifra real**].
 
+## 7. Datos y modelo · 0:12
+Entrenamos con 253 mil registros públicos de los CDC. Los datos de pacientes solo llegan cifrados.
 
-## 3. Solución · 0:20
-_Nombre del proyecto + frase de una línea + cómo funciona en tres pasos._
-
-**Texto:**
-
-
-## 4. Demo · 0:45
-_El momento wow. Mostrar, no contar. Narrar lo que se ve en pantalla._
-
-**Guion de pantalla:**
-1. 
-2. 
-3. 
-
-**Texto:**
-
-
-## 5. IBM Z: stack, instancia LinuxONE y modelo · 0:35
-_Lo que más pesa según la guía. En pantalla: el dashboard o la terminal de la VM LinuxONE (`uname -m` → `s390x`), el modelo entrenando o sirviendo ahí, el stack (librerías open source de IA/ML, contenedor si hay) y qué capacidad de la plataforma usamos (seguridad, contenedores, escalabilidad, cómputo). Una métrica medida._
-
-**Texto:**
-
-
-## 6. Impacto · 0:20
-_Comunidad concreta, resultado medido (métrica del modelo con su costo de privacidad) y escala posible._
-
-**Texto:**
-
-
-## 7. Cierre · 0:10
-_Frase memorable + nombre del equipo._
-
-> "Somos Los Antimarrulla, de la UACJ. Combatimos la flojera y la procrastinación… y ahora también [lo que resolvemos]."
-
-**Texto:**
-
+## 8. Impacto y cierre · 0:13
+Tamizaje temprano para quien no sabe que tiene diabetes, sin entregar un solo expediente. **La IA ve el riesgo. Nadie ve al paciente.** Somos Los Antimarrulla. Gracias.
 
 ---
 
 ## ✅ Antes de grabar
 
-- [ ] Cronometrado en 2:50 o menos, dos veces seguidas (límite duro: 3:00)
-- [ ] Todas las cifras tienen fuente
-- [ ] Se ven en pantalla la instancia LinuxONE, el modelo y el stack
-- [ ] Sin jerga sin explicar
+- [ ] Reemplazar las [**cifras reales**] de la demo con lo medido en LinuxONE (nunca inventar)
+- [ ] Cronometrado en 2:50 o menos, dos veces seguidas
+- [ ] Se ven en pantalla la instancia LinuxONE, los contenedores y el modelo
+- [ ] Captura de `openssl speed -evp aes-256-gcm` en `evidencias/`
+- [ ] Decir "tamizaje", nunca "diagnóstico"
 - [ ] Audio probado

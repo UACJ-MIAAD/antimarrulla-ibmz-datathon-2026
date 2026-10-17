@@ -4,3 +4,10 @@ numpy
 scikit-learn
 jupyter
 matplotlib
+
+# Tamizaje a ciegas
+phe            # python-paillier: cifrado homomórfico Paillier (Python puro, corre en s390x)
+cryptography   # AES-256-GCM en reposo (OpenSSL usa CPACF en IBM Z)
+ucimlrepo      # descarga del dataset CDC Diabetes Health Indicators (UCI 891)
+dbfread        # lectura de microdatos EDR de INEGI (DBF)
+# tenseal      # ruta CKKS opcional: solo si compila en LinuxONE

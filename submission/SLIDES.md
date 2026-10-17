@@ -1,24 +1,20 @@
-# 🖼️ Estructura de slides
+# 🖼️ Estructura de slides · Tamizaje a ciegas
 
-> 8–10 slides. Una idea por slide, letra grande, cero párrafos. Siguen el orden de [PITCH.md](PITCH.md).
+> Archivo editable: [Los_Antimarrulla_Pitch_Tamizaje.pptx](Los_Antimarrulla_Pitch_Tamizaje.pptx) · 16:9 · tema oscuro estilo IBM · notas del orador en cada slide.
 
-| # | Slide | Contenido | Visual sugerido | Criterio que ataca |
-|---|-------|-----------|-----------------|--------------------|
-| 1 | **Portada** | Nombre del proyecto, frase de una línea, Los Antimarrulla · UACJ, tema oficial | Logo del proyecto | Ejecución y pitch |
-| 2 | **La persona** | Quién sufre el problema, en una frase | Foto o ilustración con licencia libre | Valor comunitario y tema |
-| 3 | **El problema** | 1–2 cifras con fuente | Número grande | Valor comunitario y tema |
-| 4 | **La solución** | Cómo funciona en 3 pasos | Diagrama de 3 cajas | Novedad y originalidad |
-| 5 | **Arquitectura** | Flujo de datos; **IBM Z resaltado** y por qué vive ahí | Diagrama con LinuxONE en color (sirve como flowchart de la entrega) | Diseño técnico y LinuxONE |
-| 6 | **Datos y metodología** | Dataset, particiones, validación, manejo de desbalance | Mini EDA (1 gráfica) | Valor comunitario + diseño técnico |
-| 7 | **Resultados** | Baseline vs. modelo con privacidad; costo de la privacidad; latencia en LinuxONE | Tabla o barras | Diseño técnico y LinuxONE |
-| 8 | **Demo** | Captura o video corto del momento wow | Pantalla dividida + captura de la VM LinuxONE | Ejecución y pitch |
-| 9 | **Impacto y próximos pasos** | A quién ayuda, cómo escala, qué sigue | Mapa / línea de tiempo | Valor comunitario y tema |
-| 10 | **Equipo y repo** | Integrantes y roles, link del repo, QR | Fotos + QR | Ejecución y pitch |
+| # | Slide | Mensaje | Visual | Criterio que ataca |
+|---|-------|---------|--------|--------------------|
+| 1 | **Portada** | Los Antimarrulla · Tamizaje a ciegas | Pulso cardiaco sobre datos cifrados, logo, equipo | Ejecución y pitch |
+| 2 | **El problema** | La diabetes avanza y sus datos siguen bajo llave | 3 cifras (18.3%, 1 de 3, 112,641) + diagrama del dilema del hospital | Valor comunitario y tema |
+| 3 | **La solución** | El riesgo se calcula sobre datos que nadie puede leer | Flujo de 4 pasos + 3 garantías | Novedad y originalidad |
+| 4 | **Cifrado homomórfico** | Cómo se calcula un riesgo sin descifrar nada | Propiedad de Paillier + 3 capas de cifrado + tabla "¿Quién ve qué?" | Valor y tema · técnico |
+| 5 | **Por qué IBM Z** | Dos contenedores, una regla: la llave nunca cruza | Arquitectura en LinuxONE con dos contenedores | Diseño técnico y LinuxONE |
+| 6 | **Demo en vivo** | El servidor no ve nada, el hospital ve todo | Pantalla dividida (maqueta) + 4 métricas en vivo | Ejecución y pitch |
+| 7 | **Datos, modelo y riesgo** | Datos públicos para entrenar, datos cifrados para atender | 3 cifras del dataset, pipeline de 4 pasos, ruta Paillier vs. CKKS | Diseño técnico |
+| 8 | **Impacto y cierre** | IA en hospitales públicos sin entregar un solo expediente | 4 tarjetas de impacto + lema + equipo | Valor comunitario y tema |
 
-## Estilo
+## Pendientes durante el evento
 
-- Paleta: 2 colores + gris. Un color reservado para "lo que vive en IBM Z".
-- Tipografía: títulos ≥ 32 pt, texto ≥ 20 pt.
-- Cada gráfica con título que diga la conclusión ("La federación sube el recall 18 %"), no la descripción ("Recall por banco").
-- Fuentes de cifras al pie de cada slide.
-- Exportar a PDF y probar el link en incógnito.
+- Slide 6: reemplazar la maqueta por una captura real de la demo y poner las cifras medidas.
+- Slide 5: agregar una captura de la VM de LinuxONE con los contenedores corriendo.
+- Slide 2 (opcional): sumar un mapa por entidad con la incidencia del SINAVE y la mortalidad de la EDR.

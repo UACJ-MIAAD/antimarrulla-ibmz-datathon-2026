@@ -1,6 +1,10 @@
 # 💡 Ideas candidatas
 
-Tres ideas, las tres en el **Tema 2: AI Secured: Innovation Without Exposure**. Aún **no** hay decisión: se toma en la primera hora del evento con la [matriz de decisión](#-matriz-de-decisión) y se registra en [DECISION.md](DECISION.md).
+> ✅ **Decisión tomada:** vamos con la **Idea A, ahora llamada *Tamizaje a ciegas***. Ver [DECISION.md](DECISION.md) y el diseño en [PROYECTO.md](PROYECTO.md).
+>
+> Además de estas tres, el equipo evaluó 8 ideas más (SPEI, triage, seguros, cruces fronterizos, anonimizador, CFDI, escáner post-cuántico y remesas con OFAC/AML). Las 11 se calificaron con tres jueces ciegos simulados con IA: [Ranking_Ideas_Antimarrulla.pptx](Ranking_Ideas_Antimarrulla.pptx).
+
+Las tres ideas originales del equipo, las tres en el **Tema 2: AI Secured: Innovation Without Exposure**.
 
 | | Idea | Una línea |
 |---|------|-----------|
@@ -54,7 +58,7 @@ Un modelo que predice riesgo de diabetes **entrenado y evaluado sobre datos que 
 ### Riesgos
 | Riesgo | Mitigación |
 |--------|-----------|
-| Librería de cifrado homomórfico sin soporte en s390x | Probarlo en las primeras 2 horas; plan B: entorno confidencial + cifrado en reposo y en tránsito |
+| Librería de cifrado homomórfico sin soporte en s390x | Ruta garantizada con Paillier (`python-paillier`, Python puro); CKKS solo si compila antes de la hora 2 |
 | Inferencia cifrada lenta | Modelo lineal, pocas variables, lotes pequeños en la demo |
 | Narrativa médica exagerada | Presentarlo como herramienta de **tamizaje**, no de diagnóstico definitivo |
 

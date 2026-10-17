@@ -33,6 +33,10 @@ data/*.json
 data/*.zip
 data/*.gz
 data/*.pkl
+data/*.dbf
+data/*.DBF
+*.dbf
+*.DBF
 data/raw/
 data/processed/
 !data/README.md

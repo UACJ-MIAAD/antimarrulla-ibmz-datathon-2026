@@ -35,7 +35,7 @@ Repositorio oficial del equipo **Los Antimarrulla** (UACJ · Maestría en Inteli
 | Evaluación | 4 criterios × 10 pts = 40 pts ([CRITERIOS](docs/CRITERIOS.md)) |
 | Equipo | 4 a 6 estudiantes universitarios 18+, cualquier carrera |
 | Entregables | Video de máx. 3 min · link al repo · título `Los Antimarrulla_IBM Z Datathon 2026 Project` · links open source |
-| Nuestro tema candidato | **AI Secured: Innovation Without Exposure** (las 3 ideas caen aquí) |
+| Nuestro proyecto | **Tamizaje a ciegas** · Tema 2: **AI Secured: Innovation Without Exposure** |
 
 Más detalle: [COMPETENCIA](docs/COMPETENCIA.md) · [REGLAS](docs/REGLAS.md) · [CRITERIOS](docs/CRITERIOS.md) · [TEMAS](docs/TEMAS.md)
 
@@ -56,8 +56,11 @@ Más detalle: [COMPETENCIA](docs/COMPETENCIA.md) · [REGLAS](docs/REGLAS.md) · 
 │   ├── REGLAS.md            ← lo que NO podemos romper
 │   ├── CRITERIOS.md         ← rúbrica oficial de 40 pts + estrategias
 │   ├── TEMAS.md             ← los 3 retos oficiales
-│   ├── IDEAS.md             ← nuestras 3 ideas + matriz de decisión
-│   ├── DECISION.md          ← acta de la idea elegida (se llena en la hora 1)
+│   ├── PROYECTO.md          ← diseño de Tamizaje a ciegas: cifrado, arquitectura, plan
+│   ├── FUENTES_DATOS.md     ← CDC, SINAVE (incidencia) y EDR INEGI (mortalidad)
+│   ├── DECISION.md          ← acta: por qué elegimos Tamizaje a ciegas
+│   ├── IDEAS.md             ← ideas candidatas + matriz de decisión
+│   ├── Ranking_Ideas_Antimarrulla.pptx ← 11 ideas calificadas por jueces ciegos
 │   ├── ROLES.md             ← quién hace qué, turnos y descanso
 │   ├── CHECKLIST_ENTREGA.md ← nada se entrega sin palomear esto
 │   └── LINKS.md             ← enlaces oficiales y de comunidad
@@ -65,6 +68,7 @@ Más detalle: [COMPETENCIA](docs/COMPETENCIA.md) · [REGLAS](docs/REGLAS.md) · 
 ├── notebooks/               ← exploración y experimentos
 ├── data/                    ← SOLO datos pequeños y públicos (lee data/README.md)
 └── submission/
+    ├── Los_Antimarrulla_Pitch_Tamizaje.pptx ← presentación del proyecto (8 slides)
     ├── PITCH.md             ← guion del video de máx. 3 minutos
     ├── SLIDES.md            ← estructura de las slides
     └── evidencias/          ← capturas de LinuxONE para los jueces
@@ -98,14 +102,19 @@ En LinuxONE (s390x) los pasos son los mismos; si algún paquete no trae wheel pa
 
 ## Proyecto
 
-> _Se completa tras la reunión de decisión (hora 1). Ver [docs/DECISION.md](docs/DECISION.md)._
+### Tamizaje a ciegas
 
-- **Nombre del proyecto:** _por definir_
-- **Tema oficial:** _por definir_
-- **Problema:** _por definir_
-- **Solución:** _por definir_
-- **Uso de IBM Z / LinuxONE:** _por definir_
-- **Cómo correr la demo:** _por definir_
+> **La IA ve el riesgo. Nadie ve al paciente.**
+
+- **Tema oficial:** T2 · AI Secured: Innovation Without Exposure
+- **Problema:** en México, 18.3% de los adultos vive con diabetes, 1 de cada 3 no lo sabe y es la 2.ª causa de muerte (112,641 defunciones en 2024). Los hospitales tienen los datos para detectar el riesgo antes, pero no pueden compartirlos.
+- **Solución:** el hospital cifra los 21 indicadores del paciente con **cifrado homomórfico (Paillier)** y se queda con la llave. LinuxONE calcula el riesgo de diabetes **sobre los datos cifrados**, sin poder leerlos. El hospital descifra el resultado y **Granite** lo explica en lenguaje claro. Es tamizaje, no diagnóstico.
+- **Uso de IBM Z / LinuxONE:** dos contenedores Docker en LinuxONE (hospital con llave · servicio de riesgo sin llave); aritmética homomórfica con enteros de miles de bits; AES-256-GCM en reposo acelerado por CPACF; TLS 1.3 en tránsito.
+- **Datos:** CDC Diabetes Health Indicators (UCI 891) para entrenar; incidencia **SINAVE** y mortalidad **EDR (INEGI)** para el contexto mexicano.
+- **Métrica estrella:** AUC cifrado vs. AUC en claro (la privacidad no cuesta precisión).
+- **Cómo correr la demo:** _se documenta durante el evento._
+
+Diseño completo: [docs/PROYECTO.md](docs/PROYECTO.md) · Por qué la elegimos: [docs/DECISION.md](docs/DECISION.md) · Datos: [docs/FUENTES_DATOS.md](docs/FUENTES_DATOS.md) · Pitch: [submission/Los_Antimarrulla_Pitch_Tamizaje.pptx](submission/Los_Antimarrulla_Pitch_Tamizaje.pptx)
 
 ---
 
@@ -128,11 +137,18 @@ Las reglas permiten librerías open source y asistentes de IA generativa **siemp
 | Herramienta / librería | Licencia | Para qué la usamos |
 |------------------------|----------|--------------------|
 | pandas, NumPy, scikit-learn, matplotlib, Jupyter | BSD / PSF | Datos, modelado y visualización |
+| [python-paillier (`phe`)](https://github.com/data61/python-paillier) | GPLv3 (partes Apache 2.0) | Cifrado homomórfico Paillier (ruta garantizada) |
+| [cryptography](https://github.com/pyca/cryptography) | Apache 2.0 / BSD | AES-256-GCM en reposo |
+| [ucimlrepo](https://github.com/uci-ml-repo/ucimlrepo) | MIT | Descarga del dataset CDC (UCI 891) |
+| [dbfread](https://github.com/olemb/dbfread) | MIT | Lectura de microdatos EDR de INEGI (DBF) |
+| [TenSEAL](https://github.com/OpenMined/TenSEAL) / [OpenFHE](https://github.com/openfheorg/openfhe-development) | Apache 2.0 / BSD-2 | Ruta CKKS opcional |
+| [llama.cpp](https://github.com/ggerganov/llama.cpp) + IBM Granite | MIT / Apache 2.0 | Explicación generativa del resultado |
 | _agregar aquí_ | | |
 
 | Asistente de IA | Para qué se usó | Quién revisó |
 |-----------------|-----------------|--------------|
 | Claude (Anthropic) | Estructura inicial del repo y redacción base de la documentación | Equipo |
+| Claude (Anthropic) | Ranking de ideas con tres jueces ciegos simulados y presentaciones (.pptx) | Equipo |
 | _agregar aquí_ | | |
 
 Todo el código asistido por IA fue leído, entendido y probado por el equipo. Si no lo podemos explicar, no se sube.
