@@ -51,7 +51,8 @@ def faltantes_finales(prov):
         falta.append("capturas de LinuxONE en submission/evidencias/linuxone/ (docs/LINUXONE.md §4)")
     if not _expandir(["submission/evidencias/labs/*"]):
         falta.append("evidencia de los 2 labs obligatorios en submission/evidencias/labs/")
-    h2s = open(os.path.join(RAIZ, "submission/HACK2SKILL.md"), encoding="utf-8").read()
+    ruta_h2s = os.path.join(RAIZ, "submission/HACK2SKILL.md")
+    h2s = open(ruta_h2s, encoding="utf-8").read() if os.path.exists(ruta_h2s) else ""
     fila = next((l for l in h2s.splitlines() if l.startswith("| Video")), "")
     if "Pendiente" in fila or "http" not in fila:
         falta.append("link público del video final (≤ 3 min) en submission/HACK2SKILL.md")
