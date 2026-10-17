@@ -1,113 +1,123 @@
-# ✅ Checklist de entrega
+# Submission checklist
 
-> Nada se entrega sin palomear esta lista. Responsable: **Javier** (capitán), con una segunda revisión de **Álvaro** para la parte técnica y de **Yazmin** para video y PDF.
-> Arrancar la revisión en la **hora 21**. Cierre en Hack2skill: **18 oct, 10:30 hora Juárez** → meta interna de envío: **7:00**.
+> Owner: Javier (coordination), with Álvaro reviewing technical evidence and Yazmin reviewing video/PDF. Start the final review at H21. Portal closes **October 18, 2026, 16:30 UTC / 12:30 EDT / 10:30 Ciudad Juárez / 18:30 SAST**. Internal target: **13:00 UTC / 09:00 EDT / 07:00 Ciudad Juárez**.
 
-## 🧪 Prerrequisitos (primeras horas)
+The submission window is **October 16, 23:45 UTC → October 18, 16:30 UTC**, from the event notice supplied by the captain. [Open the team dashboard now](https://hack2skill.com/event/datathon-2026). This confirms the submission window, not the permitted coding start or labs order. Follow [PLAN_CIERRE.md](PLAN_CIERRE.md) for owners and fallbacks. Form polish and a second VM remain optional.
 
-- [ ] 🆕 Los 4 llenaron el **formulario de asistencia del kick-off**: https://forms.gle/hxTYwzJRqgwnWaPn8
-- [ ] Ver la grabación del setup de LinuxONE (recomendada en el kick-off): https://www.youtube.com/watch?v=y9rZwSq8pw8
+## English release gate — mandatory, US-7.9
 
-- [ ] Registro de labs en `submission/evidencias/labs/REGISTRO.json` (ver `REGISTRO.ejemplo.json`), con fechas reales
-- [ ] Lab 1 completado: *Predictive AI Hybrid AI scenarios (multi-model)*
-- [ ] Lab 2 completado: *Predictive AI + Generative AI*
-- [ ] Capturas de ambos labs en `submission/evidencias/`
-- [ ] VM de LinuxONE Community Cloud accesible para los 4 (registrada con el código `SSF2026`)
+- [ ] Code identifiers, module/file names authored by the team, comments and docstrings are in English; imports/callers migrated together
+- [ ] Tests, CLI/Makefile help, API/log/error messages and runtime contracts reviewed in English
+- [ ] README, guides, notebooks, source explanations and AI declaration in English
+- [ ] Demo UI, public site, forecast dashboard, plan and validation errors in English
+- [ ] Slides, exported PDF and flowchart in English and visually checked
+- [ ] Video narration/captions and Hack2Skill title/description in English; preserve the exact required title and proper names
+- [ ] Original source identifiers/raw data and historical evidence preserved; English explanations provided
+- [ ] `make verify` and `make verify-docker` pass on the translated release commit; final measurements/captures use that commit
+- [ ] Independent teammate signs off on the English release and records the reviewed commit
 
-## 📦 Repositorio
+These boxes are deliberately open. Translating the plan does not complete the code, deck or video migration.
 
-- [x] Repo **público** en GitHub (HTTP 200 sin sesión, 17 oct)
-- [ ] Historial con **commits del 17–18 de octubre**, frecuentes y con formato `tipo: descripción`
-- [ ] Ningún commit gigante de "todo el proyecto" al final
-- [ ] Ramas fusionadas a `main` vía pull request con revisión
-- [ ] `main` corre de punta a punta
-- [x] Sin datasets grandes ni datos sensibles: `data/raw/` y los microdatos de ENSANUT no están versionados (revisado el 17 oct)
-- [x] Sin credenciales, llaves ni tokens (búsqueda de llaves privadas, tokens de GitHub/AWS y contraseñas el 17 oct; los secretos de la demo viven en `~/.tamizaje`)
-- [x] `LICENSE` presente
+## Prerequisites
 
-## 📝 README y documentación
+- [ ] All four completed the [kick-off attendance form](https://forms.gle/hxTYwzJRqgwnWaPn8)
+- [ ] Watch the recommended [LinuxONE setup recording](https://www.youtube.com/watch?v=y9rZwSq8pw8)
+- [ ] Lab record in `submission/evidencias/labs/REGISTRO.json`, with real dates and screenshots
+- [ ] Lab 1: *Predictive AI Hybrid AI scenarios (multi-model)*
+- [ ] Lab 2: *Predictive AI + Generative AI*
+- [ ] Screenshots of both labs in `submission/evidencias/`
+- [ ] LinuxONE Community Cloud VM accessible to all four, registered with code `SSF2026`
+- [ ] Captain resolves the factual chronology question with the organizer if needed; no invented exceptions or dates
 
-- [x] Sección **Proyecto** completa: problema, solución, uso de IBM Z, cómo correr la demo (sección *Cómo correrlo*)
-- [ ] Quickstart probado en máquina limpia por alguien que **no** escribió el código (en un clon limpio ya pasa `make verify`; falta que lo corra otro integrante)
-- [x] `requirements.txt` con versiones fijadas (verificadas en local; en s390x se usan los paquetes apt de la imagen)
-- [x] Instrucciones para obtener el dataset (fuente + licencia) en `data/README.md`
-- [x] Tabla de **librerías open source con sus links** (la guía lo exige en la entrega)
-- [ ] Declaración de **asistentes de IA**: pendiente; el equipo decide dónde va (las reglas piden declararla)
-- [x] Diagrama de arquitectura / flowchart: `submission/flowchart/arquitectura.pdf`
-- [x] [DECISION.md](DECISION.md) lleno
+## Repository
 
-## 🖥️ Evidencias de LinuxONE (criterio técnico)
+- [x] Public GitHub repository (HTTP 200 without a session, checked October 17)
+- [ ] Event-window history reviewed with frequent, reviewable commits; chronology issues documented
+- [ ] No final all-project dump
+- [ ] Branches merged through PRs with another member's review
+- [ ] `main` runs end to end
+- [x] Large raw datasets and ENSANUT microdata are not tracked (checked October 17)
+- [x] No credentials, keys or tokens found in the October 17 review; demo secrets remain outside the repo
+- [x] `LICENSE` present
 
-Capturas en `submission/evidencias/`:
-- [ ] VM de LinuxONE corriendo (dashboard de la Community Cloud)
-- [ ] `uname -m` → `s390x`
-- [ ] `lscpu` y `cpacfinfo` (si está instalado)
-- [ ] Versión de OpenSSL de la CLI **y** de la biblioteca que usa la app (`cryptography`)
-- [ ] Tiempo de AES-256-GCM medido **dentro de la aplicación**
-- [ ] Error numérico claro vs. cifrado y tamaño de la muestra cifrada (hecho en **local**: 2,000 pacientes; falta en LinuxONE con `make medir-docker`)
-- [ ] Entrenamiento del modelo en LinuxONE
-- [ ] Inferencia / servicio corriendo en LinuxONE
-- [ ] Contenedor (Podman/Docker) si se usó
-- [ ] Seguridad: cifrado, manejo de llaves, accesos
-- [ ] Uso de recursos de cómputo (CPU/memoria) y métricas
+## README and documentation
 
-## 🎥 Video pitch (obligatorio)
+- [x] Project problem, solution, IBM Z scope and run instructions exist; English review remains open above
+- [ ] Quickstart run by a teammate who did not author the code
+- [x] Pinned requirements exist; s390x uses the Ubuntu apt route
+- [x] Dataset source/license instructions in `data/README.md`
+- [x] Open-source libraries and resource links documented
+- [x] AI declaration exists separately in [submission/USO_IA.md](../submission/USO_IA.md), linked from the submission text
+- [ ] All four confirm additional tools/tasks, including the unconfirmed “Muse” entry, and understand the submitted code
+- [x] Architecture diagram exists in `submission/flowchart/arquitectura.pdf`; English review remains open
+- [x] Decision document exists in [DECISION.md](DECISION.md)
 
-- [ ] **Máximo 3 minutos** (meta: 2:50)
-- [ ] Cubre: **problema**, **datos que lo respaldan**, **solución** y **cómo aprovecha IBM Z**
-- [ ] Muestra el **stack tecnológico**, la **instancia LinuxONE** y el **modelo** en pantalla
-- [ ] Incluye la demo funcionando
-- [ ] Grabado durante el fin de semana del evento
-- [ ] Audio claro, sin ruido de fondo
-- [ ] Subido y con link accesible (probar en incógnito)
+## LinuxONE evidence
 
-## 🖼️ Pitch deck en PDF (obligatorio) y material opcional
+Save real screenshots and records under `submission/evidencias/`.
 
-- [ ] 🆕 **Exportar la presentación a PDF** con el nombre exacto `Los Antimarrulla_IBM Z Datathon 2026 Project.pdf` y subirla a Hack2skill
+- [ ] Running VM shown in the Community Cloud dashboard
+- [ ] `uname -m` reports `s390x`
+- [ ] `lscpu` and `cpacfinfo` if installed
+- [ ] OpenSSL CLI version and the library version used by `cryptography`
+- [ ] AES-256-GCM measured inside the application; no unmeasured CPACF acceleration claim
+- [ ] Plaintext/encrypted numerical error and encrypted sample size measured on LinuxONE
+- [ ] Model training on LinuxONE
+- [ ] Inference/service running on LinuxONE
+- [ ] Containers running on LinuxONE
+- [ ] Key handling, encryption and access boundaries shown
+- [ ] CPU/memory and timing evidence recorded
+- [ ] JSON/MD commit, code/model hashes and image match the translated release
 
-- [ ] Estructura de [submission/SLIDES.md](../submission/SLIDES.md)
-- [ ] Flowchart de diseño (opcional en la entrega, pero suma al criterio técnico)
-- [ ] Prototipo accesible (opcional)
-- [ ] Slide de resultados con métricas reales (no inventadas)
-- [ ] Slide de impacto comunitario con cifras y fuente
+## Required video
 
-## 🖥️ Demo en vivo
+- [ ] At most 180 seconds; target 170 seconds
+- [ ] English narration and any captions/on-screen explanations
+- [ ] Problem, supporting data, solution and IBM Z usage covered
+- [ ] Technology stack, LinuxONE instance and model visible on screen
+- [ ] Working demo included
+- [ ] Recorded during the event weekend
+- [ ] Clear audio and authorized voices
+- [ ] Public link works without a login; `submission/VIDEO_REGISTRO.json` completed
 
-- [ ] Ensayo completo cronometrado (hora 19)
-- [ ] Datos de demo precargados
-- [ ] Plan B: video de la demo por si falla la red o el entorno
-- [ ] Sesión de LinuxONE abierta y probada antes de grabar
+## Required PDF and optional material
 
-## 📋 Envío en Hack2skill
+- [ ] English deck exported as **`Los Antimarrulla_IBM Z Datathon 2026 Project.pdf`**
+- [ ] Align with [submission/SLIDES.md](../submission/SLIDES.md)
+- [ ] English flowchart included if submitted (optional)
+- [ ] Accessible prototype included if submitted (optional)
+- [ ] Results slide uses real, versioned measurements
+- [ ] Community impact slide includes sources and appropriate population limits
 
-**Cómo se envía** (confirmado por el SME de SSF en Discord, 17 oct; [video del proceso](https://youtu.be/KIYu1iqtXTU)):
-1. Abrir el **dashboard del equipo** en Hack2skill → sección de envío final del proyecto.
-2. Llenar los detalles del proyecto y el planteamiento del problema.
-3. Agregar el link del repo de GitHub.
-4. Subir o enlazar el video de la demo (máx. 3 min).
-5. Subir la presentación si el portal la pide (llevamos el PDF con el nombre oficial).
-6. Revisar todo una vez y enviar antes del cierre.
+## Demo rehearsal
 
-> El envío es **por equipo**: lo hace **el líder del equipo registrado en Hack2skill** desde el dashboard, después de que los 4 revisen la versión final. Confirmar desde ya quién es el líder en la plataforma (por plan, Javier).
+- [ ] Timed full rehearsal at H19
+- [ ] Synthetic demo profiles ready; English labels and validation checked
+- [ ] Backup demo recording ready
+- [ ] LinuxONE session open and working before recording
 
-- [ ] Líder del equipo en Hack2skill confirmado y con acceso al dashboard
-- [ ] Los 4 revisaron la versión final antes de enviar
-- [ ] El video muestra el uso de LinuxONE (instancia, contenedores y modelo): es un requisito importante
-- [ ] Título exacto: **`Los Antimarrulla_IBM Z Datathon 2026 Project`**
-- [ ] Tema oficial seleccionado correctamente
-- [ ] Link del video (máx. 3 min)
-- [ ] 🆕 Pitch deck en PDF `Los Antimarrulla_IBM Z Datathon 2026 Project.pdf`
-- [ ] Link del repo de GitHub (el código; la guía también acepta un zip)
-- [ ] Links a los recursos open source usados
-- [ ] Flowchart y prototipo adjuntos si los hay
-- [ ] Los 4 integrantes vinculados al equipo
-- [ ] Captura de la confirmación de envío guardada
+## Hack2Skill submission
 
-## 🏁 Cierre y después
+The registered team leader submits from the team dashboard after all four review. [Process walkthrough](https://youtu.be/KIYu1iqtXTU), provided by the SSF SME on October 17: open final submission, enter details/problem, link the GitHub repo, attach/link the <=3-minute video, upload the PDF when requested, review and submit.
 
-- [ ] Entrega enviada **a las 7:00 del 18 oct (hora Juárez)**, tres horas y media antes del cierre (10:30)
-- [ ] Último commit anotado: `______`
-- [ ] Ceremonia virtual de cierre: **17 oct, 23:00 hora Juárez** (1:00 EDT del 18 oct)
-- [ ] Encuesta de retroalimentación / video antes del **23 oct**
-- [ ] Anuncio de ganadores: **28 oct**, 8:00 hora Juárez (7:30 PM IST)
-- [ ] Foto del equipo para el recuerdo 📸
+- [ ] Registered team leader confirmed and dashboard accessible
+- [ ] All four reviewed the final English version
+- [ ] Exact title: **`Los Antimarrulla_IBM Z Datathon 2026 Project`**
+- [ ] Correct official theme selected
+- [ ] English project details and problem statement
+- [ ] Public final video link with LinuxONE/model evidence
+- [ ] Required PDF uploaded
+- [ ] Public repository link, or accepted code ZIP
+- [ ] Open-source resource links included
+- [ ] Optional flowchart/prototype attached if available
+- [ ] All four members linked to the team
+- [ ] `make package FINAL=1` succeeds after the English review and other gates
+- [ ] Submit by **October 18, 07:00 Ciudad Juárez / 09:00 EDT**, 3 hours 30 minutes before closing
+- [ ] Confirmation screenshot saved; final commit recorded: `______`
+
+## Closing and follow-up
+
+- [ ] Virtual closing ceremony: October 17, 23:00 Ciudad Juárez / October 18, 01:00 EDT
+- [ ] Feedback survey/video before October 23
+- [ ] Winners announcement: October 28, 08:00 Ciudad Juárez / 19:30 IST
+- [ ] Team photo

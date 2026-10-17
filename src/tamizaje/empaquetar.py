@@ -22,6 +22,7 @@ DOCUMENTAL = [
     "submission/flowchart/arquitectura.pdf", "submission/flowchart/arquitectura.png", "submission/flowchart/arquitectura.svg",
     "README.md", "LICENSE", "docs/PROYECTO.md", "docs/MODELO_DATOS.md", "docs/LINUXONE.md", "docs/ENSANUT_EXPERIMENTO.md",
     "docs/PRONOSTICO.md", "docs/CHECKLIST_ENTREGA.md", "docs/REVISION.md", "docs/CRONOLOGIA.md",
+    "docs/DOS_MAQUINAS.md", "docs/PLAN_CIERRE.md", "submission/USO_IA.md",
     "artefactos/modelo/modelo_logistico_v1.json", "artefactos/modelo/esquema_cdc21_v1.json",
     "artefactos/metricas/modelo_logistico_v1.json", "artefactos/metricas/ensanut_exploratorio_v1.json",
     "artefactos/pronostico/e5_pronostico_v1.json",
@@ -29,9 +30,11 @@ DOCUMENTAL = [
 DOCUMENTAL_GLOB = ["submission/evidencias/README.md", "submission/evidencias/metricas/*", "submission/evidencias/local/*",
                    "submission/evidencias/linuxone/*", "submission/evidencias/labs/*",
                    "submission/evidencias/dos_maquinas/*"]
-CODIGO_GLOB = ["src/**/*.py", "src/**/*.html", "src/datos/README.md", "tests/*.py", "docker/*", "artefactos/**/*.json",
+DOCUMENTAL_GLOB += ["submission/VIDEO_REGISTRO.json", "submission/evidencias/instancia/*"]
+CODIGO_GLOB = ["src/**/*.py", "src/**/*.html", "src/datos/README.md", "tests/*.py", "tests/instance/*.py", "tests/instance/*.sh", "docker/*", "artefactos/**/*.json",
                "data/cdc_891/*", "data/sinave/tipo1/products.csv", "data/sinave/tipo2/products.csv", "data/catalogos/entidades.csv"]
-CODIGO = ["Makefile", "requirements.txt", ".dockerignore", "LICENSE", "README.md", "docs/LINUXONE.md", "docs/PROYECTO.md"]
+CODIGO = ["Makefile", "requirements.txt", ".dockerignore", "LICENSE", "README.md", "docs/LINUXONE.md", "docs/PROYECTO.md",
+          "docs/DOS_MAQUINAS.md", "docs/PLAN_CIERRE.md", "submission/USO_IA.md"]
 
 
 def _expandir(globs):
@@ -137,6 +140,11 @@ def faltantes_finales(prov, raiz=RAIZ):
                 filas.append(c)
     if not filas:
         falta.append("revisión de otro integrante registrada (nombre y fecha) en docs/REVISION.md")
+    ia_p = os.path.join(raiz, "submission/USO_IA.md")
+    ia = open(ia_p, encoding="utf-8").read().strip() if os.path.exists(ia_p) else ""
+    if not ia or "USO_IA.md" not in (open(os.path.join(raiz, "submission/HACK2SKILL.md"), encoding="utf-8").read()
+                                   if os.path.exists(os.path.join(raiz, "submission/HACK2SKILL.md")) else ""):
+        falta.append("declaración de uso de IA en submission/USO_IA.md enlazada desde HACK2SKILL.md")
     return falta
 
 
@@ -146,6 +154,8 @@ def armar(tipo, final, prov):
     else:
         archivos = CODIGO + _expandir(CODIGO_GLOB)
     archivos = sorted({a for a in archivos if not EXCLUIR.search(a)})
+    opcionales = {"submission/USO_IA.md"}  # borrador local, fuera de git hasta que el equipo decida dónde va
+    archivos = [a for a in archivos if a not in opcionales or os.path.exists(os.path.join(RAIZ, a))]
     faltan = [a for a in archivos if not os.path.exists(os.path.join(RAIZ, a))]
     if faltan:
         raise SystemExit(f"faltan archivos del paquete {tipo}: {faltan}")

@@ -1,67 +1,68 @@
 {
-  "rev": 21,
-  "actualizado": "2026-10-17T17:40:16Z",
-  "nota": "Para actualizar: cambia 'estado' de la historia (hecho · en_curso · pendiente · bloqueado), sube 'rev' en 1, pon 'actualizado' con la hora real en UTC y haz commit a main. El sitio muestra la copia con 'rev' mayor (GitHub o la publicada).",
+  "rev": 24,
+  "actualizado": "2026-10-17T18:26:24Z",
+  "nota": "Evidence-based status. Update through a branch and PR; increase rev and the actual UTC timestamp. Publish the reviewed version. Current plan: docs/PLAN_CIERRE.md. Keep Netlify and its badge. English is mandatory for all authored release material; US-7.9 remains open.",
   "hitos": {
     "hora_cero": "2026-10-17T13:00:00Z",
     "ceremonia_cierre_virtual": "2026-10-18T05:00:00Z",
     "demo_funcional": "2026-10-18T07:00:00Z",
     "congelamiento": "2026-10-18T09:00:00Z",
     "meta_envio": "2026-10-18T13:00:00Z",
-    "cierre_hack2skill": "2026-10-18T16:30:00Z"
+    "cierre_hack2skill": "2026-10-18T16:30:00Z",
+    "apertura_hack2skill": "2026-10-16T23:45:00Z"
   },
   "bloques": [
     {
       "id": "prep",
-      "titulo": "Preparación",
+      "titulo": "Preparation",
       "inicio": "2026-10-17T04:50:00Z",
       "fin": "2026-10-17T13:00:00Z"
     },
     {
       "id": "h0",
-      "titulo": "H0 · Arranque",
+      "titulo": "H0 · Kick-off",
       "inicio": "2026-10-17T13:00:00Z",
       "fin": "2026-10-17T14:00:00Z"
     },
     {
       "id": "h1",
-      "titulo": "H1–H3 · Labs obligatorios",
+      "titulo": "H1–H3 · Required labs",
       "inicio": "2026-10-17T14:00:00Z",
       "fin": "2026-10-17T16:00:00Z"
     },
     {
       "id": "h3",
-      "titulo": "H3–H8 · Bases",
+      "titulo": "H3–H8 · Foundations",
       "inicio": "2026-10-17T16:00:00Z",
       "fin": "2026-10-17T21:00:00Z"
     },
     {
       "id": "h8",
-      "titulo": "H8–H12 · Núcleo cifrado",
+      "titulo": "H8–H12 · Encrypted core",
       "inicio": "2026-10-17T21:00:00Z",
       "fin": "2026-10-18T01:00:00Z"
     },
     {
       "id": "h12",
-      "titulo": "H12–H16 · Integración",
+      "titulo": "H12–H16 · Integration",
       "inicio": "2026-10-18T01:00:00Z",
       "fin": "2026-10-18T05:00:00Z"
     },
     {
       "id": "h16",
-      "titulo": "H16–H18 · Empuje a demo",
+      "titulo": "H16–H18 · Demo readiness",
       "inicio": "2026-10-18T05:00:00Z",
       "fin": "2026-10-18T07:00:00Z"
     },
     {
       "id": "h18",
-      "titulo": "H18–H22 · Video y pulido",
+      "titulo": "H18–H22 · Video and polish",
       "inicio": "2026-10-18T07:00:00Z",
       "fin": "2026-10-18T11:00:00Z"
     },
     {
       "id": "h22",
-      "titulo": "H22–H24 · Entrega",
+      "titulo": "H22–H24 · Submission",
       "inicio": "2026-10-18T11:00:00Z",
       "fin": "2026-10-18T13:00:00Z"
     }
@@ -69,15 +70,15 @@
   "epicas": [
     {
       "id": "E1",
-      "nombre": "Base del proyecto",
-      "objetivo": "Decidir, documentar y tener los datos listos antes de escribir código.",
+      "nombre": "Project foundations",
+      "objetivo": "Decide, document and prepare the data; preserve the actual coding and labs chronology.",
       "responsable": "Javier",
       "historias": [
         {
           "id": "US-1.1",
-          "como": "jurado",
-          "quiero": "un repo público ordenado, con reglas, criterios y checklist alineados con la guía y el kick-off",
-          "para": "confiar en el proceso del equipo",
+          "como": "a judge",
+          "quiero": "a public, organized repository with rules, criteria and a checklist aligned with the guide and kick-off",
+          "para": "assess the team process",
           "quien": "Javier",
           "bloque": "prep",
           "prioridad": "MVP",
@@ -85,19 +86,19 @@
         },
         {
           "id": "US-1.2",
-          "como": "equipo",
-          "quiero": "elegir la idea con un ranking de jueces ciegos",
-          "para": "apostar por la de mayor puntaje esperado",
-          "quien": "Equipo",
+          "como": "a team member",
+          "quiero": "to select the idea through blind judging",
+          "para": "choose the strongest expected entry",
+          "quien": "Whole team",
           "bloque": "prep",
           "prioridad": "MVP",
           "estado": "hecho"
         },
         {
           "id": "US-1.3",
-          "como": "equipo",
-          "quiero": "un diseño técnico con ruta garantizada (Paillier) y ruta ambiciosa (CKKS)",
-          "para": "no depender de que una librería compile en s390x",
+          "como": "a team member",
+          "quiero": "a reliable Paillier design with CKKS as an optional extension",
+          "para": "avoid depending on an s390x library build",
           "quien": "Javier",
           "bloque": "prep",
           "prioridad": "MVP",
@@ -105,9 +106,9 @@
         },
         {
           "id": "US-1.4",
-          "como": "analista",
-          "quiero": "todas las fuentes oficiales descargadas, validadas y en el repo",
-          "para": "trabajar sin bloquearme por descargas",
+          "como": "an analyst",
+          "quiero": "official sources downloaded, checked and available through the repository instructions",
+          "para": "work without download blockers",
           "quien": "Javier · Yazmin",
           "bloque": "prep",
           "prioridad": "MVP",
@@ -115,9 +116,9 @@
         },
         {
           "id": "US-1.5",
-          "como": "analista",
-          "quiero": "un modelo de datos con catálogos, geometría y el mart de la cascada",
-          "para": "cruzar fuentes sin errores de llaves",
+          "como": "an analyst",
+          "quiero": "catalogs, geometry and a documented care-stage data mart",
+          "para": "join sources using consistent keys",
           "quien": "Javier",
           "bloque": "prep",
           "prioridad": "MVP",
@@ -125,20 +126,20 @@
         },
         {
           "id": "US-1.6",
-          "como": "equipo",
-          "quiero": "formulario de asistencia del kick-off llenado por los 4",
-          "para": "cumplir con la organización",
-          "quien": "Equipo",
+          "como": "a team member",
+          "quiero": "all four members to complete the kick-off attendance form",
+          "para": "meet the attendance requirement",
+          "quien": "Whole team",
           "bloque": "prep",
           "prioridad": "MVP",
           "estado": "pendiente"
         },
         {
           "id": "US-1.7",
-          "como": "científico de datos",
-          "quiero": "ENSANUT 2022/2023 descargada y validada (prevalencia 2022 = 10.9%, igual a la oficial)",
-          "para": "validar el modelo con población mexicana",
-          "quien": "Equipo",
+          "como": "a data scientist",
+          "quiero": "ENSANUT 2022/2023 downloaded and checked against the reported 2022 prevalence of 10.9%",
+          "para": "explore a reduced Mexican experiment without claiming clinical validation of the MVP",
+          "quien": "Whole team",
           "bloque": "h3",
           "prioridad": "Plus",
           "estado": "hecho"
@@ -147,26 +148,26 @@
     },
     {
       "id": "E2",
-      "nombre": "Infraestructura LinuxONE",
-      "objetivo": "Que todo corra en IBM Z, en contenedores, con cifrado y con evidencia.",
+      "nombre": "LinuxONE infrastructure",
+      "objetivo": "Run containers and encrypted computation on IBM Z with verifiable evidence.",
       "responsable": "Álvaro",
       "historias": [
         {
           "id": "US-2.1",
-          "como": "equipo",
-          "quiero": "una VM Ubuntu 24.04 en LinuxONE con acceso SSH para los 4",
-          "para": "trabajar todos en la misma plataforma",
+          "como": "a team member",
+          "quiero": "an Ubuntu 24.04 LinuxONE VM with SSH access for all four members",
+          "para": "work on the same platform",
           "quien": "Álvaro",
           "bloque": "prep",
           "prioridad": "MVP",
           "estado": "en_curso",
-          "evidencia": "Carlos reporta su servidor funcionando y Álvaro reconectándose (chat 17 oct); sin captura en el repo todavía"
+          "evidencia": "Carlos reports a working server and Álvaro reconnecting (October 17 chat); provider screenshots are still absent from the repository."
         },
         {
           "id": "US-2.2",
-          "como": "equipo",
-          "quiero": "completar los 2 labs obligatorios con capturas",
-          "para": "cumplir el prerrequisito del criterio técnico",
+          "como": "a team member",
+          "quiero": "both required labs completed with screenshots",
+          "para": "meet the technical prerequisite",
           "quien": "Álvaro · Carlos · Yazmin",
           "bloque": "h1",
           "prioridad": "MVP",
@@ -174,145 +175,146 @@
         },
         {
           "id": "US-2.3",
-          "como": "ingeniero",
-          "quiero": "comprobar en la hora 2 si TenSEAL/OpenFHE están disponibles en s390x; si no, seguimos con Paillier sin tocar el MVP",
-          "para": "decidir CKKS vs. Paillier sin perder tiempo",
+          "como": "an engineer",
+          "quiero": "to check TenSEAL/OpenFHE availability on s390x at H2 and keep Paillier if unavailable",
+          "para": "assess optional CKKS without delaying the MVP",
           "quien": "Álvaro",
           "bloque": "h1",
           "prioridad": "Plus",
           "estado": "pendiente",
-          "evidencia": "TenSEAL 0.3.18 tiene rueda para macOS arm64 pero no para s390x (habría que compilar SEAL en la VM). No se implementó; Paillier es la ruta aprobada"
+          "evidencia": "TenSEAL 0.3.18 has a macOS arm64 wheel but no s390x wheel; a VM build would be required. Not implemented. Paillier remains the approved path."
         },
         {
           "id": "US-2.4",
-          "como": "hospital",
-          "quiero": "que mi llave privada viva en un contenedor separado del servicio de riesgo",
-          "para": "que el servidor nunca pueda descifrar",
+          "como": "a hospital operator",
+          "quiero": "the private key in a container separate from the risk service",
+          "para": "prevent the risk service from decrypting",
           "quien": "Álvaro",
           "bloque": "h3",
           "prioridad": "MVP",
           "estado": "hecho",
-          "evidencia": "docker/compose.yml · tests/test_protocolo.py::test_e_servicio_sin_llave_privada (local; falta captura en LinuxONE)"
+          "evidencia": "docker/compose.yml and tests/test_protocolo.py::test_e_servicio_sin_llave_privada verified locally; LinuxONE screenshots are missing."
         },
         {
           "id": "US-2.5",
-          "como": "paciente",
-          "quiero": "TLS 1.3 en tránsito y AES-256-GCM en reposo (CPACF), listos antes de mi descanso de H8",
-          "para": "que mis datos nunca queden en claro",
+          "como": "a patient",
+          "quiero": "mutual TLS 1.3 in transit and an AES-256-GCM vault at the hospital, verified on the VM",
+          "para": "protect transport and stored hospital records",
           "quien": "Álvaro",
           "bloque": "h3",
           "prioridad": "MVP",
           "estado": "en_curso",
-          "evidencia": "TLS 1.3 mutuo y bóveda AES-256-GCM listos y probados en local (tests/test_integracion.py); falta evidencia de CPACF en LinuxONE"
+          "evidencia": "Implemented and verified locally; VM evidence is missing. CPACF is a platform capability, not a measured acceleration or MVP prerequisite."
         },
         {
           "id": "US-2.6",
-          "como": "jurado",
-          "quiero": "capturas de la VM, los contenedores, lscpu/cpacfinfo, versiones de OpenSSL y latencia p50/p95",
-          "para": "verificar que IBM Z es estructural",
+          "como": "a judge",
+          "quiero": "VM/container screenshots, lscpu/cpacfinfo where available, OpenSSL versions and p50/p95 latency",
+          "para": "verify actual IBM Z execution",
           "quien": "Álvaro",
           "bloque": "h16",
           "prioridad": "MVP",
           "estado": "en_curso",
-          "evidencia": "scripts de verificación en tests/instance/ (PR 5): Carlos reporta 6/6 del stack y 8/8 de afirmaciones en su servidor. Ojo: 05_test_claims.py usa una implementación de referencia de 6 variables, no src/tamizaje. Falta guardar salidas y capturas en submission/evidencias/linuxone/ con REGISTRO.json"
+          "evidencia": "05_test_claims.py now runs the actual 21-feature src/tamizaje tests and saves provenance in submission/evidencias/instancia/. Reported 6/6 and 8/8 checks were preliminary; actual outputs, Community Cloud screenshots and REGISTRO.json are still required."
         }
       ]
     },
     {
       "id": "E3",
-      "nombre": "Modelo de riesgo cifrado",
-      "objetivo": "Calcular el riesgo de diabetes sobre datos cifrados sin perder precisión.",
+      "nombre": "Encrypted risk model",
+      "objetivo": "Evaluate the diabetes risk model on ciphertexts and measure numerical error.",
       "responsable": "Carlos",
       "historias": [
         {
           "id": "US-3.1",
-          "como": "científico de datos",
-          "quiero": "una regresión logística entrenada en el CDC y el contrato numérico (orden de las 21 variables, escala y error medido); XGBoost solo como referencia si sobra tiempo",
-          "para": "tener un modelo base con métricas honestas",
+          "como": "a data scientist",
+          "quiero": "a CDC logistic regression and a numerical contract covering 21-feature order, scale and error; XGBoost only if time remains",
+          "para": "report an honest baseline",
           "quien": "Carlos",
           "bloque": "h3",
           "prioridad": "MVP",
           "estado": "hecho",
-          "evidencia": "artefactos/modelo/modelo_logistico_v1.json · artefactos/metricas/modelo_logistico_v1.json (ROC-AUC 0.826 en prueba)"
+          "evidencia": "artefactos/modelo/modelo_logistico_v1.json and artefactos/metricas/modelo_logistico_v1.json; test ROC-AUC 0.826."
         },
         {
           "id": "US-3.2",
-          "como": "servicio de riesgo",
-          "quiero": "pesos en punto fijo e inferencia con Paillier: un recorrido cifrado completo antes de H11",
-          "para": "calcular Enc(w·x) sin la llave",
+          "como": "a risk service operator",
+          "quiero": "fixed-point weights and a complete Paillier inference flow before H11",
+          "para": "compute Enc(w·x) without the private key",
           "quien": "Carlos",
           "bloque": "h8",
           "prioridad": "MVP",
           "estado": "hecho",
-          "evidencia": "src/tamizaje/protocolo.py · tests/test_protocolo.py (entero descifrado idéntico, cota de error, negativos, extremos, mensajes inválidos)"
+          "evidencia": "src/tamizaje/protocolo.py and tests/test_protocolo.py: exact decrypted integer, quantization bound, negatives, extremes and invalid messages."
         },
         {
           "id": "US-3.3",
-          "como": "jurado",
-          "quiero": "ver el AUC y las métricas cifradas contra las de claro sobre exactamente la misma muestra",
-          "para": "comprobar que la privacidad no cuesta precisión",
+          "como": "a judge",
+          "quiero": "encrypted and plaintext AUC/metrics on exactly the same sample",
+          "para": "measure whether encryption changes the predictions",
           "quien": "Carlos",
           "bloque": "h12",
           "prioridad": "MVP",
           "estado": "hecho",
-          "evidencia": "submission/evidencias/metricas/medicion_proceso_local-darwin-arm64_20261017T130843Z (commit 7937f9f, clon limpio; local, no LinuxONE): 2,000/2,000 enteros, ROC-AUC 0.808 igual en las 3 variantes"
+          "evidencia": "submission/evidencias/metricas/medicion_proceso_local-darwin-arm64_20261017T181050Z.json, commit 65ae4ef, local: 2,000/2,000 exact integers; AUC 0.808383 across all three variants; same-sample plaintext/fixed-point logit timings. Final translated-commit LinuxONE run is still required."
         },
         {
           "id": "US-3.4",
-          "como": "paciente",
-          "quiero": "que Granite me explique el resultado en lenguaje claro",
-          "para": "entender qué hacer después",
+          "como": "a patient",
+          "quiero": "Granite to explain the result in plain English",
+          "para": "understand the next steps",
           "quien": "Carlos · Álvaro",
           "bloque": "h16",
           "prioridad": "Plus",
           "estado": "pendiente",
-          "evidencia": "no integrado: requiere llama.cpp y un modelo Granite en la VM; la UI muestra los factores que más pesan"
+          "evidencia": "Not integrated. Requires llama.cpp and a Granite model on the VM. The existing UI shows the largest contributing factors."
         },
         {
           "id": "US-3.5",
-          "como": "jurado",
-          "quiero": "una evaluación externa exploratoria en adultos mexicanos de ENSANUT, como experimento aparte con predictores y objetivo definidos antes de evaluar (se corre solo si el MVP ya pasó)",
-          "para": "saber si el tamizaje sirve en México y no solo en EE. UU.",
+          "como": "a judge",
+          "quiero": "a separate exploratory reduced ENSANUT experiment with predictors and outcome fixed before evaluation, after the MVP",
+          "para": "investigate transfer limits in Mexican adults",
           "quien": "Yazmin · Carlos",
           "bloque": "h8",
           "prioridad": "Plus",
           "estado": "hecho",
-          "evidencia": "docs/ENSANUT_EXPERIMENTO.md (protocolo publicado antes de evaluar) · artefactos/metricas/ensanut_exploratorio_v1.json: ROC-AUC ponderado 0.767; subestima el riesgo y la sensibilidad cae a 0.46–0.49 con el umbral del CDC"
+          "evidencia": "docs/ENSANUT_EXPERIMENTO.md committed before evaluation; artefactos/metricas/ensanut_exploratorio_v1.json: weighted ROC-AUC 0.767, underestimated risk and sensitivity 0.46–0.49 at the CDC threshold."
         }
       ]
     },
     {
       "id": "E4",
-      "nombre": "Datos e impacto en México",
-      "objetivo": "Mostrar con datos oficiales el tamaño del problema en México.",
+      "nombre": "Mexican data and impact",
+      "objetivo": "Explain the scale of the problem in Mexico using official data and explicit population limits.",
       "responsable": "Yazmin",
       "historias": [
         {
           "id": "US-4.1",
-          "como": "científica de datos",
-          "quiero": "EDA y particiones 70/15/15 del CDC",
-          "para": "entrenar sin fugas de información",
+          "como": "a data scientist",
+          "quiero": "CDC exploratory analysis and 70/15/15 splits",
+          "para": "train without data leakage",
           "quien": "Yazmin",
           "bloque": "h3",
           "prioridad": "MVP",
           "estado": "en_curso",
-          "evidencia": "particiones 70/15/15 en artefactos/particiones/ (hecho); EDA pendiente"
+          "evidencia": "70/15/15 split artifacts exist in artefactos/particiones/; exploratory analysis remains open."
         },
         {
           "id": "US-4.2",
-          "como": "jurado",
-          "quiero": "las cifras nacionales por etapa y el indicador exploratorio de muertes por cada 100 casos notificados por estado",
-          "para": "entender el tamaño del problema",
+          "como": "a judge",
+          "quiero": "national care-stage figures and an exploratory deaths-per-100-notified-cases state indicator",
+          "para": "understand the scale of the problem",
           "quien": "Yazmin",
           "bloque": "h3",
           "prioridad": "MVP",
-          "estado": "pendiente"
+          "estado": "hecho",
+          "evidencia": "docs/FUENTES_DATOS.md, data/marts/cascada_entidad_anio.csv and site/assets/cascada.json recalculated in audit. Registration/occurrence and population differences are explicit. Not case fatality or cohort follow-up."
         },
         {
           "id": "US-4.3",
-          "como": "público",
-          "quiero": "un mapa interactivo de indicadores por estado",
-          "para": "comparar estados con cifras oficiales",
+          "como": "a viewer",
+          "quiero": "an interactive state indicator map",
+          "para": "compare official state statistics",
           "quien": "Yazmin",
           "bloque": "prep",
           "prioridad": "MVP",
@@ -322,141 +324,152 @@
     },
     {
       "id": "E5",
-      "nombre": "Pronóstico y planeación financiera",
-      "objetivo": "Pronosticar 52 semanas de casos nuevos por estado, sexo y total para presupuestar la atención.",
+      "nombre": "Forecasting and budget planning",
+      "objetivo": "Forecast 52 weeks of new cases by state and sex; show budgets only with a sourced cost.",
       "responsable": "Yazmin",
       "historias": [
         {
           "id": "US-5.1",
-          "como": "planeador de salud",
-          "quiero": "las 222 series semanales de diabetes (111 por tipo: estado, región y nacional × hombres, mujeres y total) listas para pronosticar",
-          "para": "partir de datos limpios",
+          "como": "a health planner",
+          "quiero": "222 weekly diabetes series ready for forecasting (111 per type: state, region and national by men, women and total)",
+          "para": "start with checked time series",
           "quien": "Yazmin",
           "bloque": "h3",
           "prioridad": "Plus",
           "estado": "hecho",
-          "evidencia": "222 series SINAVE leídas de data/sinave/ (2022 en adelante; semanas no observadas interpoladas y contadas)"
+          "evidencia": "222 SINAVE series read from data/sinave/ from 2022 onward; missing observations interpolated and counted."
         },
         {
           "id": "US-5.2",
-          "como": "planeador de salud",
-          "quiero": "un pronóstico a 52 semanas con intervalos (ingenuo estacional y ETS de base), elegido por SMAPE con origen móvil",
-          "para": "saber cuántos casos esperar",
+          "como": "a health planner",
+          "quiero": "a 52-week forecast and exploratory bands, comparing seasonal naive and ETS through rolling-origin selection",
+          "para": "estimate future reported cases",
           "quien": "Yazmin",
           "bloque": "h8",
           "prioridad": "Plus",
           "estado": "hecho",
-          "evidencia": "src/tamizaje/pronostico.py · evaluación anidada fuera de muestra hasta h63 con reconciliación (SMAPE nacional h12–63: 13.1%); bandas exploratorias con cobertura real 63–65% (80%) y 79–87% (95%)"
+          "evidencia": "src/tamizaje/pronostico.py: nested out-of-sample evaluation through h63 with reconciliation; national h12–63 SMAPE 13.1%. Actual exploratory-band coverage: 63–65% for nominal 80%, 79–87% for nominal 95%."
         },
         {
           "id": "US-5.3",
-          "como": "planeador de salud",
-          "quiero": "respaldo regional para series con pocos casos y coherencia estado → región → nacional (solo con el MVP entregado)",
-          "para": "que ningún estado quede sin pronóstico",
+          "como": "a health planner",
+          "quiero": "a regional fallback for sparse series and coherent state/region/national totals, after MVP delivery",
+          "para": "retain a forecast for every state",
           "quien": "Carlos",
           "bloque": "h16",
           "prioridad": "Plus",
           "estado": "hecho",
-          "evidencia": "respaldo regional (<5 casos en 52 semanas; ninguna serie lo necesitó) y coherencia proporcional nacional → regiones → estados; tests/test_pronostico.py"
+          "evidencia": "Regional fallback below five cases in 52 weeks; no series required it. Proportional national/region/state coherence tested in tests/test_pronostico.py."
         },
         {
           "id": "US-5.4",
-          "como": "director financiero",
-          "quiero": "convertir casos esperados en presupuesto con un costo unitario editable",
-          "para": "planear recursos por estado y sexo",
+          "como": "a finance director",
+          "quiero": "expected cases converted into a budget using an editable, sourced unit cost",
+          "para": "explore resource scenarios by state and sex",
           "quien": "Yazmin",
           "bloque": "h8",
           "prioridad": "Plus",
           "estado": "en_curso",
-          "evidencia": "el cálculo de presupuesto existe (casos × costo con fuente obligatoria); falta un costo unitario con fuente documentada"
+          "evidencia": "Budget calculation exists (cases × cost, requiring a source); a documented unit cost is still missing."
         },
         {
           "id": "US-5.5",
-          "como": "director financiero",
-          "quiero": "un dashboard con filtros de estado, sexo y tipo, y la curva real vs. pronóstico (solo si la demo de H18 pasó; antes del congelamiento de H20)",
-          "para": "decidir en minutos",
+          "como": "a finance director",
+          "quiero": "a dashboard with state/sex/type filters and observed-versus-forecast curves, after the H18 demo and before H20",
+          "para": "explore scenarios quickly",
           "quien": "Javier",
           "bloque": "h18",
           "prioridad": "Plus",
           "estado": "hecho",
-          "evidencia": "site/pronostico.html: curva real vs. pronóstico con bandas 80/95%, trimestres, escenarios y calidad del modelo"
+          "evidencia": "site/pronostico.html: observed/forecast curves, 80/95% exploratory bands, quarterly totals, scenarios and model evaluation. English migration remains open under US-7.9."
         }
       ]
     },
     {
       "id": "E6",
-      "nombre": "Demo e integración",
-      "objetivo": "Una demo de punta a punta que se entienda en 45 segundos.",
+      "nombre": "Demo and integration",
+      "objetivo": "An end-to-end demo that can be understood in 45 seconds.",
       "responsable": "Javier",
       "historias": [
         {
           "id": "US-6.1",
-          "como": "jurado",
-          "quiero": "una pantalla dividida: lo que ve el servidor (cifrado) y lo que ve el hospital (riesgo)",
-          "para": "ver la privacidad, no solo oírla",
+          "como": "a judge",
+          "quiero": "a split screen showing the service ciphertexts and hospital risk output",
+          "para": "see the privacy boundary in the demo",
           "quien": "Javier",
           "bloque": "h8",
           "prioridad": "MVP",
           "estado": "hecho",
-          "evidencia": "src/tamizaje/ui/index.html · submission/evidencias/local/ (captura real, local)"
+          "evidencia": "src/tamizaje/ui/index.html and submission/evidencias/local/ contain an actual local screenshot. English UI and new release screenshots remain open under US-7.9."
         },
         {
           "id": "US-6.2",
-          "como": "equipo",
-          "quiero": "la UI conectada al servicio real en LinuxONE",
-          "para": "demostrar que funciona de punta a punta",
+          "como": "a team member",
+          "quiero": "the UI connected to the actual service on LinuxONE",
+          "para": "demonstrate the complete deployed flow",
           "quien": "Javier · Álvaro",
           "bloque": "h12",
           "prioridad": "MVP",
           "estado": "en_curso",
-          "evidencia": "UI conectada al servicio real en dos contenedores locales; medición de la API trazable (medicion_api_…131320Z, 129 ms p50); falta LinuxONE"
+          "evidencia": "submission/evidencias/metricas/medicion_api_local-darwin-arm64_20261017T180952Z.json, commit 65ae4ef, local two-container deployment: 200/200 exact, p50 141.29 ms, p95 180.039 ms. LinuxONE evidence on the translated commit is missing."
         },
         {
           "id": "US-6.3",
-          "como": "equipo",
-          "quiero": "la demo de punta a punta en la hora 18",
-          "para": "tener 6 horas de margen para video y entrega",
-          "quien": "Equipo",
+          "como": "a team member",
+          "quiero": "the full demo working at H18",
+          "para": "retain six hours for video and submission",
+          "quien": "Whole team",
           "bloque": "h16",
           "prioridad": "MVP",
           "estado": "en_curso",
-          "evidencia": "recorrido completo local verificado (make demo + smoke + make medir-api desde clon limpio); falta LinuxONE"
+          "evidencia": "Complete local flow verified with demo, smoke and API measurement; LinuxONE execution is missing."
         },
         {
           "id": "US-6.4",
-          "como": "médico",
-          "quiero": "un formulario claro para capturar o subir los datos de un paciente (sintético en la demo) y ver su riesgo",
-          "para": "usar la herramienta sin tocar código",
+          "como": "a physician",
+          "quiero": "the existing 21-feature form polished with English labels, explicit CDC codes and validation using synthetic inputs",
+          "para": "use it without editing code",
           "quien": "Yazmin",
           "bloque": "h12",
           "prioridad": "Plus",
           "estado": "pendiente",
-          "evidencia": "base: la UI ya permite editar las 21 variables (src/tamizaje/ui/index.html); falta el formulario de médico"
+          "evidencia": "An existing synthetic profile selector and 21-feature editor are implemented. Optional physician-focused polish must use English labels and source coding. Required English UI migration is tracked separately in US-7.9."
         },
         {
           "id": "US-6.5",
-          "como": "jurado",
-          "quiero": "ver al hospital y al servicio de riesgo en dos máquinas distintas, comunicándose solo con cifrados",
-          "para": "confirmar que son sistemas separados",
+          "como": "a judge",
+          "quiero": "the hospital and risk service running on two real hosts and exchanging ciphertexts",
+          "para": "verify the optional host separation",
           "quien": "Álvaro · Carlos",
           "bloque": "h12",
           "prioridad": "Plus",
           "estado": "en_curso",
-          "evidencia": "PR 6: make ensayo-dos-maquinas aprobado en una sola máquina (no es evidencia); falta la corrida real VM A servicio (Carlos) y VM B hospital (Álvaro), docs/DOS_MAQUINAS.md"
+          "evidencia": "Local rehearsal passes as ENSAYO only. Strict mode now checks distinct host IDs, matching code/model hashes and the hospital log. Real-host evidence is still missing; synthetic inputs are the default."
         }
       ]
     },
     {
       "id": "E7",
-      "nombre": "Pitch y entrega",
-      "objetivo": "Entregar todo lo obligatorio antes de las 7:00 del 18 de octubre.",
+      "nombre": "Pitch and submission",
+      "objetivo": "Submit every required artifact in English by October 18, 07:00 Ciudad Juárez / 09:00 EDT.",
       "responsable": "Yazmin",
       "historias": [
         {
+          "id": "US-7.9",
+          "como": "a judge",
+          "quiero": "all authored code, comments, tests, UI, documentation, slides/PDF, diagram, video and submission text in English",
+          "para": "review a consistent English release",
+          "quien": "Javier · Carlos · Álvaro · Yazmin",
+          "bloque": "h12",
+          "prioridad": "MVP",
+          "estado": "en_curso",
+          "evidencia": "Captain instruction, October 17. English delivery plan/checklist and public story text updated. Code/comments, remaining guides, UI/dashboard, deck/diagram and video still require translation and review. Owners and acceptance criteria: docs/PLAN_CIERRE.md. Preserve historical evidence and raw source identifiers; rerun tests and final LinuxONE measurements on the translated release commit."
+        },
+        {
           "id": "US-7.1",
-          "como": "jurado",
-          "quiero": "un pitch deck claro con cifras con fuente",
-          "para": "evaluar rápido",
+          "como": "a judge",
+          "quiero": "a clear pitch deck with sourced statistics",
+          "para": "review the problem and solution quickly",
           "quien": "Yazmin",
           "bloque": "prep",
           "prioridad": "MVP",
@@ -464,9 +477,9 @@
         },
         {
           "id": "US-7.2",
-          "como": "jurado",
-          "quiero": "slides v2 con capturas reales de la demo y de LinuxONE",
-          "para": "ver evidencia, no maquetas",
+          "como": "a judge",
+          "quiero": "English slides with actual demo and LinuxONE screenshots",
+          "para": "inspect evidence instead of mockups",
           "quien": "Yazmin",
           "bloque": "h12",
           "prioridad": "MVP",
@@ -474,64 +487,64 @@
         },
         {
           "id": "US-7.3",
-          "como": "jurado",
-          "quiero": "un video de máximo 3 min (meta 2:50) con el problema, los datos que lo respaldan, la solución y cómo usa IBM Z: stack, instancia LinuxONE y modelo en pantalla, con link público",
-          "para": "calificar la ejecución",
+          "como": "a judge",
+          "quiero": "a public English video no longer than three minutes (target 2:50), showing the problem, supporting data, solution, stack, LinuxONE instance and model",
+          "para": "assess the execution",
           "quien": "Yazmin",
           "bloque": "h18",
           "prioridad": "MVP",
           "estado": "en_curso",
-          "evidencia": "borrador sin audio de 170 s (make video-borrador) y storyboard en submission/VIDEO.md; faltan voces y la grabación en LinuxONE"
+          "evidencia": "Only a silent 170-second draft exists. Final English narration and LinuxONE/model footage are missing; see submission/VIDEO.md."
         },
         {
           "id": "US-7.4",
-          "como": "organización",
-          "quiero": "el deck en PDF con el nombre oficial",
-          "para": "cumplir el requisito del kick-off",
+          "como": "an organizer",
+          "quiero": "the English deck exported to PDF with the exact required filename",
+          "para": "receive the required document",
           "quien": "Yazmin",
           "bloque": "h18",
           "prioridad": "MVP",
           "estado": "en_curso",
-          "evidencia": "submission/Los Antimarrulla_IBM Z Datathon 2026 Project.pdf con cifras locales; falta la versión con mediciones de LinuxONE"
+          "evidencia": "An existing PDF has local measurements. English slide/PDF translation, visual review and final VM evidence are still required."
         },
         {
           "id": "US-7.5",
-          "como": "jurado",
-          "quiero": "el código en un repo público y reproducible (link de GitHub): README de la demo, pip freeze y créditos con links open source",
-          "para": "poder correrlo",
+          "como": "a judge",
+          "quiero": "a public reproducible repository link with English run instructions, pinned dependencies and open-source resource links",
+          "para": "run and inspect the submitted code",
           "quien": "Carlos · Javier",
           "bloque": "h18",
           "prioridad": "MVP",
           "estado": "en_curso",
-          "evidencia": "make verify en clon limpio y CI verde; procedencia trazable; falta s390x y revisión de otro integrante (docs/REVISION.md)"
+          "evidencia": "Public repo and CI exist; the final English release, independent teammate review and final evidence remain open."
         },
         {
           "id": "US-7.7",
-          "como": "jurado",
-          "quiero": "un flowchart del diseño (qué vive en el hospital y qué en LinuxONE) exportado a PNG/PDF",
-          "para": "entender la arquitectura de un vistazo (entregable opcional)",
+          "como": "a judge",
+          "quiero": "an English architecture flowchart showing the hospital and LinuxONE boundaries in PNG/PDF",
+          "para": "understand the implemented design; this artifact is optional",
           "quien": "Álvaro · Javier",
           "bloque": "h16",
           "prioridad": "Plus",
-          "estado": "hecho",
-          "evidencia": "submission/flowchart/arquitectura.pdf (exportado de la arquitectura implementada)"
+          "estado": "en_curso",
+          "evidencia": "submission/flowchart/arquitectura.pdf exists; English labels and visual verification remain open under US-7.9."
         },
         {
           "id": "US-7.8",
-          "como": "jurado",
-          "quiero": "publicar el prototipo ya integrado (link al prototipo interactivo si es accesible públicamente), sin funciones nuevas después del congelamiento",
-          "para": "que el jurado lo pueda abrir; es un entregable opcional distinto del video de la demo",
+          "como": "a judge",
+          "quiero": "an accessible English prototype link, if public access is feasible, without new features after the freeze",
+          "para": "try the optional interactive artifact separately from the demo video",
           "quien": "Javier",
           "bloque": "h18",
           "prioridad": "Plus",
           "estado": "en_curso",
-          "evidencia": "prototipo interactivo con make demo (solo localhost); falta decidir si se publica un acceso y distinguirlo del video"
+          "evidencia": "The local demo runs; a publicly accessible prototype URL has not been established. Public prototype hosting is optional."
         },
         {
           "id": "US-7.6",
-          "como": "equipo",
-          "quiero": "que el líder del equipo envíe desde el dashboard de Hack2skill a las 7:00, después de que los 4 revisen: título \"Los Antimarrulla_IBM Z Datathon 2026 Project\", detalles y problema, link del repo, video, PDF y opcionales",
-          "para": "no depender de los últimos minutos",
+          "como": "a team member",
+          "quiero": "the registered leader to submit from the dashboard after all four review, by October 18 at 07:00 Ciudad Juárez, with the exact title, English details, video, repository, PDF and optional links",
+          "para": "keep a 3-hour-30-minute buffer before the confirmed portal deadline",
           "quien": "Javier",
           "bloque": "h22",
           "prioridad": "MVP",
@@ -539,5 +552,34 @@
         }
       ]
     }
-  ]
+  ],
+  "submission_window": {
+    "opens_utc": "2026-10-16T23:45:00Z",
+    "closes_utc": "2026-10-18T16:30:00Z",
+    "internal_target_utc": "2026-10-18T13:00:00Z",
+    "source": "Event notice supplied by the team captain: IBM Z Datathon — Project Submissions (LIVE NOW).",
+    "url": "https://hack2skill.com/event/datathon-2026",
+    "scope": "Submission window only; coding-start and labs-order questions remain unresolved."
+  },
+  "language_policy": {
+    "language": "English",
+    "mandatory": true,
+    "story": "US-7.9",
+    "status": "in_progress",
+    "scope": [
+      "code identifiers, comments and docstrings",
+      "tests, CLI, logs and errors",
+      "UI, website and dashboard",
+      "documentation and notebooks",
+      "slides, PDF and diagrams",
+      "video narration and captions",
+      "Hack2Skill submission"
+    ],
+    "preserve": [
+      "proper names and exact required title",
+      "official source identifiers and original raw datasets",
+      "historical commits, dates and measured evidence"
+    ],
+    "source": "Captain instruction; not asserted as an organizer rule."
+  }
 }

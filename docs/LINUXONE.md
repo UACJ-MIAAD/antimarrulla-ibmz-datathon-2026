@@ -23,6 +23,8 @@ No hace falta instalar Python con pip en la VM: las imágenes usan Ubuntu 24.04 
 
 ## 2. Verificar, levantar y medir
 
+Las pruebas preliminares de `03_test_stack.py` verifican bibliotecas. `05_test_claims.py` ahora ejecuta el protocolo real de 21 variables y guarda salida con procedencia en `submission/evidencias/instancia/`. Con el entorno del proyecto listo: `make instance-claims`; sin instalar nada en el host, `make verify-docker` prueba la implementación dentro de Ubuntu. Guardar salidas y capturas; una cifra por chat no cierra la evidencia de VM.
+
 ```bash
 git checkout <commit fijado>             # el mismo que se quiere evidenciar; sin cambios locales
 make verify-docker                         # todas las pruebas + verificación de artefactos y re-entrenamiento, dentro de Linux s390x
@@ -67,6 +69,8 @@ Guardar en `submission/evidencias/linuxone/`:
 Copiar `submission/evidencias/linuxone/REGISTRO.ejemplo.json` como `REGISTRO.json`, con responsable, fecha y el nombre de cada captura real. `make package FINAL=1` revisa que existan, que sean PNG/JPEG y que las mediciones `s390x` tengan resultados completos y procedencia limpia (no certifica el contenido de las capturas).
 
 ## 6. Después
+
+Mantener el mismo commit durante cada corrida. Un cambio nuevo modifica el hash del código aunque no cambie el modelo; las mediciones anteriores se conservan como evidencia de su propia versión. Seguir [PLAN_CIERRE.md](PLAN_CIERRE.md): la segunda VM y el formulario pulido son extras, sin bloquear el MVP aprobado de una VM.
 
 - Hacer commit de `submission/evidencias/metricas/` y `submission/evidencias/linuxone/`.
 - Actualizar las historias US-2.5, US-2.6, US-6.2 y US-6.3 en `site/status.json` solo con esa evidencia.

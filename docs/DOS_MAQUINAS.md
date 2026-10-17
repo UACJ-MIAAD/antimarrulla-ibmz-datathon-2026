@@ -1,9 +1,9 @@
 # 🖧 Prueba de dos máquinas: el servicio nunca ve datos en claro
 
 > Complementa la demo de [LINUXONE.md](LINUXONE.md), que corre los dos contenedores en **la misma VM**. Aquí el
-> servicio de riesgo corre en **una VM** y el hospital en **otra**, con **registros reales** de la partición de prueba
-> del CDC, y al final una auditoría deja en `submission/evidencias/dos_maquinas/` la prueba de que el servicio solo
-> manejó cifrados.
+> servicio de riesgo corre en **una VM** y el hospital en **otra**, con **pacientes sintéticos por defecto**. El CDC
+> público se usa solo al pedir `DATOS=cdc` para un benchmark. La auditoría contrasta la evidencia capturada;
+> no es una prueba formal de ausencia de fugas ni reemplaza las capturas del proveedor.
 
 | | VM A · servicio de riesgo | VM B · hospital |
 |---|---|---|
@@ -18,7 +18,7 @@ Ubuntu 24.04, así que no hay que compilar nada en s390x.
 ## 0. Ensayo en una sola máquina (opcional, 2 min)
 
 ```bash
-make ensayo-dos-maquinas        # con el venv: servicio en otro proceso, 20 registros, auditoría en modo ensayo
+make ensayo-dos-maquinas        # con el venv: otro proceso, 20 sintéticos, auditoría en modo ensayo
 ```
 
 Debe terminar con **ENSAYO APROBADO**. No es evidencia: solo comprueba el flujo.
@@ -45,20 +45,22 @@ rm -r ~/.tamizaje-dos-maquinas/para_hospital
 make servicio-remoto-docker     # se queda en primer plano mostrando cada solicitud; Ctrl+C al terminar
 ```
 
-Si la VM tiene firewall: `sudo ufw allow 8443/tcp`. Desde la VM B, `nc -vz IP_VM_A 8443` debe conectar.
-Si la red solo deja pasar el puerto 22, usa un túnel en la VM B (`ssh -N -L 8443:localhost:8443 USUARIO@IP_VM_A`) y
+Preferir un túnel SSH en la VM B (`ssh -N -L 8443:localhost:8443 USUARIO@IP_VM_A`) y
 en el paso 3 `SERVICIO_URL=https://localhost:8443`; el certificado ya incluye `localhost`.
+Si se usa conexión directa, restringir el acceso a la IP del hospital (por ejemplo, `sudo ufw allow from <IP_VM_B> to any port 8443 proto tcp`), sin abrir la UI ni desactivar la comprobación de certificados.
 
-## 3. VM B (hospital): mandar registros reales cifrados
+## 3. VM B (hospital): mandar sintéticos cifrados
 
 ```bash
 make hospital-remoto-docker SERVICIO_URL=https://<IP de la VM A>:8443 N=200
 ```
 
-Toma 200 registros estratificados y reproducibles de la partición de prueba del CDC (semilla 2026), cifra cada uno,
-lo manda por TLS 1.3 mutuo, descifra y compara con el cálculo en claro. Al final imprime enteros idénticos, ROC-AUC
-flotante vs. cifrado y latencia p50/p95. Mientras corre, la terminal de la VM A muestra solo ids, tamaños y
+Genera 200 sintéticos deterministas (semilla 2026), cifra cada uno, lo manda por TLS 1.3 mutuo, descifra y compara
+con el cálculo en claro. Imprime enteros idénticos y latencia p50/p95. No informa AUC en sintéticos porque no tienen
+etiqueta clínica observada. Antes de medir verifica el hash del modelo y del código remoto. La terminal de la VM A muestra ids, tamaños y
 `llave_privada_en_memoria=False`.
+
+Para un **benchmark separado** con el CDC público anonimizado: `make hospital-remoto-docker SERVICIO_URL=https://<IP de la VM A>:8443 N=200 DATOS=cdc`. Solo en este modo se calculan AUC y sensibilidad si hay ambas clases. No usarlo como la demo de pacientes sintéticos ni como validación clínica.
 
 ## 4. Auditoría (en la VM A)
 
@@ -78,18 +80,20 @@ El reporte (`auditoria_<fecha>.md` y `.json`, más un par solicitud/respuesta de
 4. Ningún resultado descifrado (entero z, logit, probabilidad) ni vector de entrada aparece en logs o archivos del servicio.
 5. El proceso del servicio no tenía ninguna llave privada Paillier en memoria (al arrancar y en cada solicitud).
 6. Canal TLS 1.3 con certificado de cliente `hospital`.
-7. Dos máquinas distintas (nombre de host o `machine-id`).
-8. Enteros idénticos al cálculo en claro y las mismas métricas cifrado vs. flotante.
+7. IDs de host presentes y distintos. Los nombres de contenedor no acreditan dos máquinas; deben contrastarse con las dos VM. Un `machine-id` declarado no certifica por sí solo el proveedor ni impide suplantación por el administrador.
+8. Enteros idénticos al cálculo en claro y las mismas métricas cuando existen etiquetas CDC.
+9. Hash de la bitácora del hospital y conteos coherentes con su resumen.
+10. Hashes de código y modelo coincidentes entre hospital, salud y evidencia del servicio.
 
 Termina en **APROBADA** o **FALLIDA** (código de salida 1). Haz commit del reporte; la evidencia cruda
 (`~/.tamizaje-dos-maquinas/evidencia_servicio`, ~27 KB por solicitud) se queda fuera del repo.
 
 ## Qué sí y qué no demuestra
 
-- **Sí:** con los mismos bytes en ambos lados, el servicio recibió y devolvió solo cifrados, no tenía con qué
-  descifrar y aun así el hospital obtuvo exactamente el resultado del modelo.
+- **Sí:** los registros capturados muestran cifrados y permiten contrastar bytes, versiones y resultados. La búsqueda de llaves se limita a objetos Python detectables; no certifica que nunca hubo una llave ni examina al administrador/hipervisor.
 - **No:** no mide CPACF ni sustituye las capturas de [LINUXONE.md](LINUXONE.md). La comprobación de memoria busca
   objetos `PaillierPrivateKey` en el proceso de Python del servicio; es evidencia, no una prueba formal.
 - La tabla de tiempos incluye la red entre las dos VM. Si alguna VM no es s390x, el reporte lo dice arriba.
-- La auditoría del lado del hospital no guarda los vectores de entrada; los registros del CDC son públicos y anónimos,
-  y cualquiera puede reconstruirlos con `cdc_id` desde `data/cdc_891/`.
+- Este ensayo usa un cliente de hospital directo: no incluye navegador, API de la UI ni bóveda. Para el recorrido completo de la aplicación se conserva `make medir-api-docker`; no comparar ambos tiempos como si fueran la misma operación.
+- La bitácora del hospital guarda resultados descifrados. Para auditarla se copian esos resultados a una carpeta del operador, fuera del proceso del servicio: esa copia posterior no forma parte del recorrido de inferencia privada. No publicar bitácoras que provengan de pacientes privados.
+- El ensayo usa sintéticos; si se elige CDC, `registro_id` permite reconstruir la fila pública desde `data/cdc_891/`. Los datos no adquieren mayor anonimato por cambiar el nombre de la columna.

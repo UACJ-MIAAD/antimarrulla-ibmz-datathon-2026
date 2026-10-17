@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
-# 04_docker_check.sh - Installs Docker if needed and runs the full test suite inside
-# an Ubuntu 24.04 container on this machine's architecture (s390x on LinuxONE).
+# 04_docker_check.sh - Preflight de Docker y bibliotecas en Ubuntu 24.04.
+# Para las pruebas completas del proyecto: make verify-docker desde la raíz.
 set -euo pipefail
 cd "$(dirname "$0")"
 

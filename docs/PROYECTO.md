@@ -187,7 +187,7 @@ Matriz de confusión en prueba: 4,268 VP · 1,034 FN · 22,644 VN · 10,106 FP.
 
 ¹ `average_precision_score` de scikit-learn: suma de precisiones ponderada por el incremento de recall; no es el área trapezoidal bajo la curva PR. ² Error de calibración esperado con 10 grupos de igual tamaño.
 
-- **`class_weight="balanced"`** casi no cambia el ranking (ROC-AUC 0.827) pero infla las probabilidades: p media 0.386 contra 13.9% de positivos, Brier 0.175 y ECE 0.246. Por eso el modelo exportado no lo usa y no hace falta calibrador.
+- **`class_weight="balanced"`** casi no cambia el ranking (ROC-AUC 0.827) pero infla las probabilidades: p media 0.386 contra 13.9% de positivos, Brier 0.175 y ECE 0.246. El modelo exportado no lo usa; su calibración observada se reporta en la tabla. Eso no garantiza calibración en otra población: el experimento ENSANUT muestra subestimación y requeriría evaluación y recalibración propias.
 - **Duplicados:** 24,206 filas repetidas sin `ID` en todo el CDC; 4,560 filas de prueba tienen una copia idéntica en entrenamiento. Pueden ser respuestas iguales de personas distintas. Entrenando sin duplicados (163,437 filas) el resultado en prueba casi no cambia: ROC-AUC 0.826, AP 0.415, Brier 0.098.
 - **Punto fijo:** en las 38,052 filas de prueba, el error máximo del logit frente al flotante es 5.7×10⁻⁸ (cota 9.6×10⁻⁸), el ROC-AUC es idéntico y ninguna decisión cambia en el umbral.
 - XGBoost no se entrenó: queda subordinado a la logística.

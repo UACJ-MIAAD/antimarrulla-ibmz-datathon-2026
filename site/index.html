@@ -163,24 +163,25 @@ header.top .brand{white-space:nowrap;overflow:hidden;text-overflow:ellipsis;min-
           <circle id="ringArc" cx="100" cy="100" r="86" fill="none" stroke="url(#g)" stroke-width="16" stroke-linecap="round" stroke-dasharray="540.35" stroke-dashoffset="540.35" style="transition:stroke-dashoffset 1s"/>
           <defs><linearGradient id="g" x1="0" x2="1"><stop offset="0" stop-color="#0f62fe"/><stop offset="1" stop-color="#6fdc8c"/></linearGradient></defs>
         </svg>
-        <div class="num"><b id="pct">—</b><span>avance total</span></div>
+        <div class="num"><b id="pct">—</b><span>overall progress</span></div>
       </div>
       <div class="split">
         <div><span style="color:var(--lblue)">MVP</span><b id="pmvp">—</b></div>
         <div><span style="color:#c7a6ff">Plus</span><b id="pplus">—</b></div>
       </div>
-      <div class="note" id="counts" style="margin-top:10px"></div><div class="note" style="margin-top:4px">% de historias completadas (en curso cuenta ½). No mide esfuerzo ni horas.</div>
+      <div class="note" id="counts" style="margin-top:10px"></div><div class="note" style="margin-top:4px">Story progress (in progress counts as ½). This does not measure effort or hours.</div>
     </div>
   </div>
 
+  <p class="note" lang="en"><b>Submissions are open.</b> Oct 16, 23:45 UTC (19:45 EDT / 17:45 Juárez) → Oct 18, 16:30 UTC (12:30 EDT / 10:30 Juárez / 18:30 SAST). <a href="https://hack2skill.com/event/datathon-2026">Hack2Skill team dashboard</a>. Keep the internal target and the 3 h 30 min buffer. All authored release material must be in English; translation and review remain open under US-7.9.</p>
   <div class="clocks">
-    <div class="clock main"><div class="lbl">Cierre de entrega</div><div class="val mono" id="c-cierre">--:--:--</div><div class="when">18 oct · 10:30 Juárez</div></div>
-    <div class="clock"><div class="lbl">Meta interna de envío</div><div class="val mono" id="c-meta">--:--:--</div><div class="when">18 oct · 7:00 Juárez</div></div>
-    <div class="clock"><div class="lbl">Demo funcional (H18)</div><div class="val mono" id="c-demo">--:--:--</div><div class="when">18 oct · 1:00 Juárez</div></div>
-    <div class="clock"><div class="lbl">Ahora en Juárez</div><div class="val mono" id="c-ahora">--:--</div><div class="when" id="c-hora">—</div></div>
+    <div class="clock main"><div class="lbl">Submission deadline</div><div class="val mono" id="c-cierre">--:--:--</div><div class="when">Oct 18 · 10:30 Juárez / 12:30 EDT / 16:30 UTC</div></div>
+    <div class="clock"><div class="lbl">Internal submission target</div><div class="val mono" id="c-meta">--:--:--</div><div class="when">Oct 18 · 07:00 Juárez / 09:00 EDT</div></div>
+    <div class="clock"><div class="lbl">Working demo (H18)</div><div class="val mono" id="c-demo">--:--:--</div><div class="when">Oct 18 · 01:00 Juárez</div></div>
+    <div class="clock"><div class="lbl">Current time in Juárez</div><div class="val mono" id="c-ahora">--:--</div><div class="when" id="c-hora">—</div></div>
   </div>
   <div class="bar"><i id="bar"></i></div>
-  <div class="barlbl"><span>H0 · 17 oct 7:00</span><span id="barpct">0%</span><span>H24 · 18 oct 7:00</span></div>
+  <div class="barlbl"><span>H0 · Oct 17, 07:00 Juárez</span><span id="barpct">0%</span><span>H24 · Oct 18, 07:00 Juárez</span></div>
 </div></div>
 
 
@@ -229,15 +230,15 @@ header.top .brand{white-space:nowrap;overflow:hidden;text-overflow:ellipsis;min-
   </div>
 </div></section>
 
-<section id="plan"><div class="wrap">
-  <h2>Plan público: épicas e historias</h2>
-  <p class="lead">7 épicas y sus historias de usuario, con responsable, horario y estado. El estado se lee en vivo desde nuestro repositorio en GitHub.</p>
-  <div class="tabs" role="tablist" aria-label="Vista del plan"><button class="on" role="tab" aria-selected="true" aria-controls="view-epicas" data-v="epicas">Por épicas</button><button role="tab" aria-selected="false" aria-controls="view-horario" data-v="horario">Por horario</button></div>
+<section id="plan" lang="en"><div class="wrap">
+  <h2>Public delivery plan: epics and stories</h2>
+  <p class="lead">Seven epics with owners, checkpoints and evidence-based status. The site uses the newer plan from GitHub or this deployment. English is mandatory for all authored release material; US-7.9 remains open.</p>
+  <div class="tabs" role="tablist" aria-label="Plan view"><button class="on" role="tab" aria-selected="true" aria-controls="view-epicas" data-v="epicas">By epic</button><button role="tab" aria-selected="false" aria-controls="view-horario" data-v="horario">By schedule</button></div>
   <div class="filters" id="filters">
-    <button data-f="todas" class="on">Todas</button><button data-f="MVP">Solo MVP</button><button data-f="Plus">Solo Plus</button>
-    <button data-f="pendiente">Pendientes</button><button data-f="en_curso">En curso</button><button data-f="hecho">Hechas</button>
+    <button data-f="todas" class="on">All</button><button data-f="MVP">MVP only</button><button data-f="Plus">Extras only</button>
+    <button data-f="pendiente">Pending</button><button data-f="en_curso">In progress</button><button data-f="hecho">Done</button>
   </div>
-  <div id="view-epicas" class="epics" role="tabpanel"><div class="note">Cargando plan…</div></div>
+  <div id="view-epicas" class="epics" role="tabpanel"><div class="note">Loading plan…</div></div>
   <div id="view-horario" class="timeline" role="tabpanel" style="display:none"></div>
   <div class="upd" id="upd"></div>
 </div></section>
@@ -257,10 +258,10 @@ header.top .brand{white-space:nowrap;overflow:hidden;text-overflow:ellipsis;min-
 
 <script>
 const RAW="https://raw.githubusercontent.com/UACJ-MIAAD/antimarrulla-ibmz-datathon-2026/main/site/status.json";
-const TZ=(()=>{try{new Intl.DateTimeFormat("es-MX",{timeZone:"America/Ciudad_Juarez"});return "America/Ciudad_Juarez"}catch(e){return "America/Denver"}})();
-const fmtT=d=>new Intl.DateTimeFormat("es-MX",{timeZone:TZ,hour:"2-digit",minute:"2-digit",hour12:false}).format(d);
-const fmtD=d=>new Intl.DateTimeFormat("es-MX",{timeZone:TZ,day:"numeric",month:"short",hour:"2-digit",minute:"2-digit",hour12:false}).format(d);
-const LABEL={hecho:"Hecho",en_curso:"En curso",pendiente:"Pendiente",bloqueado:"Bloqueado"};
+const TZ=(()=>{try{new Intl.DateTimeFormat("en-US",{timeZone:"America/Ciudad_Juarez"});return "America/Ciudad_Juarez"}catch(e){return "America/Denver"}})();
+const fmtT=d=>new Intl.DateTimeFormat("en-US",{timeZone:TZ,hour:"2-digit",minute:"2-digit",hour12:false}).format(d);
+const fmtD=d=>new Intl.DateTimeFormat("en-US",{timeZone:TZ,day:"numeric",month:"short",hour:"2-digit",minute:"2-digit",hour12:false}).format(d);
+const LABEL={hecho:"Done",en_curso:"In progress",pendiente:"Pending",bloqueado:"Blocked"};
 const W8={hecho:1,en_curso:.5,pendiente:0,bloqueado:0};
 let H={hora_cero:"2026-10-17T13:00:00Z",demo_funcional:"2026-10-18T07:00:00Z",meta_envio:"2026-10-18T13:00:00Z",cierre_hack2skill:"2026-10-18T16:30:00Z"};
 let ST=null, VIEW="epicas", FILT="todas";
@@ -270,41 +271,42 @@ function cd(ms){if(ms<=0)return"00:00:00";const s=Math.floor(ms/1000),h=Math.flo
 function tick(){
   const now=new Date(),h0=new Date(H.hora_cero);
   c("c-cierre",cd(new Date(H.cierre_hack2skill)-now));c("c-meta",cd(new Date(H.meta_envio)-now));c("c-demo",cd(new Date(H.demo_funcional)-now));c("c-ahora",fmtT(now));
-  const hrs=(now-h0)/3.6e6;c("c-hora",hrs<0?`faltan ${(-hrs).toFixed(1)} h para H0`:(hrs<=24?`vamos en H${Math.floor(hrs)} del plan`:"plan terminado"));
-  const p=Math.max(0,Math.min(100,hrs/24*100));document.getElementById("bar").style.width=p+"%";c("barpct",p.toFixed(0)+"% del tiempo");
+  const hrs=(now-h0)/3.6e6;c("c-hora",hrs<0?`${(-hrs).toFixed(1)} h until internal H0`:(hrs<=24?`Internal plan: H${Math.floor(hrs)}`:"Internal plan complete"));
+  const p=Math.max(0,Math.min(100,hrs/24*100));document.getElementById("bar").style.width=p+"%";c("barpct",p.toFixed(0)+"% of planned time");
   if(ST)markNow();
 }
 const c=(id,t)=>document.getElementById(id).textContent=t;
 function allUS(){return ST.epicas.flatMap(e=>e.historias.map(u=>({...u,epica:e.id})))}
 function pass(u){return FILT==="todas"||u.prioridad===FILT||u.estado===FILT}
 function usHTML(u){const b=ST.bloques.find(x=>x.id===u.bloque);
-  return `<li class="${u.estado}"><div class="uid">${u.id}</div><div><div class="story">Como <b>${esc(u.como)}</b>, quiero ${esc(u.quiero)} <em>para ${esc(u.para)}</em>.</div>
-  <div class="meta"><span class="chip s-${u.estado}"><span class="dot"></span>${LABEL[u.estado]}</span><span class="prio ${u.prioridad}">${u.prioridad}</span><span>${esc(u.quien)}</span>${b?`<span>· ${esc(b.titulo)}</span>`:""}</div></div></li>`}
+  return `<li class="${u.estado}"><div class="uid">${u.id}</div><div><div class="story">As <b>${esc(u.como)}</b>, I want ${esc(u.quiero)} <em>so I can ${esc(u.para)}</em>.</div>
+  <div class="meta"><span class="chip s-${u.estado}"><span class="dot"></span>${LABEL[u.estado]}</span><span class="prio ${u.prioridad}">${u.prioridad}</span><span>${esc(u.quien)}</span>${b?`<span>· ${esc(b.titulo)}</span>`:""}</div>
+  ${u.evidencia?`<details style="margin-top:8px;font-size:13px;color:var(--muted);overflow-wrap:anywhere"><summary>Evidence and remaining work</summary><p>${esc(u.evidencia)}</p></details>`:""}</div></li>`}
 function render(){
   const all=allUS(), mvp=all.filter(u=>u.prioridad==="MVP"), plus=all.filter(u=>u.prioridad==="Plus"), p=pctOf(all);
   c("pct",p+"%");c("pmvp",pctOf(mvp)+"%");c("pplus",pctOf(plus)+"%");c("minipct",p+"%");
   document.getElementById("ringArc").style.strokeDashoffset=540.35*(1-p/100);
   document.getElementById("minibar").style.width=p+"%";document.getElementById("prog").style.width=p+"%";
   const n=k=>all.filter(u=>u.estado===k).length;
-  c("counts",`${all.length} historias · ${n("hecho")} hechas · ${n("en_curso")} en curso · ${n("pendiente")} pendientes${n("bloqueado")?` · ${n("bloqueado")} bloqueadas`:""}`);
+  c("counts",`${all.length} stories · ${n("hecho")} done · ${n("en_curso")} in progress · ${n("pendiente")} pending${n("bloqueado")?` · ${n("bloqueado")} blocked`:""}`);
   document.getElementById("view-epicas").innerHTML=ST.epicas.map(e=>{const us=e.historias.filter(pass), ep=pctOf(e.historias);
     if(!us.length)return"";
-    return `<article class="epic"><div class="epic-h"><span class="eid">${e.id}</span><div><h3>${esc(e.nombre)}</h3><p>${esc(e.objetivo)}</p></div><div class="own">Responsable<br><b style="color:var(--txt)">${esc(e.responsable)}</b></div></div>
-    <div class="ebar"><div class="t"><i style="width:${ep}%"></i></div><b>${ep}%</b></div><ul class="us">${us.map(usHTML).join("")}</ul></article>`}).join("")||'<div class="note">Ninguna historia con este filtro.</div>';
+    return `<article class="epic"><div class="epic-h"><span class="eid">${e.id}</span><div><h3>${esc(e.nombre)}</h3><p>${esc(e.objetivo)}</p></div><div class="own">Owner<br><b style="color:var(--txt)">${esc(e.responsable)}</b></div></div>
+    <div class="ebar"><div class="t"><i style="width:${ep}%"></i></div><b>${ep}%</b></div><ul class="us">${us.map(usHTML).join("")}</ul></article>`}).join("")||'<div class="note">No stories match this filter.</div>';
   document.getElementById("view-horario").innerHTML=ST.bloques.map(b=>{const us=all.filter(u=>u.bloque===b.id&&pass(u));if(!us.length)return"";
-    return `<div class="blk" data-i="${b.inicio}" data-f="${b.fin}"><div><h3>${esc(b.titulo)}</h3><div class="time">${fmtD(new Date(b.inicio))} → ${fmtT(new Date(b.fin))}</div><span class="now-tag" style="display:none">AHORA</span>
+    return `<div class="blk" data-i="${b.inicio}" data-f="${b.fin}"><div><h3>${esc(b.titulo)}</h3><div class="time">${fmtD(new Date(b.inicio))} → ${fmtT(new Date(b.fin))}</div><span class="now-tag" style="display:none">NOW</span>
     <div class="ebar" style="margin-top:10px"><div class="t"><i style="width:${pctOf(all.filter(u=>u.bloque===b.id))}%"></i></div><b>${pctOf(all.filter(u=>u.bloque===b.id))}%</b></div></div><ul class="us">${us.map(usHTML).join("")}</ul></div>`}).join("");
-  c("upd","Última actualización del estatus: "+fmtD(new Date(ST.actualizado))+" (hora Juárez)");
+  c("upd","Status updated: "+fmtD(new Date(ST.actualizado))+" (Ciudad Juárez time)");
   markNow();
 }
 function markNow(){const now=new Date();document.querySelectorAll(".blk").forEach(el=>{const a=new Date(el.dataset.i),b=new Date(el.dataset.f),on=now>=a&&now<b;el.classList.toggle("now",on);el.classList.toggle("past",now>=b);const t=el.querySelector(".now-tag");if(t)t.style.display=on?"inline-block":"none"})}
-// Dos copias del plan: GitHub (main) y la publicada con el sitio. Gana la de "rev" mayor (desempate: fecha);
-// nunca se retrocede frente a lo que ya se muestra, y cada petición tiene límite de 6 s.
+// Compare GitHub main with the deployed plan by revision, then timestamp.
+// Never roll back the displayed version; each request has a six-second deadline.
 function getJ(u){const c=new AbortController(),t=setTimeout(()=>c.abort(),6000);return fetch(u,{cache:"no-store",signal:c.signal}).then(r=>{if(!r.ok)throw 0;return r.json()}).then(s=>s&&s.epicas?s:null).catch(()=>null).finally(()=>clearTimeout(t))}
 function verKey(s){return (Number(s.rev)||0)*1e13+(Date.parse(s.actualizado)||0)}
 function take(s){if(!s||(ST&&verKey(s)<=verKey(ST)))return false;ST=s;if(s.hitos)H={...H,...s.hitos};render();return true}
 function load(first){return Promise.all([getJ(RAW+"?t="+Date.now()).then(take),getJ("status.json?t="+Date.now()).then(take)])
-  .then(()=>{if(first&&!ST)document.getElementById("view-epicas").innerHTML='<div class="note">No se pudo cargar el plan.</div>'})}
+  .then(()=>{if(first&&!ST)document.getElementById("view-epicas").innerHTML='<div class="note">The plan could not be loaded.</div>'})}
 document.querySelector(".tabs").onclick=e=>{const b=e.target.closest("button");if(!b)return;VIEW=b.dataset.v;document.querySelectorAll(".tabs button").forEach(x=>{x.classList.toggle("on",x===b);x.setAttribute("aria-selected",x===b?"true":"false")});
   document.getElementById("view-epicas").style.display=VIEW==="epicas"?"grid":"none";document.getElementById("view-horario").style.display=VIEW==="horario"?"grid":"none";markNow()};
 document.getElementById("filters").onclick=e=>{const b=e.target.closest("button");if(!b)return;FILT=b.dataset.f;document.querySelectorAll("#filters button").forEach(x=>x.classList.toggle("on",x===b));if(ST)render()};

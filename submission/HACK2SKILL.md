@@ -44,4 +44,4 @@ Python 3.12 · scikit-learn · python-paillier (`phe`) + gmpy2 · cryptography (
 | Flowchart (opcional) | [flowchart/arquitectura.pdf](flowchart/arquitectura.pdf) |
 | Prototipo (opcional) | Prototipo interactivo: se corre con `make demo` y se abre en `http://127.0.0.1:8080` (no hay URL pública: la UI solo escucha en localhost). Es distinto del video de la demo |
 | Recursos open source | Tabla de [Créditos y librerías](../README.md#créditos-y-librerías) |
-| Uso de IA | Pendiente: el equipo decide dónde va la declaración |
+| Uso de IA | Pendiente: el equipo decide dónde va la declaración (borrador local, no versionado: `submission/USO_IA.md`) |

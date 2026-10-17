@@ -15,15 +15,15 @@ sudo apt-get install -y python3-venv python3-dev python3-pip build-essential pkg
   libgmp-dev libmpfr-dev libmpc-dev libssl-dev libffi-dev openssl curl
 
 if [[ "$MODE" == "apt" ]]; then
-  sudo apt-get install -y python3-numpy python3-sklearn python3-gmpy2 python3-cryptography
+  sudo apt-get install -y python3-numpy python3-sklearn python3-gmpy2 python3-cryptography python3-pytest
   python3 -m venv --system-site-packages "$VENV"
   "$VENV/bin/pip" install --upgrade pip
-  "$VENV/bin/pip" install phe
+  "$VENV/bin/pip" install phe==1.5.0
 else
   sudo apt-get install -y gfortran libopenblas-dev cargo rustc
   python3 -m venv "$VENV"
   "$VENV/bin/pip" install --upgrade pip wheel
-  "$VENV/bin/pip" install numpy scikit-learn gmpy2 cryptography phe
+  "$VENV/bin/pip" install numpy scikit-learn gmpy2 cryptography phe==1.5.0 pytest
 fi
 
 echo

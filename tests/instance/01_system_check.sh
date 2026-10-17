@@ -11,7 +11,7 @@ echo "== System check =="
 [[ "$ID" == "ubuntu" && "$VERSION_ID" == "24.04" ]] && ok "OS: $PRETTY_NAME" || warn "OS is $PRETTY_NAME (expected Ubuntu 24.04)"
 
 ARCH=$(uname -m)
-[[ "$ARCH" == "s390x" ]] && ok "Architecture: s390x (LinuxONE)" || warn "Architecture is $ARCH, not s390x"
+[[ "$ARCH" == "s390x" ]] && ok "Architecture: s390x (proveedor por verificar con dashboard)" || warn "Architecture is $ARCH, not s390x"
 
 command -v python3 >/dev/null && ok "Python: $(python3 --version 2>&1)" || fail "python3 not found"
 

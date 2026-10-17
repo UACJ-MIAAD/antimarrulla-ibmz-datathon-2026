@@ -32,6 +32,35 @@ def resumen(xs):
     return {"n": len(xs), "p50_ms": round(pct(xs, 50), 3), "p95_ms": round(pct(xs, 95), 3), "media_ms": round(statistics.mean(xs), 3)}
 
 
+def benchmark_claro(modelo, xs, repeticiones=10):
+    """Tiempo del logit por paciente, sin red, sigmoide ni I/O; misma muestra que el cifrado.
+
+    Usa microsegundos para no redondear a cero el cálculo en claro. No compara un lote
+    vectorizado con solicitudes individuales, ni presenta esto como latencia clínica.
+    """
+    if not xs or repeticiones < 1:
+        raise ValueError("se requiere una muestra y al menos una repetición")
+    w, b = modelo["pesos_flotantes"], modelo["intercepto_flotante"]
+    W, B = modelo["pesos_enteros"], modelo["intercepto_entero"]
+    funciones = {"flotante": lambda x: sum(a * v for a, v in zip(w, x)) + b,
+                 "punto_fijo": lambda x: contrato.logit_entero(W, B, x)}
+    out = {"n_pacientes": len(xs), "repeticiones": repeticiones, "concurrencia": 1,
+           "alcance": "solo logit secuencial por paciente, sin cifrar, red, sigmoide, descifrar ni bóveda",
+           "muestra_sha256": __import__("hashlib").sha256(json.dumps(xs).encode()).hexdigest()}
+    for nombre, fn in funciones.items():
+        for x in xs[:5]:
+            fn(x)
+        tiempos = []
+        for _ in range(repeticiones):
+            for x in xs:
+                t0 = time.perf_counter_ns()
+                fn(x)
+                tiempos.append((time.perf_counter_ns() - t0) / 1000)
+        out[nombre] = {"n_evaluaciones": len(tiempos), "p50_us": round(pct(tiempos, 50), 3),
+                       "p95_us": round(pct(tiempos, 95), 3), "media_us": round(statistics.mean(tiempos), 3)}
+    return out
+
+
 def cmd(*a):
     try:
         return subprocess.run(a, capture_output=True, text=True, timeout=20).stdout.strip() or None
@@ -115,6 +144,8 @@ def modo_api(a, modelo, prov, env, ahora, etiqueta):
         estado = json.loads(r.read())
     if estado.get("modelo_sha256") != local:
         raise SystemExit(f"el hospital en {a.url} corre otro modelo ({estado.get('modelo_sha256')}) que el local ({local})")
+    if a.final and estado.get("codigo_sha256") != prov["codigo_sha256"]:
+        raise SystemExit("modo final: el código del hospital desplegado no coincide con el cliente")
     W, B = modelo["pesos_enteros"], modelo["intercepto_entero"]
 
     def pedir(paciente):
@@ -154,6 +185,7 @@ def modo_api(a, modelo, prov, env, ahora, etiqueta):
     c = out["componentes_en_hospital_ms"]
     md = f"# Medición API del hospital · {etiqueta} · {out['fecha_utc']}\n\n" + _encabezado(out, env, prov) + f"""- Recorrido: {out['recorrido']}
 - Hospital remoto: {a.url} · máquina {estado.get('maquina')} ({estado.get('sistema')}) · modelo `{local[:16]}` verificado
+- Código remoto igual al cliente: {estado.get('codigo_sha256') == prov['codigo_sha256']}
 
 Muestra: {a.n} pacientes sintéticos deterministas (semilla {SEMILLA_MUESTRA}) · enteros idénticos al esperado: {exactos} de {a.n}
 
@@ -176,6 +208,8 @@ def main():
     ap.add_argument("--https", type=int, default=100, help="recorridos en el microbenchmark HTTPS del mismo proceso")
     ap.add_argument("--final", action="store_true", help="falla si hay cambios relevantes sin commit")
     a = ap.parse_args()
+    if a.n < 2 or a.max < 8 or a.https < 1 or a.presupuesto_s <= 0:
+        ap.error("--n debe ser >= 2 y --max >= 8; --https y --presupuesto-s deben ser positivos")
 
     prov = procedencia.registrar()
     if a.final:
@@ -230,6 +264,7 @@ def main():
     lq = np.array([int(z) / contrato.S_W for z in z_ref]); lc = np.array([int(z) / contrato.S_W for z in zs])
     sig = lambda v: 1 / (1 + np.exp(-v))
     err = np.abs(lc - lf); cotas = np.array([contrato.cota_error_logit(x) for x in xs])
+    claro = benchmark_claro(modelo, xs)
 
     tmp = tempfile.mkdtemp(prefix="tamizaje-medir-")
     secretos.generar(tmp); c = os.path.join(tmp, "certs")
@@ -267,6 +302,7 @@ def main():
                       "cota_max_aplicable": float(cotas.max()), "todos_dentro_de_cota": bool(np.all(err <= cotas)),
                       "error_max_probabilidad": float(np.abs(sig(lc) - sig(lf)).max())},
         "metricas_misma_muestra": {"flotante": metricas(ys, sig(lf), umbral), "punto_fijo": metricas(ys, sig(lq), umbral), "cifrado": metricas(ys, sig(lc), umbral)},
+        "benchmark_claro": claro,
         "microbenchmark_en_proceso": {"cifrar_hospital": resumen(cif), "evaluar_servicio": resumen(ev), "descifrar_hospital": resumen(des),
                                       "pacientes_por_minuto_secuencial": round(n / t_total * 60, 1), "nota": "sin red ni bóveda"},
         "microbenchmark_https_mismo_proceso": {"solicitud_completa": resumen(rec), "componentes": {k: resumen(v) for k, v in comp.items()},
@@ -293,6 +329,11 @@ def main():
 | HTTPS en el mismo proceso + bóveda ({len(rec)} solicitudes) | {mh['solicitud_completa']['p50_ms']} | {mh['solicitud_completa']['p95_ms']} | {mh['solicitud_completa']['media_ms']} |
 
 Rendimiento secuencial: {tp['pacientes_por_minuto_secuencial']} pacientes/min sin red; {mh['pacientes_por_minuto_secuencial']} con HTTPS en el mismo proceso (n / tiempo de pared). Solicitud {out['tamanos_bytes']['solicitud_p50']} bytes · respuesta {out['tamanos_bytes']['respuesta_p50']} bytes · AES-256-GCM (microbenchmark de la biblioteca) {out['aes256gcm_microbenchmark_mb_s']} MB/s.
+
+Referencia en claro sobre los mismos {n} pacientes ({claro['repeticiones']} repeticiones, solo logit):
+flotante p50 {claro['flotante']['p50_us']} µs, p95 {claro['flotante']['p95_us']} µs;
+punto fijo p50 {claro['punto_fijo']['p50_us']} µs, p95 {claro['punto_fijo']['p95_us']} µs.
+Comparar con evaluar_servicio para el costo del logit cifrado; el recorrido HTTPS además incluye cifrado, red y bóveda.
 """
     _guardar(out, "proceso", etiqueta, ahora, md)
 
