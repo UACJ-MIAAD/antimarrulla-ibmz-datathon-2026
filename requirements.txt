@@ -1,14 +1,22 @@
-# Dependencias base del equipo. Las versiones se fijan con `pip freeze` en la VM s390x
-# en cuanto se prueben (US-7.5); hoy no hay versiones verificadas en LinuxONE.
-pandas
-numpy
-scikit-learn
-jupyter
-matplotlib
+# Versiones verificadas el 17 oct 2026 en macOS arm64 con Python 3.12 (make setup && make verify).
+# En LinuxONE (s390x) los contenedores usan Ubuntu 24.04 y sus paquetes apt (ver docker/Dockerfile y docs/LINUXONE.md);
+# estas versiones se vuelven a fijar con `pip freeze` en la VM cuando se ejecute ahí.
 
-# Tamizaje a ciegas
-phe            # python-paillier: cifrado homomórfico Paillier (Python puro, corre en s390x)
-cryptography   # AES-256-GCM en reposo (OpenSSL usa CPACF en IBM Z)
-ucimlrepo      # descarga del dataset CDC Diabetes Health Indicators (UCI 891)
-dbfread        # lectura de microdatos EDR de INEGI (DBF)
-# tenseal      # ruta CKKS opcional: solo si compila en LinuxONE
+# Entrenamiento, evaluación y mediciones
+numpy==2.5.4
+scikit-learn==1.9.1
+scipy==1.18.1
+
+# Protocolo y servicios
+phe==1.5.0            # python-paillier (GPLv3): cifrado homomórfico Paillier
+gmpy2==2.3.2          # aritmética de enteros grandes (LGPL-3.0); phe la usa si está instalada
+cryptography==50.0.2  # TLS de prueba (certificados) y bóveda AES-256-GCM
+
+# Pruebas
+pytest==9.1.1
+
+# Herramientas de datos (opcionales)
+ucimlrepo==0.0.7      # descarga del CDC (UCI 891)
+dbfread==2.0.7        # microdatos EDR de INEGI en DBF
+pandas==3.0.6         # requerido por ucimlrepo
+# tenseal             # ruta CKKS opcional (extra): solo si está disponible en LinuxONE
