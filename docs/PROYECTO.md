@@ -16,7 +16,7 @@ Pitch: [submission/Los_Antimarrulla_Pitch_Tamizaje.pptx](../submission/Los_Antim
 | **18.3%** de los adultos en México vive con diabetes | ENSANUT 2022 (Basto-Abreu et al., *Salud Pública de México*, 2023) |
 | **1 de cada 3** casos no está diagnosticado (5.8% de 18.3%) | ENSANUT 2022 |
 | **112,577** muertes por diabetes registradas en 2024 (13.7% de todas): **2.ª causa de muerte** del país | Defunciones registradas 2024, microdatos DGIS/INEGI (conteo propio de `causa_def` E10–E14) |
-| **62,771** hospitalizaciones por diabetes en 2024 solo en unidades de la Secretaría de Salud / IMSS-Bienestar | Egresos hospitalarios SSA 2024, DGIS (conteo propio) |
+| **120,385** hospitalizaciones por diabetes en 2024 en todo el sector salud (62,771 de ellas en Secretaría de Salud / IMSS-Bienestar) | Egresos hospitalarios SSA 2024, DGIS (conteo propio) |
 | **11,550** de esas hospitalizaciones (**18.4%**) incluyeron una **amputación de miembro inferior** | Egresos hospitalarios SSA 2024, DGIS (conteo propio) (procedimientos CIE-9 84.1x) |
 | **4.7%** de los hospitalizados por diabetes murió en el hospital; estancia media de 5.1 días | Egresos hospitalarios SSA 2024, DGIS (conteo propio) |
 

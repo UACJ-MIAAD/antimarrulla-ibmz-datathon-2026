@@ -216,6 +216,27 @@ Revisadas el 17 de octubre de 2026 a sugerencia de Álvaro. Todas tienen licenci
 - Filtro: `diagnostico_principal_cie10` empieza con `E10`–`E14`. La estancia sale de `fecha_egreso − fecha_ingreso`.
 - **Más grande y automatizable:** los egresos de la Secretaría de Salud (`ssa_egresos_{año}.zip`, 2019–2026) están en la DGIS; revisar su descriptor antes de usarlos.
 
+### 4.5 Egresos de todo el sector (DGIS) · incluye ISSSTE
+
+- URL: `http://www.dgis.salud.gob.mx/descargas/datosabiertos/egresos/sectorial_egresos_{año}.zip` (2024: 82 MB, se baja con `curl`). Descriptor: `sectorial_Descriptores_Base_de_Datos_EGRESOS_2018_2024.xlsx`.
+- **Sustituye al CSV del ISSSTE** de datos.gob.mx (que solo baja por navegador): trae ISSSTE, IMSS, SSA, IMSS-Bienestar, PEMEX, SEDENA, SEMAR, estatales, universitarios y otros.
+- Columnas (17, separadas por `|`): `ID`, `DH` (institución), `CEDOCVE` (entidad de atención), `CLUES`, `MOTIVO_EGRESO` (5 = defunción), `SEXO`, `GPO_EDAD`, `CLAVE_EDAD`, `EDAD1`, `DIAS_ESTA`, `AFECPRIN4`, `AFECPRIN3`, `GBDAFECPRIN`, `ANOCAP`, `MES`, `GPODIAS`, `PRINPRIN`.
+- No trae procedimientos (para amputaciones usar el archivo de la SSA).
+
+**Hospitalizaciones por diabetes 2024 por institución** (5,877,537 egresos totales; afección principal E10–E14):
+
+| Institución (`DH`) | Egresos por diabetes | % de sus egresos |
+|--------------------|---------------------:|-----------------:|
+| IMSS | 46,755 | 1.8% |
+| Servicios de Salud IMSS-Bienestar | 42,620 | 2.6% |
+| Secretaría de Salud | 15,598 | 1.9% |
+| **ISSSTE** | **6,924** | 2.0% |
+| IMSS-Bienestar | 4,417 | 2.6% |
+| SEDENA · PEMEX · SEMAR · otros | 4,071 | — |
+| **Total** | **120,385** | 2.0% |
+
+Murieron en el hospital: 5,707 (4.7%). SSA + IMSS-Bienestar suman 62,635, consistente con los 62,771 del archivo de la SSA.
+
 ### Fuentes revisadas que no nos sirven
 
 - **data.buengobierno.gob.mx** (Secretaría Anticorrupción y Buen Gobierno): transparencia, programas del Bienestar, presupuesto (PEF) y corrupción. No trae datos clínicos ni epidemiológicos de diabetes. A lo mucho, presupuesto en salud para la narrativa.
@@ -251,7 +272,8 @@ flowchart LR
 | Escalón | 2024 | Fuente |
 |---------|-----:|--------|
 | Casos nuevos notificados (T1 + T2) | 497,987 | SINAVE · `data/sinave/` |
-| Hospitalizaciones por diabetes (solo SSA / IMSS-Bienestar) | 62,771 | Egresos SSA · `data/egresos_ssa/` |
+| Hospitalizaciones por diabetes (todo el sector) | 120,385 | Egresos sectoriales · `data/egresos_sector/` |
+| … de ellas en SSA / IMSS-Bienestar | 62,771 | Egresos SSA · `data/egresos_ssa/` |
 | … con amputación de miembro inferior | 11,550 | Egresos SSA (CIE-9 84.1x) |
 | Muertes por diabetes registradas | 112,577 | EDR / DGIS · `data/defunciones/` |
 

@@ -15,6 +15,8 @@ Todo es información pública oficial, anonimizada en origen. Detalle de cada fu
 | `egresos_ssa/egresos_diabetes_2024.csv` | Egresos SSA 2024 con afección principal E10–E14 | 62,771 | 11 MB |
 | `egresos_ssa/afecciones_diabetes_2024.csv` · `procedimientos_diabetes_2024.csv` | Diagnósticos secundarios y procedimientos (CIE-9) de esos egresos | 104,556 · 142,999 | 8 MB |
 | `egresos_ssa/descriptor_egresos_2023_2025.xlsx` | Diccionario de variables y catálogos de egresos (DGIS) | — | — |
+| `egresos_sector/egresos_sector_diabetes_2024.csv` | Hospitalizaciones por diabetes 2024 de **todo el sector** (IMSS, ISSSTE, SSA, IMSS-Bienestar, PEMEX, SEDENA, SEMAR…); columna `DH` = institución | 120,385 | 8 MB |
+| `egresos_sector/descriptor_sectorial_2018_2024.xlsx` | Diccionario y catálogos de egresos sectoriales (DGIS) | — | — |
 | `cdc_891/cdc_diabetes_891.csv` | **Entrenamiento del modelo.** CDC Diabetes Health Indicators (UCI 891): `ID`, `Diabetes_binary` y 21 indicadores · 13.93% positivos | 253,680 | 13 MB |
 | `sis_cronicas/DA_EC_SIS_{2021,2022,2023}.zip` | Control de diabetes, hipertensión, obesidad, etc. por unidad médica y mes (SIS, DGIS) | ~50 MB c/u descomprimido | 16 MB |
 | `sis_cronicas/descriptor_servicios_2010_2023.xlsx` | Diccionario del SIS (hoja `Descriptor-ECRON`) | — | — |
@@ -23,7 +25,7 @@ Todo es información pública oficial, anonimizada en origen. Detalle de cada fu
 | `conapo/indicadores_demograficos_1950_2070.csv` | Indicadores demográficos por entidad (población, defunciones, esperanza de vida…) | 3,353 | 2 MB |
 | `conapo/ime_2020.csv` · `imm_2020.csv` | Índice de marginación 2020, estatal y municipal | 32 · 2,469 | 0.6 MB |
 
-**Archivos completos (Release [`datos-2024`](https://github.com/UACJ-MIAAD/antimarrulla-ibmz-datathon-2026/releases/tag/datos-2024)):** `DEFUN_2024.zip` (todas las causas, 31 MB) y `ssa_egresos_2024.zip` (todos los egresos, 111 MB).
+**Archivos completos (Release [`datos-2024`](https://github.com/UACJ-MIAAD/antimarrulla-ibmz-datathon-2026/releases/tag/datos-2024)):** `DEFUN_2024.zip` (todas las causas, 31 MB) `ssa_egresos_2024.zip` (todos los egresos SSA con procedimientos, 111 MB) y `sectorial_egresos_2024.zip` (todos los egresos del sector, 82 MB).
 
 ```bash
 gh release download datos-2024 --repo UACJ-MIAAD/antimarrulla-ibmz-datathon-2026 --dir data/raw
