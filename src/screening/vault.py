@@ -43,7 +43,7 @@ class Vault:
             nonce = os.urandom(12)
             n64 = base64.b64encode(nonce).decode()
             if n64 in self._nonces:
-                raise VaultError("nonce repetido")
+                raise VaultError("repeated nonce")
             self._nonces.add(n64)
             ct = self._aes.encrypt(nonce, data, rid.encode())
             with open(self.file, "a") as f:

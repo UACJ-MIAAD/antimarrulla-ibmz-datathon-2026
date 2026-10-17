@@ -35,7 +35,7 @@ English implementation and existing artifacts are translated and checked; see [E
 - [ ] Event-window history reviewed with frequent, reviewable commits; chronology issues documented
 - [ ] No final all-project dump
 - [ ] Branches merged through PRs with another member's review
-- [ ] `main` runs end to end
+- [x] `main` baseline d71d363 passes 90 tests/model reproduction and CI container demo; real final LinuxONE evidence remains separate
 - [x] Large raw datasets and ENSANUT microdata are not tracked (checked October 17)
 - [x] No credentials, keys or tokens found in the October 17 review; demo secrets remain outside the repo
 - [x] `LICENSE` present
@@ -121,3 +121,7 @@ The registered team leader submits from the team dashboard after all four review
 - [ ] Feedback survey/video before October 23
 - [ ] Winners announcement: October 28, 08:00 Ciudad Juárez / 19:30 IST
 - [ ] Team photo
+
+## Fresh audit checkpoint
+
+[October 17 blind status audit](BLIND_AUDIT_20261017.md): PR 9 is merged, public E5 renders 222 combinations, and the forecast/nested evaluation reproduces. Audit-fix branch passes 97 host tests and 93 Ubuntu tests with four Git-dependent skips. The package final gate still rejects missing VM/lab/video/review/AI records. An optional forecast demo does not substitute for those required deliverables.

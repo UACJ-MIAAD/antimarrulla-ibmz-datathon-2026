@@ -6,7 +6,7 @@
 
 **Privacy-preserving screening** evaluates a diabetes screening model on Paillier ciphertexts. The hospital keeps its private key; the risk service evaluates the model without decrypting patient inputs.
 
-Public site: [project, pitch, data and delivery plan](https://antimarrulla-tamizaje.netlify.app). The current migration is reviewed through a PR and a preview before production publication.
+Public site: [project, pitch, data and delivery plan](https://antimarrulla-tamizaje.netlify.app). The English migration is merged through PR 9 and the public forecast dashboard is live. Independent teammate sign-off and final VM/video evidence remain open. See the [current audit](docs/BLIND_AUDIT_20261017.md).
 
 **Submission deadline:** October 18, 2026, **16:30 UTC / 12:30 EDT / 10:30 Ciudad Juárez / 18:30 SAST**. Internal target: 13:00 UTC / 09:00 EDT / 07:00 Ciudad Juárez. The portal opened October 16 at 23:45 UTC. Follow the [delivery plan](docs/DELIVERY_PLAN.md) and [submission checklist](docs/SUBMISSION_CHECKLIST.md).
 
@@ -75,7 +75,7 @@ This is a technical screening demonstration, not a diagnosis or a forecast of an
 | Carlos · hospital client to remote risk service | Audit 10/10, exact results 200/200, ≈650 ms per record (≈140 ms encrypt, ≈500 ms network + service, ≈10 ms decrypt), 18.6 ms service evaluation, ≈92 records/min sequential; ciphertexts of 1,233 digits (consistent with a 2048-bit key) | Image and chat only; original `hospital_summary.json`, audit JSON/Markdown and logs pending ([record](submission/evidence/two_hosts/carlos_20261017_audit_summary_reported.md)) |
 | Álvaro · legacy UI on the server | Linux s390x, 2048-bit key, synthetic C at 66.3% | Screenshot only; provider dashboard, `uname`/`lscpu`, containers and measurement files pending |
 
-Next run, on both hosts with this English release: `make verify-docker`, `make demo-docker`, `make measure-docker FINAL=1` and `make measure-api-docker FINAL=1`, then commit the outputs. Use the wording "One synthetic record from the measured run" (not "real patient").
+Next run, on the approved demo VM with the agreed final English release: `make verify-docker`, `make demo-docker`, `make measure-docker FINAL=1` and `make measure-api-docker FINAL=1`, then commit the outputs. Use the wording "One synthetic record from the measured run" (not "real patient").
 
 **Trust boundary:** the risk service receives ciphertexts and has no Paillier private key. The approved demo uses two containers on one host; its administrator is trusted and could access hospital memory. Use synthetic demo inputs. Publicly anonymized CDC rows are reserved for explicit benchmarks. AES-256-GCM protects vault records, not every log, disk or backup. CPACF is a platform capability; effective use by this application remains unmeasured. LinuxONE execution and provider screenshots remain pending until actual evidence is committed.
 

@@ -160,3 +160,25 @@ def test_certificate_with_ip_of_service(tmp_path):
     san = cert.extensions.get_extension_for_class(x509.SubjectAlternativeName).value
     assert "vm-service" in san.get_values_for_type(x509.DNSName)
     assert "148.100.77.9" in [str(i) for i in san.get_values_for_type(x509.IPAddress)]
+
+
+def test_evidence_storage_failure_does_not_acknowledge_success(tmp_path, model, keys, monkeypatch):
+    "An audited response cannot succeed when its evidence cannot be saved."
+    secrets_setup.generate(str(tmp_path))
+    c = tmp_path / "certs"
+    srv, _ = service.create_server("127.0.0.1", 0, model, str(c / "service.pem"), str(c / "service.key"), str(c / "ca.pem"),
+                                   evidence=str(tmp_path / "evidence"))
+    def unavailable(*args):
+        raise OSError("simulated audit storage failure")
+    monkeypatch.setattr(srv.evidence, "capture", unavailable)
+    threading.Thread(target=srv.serve_forever, daemon=True).start()
+    try:
+        h = protocol.hospital(model, keys=keys)
+        cli = hospital.ServiceClient(f"https://localhost:{srv.server_address[1]}", str(c / "ca.pem"), str(c / "hospital.pem"), str(c / "hospital.key"))
+        patient = {n: 0 if n not in ("BMI", "GenHlth", "Age", "Education", "Income") else 12 if n == "BMI" else 1 for n in model["variables"]}
+        request, _ = h.prepare(patient)
+        with pytest.raises(protocol.InvalidMessage, match="HTTP 503"):
+            cli.evaluate(request)
+    finally:
+        srv.shutdown()
+        srv.server_close()

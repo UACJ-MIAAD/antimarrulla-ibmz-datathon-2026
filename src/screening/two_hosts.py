@@ -93,7 +93,7 @@ def run_hospital(a):
     os.makedirs(a.output, exist_ok=True)
     path_bit = os.path.join(a.output, "hospital_log.jsonl")
     if os.path.exists(path_bit):
-        os.replace(path_bit, path_bit + "." + _now().strftime("%Y%m%dT%H%M%SZ") + ".anterior")
+        os.replace(path_bit, path_bit + "." + _now().strftime("%Y%m%dT%H%M%SZ") + ".previous")
 
     rows, values_in_plaintext = [], set()
     with open(path_bit, "w") as bit:
@@ -283,7 +283,7 @@ def audit(a):
           ex["of"] > 0 and ex["identical_integers"] == ex["of"]
           and all(h["identical"] and int(h["z_decrypted"]) == int(h["z_expected"]) for h in hosp) and auc_equal,
           f"exact integers {ex["identical_integers"]}/{ex['of']} (+{result_h['warmup']} warmup) · "
-          + (f"ROC-AUC flotante {metrics['floating']['roc_auc']} / encrypted {metrics['ciphertext']['roc_auc']} · "
+          + (f"ROC-AUC floating point {metrics['floating']['roc_auc']} / encrypted {metrics['ciphertext']['roc_auc']} · "
              if metrics else "no AUC: sample has no clinical labels · ") +
           f"maximum probability error {ex['error_max_probability_vs_floating']:.2e}")
 

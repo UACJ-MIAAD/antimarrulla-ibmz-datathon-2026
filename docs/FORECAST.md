@@ -22,7 +22,7 @@ The original candidate plan included seasonal naive, ETS, SARIMA and Prophet if 
 
 ## Forecasting pipeline
 
-1. Fit from 2022 onward; exclude COVID 2020–2021. Count linearly interpolated missing weeks.
+1. Fit from 2022 onward; exclude COVID 2020–2021. The current 222 series have complete weekly calendars and zero missing observations. Reject missing/non-finite values or calendar gaps before fitting. Future imputation must occur within each validation cut; global interpolation before the backtest could leak holdout information.
 2. Compare seasonal naive (repeat the previous 52 weeks) with ETS, period 52, damped additive trend and additive seasonality.
 3. Per-series selection: up to four 52-week origins, thirteen weeks apart, each with >=104 prior fitting weeks. Minimize h1–52 SMAPE; within 5% relative SMAPE, break ties with MAE. Selection error is not independent evaluation.
 4. Estimate exploratory 80/95 bands from selection errors by h1–13, h14–26 and h27–52 segments; h>52 uses the last segment.
@@ -50,7 +50,7 @@ The bands are **too narrow relative to nominal coverage**: nominal 80% covers ab
 
 Base = point forecast. Conservative/stress scenarios sum weekly marginal 80/95 upper bounds; **they are not joint confidence intervals for the annual total**. Show quarterly and 52-week case/cost totals by geography and sex.
 
-Implemented controls: T1/T2, national/region/state, men/women/all, cost and required source. Chart: last 104 observed weeks plus forecast/bridge period and exploratory bands. Evaluation table shows independent error and actual coverage; model-selection details are separate. No forecast map or combined type total is implemented.
+Implemented controls: T1/T2, national/region/state, men/women/all, cost and required source. The audit fixes add base quarterly costs, reject overflowing monetary totals and display a clear data-loading error. A source entered by a user is displayed as user-supplied, not independently verified. Chart: last 104 observed weeks plus forecast/bridge period and exploratory bands. Evaluation table shows independent error and actual coverage; model-selection details are separate. No forecast map or combined type total is implemented.
 
 ```bash
 make forecast
@@ -61,3 +61,13 @@ Code: `src/screening/forecast.py`. Artifact: `artifacts/forecast/e5_forecast_v1.
 Recorded selections: 148 ETS, 74 seasonal naive. National 52-week points: T2 all-sex 574,746 cases versus 555,474 in the last observed 52 weeks; T1 all-sex 3,834 versus 3,857. These are **notified cases**, not all underlying cases.
 
 Ideas about horizons/SMAPE/regional fallback may come from prior team research; solution code must follow the event rules. Prepared SINAVE data and its earlier chronology remain disclosed.
+
+## October 17 blind status audit
+
+The published dashboard rendered all **222 type/sex/geography combinations**. A fresh full forecast and nested evaluation reproduce every series and metadata value exactly after canonical series ordering. The main artifact and public JSON are identical. See [BLIND_AUDIT_20261017.md](BLIND_AUDIT_20261017.md).
+
+**Ready for an exploratory forecast demo; not a fully completed original feature plan or a validated operating budget.** The project has no sourced unit cost, calibrated nominal bands, forecast map, combined T1+T2 view, SARIMA/Prophet or demonstrated E5 LinuxONE execution. Freeze this optional scope while closing the encrypted MVP and video.
+
+For T2 national/all, separate outer evaluation gives SMAPE **9.11% for h12–63**, versus **6.93% during model selection**. These are different estimates. State-level average SMAPE over all types/sexes is 59.70%, strongly affected by sparse T1 series. Nominal 80% bands cover about 63–65% across levels; retain the exploratory label.
+
+Independent weekly rounding means the displayed quarterly sum differs from the aggregate in 177 of 222 series, by at most six cases. The dashboard explains this; no historical forecasts were adjusted to force equality. Signed-error empirical bands can exclude the point prediction in their central 80% range for six series; that is not an invalid crossing of the lower/upper bounds, and the existing 95% checks still pass.

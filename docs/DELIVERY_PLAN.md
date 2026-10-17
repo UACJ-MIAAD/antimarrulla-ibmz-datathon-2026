@@ -31,6 +31,14 @@ Proper names, the required submission title, verbatim quotations, original sourc
 
 Freeze the translated code commit **before** the final LinuxONE measurement and video capture. Translation changes source hashes even when the algorithm is unchanged. Keep local measurements from `65ae4ef` labeled as that version; rerun final evidence against the release commit. Complete the English review alongside the LinuxONE work, before the H20 freeze; after H20, fix remaining language defects without adding features.
 
+## Current audited status — October 17
+
+The English release is merged into main (`d71d363`, PR 9), and production serves all 222 forecast series. No GitHub human review is recorded for that merge. The fresh audit reproduced the complete E5 pipeline and exercised every dashboard combination. E5 is ready as an **exploratory forecast demonstration**, while its sourced budget remains open; freeze its optional scope. See [BLIND_AUDIT_20261017.md](BLIND_AUDIT_20261017.md).
+
+Audit corrections are delivered through a separate PR: evidence saved before successful HTTP acknowledgment; rejection of missing forecast observations until fold-local imputation exists; finite cost validation, quarterly budget display, loading errors, rounding explanation and residual English text/clock identifiers. These changes do not alter trained coefficients or the published forecast values, but source hashes change. Use the agreed final commit for new VM evidence.
+
+**Javier’s next action is delivery coordination and recording:** obtain the original Carlos audit/summary and actual English VM captures from Álvaro; confirm leader/dashboard access and real lab/attendance records; rehearse and record the English script with Yazmin; resolve the team’s AI-publication decision. The remaining blockers are evidence and final deliverables, not an absent time-series demo.
+
 ## Where to start now
 
 **Javier / coordination: use the next 30 minutes to secure the release, real VM evidence and the video.** Yazmin’s PR 8 form is now integrated into the English release in PR 9; US-6.4 is complete for synthetic inputs. See [YAZMIN_INTEGRATION.md](YAZMIN_INTEGRATION.md). Confirm the registered leader and dashboard access; agree on the combined commit with Carlos and Álvaro; secure a human review; collect lab/attendance evidence; then rehearse the English script with Yazmin. Protect the submission buffer. Further form polish and optional extensions are lower priority.
@@ -48,7 +56,7 @@ Freeze the translated code commit **before** the final LinuxONE measurement and 
 
 ## Final numerical comparison
 
-Carlos’s requested last test should compare floating-point, fixed-point and Paillier **screening** predictions on the same labeled CDC sample; E5 forecasting is a separate unencrypted module. Use the reviewed combined English release at both endpoints/client. Main still contains the earlier Spanish implementation at this registration, so a plain pull of main is insufficient. Preserve the current remote-run outputs; collect original audit/measurement artifacts before rerunning. See [latest Carlos report](../submission/evidence/two_hosts/carlos_20261017_audit_summary_reported.md).
+Carlos’s requested last test should compare floating-point, fixed-point and Paillier **screening** predictions on the same labeled CDC sample; E5 forecasting is a separate unencrypted module. Use the reviewed combined English release at both endpoints/client. PR 9 is now merged into main as d71d363 and production serves the English forecast. Fetch and pin the agreed final commit; rebuild both endpoints and the measurement client together. Earlier reports saying main was Spanish describe the earlier registration time. Preserve the current remote-run outputs; collect original audit/measurement artifacts before rerunning. See [latest Carlos report](../submission/evidence/two_hosts/carlos_20261017_audit_summary_reported.md).
 
 ## Latest server progress and demo identifiers
 

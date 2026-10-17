@@ -94,3 +94,22 @@ def test_f06_published_includes_evaluation_and_63_steps(p):
     for s in p["series"]:
         assert "h53-63" in s["evaluation_smape"] and "selection" in s and "backtest" not in s
     assert any("exploratory" in a for a in p["warnings"])
+
+
+def test_rejects_missing_observations_before_any_global_interpolation():
+    # A missing value immediately before a holdout can otherwise use that holdout.
+    with pytest.raises(ValueError, match="fold-local imputation"):
+        forecast.prepare_observations([1.0, np.nan, 1000.0])
+    with pytest.raises(ValueError, match="finite"):
+        forecast.prepare_observations([1.0, np.inf])
+    values, count = forecast.prepare_observations([1.0, 2.0, 3.0])
+    assert list(values) == [1.0, 2.0, 3.0] and count == 0
+
+
+@pytest.mark.parametrize("cost,source", [("0", "reference"), ("-1", "reference"),
+                                         ("nan", "reference"), ("inf", "reference"),
+                                         ("100", "   ")])
+def test_rejects_invalid_budget_assumptions_before_loading_data(monkeypatch, cost, source):
+    monkeypatch.setattr("sys.argv", ["forecast", "--cost-mxn", cost, "--source-cost", source])
+    with pytest.raises(SystemExit, match="positive and finite"):
+        forecast.main()

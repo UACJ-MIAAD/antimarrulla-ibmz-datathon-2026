@@ -1,7 +1,7 @@
 {
-  "rev": 31,
-  "updated_at": "2026-10-17T20:06:08Z",
-  "note": "Evidence-based status, rev 31. Carlos’s later supplied graphic reports audit 10/10 and exact results 200/200; chat reports mean 650 ms/record (≈92 sequential records/minute). Original audit/provenance/host evidence remains pending; US-6.5 stays in progress. Álvaro’s earlier screenshot is legacy Spanish v1 reporting s390x; final English v2/provider evidence remains open. Interactive frontend/API/vault stay in Hospital; public presentation/forecast/plan stay on Netlify with its badge. Synthetic patients/identifiers only. docs/DELIVERY_PLAN.md.",
+  "rev": 33,
+  "updated_at": "2026-10-17T20:36:07Z",
+  "note": "Fresh evidence audit: English PR 9 merged into main d71d363; production forecast JSON matches the repo. All 222 dashboard combinations render, and the complete forecast/nested evaluation reproduces after canonical series ordering. E5 is ready for an exploratory demo, not a sourced operating budget. Audit fixes are under separate review; no final LinuxONE/lab/video/human-review/AI-publication records yet. docs/BLIND_AUDIT_20261017.md. Keep Netlify and its badge. Late Yazmin PR 10 (cfe0343) UI polish is included in the audit branch and checked in rebuilt containers; main integration still requires teammate review.",
   "milestones": {
     "internal_start": "2026-10-17T13:00:00Z",
     "virtual_closing": "2026-10-18T05:00:00Z",
@@ -348,7 +348,7 @@
           "block": "h8",
           "priority": "Plus",
           "state": "done",
-          "evidence": "src/screening/forecast.py: nested out-of-sample evaluation through h63 with reconciliation; national h12–63 SMAPE 13.1%. Actual exploratory-band coverage: 63–65% for nominal 80%, 79–87% for nominal 95%."
+          "evidence": "Fresh complete forecast/nested evaluation reproduces all 222 series and metadata after canonical ordering; published values unchanged. 148 ETS, 74 seasonal naive. T2 national/all outer h12–63 SMAPE 9.11%, distinct from model-selection 6.93%. Exploratory nominal-80% coverage is only about 63–65% across levels. Current data have zero gaps; audit guard rejects incomplete/non-finite calendars before any global interpolation. docs/BLIND_AUDIT_20261017.md."
         },
         {
           "id": "US-5.3",
@@ -370,7 +370,7 @@
           "block": "h8",
           "priority": "Plus",
           "state": "in_progress",
-          "evidence": "Budget calculation exists (cases × cost, requiring a source); a documented unit cost is still missing."
+          "evidence": "Interactive budget accepts a user-entered cost/source, but unit_cost_mxn and source_cost remain null in the delivered artifact. No project cost source has been established. Audit fixes add quarterly base costs, reject overflow and label the source as user-supplied. Demonstration assumptions do not close this story. docs/BLIND_AUDIT_20261017.md."
         },
         {
           "id": "US-5.5",
@@ -381,7 +381,7 @@
           "block": "h18",
           "priority": "Plus",
           "state": "done",
-          "evidence": "site/forecast.html: observed/forecast curves, 80/95% exploratory bands, quarterly totals, scenarios and model evaluation. English migration remains open under US-7.9."
+          "evidence": "Production /forecast serves the English chart, 37 geographies × 3 sexes × 2 types; all 222 combinations tested in the actual browser with no invalid normal output. Public forecast JSON is byte-identical to repo. Audit fixes verified locally: quarterly costs, overflow rejection, loading error, rounding notice and 390px layout. Original map/combined-type/SARIMA/Prophet/LinuxONE E5 extras remain unimplemented. docs/BLIND_AUDIT_20261017.md."
         }
       ]
     },
@@ -433,7 +433,7 @@
           "block": "h12",
           "priority": "Plus",
           "state": "done",
-          "evidence": "Yazmin’s commit 09cadf5 (PR 8) integrated at src/screening/ui/index.html with English v2 callers. Five question groups, 21 coded/required controls, integer/range validation, selected-profile/busy state, threshold meter and responsive layout. Local Docker/browser: C 66.3%; custom BMI 30 gives 57.8%; invalid, fractional and missing values rejected; random response repopulates fields; 390px layout without overflow. docs/YAZMIN_INTEGRATION.md; submission/evidence/local/yazmin_form_integrated_C.png and yazmin_form_mobile.png. Synthetic demonstration only; not clinical validation or LinuxONE evidence."
+          "evidence": "Yazmin’s commit 09cadf5 (PR 8) integrated at src/screening/ui/index.html with English v2 callers. Five question groups, 21 coded/required controls, integer/range validation, selected-profile/busy state, threshold meter and responsive layout. Local Docker/browser: C 66.3%; custom BMI 30 gives 57.8%; invalid, fractional and missing values rejected; random response repopulates fields; 390px layout without overflow. docs/YAZMIN_INTEGRATION.md; submission/evidence/local/yazmin_form_integrated_C.png and yazmin_form_mobile.png. Synthetic demonstration only; not clinical validation or LinuxONE evidence. Late PR 10 cfe0343 is incorporated into the audit branch: matching title, sensitivity-target explanation, malformed-number message and stacked mobile factors. Rebuilt container browser confirms C 66.3%, invalid number/range rejection and no overflow at 390px."
         },
         {
           "id": "US-6.5",
@@ -463,7 +463,7 @@
           "block": "h12",
           "priority": "MVP",
           "state": "in_progress",
-          "evidence": "English package screening, v2 protocol, API/CLI, comments/tests/messages, UI/site/dashboard, guides, three decks (8/19/17 slides), official PDF, flowchart and silent 170-second draft implemented and checked. make verify: 90 pass; Ubuntu: 86 pass/4 Git-dependent skips. Original data/evidence preserved; nine CSVs reproduced byte for byte; all 222 forecasts reproduced. docs/ENGLISH_MIGRATION.md. Still open: independent teammate review of this release and final authorized English narration with real LinuxONE footage. Fresh clone passes all 90 tests; both GitHub CI jobs pass. ENSANUT rerun identical except timestamp. Media URLs are versioned to prevent stale Spanish thumbnails. Yazmin’s grouped coded form from PR 8 integrated into PR 9 and checked against the English v2 backend; see docs/YAZMIN_INTEGRATION.md. This automated audit does not satisfy independent teammate approval."
+          "evidence": "English package screening, v2 protocol, API/CLI, comments/tests/messages, UI/site/dashboard, guides, three decks (8/19/17 slides), official PDF, flowchart and silent 170-second draft implemented and checked. make verify: 90 pass; Ubuntu: 86 pass/4 Git-dependent skips. Original data/evidence preserved; nine CSVs reproduced byte for byte; all 222 forecasts reproduced. docs/ENGLISH_MIGRATION.md. Still open: independent teammate review of this release and final authorized English narration with real LinuxONE footage. Fresh clone passes all 90 tests; both GitHub CI jobs pass. ENSANUT rerun identical except timestamp. Media URLs are versioned to prevent stale Spanish thumbnails. Yazmin’s grouped coded form from PR 8 integrated into PR 9 and checked against the English v2 backend; see docs/YAZMIN_INTEGRATION.md. This automated audit does not satisfy independent teammate approval. PR 9 is now merged into main; no human review recorded. Fresh audit corrects residual English log/error/fallback text and site clock IDs. Audit branch tests: 97 host, 93 Ubuntu plus four Git skips. Final English VM capture/narration and teammate sign-off remain open."
         },
         {
           "id": "US-7.1",
@@ -517,7 +517,7 @@
           "block": "h18",
           "priority": "MVP",
           "state": "in_progress",
-          "evidence": "Public repo and CI exist; the final English release, independent teammate review and final evidence remain open."
+          "evidence": "PR 9 merged into main d71d363 at 2026-10-17 20:12 UTC. CI verify/image pass; fresh baseline main passes 90 tests and reproduces the model. No human GitHub review recorded. Audit-fix branch adds regression coverage and passes 97 host/93 Ubuntu plus four Git skips. Final release review and original VM/evidence records remain open."
         },
         {
           "id": "US-7.7",
