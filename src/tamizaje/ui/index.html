@@ -61,7 +61,7 @@ function pintar(r){const s=r.servidor,h=r.hospital;
  <p class="sub" style="margin-top:8px">Umbral ${(h.umbral*100).toFixed(1)}% (fijado en validación) · logit ${h.logit.toFixed(4)} · z = ${esc(h.z_entero)}</p>
  <p class="sub">Factores que más mueven el puntaje (aporte al logit frente al promedio de entrenamiento):</p>
  ${h.factores.map(f=>`<div class="bar"><span>${esc(f.variable)}</span><i style="width:${Math.abs(f.aporte_logit)/max*100}%;background:${f.aporte_logit>0?"var(--red)":"var(--green)"}"></i><span>${f.aporte_logit>0?"+":""}${f.aporte_logit}</span></div>`).join("")}`;
- const t=r.tiempos_ms;$("tiempos").innerHTML=`<span><b>${t.cifrar} ms</b>cifrar (hospital)</span><span><b>${t.red_y_servicio} ms</b>TLS + servicio</span><span><b>${t.descifrar} ms</b>descifrar (hospital)</span><span><b>${t.total} ms</b>recorrido completo</span>`}
+ const t=r.tiempos_ms;$("tiempos").innerHTML=`<span><b>${t.cifrar} ms</b>cifrar (hospital)</span><span><b>${t.red_y_servicio} ms</b>TLS + servicio</span><span><b>${t.descifrar} ms</b>descifrar (hospital)</span><span><b>${t.boveda} ms</b>bóveda AES-GCM + fsync</span><span><b>${t.total_en_hospital} ms</b>total dentro del hospital (sin navegador)</span>`}
 async function init(){
  try{const e=await api("/api/estado");$("env").textContent=`servicio: ${e.servicio.estado} · máquina ${e.maquina} (${e.sistema}) · llave ${e.llave_bits} bits · ${e.modelo}`}catch(e){$("env").textContent="sin estado"}
  const s=await api("/api/sinteticos");ESQ=s.esquema;PERF=s.perfiles;

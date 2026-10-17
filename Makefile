@@ -32,8 +32,8 @@ verify: test                          ## pruebas + verificación de artefactos (
 secretos: setup                       ## certificados TLS y llave de la bóveda, fuera del repo
 	@test -f $(TAMIZAJE_SECRETOS)/certs/servicio.pem -a -f $(TAMIZAJE_SECRETOS)/boveda.key || $(BIN)/python -m tamizaje.secretos $(TAMIZAJE_SECRETOS)
 
-imagen:                               ## construye la imagen (Ubuntu 24.04: amd64, arm64 y s390x)
-	docker build -f docker/Dockerfile -t tamizaje:demo .
+imagen:                               ## imagen de la demo, etapa app (sin CDC, pruebas ni herramientas de entrenamiento)
+	docker build -f docker/Dockerfile --target app -t tamizaje:demo .
 
 demo: secretos imagen                 ## levanta hospital + servicio y corre la prueba de humo
 	$(COMPOSE) up -d
@@ -46,16 +46,22 @@ smoke: setup
 demo-down:
 	$(COMPOSE) down
 
-medir: setup                          ## mediciones con evidencia del entorno → submission/evidencias/metricas/
-	$(BIN)/python -m tamizaje.medir
+medir: setup                          ## exactitud + microbenchmarks en proceso, con procedencia → submission/evidencias/metricas/
+	$(BIN)/python -m tamizaje.medir $(if $(FINAL),--final,)
 
-package: verify                       ## paquete de entrega en dist/
-	$(BIN)/python -m tamizaje.empaquetar
+medir-api: setup                      ## mide la API del hospital desplegado (make demo) de punta a punta
+	$(BIN)/python -m tamizaje.medir --modo api --url http://127.0.0.1:8080 $(if $(FINAL),--final,)
+
+package: verify                       ## paquetes documental y de código en dist/ (BORRADOR; FINAL=1 exige evidencias)
+	$(BIN)/python -m tamizaje.empaquetar --tipo ambos $(if $(FINAL),--final,)
 
 # ---- Linux / LinuxONE (s390x) sin ruedas de pip: todo dentro de las imágenes de Ubuntu 24.04
 COMMIT := $(shell git rev-parse HEAD 2>/dev/null)
-CAMBIOS := $(shell test -n "$$(git status --porcelain --untracked-files=no 2>/dev/null)" && echo 1 || echo 0)
-DEV := docker run --rm -e TAMIZAJE_COMMIT=$(COMMIT) -e TAMIZAJE_CAMBIOS=$(CAMBIOS) tamizaje:dev
+# Cambios relevantes, incluidos archivos nuevos sin versionar (un PPTX personal fuera de estas rutas no cuenta)
+RELEVANTES := src tests docker Makefile requirements.txt artefactos/modelo artefactos/particiones .dockerignore
+CAMBIOS := $(shell test -n "$$(git status --porcelain --untracked-files=all -- $(RELEVANTES) 2>/dev/null)" && echo 1 || echo 0)
+PROC = -e TAMIZAJE_COMMIT=$(COMMIT) -e TAMIZAJE_CAMBIOS_RELEVANTES=$(CAMBIOS) -e TAMIZAJE_IMAGEN=$$(docker image inspect -f '{{.Id}}' tamizaje:dev)
+DEV = docker run --rm $(PROC) tamizaje:dev
 
 imagen-dev:
 	docker build -f docker/Dockerfile --target dev -t tamizaje:dev .
@@ -71,9 +77,16 @@ demo-docker: secretos-docker imagen   ## demo sin venv en el host
 	$(COMPOSE) up -d
 	docker run --rm --network host tamizaje:demo python3 -m tamizaje.smoke http://127.0.0.1:8080
 
+imagen-inspeccion: imagen             ## comprueba que la imagen de la demo no trae CDC, pruebas, sklearn ni llaves
+	docker run --rm tamizaje:demo sh -c 'test ! -e /app/data && test ! -e /app/tests && ! python3 -c "import sklearn" 2>/dev/null && ! find / -xdev \( -name "*.key" -o -name "boveda.key" \) 2>/dev/null | grep -q . && test -f /app/artefactos/modelo/modelo_logistico_v1.json && test -f /app/tamizaje/ui/index.html && echo "imagen app OK: modelo y UI; sin CDC, pruebas, sklearn ni llaves"' 
+
 medir-docker: imagen-dev              ## mediciones dentro de Linux → submission/evidencias/metricas/
 	mkdir -p submission/evidencias/metricas && chmod 777 submission/evidencias/metricas
-	docker run --rm -e TAMIZAJE_COMMIT=$(COMMIT) -e TAMIZAJE_CAMBIOS=$(CAMBIOS) -v $(CURDIR)/submission/evidencias/metricas:/app/submission/evidencias/metricas tamizaje:dev python3 -m tamizaje.medir
+	docker run --rm $(PROC) -v $(CURDIR)/submission/evidencias/metricas:/app/submission/evidencias/metricas tamizaje:dev python3 -m tamizaje.medir $(if $(FINAL),--final,)
+
+medir-api-docker: imagen-dev          ## mide la API del hospital de Compose desde un contenedor cliente (sin Python en el host)
+	mkdir -p submission/evidencias/metricas && chmod 777 submission/evidencias/metricas
+	docker run --rm --network host $(PROC) -v $(CURDIR)/submission/evidencias/metricas:/app/submission/evidencias/metricas tamizaje:dev python3 -m tamizaje.medir --modo api --url http://127.0.0.1:8080 $(if $(FINAL),--final,)
 
 ensanut: setup                        ## extra: evaluación exploratoria con ENSANUT (microdatos locales)
 	$(BIN)/python -m tamizaje.ensanut

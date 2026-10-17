@@ -92,3 +92,30 @@ def test_llave_de_boveda_fuera_del_repo(tmp_path):
     dentro = os.path.join(RAIZ, "artefactos", "llave_prohibida.key")
     with pytest.raises(boveda.BovedaError):
         boveda.cargar_llave(dentro)
+
+
+def _crudo(url, cuerpo, tipo="application/json", largo=None):
+    req = urllib.request.Request(url, data=cuerpo, method="POST")
+    if tipo:
+        req.add_header("Content-Type", tipo)
+    if largo is not None:
+        req.add_header("Content-Length", largo)
+    try:
+        with urllib.request.urlopen(req, timeout=30) as r:
+            return r.status
+    except urllib.error.HTTPError as e:
+        return e.code
+
+
+def test_f11_api_del_hospital_rechaza_tipos_y_tamanos(entorno):
+    u = entorno["hosp"] + "/api/evaluar"
+    assert _crudo(u, b'{"aleatorio": true}', tipo="text/plain") == 415
+    assert _crudo(u, b"[1, 2]") == 400
+    assert _crudo(u, b"x" * (70 * 1024)) == 413
+
+
+def test_f11_tiempos_separados_e_incluyen_boveda(entorno):
+    r = post(entorno["hosp"] + "/api/evaluar", {"perfil": "Sintético A · riesgo bajo"})
+    t = r["tiempos_ms"]
+    assert {"cifrar", "red_y_servicio", "descifrar", "interpretar", "boveda", "total_en_hospital"} <= set(t)
+    assert t["total_en_hospital"] >= t["cifrar"] + t["red_y_servicio"] + t["descifrar"] - 1

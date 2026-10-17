@@ -83,7 +83,7 @@ Las 21 variables del CDC son **enteros** (14 binarias 0/1 y siete escalas), así
 | Capa | Mecanismo | Evidencia para jueces |
 |------|-----------|-----------------------|
 | En tránsito | TLS 1.3 entre contenedores | Configuración del servicio |
-| En reposo | AES-256-GCM vía OpenSSL / `cryptography` (CPACF en IBM Z) | Ver "Evidencia de CPACF" abajo: `openssl speed` solo mide la CLI |
+| En reposo | AES-256-GCM para los **registros de la bóveda del hospital** (`src/tamizaje/boveda.py`), con `cryptography`. Los logs son metadatos en claro (id, ms, bytes) y la app **no** cifra discos ni respaldos | CPACF existe en IBM Z; su uso efectivo por `cryptography` falta demostrarlo (ver abajo) |
 | En uso | Paillier de 2048 bits: se calcula sin descifrar | Pantalla dividida + logs sin datos en claro |
 
 ### Evidencia de CPACF (qué sí prueba algo)
@@ -102,7 +102,9 @@ CPACF acelera AES; **no** acelera Paillier, no es Secure Execution, no protege l
 |------------|--------------------|---------------------|
 | Hospital (tiene la llave privada) | En claro: son sus pacientes | En claro |
 | Servicio de riesgo en LinuxONE | **Solo números cifrados** | **Solo cifrado** |
-| Disco, logs y respaldos | **Cifrado AES-256-GCM** | **Cifrado AES-256-GCM** |
+| Registros de la bóveda (en el hospital) | **Cifrado AES-256-GCM** (llave de 32 bytes fuera del repo) | **Cifrado AES-256-GCM** |
+| Logs del servicio y del hospital | No: solo id, milisegundos y bytes, en claro | No |
+| Discos y respaldos de la VM | La app no los cifra: dependen de la configuración de la VM (no demostrado) | Ídem |
 | Granite (extra, aún no integrado; iría dentro del entorno del hospital) | Solo lo que el hospital le pase (prompt mínimo, sin registro de prompts) | Resultado descifrado |
 | Administrador del host donde corra el entorno del hospital | Puede acceder a ese entorno: **es parte de la frontera de confianza** | Ídem |
 
@@ -119,27 +121,27 @@ CPACF acelera AES; **no** acelera Paillier, no es Secure Execution, no protege l
 
 ```mermaid
 flowchart LR
-    C[Clínicas] -->|TLS 1.3| H
-    subgraph L1[IBM LinuxONE · s390x · Docker]
+    C[UI de pantalla dividida<br/>pacientes sintéticos] -->|HTTP local| H
+    subgraph L1[Misma VM · destino: IBM LinuxONE s390x · Docker]
         subgraph H[Contenedor del hospital]
             K[Llave privada Paillier]
-            E[Cifrar / descifrar]
-            G[Factores principales<br/>Granite: extra]
+            E[Cifrar / descifrar / factores]
+            V[Bóveda AES-256-GCM<br/>llave externa al repo]
         end
-        subgraph S[Servicio de riesgo · sin llave]
-            M[Modelo logístico<br/>pesos en punto fijo]
+        subgraph S[Servicio de riesgo · sin llaves]
+            M[Modelo logístico<br/>pesos enteros × 10⁹]
             A[Aritmética homomórfica]
-            V[Bóveda AES-256-GCM · CPACF]
+            LG[Logs: id, ms, bytes]
         end
-        H -->|solo cifrado| S
-        S -->|solo cifrado| H
+        H -->|TLS 1.3 mutuo · solo cifrado| S
+        S -->|TLS 1.3 mutuo · solo cifrado| H
     end
 ```
 
 **Por qué IBM Z:**
 - **Cómputo pesado, en serio:** cada paciente implica exponenciaciones modulares con enteros de miles de bits.
-- **Seguridad de nivel bancario:** cifrado por hardware (CPACF) y aislamiento entre cargas de trabajo.
-- **Escala por lotes:** muchos pacientes en paralelo en una sola plataforma; se mide en vivo.
+- **Aislamiento y cifrado:** contenedores separados y TLS 1.3 mutuo. IBM Z tiene CPACF para AES, pero su uso efectivo por nuestra biblioteca **no está medido**; no lo presentamos como acelerador.
+- **Medido, no prometido:** hoy se mide en secuencia (concurrencia 1). No afirmamos paralelismo ni escala por lotes sin medirlos en LinuxONE.
 
 **Stack implementado:** Python 3.12 · scikit-learn · python-paillier + gmpy2 · cryptography (TLS 1.3 mutuo, AES-256-GCM) · Docker sobre Ubuntu 24.04 (amd64, arm64, s390x) · `make`. Extras aún no usados: TenSEAL/OpenFHE (CKKS) y Granite (llama.cpp).
 
@@ -190,9 +192,16 @@ Matriz de confusión en prueba: 4,268 VP · 1,034 FN · 22,644 VN · 10,106 FP.
 - **Punto fijo:** en las 38,052 filas de prueba, el error máximo del logit frente al flotante es 5.7×10⁻⁸ (cota 9.6×10⁻⁸), el ROC-AUC es idéntico y ninguna decisión cambia en el umbral.
 - XGBoost no se entrenó: queda subordinado a la logística.
 
-### 6.2 Recorrido cifrado (medición local, no LinuxONE)
+### 6.2 Recorrido cifrado (mediciones locales y trazables, no LinuxONE)
 
-Medido el 17 oct en macOS arm64 (12 CPU, Python 3.12, `phe` 1.5.0 con `gmpy2`, llave de 2048 bits), sobre **2,000 pacientes** de prueba (muestra estratificada con semilla 2026: 279 positivos): **2,000 de 2,000** enteros descifrados idénticos a la referencia; error máximo del logit 4.5×10⁻⁸ (cota 7.9×10⁻⁸); ROC-AUC **0.808** igual en flotante, punto fijo y cifrado. Tiempos p50/p95: cifrar 114/127 ms, evaluar sobre cifrados 8.3/9.8 ms, descifrar 1.6/2.1 ms; recorrido completo por HTTPS con TLS 1.3 mutuo y bóveda, 128/148 ms (≈ 459 pacientes/min en secuencia). Solicitud de 26.8 KB y respuesta de 1.4 KB. **No es velocidad de LinuxONE.** Archivo: `submission/evidencias/metricas/medicion_local-darwin-arm64_20261017T094045Z.json`.
+Ambas desde un clon limpio del commit `7937f9f` (código `d6f1e9c0…`), en macOS arm64 con Python 3.12, `phe` 1.5.0 + `gmpy2` y llave de 2048 bits; concurrencia 1. Archivos y procedencia en [submission/evidencias/metricas/](../submission/evidencias/metricas/README.md).
+
+| Medición | Qué recorre | Resultado |
+|----------|-------------|-----------|
+| `make medir` (en proceso) | Exactitud sobre **2,000 pacientes** de prueba del CDC (estratificada, semilla 2026, 279 positivos) y microbenchmarks en un solo proceso | 2,000/2,000 enteros idénticos a la referencia de punto fijo; error máximo del logit 4.5×10⁻⁸ (cota 7.9×10⁻⁸); ROC-AUC 0.808 igual en flotante, punto fijo y cifrado. p50: cifrar 105 ms, evaluar 7.7 ms, descifrar 1.5 ms |
+| `make medir-api` (dos contenedores) | Cliente HTTP → API del hospital → TLS 1.3 mutuo → servicio → descifrado → bóveda con fsync; 200 pacientes **sintéticos** | 200/200 enteros esperados; solicitud completa p50 129 ms, p95 137 ms; ≈ 461 pacientes/min en secuencia. Dentro del hospital: cifrar 113 ms, red + servicio 11 ms, descifrar 1.6 ms, bóveda 0.7 ms (p50) |
+
+No incluyen navegador. **No son velocidad de LinuxONE**: allá se repiten con `make medir-docker` y `make medir-api-docker` ([LINUXONE.md](LINUXONE.md)). La medición anterior (`…094045Z`) queda como histórica: declaraba un commit que no contenía el código medido.
 
 **Tamaño de la evaluación cifrada:** el conjunto de prueba completo (15%) son 38,052 personas × 21 variables = **799,092 cifrados** antes de los productos. Primero se mide cuántos pacientes por minuto procesa LinuxONE; con eso se elige una **muestra estratificada** (por ejemplo 1,000–2,000 personas) y se compara claro contra cifrado **exactamente sobre esa muestra**, reportando tamaño y composición.
 

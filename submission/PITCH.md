@@ -32,7 +32,7 @@ Usamos cifrado homomórfico Paillier: multiplicar cifrados suma sus valores y el
 
 ## 5. Por qué IBM Z · 0:30
 *(Mostrar la terminal de la VM: `uname -m` → `s390x`, los dos contenedores corriendo y el modelo cargado.)*
-Todo corre en LinuxONE, en dos contenedores: el del hospital, con la llave, y el servicio de riesgo, sin ella. En la demo comparten VM; en producción, el del hospital vive en sus instalaciones. La aritmética homomórfica son exponenciaciones con enteros de miles de bits: cómputo pesado, justo para IBM Z.
+*(Decir "corre en LinuxONE" solo si ya se grabó la VM; si no, "está hecho para LinuxONE".)* Todo corre en LinuxONE, en dos contenedores: el del hospital, con la llave, y el servicio de riesgo, sin ella. En la demo comparten VM; en producción, el del hospital vive en sus instalaciones. La aritmética homomórfica son exponenciaciones con enteros de miles de bits: cómputo pesado, justo para IBM Z.
 
 ## 6. Demo en vivo · 0:35
 *(Pantalla dividida real: `make demo`, paciente sintético C.)*

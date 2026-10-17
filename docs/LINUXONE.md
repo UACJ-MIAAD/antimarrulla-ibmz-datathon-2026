@@ -1,6 +1,6 @@
 # 🖥️ Correr Tamizaje a ciegas en LinuxONE (s390x)
 
-> Estado (17 oct 2026): todo está probado en local (macOS arm64 y contenedores Linux arm64). **Todavía no se ha corrido en LinuxONE.** Estos son los pasos para hacerlo en la VM Ubuntu 24.04 de la Community Cloud. Responsable: Álvaro, con Carlos para las mediciones.
+> Estado (17 oct 2026, 13:20 UTC): todo está probado en local (macOS arm64, contenedores Linux arm64) y en CI (Ubuntu x86_64). **Todavía no se ha corrido en LinuxONE: `no_verificado`** (la sesión que preparó esto no tiene acceso SSH a la VM). Estos son los pasos para hacerlo en la VM Ubuntu 24.04 de la Community Cloud. Responsable: Álvaro, con Carlos para las mediciones.
 
 ## 0. Antes de empezar
 
@@ -22,12 +22,16 @@ No hace falta instalar Python con pip en la VM: las imágenes usan Ubuntu 24.04 
 ## 2. Verificar, levantar y medir
 
 ```bash
-make verify-docker     # todas las pruebas + verificación de artefactos y re-entrenamiento, dentro de Linux s390x
-make demo-docker       # secretos en ~/.tamizaje, imagen, hospital + servicio y prueba de humo
-make medir-docker      # → submission/evidencias/metricas/medicion_linuxone-s390x_*.json y .md
+git checkout <commit fijado>             # el mismo que se quiere evidenciar; sin cambios locales
+make verify-docker                         # todas las pruebas + verificación de artefactos y re-entrenamiento, dentro de Linux s390x
+make imagen-inspeccion                     # la imagen app solo trae modelo y UI (sin CDC, pruebas ni llaves)
+make demo-docker                           # secretos en ~/.tamizaje, hospital + servicio y prueba de humo
+make medir-docker FINAL=1                  # exactitud + microbenchmarks dentro de Linux s390x
+make medir-api-docker FINAL=1              # cliente → API del hospital → mTLS → servicio → bóveda (dos contenedores)
+docker image inspect -f '{{.Id}}' tamizaje:demo tamizaje:dev   # anotar los digests
 ```
 
-La medición se etiqueta sola como `linuxone-s390x` cuando `uname -m` es `s390x`, y registra `lscpu`, `cpacfinfo` (si `s390-tools` está instalado en la imagen), versiones de OpenSSL de la CLI y de `cryptography`, commit y hashes.
+Con `FINAL=1` la medición se rechaza si hay cambios relevantes sin commit, y guarda commit, hash del código ejecutado dentro de la imagen, digest de la imagen, modelo y particiones. Se etiqueta como `s390x` cuando `uname -m` es `s390x` (eso **no** prueba que sea LinuxONE: s390x también puede ser emulado; por eso hace falta la captura del dashboard de la Community Cloud), y registra `lscpu`, `cpacfinfo` (si `s390-tools` está instalado en la imagen), versiones de OpenSSL de la CLI y de `cryptography`, commit y hashes.
 
 ## 3. Ver la UI sin exponer puertos
 
@@ -44,6 +48,7 @@ Guardar en `submission/evidencias/linuxone/`:
 
 | Captura | Comando |
 |---------|---------|
+| Identidad de la VM | captura del dashboard de LinuxONE Community Cloud con la VM (sin datos de acceso) |
 | Arquitectura | `uname -m` → `s390x` y `lscpu` |
 | CPACF disponible | `cpacfinfo -a` (paquete `s390-tools`) |
 | OpenSSL de la CLI y de la app | `openssl version -a` y el campo `openssl_de_cryptography` de la medición |

@@ -7,7 +7,7 @@ Variables de entorno: HOSPITAL_HOST (127.0.0.1), HOSPITAL_PUERTO (8080), MODELO_
 TLS_CA, TLS_CERT_CLIENTE, TLS_LLAVE_CLIENTE, BOVEDA_LLAVE, BOVEDA_ARCHIVO.
 Uso: python -m tamizaje.hospital
 """
-import http.client, json, logging, os, platform, ssl, time, urllib.parse
+import hashlib, http.client, json, logging, os, platform, ssl, time, urllib.parse
 from http.server import BaseHTTPRequestHandler, ThreadingHTTPServer
 from . import boveda, esquema, protocolo, sinteticos
 
@@ -55,8 +55,8 @@ def _corto(c):
 class Clinica:
     """Lógica del hospital, separada del servidor HTTP para poder probarla."""
 
-    def __init__(self, modelo_json, cliente, bov):
-        self.h, self.cliente, self.boveda = protocolo.Hospital(modelo_json), cliente, bov
+    def __init__(self, modelo_json, cliente, bov, modelo_sha256=None):
+        self.h, self.cliente, self.boveda, self.modelo_sha256 = protocolo.Hospital(modelo_json), cliente, bov, modelo_sha256
 
     def evaluar(self, paciente, etiqueta):
         t0 = time.perf_counter()
@@ -67,9 +67,11 @@ class Clinica:
         z, x = self.h.descifrar(resp)
         t3 = time.perf_counter()
         res = self.h.interpretar(z, x)
+        t4 = time.perf_counter()
         self.boveda.guardar(sol["id"], {"sintetico": True, "perfil": etiqueta, "entrada": dict(zip(esquema.NOMBRES, x)),
                                         "probabilidad": res["probabilidad"], "riesgo_alto": res["riesgo_alto"], "fecha": time.time()})
-        log.info("evaluada id=%s cifrar_ms=%.1f servicio_ms=%.1f descifrar_ms=%.1f", sol["id"], (t1 - t0) * 1e3, (t2 - t1) * 1e3, (t3 - t2) * 1e3)
+        t5 = time.perf_counter()
+        log.info("evaluada id=%s cifrar_ms=%.1f servicio_ms=%.1f descifrar_ms=%.1f boveda_ms=%.1f", sol["id"], (t1 - t0) * 1e3, (t2 - t1) * 1e3, (t3 - t2) * 1e3, (t5 - t4) * 1e3)
         return {
             "sintetico": True, "perfil": etiqueta, "id": sol["id"],
             "hospital": {"entrada": dict(zip(esquema.NOMBRES, x)), **res},
@@ -80,7 +82,8 @@ class Clinica:
                 "devolvio": {"resultado": _corto(resp["resultado"]), "bytes": b_out, "servicio_ms": resp.get("servicio_ms")},
             },
             "tiempos_ms": {"cifrar": round((t1 - t0) * 1e3, 1), "red_y_servicio": round((t2 - t1) * 1e3, 1),
-                           "descifrar": round((t3 - t2) * 1e3, 1), "total": round((t3 - t0) * 1e3, 1)},
+                           "descifrar": round((t3 - t2) * 1e3, 1), "interpretar": round((t4 - t3) * 1e3, 2),
+                           "boveda": round((t5 - t4) * 1e3, 1), "total_en_hospital": round((t5 - t0) * 1e3, 1)},
         }
 
 
@@ -88,6 +91,7 @@ def crear_servidor(host, puerto, clinica):
     class Manejador(BaseHTTPRequestHandler):
         server_version = "tamizaje-hospital"
         sys_version = ""
+        timeout = 15
 
         def log_message(self, fmt, *args):
             pass
@@ -117,7 +121,7 @@ def crear_servidor(host, puerto, clinica):
                     salud = clinica.cliente.salud()
                 except OSError as e:
                     salud = {"estado": f"sin conexión ({type(e).__name__})"}
-                return self._json(200, {"servicio": salud, "modelo": clinica.h.cuantizado.nombre, "esquema": esquema.VERSION,
+                return self._json(200, {"servicio": salud, "modelo": clinica.h.cuantizado.nombre, "modelo_sha256": clinica.modelo_sha256, "esquema": esquema.VERSION,
                                         "llave_bits": clinica.h.pub.n.bit_length(), "maquina": platform.machine(),
                                         "sistema": platform.system(), "umbral": clinica.h.modelo_json["umbral"]})
             self._json(404, {"error": "no existe"})
@@ -126,8 +130,17 @@ def crear_servidor(host, puerto, clinica):
             if urllib.parse.urlsplit(self.path).path != "/api/evaluar":
                 return self._json(404, {"error": "no existe"})
             try:
-                largo = int(self.headers.get("Content-Length", "0"))
-                pedido = json.loads(self.rfile.read(min(largo, 64 * 1024)))
+                largo = int(self.headers.get("Content-Length", ""))
+            except ValueError:
+                return self._json(411, {"error": "falta Content-Length válido"})
+            if not 0 < largo <= 64 * 1024:
+                return self._json(413, {"error": "cuerpo vacío o demasiado grande"})
+            if self.headers.get("Content-Type", "").split(";")[0].strip() != "application/json":
+                return self._json(415, {"error": "se espera application/json"})
+            try:
+                pedido = json.loads(self.rfile.read(largo))
+                if not isinstance(pedido, dict):
+                    raise ValueError("se esperaba un objeto JSON")
                 if "perfil" in pedido:
                     etiqueta = pedido["perfil"]
                     paciente = sinteticos.PERFILES[etiqueta]
@@ -146,12 +159,13 @@ def crear_servidor(host, puerto, clinica):
 
 def main():
     logging.basicConfig(level=logging.INFO, format="%(asctime)s hospital %(message)s")
-    with open(os.environ["MODELO_JSON"]) as f:
-        modelo = json.load(f)
+    with open(os.environ["MODELO_JSON"], "rb") as f:
+        crudo = f.read()
+    modelo = json.loads(crudo)
     cliente = ClienteServicio(os.environ.get("SERVICIO_URL", "https://servicio:8443"), os.environ["TLS_CA"],
                               os.environ["TLS_CERT_CLIENTE"], os.environ["TLS_LLAVE_CLIENTE"])
     bov = boveda.Boveda(os.environ.get("BOVEDA_ARCHIVO", "/var/lib/tamizaje/boveda.jsonl"), boveda.cargar_llave(os.environ["BOVEDA_LLAVE"]))
-    clinica = Clinica(modelo, cliente, bov)
+    clinica = Clinica(modelo, cliente, bov, hashlib.sha256(crudo).hexdigest())
     srv = crear_servidor(os.environ.get("HOSPITAL_HOST", "127.0.0.1"), int(os.environ.get("HOSPITAL_PUERTO", "8080")), clinica)
     log.info("UI en http://%s:%s · llave Paillier de %d bits generada en memoria", *srv.server_address[:2], clinica.h.pub.n.bit_length())
     srv.serve_forever()

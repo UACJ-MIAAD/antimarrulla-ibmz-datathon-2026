@@ -8,7 +8,7 @@ PARTICIONES = os.path.join(ARTEFACTOS, "particiones", "cdc891_particiones_v1.jso
 ESQUEMA_JSON = os.path.join(ARTEFACTOS, "modelo", "esquema_cdc21_v1.json")
 MODELO_JSON = os.path.join(ARTEFACTOS, "modelo", "modelo_logistico_v1.json")
 METRICAS_MODELO = os.path.join(ARTEFACTOS, "metricas", "modelo_logistico_v1.json")
-MEDICIONES = os.path.join(RAIZ, "submission", "evidencias", "metricas")
+MEDICIONES = os.environ.get("TAMIZAJE_MEDICIONES", os.path.join(RAIZ, "submission", "evidencias", "metricas"))
 
 
 def asegurar_dirs():
