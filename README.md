@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="https://i.imgur.com/1pFbRpE.jpeg" alt="Logo de Los Antimarrulla" width="480">
+  <img src="assets/logo.png" alt="Logo de Los Antimarrulla" width="320">
 </p>
 
 # Los Antimarrulla · IBM Z Datathon 2026
@@ -48,6 +48,7 @@ Más detalle: [COMPETENCIA](docs/COMPETENCIA.md) · [REGLAS](docs/REGLAS.md) · 
 ├── LICENSE                  ← MIT
 ├── requirements.txt
 ├── .github/                 ← plantilla de pull request
+├── assets/                  ← logo del equipo
 ├── docs/
 │   ├── COMPETENCIA.md       ← fechas, formato, premios, elegibilidad
 │   ├── REGLAS.md            ← lo que NO podemos romper
