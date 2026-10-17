@@ -1,6 +1,6 @@
 # ✅ Checklist de entrega
 
-> Nada se entrega sin palomear esta lista. Responsable: **Javier** (líder + pitch), con una segunda revisión de **Carlos** para la parte técnica.
+> Nada se entrega sin palomear esta lista. Responsable: **Javier** (capitán), con una segunda revisión de **Álvaro** para la parte técnica y de **Yazmin** para video y PDF.
 > Arrancar la revisión en la **hora 21**. Cierre en Hack2skill: **18 oct, 10:30 hora Juárez** → meta interna de envío: **7:00**.
 
 ## 🧪 Prerrequisitos (primeras horas)

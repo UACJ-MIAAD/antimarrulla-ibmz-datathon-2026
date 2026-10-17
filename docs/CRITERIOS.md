@@ -8,10 +8,10 @@
 
 | # | Criterio | Pts | Dueño interno |
 |---|----------|----:|---------------|
-| 1 | Valor para la comunidad y alineación con el tema | 10 | Javier + todos |
+| 1 | Valor para la comunidad y alineación con el tema | 10 | Yazmin (datos e impacto) + todos |
 | 2 | Novedad y originalidad de la idea | 10 | Todo el equipo |
-| 3 | Diseño técnico y uso de LinuxONE Community Cloud + paquetes open source de IA/ML | 10 | Carlos (LinuxONE) + Álvaro (modelado) + Yazmin (datos) |
-| 4 | Ejecución y entrega / calidad del pitch (video) | 10 | Javier (pitch) + Yazmin (demo) |
+| 3 | Diseño técnico y uso de LinuxONE Community Cloud + paquetes open source de IA/ML | 10 | Álvaro (LinuxONE) + Carlos (modelado) + Yazmin (datos) |
+| 4 | Ejecución y entrega / calidad del pitch (video) | 10 | Yazmin (pitch) + Javier (demo y entrega) |
 | | **Total** | **40** | |
 
 > **Antes de construir:** la guía marca como **prerrequisito obligatorio** completar los **dos labs de IA/ML** que da la organización (*Predictive AI Hybrid AI scenarios (multi-model)* y *Predictive AI + Generative AI*). Se hacen al arranque, antes de escribir nuestro código.

@@ -139,18 +139,22 @@ Todas se miden **en vivo en LinuxONE** y se guardan en `submission/evidencias/`.
 
 ## 8. Plan por horas (sobre [ROLES.md](ROLES.md))
 
-| Hora (Juárez) | Javier · líder + pitch | Yazmin · datos + demo | Álvaro · modelado | Carlos · LinuxONE |
-|---------------|------------------------|-----------------------|-------------------|-------------------|
-| 0–1 (7:00) | Kick-off y alcance | Descarga CDC 891 | Plan del modelo | Acceso a la VM |
-| 1–3 | Labs obligatorios | EDA + incidencia SINAVE | Labs obligatorios | Labs + `pip install phe` en s390x |
-| **2** | 🚩 **Decisión CKKS vs. Paillier** | | | Prueba de TenSEAL/OpenFHE |
-| 3–8 | README y narrativa | Limpieza y particiones | Regresión logística + XGBoost de referencia | Dos contenedores Docker |
-| 8–12 | Guion v1 | Mapa SINAVE/EDR por entidad | Pesos en punto fijo + inferencia Paillier | TLS + bóveda AES-GCM |
-| 12–16 | Slides v2 | UI de pantalla dividida | AUC cifrado vs. en claro | Integración de servicio y UI |
-| 16–18 | Empuje a demo | Pulido de demo | Métricas finales | Latencia y evidencias |
+| Hora (Juárez) | Javier · capitán | Álvaro · infra LinuxONE | Carlos · modelado | Yazmin · datos y pitch |
+|---------------|------------------|-------------------------|-------------------|------------------------|
+| 0–1 (7:00) | Arranque y alcance | Acceso de los 4 a la VM | Plan del modelo | Plan de datos y pitch |
+| 1–3 | Capturas de labs | Labs + `pip install phe` en s390x | Labs obligatorios | Labs + EDA del CDC |
+| **2** | | 🚩 **Decisión CKKS vs. Paillier** | | |
+| 3–8 | Boceto de la UI | Dos contenedores Docker | Regresión logística + XGBoost de referencia | Particiones · cascada y mapa |
+| 8–12 | UI de pantalla dividida | TLS + bóveda AES-GCM | Pesos en punto fijo + inferencia Paillier | Slide de impacto |
+| 12–16 | UI conectada al servicio | Servicio de riesgo conectado | AUC cifrado vs. en claro | Slides v2 |
+| 16–18 | Empuje a demo | Latencia y evidencias | Granite explica el resultado | Guion final |
 | **18 (1:00)** | 🚩 **Demo de punta a punta** | | | |
-| 18–22 | Video (máx. 3 min) | Video de respaldo | `pip freeze` y reproducibilidad | Capturas y limpieza |
-| 22–24 | **Envío (meta 7:00)** | Revisión final | Revisión final | Checklist técnico |
+| 18–22 | Checklist · README de la demo | Capturas y revisión técnica | `pip freeze` y reproducibilidad | **Video (2:50)** · PDF del deck |
+| 22–24 | **Envío (meta 7:00)** | Revisión final | Revisión final | Revisión final |
+
+## 8.1 Épica E5 · Pronóstico y planeación financiera (Plus)
+
+Pronóstico a **52 semanas** de casos nuevos de diabetes T1 y T2 para las **111 series** (estado, región y nacional × hombres, mujeres y total), con selección del modelo por SMAPE, respaldo regional para series con pocos casos y un **dashboard de presupuesto** con costo unitario editable. Diseño completo en [PRONOSTICO.md](PRONOSTICO.md).
 
 ## 9. Riesgos
 

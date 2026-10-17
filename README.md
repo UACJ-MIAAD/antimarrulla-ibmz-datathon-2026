@@ -61,6 +61,7 @@ Más detalle: [COMPETENCIA](docs/COMPETENCIA.md) · [REGLAS](docs/REGLAS.md) · 
 │   ├── PROYECTO.md          ← diseño de Tamizaje a ciegas: cifrado, arquitectura, plan
 │   ├── FUENTES_DATOS.md     ← CDC, SINAVE (incidencia) y EDR INEGI (mortalidad)
 │   ├── MODELO_DATOS.md      ← esquema estrella, llaves, armonización y mart de la cascada
+│   ├── PRONOSTICO.md        ← épica E5: pronóstico a 52 semanas y planeación financiera
 │   ├── DECISION.md          ← acta: por qué elegimos Tamizaje a ciegas
 │   ├── IDEAS.md             ← ideas candidatas + matriz de decisión
 │   ├── Ranking_Ideas_Antimarrulla.pptx ← 11 ideas calificadas por jueces ciegos

@@ -7,14 +7,14 @@
 
 | # | Slide | Tiempo | Acumulado | Quién habla |
 |---|-------|-------:|----------:|-------------|
-| 1 | Portada | 0:10 | 0:10 | Javier |
-| 2 | El problema | 0:25 | 0:35 | Javier |
-| 3 | La solución | 0:20 | 0:55 | Álvaro |
-| 4 | Cifrado homomórfico | 0:25 | 1:20 | Álvaro |
-| 5 | Por qué IBM Z (+ **pantalla de LinuxONE**) | 0:30 | 1:50 | Carlos |
-| 6 | Demo en vivo | 0:35 | 2:25 | Yazmin |
+| 1 | Portada | 0:10 | 0:10 | Yazmin |
+| 2 | El problema | 0:25 | 0:35 | Yazmin |
+| 3 | La solución | 0:20 | 0:55 | Carlos |
+| 4 | Cifrado homomórfico | 0:25 | 1:20 | Carlos |
+| 5 | Por qué IBM Z (+ **pantalla de LinuxONE**) | 0:30 | 1:50 | Álvaro |
+| 6 | Demo en vivo | 0:35 | 2:25 | Javier |
 | 7 | Datos y modelo | 0:12 | 2:37 | Yazmin |
-| 8 | Impacto y cierre | 0:13 | 2:50 | Javier |
+| 8 | Impacto y cierre | 0:13 | 2:50 | Yazmin |
 
 ---
 
