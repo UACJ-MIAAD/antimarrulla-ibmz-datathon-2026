@@ -1,0 +1,6 @@
+# Dependencias base del equipo. Fijar versiones con `pip freeze` al final del evento.
+pandas
+numpy
+scikit-learn
+jupyter
+matplotlib

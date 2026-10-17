@@ -1,0 +1,56 @@
+# --- Python ---
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+build/
+dist/
+*.egg-info/
+.eggs/
+
+# --- Entornos virtuales ---
+venv/
+.venv/
+env/
+ENV/
+
+# --- Jupyter ---
+.ipynb_checkpoints/
+
+# --- Secretos y configuración local ---
+.env
+.env.*
+!.env.example
+*.pem
+*.key
+
+# --- Datos: nunca subir datasets ni datos sensibles ---
+data/*.csv
+data/*.tsv
+data/*.parquet
+data/*.xlsx
+data/*.json
+data/*.zip
+data/*.gz
+data/*.pkl
+data/raw/
+data/processed/
+!data/README.md
+!data/.gitkeep
+
+# --- Modelos pesados ---
+*.joblib
+*.h5
+*.pt
+*.onnx
+
+# --- Pruebas y cobertura ---
+.pytest_cache/
+.coverage
+htmlcov/
+
+# --- Editores y sistema ---
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db
