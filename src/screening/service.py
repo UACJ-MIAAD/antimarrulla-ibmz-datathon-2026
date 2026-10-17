@@ -16,6 +16,35 @@ MAX_BODY = 512 * 1024
 log = logging.getLogger("service")
 
 
+HANDSHAKE_TIMEOUT = 15  # seconds a client gets to finish the TLS handshake
+
+
+class TLSThreadingServer(ThreadingHTTPServer):
+    """Accepts plain TCP and does the TLS 1.3 handshake in each connection's own thread.
+
+    Wrapping the listening socket instead would run every handshake inside accept(), on the single main thread:
+    one slow or stalled client would then block all others (seen with --concurrency through an SSH tunnel)."""
+
+    def __init__(self, address, handler, ctx):
+        self.ctx = ctx
+        super().__init__(address, handler)
+
+    def finish_request(self, request, client_address):
+        request.settimeout(HANDSHAKE_TIMEOUT)
+        try:
+            tls = self.ctx.wrap_socket(request, server_side=True)
+        except (ssl.SSLError, OSError) as e:
+            log.info("handshake rejected client=%s reason=%s", client_address[0], type(e).__name__)
+            return
+        try:
+            self.RequestHandlerClass(tls, client_address, self)
+        finally:
+            try:
+                tls.close()
+            except OSError:
+                pass
+
+
 def context_tls(cert, key, client_ca):
     ctx = ssl.SSLContext(ssl.PROTOCOL_TLS_SERVER)
     ctx.minimum_version = ssl.TLSVersion.TLSv1_3
@@ -164,8 +193,7 @@ def create_server(host, port, model_json, cert, key, client_ca, evidence=None, m
                 log.info("evidence id=%s client=%s cn=%s %s private_key_in_memory=%s request_sha256=%s…",
                          e["id"], e["client_ip"], e["client_cn"], e["tls"], e["private_key_in_memory"], e["sha256_request"][:16])
 
-    srv = ThreadingHTTPServer((host, port), Handler)
-    srv.socket = context_tls(cert, key, client_ca).wrap_socket(srv.socket, server_side=True)
+    srv = TLSThreadingServer((host, port), Handler, context_tls(cert, key, client_ca))
     srv.evidence = ev
     return srv, service
 
