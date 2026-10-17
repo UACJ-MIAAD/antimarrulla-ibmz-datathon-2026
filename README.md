@@ -70,11 +70,11 @@ The 21-feature logistic model uses public CDC BRFSS 2015 data (UCI 891). The str
 
 This is a technical screening demonstration, not a diagnosis or a forecast of an individual's future diabetes or mortality. The survey label concerns reported diagnosis. Clinical use requires independent population-specific evaluation.
 
-**Team runs reported on October 17 (not yet independently verified):**
+**Team runs on October 17:**
 
-| Run | Reported result | Evidence status |
+| Run | Result | Evidence status |
 |-----|-----------------|-----------------|
-| Carlos · hospital client to remote risk service | Audit 10/10, exact results 200/200, ≈650 ms per record (≈140 ms encrypt, ≈500 ms network + service, ≈10 ms decrypt), 18.6 ms service evaluation, ≈92 records/min sequential; ciphertexts of 1,233 digits (consistent with a 2048-bit key) | Image and chat only; original `hospital_summary.json`, audit JSON/Markdown and logs pending ([record](submission/evidence/two_hosts/carlos_20261017_audit_summary_reported.md)) |
+| Carlos · Mac hospital to a remote s390x risk service | Original audit **approved, 10/10 checks**: service container on Linux s390x (Ubuntu, OpenSSL 3.0.13), hospital on macOS arm64, separate hosts; 200/200 exact integers; per record p50 606.9 ms and p95 805.0 ms (encrypt ≈141 ms, network + service ≈456 ms p50, decrypt ≈9 ms); TLS 1.3 with client certificate; no private key or plaintext on the service side | Raw report committed ([audit](submission/evidence/two_hosts/auditoria_20261017T194931Z.md), [summary](docs/CARLOS_REMOTE_AUDIT.md)). It ran the pre-English release `037ee1b`; LinuxONE Community Cloud identity and a run on the final English release are still pending |
 | Álvaro · legacy UI on the server | Linux s390x, 2048-bit key, synthetic C at 66.3% | Screenshot only; provider dashboard, `uname`/`lscpu`, containers and measurement files pending |
 
 Next run, on the approved demo VM with the agreed final English release: `make verify-docker`, `make demo-docker`, `make measure-docker FINAL=1` and `make measure-api-docker FINAL=1`, then commit the outputs. Use the wording "One synthetic record from the measured run" (not "real patient").
