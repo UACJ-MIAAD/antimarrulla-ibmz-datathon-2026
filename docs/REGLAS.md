@@ -16,7 +16,7 @@ Resumen operativo. La fuente oficial manda: la página del evento y la guía de 
 ## 2. Trabajo original
 
 - Todo lo entregado es trabajo del equipo.
-- Las **librerías open source están permitidas** y se **citan en la entrega** (tabla de créditos del [README](../README.md#-créditos-librerías-y-uso-de-ia)).
+- Las **librerías open source están permitidas** y se **citan en la entrega** (tabla de créditos del [README](../README.md#créditos-librerías-y-uso-de-ia)).
 - Datasets públicos: se cita fuente y licencia en [data/README.md](../data/README.md).
 
 ## 3. IA generativa: sí, con transparencia

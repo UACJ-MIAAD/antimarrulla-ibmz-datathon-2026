@@ -1,4 +1,4 @@
-# 🛡️ Los Antimarrulla · IBM Z Datathon 2026
+# Los Antimarrulla · IBM Z Datathon 2026
 
 > **"Combatimos la flojera y la procrastinación."**
 > 24 horas, un mainframe y cero excusas.
@@ -7,39 +7,35 @@ Repositorio oficial del equipo **Los Antimarrulla** (UACJ · Maestría en Inteli
 
 ---
 
-## 👥 Equipo
+## Equipo
 
-| # | Integrante | Rol tentativo | Responsabilidad principal |
-|---|------------|---------------|---------------------------|
-| 1 | **Javier Augusto Rebull Saucedo** | 🧭 Líder / coordinación + 🎤 documentación y pitch | Decisiones, ritmo del equipo, integración final, README, slides, guion, video y entrega |
-| 2 | **Álvaro Hernández Jarquín** | 🧠 Modelado ML | Entrenamiento, evaluación y explicabilidad del modelo |
-| 3 | **Carlos Gonzalez** | 🖥️ Backend / infra LinuxONE | Entorno IBM Z, despliegue, cifrado y servicios |
-| 4 | **Yazmin Ivonne Flores Martinez** | 📊 Datos + 🎨 frontend / demo | Dataset, limpieza, EDA y privacidad; desde la hora 10, interfaz de la demo en vivo |
-
-> Somos 4: el mínimo permitido por las bases. Cuatro antimarrullas rinden por seis.
-
-Detalle de responsabilidades por hora y plan de turnos: **[docs/ROLES.md](docs/ROLES.md)**.
+| Participante | Nombre |
+|--------------|--------|
+| Participante 1 | Javier Augusto Rebull Saucedo |
+| Participante 2 | Álvaro Hernández Jarquín |
+| Participante 3 | Carlos Gonzalez |
+| Participante 4 | Yazmin Ivonne Flores Martinez |
 
 ---
 
-## 🏁 La competición en una tabla
+## La competición en una tabla
 
 | Concepto | Detalle |
 |----------|---------|
 | Evento | IBM Z Datathon 2026 · Shooting Stars Foundation, impulsado por IBM |
 | Fechas | **17–18 de octubre de 2026** · 24 horas continuas |
-| Modalidad | Virtual (participamos desde México 🇲🇽) |
+| Modalidad | Virtual (participamos desde México) |
 | Setup técnico obligatorio | **16 de octubre** · acceso a LinuxONE / IBM Z |
 | Premios | +$50,000 USD · campeones regionales (Americas, EMEA, APAC) + reconocimientos por universidad |
 | Equipo | 4 a 6 estudiantes universitarios 18+, cualquier carrera |
 | Entregables | Repo público · demo/presentación · pitch en video grabado durante el evento |
-| Nuestro tema candidato | 🔐 **AI Secured: Innovation Without Exposure** (las 3 ideas caen aquí) |
+| Nuestro tema candidato | **AI Secured: Innovation Without Exposure** (las 3 ideas caen aquí) |
 
 Más detalle: [COMPETENCIA](docs/COMPETENCIA.md) · [REGLAS](docs/REGLAS.md) · [CRITERIOS](docs/CRITERIOS.md) · [TEMAS](docs/TEMAS.md)
 
 ---
 
-## 🗺️ Mapa del repo
+## Mapa del repo
 
 ```
 .
@@ -68,7 +64,7 @@ Más detalle: [COMPETENCIA](docs/COMPETENCIA.md) · [REGLAS](docs/REGLAS.md) · 
 
 ---
 
-## ⚡ Quickstart
+## Quickstart
 
 ```bash
 # 1. Clonar
@@ -88,11 +84,11 @@ jupyter notebook notebooks/
 
 En LinuxONE (s390x) los pasos son los mismos; si algún paquete no trae wheel para s390x, se documenta aquí la alternativa que usamos.
 
-> 🔧 _Esta sección se actualiza durante el evento con el comando exacto para correr la demo._
+>  _Esta sección se actualiza durante el evento con el comando exacto para correr la demo._
 
 ---
 
-## 🧪 Proyecto
+## Proyecto
 
 > _Se completa tras la reunión de decisión (hora 1). Ver [docs/DECISION.md](docs/DECISION.md)._
 
@@ -105,7 +101,7 @@ En LinuxONE (s390x) los pasos son los mismos; si algún paquete no trae wheel pa
 
 ---
 
-## 🤝 Cómo trabajamos
+## Cómo trabajamos
 
 Resumen (detalle en [CONTRIBUTING.md](CONTRIBUTING.md)):
 
@@ -113,11 +109,11 @@ Resumen (detalle en [CONTRIBUTING.md](CONTRIBUTING.md)):
 2. **Pull request revisado por otro miembro** antes de fusionar.
 3. **Commits en español** con formato `tipo: descripción` → `datos: limpieza inicial del dataset`.
 4. **Todo commit de código es del 17–18 de octubre.** El historial es evidencia ante los jueces.
-5. ⏰ **Hora 1:** reunión de decisión de idea. ⏰ **Hora 18:** deadline interno de demo funcional.
+5. **Hora 1:** reunión de decisión de idea. **Hora 18:** deadline interno de demo funcional.
 
 ---
 
-## 📚 Créditos, librerías y uso de IA
+## Créditos, librerías y uso de IA
 
 Las reglas permiten librerías open source y asistentes de IA generativa **siempre que se declaren**. Esta tabla se mantiene al día durante el evento.
 
@@ -135,6 +131,6 @@ Todo el código asistido por IA fue leído, entendido y probado por el equipo. S
 
 ---
 
-## 📄 Licencia
+## Licencia
 
 [MIT](LICENSE) · Hecho con cafeína y disciplina en Ciudad Juárez, Chihuahua.
