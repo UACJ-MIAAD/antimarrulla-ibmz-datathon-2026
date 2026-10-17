@@ -1,3 +1,7 @@
+<p align="center">
+  <img src="https://i.imgur.com/1pFbRpE.jpeg" alt="Logo de Los Antimarrulla" width="480">
+</p>
+
 # Los Antimarrulla · IBM Z Datathon 2026
 
 > **"Combatimos la flojera y la procrastinación."**
