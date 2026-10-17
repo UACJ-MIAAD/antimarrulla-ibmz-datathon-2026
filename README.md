@@ -11,14 +11,12 @@ Repositorio oficial del equipo **Los Antimarrulla** (UACJ · Maestría en Inteli
 
 | # | Integrante | Rol tentativo | Responsabilidad principal |
 |---|------------|---------------|---------------------------|
-| 1 | **Javier Augusto Rebull Saucedo** | 🧭 Líder / coordinación | Decisiones, ritmo del equipo, integración final y entrega |
+| 1 | **Javier Augusto Rebull Saucedo** | 🧭 Líder / coordinación + 🎤 documentación y pitch | Decisiones, ritmo del equipo, integración final, README, slides, guion, video y entrega |
 | 2 | **Álvaro Hernández Jarquín** | 🧠 Modelado ML | Entrenamiento, evaluación y explicabilidad del modelo |
 | 3 | **Carlos Gonzalez** | 🖥️ Backend / infra LinuxONE | Entorno IBM Z, despliegue, cifrado y servicios |
-| 4 | **Yazmin Ivonne Flores Martinez** | 📊 Datos | Dataset, limpieza, EDA, calidad y privacidad de datos |
-| 5 | _Por confirmar_ | 🎨 Frontend / demo | Interfaz de la demo en vivo y visualizaciones |
-| 6 | _Por confirmar_ | 🎤 Documentación + pitch | README, slides, guion y video |
+| 4 | **Yazmin Ivonne Flores Martinez** | 📊 Datos + 🎨 frontend / demo | Dataset, limpieza, EDA y privacidad; desde la hora 10, interfaz de la demo en vivo |
 
-> Las bases permiten equipos de 4 a 6. Si cerramos con 4, los roles 5 y 6 se reparten como indica [docs/ROLES.md](docs/ROLES.md#plan-b-si-somos-4).
+> Somos 4: el mínimo permitido por las bases. Cuatro antimarrullas rinden por seis.
 
 Detalle de responsabilidades por hora y plan de turnos: **[docs/ROLES.md](docs/ROLES.md)**.
 

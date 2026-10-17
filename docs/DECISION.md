@@ -68,5 +68,3 @@
 | Álvaro Hernández Jarquín | |
 | Carlos Gonzalez | |
 | Yazmin Ivonne Flores Martinez | |
-| | |
-| | |

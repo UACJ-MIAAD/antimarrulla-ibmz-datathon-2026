@@ -37,7 +37,7 @@ Un datathon global de **24 horas** organizado por la **Shooting Stars Foundation
 | Estudiantes universitarios inscritos | ✅ UACJ, MIAAD |
 | Mayores de 18 años | ✅ |
 | Cualquier carrera | ✅ |
-| Equipos de 4 a 6 integrantes | ✅ (ver [ROLES.md](ROLES.md) para la integración final) |
+| Equipos de 4 a 6 integrantes | ✅ Somos 4 (ver [ROLES.md](ROLES.md)) |
 
 ## Entregables
 

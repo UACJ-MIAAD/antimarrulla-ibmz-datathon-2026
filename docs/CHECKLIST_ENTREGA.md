@@ -1,6 +1,6 @@
 # ✅ Checklist de entrega
 
-> Nada se entrega sin palomear esta lista. Responsable de revisarla: **Documentación + pitch**, con visto bueno del **líder**.
+> Nada se entrega sin palomear esta lista. Responsable: **Javier** (líder + pitch), con una segunda revisión de **Carlos** para la parte técnica.
 > Arrancar la revisión en la **hora 21**, no en la 23:59.
 
 ## 📦 Repositorio

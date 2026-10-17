@@ -4,14 +4,14 @@
 
 | Criterio | Puntos | Dueño interno |
 |----------|-------:|---------------|
-| Manejo de datos y metodología | 20 | Datos + Modelado ML |
+| Manejo de datos y metodología | 20 | Yazmin (datos) + Álvaro (modelado) |
 | Innovación y creatividad | 20 | Todo el equipo |
-| Integración con tecnología IBM Z | 15 | Backend / infra LinuxONE |
-| Presentación y storytelling | 10 | Documentación + pitch |
-| Reproducibilidad y documentación | 5 | Documentación + pitch |
-| **Bonus** · narrativa de impacto comunitario | +5 | Líder + pitch |
-| **Bonus** · demo en vivo pulida | +3 | Frontend / demo |
-| **Bonus** · repo open source bien documentado | +2 | Documentación |
+| Integración con tecnología IBM Z | 15 | Carlos (infra LinuxONE) |
+| Presentación y storytelling | 10 | Javier (pitch) |
+| Reproducibilidad y documentación | 5 | Javier (docs) + Álvaro (scripts) |
+| **Bonus** · narrativa de impacto comunitario | +5 | Javier |
+| **Bonus** · demo en vivo pulida | +3 | Yazmin (demo) + Carlos (LinuxONE) |
+| **Bonus** · repo open source bien documentado | +2 | Javier |
 
 > Lectura rápida: **datos + innovación = 40 de 70.** Ahí se gana. IBM Z vale 15: si se siente "pegado con cinta", se pierde.
 
