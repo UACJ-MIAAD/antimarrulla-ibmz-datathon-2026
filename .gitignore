@@ -62,3 +62,6 @@ Thumbs.db
 # --- Documentos oficiales del evento (no redistribuir) ---
 docs/*.docx
 docs/*.pdf
+
+# --- Netlify CLI (estado local) ---
+.netlify/
