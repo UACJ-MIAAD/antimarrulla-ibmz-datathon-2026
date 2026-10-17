@@ -1,6 +1,6 @@
 {
-  "rev": 14,
-  "actualizado": "2026-10-17T09:48:31Z",
+  "rev": 15,
+  "actualizado": "2026-10-17T09:52:00Z",
   "nota": "Para actualizar: cambia 'estado' de la historia (hecho · en_curso · pendiente · bloqueado), sube 'rev' en 1, pon 'actualizado' con la hora real en UTC y haz commit a main. El sitio muestra la copia con 'rev' mayor (GitHub o la publicada).",
   "hitos": {
     "hora_cero": "2026-10-17T13:00:00Z",
@@ -479,7 +479,8 @@
           "quien": "Álvaro · Javier",
           "bloque": "h16",
           "prioridad": "Plus",
-          "estado": "pendiente"
+          "estado": "hecho",
+          "evidencia": "submission/flowchart/arquitectura.pdf (exportado de la arquitectura implementada)"
         },
         {
           "id": "US-7.8",
@@ -489,7 +490,8 @@
           "quien": "Javier",
           "bloque": "h18",
           "prioridad": "Plus",
-          "estado": "pendiente"
+          "estado": "en_curso",
+          "evidencia": "prototipo interactivo con make demo (solo localhost); falta decidir si se publica un acceso y distinguirlo del video"
         },
         {
           "id": "US-7.6",
