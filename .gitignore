@@ -72,3 +72,10 @@ docs/PLAN_REAUDITORIA.md
 
 # Declaración de IA en local mientras el equipo decide dónde va
 docs/USO_IA.local.md
+.venv/
+*.pem
+*.key
+stack-check-*.log
+tests/instance/Dockerfile.test
+__pycache__/
+.DS_Store
