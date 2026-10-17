@@ -61,13 +61,13 @@ Las 21 variables del CDC son **enteros** (14 binarias 0/1 y siete escalas), así
 | Paso | Regla |
 |------|-------|
 | Orden | `HighBP, HighChol, CholCheck, BMI, Smoker, Stroke, HeartDiseaseorAttack, PhysActivity, Fruits, Veggies, HvyAlcoholConsump, AnyHealthcare, NoDocbcCost, GenHlth, MentHlth, PhysHlth, DiffWalk, Sex, Age, Education, Income` (sin `ID`). El esquema se versiona junto con el modelo |
-| Rango permitido | Binarias 0–1 · `BMI` 12–98 · `GenHlth` 1–5 · `MentHlth` y `PhysHlth` 0–30 · `Age` 1–13 · `Education` 1–6 · `Income` 1–8. El hospital rechaza el vector si algo sale de rango |
+| Validación de entrada | Exactamente las **21 variables**, con estos nombres y en este orden (esquema versionado). Cada valor debe ser un **entero** finito dentro de su rango: binarias 0–1 · `BMI` 12–98 · `GenHlth` 1–5 · `MentHlth` y `PhysHlth` 0–30 · `Age` 1–13 · `Education` 1–6 · `Income` 1–8. Se rechaza el vector completo si falta un campo, sobra uno, viene vacío, es fraccionario, `NaN`/infinito o sale de rango |
 | Transformación en el hospital | Ninguna: manda los códigos enteros tal cual (`X_i = x_i`, `S_x = 1`). Si el modelo se entrena con variables estandarizadas, la estandarización se **pliega en los pesos** al exportar: `w'_i = w_i/σ_i` y `b' = b − Σ w_i·μ_i/σ_i`, con `μ` y `σ` del conjunto de entrenamiento |
 | Pesos e intercepto | `W_i = round(S_w · w'_i)` y `B = round(S_w · b')`, con **`S_w = 10^9`** |
 | Exponente | **0 para todo**: se cifran enteros (`public_key.encrypt(int(x))`) y se multiplican por enteros, así el exponente de `EncodedNumber` es el mismo para todos y no filtra magnitud |
 | Cálculo cifrado | `Enc(z) = ∏ Enc(X_i)^{W_i} · Enc(B)` (mod `n²`), es decir `z = Σ W_i·X_i + B` |
 | Negativos | Se representan módulo `n` (lo resuelve la codificación de `phe`); el hospital decodifica el entero con signo |
-| Desbordamiento | `Σ|x_i| ≤ 204` con los rangos de arriba, así que `|z| ≤ 204·max|W_i| + |B|`. Con llave de 2048 bits, `phe` admite hasta `n/3 ≈ 2^2046`; el servidor rechaza modelos con `max|W_i| > 10^15` |
+| Desbordamiento | Con `M_i` = máximo absoluto permitido de la variable `i` (1 en binarias, 98 en `BMI`, etc.), se exige **`Σ M_i·|W_i| + |B| < public_key.max_int`** al cargar el modelo (`max_int ≈ n/3`; con llave de 2048 bits, ≈ 2^2046). Si no se cumple, el modelo se rechaza; la comprobación incluye el intercepto |
 | Descifrado | El hospital calcula `logit = z / S_w` y `p = σ(logit)` |
 | Prueba 1 · cifrado exacto | El entero descifrado debe ser **idéntico** al `z` calculado en claro con los mismos `W_i`, `B` y `X_i` (error 0). Esto prueba el cifrado |
 | Prueba 2 · cuantización | Contra el modelo en flotante: `|logit_cuantizado − logit_flotante| ≤ (0.5·Σ|x_i| + 0.5) / S_w ≤ 1.03×10⁻⁷`, y el error en `p` es a lo más un cuarto de eso. Se reporta el error máximo observado y la diferencia de AUC entre flotante y punto fijo |
