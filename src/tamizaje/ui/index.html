@@ -1,76 +1,140 @@
 <!doctype html>
-<html lang="es">
+<html lang="en">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Tamizaje a ciegas · demo</title>
+<title>Blind Screening · demo</title>
 <style>
-:root{--bg:#0e0e13;--card:#17171f;--line:#2a2a36;--txt:#e8e8ef;--muted:#a3a3b5;--blue:#0f62fe;--lblue:#78a9ff;--green:#24a148;--red:#fa4d56;--yel:#f1c21b}
+:root{--bg:#0e0e13;--card:#17171f;--card2:#1e1e28;--line:#2a2a36;--txt:#e8e8ef;--muted:#a3a3b5;--blue:#0f62fe;--lblue:#78a9ff;--green:#24a148;--lgreen:#42be65;--red:#fa4d56;--yel:#f1c21b;--mono:#c6c6d4}
+@media (prefers-color-scheme:light){:root{--bg:#f4f4f6;--card:#fff;--card2:#f2f2f5;--line:#dcdce3;--txt:#161616;--muted:#5b5b6b;--lblue:#0043ce;--lgreen:#198038;--mono:#393946}}
 *{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--txt);font:15px/1.45 system-ui,-apple-system,Segoe UI,Roboto,sans-serif}
-header{padding:14px 20px;border-bottom:1px solid var(--line);display:flex;gap:16px;align-items:center;flex-wrap:wrap}
+header{padding:14px 20px;border-bottom:1px solid var(--line);display:flex;gap:12px 16px;align-items:center;flex-wrap:wrap}
 h1{font-size:18px;margin:0}.sint{background:var(--yel);color:#111;font-weight:700;padding:3px 10px;border-radius:99px;font-size:12px;letter-spacing:.04em}
-.env{color:var(--muted);font-size:13px;margin-left:auto}
-.ctrl{padding:14px 20px;display:flex;gap:8px;flex-wrap:wrap;align-items:center}
+.env{color:var(--muted);font-size:13px;margin-left:auto;display:flex;align-items:center;gap:6px}
+.dot{width:8px;height:8px;border-radius:50%;background:var(--muted)}.dot.ok{background:var(--green)}.dot.bad{background:var(--red)}
+.ctrl{padding:14px 20px 6px;display:flex;gap:8px;flex-wrap:wrap;align-items:center}.ctrl .lbl{color:var(--muted);font-size:13px;margin-right:4px}
 button{background:var(--card);color:var(--txt);border:1px solid var(--line);border-radius:8px;padding:8px 12px;font:inherit;cursor:pointer}
-button.pri{background:var(--blue);border-color:var(--blue)}button:focus-visible{outline:2px solid var(--lblue);outline-offset:2px}
-details{padding:0 20px}summary{cursor:pointer;color:var(--lblue)}
-.form{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:8px;margin:10px 0}
-.form label{font-size:12px;color:var(--muted);display:flex;flex-direction:column;gap:3px}.form input{background:var(--card);color:var(--txt);border:1px solid var(--line);border-radius:6px;padding:6px}
+button:hover{border-color:var(--lblue)}button.pri{background:var(--blue);border-color:var(--blue);color:#fff}button:disabled{opacity:.55;cursor:wait}
+button[aria-pressed=true]{border-color:var(--lblue);box-shadow:inset 0 0 0 1px var(--lblue)}
+button:focus-visible,input:focus-visible,select:focus-visible,summary:focus-visible{outline:2px solid var(--lblue);outline-offset:2px}
+details.ed{margin:8px 20px 0;background:var(--card);border:1px solid var(--line);border-radius:12px;padding:12px 16px}
+summary{cursor:pointer;color:var(--lblue);font-weight:600}
+.note{color:var(--muted);font-size:13px;margin:8px 0 0}
+fieldset{border:0;padding:0;margin:14px 0 0}legend{font-size:13px;font-weight:700;text-transform:uppercase;letter-spacing:.06em;color:var(--muted);margin-bottom:8px}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(230px,1fr));gap:10px}
+.fld{display:flex;flex-direction:column;gap:4px;font-size:13px}
+.fld .q{color:var(--txt)}.fld code{font:11px ui-monospace,SFMono-Regular,Menlo,monospace;color:var(--muted)}
+.fld input,.fld select{background:var(--card2);color:var(--txt);border:1px solid var(--line);border-radius:6px;padding:7px 8px;font:inherit;width:100%}
+.fld.bad input,.fld.bad select{border-color:var(--red)}.fld .msg{color:var(--red);font-size:12px;min-height:0}
+.acts{display:flex;gap:10px;align-items:center;flex-wrap:wrap;margin-top:16px}#resumen{font-size:13px}
 main{display:grid;grid-template-columns:1fr 1fr;gap:16px;padding:16px 20px}@media(max-width:820px){main{grid-template-columns:1fr}}
-section{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:16px;min-height:280px}
+section{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:16px;min-height:280px;min-width:0}
 section h2{font-size:15px;margin:0 0 4px}.sub{color:var(--muted);font-size:13px;margin:0 0 12px}
-.srv h2{color:var(--lblue)}.hos h2{color:var(--green)}
-.mono{font:12px/1.5 ui-monospace,SFMono-Regular,Menlo,monospace;color:#c6c6d4;word-break:break-all}
-.cif{display:grid;grid-template-columns:150px 1fr;gap:2px 8px}.cif span:nth-child(odd){color:var(--muted)}
-.big{font-size:44px;font-weight:700}.badge{display:inline-block;padding:3px 10px;border-radius:99px;font-weight:700;font-size:13px}
+.srv h2{color:var(--lblue)}.hos h2{color:var(--lgreen)}
+.mono{font:12px/1.5 ui-monospace,SFMono-Regular,Menlo,monospace;color:var(--mono);word-break:break-all}
+.cif{display:grid;grid-template-columns:auto 1fr;gap:2px 10px;max-height:300px;overflow:auto}.cif span:nth-child(odd){color:var(--muted);white-space:nowrap}
+.big{font-size:44px;font-weight:700;line-height:1.1}.badge{display:inline-block;padding:3px 10px;border-radius:99px;font-weight:700;font-size:13px}
 .alto{background:var(--red);color:#fff}.bajo{background:var(--green);color:#fff}
-.bar{display:grid;grid-template-columns:150px 1fr 60px;gap:8px;align-items:center;font-size:13px;margin:4px 0}
-.bar i{display:block;height:10px;border-radius:5px}
+.meter{position:relative;height:10px;border-radius:5px;background:var(--card2);border:1px solid var(--line);margin:10px 0 4px}
+.meter i{position:absolute;inset:0 auto 0 0;border-radius:5px}.meter b{position:absolute;top:-4px;bottom:-4px;width:2px;background:var(--txt)}
+.bar{display:grid;grid-template-columns:minmax(120px,190px) 1fr 56px;gap:8px;align-items:center;font-size:13px;margin:4px 0}
+.bar i{display:block;height:10px;border-radius:5px;min-width:2px}.bar span:last-child{text-align:right;font-variant-numeric:tabular-nums}
 footer{padding:4px 20px 18px;color:var(--muted);font-size:13px}
-.kpis{display:flex;gap:18px;flex-wrap:wrap}.kpis b{display:block;font-size:20px;color:var(--txt)}
+.kpis{display:flex;gap:18px;flex-wrap:wrap}.kpis b{display:block;font-size:20px;color:var(--txt);font-variant-numeric:tabular-nums}
 .err{color:var(--red)}
 </style>
 </head>
 <body>
 <header>
-  <h1>Tamizaje a ciegas</h1><span class="sint">PACIENTES SINTÉTICOS · DEMO</span>
-  <span class="env" id="env">conectando…</span>
+  <h1>Blind Screening</h1><span class="sint">SYNTHETIC PATIENTS · DEMO</span>
+  <span class="env"><i class="dot" id="dot"></i><span id="env">connecting…</span></span>
 </header>
-<div class="ctrl" id="perfiles"></div>
-<details><summary>Editar las 21 variables (paciente sintético capturado)</summary><form class="form" id="form"></form><button class="pri" id="enviar" type="button">Evaluar estos valores</button></details>
+<div class="ctrl" id="perfiles"><span class="lbl">Synthetic patient:</span></div>
+<details class="ed" id="editor"><summary>Edit the 21 screening questions (synthetic patient entry)</summary>
+  <p class="note">Answers use the codes of the CDC Diabetes Health Indicators dataset (UCI 891, BRFSS 2015). Every field is required. Do not enter real patient data.</p>
+  <form id="form" novalidate></form>
+  <div class="acts"><button class="pri" id="enviar" type="button">Encrypt and evaluate</button><span id="resumen" role="status"></span></div>
+</details>
 <main>
-  <section class="srv" aria-live="polite"><h2>Lo que ve el servicio de riesgo</h2><p class="sub">Solo números cifrados con la llave pública del hospital. No tiene la llave privada.</p><div id="srv"><p class="sub">Elige un paciente sintético.</p></div></section>
-  <section class="hos" aria-live="polite"><h2>Lo que ve el hospital</h2><p class="sub">Descifra el puntaje con su llave privada y calcula el riesgo.</p><div id="hos"></div></section>
+  <section class="srv" aria-live="polite"><h2>What the risk service sees</h2><p class="sub">Only numbers encrypted with the hospital's public key. It does not hold the private key.</p><div id="srv"><p class="sub">Choose a synthetic patient.</p></div></section>
+  <section class="hos" aria-live="polite"><h2>What the hospital sees</h2><p class="sub">It decrypts the score with its private key and computes the risk.</p><div id="hos"></div></section>
 </main>
-<footer><div class="kpis" id="tiempos"></div><p>Tamizaje, no diagnóstico. En esta demo el hospital y el servicio corren en la misma máquina: quien la administra está dentro del entorno de confianza.</p></footer>
+<footer><div class="kpis" id="tiempos"></div><p>Screening, not diagnosis. In this demo the hospital and the service run on the same machine: whoever administers it is inside the trust boundary.</p></footer>
 <script>
-const $=id=>document.getElementById(id);let ESQ=null,PERF={};
+const $=id=>document.getElementById(id);let ESQ=null,PERF={},ocupado=false;
+const YN={0:"No",1:"Yes"};
+// CDC/BRFSS 2015 codebook, as published for UCI 891. Ranges always come from /api/sinteticos.
+const META={
+ HighBP:{g:0,q:"Ever told they have high blood pressure",c:YN},
+ HighChol:{g:0,q:"Ever told they have high cholesterol",c:YN},
+ CholCheck:{g:0,q:"Cholesterol check in the past 5 years",c:YN},
+ BMI:{g:0,q:"Body mass index",u:"kg/m²"},
+ Stroke:{g:0,q:"Ever told they had a stroke",c:YN},
+ HeartDiseaseorAttack:{g:0,q:"Coronary heart disease or heart attack",c:YN},
+ DiffWalk:{g:0,q:"Serious difficulty walking or climbing stairs",c:YN},
+ Smoker:{g:1,q:"Smoked at least 100 cigarettes in their life",c:YN},
+ PhysActivity:{g:1,q:"Physical activity outside work, past 30 days",c:YN},
+ Fruits:{g:1,q:"Eats fruit at least once a day",c:YN},
+ Veggies:{g:1,q:"Eats vegetables at least once a day",c:YN},
+ HvyAlcoholConsump:{g:1,q:"Heavy drinking (men >14, women >7 drinks/week)",c:YN},
+ GenHlth:{g:2,q:"Self-rated general health",c:{1:"Excellent",2:"Very good",3:"Good",4:"Fair",5:"Poor"}},
+ MentHlth:{g:2,q:"Days of poor mental health, past 30",u:"days"},
+ PhysHlth:{g:2,q:"Days of physical illness or injury, past 30",u:"days"},
+ AnyHealthcare:{g:3,q:"Has any health care coverage",c:YN},
+ NoDocbcCost:{g:3,q:"Could not see a doctor due to cost, past 12 months",c:YN},
+ Sex:{g:4,q:"Sex",c:{0:"Female",1:"Male"}},
+ Age:{g:4,q:"Age group",c:{1:"18–24",2:"25–29",3:"30–34",4:"35–39",5:"40–44",6:"45–49",7:"50–54",8:"55–59",9:"60–64",10:"65–69",11:"70–74",12:"75–79",13:"80 or older"}},
+ Education:{g:4,q:"Highest education level",c:{1:"Never attended or kindergarten only",2:"Grades 1–8",3:"Grades 9–11",4:"Grade 12 or GED",5:"College 1–3 years",6:"College 4+ years"}},
+ Income:{g:4,q:"Annual household income",c:{1:"Under $10,000",2:"$10,000–14,999",3:"$15,000–19,999",4:"$20,000–24,999",5:"$25,000–34,999",6:"$35,000–49,999",7:"$50,000–74,999",8:"$75,000 or more"}},
+};
+const GRUPOS=["Clinical history","Lifestyle","Health status","Access to care","Demographics","Other"];
+const etq=n=>META[n]?.q||n;
+function nombrePerfil(k){const m=/^Sintético ([A-Z]) · riesgo (bajo|intermedio|alto)$/.exec(k);
+ return m?`Synthetic ${m[1]} · ${{bajo:"low",intermedio:"intermediate",alto:"high"}[m[2]]} risk`:k.replace(/^Sintético /,"Synthetic ").replace(/ aleatorio$/," random").replace(/ capturado$/," entered")}
 async function api(u,b){const r=await fetch(u,b?{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify(b)}:{});const j=await r.json();if(!r.ok)throw new Error(j.error||r.status);return j}
 function esc(s){return String(s).replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]))}
-function llenar(p){for(const v of ESQ.variables){$("f_"+v.nombre).value=p[v.nombre]}}
-async function evaluar(body){$("srv").innerHTML='<p class="sub">Cifrando y enviando…</p>';$("hos").innerHTML="";
- try{const r=await api("/api/evaluar",body);pintar(r)}catch(e){$("srv").innerHTML=`<p class="err">${esc(e.message)}</p>`}}
+function campo(v){const m=META[v.nombre]||{},id="f_"+v.nombre,c=m.c&&Object.keys(m.c).every(k=>k>=v.min&&k<=v.max)&&Object.keys(m.c).length===v.max-v.min+1?m.c:null;
+ const ctl=c?`<select id="${id}" required><option value="">Select…</option>${Object.entries(c).map(([k,t])=>`<option value="${k}">${esc(t)} (${k})</option>`).join("")}</select>`
+  :`<input id="${id}" type="number" inputmode="numeric" step="1" min="${v.min}" max="${v.max}" required placeholder="${v.min}–${v.max}${m.u?" "+m.u:""}">`;
+ return `<label class="fld" id="w_${v.nombre}"><span class="q">${esc(etq(v.nombre))}</span><code>${esc(v.nombre)} · ${v.min}–${v.max}${m.u?" "+esc(m.u):""}</code>${ctl}<span class="msg" id="m_${v.nombre}"></span></label>`}
+function revisar(v){const x=$("f_"+v.nombre).value.trim();let e="";
+ if(x==="")e="Required.";else if(!/^-?\d+$/.test(x))e="Whole number only.";else if(+x<v.min||+x>v.max)e=`Must be between ${v.min} and ${v.max}.`;
+ $("m_"+v.nombre).textContent=e;$("w_"+v.nombre).classList.toggle("bad",!!e);$("f_"+v.nombre).setAttribute("aria-invalid",!!e);return e?null:Number(x)}
+function llenar(p){for(const v of ESQ.variables){$("f_"+v.nombre).value=p[v.nombre]??"";revisar(v)}$("resumen").textContent=""}
+function marcar(k){for(const b of $("perfiles").querySelectorAll("button"))b.setAttribute("aria-pressed",b.dataset.p===k)}
+async function evaluar(body,k){if(ocupado)return;ocupado=true;marcar(k);for(const b of document.querySelectorAll("button"))b.disabled=true;
+ $("srv").innerHTML='<p class="sub">Encrypting and sending…</p>';$("hos").innerHTML="";
+ try{pintar(await api("/api/evaluar",body))}catch(e){$("srv").innerHTML=`<p class="err">Evaluation failed: ${esc(e.message)}</p>`}
+ finally{ocupado=false;for(const b of document.querySelectorAll("button"))b.disabled=false}}
 function pintar(r){const s=r.servidor,h=r.hospital;
- $("srv").innerHTML=`<div class="mono">protocolo ${esc(s.recibio.protocolo)} · modelo ${esc(s.recibio.modelo)} · esquema ${esc(s.recibio.esquema)}<br>llave pública: ${s.recibio.llave_publica_bits} bits · solicitud ${s.recibio.bytes.toLocaleString()} bytes</div>
- <p class="sub" style="margin-top:10px">Recibió 21 cifrados (primeros dígitos hexadecimales):</p>
- <div class="cif mono">${s.recibio.cifrados.map((c,i)=>`<span>Enc(variable ${i+1})</span><span>${c.hex}</span>`).join("")}</div>
- <p class="sub" style="margin-top:10px">Devolvió el puntaje cifrado (${s.devolvio.bytes.toLocaleString()} bytes, ${s.devolvio.servicio_ms} ms de cómputo):</p><div class="mono">Enc(z) = ${s.devolvio.resultado.hex}</div>`;
- const pct=(h.probabilidad*100).toFixed(1),max=Math.max(...h.factores.map(f=>Math.abs(f.aporte_logit)),.01);
- $("hos").innerHTML=`<div class="sub">${esc(r.perfil)} · id ${esc(r.id.slice(0,8))}</div><div class="big">${pct}%</div>
- <span class="badge ${h.riesgo_alto?"alto":"bajo"}">${h.riesgo_alto?"Priorizar prueba de glucosa":"Riesgo por debajo del umbral"}</span>
- <p class="sub" style="margin-top:8px">Umbral ${(h.umbral*100).toFixed(1)}% (fijado en validación) · logit ${h.logit.toFixed(4)} · z = ${esc(h.z_entero)}</p>
- <p class="sub">Factores que más mueven el puntaje (aporte al logit frente al promedio de entrenamiento):</p>
- ${h.factores.map(f=>`<div class="bar"><span>${esc(f.variable)}</span><i style="width:${Math.abs(f.aporte_logit)/max*100}%;background:${f.aporte_logit>0?"var(--red)":"var(--green)"}"></i><span>${f.aporte_logit>0?"+":""}${f.aporte_logit}</span></div>`).join("")}`;
- const t=r.tiempos_ms;$("tiempos").innerHTML=`<span><b>${t.cifrar} ms</b>cifrar (hospital)</span><span><b>${t.red_y_servicio} ms</b>TLS + servicio</span><span><b>${t.descifrar} ms</b>descifrar (hospital)</span><span><b>${t.boveda} ms</b>bóveda AES-GCM + fsync</span><span><b>${t.total_en_hospital} ms</b>total dentro del hospital (sin navegador)</span>`}
+ $("srv").innerHTML=`<div class="mono">protocol ${esc(s.recibio.protocolo)} · model ${esc(s.recibio.modelo)} · schema ${esc(s.recibio.esquema)}<br>public key: ${s.recibio.llave_publica_bits} bits · request ${s.recibio.bytes.toLocaleString("en-US")} bytes</div>
+ <p class="sub" style="margin-top:10px">Received ${s.recibio.cifrados.length} ciphertexts (leading hex digits):</p>
+ <div class="cif mono">${s.recibio.cifrados.map((c,i)=>`<span>Enc(x${i+1})</span><span>${esc(c.hex)}</span>`).join("")}</div>
+ <p class="sub" style="margin-top:10px">Returned the encrypted score (${s.devolvio.bytes.toLocaleString("en-US")} bytes, ${s.devolvio.servicio_ms} ms of compute):</p><div class="mono">Enc(z) = ${esc(s.devolvio.resultado.hex)}</div>`;
+ const pct=h.probabilidad*100,u=h.umbral*100,max=Math.max(...h.factores.map(f=>Math.abs(f.aporte_logit)),.01);
+ $("hos").innerHTML=`<div class="sub">${esc(nombrePerfil(r.perfil))} · id ${esc(r.id.slice(0,8))}</div><div class="big">${pct.toFixed(1)}%</div>
+ <div class="meter" role="img" aria-label="Risk ${pct.toFixed(1)}% against threshold ${u.toFixed(1)}%"><i style="width:${Math.min(pct,100)}%;background:${h.riesgo_alto?"var(--red)":"var(--green)"}"></i><b style="left:${Math.min(u,100)}%"></b></div>
+ <span class="badge ${h.riesgo_alto?"alto":"bajo"}">${h.riesgo_alto?"Prioritize a glucose test":"Risk below the threshold"}</span>
+ <p class="sub" style="margin-top:8px">Threshold ${u.toFixed(1)}% (set on validation data) · logit ${h.logit.toFixed(4)} · z = ${esc(h.z_entero)}</p>
+ <p class="sub">Factors that move the score most (logit contribution versus the training mean):</p>
+ ${h.factores.map(f=>`<div class="bar"><span title="${esc(f.variable)}">${esc(etq(f.variable))}</span><i style="width:${Math.abs(f.aporte_logit)/max*100}%;background:${f.aporte_logit>0?"var(--red)":"var(--green)"}"></i><span>${f.aporte_logit>0?"+":""}${f.aporte_logit}</span></div>`).join("")}`;
+ const t=r.tiempos_ms;$("tiempos").innerHTML=`<span><b>${t.cifrar} ms</b>encrypt (hospital)</span><span><b>${t.red_y_servicio} ms</b>TLS + service</span><span><b>${t.descifrar} ms</b>decrypt (hospital)</span><span><b>${t.boveda} ms</b>AES-GCM vault + fsync</span><span><b>${t.total_en_hospital} ms</b>total inside the hospital (excluding browser)</span>`}
 async function init(){
- try{const e=await api("/api/estado");$("env").textContent=`servicio: ${e.servicio.estado} · máquina ${e.maquina} (${e.sistema}) · llave ${e.llave_bits} bits · ${e.modelo}`}catch(e){$("env").textContent="sin estado"}
- const s=await api("/api/sinteticos");ESQ=s.esquema;PERF=s.perfiles;
- $("perfiles").innerHTML=Object.keys(PERF).map(k=>`<button type="button" data-p="${esc(k)}">${esc(k)}</button>`).join("")+'<button type="button" id="alea">Sintético aleatorio</button>';
- $("perfiles").onclick=ev=>{const b=ev.target.closest("button");if(!b)return;if(b.id==="alea")return evaluar({aleatorio:true});llenar(PERF[b.dataset.p]);evaluar({perfil:b.dataset.p})};
- $("form").innerHTML=ESQ.variables.map(v=>`<label>${v.nombre} (${v.min}–${v.max})<input id="f_${v.nombre}" type="number" step="1" min="${v.min}" max="${v.max}"></label>`).join("");
+ try{const e=await api("/api/estado"),ok=e.servicio.estado==="ok";$("dot").className="dot "+(ok?"ok":"bad");
+  $("env").textContent=`service: ${e.servicio.estado} · machine ${e.maquina} (${e.sistema}) · key ${e.llave_bits} bits · ${e.modelo}`}
+ catch(e){$("dot").className="dot bad";$("env").textContent="status unavailable"}
+ let s;try{s=await api("/api/sinteticos")}catch(e){$("srv").innerHTML=`<p class="err">Could not load the synthetic profiles: ${esc(e.message)}</p>`;return}
+ ESQ=s.esquema;PERF=s.perfiles;
+ $("perfiles").insertAdjacentHTML("beforeend",Object.keys(PERF).map(k=>`<button type="button" data-p="${esc(k)}" aria-pressed="false">${esc(nombrePerfil(k))}</button>`).join("")+'<button type="button" id="alea" data-p="alea" aria-pressed="false">Random synthetic</button>');
+ $("perfiles").onclick=ev=>{const b=ev.target.closest("button");if(!b)return;if(b.id==="alea")return evaluar({aleatorio:true},"alea");llenar(PERF[b.dataset.p]);evaluar({perfil:b.dataset.p},b.dataset.p)};
+ const grupos={};for(const v of ESQ.variables)(grupos[META[v.nombre]?.g??5]??=[]).push(v);
+ $("form").innerHTML=Object.keys(grupos).sort((a,b)=>a-b).map(g=>`<fieldset><legend>${GRUPOS[g]}</legend><div class="grid">${grupos[g].map(campo).join("")}</div></fieldset>`).join("");
+ for(const v of ESQ.variables){const el=$("f_"+v.nombre);el.addEventListener(el.tagName==="SELECT"?"change":"input",()=>{revisar(v);marcar(null)})}
  llenar(Object.values(PERF)[0]);
- const q=new URLSearchParams(location.search).get("perfil");if(q){const k=Object.keys(PERF).find(n=>n.endsWith(q)||n.includes("Sintético "+q));if(k){llenar(PERF[k]);evaluar({perfil:k})}}
- $("enviar").onclick=()=>{const p={};for(const v of ESQ.variables){const x=$("f_"+v.nombre).value;p[v.nombre]=x===""?null:Number(x)}evaluar({paciente:p})};
+ const q=new URLSearchParams(location.search).get("perfil");if(q){const k=Object.keys(PERF).find(n=>n.endsWith(q)||n.includes("Sintético "+q));if(k){llenar(PERF[k]);evaluar({perfil:k},k)}}
+ $("enviar").onclick=()=>{const p={},malos=[];for(const v of ESQ.variables){const x=revisar(v);if(x===null)malos.push(v.nombre);else p[v.nombre]=x}
+  if(malos.length){$("resumen").innerHTML=`<span class="err">${malos.length} field${malos.length>1?"s need":" needs"} attention.</span>`;$("f_"+malos[0]).focus();return}
+  $("resumen").textContent="";evaluar({paciente:p},null)};
 }
 init();
 </script>
