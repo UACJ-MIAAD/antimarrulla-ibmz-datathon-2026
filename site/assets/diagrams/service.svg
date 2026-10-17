@@ -1,60 +1,93 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1040 848" role="img" aria-labelledby="title desc">
-<title id="title">Risk-service component</title><desc id="desc">The service holds the public model and its TLS identity. It receives encrypted input values and returns an encrypted linear score.</desc>
-<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="#a8b8cd"/></marker></defs>
-<rect width="1040" height="848" fill="#10141e" rx="16"/>
-<path d="M480 104 H560" fill="none" stroke="#a8b8cd" stroke-width="2.4" marker-end="url(#arrow)"/>
-<path d="M785 180 V230" fill="none" stroke="#a8b8cd" stroke-width="2.4" marker-end="url(#arrow)"/>
-<path d="M560 306 H480" fill="none" stroke="#a8b8cd" stroke-width="2.4" marker-end="url(#arrow)"/>
-<path d="M255 382 V432" fill="none" stroke="#a8b8cd" stroke-width="2.4" marker-end="url(#arrow)"/>
-<path d="M480 508 H560" fill="none" stroke="#a8b8cd" stroke-width="2.4" marker-end="url(#arrow)"/>
-<path d="M785 584 V634" fill="none" stroke="#a8b8cd" stroke-width="2.4" marker-end="url(#arrow)"/>
-<path d="M560 710 H480" fill="none" stroke="#a8b8cd" stroke-width="2.4" marker-end="url(#arrow)"/>
-<g transform="translate(30 28)"><rect width="450" height="152" rx="12" fill="#1a2232" stroke="#78a9ff" stroke-opacity=".6"/>
-<rect x="0" y="16" width="4" height="120" rx="2" fill="#78a9ff"/>
-<text x="20" y="34" fill="#78a9ff" font-family="system-ui, sans-serif" font-size="21" font-weight="650">1 / Authenticate transport</text>
-<text x="20" y="72" fill="#e8edf5" font-family="system-ui, sans-serif" font-size="19">Mutual TLS, minimum TLS 1.3</text>
-<text x="20" y="102" fill="#e8edf5" font-family="system-ui, sans-serif" font-size="19">Require a trusted client certificate</text>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 1110" role="img" aria-labelledby="title desc">
+<title id="title">Risk service / validation and encrypted scoring</title><desc id="desc">Flowchart · TLS client authentication happens before HTTP request handling</desc>
+<defs><marker id="a-blue" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0L10 5 0 10z" fill="#175cd3"/></marker><marker id="a-teal" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0L10 5 0 10z" fill="#007f73"/></marker><marker id="a-violet" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0L10 5 0 10z" fill="#7045b7"/></marker><marker id="a-amber" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0L10 5 0 10z" fill="#a94f09"/></marker><marker id="a-red" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0L10 5 0 10z" fill="#ba3544"/></marker><marker id="a-ink" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0L10 5 0 10z" fill="#20344d"/></marker></defs>
+<rect width="1200" height="100%" rx="14" fill="#f5f8fc"/>
+<style>text{font-family:Inter,ui-sans-serif,system-ui,-apple-system,sans-serif} .mono{font-family:ui-monospace,SFMono-Regular,Consolas,monospace}</style>
+<text x="32" y="38" font-size="23" fill="#20344d" text-anchor="start" font-weight="700">Risk service / validation and encrypted scoring</text>
+<text x="32" y="65" font-size="15" fill="#526780" text-anchor="start" font-weight="400">Flowchart · TLS client authentication happens before HTTP request handling</text>
+<path d="M32 83L1168 83" stroke="#d9e2ed" stroke-width="1.6" fill="none"/>
+<g class="node">
+<rect x="375" y="110" width="350" height="66" rx="33.0" fill="white" stroke="#175cd3" stroke-width="1.8"/>
+<g transform="translate(393 129) scale(0.90625)" fill="none" stroke="#175cd3" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M16 2l12 5v9c0 7-12 14-12 14S4 23 4 16V7zM10 15l4 4 8-9"/></g>
+<text x="433" y="145" font-size="18" fill="#175cd3" text-anchor="start" font-weight="650">Authenticated request</text>
 </g>
-<g transform="translate(560 28)"><rect width="450" height="152" rx="12" fill="#1a2232" stroke="#78a9ff" stroke-opacity=".6"/>
-<rect x="0" y="16" width="4" height="120" rx="2" fill="#78a9ff"/>
-<text x="20" y="34" fill="#78a9ff" font-family="system-ui, sans-serif" font-size="21" font-weight="650">2 / Check HTTP request</text>
-<text x="20" y="72" fill="#e8edf5" font-family="system-ui, sans-serif" font-size="19">POST /v2/evaluate; JSON body</text>
-<text x="20" y="102" fill="#e8edf5" font-family="system-ui, sans-serif" font-size="19">Reject unsupported or oversized input</text>
+<g class="node">
+<path d="M550 210.0L700.0 275 550 340.0 400.0 275Z" fill="#ecf3ff" stroke="#175cd3" stroke-width="1.8"/>
+<text x="550" y="273" font-size="17" fill="#175cd3" text-anchor="middle" font-weight="650">HTTP request valid?</text>
+<text x="550" y="297" font-size="15" fill="#526780" text-anchor="middle" font-weight="400">Route / size / content type</text>
 </g>
-<g transform="translate(560 230)"><rect width="450" height="152" rx="12" fill="#1a2232" stroke="#78a9ff" stroke-opacity=".6"/>
-<rect x="0" y="16" width="4" height="120" rx="2" fill="#78a9ff"/>
-<text x="20" y="34" fill="#78a9ff" font-family="system-ui, sans-serif" font-size="21" font-weight="650">3 / Validate the wire contract</text>
-<text x="20" y="72" fill="#e8edf5" font-family="system-ui, sans-serif" font-size="19">Version, model, schema and request ID</text>
-<text x="20" y="102" fill="#e8edf5" font-family="system-ui, sans-serif" font-size="19">Public key, 21 ciphertexts, exponent 0</text>
+<g class="node">
+<rect x="45" y="235" width="260" height="80" rx="40.0" fill="white" stroke="#ba3544" stroke-width="1.8"/>
+<g transform="translate(63 254) scale(0.90625)" fill="none" stroke="#ba3544" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M16 2l12 5v9c0 7-12 14-12 14S4 23 4 16V7zM10 15l4 4 8-9"/></g>
+<text x="103" y="270" font-size="18" fill="#ba3544" text-anchor="start" font-weight="650">HTTP 404 / 413 / 415</text>
+<text x="65" y="301" font-size="15" fill="#526780" text-anchor="start" font-weight="400">Reject unsupported request</text>
 </g>
-<g transform="translate(30 230)"><rect width="450" height="152" rx="12" fill="#1a2232" stroke="#78a9ff" stroke-opacity=".6"/>
-<rect x="0" y="16" width="4" height="120" rx="2" fill="#78a9ff"/>
-<text x="20" y="34" fill="#78a9ff" font-family="system-ui, sans-serif" font-size="21" font-weight="650">4 / Check arithmetic bounds</text>
-<text x="20" y="72" fill="#e8edf5" font-family="system-ui, sans-serif" font-size="19">Validate ciphertext group membership</text>
-<text x="20" y="102" fill="#e8edf5" font-family="system-ui, sans-serif" font-size="19">Verify fixed-point overflow bound</text>
+<g class="node">
+<path d="M550 400.0L700.0 465 550 530.0 400.0 465Z" fill="#ecf3ff" stroke="#175cd3" stroke-width="1.8"/>
+<text x="550" y="463" font-size="17" fill="#175cd3" text-anchor="middle" font-weight="650">Protocol valid?</text>
+<text x="550" y="487" font-size="15" fill="#526780" text-anchor="middle" font-weight="400">Version · key · group · bounds</text>
 </g>
-<g transform="translate(30 432)"><rect width="450" height="152" rx="12" fill="#1a2232" stroke="#78a9ff" stroke-opacity=".6"/>
-<rect x="0" y="16" width="4" height="120" rx="2" fill="#78a9ff"/>
-<text x="20" y="34" fill="#78a9ff" font-family="system-ui, sans-serif" font-size="21" font-weight="650">5 / Evaluate without decryption</text>
-<text x="20" y="72" fill="#e8edf5" font-family="system-ui, sans-serif" font-size="19">Homomorphic weighted sum + intercept</text>
-<text x="20" y="102" fill="#e8edf5" font-family="system-ui, sans-serif" font-size="19">Re-randomize the encrypted score</text>
+<g class="node">
+<rect x="45" y="425" width="260" height="80" rx="40.0" fill="white" stroke="#ba3544" stroke-width="1.8"/>
+<g transform="translate(63 444) scale(0.90625)" fill="none" stroke="#ba3544" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M16 2l12 5v9c0 7-12 14-12 14S4 23 4 16V7zM10 15l4 4 8-9"/></g>
+<text x="103" y="460" font-size="18" fill="#ba3544" text-anchor="start" font-weight="650">HTTP 400</text>
+<text x="65" y="491" font-size="15" fill="#526780" text-anchor="start" font-weight="400">Invalid protocol/model</text>
 </g>
-<g transform="translate(560 432)"><rect width="450" height="152" rx="12" fill="#1a2232" stroke="#d4bbff" stroke-opacity=".6"/>
-<rect x="0" y="16" width="4" height="120" rx="2" fill="#d4bbff"/>
-<text x="20" y="34" fill="#d4bbff" font-family="system-ui, sans-serif" font-size="21" font-weight="650">6 / Capture optional audit evidence</text>
-<text x="20" y="72" fill="#e8edf5" font-family="system-ui, sans-serif" font-size="19">Exact wire bytes, hashes and metadata</text>
-<text x="20" y="102" fill="#e8edf5" font-family="system-ui, sans-serif" font-size="19">Capture failure → HTTP 503</text>
+<g class="node">
+<rect x="375" y="600" width="350" height="96" rx="10" fill="white" stroke="#175cd3" stroke-width="1.8"/>
+<g transform="translate(393 619) scale(0.90625)" fill="none" stroke="#175cd3" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="6" cy="7" r="3"/><circle cx="6" cy="25" r="3"/><circle cx="17" cy="16" r="4"/><circle cx="27" cy="7" r="3"/><circle cx="27" cy="25" r="3"/><path d="M9 9l5 5M9 23l5-5m7-4 4-5m-4 9 4 5"/></g>
+<text x="433" y="635" font-size="18" fill="#175cd3" text-anchor="start" font-weight="650">Homomorphic evaluator</text>
+<text x="395" y="666" font-size="15" fill="#526780" text-anchor="start" font-weight="400">Enc(z) = Enc(B + Σ Wᵢxᵢ)</text>
+<text x="395" y="687" font-size="15" fill="#526780" text-anchor="start" font-weight="400">Re-randomize the ciphertext</text>
 </g>
-<g transform="translate(560 634)"><rect width="450" height="152" rx="12" fill="#1a2232" stroke="#78a9ff" stroke-opacity=".6"/>
-<rect x="0" y="16" width="4" height="120" rx="2" fill="#78a9ff"/>
-<text x="20" y="34" fill="#78a9ff" font-family="system-ui, sans-serif" font-size="21" font-weight="650">7 / Return successful response</text>
-<text x="20" y="72" fill="#e8edf5" font-family="system-ui, sans-serif" font-size="19">HTTP 200 only after audit capture</text>
-<text x="20" y="102" fill="#e8edf5" font-family="system-ui, sans-serif" font-size="19">Ciphertext result plus service_ms</text>
+<g class="node">
+<path d="M550 739.0L680.0 795 550 851.0 420.0 795Z" fill="#ecf3ff" stroke="#175cd3" stroke-width="1.8"/>
+<text x="550" y="793" font-size="17" fill="#175cd3" text-anchor="middle" font-weight="650">Audit enabled?</text>
+<text x="550" y="817" font-size="15" fill="#526780" text-anchor="middle" font-weight="400">SERVICE_EVIDENCE</text>
 </g>
-<g transform="translate(30 634)"><rect width="450" height="152" rx="12" fill="#1a2232" stroke="#78a9ff" stroke-opacity=".6"/>
-<rect x="0" y="16" width="4" height="120" rx="2" fill="#78a9ff"/>
-<text x="20" y="34" fill="#78a9ff" font-family="system-ui, sans-serif" font-size="21" font-weight="650">8 / Operational logging</text>
-<text x="20" y="72" fill="#e8edf5" font-family="system-ui, sans-serif" font-size="19">Request ID, timing and byte counts</text>
-<text x="20" y="102" fill="#e8edf5" font-family="system-ui, sans-serif" font-size="19">Audit mode adds transport metadata</text>
+<g class="node">
+<path d="M845 746H1123L1145 768V844H845Z M1123 746V768H1145" fill="white" stroke="#7045b7" stroke-width="1.8"/>
+<g transform="translate(863 765) scale(0.90625)" fill="none" stroke="#7045b7" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M7 2h13l7 7v21H7zM20 2v8h7M11 16h12m-12 5h12m-12 5h8"/></g>
+<text x="903" y="781" font-size="18" fill="#7045b7" text-anchor="start" font-weight="650">Capture wire evidence</text>
+<text x="865" y="812" font-size="15" fill="#526780" text-anchor="start" font-weight="400">Request + response bytes</text>
+<text x="865" y="833" font-size="15" fill="#526780" text-anchor="start" font-weight="400">Hashes + TLS metadata</text>
 </g>
+<g class="node">
+<rect x="845" y="930" width="300" height="76" rx="38.0" fill="white" stroke="#ba3544" stroke-width="1.8"/>
+<g transform="translate(863 949) scale(0.90625)" fill="none" stroke="#ba3544" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M16 2l12 5v9c0 7-12 14-12 14S4 23 4 16V7zM10 15l4 4 8-9"/></g>
+<text x="903" y="965" font-size="18" fill="#ba3544" text-anchor="start" font-weight="650">HTTP 503</text>
+<text x="865" y="996" font-size="15" fill="#526780" text-anchor="start" font-weight="400">Evidence storage failed</text>
+</g>
+<g class="node">
+<rect x="375" y="985" width="350" height="66" rx="33.0" fill="white" stroke="#175cd3" stroke-width="1.8"/>
+<g transform="translate(393 1004) scale(0.90625)" fill="none" stroke="#175cd3" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="14" width="22" height="15" rx="3"/><path d="M10 14V9a6 6 0 0 1 12 0v5M16 20v4"/></g>
+<text x="433" y="1020" font-size="18" fill="#175cd3" text-anchor="start" font-weight="650">HTTP 200 · Enc(z)</text>
+</g>
+<path d="M550 176 L550 210" fill="none" stroke="#175cd3" stroke-width="2" stroke-linejoin="round" marker-end="url(#a-blue)"/>
+<path d="M400 275 L305 275" fill="none" stroke="#ba3544" stroke-width="2" stroke-linejoin="round" marker-end="url(#a-red)"/>
+<rect x="337.2" y="245" width="30.6" height="22" rx="4" fill="#f5f8fc"/>
+<text x="352.5" y="260" font-size="13" fill="#ba3544" text-anchor="middle" font-weight="550">No</text>
+<path d="M550 340 L550 400" fill="none" stroke="#175cd3" stroke-width="2" stroke-linejoin="round" marker-end="url(#a-blue)"/>
+<rect x="563.05" y="362" width="37.9" height="22" rx="4" fill="#f5f8fc"/>
+<text x="582" y="377" font-size="13" fill="#175cd3" text-anchor="middle" font-weight="550">Yes</text>
+<path d="M400 465 L305 465" fill="none" stroke="#ba3544" stroke-width="2" stroke-linejoin="round" marker-end="url(#a-red)"/>
+<rect x="337.2" y="435" width="30.6" height="22" rx="4" fill="#f5f8fc"/>
+<text x="352.5" y="450" font-size="13" fill="#ba3544" text-anchor="middle" font-weight="550">No</text>
+<path d="M550 530 L550 600" fill="none" stroke="#175cd3" stroke-width="2" stroke-linejoin="round" marker-end="url(#a-blue)"/>
+<rect x="563.05" y="555" width="37.9" height="22" rx="4" fill="#f5f8fc"/>
+<text x="582" y="570" font-size="13" fill="#175cd3" text-anchor="middle" font-weight="550">Yes</text>
+<path d="M550 696 L550 739" fill="none" stroke="#175cd3" stroke-width="2" stroke-linejoin="round" marker-end="url(#a-blue)"/>
+<path d="M680 795 L845 795" fill="none" stroke="#7045b7" stroke-width="2" stroke-linejoin="round" marker-end="url(#a-violet)"/>
+<rect x="743.55" y="764" width="37.9" height="22" rx="4" fill="#f5f8fc"/>
+<text x="762.5" y="779" font-size="13" fill="#7045b7" text-anchor="middle" font-weight="550">Yes</text>
+<path d="M550 851 L550 985" fill="none" stroke="#175cd3" stroke-width="2" stroke-linejoin="round" marker-end="url(#a-blue)"/>
+<rect x="559.7" y="909" width="30.6" height="22" rx="4" fill="#f5f8fc"/>
+<text x="575" y="924" font-size="13" fill="#175cd3" text-anchor="middle" font-weight="550">No</text>
+<path d="M845 823 L774 823 L774 1018 L725 1018" fill="none" stroke="#7045b7" stroke-width="2" stroke-linejoin="round" marker-end="url(#a-violet)"/>
+<rect x="748.75" y="893" width="52.5" height="22" rx="4" fill="#f5f8fc"/>
+<text x="775" y="908" font-size="13" fill="#7045b7" text-anchor="middle" font-weight="550">Saved</text>
+<path d="M995 844 L995 930" fill="none" stroke="#ba3544" stroke-width="2" stroke-linejoin="round" marker-end="url(#a-red)"/>
+<rect x="1008.45" y="882" width="67.1" height="22" rx="4" fill="#f5f8fc"/>
+<text x="1042" y="897" font-size="13" fill="#ba3544" text-anchor="middle" font-weight="550">Failure</text>
+<text x="32" y="1088" font-size="14" fill="#526780" text-anchor="start" font-weight="400">No private Paillier key. Audit capture completes before success; TLS authentication failure closes the connection.</text>
 </svg>

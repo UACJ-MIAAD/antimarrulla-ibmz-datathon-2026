@@ -6,13 +6,17 @@ Owner: Javier / documentation and public site. This atlas documents the implemen
 
 Open [all diagrams](https://antimarrulla-tamizaje.netlify.app/architecture). Each diagram is a standalone, downloadable SVG with a text equivalent on the page. No external diagram renderer, CDN or patient API is required.
 
+The technical redesign replaces the original repeated step cards. Each view uses its own notation: C4-style containers and boundaries, deployment ports/mounts, UML-style sequence lifelines and responses, decision flowcharts, a typed encrypted-envelope schema, a logical ERD with crow's-foot cardinalities, and model/forecast/artifact lineage. Hand-drawn vector symbols distinguish actors, browsers, hospital, servers, keys, locks, documents, decisions and persistent stores. Edge labels name data, protocols and failure branches.
+
+The page shows one selected view at a time, with keyboard-accessible tabs, direct fragment links, zoom, fit-width and SVG open/download controls. The mobile canvas scrolls inside its own boundary; it does not widen the page. Source and text descriptions remain expandable below each view.
+
 | Diagram | Implementation reference |
 |---------|--------------------------|
-| Complete screening flow | `src/screening/hospital.py`, `protocol.py` |
+| Container architecture and privacy boundaries | `src/screening/hospital.py`, `protocol.py` |
 | Deployment and trust boundaries | `docker/compose.yml`, `docs/DEPLOYMENT.md` |
 | Hospital component | `hospital.py`, `schema.py` |
 | Risk-service component | `service.py`, `protocol.py` |
-| Cryptography and numerical contract | `contract.py`, `protocol.py` |
+| UML-style encrypted request sequence | `contract.py`, `protocol.py`, `hospital.py`, `service.py` |
 | Operational vault schema | `vault.py`, `hospital.py` |
 | Analytical data model | `src/data_prep/care_stage_mart.py`, `docs/DATA_MODEL.md` |
 | Screening model lifecycle | `data.py`, `train.py`, `ensanut.py` |
@@ -68,4 +72,4 @@ CDC training rows, ENSANUT local microdata and the synthetic hospital vault are 
 python3 tools/build_diagrams.py
 ```
 
-The builder uses only the Python standard library and deterministically writes `site/architecture.html` and ten `site/assets/diagrams/*.svg` files. Review node descriptions against the referenced source, check arrow routing and labels in the browser, and verify desktop/mobile navigation. The baseline identifier is deliberately fixed until a runtime change requires a new architecture review. The existing optional submission flowchart remains in `submission/flowchart/architecture.*`; this atlas expands the web explanation without replacing historical artifacts.
+The builder uses only the Python standard library and deterministically writes `site/architecture.html` and ten `site/assets/diagrams/*.svg` files. Layouts and semantic symbols are in `tools/technical_diagrams.py`; the navigator is in `tools/diagram_page.py`. Review meanings against the referenced source, inspect arrow routing, label placement and symbol semantics visually, and verify desktop/mobile navigation. Text bounding checks alone do not establish a readable technical diagram. The baseline identifier is deliberately fixed until a runtime change requires a new architecture review. The existing optional submission flowchart remains in `submission/flowchart/architecture.*`; this atlas expands the web explanation without replacing historical artifacts.

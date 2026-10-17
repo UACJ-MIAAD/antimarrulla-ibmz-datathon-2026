@@ -1,0 +1,39 @@
+{
+  "date_utc": "2026-10-17T21:57:19Z",
+  "scope": "Technical diagram usability correction; no runtime changes",
+  "views": {
+    "system": "C4-style containers and privacy boundaries",
+    "deployment": "deployment ports and read-only secret mounts",
+    "hospital": "decision flowchart with HTTP 400/502 failure branches",
+    "service": "decision flowchart with validation and audit capture before acknowledgment",
+    "protocol": "UML-style request sequence, activations and return messages",
+    "vault": "typed persisted envelope versus decrypted payload and separate keys",
+    "data-model": "file-based logical ERD, 1:N and 1:1 cardinalities",
+    "model": "separate train/validation/test lineage",
+    "forecast": "model-selection and reconciliation DAG plus outer evaluation",
+    "evidence": "artifact lineage and final package decision gate"
+  },
+  "verification": {
+    "deterministic_builder": true,
+    "svg_xml_parsing": 10,
+    "node_text_overflow": 0,
+    "navigator_views_checked": 10,
+    "one_visible_panel_at_a_time": true,
+    "selected_SVG_links_match_panel": true,
+    "desktop_page_width": 1280,
+    "desktop_viewport_width": 1280,
+    "zoom_in_percent": 125,
+    "keyboard_arrow_navigation": true,
+    "phone_page_width": 375,
+    "phone_viewport_width": 375,
+    "phone_canvas_width": 349,
+    "phone_native_diagram_width": 960,
+    "phone_fit_width_diagram_width": 349,
+    "phone_text_description_expands": true,
+    "console_errors": 0,
+    "javascript_syntax_check": "node --check passed"
+  },
+  "runtime_code_sha256": "62c160c2d5a92d087f343e540cbc81e3e575ae352e86a7d4e87fcae2c3b72573",
+  "delivery_gates_closed": [],
+  "note": "Actual source semantics and routing were reviewed visually. Bounding-box checks alone are not a technical-diagram quality assessment. Earlier repeated-card evidence is preserved under its original record."
+}
