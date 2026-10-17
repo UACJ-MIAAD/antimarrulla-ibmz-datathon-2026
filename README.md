@@ -28,11 +28,13 @@ Repositorio oficial del equipo **Los Antimarrulla** (UACJ · Maestría en Inteli
 |----------|---------|
 | Evento | IBM Z Datathon 2026 · Shooting Stars Foundation, impulsado por IBM |
 | Fechas | **17–18 de octubre de 2026** · 24 horas continuas |
-| Modalidad | Virtual (participamos desde México) |
-| Setup técnico obligatorio | **16 de octubre** · acceso a LinuxONE / IBM Z |
-| Premios | +$50,000 USD · campeones regionales (Americas, EMEA, APAC) + reconocimientos por universidad |
+| Modalidad | Híbrido (8 sedes + virtual); nosotros: virtual, región Americas, desde México |
+| Horario (hora Juárez) | Kick-off **17 oct 7:00** · cierre de la ventana **18 oct 8:00** |
+| Setup técnico obligatorio | **16 de octubre** · LinuxONE Community Cloud |
+| Premios | +$50,000 USD · campeones regionales (Americas, EMEA, APAC) + premios especiales + AI Innovation Excellence Awards |
+| Evaluación | 4 criterios × 10 pts = 40 pts ([CRITERIOS](docs/CRITERIOS.md)) |
 | Equipo | 4 a 6 estudiantes universitarios 18+, cualquier carrera |
-| Entregables | Repo público · demo/presentación · pitch en video grabado durante el evento |
+| Entregables | Video de máx. 3 min · link al repo · título `Los Antimarrulla_IBM Z Datathon 2026 Project` · links open source |
 | Nuestro tema candidato | **AI Secured: Innovation Without Exposure** (las 3 ideas caen aquí) |
 
 Más detalle: [COMPETENCIA](docs/COMPETENCIA.md) · [REGLAS](docs/REGLAS.md) · [CRITERIOS](docs/CRITERIOS.md) · [TEMAS](docs/TEMAS.md)
@@ -52,7 +54,7 @@ Más detalle: [COMPETENCIA](docs/COMPETENCIA.md) · [REGLAS](docs/REGLAS.md) · 
 ├── docs/
 │   ├── COMPETENCIA.md       ← fechas, formato, premios, elegibilidad
 │   ├── REGLAS.md            ← lo que NO podemos romper
-│   ├── CRITERIOS.md         ← rúbrica + cómo exprimir cada punto
+│   ├── CRITERIOS.md         ← rúbrica oficial de 40 pts + estrategias
 │   ├── TEMAS.md             ← los 3 retos oficiales
 │   ├── IDEAS.md             ← nuestras 3 ideas + matriz de decisión
 │   ├── DECISION.md          ← acta de la idea elegida (se llena en la hora 1)
@@ -63,8 +65,9 @@ Más detalle: [COMPETENCIA](docs/COMPETENCIA.md) · [REGLAS](docs/REGLAS.md) · 
 ├── notebooks/               ← exploración y experimentos
 ├── data/                    ← SOLO datos pequeños y públicos (lee data/README.md)
 └── submission/
-    ├── PITCH.md             ← guion del pitch de 3 minutos
-    └── SLIDES.md            ← estructura de las slides
+    ├── PITCH.md             ← guion del video de máx. 3 minutos
+    ├── SLIDES.md            ← estructura de las slides
+    └── evidencias/          ← capturas de LinuxONE para los jueces
 ```
 
 ---

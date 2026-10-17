@@ -1,5 +1,7 @@
 # 🧩 Los 3 temas oficiales
 
+No hay un problema único: cada equipo elige el suyo dentro de un tema, bajo la misión general **AI for Good**, y debe demostrar **por qué IBM Z / LinuxONE es la plataforma correcta** para su idea. Ejemplo ganador de 2025: un índice de seguridad de rutas urbanas (URSI) que clasifica calles como seguras, moderadas o riesgosas con datos reales de infraestructura y delitos.
+
 Cada proyecto se inscribe en uno de estos tres retos. Las tres ideas candidatas del equipo caen hoy en el **Tema 2**, pero el repo está listo para cualquiera.
 
 ---
@@ -11,6 +13,8 @@ Cada proyecto se inscribe en uno de estos tres retos. Las tres ideas candidatas 
 IA que analiza **datos en streaming** y toma o recomienda decisiones críticas **en el momento**, donde unos segundos de retraso cuestan dinero, salud o vidas.
 
 **Por qué IBM Z encaja:** la plataforma procesa volúmenes enormes de transacciones con baja latencia, y permite inferencia de IA cerca de los datos (en el mismo sistema donde ocurre la transacción).
+
+**Sugerencias de la guía oficial:** detección de fraude, priorización en salud, riesgo en seguros, cadena de suministro, detección de anomalías en sistemas.
 
 **Ejemplos de proyectos:**
 - Detección de fraude en tarjetas que bloquea la transacción antes de autorizarla.
@@ -28,6 +32,8 @@ IA que **aprende de datos sensibles sin exponerlos**: privacidad desde el diseñ
 
 **Por qué IBM Z encaja:** cifrado acelerado por hardware, entornos de ejecución aislados y una tradición de seguridad en banca y gobierno. Es el tema donde IBM Z es más fácil de hacer **estructural**.
 
+**Sugerencias de la guía oficial:** protección de datos sensibles, ciberseguridad, identidad y acceso, IA segura (asistentes que no exponen información), seguridad post-cuántica.
+
 **Ejemplos de proyectos:**
 - Diagnóstico médico entrenado o evaluado sobre datos cifrados.
 - Varias instituciones que entrenan un modelo juntas sin compartir sus registros (aprendizaje federado).
@@ -42,13 +48,15 @@ IA que **aprende de datos sensibles sin exponerlos**: privacidad desde el diseñ
 
 > **"Your boldest AI + Data Idea."**
 
-Tema libre para la idea más ambiciosa del equipo, siempre que sea **responsable** y use datos e IA de forma seria.
+Para un problema importante o ignorado que no cabe en los otros dos temas: usar IA de forma nueva, inesperada o técnicamente ambiciosa, siempre **responsable**.
+
+**Sugerencias de la guía oficial:** accesibilidad e inclusión, educación, sostenibilidad, impacto comunitario, automatización inteligente (IA generativa o agéntica), combinaciones novedosas de IA y datos.
 
 **Ejemplos de proyectos:**
 - Modelo de calidad del aire para Ciudad Juárez–El Paso que cruza datos de ambos lados de la frontera.
 - Detector de deserción escolar universitaria con intervención temprana y explicabilidad.
 - Optimización de rutas de transporte público con datos abiertos.
-- Herramienta de verificación de desinformación en temporada electoral.
+- Asistente de accesibilidad que traduce trámites públicos a lenguaje simple para personas con discapacidad.
 
 ---
 

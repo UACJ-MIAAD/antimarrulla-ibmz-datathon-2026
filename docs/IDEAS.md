@@ -8,6 +8,16 @@ Tres ideas, las tres en el **Tema 2: AI Secured: Innovation Without Exposure**. 
 | B | 💸 Antifraude en remesas con aprendizaje federado | Tres bancos entrenan juntos sin compartir una sola transacción |
 | C | 🤝 Asistente privado para personas vulnerables | Orientación confidencial, cifrada de extremo a extremo, sin logs |
 
+### Validación contra la guía oficial
+
+| Idea | Ejemplo de la guía con el que encaja | Lab que la inspira |
+|------|---------------------------------------|--------------------|
+| A | Tema 2 · *Sensitive Data Protection* | Predictive AI Hybrid (multi-model) |
+| B | Tema 2 · *Sensitive Data Protection* + Tema 1 · *Fraud Detection* | Predictive AI Hybrid (multi-model) |
+| C | Tema 2 · *Secure AI* (asistente que protege información e identidades) | Predictive AI + Generative AI |
+
+> ⚠️ **Realidad de la plataforma.** El criterio técnico evalúa el uso de **LinuxONE Community Cloud** (una VM s390x con Jupyter Lab ML) y de **paquetes open source de IA/ML corriendo ahí**, más contenedores, seguridad, escalabilidad y cómputo **con capturas como evidencia**. Capacidades como Secure Execution, Hyper Protect, Crypto Express o el acelerador de IA del chip **pueden no estar expuestas en la VM**: confirmarlo en la hora 1 antes de prometerlas en el pitch. Lo seguro: entrenar e inferir en la VM, contenerizar el servicio y cifrar con librerías open source.
+
 ---
 
 ## 🩺 Idea A · Diagnóstico médico sobre datos cifrados

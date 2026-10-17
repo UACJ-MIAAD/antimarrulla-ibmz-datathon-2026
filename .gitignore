@@ -54,3 +54,7 @@ htmlcov/
 .idea/
 .DS_Store
 Thumbs.db
+
+# --- Documentos oficiales del evento (no redistribuir) ---
+docs/*.docx
+docs/*.pdf

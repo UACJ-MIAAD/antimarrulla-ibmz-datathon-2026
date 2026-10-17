@@ -1,7 +1,14 @@
 # ✅ Checklist de entrega
 
 > Nada se entrega sin palomear esta lista. Responsable: **Javier** (líder + pitch), con una segunda revisión de **Carlos** para la parte técnica.
-> Arrancar la revisión en la **hora 21**, no en la 23:59.
+> Arrancar la revisión en la **hora 21**. Cierre de la ventana: **18 oct, 8:00 hora Juárez** → meta interna de envío: **7:00**.
+
+## 🧪 Prerrequisitos (primeras horas)
+
+- [ ] Lab 1 completado: *Predictive AI Hybrid AI scenarios (multi-model)*
+- [ ] Lab 2 completado: *Predictive AI + Generative AI*
+- [ ] Capturas de ambos labs en `submission/evidencias/`
+- [ ] VM de LinuxONE Community Cloud accesible para los 4 (registrada con el código `SSF2026`)
 
 ## 📦 Repositorio
 
@@ -11,7 +18,7 @@
 - [ ] Ramas fusionadas a `main` vía pull request con revisión
 - [ ] `main` corre de punta a punta
 - [ ] Sin datasets grandes ni datos sensibles (`git ls-files data/`)
-- [ ] Sin credenciales, llaves ni tokens (buscar `key`, `token`, `password`, `secret`)
+- [ ] Sin credenciales, llaves ni tokens, incluido el de Jupyter Lab (buscar `key`, `token`, `password`, `secret`)
 - [ ] `LICENSE` presente
 
 ## 📝 README y documentación
@@ -20,46 +27,63 @@
 - [ ] Quickstart probado en máquina limpia por alguien que **no** escribió el código
 - [ ] `requirements.txt` con versiones fijadas
 - [ ] Instrucciones para obtener el dataset (fuente + licencia) en `data/README.md`
-- [ ] Tabla de **librerías open source** citadas
+- [ ] Tabla de **librerías open source con sus links** (la guía lo exige en la entrega)
 - [ ] Tabla de **asistentes de IA** declarados
-- [ ] Diagrama de arquitectura con las piezas que viven en IBM Z
+- [ ] Diagrama de arquitectura / flowchart con las piezas que viven en LinuxONE
 - [ ] [DECISION.md](DECISION.md) lleno
 
-## 🎥 Video pitch
+## 🖥️ Evidencias de LinuxONE (criterio técnico)
 
-- [ ] **Grabado durante el fin de semana del evento**
-- [ ] Duración dentro del límite oficial (guion pensado para 3 min)
-- [ ] Muestra la demo funcionando (incluida la parte en LinuxONE)
+Capturas en `submission/evidencias/`:
+- [ ] VM de LinuxONE corriendo (dashboard de la Community Cloud)
+- [ ] `uname -m` → `s390x`
+- [ ] Entrenamiento del modelo en LinuxONE
+- [ ] Inferencia / servicio corriendo en LinuxONE
+- [ ] Contenedor (Podman/Docker) si se usó
+- [ ] Seguridad: cifrado, manejo de llaves, accesos
+- [ ] Uso de recursos de cómputo (CPU/memoria) y métricas
+
+## 🎥 Video pitch (obligatorio)
+
+- [ ] **Máximo 3 minutos** (meta: 2:50)
+- [ ] Cubre: **problema**, **datos que lo respaldan**, **solución** y **cómo aprovecha IBM Z**
+- [ ] Muestra el **stack tecnológico**, la **instancia LinuxONE** y el **modelo** en pantalla
+- [ ] Incluye la demo funcionando
+- [ ] Grabado durante el fin de semana del evento
 - [ ] Audio claro, sin ruido de fondo
 - [ ] Subido y con link accesible (probar en incógnito)
-- [ ] Formato y plataforma según instrucciones oficiales
 
-## 🖼️ Slides / presentación
+## 🖼️ Slides / material opcional
 
 - [ ] Estructura de [submission/SLIDES.md](../submission/SLIDES.md)
-- [ ] Slide de arquitectura con IBM Z resaltado
+- [ ] Flowchart de diseño (opcional en la entrega, pero suma al criterio técnico)
+- [ ] Prototipo accesible (opcional)
 - [ ] Slide de resultados con métricas reales (no inventadas)
 - [ ] Slide de impacto comunitario con cifras y fuente
-- [ ] Exportadas a PDF y con link accesible
 
 ## 🖥️ Demo en vivo
 
 - [ ] Ensayo completo cronometrado (hora 19)
 - [ ] Datos de demo precargados
 - [ ] Plan B: video de la demo por si falla la red o el entorno
-- [ ] Sesión de LinuxONE abierta y probada antes de presentar
+- [ ] Sesión de LinuxONE abierta y probada antes de grabar
 
-## 📋 Formularios y plataforma
+## 📋 Envío en Hack2skill
 
-- [ ] Proyecto registrado en la plataforma del evento
-- [ ] Todos los integrantes registrados y vinculados al equipo
+- [ ] Título exacto: **`Los Antimarrulla_IBM Z Datathon 2026 Project`**
 - [ ] Tema oficial seleccionado correctamente
-- [ ] Link del repo, del video y de las slides pegados y probados
-- [ ] Formularios adicionales (encuestas, datos de universidad) enviados
-- [ ] Captura de pantalla de la confirmación de envío guardada
+- [ ] Link del video (máx. 3 min)
+- [ ] Link del repo de GitHub
+- [ ] Links a los recursos open source usados
+- [ ] Flowchart y prototipo adjuntos si los hay
+- [ ] Los 4 integrantes vinculados al equipo
+- [ ] Captura de la confirmación de envío guardada
 
-## 🏁 Cierre
+## 🏁 Cierre y después
 
-- [ ] Entrega enviada **al menos 1 hora antes** del cierre oficial
-- [ ] Último commit hecho y anotado: `______`
+- [ ] Entrega enviada **a las 7:00 del 18 oct (hora Juárez)**, una hora antes del cierre
+- [ ] Último commit anotado: `______`
+- [ ] Ceremonia de cierre: 18 oct, 8:30 hora Juárez
+- [ ] Encuesta de retroalimentación / video antes del **23 oct**
+- [ ] Anuncio de ganadores: **28 oct**, 8:00 hora Juárez
 - [ ] Foto del equipo para el recuerdo 📸

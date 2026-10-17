@@ -1,92 +1,107 @@
 # 🎯 Criterios de evaluación y cómo exprimirlos
 
-**Total base: 70 pts · Bonus: hasta +10 pts.**
+> Fuente: *Participant Guidebook – IBM Z Datathon 2026*, sección "Judging Evaluation Criteria and Standardized Scoring Rubric". Jueces: principalmente expertos y líderes de IBM, con rúbrica estandarizada global.
 
-| Criterio | Puntos | Dueño interno |
-|----------|-------:|---------------|
-| Manejo de datos y metodología | 20 | Yazmin (datos) + Álvaro (modelado) |
-| Innovación y creatividad | 20 | Todo el equipo |
-| Integración con tecnología IBM Z | 15 | Carlos (infra LinuxONE) |
-| Presentación y storytelling | 10 | Javier (pitch) |
-| Reproducibilidad y documentación | 5 | Javier (docs) + Álvaro (scripts) |
-| **Bonus** · narrativa de impacto comunitario | +5 | Javier |
-| **Bonus** · demo en vivo pulida | +3 | Yazmin (demo) + Carlos (LinuxONE) |
-| **Bonus** · repo open source bien documentado | +2 | Javier |
+## Rúbrica estándar · 40 pts
 
-> Lectura rápida: **datos + innovación = 40 de 70.** Ahí se gana. IBM Z vale 15: si se siente "pegado con cinta", se pierde.
+**4 criterios × 10 puntos.** Cada uno se califica en 4 niveles: 0–3 *Developing*, 4–6 *Proficient*, 7–8 *Advanced*, 9–10 *Exceptional*.
 
----
+| # | Criterio | Pts | Dueño interno |
+|---|----------|----:|---------------|
+| 1 | Valor para la comunidad y alineación con el tema | 10 | Javier + todos |
+| 2 | Novedad y originalidad de la idea | 10 | Todo el equipo |
+| 3 | Diseño técnico y uso de LinuxONE Community Cloud + paquetes open source de IA/ML | 10 | Carlos (LinuxONE) + Álvaro (modelado) + Yazmin (datos) |
+| 4 | Ejecución y entrega / calidad del pitch (video) | 10 | Javier (pitch) + Yazmin (demo) |
+| | **Total** | **40** | |
 
-## 1. Manejo de datos y metodología · 20 pts
-
-**Qué buscan:** que entendamos los datos y que el pipeline sea riguroso.
-
-Estrategias:
-- **EDA visible** en `notebooks/01_eda.ipynb`: distribución de clases, nulos, sesgos, outliers.
-- **Baseline primero**, mejora después. Mostrar "baseline vs. modelo final" en una tabla.
-- **Validación honesta:** train/test separados antes de cualquier transformación; validación cruzada cuando el dataset sea chico.
-- **Métricas adecuadas al problema:** en fraude y salud no basta la accuracy → recall, precisión, F1, AUC-PR, matriz de confusión.
-- **Clases desbalanceadas:** decir cómo se trataron (pesos, umbral, re-muestreo) y por qué.
-- **Privacidad como parte de la metodología:** medir el costo en precisión de cifrar o federar (por ejemplo, "en texto plano 0.82 AUC, cifrado 0.81").
-- **Limitaciones declaradas.** Un juez confía más en quien reconoce lo que su modelo no hace.
-
-## 2. Innovación y creatividad · 20 pts
-
-**Qué buscan:** algo que no hayan visto 40 veces en el día.
-
-Estrategias:
-- Enmarcar el problema desde un ángulo local y concreto (frontera, remesas, salud en Juárez) en lugar de genérico.
-- Combinar dos ideas que rara vez se juntan: privacidad fuerte + utilidad real medible.
-- Un "momento wow" en la demo: algo que el juez pueda **ver** (datos ilegibles a la izquierda, predicción correcta a la derecha).
-- Nombre de proyecto memorable y una frase que lo resuma.
-
-## 3. Integración con tecnología IBM Z · 15 pts
-
-**Qué buscan:** que IBM Z sea **estructural**, no decorativo. Si se puede quitar IBM Z sin que cambie nada, son puntos perdidos.
-
-Estrategias:
-- Correr el pipeline en **LinuxONE** (s390x) y mostrarlo en la demo (terminal, `uname -m`, logs).
-- Usar capacidades propias de la plataforma cuando estén disponibles en el entorno del evento (confirmarlo en el setup del 16 oct):
-  - Cifrado acelerado por hardware (CPACF) y cifrado generalizado.
-  - Cómputo confidencial / entornos aislados (Secure Execution, Hyper Protect).
-  - Inferencia de IA en el chip (IBM Z Integrated Accelerator for AI) y herramientas como Snap ML o el IBM Z Deep Learning Compiler.
-- Una slide de arquitectura que marque en color qué piezas viven en IBM Z y **por qué ahí**.
-- Medir algo: latencia, throughput o costo del cifrado en LinuxONE vs. laptop.
-
-## 4. Presentación y storytelling · 10 pts
-
-Estrategias:
-- Estructura **Problema → Persona → Solución → Demo → Impacto → Próximos pasos** ([submission/PITCH.md](../submission/PITCH.md)).
-- Abrir con una persona y un dato, no con la arquitectura.
-- Ensayar con cronómetro. 3 minutos son 3 minutos.
-- Una idea por slide, letra grande, cero párrafos.
-
-## 5. Reproducibilidad y documentación · 5 pts
-
-Estrategias:
-- `README` con quickstart que funcione en máquina limpia (alguien que no escribió el código lo prueba en la hora 21).
-- `requirements.txt` con versiones fijadas al final del evento (`pip freeze`).
-- Semillas aleatorias fijas.
-- Instrucciones para obtener el dataset (link + script de descarga), ya que no se sube al repo.
+> **Antes de construir:** la guía marca como **prerrequisito obligatorio** completar los **dos labs de IA/ML** que da la organización (*Predictive AI Hybrid AI scenarios (multi-model)* y *Predictive AI + Generative AI*). Se hacen al arranque, antes de escribir nuestro código.
 
 ---
 
-## 🎁 Bonus (hasta +10)
+## 1. Valor para la comunidad y alineación con el tema · 10 pts
 
-| Bonus | Pts | Cómo lo aseguramos |
-|-------|----:|--------------------|
-| Narrativa de impacto comunitario | +5 | Conectar con una comunidad real (pacientes con diabetes en México, familias que reciben remesas, personas en situación vulnerable en Juárez). Dar cifras públicas con fuente. |
-| Demo en vivo pulida | +3 | Ensayo completo en la hora 19. Plan B grabado por si falla la red. Datos de demo precargados. |
-| Repo open source bien documentado | +2 | Este repo: licencia MIT, README claro, créditos, CONTRIBUTING, historial limpio. |
+**Preguntas que se hace el juez:** ¿qué problema real resuelven?, ¿quién se beneficia?, ¿qué tan claro se ve el tema elegido en la idea y en la ejecución?
+
+| Nivel | Qué lo distingue |
+|-------|------------------|
+| 9–10 | Solución de impacto a una necesidad crítica, "Tech for Good", tema integrado sin costuras |
+| 7–8 | Problema real con beneficios claros y fuerte alineación al tema |
+| 4–6 | Atiende una necesidad pero el tema se nota poco o el beneficio es difuso |
+
+Estrategias:
+- Nombrar a la **persona beneficiada** y la comunidad concreta (pacientes con diabetes en México, familias que reciben remesas en Juárez, personas vulnerables).
+- Respaldar el problema con **datos con fuente** (el video lo exige: "data to support the problem").
+- Decir explícitamente el tema: "Esto es *AI Secured* porque…" y que el diseño lo demuestre (los datos sensibles nunca se exponen).
+- Todo bajo el lema oficial **AI for Good**.
+
+## 2. Novedad y originalidad · 10 pts
+
+**Requisitos del criterio:** ideas nuevas, **construido por completo durante el datathon**, **código creado desde cero en la ventana del evento**.
+
+| Nivel | Qué lo distingue |
+|-------|------------------|
+| 9–10 | Muy innovador, gran originalidad, componentes de punta a punta |
+| 7–8 | Concepto único e innovador |
+| 4–6 | Esfuerzo creativo pero idea común o predecible |
+
+Estrategias:
+- Evitar el "detector de fraude genérico": darle un giro local y una privacidad medible.
+- Historial de commits frecuente del 17–18 oct como evidencia de que todo nació en el evento.
+- Solución **de punta a punta** (datos → modelo en LinuxONE → demo), no un notebook suelto.
+
+## 3. Diseño técnico y uso de LinuxONE + IA/ML · 10 pts
+
+**Qué revisan:** solidez de la arquitectura; IA/ML **corriendo en LinuxONE Community Cloud**; uso de paquetes open source de IA/ML; aprovechamiento de capacidades de la plataforma (**contenedores, seguridad, escalabilidad y cómputo**) **con capturas de pantalla como evidencia**.
+
+| Nivel | Qué lo distingue |
+|-------|------------------|
+| 9–10 | Arquitectura avanzada, explota a fondo la plataforma y la IA/ML en LinuxONE; aprovecha al máximo seguridad y/o cómputo |
+| 7–8 | Arquitectura fuerte, uso sólido de LinuxONE y de paquetes de IA/ML en LinuxONE |
+| 4–6 | Arquitectura básica; usa LinuxONE pero con poca IA/ML corriendo ahí |
+| 0–3 | Uso mínimo o nulo de LinuxONE |
+
+Estrategias:
+- **Entrenar e inferir en la VM de LinuxONE** (Jupyter Lab ML de la Community Cloud), no en la laptop.
+- Inspirarse en los labs: un enfoque **híbrido multi-modelo** o **predictivo + generativo** puntúa naturalmente aquí.
+- Contenerizar el servicio (Podman/Docker) y mostrarlo.
+- Seguridad: cifrado de datos, llaves fuera del código, acceso mínimo. Es el corazón del Tema 2.
+- **Carpeta de evidencias** `submission/evidencias/` con capturas: VM corriendo, `uname -m` → `s390x`, entrenamiento, contenedor, métricas, uso de recursos.
+- Diagrama de arquitectura (flowchart opcional pero recomendado en la entrega).
+
+## 4. Ejecución, entrega y calidad del pitch · 10 pts
+
+**Qué revisan en el video:** calidad y efectividad de la presentación, claridad, pitch convincente, **demo incluida**, ejecución del equipo y **respetar el límite de tiempo (máx. 3 min)**.
+
+| Nivel | Qué lo distingue |
+|-------|------------------|
+| 9–10 | Presentación muy profesional y orquestada, pitch excelente, demo convincente |
+| 7–8 | Entrega clara y profesional, demo sólida, buen pitch |
+| 4–6 | Funciona, pero la demo o la comunicación están sin pulir |
+
+Estrategias:
+- Guion en [submission/PITCH.md](../submission/PITCH.md) cubriendo lo que pide la guía: problema, datos que lo respaldan, solución, **cómo usa IBM Z** (stack, **instancia LinuxONE y modelo en pantalla**).
+- Ensayar con cronómetro: **2:50** como meta. Pasarse de 3:00 cuesta puntos.
+- Audio limpio y ritmo; mostrar, no contar.
+
+---
+
+## 🏅 AI Innovation Excellence Awards (rúbrica adicional · 20 pts)
+
+Premio aparte para proyectos con puntaje alto, sobre todo en **Novedad** y **Diseño técnico en LinuxONE**. No necesariamente lo gana el primer lugar regional.
+
+| Criterio | Pts | Nivel máximo |
+|----------|----:|--------------|
+| Innovación y originalidad de la IA | 10 | Uso de IA verdaderamente novedoso y poco convencional que distingue al proyecto |
+| Impacto transformador y excelencia técnica | 10 | Solución de punta a punta, sofisticada en LinuxONE, escalable y con impacto real |
+
+Traducción antimarrulla: si la IA es atrevida **y** corre de verdad en LinuxONE, competimos por dos premios a la vez.
 
 ## ✅ Autoevaluación (llenar en la hora 21)
 
 | Criterio | Máx | Nuestra estimación | Qué falta para subir |
 |----------|----:|-------------------:|----------------------|
-| Datos y metodología | 20 | | |
-| Innovación | 20 | | |
-| IBM Z | 15 | | |
-| Storytelling | 10 | | |
-| Reproducibilidad | 5 | | |
-| Bonus | 10 | | |
-| **Total** | **80** | | |
+| Valor comunitario y tema | 10 | | |
+| Novedad y originalidad | 10 | | |
+| Diseño técnico y LinuxONE | 10 | | |
+| Ejecución y pitch | 10 | | |
+| **Total** | **40** | | |

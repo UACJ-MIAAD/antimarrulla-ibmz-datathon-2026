@@ -35,20 +35,25 @@
 
 ## ⏱️ Plan de las 24 horas
 
+**Hora 0 = 17 oct, 7:00 hora Juárez** (kick-off: 9:00 ET). Hora 18 = 18 oct, 1:00. Hora 24 = 18 oct, 7:00 (envío). La ventana oficial cierra a las **8:00**.
+
+> Antes de escribir código propio, la guía exige completar los **2 labs de IA/ML** de la organización. Van en las horas 1–3.
+
 | Hora | Javier · líder + pitch | Yazmin · datos + demo | Álvaro · modelado ML | Carlos · LinuxONE |
 |------|------------------------|-----------------------|----------------------|-------------------|
-| 0–1 | **Reunión de decisión** | Reunión | Reunión | Reunión |
-| 1–4 | Alcance, tablero y README del proyecto | Dataset + EDA | Setup de modelado | Validar librerías en s390x |
+| 0–1 | **Kick-off + reunión de decisión** | Reunión | Reunión | Reunión |
+| 1–3 | **Labs obligatorios** (con Álvaro) · alcance | Dataset + EDA (laptop, sin código del proyecto en LinuxONE aún) | **Labs obligatorios** (multi-model y predictivo + generativo) | **Labs obligatorios** · validar librerías en s390x |
+| 3–4 | Capturas de labs a `submission/evidencias/` | Dataset + EDA | Setup de modelado en LinuxONE | Entorno del proyecto en la VM |
 | 4–8 | Stand-up · integración · historia y persona | Limpieza y particiones | **Baseline** | Servicio base en LinuxONE |
 | 8–10 | Stand-up · revisión de PRs | Cierre de datos + boceto de demo | Apoyo a datos + versión con privacidad | Cifrado + conexión |
 | 10–12 | Borrador de guion | Esqueleto de UI | Versión con privacidad | Cifrado + conexión |
 | 12–16 | Stand-up · riesgos · slides v1 | UI conectada al servicio real | Métricas y ajuste | Despliegue del modelo |
 | 16–18 | **Empuje a demo** · arquitectura | Pulido de la demo | Congelar modelo | Pruebas de punta a punta |
 | **18** | 🚩 **DEMO FUNCIONAL** | | | |
-| 18–20 | Ensayo general · slides v2 | Video de respaldo de la demo | Tabla final de métricas | Medición de latencia |
+| 18–20 | Ensayo general · slides v2 · flowchart | Video de respaldo de la demo | Tabla final de métricas | Medición de latencia · **capturas de evidencia** |
 | 20 | 🧊 **Congelamiento de features** | | | |
 | 20–22 | **Grabación del video** · checklist | Ensayo de demo · prueba de quickstart | `pip freeze` | Limpieza del repo |
-| 22–24 | **Envío** · links y formularios | Revisión final | Revisión final | Revisión final del checklist técnico |
+| 22–24 | **Envío en Hack2skill (meta 7:00)** · título `Los Antimarrulla_IBM Z Datathon 2026 Project` | Revisión final | Revisión final | Revisión final del checklist técnico |
 
 ## 😴 Turnos de descanso
 
