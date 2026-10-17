@@ -83,7 +83,7 @@ Capturas en `submission/evidencias/`:
 - [ ] Tema oficial seleccionado correctamente
 - [ ] Link del video (máx. 3 min)
 - [ ] 🆕 Pitch deck en PDF `Los Antimarrulla_IBM Z Datathon 2026 Project.pdf`
-- [ ] Link del repo de GitHub
+- [ ] Link del repo de GitHub (el código; la guía también acepta un zip)
 - [ ] Links a los recursos open source usados
 - [ ] Flowchart y prototipo adjuntos si los hay
 - [ ] Los 4 integrantes vinculados al equipo

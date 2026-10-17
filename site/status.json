@@ -1,5 +1,5 @@
 {
-  "actualizado": "2026-10-17T09:30:00Z",
+  "actualizado": "2026-10-17T11:30:00Z",
   "nota": "Para actualizar: cambia 'estado' de la historia (hecho · en_curso · pendiente · bloqueado), sube 'actualizado' y haz commit a main. El sitio lo lee de GitHub en vivo.",
   "hitos": {
     "hora_cero": "2026-10-17T13:00:00Z",
@@ -433,7 +433,7 @@
         {
           "id": "US-7.3",
           "como": "jurado",
-          "quiero": "un video de 2:50 con el problema, los datos, la solución y LinuxONE en pantalla",
+          "quiero": "un video de máximo 3 min (meta 2:50) con el problema, los datos que lo respaldan, la solución y cómo usa IBM Z: stack, instancia LinuxONE y modelo en pantalla, con link público",
           "para": "calificar la ejecución",
           "quien": "Yazmin",
           "bloque": "h18",
@@ -453,7 +453,7 @@
         {
           "id": "US-7.5",
           "como": "jurado",
-          "quiero": "un repo reproducible: README de la demo, pip freeze y créditos",
+          "quiero": "el código en un repo público y reproducible (link de GitHub): README de la demo, pip freeze y créditos con links open source",
           "para": "poder correrlo",
           "quien": "Carlos · Javier",
           "bloque": "h18",
@@ -461,9 +461,29 @@
           "estado": "pendiente"
         },
         {
+          "id": "US-7.7",
+          "como": "jurado",
+          "quiero": "un flowchart del diseño (qué vive en el hospital y qué en LinuxONE) exportado a PNG/PDF",
+          "para": "entender la arquitectura de un vistazo (entregable opcional)",
+          "quien": "Álvaro · Javier",
+          "bloque": "h16",
+          "prioridad": "Plus",
+          "estado": "pendiente"
+        },
+        {
+          "id": "US-7.8",
+          "como": "jurado",
+          "quiero": "un prototipo accesible: link a la demo o al sitio con la demo grabada",
+          "para": "probar la solución sin instalar nada (entregable opcional)",
+          "quien": "Javier",
+          "bloque": "h20",
+          "prioridad": "Plus",
+          "estado": "pendiente"
+        },
+        {
           "id": "US-7.6",
           "como": "equipo",
-          "quiero": "enviar todo en Hack2skill a las 7:00 con el checklist completo",
+          "quiero": "enviar en Hack2skill a las 7:00 con el título \"Los Antimarrulla_IBM Z Datathon 2026 Project\", link del video, link del repo, PDF y opcionales",
           "para": "no depender de los últimos minutos",
           "quien": "Javier",
           "bloque": "h22",
