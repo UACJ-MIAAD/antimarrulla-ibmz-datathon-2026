@@ -130,7 +130,7 @@ def main():
         json.dump(out, f, ensure_ascii=False, indent=1)
     print(json.dumps({k: out[k] for k in ("threshold_cdc_validation", "cdc_test_reference")}, ensure_ascii=False))
     for k, v in out["years"].items():
-        print(k, v["adults"], v["included"], v["positives"], v["exclusions"], "\n  ponderado", v["weighted"], """
+        print(k, v["adults"], v["included"], v["positives"], v["exclusions"], "\n  weighted", v["weighted"], """
   unweighted""", v["without_weighting"])
 
 

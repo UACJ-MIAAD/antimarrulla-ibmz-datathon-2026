@@ -10,7 +10,7 @@ from . import provenance
 from .paths import ROOT
 
 EXCLUDE = re.compile(r"(^|/)(\.git|\.venv|__pycache__|dist|data/raw)(/|$)|\.(key|pem)$|AUDITORIA|PLAN_REAUDITORIA|AI_USE\.local|USO_IA\.local|submission/Los_Antimarrulla_Pitch\.pptx$")
-DOCUMENTATION = [
+DOCUMENTATION = ["data/README.md",
     "submission/Los Antimarrulla_IBM Z Datathon 2026 Project.pdf", "submission/Los_Antimarrulla_Screening_Pitch.pptx",
     "submission/PITCH.md", "submission/SLIDES.md", "submission/VIDEO.md", "submission/HACK2SKILL.md",
     "submission/flowchart/architecture.pdf", "submission/flowchart/architecture.png", "submission/flowchart/architecture.svg",
@@ -27,7 +27,7 @@ DOCUMENTATION_GLOB = ["submission/evidence/README.md", "submission/evidence/loca
 DOCUMENTATION_GLOB += ["submission/VIDEO_RECORD.json", "submission/evidence/instance/*", "docs/*.md", "docs/*.pptx"]
 CODE_GLOB = ["docs/*.md", "docs/*.pptx", "notebooks/README.md", "src/README.md", "src/**/*.py", "src/**/*.html", "src/data_prep/README.md", "tests/*.py", "tests/instance/*.py", "tests/instance/*.sh", "docker/*", "artifacts/**/*.json",
                "data/cdc_891/*", "data/sinave/tipo1/products.csv", "data/sinave/tipo2/products.csv", "data/catalogos/entidades.csv"]
-CODE = ["Makefile", "requirements.txt", ".dockerignore", "LICENSE", "README.md", "docs/LINUXONE.md", "docs/PROJECT.md",
+CODE = ["data/README.md","Makefile", "requirements.txt", ".dockerignore", "LICENSE", "README.md", "docs/LINUXONE.md", "docs/PROJECT.md",
           "docs/TWO_HOSTS.md", "docs/DELIVERY_PLAN.md", "submission/AI_USE.md"]
 
 

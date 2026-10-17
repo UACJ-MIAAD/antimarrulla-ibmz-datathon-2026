@@ -1,6 +1,6 @@
 """Paillier screening protocol: the hospital encrypts/decrypts; the risk service sees ciphertexts only.
 
-Versioned JSON request: protocol, schema, model, id, public_key {n}, exponent 0, ciphertexts (21 decimal strings).
+Versioned JSON request: protocol, schema, model, id, key_public {n}, exponent 0, ciphertexts (21 decimal strings).
 Versioned response: protocol, schema, model, id, exponent 0, result (decimal ciphertext string).
 Validate versions, structure, key size and ciphertext group membership. The service cannot inspect encrypted inputs.
 The English wire format uses screening-paillier-v2; deploy both endpoints together.
@@ -14,7 +14,7 @@ PROTOCOL = "screening-paillier-v2"
 KEY_BITS = 2048
 MIN_KEY_BITS = 2048
 MAX_KEY_BITS = 4096
-VALID_ID = re.compile(r"[0-9a-f]{32}")  # Use fullmatch: exactly the 32 hex digits produced by Hospital.prepare.
+VALID_ID = re.compile(r"[0-9a-f]{32}")  # Use fullmatch: exactly the 32 hex digits produced by the hospital prepare method.
 
 
 class InvalidMessage(ValueError):
