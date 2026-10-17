@@ -1,7 +1,9 @@
 """F03: la procedencia identifica el código ejecutado y no esconde cambios relevantes."""
-import os, subprocess
+import os, shutil, subprocess
 import pytest
 from tamizaje import procedencia
+
+sin_git = pytest.mark.skipif(shutil.which("git") is None, reason="la imagen dev no trae git; dentro del contenedor la procedencia viene del Makefile")
 
 
 def git(d, *a):
@@ -19,23 +21,27 @@ def repo(tmp_path):
     return tmp_path
 
 
+@sin_git
 def test_limpio(repo):
     e = procedencia.estado_git(str(repo))
     assert e["relevantes"] == [] and e["commit"]
 
 
+@sin_git
 def test_fuente_nueva_no_versionada_cuenta(repo):
     (repo / "src" / "tamizaje" / "medir.py").write_text("y = 2\n")
     e = procedencia.estado_git(str(repo))
     assert any("src/tamizaje/medir.py" in r for r in e["relevantes"])
 
 
+@sin_git
 def test_fuente_modificada_cuenta(repo):
     (repo / "src" / "tamizaje" / "a.py").write_text("x = 3\n")
     e = procedencia.estado_git(str(repo))
     assert any("src/tamizaje/a.py" in r for r in e["relevantes"])
 
 
+@sin_git
 def test_archivo_personal_ajeno_no_ensucia(repo):
     (repo / "submission").mkdir()
     (repo / "submission" / "Los_Antimarrulla_Pitch.pptx").write_bytes(b"personal")
