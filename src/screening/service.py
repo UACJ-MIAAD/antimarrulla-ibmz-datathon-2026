@@ -41,7 +41,16 @@ def machine_id():
     try:
         return open("/etc/machine-id").read().strip()[:12] or None
     except OSError:
-        return None
+        pass
+    if platform.system() == "Darwin":  # macOS has no /etc/machine-id: use the hardware UUID
+        try:
+            import subprocess
+            out = subprocess.run(["ioreg", "-rd1", "-c", "IOPlatformExpertDevice"], capture_output=True, text=True, timeout=5).stdout
+            uuid = next((l.split('"')[3] for l in out.splitlines() if "IOPlatformUUID" in l), None)
+            return uuid[:12] if uuid else None
+        except (OSError, IndexError, subprocess.SubprocessError):
+            return None
+    return None
 
 
 class Evidence:
