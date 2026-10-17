@@ -1,45 +1,94 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1040 646" role="img" aria-labelledby="title desc">
-<title id="title">Operational database: the encrypted vault</title><desc id="desc">The implemented operational store is an append-only JSONL file, not a relational database. Every saved evaluation has an encrypted payload.</desc>
-<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="#a8b8cd"/></marker></defs>
-<rect width="1040" height="646" fill="#10141e" rx="16"/>
-<path d="M480 104 H560" fill="none" stroke="#a8b8cd" stroke-width="2.4" marker-end="url(#arrow)"/>
-<path d="M785 180 V230" fill="none" stroke="#a8b8cd" stroke-width="2.4" marker-end="url(#arrow)"/>
-<path d="M560 306 H480" fill="none" stroke="#a8b8cd" stroke-width="2.4" marker-end="url(#arrow)"/>
-<path d="M255 382 V432" fill="none" stroke="#a8b8cd" stroke-width="2.4" marker-end="url(#arrow)"/>
-<g transform="translate(30 28)"><rect width="450" height="152" rx="12" fill="#1a2232" stroke="#6fdc8c" stroke-opacity=".6"/>
-<rect x="0" y="16" width="4" height="120" rx="2" fill="#6fdc8c"/>
-<text x="20" y="34" fill="#6fdc8c" font-family="system-ui, sans-serif" font-size="21" font-weight="650">Hospital payload / in memory</text>
-<text x="20" y="72" fill="#e8edf5" font-family="system-ui, sans-serif" font-size="19">synthetic, profile, input (21 fields)</text>
-<text x="20" y="102" fill="#e8edf5" font-family="system-ui, sans-serif" font-size="19">probability, risk_high, date</text>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 860" role="img" aria-labelledby="title desc">
+<title id="title">Operational storage / encrypted record schema</title><desc id="desc">Logical schema + cryptographic transformation · persisted envelope versus decrypted view</desc>
+<defs><marker id="a-blue" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0L10 5 0 10z" fill="#175cd3"/></marker><marker id="a-teal" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0L10 5 0 10z" fill="#007f73"/></marker><marker id="a-violet" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0L10 5 0 10z" fill="#7045b7"/></marker><marker id="a-amber" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0L10 5 0 10z" fill="#a94f09"/></marker><marker id="a-red" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0L10 5 0 10z" fill="#ba3544"/></marker><marker id="a-ink" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0L10 5 0 10z" fill="#20344d"/></marker></defs>
+<rect width="1200" height="100%" rx="14" fill="#f5f8fc"/>
+<style>text{font-family:Inter,ui-sans-serif,system-ui,-apple-system,sans-serif} .mono{font-family:ui-monospace,SFMono-Regular,Consolas,monospace}</style>
+<text x="32" y="38" font-size="23" fill="#20344d" text-anchor="start" font-weight="700">Operational storage / encrypted record schema</text>
+<text x="32" y="65" font-size="15" fill="#526780" text-anchor="start" font-weight="400">Logical schema + cryptographic transformation · persisted envelope versus decrypted view</text>
+<path d="M32 83L1168 83" stroke="#d9e2ed" stroke-width="1.6" fill="none"/>
+<rect x="30" y="112" width="465" height="585" rx="12" fill="white" fill-opacity=".55" stroke="#007f73" stroke-opacity=".5" stroke-width="1.8" stroke-dasharray="7 5"/>
+<text x="48" y="139" font-size="15" fill="#007f73" text-anchor="start" font-weight="700">HOSPITAL MEMORY · PLAINTEXT VIEW</text>
+<text x="48" y="162" font-size="13" fill="#526780" text-anchor="start" font-weight="400">This payload is encrypted before being written.</text>
+<g class="entity"><rect x="64" y="196" width="398" height="274" rx="7" fill="white" stroke="#007f73" stroke-width="1.8"/><path d="M64 257H462" stroke="#007f73"/>
+<g transform="translate(77 208) scale(0.90625)" fill="none" stroke="#007f73" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><ellipse cx="16" cy="7" rx="12" ry="5"/><path d="M4 7v19c0 7 24 7 24 0V7M4 16c0 7 24 7 24 0"/></g>
+<text x="117" y="224" font-size="18" fill="#007f73" text-anchor="start" font-weight="650">Evaluation payload</text>
+<text x="117" y="245" font-size="12" fill="#526780" text-anchor="start" font-weight="400">Decrypted JSON object · not plaintext columns</text>
+<text x="81" y="284" font-size="15" fill="#20344d" text-anchor="start" font-weight="400" class="mono">synthetic</text>
+<text x="447" y="284" font-size="13" fill="#526780" text-anchor="end" font-weight="400">boolean</text>
+<path d="M76 294L450 294" stroke="#e7edf5" stroke-width="1.6" fill="none"/>
+<text x="81" y="315" font-size="15" fill="#20344d" text-anchor="start" font-weight="400" class="mono">profile</text>
+<text x="447" y="315" font-size="13" fill="#526780" text-anchor="end" font-weight="400">string</text>
+<path d="M76 325L450 325" stroke="#e7edf5" stroke-width="1.6" fill="none"/>
+<text x="81" y="346" font-size="15" fill="#20344d" text-anchor="start" font-weight="400" class="mono">input</text>
+<text x="447" y="346" font-size="13" fill="#526780" text-anchor="end" font-weight="400">21 integer fields</text>
+<path d="M76 356L450 356" stroke="#e7edf5" stroke-width="1.6" fill="none"/>
+<text x="81" y="377" font-size="15" fill="#20344d" text-anchor="start" font-weight="400" class="mono">probability</text>
+<text x="447" y="377" font-size="13" fill="#526780" text-anchor="end" font-weight="400">number</text>
+<path d="M76 387L450 387" stroke="#e7edf5" stroke-width="1.6" fill="none"/>
+<text x="81" y="408" font-size="15" fill="#20344d" text-anchor="start" font-weight="400" class="mono">risk_high</text>
+<text x="447" y="408" font-size="13" fill="#526780" text-anchor="end" font-weight="400">boolean</text>
+<path d="M76 418L450 418" stroke="#e7edf5" stroke-width="1.6" fill="none"/>
+<text x="81" y="439" font-size="15" fill="#20344d" text-anchor="start" font-weight="400" class="mono">date</text>
+<text x="447" y="439" font-size="13" fill="#526780" text-anchor="end" font-weight="400">Unix timestamp</text>
 </g>
-<g transform="translate(560 28)"><rect width="450" height="152" rx="12" fill="#1a2232" stroke="#6fdc8c" stroke-opacity=".6"/>
-<rect x="0" y="16" width="4" height="120" rx="2" fill="#6fdc8c"/>
-<text x="20" y="34" fill="#6fdc8c" font-family="system-ui, sans-serif" font-size="21" font-weight="650">AES-256-GCM encryption</text>
-<text x="20" y="72" fill="#e8edf5" font-family="system-ui, sans-serif" font-size="19">External 32-byte vault key</text>
-<text x="20" y="102" fill="#e8edf5" font-family="system-ui, sans-serif" font-size="19">Random 12-byte nonce; AAD = ID</text>
+<g class="node">
+<rect x="80" y="560" width="360" height="92" rx="10" fill="white" stroke="#007f73" stroke-width="1.8"/>
+<g transform="translate(98 579) scale(0.90625)" fill="none" stroke="#007f73" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="10" cy="11" r="7"/><path d="M15 16l13 13m-4-4 4-4m-9-1 4-4"/></g>
+<text x="138" y="595" font-size="18" fill="#007f73" text-anchor="start" font-weight="650">Paillier private key</text>
+<text x="100" y="626" font-size="15" fill="#526780" text-anchor="start" font-weight="400">Memory only · not the vault key</text>
 </g>
-<g transform="translate(560 230)"><rect width="450" height="152" rx="12" fill="#1a2232" stroke="#d4bbff" stroke-opacity=".6"/>
-<rect x="0" y="16" width="4" height="120" rx="2" fill="#d4bbff"/>
-<text x="20" y="34" fill="#d4bbff" font-family="system-ui, sans-serif" font-size="21" font-weight="650">One persisted JSONL envelope</text>
-<text x="20" y="72" fill="#e8edf5" font-family="system-ui, sans-serif" font-size="19">id: visible random request ID</text>
-<text x="20" y="102" fill="#e8edf5" font-family="system-ui, sans-serif" font-size="19">nonce: Base64; ct: Base64 + GCM tag</text>
+<rect x="770" y="112" width="397" height="585" rx="12" fill="white" fill-opacity=".55" stroke="#7045b7" stroke-opacity=".5" stroke-width="1.8" stroke-dasharray="7 5"/>
+<text x="788" y="139" font-size="15" fill="#7045b7" text-anchor="start" font-weight="700">PERSISTENT DOCKER VOLUME</text>
+<text x="788" y="162" font-size="13" fill="#526780" text-anchor="start" font-weight="400">Append-only JSONL · one envelope per evaluation</text>
+<g class="entity"><rect x="796" y="226" width="344" height="181" rx="7" fill="white" stroke="#7045b7" stroke-width="1.8"/><path d="M796 287H1140" stroke="#7045b7"/>
+<g transform="translate(809 238) scale(0.90625)" fill="none" stroke="#7045b7" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><ellipse cx="16" cy="7" rx="12" ry="5"/><path d="M4 7v19c0 7 24 7 24 0V7M4 16c0 7 24 7 24 0"/></g>
+<text x="849" y="254" font-size="18" fill="#7045b7" text-anchor="start" font-weight="650">Vault envelope</text>
+<text x="849" y="275" font-size="12" fill="#526780" text-anchor="start" font-weight="400">vault.jsonl · visible envelope fields</text>
+<text x="813" y="314" font-size="15" fill="#20344d" text-anchor="start" font-weight="400" class="mono">id</text>
+<text x="1125" y="314" font-size="13" fill="#526780" text-anchor="end" font-weight="400">string / logical ID</text>
+<path d="M808 324L1128 324" stroke="#e7edf5" stroke-width="1.6" fill="none"/>
+<text x="813" y="345" font-size="15" fill="#20344d" text-anchor="start" font-weight="400" class="mono">nonce</text>
+<text x="1125" y="345" font-size="13" fill="#526780" text-anchor="end" font-weight="400">Base64 / 12 bytes</text>
+<path d="M808 355L1128 355" stroke="#e7edf5" stroke-width="1.6" fill="none"/>
+<text x="813" y="376" font-size="15" fill="#20344d" text-anchor="start" font-weight="400" class="mono">ct</text>
+<text x="1125" y="376" font-size="13" fill="#526780" text-anchor="end" font-weight="400">Base64 / bytes + tag</text>
 </g>
-<g transform="translate(30 230)"><rect width="450" height="152" rx="12" fill="#1a2232" stroke="#d4bbff" stroke-opacity=".6"/>
-<rect x="0" y="16" width="4" height="120" rx="2" fill="#d4bbff"/>
-<text x="20" y="34" fill="#d4bbff" font-family="system-ui, sans-serif" font-size="21" font-weight="650">Hospital persistent volume</text>
-<text x="20" y="72" fill="#e8edf5" font-family="system-ui, sans-serif" font-size="19">vault.jsonl → append, flush, fsync</text>
-<text x="20" y="102" fill="#e8edf5" font-family="system-ui, sans-serif" font-size="19">Survives container recreation</text>
+<g class="node">
+<path d="M820 544V620C820 644 1115 644 1115 620V544" fill="white" stroke="#7045b7" stroke-width="1.8"/><ellipse cx="967.5" cy="544" rx="147.5" ry="18" fill="#eeebf7" stroke="#7045b7" stroke-width="1.8"/>
+<text x="967.5" y="581" font-size="18" fill="#7045b7" text-anchor="middle" font-weight="650">vault.jsonl</text>
+<text x="967.5" y="608" font-size="14" fill="#526780" text-anchor="middle" font-weight="400">append → flush → fsync</text>
+<text x="967.5" y="628" font-size="14" fill="#526780" text-anchor="middle" font-weight="400">Persists across restarts</text>
 </g>
-<g transform="translate(30 432)"><rect width="450" height="152" rx="12" fill="#1a2232" stroke="#6fdc8c" stroke-opacity=".6"/>
-<rect x="0" y="16" width="4" height="120" rx="2" fill="#6fdc8c"/>
-<text x="20" y="34" fill="#6fdc8c" font-family="system-ui, sans-serif" font-size="21" font-weight="650">Authorized read in hospital</text>
-<text x="20" y="72" fill="#e8edf5" font-family="system-ui, sans-serif" font-size="19">Read ID, nonce and ciphertext</text>
-<text x="20" y="102" fill="#e8edf5" font-family="system-ui, sans-serif" font-size="19">Authenticate with ID and decrypt</text>
+<g class="node">
+<rect x="508" y="300" width="230" height="142" rx="10" fill="white" stroke="#007f73" stroke-width="1.8"/>
+<g transform="translate(526 319) scale(0.90625)" fill="none" stroke="#007f73" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="14" width="22" height="15" rx="3"/><path d="M10 14V9a6 6 0 0 1 12 0v5M16 20v4"/></g>
+<text x="566" y="335" font-size="18" fill="#007f73" text-anchor="start" font-weight="650">AES-256-GCM</text>
+<text x="528" y="366" font-size="15" fill="#526780" text-anchor="start" font-weight="400">AAD = request ID</text>
+<text x="528" y="387" font-size="15" fill="#526780" text-anchor="start" font-weight="400">96-bit random nonce</text>
+<text x="528" y="408" font-size="15" fill="#526780" text-anchor="start" font-weight="400">Authenticate + encrypt</text>
 </g>
-<g transform="translate(560 432)"><rect width="450" height="152" rx="12" fill="#1a2232" stroke="#6fdc8c" stroke-opacity=".6"/>
-<rect x="0" y="16" width="4" height="120" rx="2" fill="#6fdc8c"/>
-<text x="20" y="34" fill="#6fdc8c" font-family="system-ui, sans-serif" font-size="21" font-weight="650">Secret lifecycle / separate</text>
-<text x="20" y="72" fill="#e8edf5" font-family="system-ui, sans-serif" font-size="19">AES key outside Git, mounted read-only</text>
-<text x="20" y="102" fill="#e8edf5" font-family="system-ui, sans-serif" font-size="19">Paillier key: memory, regenerated</text>
+<path d="M462 360 L508 360" fill="none" stroke="#007f73" stroke-width="2" stroke-linejoin="round" marker-end="url(#a-teal)"/>
+<path d="M738 360 L796 360" fill="none" stroke="#007f73" stroke-width="2" stroke-linejoin="round" marker-end="url(#a-teal)"/>
+<rect x="751.7" y="332" width="30.6" height="22" rx="4" fill="#f5f8fc"/>
+<text x="767.0" y="347" font-size="13" fill="#007f73" text-anchor="middle" font-weight="550">ct</text>
+<path d="M796 260 L752 260 L752 181 L478 181 L478 220 L462 220" fill="none" stroke="#7045b7" stroke-width="2" stroke-linejoin="round" marker-end="url(#a-violet)" stroke-dasharray="6 5"/>
+<rect x="483.9" y="153" width="264.2" height="22" rx="4" fill="#f5f8fc"/>
+<text x="616" y="168" font-size="13" fill="#7045b7" text-anchor="middle" font-weight="550">Decrypted view · not a foreign key</text>
+<g class="node">
+<path d="M510 568H713L735 590V666H510Z M713 568V590H735" fill="white" stroke="#7045b7" stroke-width="1.8"/>
+<g transform="translate(528 587) scale(0.90625)" fill="none" stroke="#7045b7" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="10" cy="11" r="7"/><path d="M15 16l13 13m-4-4 4-4m-9-1 4-4"/></g>
+<text x="568" y="603" font-size="18" fill="#7045b7" text-anchor="start" font-weight="650">External AES key</text>
+<text x="530" y="634" font-size="15" fill="#526780" text-anchor="start" font-weight="400">32 bytes · read-only</text>
+<text x="530" y="655" font-size="15" fill="#526780" text-anchor="start" font-weight="400">Stored outside Git</text>
 </g>
+<path d="M622 568 L622 442" fill="none" stroke="#7045b7" stroke-width="2" stroke-linejoin="round" marker-end="url(#a-violet)" stroke-dasharray="6 5"/>
+<rect x="631.05" y="499" width="37.9" height="22" rx="4" fill="#f5f8fc"/>
+<text x="650" y="514" font-size="13" fill="#7045b7" text-anchor="middle" font-weight="550">Key</text>
+<path d="M968 407 L968 526" fill="none" stroke="#7045b7" stroke-width="2" stroke-linejoin="round" marker-end="url(#a-violet)"/>
+<rect x="991.55" y="450" width="110.89999999999999" height="22" rx="4" fill="#f5f8fc"/>
+<text x="1047" y="465" font-size="13" fill="#7045b7" text-anchor="middle" font-weight="550">Save envelope</text>
+<path d="M50 740v46" stroke="#7045b7" stroke-width="3"/>
+<text x="62" y="755" font-size="14" fill="#7045b7" text-anchor="start" font-weight="400">No SQL engine, patient table or CURP. The dashed reverse link is an in-memory decrypted view, not a foreign key. ID and nonce remain visible</text>
+<text x="62" y="775" font-size="14" fill="#7045b7" text-anchor="start" font-weight="400">on disk.</text>
+<text x="32" y="838" font-size="14" fill="#526780" text-anchor="start" font-weight="400">The hospital vault does not encrypt service audit files, operational logs, the complete VM disk or backups.</text>
 </svg>

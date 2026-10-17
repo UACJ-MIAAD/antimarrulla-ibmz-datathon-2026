@@ -1,46 +1,126 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1040 646" role="img" aria-labelledby="title desc">
-<title id="title">Analytical database: files and logical keys</title><desc id="desc">This is the implemented file-based analytical model. Relationships describe aggregation and lookup keys; no SQL foreign-key constraints or patient-level joins exist.</desc>
-<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="#a8b8cd"/></marker></defs>
-<rect width="1040" height="646" fill="#10141e" rx="16"/>
-<path d="M255 180 V205 H785 V230" fill="none" stroke="#a8b8cd" stroke-width="2.4" marker-end="url(#arrow)"/>
-<path d="M785 180 V230" fill="none" stroke="#a8b8cd" stroke-width="2.4" marker-end="url(#arrow)"/>
-<path d="M560 306 H480" fill="none" stroke="#a8b8cd" stroke-width="2.4" marker-end="url(#arrow)"/>
-<path d="M255 382 V407 H785 V432" fill="none" stroke="#a8b8cd" stroke-width="2.4" marker-end="url(#arrow)"/>
-<path d="M480 508 H560" fill="none" stroke="#a8b8cd" stroke-width="2.4" marker-end="url(#arrow)"/>
-<g transform="translate(30 28)"><rect width="450" height="152" rx="12" fill="#1a2232" stroke="#ffcf70" stroke-opacity=".6"/>
-<rect x="0" y="16" width="4" height="120" rx="2" fill="#ffcf70"/>
-<text x="20" y="34" fill="#ffcf70" font-family="system-ui, sans-serif" font-size="21" font-weight="650">State dimension / catalog</text>
-<text x="20" y="72" fill="#e8edf5" font-family="system-ui, sans-serif" font-size="19">entidades.csv: cve_ent (01–32)</text>
-<text x="20" y="102" fill="#e8edf5" font-family="system-ui, sans-serif" font-size="19">Names, region, IMSS delegation map</text>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 960" role="img" aria-labelledby="title desc">
+<title id="title">Analytical data / logical entity relationships</title><desc id="desc">Crow’s-foot notation = logical cardinality · arrows = aggregation/export, not patient linkage</desc>
+<defs><marker id="a-blue" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0L10 5 0 10z" fill="#175cd3"/></marker><marker id="a-teal" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0L10 5 0 10z" fill="#007f73"/></marker><marker id="a-violet" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0L10 5 0 10z" fill="#7045b7"/></marker><marker id="a-amber" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0L10 5 0 10z" fill="#a94f09"/></marker><marker id="a-red" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0L10 5 0 10z" fill="#ba3544"/></marker><marker id="a-ink" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0L10 5 0 10z" fill="#20344d"/></marker></defs>
+<rect width="1200" height="100%" rx="14" fill="#f5f8fc"/>
+<style>text{font-family:Inter,ui-sans-serif,system-ui,-apple-system,sans-serif} .mono{font-family:ui-monospace,SFMono-Regular,Consolas,monospace}</style>
+<text x="32" y="38" font-size="23" fill="#20344d" text-anchor="start" font-weight="700">Analytical data / logical entity relationships</text>
+<text x="32" y="65" font-size="15" fill="#526780" text-anchor="start" font-weight="400">Crow’s-foot notation = logical cardinality · arrows = aggregation/export, not patient linkage</text>
+<path d="M32 83L1168 83" stroke="#d9e2ed" stroke-width="1.6" fill="none"/>
+<text x="913" y="112" font-size="14" fill="#7045b7" text-anchor="middle" font-weight="400">Logical key: (cve_ent, anio)</text>
+<g class="entity"><rect x="38" y="130" width="330" height="212" rx="7" fill="white" stroke="#007f73" stroke-width="1.8"/><path d="M38 191H368" stroke="#007f73"/>
+<g transform="translate(51 142) scale(0.90625)" fill="none" stroke="#007f73" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><ellipse cx="16" cy="7" rx="12" ry="5"/><path d="M4 7v19c0 7 24 7 24 0V7M4 16c0 7 24 7 24 0"/></g>
+<text x="91" y="158" font-size="18" fill="#007f73" text-anchor="start" font-weight="650">STATE CATALOG</text>
+<text x="91" y="179" font-size="12" fill="#526780" text-anchor="start" font-weight="400">entidades.csv · 32 rows</text>
+<text x="55" y="218" font-size="15" fill="#20344d" text-anchor="start" font-weight="400" class="mono">cve_ent</text>
+<text x="353" y="218" font-size="13" fill="#526780" text-anchor="end" font-weight="400">logical key</text>
+<path d="M50 228L356 228" stroke="#e7edf5" stroke-width="1.6" fill="none"/>
+<text x="55" y="249" font-size="15" fill="#20344d" text-anchor="start" font-weight="400" class="mono">nombre_corto</text>
+<text x="353" y="249" font-size="13" fill="#526780" text-anchor="end" font-weight="400">state name</text>
+<path d="M50 259L356 259" stroke="#e7edf5" stroke-width="1.6" fill="none"/>
+<text x="55" y="280" font-size="15" fill="#20344d" text-anchor="start" font-weight="400" class="mono">region_sinave</text>
+<text x="353" y="280" font-size="13" fill="#526780" text-anchor="end" font-weight="400">region</text>
+<path d="M50 290L356 290" stroke="#e7edf5" stroke-width="1.6" fill="none"/>
+<text x="55" y="311" font-size="15" fill="#20344d" text-anchor="start" font-weight="400" class="mono">delegaciones_imss</text>
+<text x="353" y="311" font-size="13" fill="#526780" text-anchor="end" font-weight="400">lookup list</text>
 </g>
-<g transform="translate(560 28)"><rect width="450" height="152" rx="12" fill="#1a2232" stroke="#ffcf70" stroke-opacity=".6"/>
-<rect x="0" y="16" width="4" height="120" rx="2" fill="#ffcf70"/>
-<text x="20" y="34" fill="#ffcf70" font-family="system-ui, sans-serif" font-size="21" font-weight="650">Independent source aggregates</text>
-<text x="20" y="72" fill="#e8edf5" font-family="system-ui, sans-serif" font-size="19">SINAVE, deaths, discharges, SIS</text>
-<text x="20" y="102" fill="#e8edf5" font-family="system-ui, sans-serif" font-size="19">IMSS screening + CONAPO population</text>
+<g class="entity"><rect x="668" y="130" width="490" height="367" rx="7" fill="white" stroke="#7045b7" stroke-width="1.8"/><path d="M668 191H1158" stroke="#7045b7"/>
+<g transform="translate(681 142) scale(0.90625)" fill="none" stroke="#7045b7" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><ellipse cx="16" cy="7" rx="12" ry="5"/><path d="M4 7v19c0 7 24 7 24 0V7M4 16c0 7 24 7 24 0"/></g>
+<text x="721" y="158" font-size="18" fill="#7045b7" text-anchor="start" font-weight="650">STATE_YEAR_MART</text>
+<text x="721" y="179" font-size="12" fill="#526780" text-anchor="start" font-weight="400">cascada_entidad_anio.csv · 256 rows</text>
+<text x="685" y="218" font-size="15" fill="#20344d" text-anchor="start" font-weight="400" class="mono">cve_ent</text>
+<text x="1143" y="218" font-size="13" fill="#526780" text-anchor="end" font-weight="400">logical state reference</text>
+<path d="M680 228L1146 228" stroke="#e7edf5" stroke-width="1.6" fill="none"/>
+<text x="685" y="249" font-size="15" fill="#20344d" text-anchor="start" font-weight="400" class="mono">anio</text>
+<text x="1143" y="249" font-size="13" fill="#526780" text-anchor="end" font-weight="400">year / key part</text>
+<path d="M680 259L1146 259" stroke="#e7edf5" stroke-width="1.6" fill="none"/>
+<text x="685" y="280" font-size="15" fill="#20344d" text-anchor="start" font-weight="400" class="mono">poblacion</text>
+<text x="1143" y="280" font-size="13" fill="#526780" text-anchor="end" font-weight="400">population</text>
+<path d="M680 290L1146 290" stroke="#e7edf5" stroke-width="1.6" fill="none"/>
+<text x="685" y="311" font-size="15" fill="#20344d" text-anchor="start" font-weight="400" class="mono">casos_nuevos_t1</text>
+<text x="1143" y="311" font-size="13" fill="#526780" text-anchor="end" font-weight="400">type 1 notifications</text>
+<path d="M680 321L1146 321" stroke="#e7edf5" stroke-width="1.6" fill="none"/>
+<text x="685" y="342" font-size="15" fill="#20344d" text-anchor="start" font-weight="400" class="mono">casos_nuevos_t2</text>
+<text x="1143" y="342" font-size="13" fill="#526780" text-anchor="end" font-weight="400">type 2 notifications</text>
+<path d="M680 352L1146 352" stroke="#e7edf5" stroke-width="1.6" fill="none"/>
+<text x="685" y="373" font-size="15" fill="#20344d" text-anchor="start" font-weight="400" class="mono">defunciones</text>
+<text x="1143" y="373" font-size="13" fill="#526780" text-anchor="end" font-weight="400">death count</text>
+<path d="M680 383L1146 383" stroke="#e7edf5" stroke-width="1.6" fill="none"/>
+<text x="685" y="404" font-size="15" fill="#20344d" text-anchor="start" font-weight="400" class="mono">egresos</text>
+<text x="1143" y="404" font-size="13" fill="#526780" text-anchor="end" font-weight="400">discharge count</text>
+<path d="M680 414L1146 414" stroke="#e7edf5" stroke-width="1.6" fill="none"/>
+<text x="685" y="435" font-size="15" fill="#20344d" text-anchor="start" font-weight="400" class="mono">sis_en_tratamiento</text>
+<text x="1143" y="435" font-size="13" fill="#526780" text-anchor="end" font-weight="400">monthly average</text>
+<path d="M680 445L1146 445" stroke="#e7edf5" stroke-width="1.6" fill="none"/>
+<text x="685" y="466" font-size="15" fill="#20344d" text-anchor="start" font-weight="400" class="mono">tasa_casos_100k</text>
+<text x="1143" y="466" font-size="13" fill="#526780" text-anchor="end" font-weight="400">derived rate</text>
 </g>
-<g transform="translate(560 230)"><rect width="450" height="152" rx="12" fill="#1a2232" stroke="#d4bbff" stroke-opacity=".6"/>
-<rect x="0" y="16" width="4" height="120" rx="2" fill="#d4bbff"/>
-<text x="20" y="34" fill="#d4bbff" font-family="system-ui, sans-serif" font-size="21" font-weight="650">State/year analytical mart</text>
-<text x="20" y="72" fill="#e8edf5" font-family="system-ui, sans-serif" font-size="19">cascada_entidad_anio.csv</text>
-<text x="20" y="102" fill="#e8edf5" font-family="system-ui, sans-serif" font-size="19">Logical key: (cve_ent, anio), 256 rows</text>
+<path d="M368 218L668 218" stroke="#7045b7" stroke-width="1.6" fill="none"/>
+<path d="M378 211L378 225" stroke="#7045b7" stroke-width="1.6" fill="none"/>
+<path d="M384 211L384 225" stroke="#7045b7" stroke-width="1.6" fill="none"/>
+<path d="M651 218L668 208" stroke="#7045b7" stroke-width="1.6" fill="none"/>
+<path d="M651 218L668 228" stroke="#7045b7" stroke-width="1.6" fill="none"/>
+<circle cx="642" cy="218" r="4" fill="#f5f8fc" stroke="#7045b7" stroke-width="1.4"/>
+<rect x="491.75" y="188" width="52.5" height="22" rx="4" fill="#f5f8fc"/>
+<text x="518.0" y="203" font-size="13" fill="#7045b7" text-anchor="middle" font-weight="550">1 : N</text>
+<text x="510" y="285" font-size="14" fill="#526780" text-anchor="middle" font-weight="400">State-code lookup</text>
+<text x="510" y="305" font-size="14" fill="#526780" text-anchor="middle" font-weight="400">8 years per state</text>
+<g class="entity"><rect x="38" y="487" width="330" height="150" rx="7" fill="white" stroke="#007f73" stroke-width="1.8"/><path d="M38 548H368" stroke="#007f73"/>
+<g transform="translate(51 499) scale(0.90625)" fill="none" stroke="#007f73" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><ellipse cx="16" cy="7" rx="12" ry="5"/><path d="M4 7v19c0 7 24 7 24 0V7M4 16c0 7 24 7 24 0"/></g>
+<text x="91" y="515" font-size="18" fill="#007f73" text-anchor="start" font-weight="650">STATE GEOMETRY</text>
+<text x="91" y="536" font-size="12" fill="#526780" text-anchor="start" font-weight="400">estados_mx.geojson · 32 features</text>
+<text x="55" y="575" font-size="15" fill="#20344d" text-anchor="start" font-weight="400" class="mono">cve_ent</text>
+<text x="353" y="575" font-size="13" fill="#526780" text-anchor="end" font-weight="400">logical key</text>
+<path d="M50 585L356 585" stroke="#e7edf5" stroke-width="1.6" fill="none"/>
+<text x="55" y="606" font-size="15" fill="#20344d" text-anchor="start" font-weight="400" class="mono">geometry</text>
+<text x="353" y="606" font-size="13" fill="#526780" text-anchor="end" font-weight="400">Polygon / MultiPolygon</text>
 </g>
-<g transform="translate(30 230)"><rect width="450" height="152" rx="12" fill="#1a2232" stroke="#ffcf70" stroke-opacity=".6"/>
-<rect x="0" y="16" width="4" height="120" rx="2" fill="#ffcf70"/>
-<text x="20" y="34" fill="#ffcf70" font-family="system-ui, sans-serif" font-size="21" font-weight="650">Published care-stage data</text>
-<text x="20" y="72" fill="#e8edf5" font-family="system-ui, sans-serif" font-size="19">care_stages.json: English view</text>
-<text x="20" y="102" fill="#e8edf5" font-family="system-ui, sans-serif" font-size="19">32 states × 2017–2024 indicators</text>
+<path d="M205 342L205 487" stroke="#7045b7" stroke-width="1.6" fill="none"/>
+<path d="M198 355L212 355" stroke="#7045b7" stroke-width="1.6" fill="none"/>
+<path d="M198 362L212 362" stroke="#7045b7" stroke-width="1.6" fill="none"/>
+<path d="M198 469L212 469" stroke="#7045b7" stroke-width="1.6" fill="none"/>
+<path d="M198 476L212 476" stroke="#7045b7" stroke-width="1.6" fill="none"/>
+<rect x="228.75" y="414" width="52.5" height="22" rx="4" fill="#f5f8fc"/>
+<text x="255" y="429" font-size="13" fill="#7045b7" text-anchor="middle" font-weight="550">1 : 1</text>
+<g class="node">
+<rect x="420" y="498" width="225" height="106" rx="10" fill="white" stroke="#175cd3" stroke-width="1.8"/>
+<g transform="translate(438 517) scale(0.90625)" fill="none" stroke="#175cd3" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 16h9m0 0V5h15m-15 11h15m-15 0v11h15M23 2l4 3-4 3m0 5 4 3-4 3m0 5 4 3-4 3"/></g>
+<text x="478" y="533" font-size="18" fill="#175cd3" text-anchor="start" font-weight="650">Aggregate + join</text>
+<text x="440" y="564" font-size="15" fill="#526780" text-anchor="start" font-weight="400">State/year keys</text>
+<text x="440" y="585" font-size="15" fill="#526780" text-anchor="start" font-weight="400">Source-specific geography</text>
 </g>
-<g transform="translate(30 432)"><rect width="450" height="152" rx="12" fill="#1a2232" stroke="#ffcf70" stroke-opacity=".6"/>
-<rect x="0" y="16" width="4" height="120" rx="2" fill="#ffcf70"/>
-<text x="20" y="34" fill="#ffcf70" font-family="system-ui, sans-serif" font-size="21" font-weight="650">State geometry / map lookup</text>
-<text x="20" y="72" fill="#e8edf5" font-family="system-ui, sans-serif" font-size="19">estados_mx.geojson: cve_ent</text>
-<text x="20" y="102" fill="#e8edf5" font-family="system-ui, sans-serif" font-size="19">32 polygons; state-code lookup</text>
+<g class="node">
+<path d="M40 756H353L375 778V861H40Z M353 756V778H375" fill="white" stroke="#a94f09" stroke-width="1.8"/>
+<g transform="translate(58 775) scale(0.90625)" fill="none" stroke="#a94f09" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M7 2h13l7 7v21H7zM20 2v8h7M11 16h12m-12 5h12m-12 5h8"/></g>
+<text x="98" y="791" font-size="18" fill="#a94f09" text-anchor="start" font-weight="650">Independent source files</text>
+<text x="60" y="822" font-size="15" fill="#526780" text-anchor="start" font-weight="400">SINAVE · EDR · discharges</text>
+<text x="60" y="843" font-size="15" fill="#526780" text-anchor="start" font-weight="400">SIS · IMSS · CONAPO</text>
 </g>
-<g transform="translate(560 432)"><rect width="450" height="152" rx="12" fill="#1a2232" stroke="#ffcf70" stroke-opacity=".6"/>
-<rect x="0" y="16" width="4" height="120" rx="2" fill="#ffcf70"/>
-<text x="20" y="34" fill="#ffcf70" font-family="system-ui, sans-serif" font-size="21" font-weight="650">Public aggregate map</text>
-<text x="20" y="72" fill="#e8edf5" font-family="system-ui, sans-serif" font-size="19">Rates, counts and descriptive ratios</text>
-<text x="20" y="102" fill="#e8edf5" font-family="system-ui, sans-serif" font-size="19">Different populations, no care cohort</text>
+<g class="node">
+<path d="M733 562H1070L1092 584V668H733Z M1070 562V584H1092" fill="white" stroke="#175cd3" stroke-width="1.8"/>
+<g transform="translate(751 581) scale(0.90625)" fill="none" stroke="#175cd3" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M7 2h13l7 7v21H7zM20 2v8h7M11 16h12m-12 5h12m-12 5h8"/></g>
+<text x="791" y="597" font-size="18" fill="#175cd3" text-anchor="start" font-weight="650">Public presentation export</text>
+<text x="753" y="628" font-size="15" fill="#526780" text-anchor="start" font-weight="400">care_stages.json</text>
+<text x="753" y="649" font-size="15" fill="#526780" text-anchor="start" font-weight="400">English indicator keys</text>
 </g>
+<g class="node">
+<path d="M818.0 858C737.4 858 749.8 795.0 824.2 795.0C818.0 747.75 973.0 747.75 979.2 784.5C1084.6 765.6 1103.2 858 1010.2 858Z" fill="#fff9ed" stroke="#a94f09" stroke-width="1.8"/>
+<text x="911.0" y="810.75" font-size="18" fill="#a94f09" text-anchor="middle" font-weight="650">Public state map</text>
+<text x="911.0" y="837.0" font-size="14" fill="#526780" text-anchor="middle" font-weight="400">State-code geometry lookup</text>
+</g>
+<path d="M375 808 L531 808 L531 604" fill="none" stroke="#a94f09" stroke-width="2" stroke-linejoin="round" marker-end="url(#a-amber)"/>
+<rect x="445.05" y="700" width="183.9" height="22" rx="4" fill="#f5f8fc"/>
+<text x="537" y="715" font-size="13" fill="#a94f09" text-anchor="middle" font-weight="550">Aggregate by state/year</text>
+<path d="M645 549 L662 549 L662 389 L668 389" fill="none" stroke="#175cd3" stroke-width="2" stroke-linejoin="round" marker-end="url(#a-blue)"/>
+<rect x="549.5" y="431" width="89.0" height="22" rx="4" fill="#f5f8fc"/>
+<text x="594" y="446" font-size="13" fill="#175cd3" text-anchor="middle" font-weight="550">Build mart</text>
+<path d="M910 497 L910 562" fill="none" stroke="#175cd3" stroke-width="2" stroke-linejoin="round" marker-end="url(#a-blue)"/>
+<rect x="880.1" y="522" width="59.8" height="22" rx="4" fill="#f5f8fc"/>
+<text x="910.0" y="537" font-size="13" fill="#175cd3" text-anchor="middle" font-weight="550">Export</text>
+<path d="M910 668 L910 753" fill="none" stroke="#175cd3" stroke-width="2" stroke-linejoin="round" marker-end="url(#a-blue)"/>
+<rect x="865.5" y="696" width="89.0" height="22" rx="4" fill="#f5f8fc"/>
+<text x="910.0" y="711" font-size="13" fill="#175cd3" text-anchor="middle" font-weight="550">Indicators</text>
+<path d="M368 612 L415 612 L415 886 L911 886 L911 858" fill="none" stroke="#007f73" stroke-width="2" stroke-linejoin="round" marker-end="url(#a-teal)"/>
+<rect x="549.25" y="864" width="125.5" height="22" rx="4" fill="#f5f8fc"/>
+<text x="612" y="879" font-size="13" fill="#007f73" text-anchor="middle" font-weight="550">Geometry lookup</text>
+<text x="32" y="938" font-size="14" fill="#526780" text-anchor="start" font-weight="400">Selected fields shown. Files have logical keys, not SQL constraints. No patient-level joins to CDC, ENSANUT or the hospital vault.</text>
 </svg>

@@ -1,7 +1,7 @@
 {
-  "rev": 35,
-  "updated_at": "2026-10-17T21:26:43Z",
-  "note": "Plan audit: current main ef1e21d includes PR 12 concurrency/raw legacy audit and Yazmin PR 13 redesign plus model/session charts. Both main updates are integrated into the diagram review branch. Legacy audit: 200/200 exact, p50 606.919 ms, p95 804.967 ms; historical source/model hashes verified against Git. Final English v2/provider evidence remains open. Ten-diagram web atlas complete. E5 exploratory demo ready; no sourced budget. VM, labs, English narrated video, independent review, approved AI declaration and submission confirmations remain open. Pin one common current runtime/hash for measurements. docs/PLAN_AUDIT_20261017.md. Keep Netlify and its badge.",
+  "rev": 36,
+  "updated_at": "2026-10-17T21:57:19Z",
+  "note": "Plan audit: current main ef1e21d includes PR 12 concurrency/raw legacy audit and Yazmin PR 13 redesign plus model/session charts. Both main updates are integrated into the diagram review branch. Legacy audit: 200/200 exact, p50 606.919 ms, p95 804.967 ms; historical source/model hashes verified against Git. Final English v2/provider evidence remains open. Ten-diagram web atlas complete. E5 exploratory demo ready; no sourced budget. VM, labs, English narrated video, independent review, approved AI declaration and submission confirmations remain open. Pin one common current runtime/hash for measurements. docs/PLAN_AUDIT_20261017.md. Keep Netlify and its badge. Technical diagram redesign: ten distinct architecture/sequence/flowchart/schema/lineage views replace the repeated step cards. Semantic vector icons, labeled connectors, decision/error paths and logical cardinalities; keyboard tabs, zoom, fit-width and SVG download. Static documentation only; no runtime/model/forecast changes or delivery gate closed.",
   "milestones": {
     "internal_start": "2026-10-17T13:00:00Z",
     "virtual_closing": "2026-10-18T05:00:00Z",
@@ -560,7 +560,7 @@
           "block": "h8",
           "priority": "Plus",
           "state": "done",
-          "evidence": "Ten source-referenced SVG diagrams and text equivalents in site/architecture.html; operational vault schema and analytical file relationships in docs/SYSTEM_DIAGRAMS.md. All ten SVGs render with no text outside cards; 390px browser layout has no page overflow and supports scoped diagram scrolling/expanded text. Deterministic rebuild and local file links pass; Own changes are documentation-only atop merged PR 12: screening runtime hash/model unchanged. Publication/review through its own PR. Netlify review preview: https://system-diagrams--antimarrulla-tamizaje.netlify.app/architecture. PR 14."
+          "evidence": "Rebuilt after usability feedback: ten hand-laid technical SVGs use C4-style container boundaries, deployment ports/mounts, UML-style sequence lifelines, decision/error flowcharts, typed vault fields, logical crow-foot cardinalities and model/forecast/artifact lineage. Semantic vector icons identify actors, browsers, hospital, servers, locks, keys, files and stores. One-view navigator supports keyboard tabs, deep links, zoom, fit width and SVG download; actual browser checks cover all ten views and 375px layout. Source, limits and text equivalents retained. docs/SYSTEM_DIAGRAMS.md; submission/evidence/local/technical_diagrams_validation.json. Runtime/model/forecast unchanged; no final-delivery gate closed."
         }
       ]
     }

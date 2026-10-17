@@ -1,46 +1,90 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1040 646" role="img" aria-labelledby="title desc">
-<title id="title">Screening model and experiment lifecycle</title><desc id="desc">Training uses public CDC survey records. ENSANUT is a separate exploratory reduced model; it does not validate the 21-feature demo clinically.</desc>
-<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="#a8b8cd"/></marker></defs>
-<rect width="1040" height="646" fill="#10141e" rx="16"/>
-<path d="M480 104 H560" fill="none" stroke="#a8b8cd" stroke-width="2.4" marker-end="url(#arrow)"/>
-<path d="M785 180 V230" fill="none" stroke="#a8b8cd" stroke-width="2.4" marker-end="url(#arrow)"/>
-<path d="M560 306 H480" fill="none" stroke="#a8b8cd" stroke-width="2.4" marker-end="url(#arrow)"/>
-<path d="M255 382 V432" fill="none" stroke="#a8b8cd" stroke-width="2.4" marker-end="url(#arrow)"/>
-<path d="M480 508 H560" fill="none" stroke="#a8b8cd" stroke-width="2.4" marker-end="url(#arrow)"/>
-<g transform="translate(30 28)"><rect width="450" height="152" rx="12" fill="#1a2232" stroke="#79d7de" stroke-opacity=".6"/>
-<rect x="0" y="16" width="4" height="120" rx="2" fill="#79d7de"/>
-<text x="20" y="34" fill="#79d7de" font-family="system-ui, sans-serif" font-size="21" font-weight="650">1 / CDC UCI 891</text>
-<text x="20" y="72" fill="#e8edf5" font-family="system-ui, sans-serif" font-size="19">253,680 public survey records</text>
-<text x="20" y="102" fill="#e8edf5" font-family="system-ui, sans-serif" font-size="19">Target + 21 original-coded features</text>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 920" role="img" aria-labelledby="title desc">
+<title id="title">Screening model / training and held-out evaluation</title><desc id="desc">Data lineage · parallel branches keep training, threshold selection and testing separate</desc>
+<defs><marker id="a-blue" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0L10 5 0 10z" fill="#175cd3"/></marker><marker id="a-teal" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0L10 5 0 10z" fill="#007f73"/></marker><marker id="a-violet" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0L10 5 0 10z" fill="#7045b7"/></marker><marker id="a-amber" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0L10 5 0 10z" fill="#a94f09"/></marker><marker id="a-red" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0L10 5 0 10z" fill="#ba3544"/></marker><marker id="a-ink" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0L10 5 0 10z" fill="#20344d"/></marker></defs>
+<rect width="1200" height="100%" rx="14" fill="#f5f8fc"/>
+<style>text{font-family:Inter,ui-sans-serif,system-ui,-apple-system,sans-serif} .mono{font-family:ui-monospace,SFMono-Regular,Consolas,monospace}</style>
+<text x="32" y="38" font-size="23" fill="#20344d" text-anchor="start" font-weight="700">Screening model / training and held-out evaluation</text>
+<text x="32" y="65" font-size="15" fill="#526780" text-anchor="start" font-weight="400">Data lineage · parallel branches keep training, threshold selection and testing separate</text>
+<path d="M32 83L1168 83" stroke="#d9e2ed" stroke-width="1.6" fill="none"/>
+<g class="node">
+<path d="M420 124V192C420 216 780 216 780 192V124" fill="white" stroke="#7045b7" stroke-width="1.8"/><ellipse cx="600.0" cy="124" rx="180.0" ry="18" fill="#eeebf7" stroke="#7045b7" stroke-width="1.8"/>
+<text x="600.0" y="161" font-size="18" fill="#7045b7" text-anchor="middle" font-weight="650">CDC UCI 891</text>
+<text x="600.0" y="188" font-size="14" fill="#526780" text-anchor="middle" font-weight="400">253,680 public survey records</text>
 </g>
-<g transform="translate(560 28)"><rect width="450" height="152" rx="12" fill="#1a2232" stroke="#79d7de" stroke-opacity=".6"/>
-<rect x="0" y="16" width="4" height="120" rx="2" fill="#79d7de"/>
-<text x="20" y="34" fill="#79d7de" font-family="system-ui, sans-serif" font-size="21" font-weight="650">2 / Shared stratified splits</text>
-<text x="20" y="72" fill="#e8edf5" font-family="system-ui, sans-serif" font-size="19">70% training / 15% validation / 15% test</text>
-<text x="20" y="102" fill="#e8edf5" font-family="system-ui, sans-serif" font-size="19">Seed 2026; ID excluded from features</text>
+<g transform="translate(575 252) scale(1.40625)" fill="none" stroke="#175cd3" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 16h9m0 0V5h15m-15 11h15m-15 0v11h15M23 2l4 3-4 3m0 5 4 3-4 3m0 5 4 3-4 3"/></g>
+<rect x="464.25" y="311" width="271.5" height="22" rx="4" fill="#f5f8fc"/>
+<text x="600" y="326" font-size="13" fill="#175cd3" text-anchor="middle" font-weight="550">Stratified 70 / 15 / 15 · seed 2026</text>
+<g class="node">
+<path d="M45 392V456C45 480 345 480 345 456V392" fill="white" stroke="#007f73" stroke-width="1.8"/><ellipse cx="195.0" cy="392" rx="150.0" ry="18" fill="#eeebf7" stroke="#007f73" stroke-width="1.8"/>
+<text x="195.0" y="429" font-size="18" fill="#007f73" text-anchor="middle" font-weight="650">TRAIN · 70%</text>
+<text x="195.0" y="456" font-size="14" fill="#526780" text-anchor="middle" font-weight="400">177,576 records</text>
 </g>
-<g transform="translate(560 230)"><rect width="450" height="152" rx="12" fill="#1a2232" stroke="#79d7de" stroke-opacity=".6"/>
-<rect x="0" y="16" width="4" height="120" rx="2" fill="#79d7de"/>
-<text x="20" y="34" fill="#79d7de" font-family="system-ui, sans-serif" font-size="21" font-weight="650">3 / Fit on training only</text>
-<text x="20" y="72" fill="#e8edf5" font-family="system-ui, sans-serif" font-size="19">Standardization + logistic regression</text>
-<text x="20" y="102" fill="#e8edf5" font-family="system-ui, sans-serif" font-size="19">Fold scaling into original-code weights</text>
+<g class="node">
+<path d="M451 392V456C451 480 751 480 751 456V392" fill="white" stroke="#175cd3" stroke-width="1.8"/><ellipse cx="601.0" cy="392" rx="150.0" ry="18" fill="#eeebf7" stroke="#175cd3" stroke-width="1.8"/>
+<text x="601.0" y="429" font-size="18" fill="#175cd3" text-anchor="middle" font-weight="650">VALIDATION · 15%</text>
+<text x="601.0" y="456" font-size="14" fill="#526780" text-anchor="middle" font-weight="400">38,052 records</text>
 </g>
-<g transform="translate(30 230)"><rect width="450" height="152" rx="12" fill="#1a2232" stroke="#79d7de" stroke-opacity=".6"/>
-<rect x="0" y="16" width="4" height="120" rx="2" fill="#79d7de"/>
-<text x="20" y="34" fill="#79d7de" font-family="system-ui, sans-serif" font-size="21" font-weight="650">4 / Select threshold on validation</text>
-<text x="20" y="72" fill="#e8edf5" font-family="system-ui, sans-serif" font-size="19">Sensitivity target ≥80%</text>
-<text x="20" y="102" fill="#e8edf5" font-family="system-ui, sans-serif" font-size="19">No threshold tuning on the test split</text>
+<g class="node">
+<path d="M857 392V456C857 480 1157 480 1157 456V392" fill="white" stroke="#7045b7" stroke-width="1.8"/><ellipse cx="1007.0" cy="392" rx="150.0" ry="18" fill="#eeebf7" stroke="#7045b7" stroke-width="1.8"/>
+<text x="1007.0" y="429" font-size="18" fill="#7045b7" text-anchor="middle" font-weight="650">TEST · 15%</text>
+<text x="1007.0" y="456" font-size="14" fill="#526780" text-anchor="middle" font-weight="400">38,052 records</text>
 </g>
-<g transform="translate(30 432)"><rect width="450" height="152" rx="12" fill="#1a2232" stroke="#79d7de" stroke-opacity=".6"/>
-<rect x="0" y="16" width="4" height="120" rx="2" fill="#79d7de"/>
-<text x="20" y="34" fill="#79d7de" font-family="system-ui, sans-serif" font-size="21" font-weight="650">5 / Evaluate held-out test</text>
-<text x="20" y="72" fill="#e8edf5" font-family="system-ui, sans-serif" font-size="19">AUC, AP, Brier, sensitivity, specificity</text>
-<text x="20" y="102" fill="#e8edf5" font-family="system-ui, sans-serif" font-size="19">Report repeated-profile limitations</text>
+<g class="node">
+<rect x="45" y="545" width="300" height="105" rx="10" fill="white" stroke="#007f73" stroke-width="1.8"/>
+<g transform="translate(63 564) scale(0.90625)" fill="none" stroke="#007f73" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="6" cy="7" r="3"/><circle cx="6" cy="25" r="3"/><circle cx="17" cy="16" r="4"/><circle cx="27" cy="7" r="3"/><circle cx="27" cy="25" r="3"/><path d="M9 9l5 5M9 23l5-5m7-4 4-5m-4 9 4 5"/></g>
+<text x="103" y="580" font-size="18" fill="#007f73" text-anchor="start" font-weight="650">Fit model</text>
+<text x="65" y="611" font-size="15" fill="#526780" text-anchor="start" font-weight="400">Scaler fit on training only</text>
+<text x="65" y="632" font-size="15" fill="#526780" text-anchor="start" font-weight="400">Logistic regression</text>
 </g>
-<g transform="translate(560 432)"><rect width="450" height="152" rx="12" fill="#1a2232" stroke="#d4bbff" stroke-opacity=".6"/>
-<rect x="0" y="16" width="4" height="120" rx="2" fill="#d4bbff"/>
-<text x="20" y="34" fill="#d4bbff" font-family="system-ui, sans-serif" font-size="21" font-weight="650">6 / Export and compare</text>
-<text x="20" y="72" fill="#e8edf5" font-family="system-ui, sans-serif" font-size="19">Versioned model, schema and hashes</text>
-<text x="20" y="102" fill="#e8edf5" font-family="system-ui, sans-serif" font-size="19">Float vs fixed vs encrypted: same sample</text>
+<g class="node">
+<rect x="451" y="545" width="300" height="105" rx="10" fill="white" stroke="#175cd3" stroke-width="1.8"/>
+<g transform="translate(469 564) scale(0.90625)" fill="none" stroke="#175cd3" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 3v25h26M8 22l7-8 6 3 8-12"/><path d="M23 5h6v6"/></g>
+<text x="509" y="580" font-size="18" fill="#175cd3" text-anchor="start" font-weight="650">Choose threshold</text>
+<text x="471" y="611" font-size="15" fill="#526780" text-anchor="start" font-weight="400">Sensitivity target ≥80%</text>
+<text x="471" y="632" font-size="15" fill="#526780" text-anchor="start" font-weight="400">Validation labels only</text>
 </g>
+<g class="node">
+<rect x="857" y="545" width="300" height="105" rx="10" fill="white" stroke="#7045b7" stroke-width="1.8"/>
+<g transform="translate(875 564) scale(0.90625)" fill="none" stroke="#7045b7" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 3v25h26M8 22l7-8 6 3 8-12"/><path d="M23 5h6v6"/></g>
+<text x="915" y="580" font-size="18" fill="#7045b7" text-anchor="start" font-weight="650">Evaluate frozen model</text>
+<text x="877" y="611" font-size="15" fill="#526780" text-anchor="start" font-weight="400">AUC / AP / Brier / confusion</text>
+<text x="877" y="632" font-size="15" fill="#526780" text-anchor="start" font-weight="400">No tuning on test</text>
+</g>
+<g class="node">
+<path d="M50 752H418L440 774V850H50Z M418 752V774H440" fill="white" stroke="#007f73" stroke-width="1.8"/>
+<g transform="translate(68 771) scale(0.90625)" fill="none" stroke="#007f73" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M7 2h13l7 7v21H7zM20 2v8h7M11 16h12m-12 5h12m-12 5h8"/></g>
+<text x="108" y="787" font-size="18" fill="#007f73" text-anchor="start" font-weight="650">Versioned model JSON</text>
+<text x="70" y="818" font-size="15" fill="#526780" text-anchor="start" font-weight="400">Fold standardization into weights</text>
+<text x="70" y="839" font-size="15" fill="#526780" text-anchor="start" font-weight="400">Quantize W, B at scale 10⁹</text>
+</g>
+<g class="node">
+<path d="M747 752H1135L1157 774V850H747Z M1135 752V774H1157" fill="white" stroke="#7045b7" stroke-width="1.8"/>
+<g transform="translate(765 771) scale(0.90625)" fill="none" stroke="#7045b7" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M7 2h13l7 7v21H7zM20 2v8h7M11 16h12m-12 5h12m-12 5h8"/></g>
+<text x="805" y="787" font-size="18" fill="#7045b7" text-anchor="start" font-weight="650">Metrics + numerical comparison</text>
+<text x="767" y="818" font-size="15" fill="#526780" text-anchor="start" font-weight="400">Same labeled sample for all variants</text>
+<text x="767" y="839" font-size="15" fill="#526780" text-anchor="start" font-weight="400">Float ↔ fixed-point ↔ Paillier</text>
+</g>
+<path d="M600 210 L600 252" fill="none" stroke="#175cd3" stroke-width="2" stroke-linejoin="round" marker-end="url(#a-blue)"/>
+<path d="M587 289 L195 289 L195 374" fill="none" stroke="#007f73" stroke-width="2" stroke-linejoin="round" marker-end="url(#a-teal)"/>
+<path d="M600 297 L600 374" fill="none" stroke="#175cd3" stroke-width="2" stroke-linejoin="round" marker-end="url(#a-blue)"/>
+<path d="M617 289 L1007 289 L1007 374" fill="none" stroke="#7045b7" stroke-width="2" stroke-linejoin="round" marker-end="url(#a-violet)"/>
+<path d="M195 474 L195 545" fill="none" stroke="#007f73" stroke-width="2" stroke-linejoin="round" marker-end="url(#a-teal)"/>
+<path d="M600 474 L600 545" fill="none" stroke="#175cd3" stroke-width="2" stroke-linejoin="round" marker-end="url(#a-blue)"/>
+<path d="M1007 474 L1007 545" fill="none" stroke="#7045b7" stroke-width="2" stroke-linejoin="round" marker-end="url(#a-violet)"/>
+<path d="M345 585 L451 585" fill="none" stroke="#007f73" stroke-width="2" stroke-linejoin="round" marker-end="url(#a-teal)"/>
+<rect x="364.45" y="557" width="67.1" height="22" rx="4" fill="#f5f8fc"/>
+<text x="398.0" y="572" font-size="13" fill="#007f73" text-anchor="middle" font-weight="550">Predict</text>
+<path d="M751 585 L857 585" fill="none" stroke="#175cd3" stroke-width="2" stroke-linejoin="round" marker-end="url(#a-blue)"/>
+<rect x="774.1" y="557" width="59.8" height="22" rx="4" fill="#f5f8fc"/>
+<text x="804.0" y="572" font-size="13" fill="#175cd3" text-anchor="middle" font-weight="550">Freeze</text>
+<path d="M195 650 L195 752" fill="none" stroke="#007f73" stroke-width="2" stroke-linejoin="round" marker-end="url(#a-teal)"/>
+<rect x="208.9" y="692" width="118.2" height="22" rx="4" fill="#f5f8fc"/>
+<text x="268" y="707" font-size="13" fill="#007f73" text-anchor="middle" font-weight="550">Export weights</text>
+<path d="M600 650 L600 703 L350 703 L350 752" fill="none" stroke="#175cd3" stroke-width="2" stroke-linejoin="round" marker-end="url(#a-blue)"/>
+<rect x="487.15" y="681" width="81.7" height="22" rx="4" fill="#f5f8fc"/>
+<text x="528" y="696" font-size="13" fill="#175cd3" text-anchor="middle" font-weight="550">Threshold</text>
+<path d="M1007 650 L1007 752" fill="none" stroke="#7045b7" stroke-width="2" stroke-linejoin="round" marker-end="url(#a-violet)"/>
+<rect x="1022.1" y="692" width="59.8" height="22" rx="4" fill="#f5f8fc"/>
+<text x="1052" y="707" font-size="13" fill="#7045b7" text-anchor="middle" font-weight="550">Report</text>
+<text x="32" y="898" font-size="14" fill="#526780" text-anchor="start" font-weight="400">Repeated feature profiles can cross splits. ENSANUT is a separate reduced exploratory experiment, not clinical validation of this model.</text>
 </svg>
