@@ -10,7 +10,7 @@ Keep proper names, the exact required submission title, official source identifi
 
 - `main` must remain runnable. No direct pushes to `main`.
 - Use a branch for each contributor or change, such as `javier/coordination`, `feat/base-model` or `fix/demo-crash`.
-- Codex branches use the `codex/` prefix.
+- Use descriptive prefixes only (`feat/`, `fix/`, `docs/`, `demo/`, `chore/`). Do not use tool or assistant names such as `codex/` or `claude/` in branch names.
 
 ## 3. Pull requests
 
