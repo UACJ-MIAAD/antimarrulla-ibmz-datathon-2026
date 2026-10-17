@@ -28,7 +28,7 @@ Se hacen en las primeras horas, en LinuxONE, y se guardan capturas como evidenci
 ## 3. Trabajo original
 
 - **No está permitido tomar código, proyectos o ideas de otros participantes ni de fuera del evento.** El proyecto es original y creado solo por el equipo.
-- **Librerías y frameworks open source, APIs públicas y herramientas de IBM: permitidos**, pero **los links a esos recursos deben ir en la entrega** (tabla de créditos del [README](../README.md#créditos-librerías-y-uso-de-ia)).
+- **Librerías y frameworks open source, APIs públicas y herramientas de IBM: permitidos**, pero **los links a esos recursos deben ir en la entrega** (tabla de créditos del [README](../README.md#créditos-y-librerías)).
 - Datasets: legales y con licencia adecuada. Fuente y licencia en [data/README.md](../data/README.md).
 
 ## 4. IA generativa: con transparencia

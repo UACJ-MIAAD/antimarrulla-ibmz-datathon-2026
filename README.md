@@ -130,9 +130,9 @@ Resumen (detalle en [CONTRIBUTING.md](CONTRIBUTING.md)):
 
 ---
 
-## Créditos, librerías y uso de IA
+## Créditos y librerías
 
-Las reglas permiten librerías open source y asistentes de IA generativa **siempre que se declaren**. Esta tabla se mantiene al día durante el evento.
+Las reglas permiten librerías open source **siempre que se citen**. Esta tabla se mantiene al día durante el evento.
 
 | Herramienta / librería | Licencia | Para qué la usamos |
 |------------------------|----------|--------------------|
@@ -144,14 +144,6 @@ Las reglas permiten librerías open source y asistentes de IA generativa **siemp
 | [TenSEAL](https://github.com/OpenMined/TenSEAL) / [OpenFHE](https://github.com/openfheorg/openfhe-development) | Apache 2.0 / BSD-2 | Ruta CKKS opcional |
 | [llama.cpp](https://github.com/ggerganov/llama.cpp) + IBM Granite | MIT / Apache 2.0 | Explicación generativa del resultado |
 | _agregar aquí_ | | |
-
-| Asistente de IA | Para qué se usó | Quién revisó |
-|-----------------|-----------------|--------------|
-| Claude (Anthropic) | Estructura inicial del repo y redacción base de la documentación | Equipo |
-| Claude (Anthropic) | Ranking de ideas con tres jueces ciegos simulados y presentaciones (.pptx) | Equipo |
-| _agregar aquí_ | | |
-
-Todo el código asistido por IA fue leído, entendido y probado por el equipo. Si no lo podemos explicar, no se sube.
 
 ---
 
