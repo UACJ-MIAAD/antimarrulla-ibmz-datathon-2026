@@ -1,0 +1,46 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1040 646" role="img" aria-labelledby="title desc">
+<title id="title">Analytical database: files and logical keys</title><desc id="desc">This is the implemented file-based analytical model. Relationships describe aggregation and lookup keys; no SQL foreign-key constraints or patient-level joins exist.</desc>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="#a8b8cd"/></marker></defs>
+<rect width="1040" height="646" fill="#10141e" rx="16"/>
+<path d="M255 180 V205 H785 V230" fill="none" stroke="#a8b8cd" stroke-width="2.4" marker-end="url(#arrow)"/>
+<path d="M785 180 V230" fill="none" stroke="#a8b8cd" stroke-width="2.4" marker-end="url(#arrow)"/>
+<path d="M560 306 H480" fill="none" stroke="#a8b8cd" stroke-width="2.4" marker-end="url(#arrow)"/>
+<path d="M255 382 V407 H785 V432" fill="none" stroke="#a8b8cd" stroke-width="2.4" marker-end="url(#arrow)"/>
+<path d="M480 508 H560" fill="none" stroke="#a8b8cd" stroke-width="2.4" marker-end="url(#arrow)"/>
+<g transform="translate(30 28)"><rect width="450" height="152" rx="12" fill="#1a2232" stroke="#ffcf70" stroke-opacity=".6"/>
+<rect x="0" y="16" width="4" height="120" rx="2" fill="#ffcf70"/>
+<text x="20" y="34" fill="#ffcf70" font-family="system-ui, sans-serif" font-size="21" font-weight="650">State dimension / catalog</text>
+<text x="20" y="72" fill="#e8edf5" font-family="system-ui, sans-serif" font-size="19">entidades.csv: cve_ent (01–32)</text>
+<text x="20" y="102" fill="#e8edf5" font-family="system-ui, sans-serif" font-size="19">Names, region, IMSS delegation map</text>
+</g>
+<g transform="translate(560 28)"><rect width="450" height="152" rx="12" fill="#1a2232" stroke="#ffcf70" stroke-opacity=".6"/>
+<rect x="0" y="16" width="4" height="120" rx="2" fill="#ffcf70"/>
+<text x="20" y="34" fill="#ffcf70" font-family="system-ui, sans-serif" font-size="21" font-weight="650">Independent source aggregates</text>
+<text x="20" y="72" fill="#e8edf5" font-family="system-ui, sans-serif" font-size="19">SINAVE, deaths, discharges, SIS</text>
+<text x="20" y="102" fill="#e8edf5" font-family="system-ui, sans-serif" font-size="19">IMSS screening + CONAPO population</text>
+</g>
+<g transform="translate(560 230)"><rect width="450" height="152" rx="12" fill="#1a2232" stroke="#d4bbff" stroke-opacity=".6"/>
+<rect x="0" y="16" width="4" height="120" rx="2" fill="#d4bbff"/>
+<text x="20" y="34" fill="#d4bbff" font-family="system-ui, sans-serif" font-size="21" font-weight="650">State/year analytical mart</text>
+<text x="20" y="72" fill="#e8edf5" font-family="system-ui, sans-serif" font-size="19">cascada_entidad_anio.csv</text>
+<text x="20" y="102" fill="#e8edf5" font-family="system-ui, sans-serif" font-size="19">Logical key: (cve_ent, anio), 256 rows</text>
+</g>
+<g transform="translate(30 230)"><rect width="450" height="152" rx="12" fill="#1a2232" stroke="#ffcf70" stroke-opacity=".6"/>
+<rect x="0" y="16" width="4" height="120" rx="2" fill="#ffcf70"/>
+<text x="20" y="34" fill="#ffcf70" font-family="system-ui, sans-serif" font-size="21" font-weight="650">Published care-stage data</text>
+<text x="20" y="72" fill="#e8edf5" font-family="system-ui, sans-serif" font-size="19">care_stages.json: English view</text>
+<text x="20" y="102" fill="#e8edf5" font-family="system-ui, sans-serif" font-size="19">32 states × 2017–2024 indicators</text>
+</g>
+<g transform="translate(30 432)"><rect width="450" height="152" rx="12" fill="#1a2232" stroke="#ffcf70" stroke-opacity=".6"/>
+<rect x="0" y="16" width="4" height="120" rx="2" fill="#ffcf70"/>
+<text x="20" y="34" fill="#ffcf70" font-family="system-ui, sans-serif" font-size="21" font-weight="650">State geometry / map lookup</text>
+<text x="20" y="72" fill="#e8edf5" font-family="system-ui, sans-serif" font-size="19">estados_mx.geojson: cve_ent</text>
+<text x="20" y="102" fill="#e8edf5" font-family="system-ui, sans-serif" font-size="19">32 polygons; state-code lookup</text>
+</g>
+<g transform="translate(560 432)"><rect width="450" height="152" rx="12" fill="#1a2232" stroke="#ffcf70" stroke-opacity=".6"/>
+<rect x="0" y="16" width="4" height="120" rx="2" fill="#ffcf70"/>
+<text x="20" y="34" fill="#ffcf70" font-family="system-ui, sans-serif" font-size="21" font-weight="650">Public aggregate map</text>
+<text x="20" y="72" fill="#e8edf5" font-family="system-ui, sans-serif" font-size="19">Rates, counts and descriptive ratios</text>
+<text x="20" y="102" fill="#e8edf5" font-family="system-ui, sans-serif" font-size="19">Different populations, no care cohort</text>
+</g>
+</svg>

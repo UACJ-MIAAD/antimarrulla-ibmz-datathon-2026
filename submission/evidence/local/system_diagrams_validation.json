@@ -1,0 +1,46 @@
+{
+  "date_utc": "2026-10-17T21:02:47Z",
+  "runtime_baseline": "b04fadb",
+  "scope": "Static website diagrams and plan audit; no runtime/model/forecast numeric changes",
+  "checks": {
+    "model_retraining": "exact weights/intercept",
+    "svg_count": 10,
+    "all_svg_text_inside_node_bounds": true,
+    "deterministic_rebuild": true,
+    "relative_local_file_links": "passed",
+    "desktop_viewport_width": 1280,
+    "desktop_document_width": 1280,
+    "mobile_viewport_width": 390,
+    "mobile_document_width": 390,
+    "mobile_diagram_client_width": 332,
+    "mobile_diagram_scroll_width": 820,
+    "mobile_text_alternative_expands": true,
+    "browser_console_errors": 0,
+    "host_tests_passed_before_pr12": 97,
+    "host_tests_after_pr12": 98
+  },
+  "runtime_code_sha256": "659ac8607f476652b03a6949872ed975145a481c3b6642f7ca3f70bb8f8747ac",
+  "story_counts": {
+    "done": 23,
+    "pending": 5,
+    "in_progress": 13
+  },
+  "open_gates": [
+    "original LinuxONE measurements/provider/version evidence",
+    "actual labs and attendance records",
+    "complete independent teammate review",
+    "English narrated public video with VM/model footage",
+    "team-approved published AI declaration",
+    "registered leader/dashboard and final submission confirmation"
+  ],
+  "legacy_raw_audit_review": {
+    "commit": "037ee1be38f75a4ddd5e22d58687fdc20692778a",
+    "source_hash_matches_historical_git": true,
+    "model_hash_matches_historical_git": true,
+    "example_ciphertexts_valid_group_members": 21,
+    "example_key_bits": 2048,
+    "response_id_matches": true,
+    "recorded_checks_passed": 10,
+    "full_log_replay_performed": false
+  }
+}
