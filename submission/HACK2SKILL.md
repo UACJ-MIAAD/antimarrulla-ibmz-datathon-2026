@@ -39,7 +39,7 @@ Python 3.12 · scikit-learn · python-paillier (`phe`) + gmpy2 · cryptography (
 | Campo | Valor |
 |-------|-------|
 | Repo de GitHub | https://github.com/UACJ-MIAAD/antimarrulla-ibmz-datathon-2026 |
-| Video (máx. 3 min) | **Pendiente**: grabarlo con el guion de [PITCH.md](PITCH.md), subirlo y probar el link en incógnito |
+| Video (máx. 3 min) | **Pendiente**: hay borrador sin audio y storyboard en [VIDEO.md](VIDEO.md); faltan voces y la grabación en LinuxONE |
 | Pitch deck en PDF | [`Los Antimarrulla_IBM Z Datathon 2026 Project.pdf`](Los%20Antimarrulla_IBM%20Z%20Datathon%202026%20Project.pdf) |
 | Flowchart (opcional) | [flowchart/arquitectura.pdf](flowchart/arquitectura.pdf) |
 | Prototipo (opcional) | Prototipo interactivo: se corre con `make demo` y se abre en `http://127.0.0.1:8080` (no hay URL pública: la UI solo escucha en localhost). Es distinto del video de la demo |

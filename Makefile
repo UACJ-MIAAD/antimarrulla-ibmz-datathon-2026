@@ -81,3 +81,6 @@ ensanut: setup                        ## extra: evaluación exploratoria con ENS
 pronostico: setup                     ## extra E5: pronóstico a 52 semanas (222 series) → artefactos/pronostico/ y el sitio
 	$(BIN)/python -m tamizaje.pronostico
 	cp artefactos/pronostico/e5_pronostico_v1.json site/assets/pronostico.json
+
+video-borrador:                       ## borrador sin audio con los tiempos del guion → dist/video/ (requiere ffmpeg)
+	PYTHONPATH=src $(BIN)/python -m tamizaje.video_borrador

@@ -1,6 +1,6 @@
 {
-  "rev": 18,
-  "actualizado": "2026-10-17T10:03:06Z",
+  "rev": 19,
+  "actualizado": "2026-10-17T10:04:26Z",
   "nota": "Para actualizar: cambia 'estado' de la historia (hecho · en_curso · pendiente · bloqueado), sube 'rev' en 1, pon 'actualizado' con la hora real en UTC y haz commit a main. El sitio muestra la copia con 'rev' mayor (GitHub o la publicada).",
   "hitos": {
     "hora_cero": "2026-10-17T13:00:00Z",
@@ -456,7 +456,8 @@
           "quien": "Yazmin",
           "bloque": "h18",
           "prioridad": "MVP",
-          "estado": "pendiente"
+          "estado": "en_curso",
+          "evidencia": "borrador sin audio de 170 s (make video-borrador) y storyboard en submission/VIDEO.md; faltan voces y la grabación en LinuxONE"
         },
         {
           "id": "US-7.4",
@@ -466,7 +467,8 @@
           "quien": "Yazmin",
           "bloque": "h18",
           "prioridad": "MVP",
-          "estado": "pendiente"
+          "estado": "en_curso",
+          "evidencia": "submission/Los Antimarrulla_IBM Z Datathon 2026 Project.pdf con cifras locales; falta la versión con mediciones de LinuxONE"
         },
         {
           "id": "US-7.5",
