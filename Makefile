@@ -74,3 +74,6 @@ demo-docker: secretos-docker imagen   ## demo sin venv en el host
 medir-docker: imagen-dev              ## mediciones dentro de Linux → submission/evidencias/metricas/
 	mkdir -p submission/evidencias/metricas && chmod 777 submission/evidencias/metricas
 	docker run --rm -e TAMIZAJE_COMMIT=$(COMMIT) -e TAMIZAJE_CAMBIOS=$(CAMBIOS) -v $(CURDIR)/submission/evidencias/metricas:/app/submission/evidencias/metricas tamizaje:dev python3 -m tamizaje.medir
+
+ensanut: setup                        ## extra: evaluación exploratoria con ENSANUT (microdatos locales)
+	$(BIN)/python -m tamizaje.ensanut

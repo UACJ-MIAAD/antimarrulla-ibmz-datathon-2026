@@ -53,3 +53,20 @@ make ensanut    # requiere los microdatos locales en data/raw/ensanut/
 ```
 
 Resultado: `artefactos/metricas/ensanut_exploratorio_v1.json` (solo agregados).
+
+## Resultados (17 oct 2026, corrida después de publicar este protocolo)
+
+Archivo: `artefactos/metricas/ensanut_exploratorio_v1.json`. Umbral del modelo reducido fijado en la validación del CDC: 0.1171.
+
+| Conjunto | Incluidos (positivos) | ROC-AUC | Average precision | Sensibilidad | Especificidad | Prevalencia | p media |
+|----------|----------------------:|--------:|------------------:|-------------:|--------------:|------------:|--------:|
+| CDC prueba (referencia, sin ponderar) | 38,052 (5,302) | 0.801 | 0.376 | 0.805 | 0.648 | 0.139 | 0.139 |
+| ENSANUT 2022, ponderado | 8,414 (1,130) | 0.767 | 0.288 | 0.459 | 0.852 | 0.117 | 0.073 |
+| ENSANUT 2023, ponderado | 3,010 (396) | 0.767 | 0.247 | 0.485 | 0.839 | 0.109 | 0.076 |
+
+Sin ponderar: ROC-AUC 0.764 (2022) y 0.739 (2023). Exclusiones 2022: 3,186 sin antropometría válida, 295 con datos de salud incompletos, 18 con etiqueta fuera de la regla; 2023: 3,535, 205 y 22.
+
+**Lectura honesta:**
+- El ranking se sostiene a medias: el ROC-AUC baja de 0.80 en el CDC a 0.77 en adultos mexicanos.
+- **El modelo subestima el riesgo en México:** predice 7.3–7.6% en promedio frente a 10.9–11.7% de diagnóstico declarado, y con el umbral del CDC la sensibilidad cae a 0.46–0.49. Usarlo en México exigiría recalibrar y fijar el umbral con datos mexicanos, lo que este experimento **no** hace.
+- La etiqueta de ENSANUT (solo diabetes diagnosticada) y la del CDC (prediabetes o diabetes) no son iguales, y el mapeo de variables es aproximado.

@@ -1,6 +1,6 @@
 {
-  "rev": 15,
-  "actualizado": "2026-10-17T09:52:00Z",
+  "rev": 16,
+  "actualizado": "2026-10-17T09:55:24Z",
   "nota": "Para actualizar: cambia 'estado' de la historia (hecho · en_curso · pendiente · bloqueado), sube 'rev' en 1, pon 'actualizado' con la hora real en UTC y haz commit a main. El sitio muestra la copia con 'rev' mayor (GitHub o la publicada).",
   "hitos": {
     "hora_cero": "2026-10-17T13:00:00Z",
@@ -272,7 +272,8 @@
           "quien": "Yazmin · Carlos",
           "bloque": "h8",
           "prioridad": "Plus",
-          "estado": "pendiente"
+          "estado": "hecho",
+          "evidencia": "docs/ENSANUT_EXPERIMENTO.md (protocolo publicado antes de evaluar) · artefactos/metricas/ensanut_exploratorio_v1.json: ROC-AUC ponderado 0.767; subestima el riesgo y la sensibilidad cae a 0.46–0.49 con el umbral del CDC"
         }
       ]
     },
