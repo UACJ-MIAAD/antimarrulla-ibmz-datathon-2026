@@ -31,7 +31,7 @@
 - [ ] `requirements.txt` con versiones fijadas
 - [ ] Instrucciones para obtener el dataset (fuente + licencia) en `data/README.md`
 - [ ] Tabla de **librerías open source con sus links** (la guía lo exige en la entrega)
-- [x] Declaración de **asistentes de IA** (sección *Uso de IA* al final del README)
+- [x] Declaración de **asistentes de IA** (sección *Uso de IA* al final del README) · actualizarla si se usa IA en el código del evento
 - [ ] Diagrama de arquitectura / flowchart con las piezas que viven en LinuxONE
 - [ ] [DECISION.md](DECISION.md) lleno
 

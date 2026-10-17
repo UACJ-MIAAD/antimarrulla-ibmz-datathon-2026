@@ -177,11 +177,19 @@ Las reglas permiten librerías open source **siempre que se citen**. Esta tabla 
 
 ## Uso de IA
 
-Las reglas permiten asistentes de IA generativa siempre que se declaren. Lo declaramos aquí:
+Las reglas permiten asistentes de IA generativa siempre que se declaren y que el equipo entienda lo que entrega. Usamos **[Claude](https://www.anthropic.com/claude) (Anthropic)** como asistente en estas tareas:
 
-| Herramienta | Para qué la usamos | Revisión humana |
-|-------------|--------------------|-----------------|
-| [Claude](https://www.anthropic.com/claude) (Anthropic) | Auditar el repositorio: verificar cifras contra las fuentes originales y revisar la consistencia de la documentación, el deck y el sitio | El equipo revisó y aprobó cada cambio |
+| Tarea | Qué hizo Claude | Archivos | Revisión humana |
+|-------|-----------------|----------|-----------------|
+| Estructura del repositorio | Propuso y armó la estructura de carpetas, el README y las guías internas | `README.md`, `CONTRIBUTING.md`, `docs/` | El equipo definió el contenido y aprobó cada cambio |
+| Documentación | Redactó y mantuvo la documentación técnica, de reglas, roles, fuentes y modelo de datos | `docs/*.md`, `data/README.md` | El equipo revisó y corrigió los textos |
+| Elección de la idea | Corrió el ranking de las ideas con jueces simulados y armó las presentaciones de ideas | `docs/DECISION.md`, `docs/IDEAS.md`, `docs/Ranking_Ideas_Antimarrulla.pptx` | El equipo eligió la idea |
+| Datos | Buscó y descargó fuentes oficiales, verificó cifras contra los microdatos y escribió los scripts de preparación | `data/`, `src/datos/` | El equipo validó las fuentes y las cifras usadas en el pitch |
+| Pitch | Diseñó el deck, su PDF y el guion del video | `submission/` | El equipo ajustó el guion y presenta el video |
+| Sitio público | Construyó el sitio con el plan en vivo, el deck y el mapa | `site/` | El equipo revisó contenido y datos |
+| Auditoría | Aplicó las correcciones de las auditorías externas: cifras contra las fuentes originales y consistencia de documentación, deck y sitio | Todo el repositorio | El equipo decidió qué corregir y aprobó cada cambio |
+
+El código del modelo cifrado y de la demo se escribe durante el evento; esta tabla se actualiza si también se usa IA ahí.
 
 ## Licencia
 
