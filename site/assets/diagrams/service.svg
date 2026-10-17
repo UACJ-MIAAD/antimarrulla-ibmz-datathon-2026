@@ -1,93 +1,125 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 1110" role="img" aria-labelledby="title desc">
 <title id="title">Risk service / validation and encrypted scoring</title><desc id="desc">Flowchart · TLS client authentication happens before HTTP request handling</desc>
-<defs><marker id="a-blue" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0L10 5 0 10z" fill="#175cd3"/></marker><marker id="a-teal" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0L10 5 0 10z" fill="#007f73"/></marker><marker id="a-violet" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0L10 5 0 10z" fill="#7045b7"/></marker><marker id="a-amber" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0L10 5 0 10z" fill="#a94f09"/></marker><marker id="a-red" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0L10 5 0 10z" fill="#ba3544"/></marker><marker id="a-ink" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0L10 5 0 10z" fill="#20344d"/></marker></defs>
-<rect width="1200" height="100%" rx="14" fill="#f5f8fc"/>
-<style>text{font-family:Inter,ui-sans-serif,system-ui,-apple-system,sans-serif} .mono{font-family:ui-monospace,SFMono-Regular,Consolas,monospace}</style>
-<text x="32" y="38" font-size="23" fill="#20344d" text-anchor="start" font-weight="700">Risk service / validation and encrypted scoring</text>
-<text x="32" y="65" font-size="15" fill="#526780" text-anchor="start" font-weight="400">Flowchart · TLS client authentication happens before HTTP request handling</text>
-<path d="M32 83L1168 83" stroke="#d9e2ed" stroke-width="1.6" fill="none"/>
+<defs><marker id="a-blue" viewBox="0 0 12 12" refX="10" refY="6" markerWidth="8" markerHeight="8" orient="auto-start-reverse"><path d="M1 1.5L11 6 1 10.5 3.6 6z" fill="#6ea8ff"/></marker><linearGradient id="t-blue" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#6ea8ff" stop-opacity=".16"/><stop offset=".55" stop-color="#6ea8ff" stop-opacity=".05"/><stop offset="1" stop-color="#6ea8ff" stop-opacity=".02"/></linearGradient><linearGradient id="e-blue" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#6ea8ff" stop-opacity=".95"/><stop offset="1" stop-color="#6ea8ff" stop-opacity=".55"/></linearGradient><marker id="a-teal" viewBox="0 0 12 12" refX="10" refY="6" markerWidth="8" markerHeight="8" orient="auto-start-reverse"><path d="M1 1.5L11 6 1 10.5 3.6 6z" fill="#3fd6b4"/></marker><linearGradient id="t-teal" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#3fd6b4" stop-opacity=".16"/><stop offset=".55" stop-color="#3fd6b4" stop-opacity=".05"/><stop offset="1" stop-color="#3fd6b4" stop-opacity=".02"/></linearGradient><linearGradient id="e-teal" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#3fd6b4" stop-opacity=".95"/><stop offset="1" stop-color="#3fd6b4" stop-opacity=".55"/></linearGradient><marker id="a-violet" viewBox="0 0 12 12" refX="10" refY="6" markerWidth="8" markerHeight="8" orient="auto-start-reverse"><path d="M1 1.5L11 6 1 10.5 3.6 6z" fill="#b8a2ff"/></marker><linearGradient id="t-violet" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#b8a2ff" stop-opacity=".16"/><stop offset=".55" stop-color="#b8a2ff" stop-opacity=".05"/><stop offset="1" stop-color="#b8a2ff" stop-opacity=".02"/></linearGradient><linearGradient id="e-violet" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#b8a2ff" stop-opacity=".95"/><stop offset="1" stop-color="#b8a2ff" stop-opacity=".55"/></linearGradient><marker id="a-amber" viewBox="0 0 12 12" refX="10" refY="6" markerWidth="8" markerHeight="8" orient="auto-start-reverse"><path d="M1 1.5L11 6 1 10.5 3.6 6z" fill="#ffb65c"/></marker><linearGradient id="t-amber" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#ffb65c" stop-opacity=".16"/><stop offset=".55" stop-color="#ffb65c" stop-opacity=".05"/><stop offset="1" stop-color="#ffb65c" stop-opacity=".02"/></linearGradient><linearGradient id="e-amber" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#ffb65c" stop-opacity=".95"/><stop offset="1" stop-color="#ffb65c" stop-opacity=".55"/></linearGradient><marker id="a-red" viewBox="0 0 12 12" refX="10" refY="6" markerWidth="8" markerHeight="8" orient="auto-start-reverse"><path d="M1 1.5L11 6 1 10.5 3.6 6z" fill="#ff7088"/></marker><linearGradient id="t-red" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#ff7088" stop-opacity=".16"/><stop offset=".55" stop-color="#ff7088" stop-opacity=".05"/><stop offset="1" stop-color="#ff7088" stop-opacity=".02"/></linearGradient><linearGradient id="e-red" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#ff7088" stop-opacity=".95"/><stop offset="1" stop-color="#ff7088" stop-opacity=".55"/></linearGradient><marker id="a-ink" viewBox="0 0 12 12" refX="10" refY="6" markerWidth="8" markerHeight="8" orient="auto-start-reverse"><path d="M1 1.5L11 6 1 10.5 3.6 6z" fill="#eef4fd"/></marker><linearGradient id="t-ink" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#eef4fd" stop-opacity=".16"/><stop offset=".55" stop-color="#eef4fd" stop-opacity=".05"/><stop offset="1" stop-color="#eef4fd" stop-opacity=".02"/></linearGradient><linearGradient id="e-ink" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#eef4fd" stop-opacity=".95"/><stop offset="1" stop-color="#eef4fd" stop-opacity=".55"/></linearGradient><filter id="sh" x="-20%" y="-20%" width="140%" height="160%"><feDropShadow dx="0" dy="8" stdDeviation="10" flood-color="#000814" flood-opacity=".55"/></filter><filter id="sh-s" x="-20%" y="-30%" width="140%" height="180%"><feDropShadow dx="0" dy="3" stdDeviation="4" flood-color="#000814" flood-opacity=".5"/></filter><pattern id="grid" width="24" height="24" patternUnits="userSpaceOnUse"><circle cx="1.2" cy="1.2" r="1.2" fill="#1b2b49"/></pattern><radialGradient id="glow" cx="12%" cy="0%" r="75%"><stop offset="0" stop-color="#2a5bb8" stop-opacity=".35"/><stop offset="1" stop-color="#2a5bb8" stop-opacity="0"/></radialGradient><radialGradient id="glow2" cx="100%" cy="100%" r="60%"><stop offset="0" stop-color="#1f8f7c" stop-opacity=".18"/><stop offset="1" stop-color="#1f8f7c" stop-opacity="0"/></radialGradient><linearGradient id="accent" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#6ea8ff"/><stop offset="1" stop-color="#3fd6b4"/></linearGradient></defs>
+<style>text{font-family:Inter,"SF Pro Text",ui-sans-serif,system-ui,-apple-system,"Segoe UI",sans-serif;letter-spacing:-.005em} .mono{font-family:"JetBrains Mono",ui-monospace,SFMono-Regular,Consolas,monospace;letter-spacing:0} .caps{letter-spacing:.09em}</style>
+<rect width="1200" height="1110" rx="18" fill="#0a1324"/>
+<rect width="1200" height="1110" rx="18" fill="url(#grid)" opacity=".9"/>
+<rect width="1200" height="1110" rx="18" fill="url(#glow)"/>
+<rect width="1200" height="1110" rx="18" fill="url(#glow2)"/>
+<rect x=".5" y=".5" width="1199" height="1109" rx="18" fill="none" stroke="#22365a"/>
+<rect x="32" y="22" width="5" height="50" rx="2.5" fill="url(#accent)"/>
+<text x="50" y="44" font-size="25" fill="#eef4fd" text-anchor="start" font-weight="750">Risk service / validation and encrypted scoring</text>
+<text x="50" y="68" font-size="14.5" fill="#a3b5d1" text-anchor="start" font-weight="400">Flowchart · TLS client authentication happens before HTTP request handling</text>
+<path d="M32 88H1168" stroke="#2b3f63" stroke-width="1"/>
 <g class="node">
-<rect x="375" y="110" width="350" height="66" rx="33.0" fill="white" stroke="#175cd3" stroke-width="1.8"/>
-<g transform="translate(393 129) scale(0.90625)" fill="none" stroke="#175cd3" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M16 2l12 5v9c0 7-12 14-12 14S4 23 4 16V7zM10 15l4 4 8-9"/></g>
-<text x="433" y="145" font-size="18" fill="#175cd3" text-anchor="start" font-weight="650">Authenticated request</text>
+<rect x="375" y="110" width="350" height="66" rx="33.0" fill="#122039" filter="url(#sh)"/>
+<rect x="375" y="110" width="350" height="66" rx="33.0" fill="url(#t-blue)" stroke="#6ea8ff" stroke-opacity=".6" stroke-width="1.4"/>
+<circle cx="412.0" cy="143.0" r="16" fill="#6ea8ff" fill-opacity=".14" stroke="#6ea8ff" stroke-opacity=".55" stroke-width="1.2"/>
+<g transform="translate(402.8 133.8) scale(0.575)" fill="none" stroke="#6ea8ff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 2l12 5v9c0 7-12 14-12 14S4 23 4 16V7zM10 15l4 4 8-9"/></g>
+<text x="438.0" y="149.0" font-size="18" fill="#eef4fd" text-anchor="start" font-weight="680">Authenticated request</text>
 </g>
 <g class="node">
-<path d="M550 210.0L700.0 275 550 340.0 400.0 275Z" fill="#ecf3ff" stroke="#175cd3" stroke-width="1.8"/>
-<text x="550" y="273" font-size="17" fill="#175cd3" text-anchor="middle" font-weight="650">HTTP request valid?</text>
-<text x="550" y="297" font-size="15" fill="#526780" text-anchor="middle" font-weight="400">Route / size / content type</text>
+<path d="M550 210.0L700.0 275 550 340.0 400.0 275Z" fill="#122039" filter="url(#sh)" stroke-linejoin="round"/><path d="M550 210.0L700.0 275 550 340.0 400.0 275Z" fill="url(#t-blue)" stroke="#6ea8ff" stroke-opacity=".75" stroke-width="1.5" stroke-linejoin="round"/>
+<text x="550" y="273" font-size="16.5" fill="#eef4fd" text-anchor="middle" font-weight="700">HTTP request valid?</text>
+<text x="550" y="296" font-size="13.5" fill="#a3b5d1" text-anchor="middle" font-weight="400">Route / size / content type</text>
 </g>
 <g class="node">
-<rect x="45" y="235" width="260" height="80" rx="40.0" fill="white" stroke="#ba3544" stroke-width="1.8"/>
-<g transform="translate(63 254) scale(0.90625)" fill="none" stroke="#ba3544" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M16 2l12 5v9c0 7-12 14-12 14S4 23 4 16V7zM10 15l4 4 8-9"/></g>
-<text x="103" y="270" font-size="18" fill="#ba3544" text-anchor="start" font-weight="650">HTTP 404 / 413 / 415</text>
-<text x="65" y="301" font-size="15" fill="#526780" text-anchor="start" font-weight="400">Reject unsupported request</text>
+<rect x="45" y="235" width="260" height="80" rx="40.0" fill="#122039" filter="url(#sh)"/>
+<rect x="45" y="235" width="260" height="80" rx="40.0" fill="url(#t-red)" stroke="#ff7088" stroke-opacity=".6" stroke-width="1.4"/>
+<circle cx="89.0" cy="268" r="18" fill="#ff7088" fill-opacity=".14" stroke="#ff7088" stroke-opacity=".55" stroke-width="1.2"/>
+<g transform="translate(78.65 257.65) scale(0.646875)" fill="none" stroke="#ff7088" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 2l12 5v9c0 7-12 14-12 14S4 23 4 16V7zM10 15l4 4 8-9"/></g>
+<text x="115.0" y="273" font-size="18" fill="#eef4fd" text-anchor="start" font-weight="680">HTTP 404 / 413 / 415</text>
+<text x="65" y="303.0" font-size="14.5" fill="#a3b5d1" text-anchor="start" font-weight="400">Reject unsupported request</text>
 </g>
 <g class="node">
-<path d="M550 400.0L700.0 465 550 530.0 400.0 465Z" fill="#ecf3ff" stroke="#175cd3" stroke-width="1.8"/>
-<text x="550" y="463" font-size="17" fill="#175cd3" text-anchor="middle" font-weight="650">Protocol valid?</text>
-<text x="550" y="487" font-size="15" fill="#526780" text-anchor="middle" font-weight="400">Version · key · group · bounds</text>
+<path d="M550 400.0L700.0 465 550 530.0 400.0 465Z" fill="#122039" filter="url(#sh)" stroke-linejoin="round"/><path d="M550 400.0L700.0 465 550 530.0 400.0 465Z" fill="url(#t-blue)" stroke="#6ea8ff" stroke-opacity=".75" stroke-width="1.5" stroke-linejoin="round"/>
+<text x="550" y="463" font-size="16.5" fill="#eef4fd" text-anchor="middle" font-weight="700">Protocol valid?</text>
+<text x="550" y="486" font-size="13.5" fill="#a3b5d1" text-anchor="middle" font-weight="400">Version · key · group · bounds</text>
 </g>
 <g class="node">
-<rect x="45" y="425" width="260" height="80" rx="40.0" fill="white" stroke="#ba3544" stroke-width="1.8"/>
-<g transform="translate(63 444) scale(0.90625)" fill="none" stroke="#ba3544" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M16 2l12 5v9c0 7-12 14-12 14S4 23 4 16V7zM10 15l4 4 8-9"/></g>
-<text x="103" y="460" font-size="18" fill="#ba3544" text-anchor="start" font-weight="650">HTTP 400</text>
-<text x="65" y="491" font-size="15" fill="#526780" text-anchor="start" font-weight="400">Invalid protocol/model</text>
+<rect x="45" y="425" width="260" height="80" rx="40.0" fill="#122039" filter="url(#sh)"/>
+<rect x="45" y="425" width="260" height="80" rx="40.0" fill="url(#t-red)" stroke="#ff7088" stroke-opacity=".6" stroke-width="1.4"/>
+<circle cx="89.0" cy="458" r="18" fill="#ff7088" fill-opacity=".14" stroke="#ff7088" stroke-opacity=".55" stroke-width="1.2"/>
+<g transform="translate(78.65 447.65) scale(0.646875)" fill="none" stroke="#ff7088" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 2l12 5v9c0 7-12 14-12 14S4 23 4 16V7zM10 15l4 4 8-9"/></g>
+<text x="115.0" y="463" font-size="18" fill="#eef4fd" text-anchor="start" font-weight="680">HTTP 400</text>
+<text x="65" y="493.0" font-size="14.5" fill="#a3b5d1" text-anchor="start" font-weight="400">Invalid protocol/model</text>
 </g>
 <g class="node">
-<rect x="375" y="600" width="350" height="96" rx="10" fill="white" stroke="#175cd3" stroke-width="1.8"/>
-<g transform="translate(393 619) scale(0.90625)" fill="none" stroke="#175cd3" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="6" cy="7" r="3"/><circle cx="6" cy="25" r="3"/><circle cx="17" cy="16" r="4"/><circle cx="27" cy="7" r="3"/><circle cx="27" cy="25" r="3"/><path d="M9 9l5 5M9 23l5-5m7-4 4-5m-4 9 4 5"/></g>
-<text x="433" y="635" font-size="18" fill="#175cd3" text-anchor="start" font-weight="650">Homomorphic evaluator</text>
-<text x="395" y="666" font-size="15" fill="#526780" text-anchor="start" font-weight="400">Enc(z) = Enc(B + Σ Wᵢxᵢ)</text>
-<text x="395" y="687" font-size="15" fill="#526780" text-anchor="start" font-weight="400">Re-randomize the ciphertext</text>
+<rect x="375" y="600" width="350" height="96" rx="12" fill="#122039" filter="url(#sh)"/>
+<rect x="375" y="600" width="350" height="96" rx="12" fill="url(#t-blue)" stroke="#6ea8ff" stroke-opacity=".6" stroke-width="1.4"/>
+<path d="M387 601.2H713" stroke="url(#e-blue)" stroke-width="2.6" stroke-linecap="round"/>
+<circle cx="409" cy="633" r="18" fill="#6ea8ff" fill-opacity=".14" stroke="#6ea8ff" stroke-opacity=".55" stroke-width="1.2"/>
+<g transform="translate(398.65 622.65) scale(0.646875)" fill="none" stroke="#6ea8ff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="6" cy="7" r="3"/><circle cx="6" cy="25" r="3"/><circle cx="17" cy="16" r="4"/><circle cx="27" cy="7" r="3"/><circle cx="27" cy="25" r="3"/><path d="M9 9l5 5M9 23l5-5m7-4 4-5m-4 9 4 5"/></g>
+<text x="437" y="638" font-size="18" fill="#eef4fd" text-anchor="start" font-weight="680">Homomorphic evaluator</text>
+<text x="395" y="668.0" font-size="14.5" fill="#a3b5d1" text-anchor="start" font-weight="400">Enc(z) = Enc(B + Σ Wᵢxᵢ)</text>
+<text x="395" y="688.5" font-size="14.5" fill="#a3b5d1" text-anchor="start" font-weight="400">Re-randomize the ciphertext</text>
 </g>
 <g class="node">
-<path d="M550 739.0L680.0 795 550 851.0 420.0 795Z" fill="#ecf3ff" stroke="#175cd3" stroke-width="1.8"/>
-<text x="550" y="793" font-size="17" fill="#175cd3" text-anchor="middle" font-weight="650">Audit enabled?</text>
-<text x="550" y="817" font-size="15" fill="#526780" text-anchor="middle" font-weight="400">SERVICE_EVIDENCE</text>
+<path d="M550 739.0L680.0 795 550 851.0 420.0 795Z" fill="#122039" filter="url(#sh)" stroke-linejoin="round"/><path d="M550 739.0L680.0 795 550 851.0 420.0 795Z" fill="url(#t-blue)" stroke="#6ea8ff" stroke-opacity=".75" stroke-width="1.5" stroke-linejoin="round"/>
+<text x="550" y="793" font-size="16.5" fill="#eef4fd" text-anchor="middle" font-weight="700">Audit enabled?</text>
+<text x="550" y="816" font-size="13.5" fill="#a3b5d1" text-anchor="middle" font-weight="400">SERVICE_EVIDENCE</text>
 </g>
 <g class="node">
-<path d="M845 746H1123L1145 768V844H845Z M1123 746V768H1145" fill="white" stroke="#7045b7" stroke-width="1.8"/>
-<g transform="translate(863 765) scale(0.90625)" fill="none" stroke="#7045b7" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M7 2h13l7 7v21H7zM20 2v8h7M11 16h12m-12 5h12m-12 5h8"/></g>
-<text x="903" y="781" font-size="18" fill="#7045b7" text-anchor="start" font-weight="650">Capture wire evidence</text>
-<text x="865" y="812" font-size="15" fill="#526780" text-anchor="start" font-weight="400">Request + response bytes</text>
-<text x="865" y="833" font-size="15" fill="#526780" text-anchor="start" font-weight="400">Hashes + TLS metadata</text>
+<path d="M845 756Q845 746 855 746H1121L1145 770V834Q1145 844 1135 844H855Q845 844 845 834Z" fill="#122039" filter="url(#sh)"/>
+<path d="M845 756Q845 746 855 746H1121L1145 770V834Q1145 844 1135 844H855Q845 844 845 834Z" fill="url(#t-violet)" stroke="#b8a2ff" stroke-opacity=".6" stroke-width="1.4"/>
+<path d="M1121 746V762Q1121 770 1129 770H1145Z" fill="#b8a2ff" fill-opacity=".28" stroke="#b8a2ff" stroke-opacity=".6" stroke-width="1.2" stroke-linejoin="round"/>
+<circle cx="879" cy="779" r="18" fill="#b8a2ff" fill-opacity=".14" stroke="#b8a2ff" stroke-opacity=".55" stroke-width="1.2"/>
+<g transform="translate(868.65 768.65) scale(0.646875)" fill="none" stroke="#b8a2ff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 2h13l7 7v21H7zM20 2v8h7M11 16h12m-12 5h12m-12 5h8"/></g>
+<text x="907" y="784" font-size="18" fill="#eef4fd" text-anchor="start" font-weight="680">Capture wire evidence</text>
+<text x="865" y="814.0" font-size="14.5" fill="#a3b5d1" text-anchor="start" font-weight="400">Request + response bytes</text>
+<text x="865" y="834.5" font-size="14.5" fill="#a3b5d1" text-anchor="start" font-weight="400">Hashes + TLS metadata</text>
 </g>
 <g class="node">
-<rect x="845" y="930" width="300" height="76" rx="38.0" fill="white" stroke="#ba3544" stroke-width="1.8"/>
-<g transform="translate(863 949) scale(0.90625)" fill="none" stroke="#ba3544" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M16 2l12 5v9c0 7-12 14-12 14S4 23 4 16V7zM10 15l4 4 8-9"/></g>
-<text x="903" y="965" font-size="18" fill="#ba3544" text-anchor="start" font-weight="650">HTTP 503</text>
-<text x="865" y="996" font-size="15" fill="#526780" text-anchor="start" font-weight="400">Evidence storage failed</text>
+<rect x="845" y="930" width="300" height="76" rx="38.0" fill="#122039" filter="url(#sh)"/>
+<rect x="845" y="930" width="300" height="76" rx="38.0" fill="url(#t-red)" stroke="#ff7088" stroke-opacity=".6" stroke-width="1.4"/>
+<circle cx="887.0" cy="963" r="18" fill="#ff7088" fill-opacity=".14" stroke="#ff7088" stroke-opacity=".55" stroke-width="1.2"/>
+<g transform="translate(876.65 952.65) scale(0.646875)" fill="none" stroke="#ff7088" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 2l12 5v9c0 7-12 14-12 14S4 23 4 16V7zM10 15l4 4 8-9"/></g>
+<text x="913.0" y="968" font-size="18" fill="#eef4fd" text-anchor="start" font-weight="680">HTTP 503</text>
+<text x="865" y="998.0" font-size="14.5" fill="#a3b5d1" text-anchor="start" font-weight="400">Evidence storage failed</text>
 </g>
 <g class="node">
-<rect x="375" y="985" width="350" height="66" rx="33.0" fill="white" stroke="#175cd3" stroke-width="1.8"/>
-<g transform="translate(393 1004) scale(0.90625)" fill="none" stroke="#175cd3" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="14" width="22" height="15" rx="3"/><path d="M10 14V9a6 6 0 0 1 12 0v5M16 20v4"/></g>
-<text x="433" y="1020" font-size="18" fill="#175cd3" text-anchor="start" font-weight="650">HTTP 200 · Enc(z)</text>
+<rect x="375" y="985" width="350" height="66" rx="33.0" fill="#122039" filter="url(#sh)"/>
+<rect x="375" y="985" width="350" height="66" rx="33.0" fill="url(#t-blue)" stroke="#6ea8ff" stroke-opacity=".6" stroke-width="1.4"/>
+<circle cx="412.0" cy="1018.0" r="16" fill="#6ea8ff" fill-opacity=".14" stroke="#6ea8ff" stroke-opacity=".55" stroke-width="1.2"/>
+<g transform="translate(402.8 1008.8) scale(0.575)" fill="none" stroke="#6ea8ff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="14" width="22" height="15" rx="3"/><path d="M10 14V9a6 6 0 0 1 12 0v5M16 20v4"/></g>
+<text x="438.0" y="1024.0" font-size="18" fill="#eef4fd" text-anchor="start" font-weight="680">HTTP 200 · Enc(z)</text>
 </g>
-<path d="M550 176 L550 210" fill="none" stroke="#175cd3" stroke-width="2" stroke-linejoin="round" marker-end="url(#a-blue)"/>
-<path d="M400 275 L305 275" fill="none" stroke="#ba3544" stroke-width="2" stroke-linejoin="round" marker-end="url(#a-red)"/>
-<rect x="337.2" y="245" width="30.6" height="22" rx="4" fill="#f5f8fc"/>
-<text x="352.5" y="260" font-size="13" fill="#ba3544" text-anchor="middle" font-weight="550">No</text>
-<path d="M550 340 L550 400" fill="none" stroke="#175cd3" stroke-width="2" stroke-linejoin="round" marker-end="url(#a-blue)"/>
-<rect x="563.05" y="362" width="37.9" height="22" rx="4" fill="#f5f8fc"/>
-<text x="582" y="377" font-size="13" fill="#175cd3" text-anchor="middle" font-weight="550">Yes</text>
-<path d="M400 465 L305 465" fill="none" stroke="#ba3544" stroke-width="2" stroke-linejoin="round" marker-end="url(#a-red)"/>
-<rect x="337.2" y="435" width="30.6" height="22" rx="4" fill="#f5f8fc"/>
-<text x="352.5" y="450" font-size="13" fill="#ba3544" text-anchor="middle" font-weight="550">No</text>
-<path d="M550 530 L550 600" fill="none" stroke="#175cd3" stroke-width="2" stroke-linejoin="round" marker-end="url(#a-blue)"/>
-<rect x="563.05" y="555" width="37.9" height="22" rx="4" fill="#f5f8fc"/>
-<text x="582" y="570" font-size="13" fill="#175cd3" text-anchor="middle" font-weight="550">Yes</text>
-<path d="M550 696 L550 739" fill="none" stroke="#175cd3" stroke-width="2" stroke-linejoin="round" marker-end="url(#a-blue)"/>
-<path d="M680 795 L845 795" fill="none" stroke="#7045b7" stroke-width="2" stroke-linejoin="round" marker-end="url(#a-violet)"/>
-<rect x="743.55" y="764" width="37.9" height="22" rx="4" fill="#f5f8fc"/>
-<text x="762.5" y="779" font-size="13" fill="#7045b7" text-anchor="middle" font-weight="550">Yes</text>
-<path d="M550 851 L550 985" fill="none" stroke="#175cd3" stroke-width="2" stroke-linejoin="round" marker-end="url(#a-blue)"/>
-<rect x="559.7" y="909" width="30.6" height="22" rx="4" fill="#f5f8fc"/>
-<text x="575" y="924" font-size="13" fill="#175cd3" text-anchor="middle" font-weight="550">No</text>
-<path d="M845 823 L774 823 L774 1018 L725 1018" fill="none" stroke="#7045b7" stroke-width="2" stroke-linejoin="round" marker-end="url(#a-violet)"/>
-<rect x="748.75" y="893" width="52.5" height="22" rx="4" fill="#f5f8fc"/>
-<text x="775" y="908" font-size="13" fill="#7045b7" text-anchor="middle" font-weight="550">Saved</text>
-<path d="M995 844 L995 930" fill="none" stroke="#ba3544" stroke-width="2" stroke-linejoin="round" marker-end="url(#a-red)"/>
-<rect x="1008.45" y="882" width="67.1" height="22" rx="4" fill="#f5f8fc"/>
-<text x="1042" y="897" font-size="13" fill="#ba3544" text-anchor="middle" font-weight="550">Failure</text>
-<text x="32" y="1088" font-size="14" fill="#526780" text-anchor="start" font-weight="400">No private Paillier key. Audit capture completes before success; TLS authentication failure closes the connection.</text>
+<path d="M550 176 L550 210" fill="none" stroke="#6ea8ff" stroke-opacity=".18" stroke-width="7" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M550 176 L550 210" fill="none" stroke="#6ea8ff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" marker-end="url(#a-blue)"/>
+<path d="M400 275 L305 275" fill="none" stroke="#ff7088" stroke-opacity=".18" stroke-width="7" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M400 275 L305 275" fill="none" stroke="#ff7088" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" marker-end="url(#a-red)"/>
+<rect x="334.4" y="244.5" width="36.2" height="23" rx="11.5" fill="#0d1a31" stroke="#ff7088" stroke-opacity=".55" filter="url(#sh-s)"/>
+<text x="352.5" y="260.5" font-size="12.5" fill="#ff7088" text-anchor="middle" font-weight="620">No</text>
+<path d="M550 340 L550 400" fill="none" stroke="#6ea8ff" stroke-opacity=".18" stroke-width="7" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M550 340 L550 400" fill="none" stroke="#6ea8ff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" marker-end="url(#a-blue)"/>
+<rect x="560.35" y="361.5" width="43.3" height="23" rx="11.5" fill="#0d1a31" stroke="#6ea8ff" stroke-opacity=".55" filter="url(#sh-s)"/>
+<text x="582" y="377.5" font-size="12.5" fill="#6ea8ff" text-anchor="middle" font-weight="620">Yes</text>
+<path d="M400 465 L305 465" fill="none" stroke="#ff7088" stroke-opacity=".18" stroke-width="7" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M400 465 L305 465" fill="none" stroke="#ff7088" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" marker-end="url(#a-red)"/>
+<rect x="334.4" y="434.5" width="36.2" height="23" rx="11.5" fill="#0d1a31" stroke="#ff7088" stroke-opacity=".55" filter="url(#sh-s)"/>
+<text x="352.5" y="450.5" font-size="12.5" fill="#ff7088" text-anchor="middle" font-weight="620">No</text>
+<path d="M550 530 L550 600" fill="none" stroke="#6ea8ff" stroke-opacity=".18" stroke-width="7" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M550 530 L550 600" fill="none" stroke="#6ea8ff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" marker-end="url(#a-blue)"/>
+<rect x="560.35" y="554.5" width="43.3" height="23" rx="11.5" fill="#0d1a31" stroke="#6ea8ff" stroke-opacity=".55" filter="url(#sh-s)"/>
+<text x="582" y="570.5" font-size="12.5" fill="#6ea8ff" text-anchor="middle" font-weight="620">Yes</text>
+<path d="M550 696 L550 739" fill="none" stroke="#6ea8ff" stroke-opacity=".18" stroke-width="7" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M550 696 L550 739" fill="none" stroke="#6ea8ff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" marker-end="url(#a-blue)"/>
+<path d="M680 795 L845 795" fill="none" stroke="#b8a2ff" stroke-opacity=".18" stroke-width="7" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M680 795 L845 795" fill="none" stroke="#b8a2ff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" marker-end="url(#a-violet)"/>
+<rect x="740.85" y="763.5" width="43.3" height="23" rx="11.5" fill="#0d1a31" stroke="#b8a2ff" stroke-opacity=".55" filter="url(#sh-s)"/>
+<text x="762.5" y="779.5" font-size="12.5" fill="#b8a2ff" text-anchor="middle" font-weight="620">Yes</text>
+<path d="M550 851 L550 985" fill="none" stroke="#6ea8ff" stroke-opacity=".18" stroke-width="7" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M550 851 L550 985" fill="none" stroke="#6ea8ff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" marker-end="url(#a-blue)"/>
+<rect x="556.9" y="908.5" width="36.2" height="23" rx="11.5" fill="#0d1a31" stroke="#6ea8ff" stroke-opacity=".55" filter="url(#sh-s)"/>
+<text x="575" y="924.5" font-size="12.5" fill="#6ea8ff" text-anchor="middle" font-weight="620">No</text>
+<path d="M845 823 L786 823 Q774 823 774 835 L774 1006 Q774 1018 762 1018 L725 1018" fill="none" stroke="#b8a2ff" stroke-opacity=".18" stroke-width="7" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M845 823 L786 823 Q774 823 774 835 L774 1006 Q774 1018 762 1018 L725 1018" fill="none" stroke="#b8a2ff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" marker-end="url(#a-violet)"/>
+<rect x="746.25" y="892.5" width="57.5" height="23" rx="11.5" fill="#0d1a31" stroke="#b8a2ff" stroke-opacity=".55" filter="url(#sh-s)"/>
+<text x="775" y="908.5" font-size="12.5" fill="#b8a2ff" text-anchor="middle" font-weight="620">Saved</text>
+<path d="M995 844 L995 930" fill="none" stroke="#ff7088" stroke-opacity=".18" stroke-width="7" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M995 844 L995 930" fill="none" stroke="#ff7088" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" marker-end="url(#a-red)"/>
+<rect x="1006.15" y="881.5" width="71.69999999999999" height="23" rx="11.5" fill="#0d1a31" stroke="#ff7088" stroke-opacity=".55" filter="url(#sh-s)"/>
+<text x="1042" y="897.5" font-size="12.5" fill="#ff7088" text-anchor="middle" font-weight="620">Failure</text>
+<circle cx="38" cy="1083" r="3" fill="#3fd6b4"/>
+<text x="50" y="1088" font-size="13" fill="#a3b5d1" text-anchor="start" font-weight="400">No private Paillier key. Audit capture completes before success; TLS authentication failure closes the connection.</text>
 </svg>

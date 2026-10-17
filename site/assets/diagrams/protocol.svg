@@ -1,67 +1,95 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 900" role="img" aria-labelledby="title desc">
 <title id="title">Encrypted evaluation / request sequence</title><desc id="desc">UML-style sequence · time flows downward · dashed arrows are responses</desc>
-<defs><marker id="a-blue" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0L10 5 0 10z" fill="#175cd3"/></marker><marker id="a-teal" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0L10 5 0 10z" fill="#007f73"/></marker><marker id="a-violet" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0L10 5 0 10z" fill="#7045b7"/></marker><marker id="a-amber" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0L10 5 0 10z" fill="#a94f09"/></marker><marker id="a-red" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0L10 5 0 10z" fill="#ba3544"/></marker><marker id="a-ink" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0L10 5 0 10z" fill="#20344d"/></marker></defs>
-<rect width="1200" height="100%" rx="14" fill="#f5f8fc"/>
-<style>text{font-family:Inter,ui-sans-serif,system-ui,-apple-system,sans-serif} .mono{font-family:ui-monospace,SFMono-Regular,Consolas,monospace}</style>
-<text x="32" y="38" font-size="23" fill="#20344d" text-anchor="start" font-weight="700">Encrypted evaluation / request sequence</text>
-<text x="32" y="65" font-size="15" fill="#526780" text-anchor="start" font-weight="400">UML-style sequence · time flows downward · dashed arrows are responses</text>
-<path d="M32 83L1168 83" stroke="#d9e2ed" stroke-width="1.6" fill="none"/>
+<defs><marker id="a-blue" viewBox="0 0 12 12" refX="10" refY="6" markerWidth="8" markerHeight="8" orient="auto-start-reverse"><path d="M1 1.5L11 6 1 10.5 3.6 6z" fill="#6ea8ff"/></marker><linearGradient id="t-blue" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#6ea8ff" stop-opacity=".16"/><stop offset=".55" stop-color="#6ea8ff" stop-opacity=".05"/><stop offset="1" stop-color="#6ea8ff" stop-opacity=".02"/></linearGradient><linearGradient id="e-blue" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#6ea8ff" stop-opacity=".95"/><stop offset="1" stop-color="#6ea8ff" stop-opacity=".55"/></linearGradient><marker id="a-teal" viewBox="0 0 12 12" refX="10" refY="6" markerWidth="8" markerHeight="8" orient="auto-start-reverse"><path d="M1 1.5L11 6 1 10.5 3.6 6z" fill="#3fd6b4"/></marker><linearGradient id="t-teal" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#3fd6b4" stop-opacity=".16"/><stop offset=".55" stop-color="#3fd6b4" stop-opacity=".05"/><stop offset="1" stop-color="#3fd6b4" stop-opacity=".02"/></linearGradient><linearGradient id="e-teal" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#3fd6b4" stop-opacity=".95"/><stop offset="1" stop-color="#3fd6b4" stop-opacity=".55"/></linearGradient><marker id="a-violet" viewBox="0 0 12 12" refX="10" refY="6" markerWidth="8" markerHeight="8" orient="auto-start-reverse"><path d="M1 1.5L11 6 1 10.5 3.6 6z" fill="#b8a2ff"/></marker><linearGradient id="t-violet" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#b8a2ff" stop-opacity=".16"/><stop offset=".55" stop-color="#b8a2ff" stop-opacity=".05"/><stop offset="1" stop-color="#b8a2ff" stop-opacity=".02"/></linearGradient><linearGradient id="e-violet" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#b8a2ff" stop-opacity=".95"/><stop offset="1" stop-color="#b8a2ff" stop-opacity=".55"/></linearGradient><marker id="a-amber" viewBox="0 0 12 12" refX="10" refY="6" markerWidth="8" markerHeight="8" orient="auto-start-reverse"><path d="M1 1.5L11 6 1 10.5 3.6 6z" fill="#ffb65c"/></marker><linearGradient id="t-amber" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#ffb65c" stop-opacity=".16"/><stop offset=".55" stop-color="#ffb65c" stop-opacity=".05"/><stop offset="1" stop-color="#ffb65c" stop-opacity=".02"/></linearGradient><linearGradient id="e-amber" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#ffb65c" stop-opacity=".95"/><stop offset="1" stop-color="#ffb65c" stop-opacity=".55"/></linearGradient><marker id="a-red" viewBox="0 0 12 12" refX="10" refY="6" markerWidth="8" markerHeight="8" orient="auto-start-reverse"><path d="M1 1.5L11 6 1 10.5 3.6 6z" fill="#ff7088"/></marker><linearGradient id="t-red" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#ff7088" stop-opacity=".16"/><stop offset=".55" stop-color="#ff7088" stop-opacity=".05"/><stop offset="1" stop-color="#ff7088" stop-opacity=".02"/></linearGradient><linearGradient id="e-red" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#ff7088" stop-opacity=".95"/><stop offset="1" stop-color="#ff7088" stop-opacity=".55"/></linearGradient><marker id="a-ink" viewBox="0 0 12 12" refX="10" refY="6" markerWidth="8" markerHeight="8" orient="auto-start-reverse"><path d="M1 1.5L11 6 1 10.5 3.6 6z" fill="#eef4fd"/></marker><linearGradient id="t-ink" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#eef4fd" stop-opacity=".16"/><stop offset=".55" stop-color="#eef4fd" stop-opacity=".05"/><stop offset="1" stop-color="#eef4fd" stop-opacity=".02"/></linearGradient><linearGradient id="e-ink" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#eef4fd" stop-opacity=".95"/><stop offset="1" stop-color="#eef4fd" stop-opacity=".55"/></linearGradient><filter id="sh" x="-20%" y="-20%" width="140%" height="160%"><feDropShadow dx="0" dy="8" stdDeviation="10" flood-color="#000814" flood-opacity=".55"/></filter><filter id="sh-s" x="-20%" y="-30%" width="140%" height="180%"><feDropShadow dx="0" dy="3" stdDeviation="4" flood-color="#000814" flood-opacity=".5"/></filter><pattern id="grid" width="24" height="24" patternUnits="userSpaceOnUse"><circle cx="1.2" cy="1.2" r="1.2" fill="#1b2b49"/></pattern><radialGradient id="glow" cx="12%" cy="0%" r="75%"><stop offset="0" stop-color="#2a5bb8" stop-opacity=".35"/><stop offset="1" stop-color="#2a5bb8" stop-opacity="0"/></radialGradient><radialGradient id="glow2" cx="100%" cy="100%" r="60%"><stop offset="0" stop-color="#1f8f7c" stop-opacity=".18"/><stop offset="1" stop-color="#1f8f7c" stop-opacity="0"/></radialGradient><linearGradient id="accent" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#6ea8ff"/><stop offset="1" stop-color="#3fd6b4"/></linearGradient></defs>
+<style>text{font-family:Inter,"SF Pro Text",ui-sans-serif,system-ui,-apple-system,"Segoe UI",sans-serif;letter-spacing:-.005em} .mono{font-family:"JetBrains Mono",ui-monospace,SFMono-Regular,Consolas,monospace;letter-spacing:0} .caps{letter-spacing:.09em}</style>
+<rect width="1200" height="900" rx="18" fill="#0a1324"/>
+<rect width="1200" height="900" rx="18" fill="url(#grid)" opacity=".9"/>
+<rect width="1200" height="900" rx="18" fill="url(#glow)"/>
+<rect width="1200" height="900" rx="18" fill="url(#glow2)"/>
+<rect x=".5" y=".5" width="1199" height="899" rx="18" fill="none" stroke="#22365a"/>
+<rect x="32" y="22" width="5" height="50" rx="2.5" fill="url(#accent)"/>
+<text x="50" y="44" font-size="25" fill="#eef4fd" text-anchor="start" font-weight="750">Encrypted evaluation / request sequence</text>
+<text x="50" y="68" font-size="14.5" fill="#a3b5d1" text-anchor="start" font-weight="400">UML-style sequence · time flows downward · dashed arrows are responses</text>
+<path d="M32 88H1168" stroke="#2b3f63" stroke-width="1"/>
 <g class="node">
-<rect x="25" y="108" width="190" height="64" rx="10" fill="white" stroke="#007f73" stroke-width="1.8"/>
-<g transform="translate(43 127) scale(0.90625)" fill="none" stroke="#007f73" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="4" width="28" height="23" rx="3"/><path d="M2 11h28M7 8h1m3 0h1m3 0h1M11 17l-4 4 4 4m10-8 4 4-4 4"/></g>
-<text x="83" y="143" font-size="18" fill="#007f73" text-anchor="start" font-weight="650">Browser</text>
+<rect x="25" y="108" width="190" height="64" rx="12" fill="#122039" filter="url(#sh)"/>
+<rect x="25" y="108" width="190" height="64" rx="12" fill="url(#t-teal)" stroke="#3fd6b4" stroke-opacity=".6" stroke-width="1.4"/>
+<path d="M37 109.2H203" stroke="url(#e-teal)" stroke-width="2.6" stroke-linecap="round"/>
+<circle cx="59" cy="140.0" r="16" fill="#3fd6b4" fill-opacity=".14" stroke="#3fd6b4" stroke-opacity=".55" stroke-width="1.2"/>
+<g transform="translate(49.8 130.8) scale(0.575)" fill="none" stroke="#3fd6b4" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="4" width="28" height="23" rx="3"/><path d="M2 11h28M7 8h1m3 0h1m3 0h1M11 17l-4 4 4 4m10-8 4 4-4 4"/></g>
+<text x="87" y="146.0" font-size="18" fill="#eef4fd" text-anchor="start" font-weight="680">Browser</text>
 </g>
-<path d="M120 172L120 826" stroke="#007f73" stroke-width="1.6" fill="none" stroke-dasharray="6 6"/>
+<path d="M120 172L120 826" stroke="#3fd6b4" stroke-width="1.6" fill="none" stroke-linecap="round" stroke-dasharray="5 6"/>
 <g class="node">
-<rect x="315" y="108" width="190" height="64" rx="10" fill="white" stroke="#007f73" stroke-width="1.8"/>
-<g transform="translate(333 127) scale(0.90625)" fill="none" stroke="#007f73" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M5 29V9h22v20M2 29h28M11 9V3h10v6M16 5v3m-2-1h4M12 29v-7h8v7M10 14h2m8 0h2m-12 4h2m8 0h2"/></g>
-<text x="373" y="143" font-size="18" fill="#007f73" text-anchor="start" font-weight="650">Hospital</text>
+<rect x="315" y="108" width="190" height="64" rx="12" fill="#122039" filter="url(#sh)"/>
+<rect x="315" y="108" width="190" height="64" rx="12" fill="url(#t-teal)" stroke="#3fd6b4" stroke-opacity=".6" stroke-width="1.4"/>
+<path d="M327 109.2H493" stroke="url(#e-teal)" stroke-width="2.6" stroke-linecap="round"/>
+<circle cx="349" cy="140.0" r="16" fill="#3fd6b4" fill-opacity=".14" stroke="#3fd6b4" stroke-opacity=".55" stroke-width="1.2"/>
+<g transform="translate(339.8 130.8) scale(0.575)" fill="none" stroke="#3fd6b4" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 29V9h22v20M2 29h28M11 9V3h10v6M16 5v3m-2-1h4M12 29v-7h8v7M10 14h2m8 0h2m-12 4h2m8 0h2"/></g>
+<text x="377" y="146.0" font-size="18" fill="#eef4fd" text-anchor="start" font-weight="680">Hospital</text>
 </g>
-<path d="M410 172L410 826" stroke="#007f73" stroke-width="1.6" fill="none" stroke-dasharray="6 6"/>
+<path d="M410 172L410 826" stroke="#3fd6b4" stroke-width="1.6" fill="none" stroke-linecap="round" stroke-dasharray="5 6"/>
 <g class="node">
-<rect x="695" y="108" width="190" height="64" rx="10" fill="white" stroke="#175cd3" stroke-width="1.8"/>
-<g transform="translate(713 127) scale(0.90625)" fill="none" stroke="#175cd3" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="3" width="24" height="8" rx="2"/><rect x="4" y="13" width="24" height="8" rx="2"/><rect x="4" y="23" width="24" height="6" rx="2"/><path d="M8 7h1m4 0h10M8 17h1m4 0h10M8 26h1"/></g>
-<text x="753" y="143" font-size="18" fill="#175cd3" text-anchor="start" font-weight="650">Risk service</text>
+<rect x="695" y="108" width="190" height="64" rx="12" fill="#122039" filter="url(#sh)"/>
+<rect x="695" y="108" width="190" height="64" rx="12" fill="url(#t-blue)" stroke="#6ea8ff" stroke-opacity=".6" stroke-width="1.4"/>
+<path d="M707 109.2H873" stroke="url(#e-blue)" stroke-width="2.6" stroke-linecap="round"/>
+<circle cx="729" cy="140.0" r="16" fill="#6ea8ff" fill-opacity=".14" stroke="#6ea8ff" stroke-opacity=".55" stroke-width="1.2"/>
+<g transform="translate(719.8 130.8) scale(0.575)" fill="none" stroke="#6ea8ff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="3" width="24" height="8" rx="2"/><rect x="4" y="13" width="24" height="8" rx="2"/><rect x="4" y="23" width="24" height="6" rx="2"/><path d="M8 7h1m4 0h10M8 17h1m4 0h10M8 26h1"/></g>
+<text x="757" y="146.0" font-size="18" fill="#eef4fd" text-anchor="start" font-weight="680">Risk service</text>
 </g>
-<path d="M790 172L790 826" stroke="#175cd3" stroke-width="1.6" fill="none" stroke-dasharray="6 6"/>
+<path d="M790 172L790 826" stroke="#6ea8ff" stroke-width="1.6" fill="none" stroke-linecap="round" stroke-dasharray="5 6"/>
 <g class="node">
-<rect x="985" y="108" width="190" height="64" rx="10" fill="white" stroke="#7045b7" stroke-width="1.8"/>
-<g transform="translate(1003 127) scale(0.90625)" fill="none" stroke="#7045b7" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><ellipse cx="16" cy="7" rx="12" ry="5"/><path d="M4 7v19c0 7 24 7 24 0V7M4 16c0 7 24 7 24 0"/></g>
-<text x="1043" y="143" font-size="18" fill="#7045b7" text-anchor="start" font-weight="650">Vault</text>
+<rect x="985" y="108" width="190" height="64" rx="12" fill="#122039" filter="url(#sh)"/>
+<rect x="985" y="108" width="190" height="64" rx="12" fill="url(#t-violet)" stroke="#b8a2ff" stroke-opacity=".6" stroke-width="1.4"/>
+<path d="M997 109.2H1163" stroke="url(#e-violet)" stroke-width="2.6" stroke-linecap="round"/>
+<circle cx="1019" cy="140.0" r="16" fill="#b8a2ff" fill-opacity=".14" stroke="#b8a2ff" stroke-opacity=".55" stroke-width="1.2"/>
+<g transform="translate(1009.8 130.8) scale(0.575)" fill="none" stroke="#b8a2ff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><ellipse cx="16" cy="7" rx="12" ry="5"/><path d="M4 7v19c0 7 24 7 24 0V7M4 16c0 7 24 7 24 0"/></g>
+<text x="1047" y="146.0" font-size="18" fill="#eef4fd" text-anchor="start" font-weight="680">Vault</text>
 </g>
-<path d="M1080 172L1080 826" stroke="#7045b7" stroke-width="1.6" fill="none" stroke-dasharray="6 6"/>
-<rect x="404" y="226" width="12" height="574" fill="white" stroke="#007f73" stroke-width="1.5"/>
-<rect x="784" y="348" width="12" height="194" fill="white" stroke="#175cd3" stroke-width="1.5"/>
-<rect x="1074" y="680" width="12" height="54" fill="white" stroke="#7045b7" stroke-width="1.5"/>
-<path d="M120 230 L404 230" fill="none" stroke="#007f73" stroke-width="2" stroke-linejoin="round" marker-end="url(#a-teal)"/>
-<rect x="184.65" y="201" width="154.7" height="22" rx="4" fill="#f5f8fc"/>
-<text x="262.0" y="216" font-size="13" fill="#007f73" text-anchor="middle" font-weight="550">1 · Synthetic input</text>
-<path d="M416 270 L490 270 L490 306 L416 306" fill="none" stroke="#007f73" stroke-width="2" stroke-linejoin="round" marker-end="url(#a-teal)"/>
-<text x="510" y="280" font-size="15" fill="#007f73" text-anchor="start" font-weight="400">Validate 21 integer features</text>
-<text x="510" y="301" font-size="15" fill="#007f73" text-anchor="start" font-weight="400">Encrypt x with Paillier</text>
-<path d="M416 350 L784 350" fill="none" stroke="#175cd3" stroke-width="2" stroke-linejoin="round" marker-end="url(#a-blue)"/>
-<rect x="475.2" y="320" width="249.6" height="22" rx="4" fill="#f5f8fc"/>
-<text x="600.0" y="335" font-size="13" fill="#175cd3" text-anchor="middle" font-weight="550">2 · mTLS 1.3 · POST /v2/evaluate</text>
-<path d="M796 382 L858 382 L858 415 L796 415" fill="none" stroke="#175cd3" stroke-width="2" stroke-linejoin="round" marker-end="url(#a-blue)"/>
-<text x="880" y="393" font-size="15" fill="#175cd3" text-anchor="start" font-weight="400">Compute Enc(z)</text>
-<text x="880" y="414" font-size="15" fill="#175cd3" text-anchor="start" font-weight="400">z = B + Σ Wᵢxᵢ</text>
-<rect x="729" y="449" width="300" height="68" rx="12" fill="white" fill-opacity=".55" stroke="#7045b7" stroke-opacity=".5" stroke-width="1.8" stroke-dasharray="7 5"/>
-<text x="747" y="476" font-size="15" fill="#7045b7" text-anchor="start" font-weight="700">opt · SERVICE_EVIDENCE</text>
-<text x="747" y="499" font-size="13" fill="#526780" text-anchor="start" font-weight="400">Save wire bytes before HTTP 200.</text>
-<path d="M784 540 L416 540" fill="none" stroke="#175cd3" stroke-width="2" stroke-linejoin="round" marker-end="url(#a-blue)" stroke-dasharray="6 5"/>
-<rect x="515.35" y="511" width="169.29999999999998" height="22" rx="4" fill="#f5f8fc"/>
-<text x="600.0" y="526" font-size="13" fill="#175cd3" text-anchor="middle" font-weight="550">3 · HTTP 200 · Enc(z)</text>
-<path d="M416 579 L490 579 L490 618 L416 618" fill="none" stroke="#007f73" stroke-width="2" stroke-linejoin="round" marker-end="url(#a-teal)"/>
-<text x="510" y="587" font-size="15" fill="#007f73" text-anchor="start" font-weight="400">Decrypt z; logit = z / 10⁹</text>
-<text x="510" y="608" font-size="15" fill="#007f73" text-anchor="start" font-weight="400">Sigmoid → probability → threshold</text>
-<path d="M416 680 L1074 680" fill="none" stroke="#7045b7" stroke-width="2" stroke-linejoin="round" marker-end="url(#a-violet)"/>
-<rect x="620.2" y="649" width="249.6" height="22" rx="4" fill="#f5f8fc"/>
-<text x="745.0" y="664" font-size="13" fill="#7045b7" text-anchor="middle" font-weight="550">4 · AES-256-GCM encrypted result</text>
-<path d="M1074 730 L416 730" fill="none" stroke="#7045b7" stroke-width="2" stroke-linejoin="round" marker-end="url(#a-violet)" stroke-dasharray="6 5"/>
-<rect x="623.85" y="700" width="242.29999999999998" height="22" rx="4" fill="#f5f8fc"/>
-<text x="745.0" y="715" font-size="13" fill="#7045b7" text-anchor="middle" font-weight="550">append + flush + fsync complete</text>
-<path d="M404 790 L120 790" fill="none" stroke="#007f73" stroke-width="2" stroke-linejoin="round" marker-end="url(#a-teal)" stroke-dasharray="6 5"/>
-<rect x="151.8" y="761" width="220.4" height="22" rx="4" fill="#f5f8fc"/>
-<text x="262.0" y="776" font-size="13" fill="#007f73" text-anchor="middle" font-weight="550">5 · Risk + factors + timings</text>
-<text x="32" y="878" font-size="14" fill="#526780" text-anchor="start" font-weight="400">Risk service never decrypts z. The sigmoid and threshold run only in Hospital; public protocol metadata stays visible.</text>
+<path d="M1080 172L1080 826" stroke="#b8a2ff" stroke-width="1.6" fill="none" stroke-linecap="round" stroke-dasharray="5 6"/>
+<rect x="404" y="226" width="12" height="574" rx="3" fill="#18294a" stroke="#3fd6b4" stroke-width="1.5"/>
+<rect x="784" y="348" width="12" height="194" rx="3" fill="#18294a" stroke="#6ea8ff" stroke-width="1.5"/>
+<rect x="1074" y="680" width="12" height="54" rx="3" fill="#18294a" stroke="#b8a2ff" stroke-width="1.5"/>
+<path d="M120 230 L404 230" fill="none" stroke="#3fd6b4" stroke-opacity=".18" stroke-width="7" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M120 230 L404 230" fill="none" stroke="#3fd6b4" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" marker-end="url(#a-teal)"/>
+<rect x="183.55" y="200.5" width="156.9" height="23" rx="11.5" fill="#0d1a31" stroke="#3fd6b4" stroke-opacity=".55" filter="url(#sh-s)"/>
+<text x="262.0" y="216.5" font-size="12.5" fill="#3fd6b4" text-anchor="middle" font-weight="620">1 · Synthetic input</text>
+<path d="M416 270 L478 270 Q490 270 490 282 L490 294 Q490 306 478 306 L416 306" fill="none" stroke="#3fd6b4" stroke-opacity=".18" stroke-width="7" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M416 270 L478 270 Q490 270 490 282 L490 294 Q490 306 478 306 L416 306" fill="none" stroke="#3fd6b4" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" marker-end="url(#a-teal)"/>
+<text x="510" y="280" font-size="15" fill="#3fd6b4" text-anchor="start" font-weight="400">Validate 21 integer features</text>
+<text x="510" y="301" font-size="15" fill="#3fd6b4" text-anchor="start" font-weight="400">Encrypt x with Paillier</text>
+<path d="M416 350 L784 350" fill="none" stroke="#6ea8ff" stroke-opacity=".18" stroke-width="7" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M416 350 L784 350" fill="none" stroke="#6ea8ff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" marker-end="url(#a-blue)"/>
+<rect x="475.4" y="319.5" width="249.2" height="23" rx="11.5" fill="#0d1a31" stroke="#6ea8ff" stroke-opacity=".55" filter="url(#sh-s)"/>
+<text x="600.0" y="335.5" font-size="12.5" fill="#6ea8ff" text-anchor="middle" font-weight="620">2 · mTLS 1.3 · POST /v2/evaluate</text>
+<path d="M796 382 L846 382 Q858 382 858 394 L858 403 Q858 415 846 415 L796 415" fill="none" stroke="#6ea8ff" stroke-opacity=".18" stroke-width="7" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M796 382 L846 382 Q858 382 858 394 L858 403 Q858 415 846 415 L796 415" fill="none" stroke="#6ea8ff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" marker-end="url(#a-blue)"/>
+<text x="880" y="393" font-size="15" fill="#6ea8ff" text-anchor="start" font-weight="400">Compute Enc(z)</text>
+<text x="880" y="414" font-size="15" fill="#6ea8ff" text-anchor="start" font-weight="400">z = B + Σ Wᵢxᵢ</text>
+<rect x="729" y="449" width="300" height="68" rx="16" fill="#b8a2ff" fill-opacity=".045" stroke="#b8a2ff" stroke-opacity=".42" stroke-width="1.4" stroke-dasharray="7 6"/>
+<rect x="743" y="461" width="222.6" height="24" rx="12" fill="#b8a2ff" fill-opacity=".16" stroke="#b8a2ff" stroke-opacity=".45"/>
+<text x="756" y="477.5" font-size="12" fill="#b8a2ff" text-anchor="start" font-weight="750" class="caps">opt · SERVICE_EVIDENCE</text>
+<text x="747" y="503" font-size="13" fill="#a3b5d1" text-anchor="start" font-weight="400">Save wire bytes before HTTP 200.</text>
+<path d="M784 540 L416 540" fill="none" stroke="#6ea8ff" stroke-opacity=".18" stroke-width="7" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M784 540 L416 540" fill="none" stroke="#6ea8ff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" marker-end="url(#a-blue)" stroke-dasharray="7 6"/>
+<rect x="514.45" y="510.5" width="171.1" height="23" rx="11.5" fill="#0d1a31" stroke="#6ea8ff" stroke-opacity=".55" filter="url(#sh-s)"/>
+<text x="600.0" y="526.5" font-size="12.5" fill="#6ea8ff" text-anchor="middle" font-weight="620">3 · HTTP 200 · Enc(z)</text>
+<path d="M416 579 L478 579 Q490 579 490 591 L490 606 Q490 618 478 618 L416 618" fill="none" stroke="#3fd6b4" stroke-opacity=".18" stroke-width="7" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M416 579 L478 579 Q490 579 490 591 L490 606 Q490 618 478 618 L416 618" fill="none" stroke="#3fd6b4" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" marker-end="url(#a-teal)"/>
+<text x="510" y="587" font-size="15" fill="#3fd6b4" text-anchor="start" font-weight="400">Decrypt z; logit = z / 10⁹</text>
+<text x="510" y="608" font-size="15" fill="#3fd6b4" text-anchor="start" font-weight="400">Sigmoid → probability → threshold</text>
+<path d="M416 680 L1074 680" fill="none" stroke="#b8a2ff" stroke-opacity=".18" stroke-width="7" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M416 680 L1074 680" fill="none" stroke="#b8a2ff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" marker-end="url(#a-violet)"/>
+<rect x="620.4" y="648.5" width="249.2" height="23" rx="11.5" fill="#0d1a31" stroke="#b8a2ff" stroke-opacity=".55" filter="url(#sh-s)"/>
+<text x="745.0" y="664.5" font-size="12.5" fill="#b8a2ff" text-anchor="middle" font-weight="620">4 · AES-256-GCM encrypted result</text>
+<path d="M1074 730 L416 730" fill="none" stroke="#b8a2ff" stroke-opacity=".18" stroke-width="7" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M1074 730 L416 730" fill="none" stroke="#b8a2ff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" marker-end="url(#a-violet)" stroke-dasharray="7 6"/>
+<rect x="623.95" y="699.5" width="242.1" height="23" rx="11.5" fill="#0d1a31" stroke="#b8a2ff" stroke-opacity=".55" filter="url(#sh-s)"/>
+<text x="745.0" y="715.5" font-size="12.5" fill="#b8a2ff" text-anchor="middle" font-weight="620">append + flush + fsync complete</text>
+<path d="M404 790 L120 790" fill="none" stroke="#3fd6b4" stroke-opacity=".18" stroke-width="7" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M404 790 L120 790" fill="none" stroke="#3fd6b4" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" marker-end="url(#a-teal)" stroke-dasharray="7 6"/>
+<rect x="151.60000000000002" y="760.5" width="220.79999999999998" height="23" rx="11.5" fill="#0d1a31" stroke="#3fd6b4" stroke-opacity=".55" filter="url(#sh-s)"/>
+<text x="262.0" y="776.5" font-size="12.5" fill="#3fd6b4" text-anchor="middle" font-weight="620">5 · Risk + factors + timings</text>
+<circle cx="38" cy="873" r="3" fill="#3fd6b4"/>
+<text x="50" y="878" font-size="13" fill="#a3b5d1" text-anchor="start" font-weight="400">Risk service never decrypts z. The sigmoid and threshold run only in Hospital; public protocol metadata stays visible.</text>
 </svg>

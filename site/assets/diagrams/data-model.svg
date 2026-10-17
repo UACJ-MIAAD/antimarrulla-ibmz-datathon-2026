@@ -1,126 +1,166 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 960" role="img" aria-labelledby="title desc">
 <title id="title">Analytical data / logical entity relationships</title><desc id="desc">Crow’s-foot notation = logical cardinality · arrows = aggregation/export, not patient linkage</desc>
-<defs><marker id="a-blue" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0L10 5 0 10z" fill="#175cd3"/></marker><marker id="a-teal" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0L10 5 0 10z" fill="#007f73"/></marker><marker id="a-violet" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0L10 5 0 10z" fill="#7045b7"/></marker><marker id="a-amber" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0L10 5 0 10z" fill="#a94f09"/></marker><marker id="a-red" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0L10 5 0 10z" fill="#ba3544"/></marker><marker id="a-ink" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0L10 5 0 10z" fill="#20344d"/></marker></defs>
-<rect width="1200" height="100%" rx="14" fill="#f5f8fc"/>
-<style>text{font-family:Inter,ui-sans-serif,system-ui,-apple-system,sans-serif} .mono{font-family:ui-monospace,SFMono-Regular,Consolas,monospace}</style>
-<text x="32" y="38" font-size="23" fill="#20344d" text-anchor="start" font-weight="700">Analytical data / logical entity relationships</text>
-<text x="32" y="65" font-size="15" fill="#526780" text-anchor="start" font-weight="400">Crow’s-foot notation = logical cardinality · arrows = aggregation/export, not patient linkage</text>
-<path d="M32 83L1168 83" stroke="#d9e2ed" stroke-width="1.6" fill="none"/>
-<text x="913" y="112" font-size="14" fill="#7045b7" text-anchor="middle" font-weight="400">Logical key: (cve_ent, anio)</text>
-<g class="entity"><rect x="38" y="130" width="330" height="212" rx="7" fill="white" stroke="#007f73" stroke-width="1.8"/><path d="M38 191H368" stroke="#007f73"/>
-<g transform="translate(51 142) scale(0.90625)" fill="none" stroke="#007f73" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><ellipse cx="16" cy="7" rx="12" ry="5"/><path d="M4 7v19c0 7 24 7 24 0V7M4 16c0 7 24 7 24 0"/></g>
-<text x="91" y="158" font-size="18" fill="#007f73" text-anchor="start" font-weight="650">STATE CATALOG</text>
-<text x="91" y="179" font-size="12" fill="#526780" text-anchor="start" font-weight="400">entidades.csv · 32 rows</text>
-<text x="55" y="218" font-size="15" fill="#20344d" text-anchor="start" font-weight="400" class="mono">cve_ent</text>
-<text x="353" y="218" font-size="13" fill="#526780" text-anchor="end" font-weight="400">logical key</text>
-<path d="M50 228L356 228" stroke="#e7edf5" stroke-width="1.6" fill="none"/>
-<text x="55" y="249" font-size="15" fill="#20344d" text-anchor="start" font-weight="400" class="mono">nombre_corto</text>
-<text x="353" y="249" font-size="13" fill="#526780" text-anchor="end" font-weight="400">state name</text>
-<path d="M50 259L356 259" stroke="#e7edf5" stroke-width="1.6" fill="none"/>
-<text x="55" y="280" font-size="15" fill="#20344d" text-anchor="start" font-weight="400" class="mono">region_sinave</text>
-<text x="353" y="280" font-size="13" fill="#526780" text-anchor="end" font-weight="400">region</text>
-<path d="M50 290L356 290" stroke="#e7edf5" stroke-width="1.6" fill="none"/>
-<text x="55" y="311" font-size="15" fill="#20344d" text-anchor="start" font-weight="400" class="mono">delegaciones_imss</text>
-<text x="353" y="311" font-size="13" fill="#526780" text-anchor="end" font-weight="400">lookup list</text>
+<defs><marker id="a-blue" viewBox="0 0 12 12" refX="10" refY="6" markerWidth="8" markerHeight="8" orient="auto-start-reverse"><path d="M1 1.5L11 6 1 10.5 3.6 6z" fill="#6ea8ff"/></marker><linearGradient id="t-blue" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#6ea8ff" stop-opacity=".16"/><stop offset=".55" stop-color="#6ea8ff" stop-opacity=".05"/><stop offset="1" stop-color="#6ea8ff" stop-opacity=".02"/></linearGradient><linearGradient id="e-blue" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#6ea8ff" stop-opacity=".95"/><stop offset="1" stop-color="#6ea8ff" stop-opacity=".55"/></linearGradient><marker id="a-teal" viewBox="0 0 12 12" refX="10" refY="6" markerWidth="8" markerHeight="8" orient="auto-start-reverse"><path d="M1 1.5L11 6 1 10.5 3.6 6z" fill="#3fd6b4"/></marker><linearGradient id="t-teal" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#3fd6b4" stop-opacity=".16"/><stop offset=".55" stop-color="#3fd6b4" stop-opacity=".05"/><stop offset="1" stop-color="#3fd6b4" stop-opacity=".02"/></linearGradient><linearGradient id="e-teal" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#3fd6b4" stop-opacity=".95"/><stop offset="1" stop-color="#3fd6b4" stop-opacity=".55"/></linearGradient><marker id="a-violet" viewBox="0 0 12 12" refX="10" refY="6" markerWidth="8" markerHeight="8" orient="auto-start-reverse"><path d="M1 1.5L11 6 1 10.5 3.6 6z" fill="#b8a2ff"/></marker><linearGradient id="t-violet" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#b8a2ff" stop-opacity=".16"/><stop offset=".55" stop-color="#b8a2ff" stop-opacity=".05"/><stop offset="1" stop-color="#b8a2ff" stop-opacity=".02"/></linearGradient><linearGradient id="e-violet" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#b8a2ff" stop-opacity=".95"/><stop offset="1" stop-color="#b8a2ff" stop-opacity=".55"/></linearGradient><marker id="a-amber" viewBox="0 0 12 12" refX="10" refY="6" markerWidth="8" markerHeight="8" orient="auto-start-reverse"><path d="M1 1.5L11 6 1 10.5 3.6 6z" fill="#ffb65c"/></marker><linearGradient id="t-amber" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#ffb65c" stop-opacity=".16"/><stop offset=".55" stop-color="#ffb65c" stop-opacity=".05"/><stop offset="1" stop-color="#ffb65c" stop-opacity=".02"/></linearGradient><linearGradient id="e-amber" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#ffb65c" stop-opacity=".95"/><stop offset="1" stop-color="#ffb65c" stop-opacity=".55"/></linearGradient><marker id="a-red" viewBox="0 0 12 12" refX="10" refY="6" markerWidth="8" markerHeight="8" orient="auto-start-reverse"><path d="M1 1.5L11 6 1 10.5 3.6 6z" fill="#ff7088"/></marker><linearGradient id="t-red" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#ff7088" stop-opacity=".16"/><stop offset=".55" stop-color="#ff7088" stop-opacity=".05"/><stop offset="1" stop-color="#ff7088" stop-opacity=".02"/></linearGradient><linearGradient id="e-red" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#ff7088" stop-opacity=".95"/><stop offset="1" stop-color="#ff7088" stop-opacity=".55"/></linearGradient><marker id="a-ink" viewBox="0 0 12 12" refX="10" refY="6" markerWidth="8" markerHeight="8" orient="auto-start-reverse"><path d="M1 1.5L11 6 1 10.5 3.6 6z" fill="#eef4fd"/></marker><linearGradient id="t-ink" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#eef4fd" stop-opacity=".16"/><stop offset=".55" stop-color="#eef4fd" stop-opacity=".05"/><stop offset="1" stop-color="#eef4fd" stop-opacity=".02"/></linearGradient><linearGradient id="e-ink" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#eef4fd" stop-opacity=".95"/><stop offset="1" stop-color="#eef4fd" stop-opacity=".55"/></linearGradient><filter id="sh" x="-20%" y="-20%" width="140%" height="160%"><feDropShadow dx="0" dy="8" stdDeviation="10" flood-color="#000814" flood-opacity=".55"/></filter><filter id="sh-s" x="-20%" y="-30%" width="140%" height="180%"><feDropShadow dx="0" dy="3" stdDeviation="4" flood-color="#000814" flood-opacity=".5"/></filter><pattern id="grid" width="24" height="24" patternUnits="userSpaceOnUse"><circle cx="1.2" cy="1.2" r="1.2" fill="#1b2b49"/></pattern><radialGradient id="glow" cx="12%" cy="0%" r="75%"><stop offset="0" stop-color="#2a5bb8" stop-opacity=".35"/><stop offset="1" stop-color="#2a5bb8" stop-opacity="0"/></radialGradient><radialGradient id="glow2" cx="100%" cy="100%" r="60%"><stop offset="0" stop-color="#1f8f7c" stop-opacity=".18"/><stop offset="1" stop-color="#1f8f7c" stop-opacity="0"/></radialGradient><linearGradient id="accent" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#6ea8ff"/><stop offset="1" stop-color="#3fd6b4"/></linearGradient></defs>
+<style>text{font-family:Inter,"SF Pro Text",ui-sans-serif,system-ui,-apple-system,"Segoe UI",sans-serif;letter-spacing:-.005em} .mono{font-family:"JetBrains Mono",ui-monospace,SFMono-Regular,Consolas,monospace;letter-spacing:0} .caps{letter-spacing:.09em}</style>
+<rect width="1200" height="960" rx="18" fill="#0a1324"/>
+<rect width="1200" height="960" rx="18" fill="url(#grid)" opacity=".9"/>
+<rect width="1200" height="960" rx="18" fill="url(#glow)"/>
+<rect width="1200" height="960" rx="18" fill="url(#glow2)"/>
+<rect x=".5" y=".5" width="1199" height="959" rx="18" fill="none" stroke="#22365a"/>
+<rect x="32" y="22" width="5" height="50" rx="2.5" fill="url(#accent)"/>
+<text x="50" y="44" font-size="25" fill="#eef4fd" text-anchor="start" font-weight="750">Analytical data / logical entity relationships</text>
+<text x="50" y="68" font-size="14.5" fill="#a3b5d1" text-anchor="start" font-weight="400">Crow’s-foot notation = logical cardinality · arrows = aggregation/export, not patient linkage</text>
+<path d="M32 88H1168" stroke="#2b3f63" stroke-width="1"/>
+<text x="913" y="112" font-size="14" fill="#b8a2ff" text-anchor="middle" font-weight="400">Logical key: (cve_ent, anio)</text>
+<g class="entity"><rect x="38" y="130" width="330" height="212" rx="10" fill="#122039" filter="url(#sh)"/>
+<path d="M38 191V140Q38 130 48 130H358Q368 130 368 140V191Z" fill="#3fd6b4" fill-opacity=".2"/>
+<rect x="38" y="130" width="330" height="212" rx="10" fill="none" stroke="#3fd6b4" stroke-opacity=".65" stroke-width="1.4"/><path d="M38 191H368" stroke="#3fd6b4" stroke-opacity=".55"/>
+<circle cx="68" cy="161" r="17" fill="#3fd6b4" fill-opacity=".14" stroke="#3fd6b4" stroke-opacity=".55" stroke-width="1.2"/>
+<g transform="translate(58.225 151.225) scale(0.6109374999999999)" fill="none" stroke="#3fd6b4" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><ellipse cx="16" cy="7" rx="12" ry="5"/><path d="M4 7v19c0 7 24 7 24 0V7M4 16c0 7 24 7 24 0"/></g>
+<text x="96" y="158" font-size="17" fill="#eef4fd" text-anchor="start" font-weight="750">STATE CATALOG</text>
+<text x="96" y="178" font-size="12" fill="#a3b5d1" text-anchor="start" font-weight="400">entidades.csv · 32 rows</text>
+<rect x="44" y="198" width="318" height="29" rx="5" fill="#ffffff" fill-opacity=".028"/>
+<circle cx="56" cy="213" r="3" fill="#3fd6b4" fill-opacity=".85"/>
+<text x="68" y="218" font-size="14.5" fill="#eef4fd" text-anchor="start" font-weight="400" class="mono">cve_ent</text>
+<text x="353" y="218" font-size="12.5" fill="#a3b5d1" text-anchor="end" font-weight="400">logical key</text>
+<circle cx="56" cy="244" r="3" fill="#3fd6b4" fill-opacity=".85"/>
+<text x="68" y="249" font-size="14.5" fill="#eef4fd" text-anchor="start" font-weight="400" class="mono">nombre_corto</text>
+<text x="353" y="249" font-size="12.5" fill="#a3b5d1" text-anchor="end" font-weight="400">state name</text>
+<rect x="44" y="260" width="318" height="29" rx="5" fill="#ffffff" fill-opacity=".028"/>
+<circle cx="56" cy="275" r="3" fill="#3fd6b4" fill-opacity=".85"/>
+<text x="68" y="280" font-size="14.5" fill="#eef4fd" text-anchor="start" font-weight="400" class="mono">region_sinave</text>
+<text x="353" y="280" font-size="12.5" fill="#a3b5d1" text-anchor="end" font-weight="400">region</text>
+<circle cx="56" cy="306" r="3" fill="#3fd6b4" fill-opacity=".85"/>
+<text x="68" y="311" font-size="14.5" fill="#eef4fd" text-anchor="start" font-weight="400" class="mono">delegaciones_imss</text>
+<text x="353" y="311" font-size="12.5" fill="#a3b5d1" text-anchor="end" font-weight="400">lookup list</text>
 </g>
-<g class="entity"><rect x="668" y="130" width="490" height="367" rx="7" fill="white" stroke="#7045b7" stroke-width="1.8"/><path d="M668 191H1158" stroke="#7045b7"/>
-<g transform="translate(681 142) scale(0.90625)" fill="none" stroke="#7045b7" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><ellipse cx="16" cy="7" rx="12" ry="5"/><path d="M4 7v19c0 7 24 7 24 0V7M4 16c0 7 24 7 24 0"/></g>
-<text x="721" y="158" font-size="18" fill="#7045b7" text-anchor="start" font-weight="650">STATE_YEAR_MART</text>
-<text x="721" y="179" font-size="12" fill="#526780" text-anchor="start" font-weight="400">cascada_entidad_anio.csv · 256 rows</text>
-<text x="685" y="218" font-size="15" fill="#20344d" text-anchor="start" font-weight="400" class="mono">cve_ent</text>
-<text x="1143" y="218" font-size="13" fill="#526780" text-anchor="end" font-weight="400">logical state reference</text>
-<path d="M680 228L1146 228" stroke="#e7edf5" stroke-width="1.6" fill="none"/>
-<text x="685" y="249" font-size="15" fill="#20344d" text-anchor="start" font-weight="400" class="mono">anio</text>
-<text x="1143" y="249" font-size="13" fill="#526780" text-anchor="end" font-weight="400">year / key part</text>
-<path d="M680 259L1146 259" stroke="#e7edf5" stroke-width="1.6" fill="none"/>
-<text x="685" y="280" font-size="15" fill="#20344d" text-anchor="start" font-weight="400" class="mono">poblacion</text>
-<text x="1143" y="280" font-size="13" fill="#526780" text-anchor="end" font-weight="400">population</text>
-<path d="M680 290L1146 290" stroke="#e7edf5" stroke-width="1.6" fill="none"/>
-<text x="685" y="311" font-size="15" fill="#20344d" text-anchor="start" font-weight="400" class="mono">casos_nuevos_t1</text>
-<text x="1143" y="311" font-size="13" fill="#526780" text-anchor="end" font-weight="400">type 1 notifications</text>
-<path d="M680 321L1146 321" stroke="#e7edf5" stroke-width="1.6" fill="none"/>
-<text x="685" y="342" font-size="15" fill="#20344d" text-anchor="start" font-weight="400" class="mono">casos_nuevos_t2</text>
-<text x="1143" y="342" font-size="13" fill="#526780" text-anchor="end" font-weight="400">type 2 notifications</text>
-<path d="M680 352L1146 352" stroke="#e7edf5" stroke-width="1.6" fill="none"/>
-<text x="685" y="373" font-size="15" fill="#20344d" text-anchor="start" font-weight="400" class="mono">defunciones</text>
-<text x="1143" y="373" font-size="13" fill="#526780" text-anchor="end" font-weight="400">death count</text>
-<path d="M680 383L1146 383" stroke="#e7edf5" stroke-width="1.6" fill="none"/>
-<text x="685" y="404" font-size="15" fill="#20344d" text-anchor="start" font-weight="400" class="mono">egresos</text>
-<text x="1143" y="404" font-size="13" fill="#526780" text-anchor="end" font-weight="400">discharge count</text>
-<path d="M680 414L1146 414" stroke="#e7edf5" stroke-width="1.6" fill="none"/>
-<text x="685" y="435" font-size="15" fill="#20344d" text-anchor="start" font-weight="400" class="mono">sis_en_tratamiento</text>
-<text x="1143" y="435" font-size="13" fill="#526780" text-anchor="end" font-weight="400">monthly average</text>
-<path d="M680 445L1146 445" stroke="#e7edf5" stroke-width="1.6" fill="none"/>
-<text x="685" y="466" font-size="15" fill="#20344d" text-anchor="start" font-weight="400" class="mono">tasa_casos_100k</text>
-<text x="1143" y="466" font-size="13" fill="#526780" text-anchor="end" font-weight="400">derived rate</text>
+<g class="entity"><rect x="668" y="130" width="490" height="367" rx="10" fill="#122039" filter="url(#sh)"/>
+<path d="M668 191V140Q668 130 678 130H1148Q1158 130 1158 140V191Z" fill="#b8a2ff" fill-opacity=".2"/>
+<rect x="668" y="130" width="490" height="367" rx="10" fill="none" stroke="#b8a2ff" stroke-opacity=".65" stroke-width="1.4"/><path d="M668 191H1158" stroke="#b8a2ff" stroke-opacity=".55"/>
+<circle cx="698" cy="161" r="17" fill="#b8a2ff" fill-opacity=".14" stroke="#b8a2ff" stroke-opacity=".55" stroke-width="1.2"/>
+<g transform="translate(688.225 151.225) scale(0.6109374999999999)" fill="none" stroke="#b8a2ff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><ellipse cx="16" cy="7" rx="12" ry="5"/><path d="M4 7v19c0 7 24 7 24 0V7M4 16c0 7 24 7 24 0"/></g>
+<text x="726" y="158" font-size="17" fill="#eef4fd" text-anchor="start" font-weight="750">STATE_YEAR_MART</text>
+<text x="726" y="178" font-size="12" fill="#a3b5d1" text-anchor="start" font-weight="400">cascada_entidad_anio.csv · 256 rows</text>
+<rect x="674" y="198" width="478" height="29" rx="5" fill="#ffffff" fill-opacity=".028"/>
+<circle cx="686" cy="213" r="3" fill="#b8a2ff" fill-opacity=".85"/>
+<text x="698" y="218" font-size="14.5" fill="#eef4fd" text-anchor="start" font-weight="400" class="mono">cve_ent</text>
+<text x="1143" y="218" font-size="12.5" fill="#a3b5d1" text-anchor="end" font-weight="400">logical state reference</text>
+<circle cx="686" cy="244" r="3" fill="#b8a2ff" fill-opacity=".85"/>
+<text x="698" y="249" font-size="14.5" fill="#eef4fd" text-anchor="start" font-weight="400" class="mono">anio</text>
+<text x="1143" y="249" font-size="12.5" fill="#a3b5d1" text-anchor="end" font-weight="400">year / key part</text>
+<rect x="674" y="260" width="478" height="29" rx="5" fill="#ffffff" fill-opacity=".028"/>
+<circle cx="686" cy="275" r="3" fill="#b8a2ff" fill-opacity=".85"/>
+<text x="698" y="280" font-size="14.5" fill="#eef4fd" text-anchor="start" font-weight="400" class="mono">poblacion</text>
+<text x="1143" y="280" font-size="12.5" fill="#a3b5d1" text-anchor="end" font-weight="400">population</text>
+<circle cx="686" cy="306" r="3" fill="#b8a2ff" fill-opacity=".85"/>
+<text x="698" y="311" font-size="14.5" fill="#eef4fd" text-anchor="start" font-weight="400" class="mono">casos_nuevos_t1</text>
+<text x="1143" y="311" font-size="12.5" fill="#a3b5d1" text-anchor="end" font-weight="400">type 1 notifications</text>
+<rect x="674" y="322" width="478" height="29" rx="5" fill="#ffffff" fill-opacity=".028"/>
+<circle cx="686" cy="337" r="3" fill="#b8a2ff" fill-opacity=".85"/>
+<text x="698" y="342" font-size="14.5" fill="#eef4fd" text-anchor="start" font-weight="400" class="mono">casos_nuevos_t2</text>
+<text x="1143" y="342" font-size="12.5" fill="#a3b5d1" text-anchor="end" font-weight="400">type 2 notifications</text>
+<circle cx="686" cy="368" r="3" fill="#b8a2ff" fill-opacity=".85"/>
+<text x="698" y="373" font-size="14.5" fill="#eef4fd" text-anchor="start" font-weight="400" class="mono">defunciones</text>
+<text x="1143" y="373" font-size="12.5" fill="#a3b5d1" text-anchor="end" font-weight="400">death count</text>
+<rect x="674" y="384" width="478" height="29" rx="5" fill="#ffffff" fill-opacity=".028"/>
+<circle cx="686" cy="399" r="3" fill="#b8a2ff" fill-opacity=".85"/>
+<text x="698" y="404" font-size="14.5" fill="#eef4fd" text-anchor="start" font-weight="400" class="mono">egresos</text>
+<text x="1143" y="404" font-size="12.5" fill="#a3b5d1" text-anchor="end" font-weight="400">discharge count</text>
+<circle cx="686" cy="430" r="3" fill="#b8a2ff" fill-opacity=".85"/>
+<text x="698" y="435" font-size="14.5" fill="#eef4fd" text-anchor="start" font-weight="400" class="mono">sis_en_tratamiento</text>
+<text x="1143" y="435" font-size="12.5" fill="#a3b5d1" text-anchor="end" font-weight="400">monthly average</text>
+<rect x="674" y="446" width="478" height="29" rx="5" fill="#ffffff" fill-opacity=".028"/>
+<circle cx="686" cy="461" r="3" fill="#b8a2ff" fill-opacity=".85"/>
+<text x="698" y="466" font-size="14.5" fill="#eef4fd" text-anchor="start" font-weight="400" class="mono">tasa_casos_100k</text>
+<text x="1143" y="466" font-size="12.5" fill="#a3b5d1" text-anchor="end" font-weight="400">derived rate</text>
 </g>
-<path d="M368 218L668 218" stroke="#7045b7" stroke-width="1.6" fill="none"/>
-<path d="M378 211L378 225" stroke="#7045b7" stroke-width="1.6" fill="none"/>
-<path d="M384 211L384 225" stroke="#7045b7" stroke-width="1.6" fill="none"/>
-<path d="M651 218L668 208" stroke="#7045b7" stroke-width="1.6" fill="none"/>
-<path d="M651 218L668 228" stroke="#7045b7" stroke-width="1.6" fill="none"/>
-<circle cx="642" cy="218" r="4" fill="#f5f8fc" stroke="#7045b7" stroke-width="1.4"/>
-<rect x="491.75" y="188" width="52.5" height="22" rx="4" fill="#f5f8fc"/>
-<text x="518.0" y="203" font-size="13" fill="#7045b7" text-anchor="middle" font-weight="550">1 : N</text>
-<text x="510" y="285" font-size="14" fill="#526780" text-anchor="middle" font-weight="400">State-code lookup</text>
-<text x="510" y="305" font-size="14" fill="#526780" text-anchor="middle" font-weight="400">8 years per state</text>
-<g class="entity"><rect x="38" y="487" width="330" height="150" rx="7" fill="white" stroke="#007f73" stroke-width="1.8"/><path d="M38 548H368" stroke="#007f73"/>
-<g transform="translate(51 499) scale(0.90625)" fill="none" stroke="#007f73" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><ellipse cx="16" cy="7" rx="12" ry="5"/><path d="M4 7v19c0 7 24 7 24 0V7M4 16c0 7 24 7 24 0"/></g>
-<text x="91" y="515" font-size="18" fill="#007f73" text-anchor="start" font-weight="650">STATE GEOMETRY</text>
-<text x="91" y="536" font-size="12" fill="#526780" text-anchor="start" font-weight="400">estados_mx.geojson · 32 features</text>
-<text x="55" y="575" font-size="15" fill="#20344d" text-anchor="start" font-weight="400" class="mono">cve_ent</text>
-<text x="353" y="575" font-size="13" fill="#526780" text-anchor="end" font-weight="400">logical key</text>
-<path d="M50 585L356 585" stroke="#e7edf5" stroke-width="1.6" fill="none"/>
-<text x="55" y="606" font-size="15" fill="#20344d" text-anchor="start" font-weight="400" class="mono">geometry</text>
-<text x="353" y="606" font-size="13" fill="#526780" text-anchor="end" font-weight="400">Polygon / MultiPolygon</text>
+<path d="M368 218L668 218" stroke="#b8a2ff" stroke-width="1.6" fill="none" stroke-linecap="round"/>
+<path d="M378 211L378 225" stroke="#b8a2ff" stroke-width="1.6" fill="none" stroke-linecap="round"/>
+<path d="M384 211L384 225" stroke="#b8a2ff" stroke-width="1.6" fill="none" stroke-linecap="round"/>
+<path d="M651 218L668 208" stroke="#b8a2ff" stroke-width="1.6" fill="none" stroke-linecap="round"/>
+<path d="M651 218L668 228" stroke="#b8a2ff" stroke-width="1.6" fill="none" stroke-linecap="round"/>
+<circle cx="642" cy="218" r="4" fill="#0a1324" stroke="#b8a2ff" stroke-width="1.4"/>
+<rect x="489.25" y="187.5" width="57.5" height="23" rx="11.5" fill="#0d1a31" stroke="#b8a2ff" stroke-opacity=".55" filter="url(#sh-s)"/>
+<text x="518.0" y="203.5" font-size="12.5" fill="#b8a2ff" text-anchor="middle" font-weight="620">1 : N</text>
+<text x="510" y="285" font-size="14" fill="#a3b5d1" text-anchor="middle" font-weight="400">State-code lookup</text>
+<text x="510" y="305" font-size="14" fill="#a3b5d1" text-anchor="middle" font-weight="400">8 years per state</text>
+<g class="entity"><rect x="38" y="487" width="330" height="150" rx="10" fill="#122039" filter="url(#sh)"/>
+<path d="M38 548V497Q38 487 48 487H358Q368 487 368 497V548Z" fill="#3fd6b4" fill-opacity=".2"/>
+<rect x="38" y="487" width="330" height="150" rx="10" fill="none" stroke="#3fd6b4" stroke-opacity=".65" stroke-width="1.4"/><path d="M38 548H368" stroke="#3fd6b4" stroke-opacity=".55"/>
+<circle cx="68" cy="518" r="17" fill="#3fd6b4" fill-opacity=".14" stroke="#3fd6b4" stroke-opacity=".55" stroke-width="1.2"/>
+<g transform="translate(58.225 508.225) scale(0.6109374999999999)" fill="none" stroke="#3fd6b4" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><ellipse cx="16" cy="7" rx="12" ry="5"/><path d="M4 7v19c0 7 24 7 24 0V7M4 16c0 7 24 7 24 0"/></g>
+<text x="96" y="515" font-size="17" fill="#eef4fd" text-anchor="start" font-weight="750">STATE GEOMETRY</text>
+<text x="96" y="535" font-size="12" fill="#a3b5d1" text-anchor="start" font-weight="400">estados_mx.geojson · 32 features</text>
+<rect x="44" y="555" width="318" height="29" rx="5" fill="#ffffff" fill-opacity=".028"/>
+<circle cx="56" cy="570" r="3" fill="#3fd6b4" fill-opacity=".85"/>
+<text x="68" y="575" font-size="14.5" fill="#eef4fd" text-anchor="start" font-weight="400" class="mono">cve_ent</text>
+<text x="353" y="575" font-size="12.5" fill="#a3b5d1" text-anchor="end" font-weight="400">logical key</text>
+<circle cx="56" cy="601" r="3" fill="#3fd6b4" fill-opacity=".85"/>
+<text x="68" y="606" font-size="14.5" fill="#eef4fd" text-anchor="start" font-weight="400" class="mono">geometry</text>
+<text x="353" y="606" font-size="12.5" fill="#a3b5d1" text-anchor="end" font-weight="400">Polygon / MultiPolygon</text>
 </g>
-<path d="M205 342L205 487" stroke="#7045b7" stroke-width="1.6" fill="none"/>
-<path d="M198 355L212 355" stroke="#7045b7" stroke-width="1.6" fill="none"/>
-<path d="M198 362L212 362" stroke="#7045b7" stroke-width="1.6" fill="none"/>
-<path d="M198 469L212 469" stroke="#7045b7" stroke-width="1.6" fill="none"/>
-<path d="M198 476L212 476" stroke="#7045b7" stroke-width="1.6" fill="none"/>
-<rect x="228.75" y="414" width="52.5" height="22" rx="4" fill="#f5f8fc"/>
-<text x="255" y="429" font-size="13" fill="#7045b7" text-anchor="middle" font-weight="550">1 : 1</text>
+<path d="M205 342L205 487" stroke="#b8a2ff" stroke-width="1.6" fill="none" stroke-linecap="round"/>
+<path d="M198 355L212 355" stroke="#b8a2ff" stroke-width="1.6" fill="none" stroke-linecap="round"/>
+<path d="M198 362L212 362" stroke="#b8a2ff" stroke-width="1.6" fill="none" stroke-linecap="round"/>
+<path d="M198 469L212 469" stroke="#b8a2ff" stroke-width="1.6" fill="none" stroke-linecap="round"/>
+<path d="M198 476L212 476" stroke="#b8a2ff" stroke-width="1.6" fill="none" stroke-linecap="round"/>
+<rect x="226.25" y="413.5" width="57.5" height="23" rx="11.5" fill="#0d1a31" stroke="#b8a2ff" stroke-opacity=".55" filter="url(#sh-s)"/>
+<text x="255" y="429.5" font-size="12.5" fill="#b8a2ff" text-anchor="middle" font-weight="620">1 : 1</text>
 <g class="node">
-<rect x="420" y="498" width="225" height="106" rx="10" fill="white" stroke="#175cd3" stroke-width="1.8"/>
-<g transform="translate(438 517) scale(0.90625)" fill="none" stroke="#175cd3" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 16h9m0 0V5h15m-15 11h15m-15 0v11h15M23 2l4 3-4 3m0 5 4 3-4 3m0 5 4 3-4 3"/></g>
-<text x="478" y="533" font-size="18" fill="#175cd3" text-anchor="start" font-weight="650">Aggregate + join</text>
-<text x="440" y="564" font-size="15" fill="#526780" text-anchor="start" font-weight="400">State/year keys</text>
-<text x="440" y="585" font-size="15" fill="#526780" text-anchor="start" font-weight="400">Source-specific geography</text>
+<rect x="420" y="498" width="225" height="106" rx="12" fill="#122039" filter="url(#sh)"/>
+<rect x="420" y="498" width="225" height="106" rx="12" fill="url(#t-blue)" stroke="#6ea8ff" stroke-opacity=".6" stroke-width="1.4"/>
+<path d="M432 499.2H633" stroke="url(#e-blue)" stroke-width="2.6" stroke-linecap="round"/>
+<circle cx="454" cy="531" r="18" fill="#6ea8ff" fill-opacity=".14" stroke="#6ea8ff" stroke-opacity=".55" stroke-width="1.2"/>
+<g transform="translate(443.65 520.65) scale(0.646875)" fill="none" stroke="#6ea8ff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 16h9m0 0V5h15m-15 11h15m-15 0v11h15M23 2l4 3-4 3m0 5 4 3-4 3m0 5 4 3-4 3"/></g>
+<text x="482" y="536" font-size="18" fill="#eef4fd" text-anchor="start" font-weight="680">Aggregate + join</text>
+<text x="440" y="566.0" font-size="14.5" fill="#a3b5d1" text-anchor="start" font-weight="400">State/year keys</text>
+<text x="440" y="586.5" font-size="14.5" fill="#a3b5d1" text-anchor="start" font-weight="400">Source-specific geography</text>
 </g>
 <g class="node">
-<path d="M40 756H353L375 778V861H40Z M353 756V778H375" fill="white" stroke="#a94f09" stroke-width="1.8"/>
-<g transform="translate(58 775) scale(0.90625)" fill="none" stroke="#a94f09" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M7 2h13l7 7v21H7zM20 2v8h7M11 16h12m-12 5h12m-12 5h8"/></g>
-<text x="98" y="791" font-size="18" fill="#a94f09" text-anchor="start" font-weight="650">Independent source files</text>
-<text x="60" y="822" font-size="15" fill="#526780" text-anchor="start" font-weight="400">SINAVE · EDR · discharges</text>
-<text x="60" y="843" font-size="15" fill="#526780" text-anchor="start" font-weight="400">SIS · IMSS · CONAPO</text>
+<path d="M40 766Q40 756 50 756H351L375 780V851Q375 861 365 861H50Q40 861 40 851Z" fill="#122039" filter="url(#sh)"/>
+<path d="M40 766Q40 756 50 756H351L375 780V851Q375 861 365 861H50Q40 861 40 851Z" fill="url(#t-amber)" stroke="#ffb65c" stroke-opacity=".6" stroke-width="1.4"/>
+<path d="M351 756V772Q351 780 359 780H375Z" fill="#ffb65c" fill-opacity=".28" stroke="#ffb65c" stroke-opacity=".6" stroke-width="1.2" stroke-linejoin="round"/>
+<circle cx="74" cy="789" r="18" fill="#ffb65c" fill-opacity=".14" stroke="#ffb65c" stroke-opacity=".55" stroke-width="1.2"/>
+<g transform="translate(63.65 778.65) scale(0.646875)" fill="none" stroke="#ffb65c" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 2h13l7 7v21H7zM20 2v8h7M11 16h12m-12 5h12m-12 5h8"/></g>
+<text x="102" y="794" font-size="18" fill="#eef4fd" text-anchor="start" font-weight="680">Independent source files</text>
+<text x="60" y="824.0" font-size="14.5" fill="#a3b5d1" text-anchor="start" font-weight="400">SINAVE · EDR · discharges</text>
+<text x="60" y="844.5" font-size="14.5" fill="#a3b5d1" text-anchor="start" font-weight="400">SIS · IMSS · CONAPO</text>
 </g>
 <g class="node">
-<path d="M733 562H1070L1092 584V668H733Z M1070 562V584H1092" fill="white" stroke="#175cd3" stroke-width="1.8"/>
-<g transform="translate(751 581) scale(0.90625)" fill="none" stroke="#175cd3" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M7 2h13l7 7v21H7zM20 2v8h7M11 16h12m-12 5h12m-12 5h8"/></g>
-<text x="791" y="597" font-size="18" fill="#175cd3" text-anchor="start" font-weight="650">Public presentation export</text>
-<text x="753" y="628" font-size="15" fill="#526780" text-anchor="start" font-weight="400">care_stages.json</text>
-<text x="753" y="649" font-size="15" fill="#526780" text-anchor="start" font-weight="400">English indicator keys</text>
+<path d="M733 572Q733 562 743 562H1068L1092 586V658Q1092 668 1082 668H743Q733 668 733 658Z" fill="#122039" filter="url(#sh)"/>
+<path d="M733 572Q733 562 743 562H1068L1092 586V658Q1092 668 1082 668H743Q733 668 733 658Z" fill="url(#t-blue)" stroke="#6ea8ff" stroke-opacity=".6" stroke-width="1.4"/>
+<path d="M1068 562V578Q1068 586 1076 586H1092Z" fill="#6ea8ff" fill-opacity=".28" stroke="#6ea8ff" stroke-opacity=".6" stroke-width="1.2" stroke-linejoin="round"/>
+<circle cx="767" cy="595" r="18" fill="#6ea8ff" fill-opacity=".14" stroke="#6ea8ff" stroke-opacity=".55" stroke-width="1.2"/>
+<g transform="translate(756.65 584.65) scale(0.646875)" fill="none" stroke="#6ea8ff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 2h13l7 7v21H7zM20 2v8h7M11 16h12m-12 5h12m-12 5h8"/></g>
+<text x="795" y="600" font-size="18" fill="#eef4fd" text-anchor="start" font-weight="680">Public presentation export</text>
+<text x="753" y="630.0" font-size="14.5" fill="#a3b5d1" text-anchor="start" font-weight="400">care_stages.json</text>
+<text x="753" y="650.5" font-size="14.5" fill="#a3b5d1" text-anchor="start" font-weight="400">English indicator keys</text>
 </g>
 <g class="node">
-<path d="M818.0 858C737.4 858 749.8 795.0 824.2 795.0C818.0 747.75 973.0 747.75 979.2 784.5C1084.6 765.6 1103.2 858 1010.2 858Z" fill="#fff9ed" stroke="#a94f09" stroke-width="1.8"/>
-<text x="911.0" y="810.75" font-size="18" fill="#a94f09" text-anchor="middle" font-weight="650">Public state map</text>
-<text x="911.0" y="837.0" font-size="14" fill="#526780" text-anchor="middle" font-weight="400">State-code geometry lookup</text>
+<path d="M818.0 858C737.4 858 749.8 795.0 824.2 795.0C818.0 747.75 973.0 747.75 979.2 784.5C1084.6 765.6 1103.2 858 1010.2 858Z" fill="#122039" filter="url(#sh)"/><path d="M818.0 858C737.4 858 749.8 795.0 824.2 795.0C818.0 747.75 973.0 747.75 979.2 784.5C1084.6 765.6 1103.2 858 1010.2 858Z" fill="url(#t-amber)" stroke="#ffb65c" stroke-opacity=".75" stroke-width="1.4"/>
+<text x="911.0" y="811.8" font-size="17.5" fill="#eef4fd" text-anchor="middle" font-weight="700">Public state map</text>
+<text x="911.0" y="837.0" font-size="13.5" fill="#ffb65c" text-anchor="middle" font-weight="500">State-code geometry lookup</text>
 </g>
-<path d="M375 808 L531 808 L531 604" fill="none" stroke="#a94f09" stroke-width="2" stroke-linejoin="round" marker-end="url(#a-amber)"/>
-<rect x="445.05" y="700" width="183.9" height="22" rx="4" fill="#f5f8fc"/>
-<text x="537" y="715" font-size="13" fill="#a94f09" text-anchor="middle" font-weight="550">Aggregate by state/year</text>
-<path d="M645 549 L662 549 L662 389 L668 389" fill="none" stroke="#175cd3" stroke-width="2" stroke-linejoin="round" marker-end="url(#a-blue)"/>
-<rect x="549.5" y="431" width="89.0" height="22" rx="4" fill="#f5f8fc"/>
-<text x="594" y="446" font-size="13" fill="#175cd3" text-anchor="middle" font-weight="550">Build mart</text>
-<path d="M910 497 L910 562" fill="none" stroke="#175cd3" stroke-width="2" stroke-linejoin="round" marker-end="url(#a-blue)"/>
-<rect x="880.1" y="522" width="59.8" height="22" rx="4" fill="#f5f8fc"/>
-<text x="910.0" y="537" font-size="13" fill="#175cd3" text-anchor="middle" font-weight="550">Export</text>
-<path d="M910 668 L910 753" fill="none" stroke="#175cd3" stroke-width="2" stroke-linejoin="round" marker-end="url(#a-blue)"/>
-<rect x="865.5" y="696" width="89.0" height="22" rx="4" fill="#f5f8fc"/>
-<text x="910.0" y="711" font-size="13" fill="#175cd3" text-anchor="middle" font-weight="550">Indicators</text>
-<path d="M368 612 L415 612 L415 886 L911 886 L911 858" fill="none" stroke="#007f73" stroke-width="2" stroke-linejoin="round" marker-end="url(#a-teal)"/>
-<rect x="549.25" y="864" width="125.5" height="22" rx="4" fill="#f5f8fc"/>
-<text x="612" y="879" font-size="13" fill="#007f73" text-anchor="middle" font-weight="550">Geometry lookup</text>
-<text x="32" y="938" font-size="14" fill="#526780" text-anchor="start" font-weight="400">Selected fields shown. Files have logical keys, not SQL constraints. No patient-level joins to CDC, ENSANUT or the hospital vault.</text>
+<path d="M375 808 L519 808 Q531 808 531 796 L531 604" fill="none" stroke="#ffb65c" stroke-opacity=".18" stroke-width="7" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M375 808 L519 808 Q531 808 531 796 L531 604" fill="none" stroke="#ffb65c" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" marker-end="url(#a-amber)"/>
+<rect x="444.35" y="699.5" width="185.29999999999998" height="23" rx="11.5" fill="#0d1a31" stroke="#ffb65c" stroke-opacity=".55" filter="url(#sh-s)"/>
+<text x="537" y="715.5" font-size="12.5" fill="#ffb65c" text-anchor="middle" font-weight="620">Aggregate by state/year</text>
+<path d="M645 549 L653.5 549 Q662 549 662 540.5 L662 392.0 Q662 389 665.0 389 L668 389" fill="none" stroke="#6ea8ff" stroke-opacity=".18" stroke-width="7" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M645 549 L653.5 549 Q662 549 662 540.5 L662 392.0 Q662 389 665.0 389 L668 389" fill="none" stroke="#6ea8ff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" marker-end="url(#a-blue)"/>
+<rect x="547.5" y="430.5" width="93.0" height="23" rx="11.5" fill="#0d1a31" stroke="#6ea8ff" stroke-opacity=".55" filter="url(#sh-s)"/>
+<text x="594" y="446.5" font-size="12.5" fill="#6ea8ff" text-anchor="middle" font-weight="620">Build mart</text>
+<path d="M910 497 L910 562" fill="none" stroke="#6ea8ff" stroke-opacity=".18" stroke-width="7" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M910 497 L910 562" fill="none" stroke="#6ea8ff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" marker-end="url(#a-blue)"/>
+<rect x="877.7" y="521.5" width="64.6" height="23" rx="11.5" fill="#0d1a31" stroke="#6ea8ff" stroke-opacity=".55" filter="url(#sh-s)"/>
+<text x="910.0" y="537.5" font-size="12.5" fill="#6ea8ff" text-anchor="middle" font-weight="620">Export</text>
+<path d="M910 668 L910 753" fill="none" stroke="#6ea8ff" stroke-opacity=".18" stroke-width="7" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M910 668 L910 753" fill="none" stroke="#6ea8ff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" marker-end="url(#a-blue)"/>
+<rect x="863.5" y="695.5" width="93.0" height="23" rx="11.5" fill="#0d1a31" stroke="#6ea8ff" stroke-opacity=".55" filter="url(#sh-s)"/>
+<text x="910.0" y="711.5" font-size="12.5" fill="#6ea8ff" text-anchor="middle" font-weight="620">Indicators</text>
+<path d="M368 612 L403 612 Q415 612 415 624 L415 874 Q415 886 427 886 L899 886 Q911 886 911 874 L911 858" fill="none" stroke="#3fd6b4" stroke-opacity=".18" stroke-width="7" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M368 612 L403 612 Q415 612 415 624 L415 874 Q415 886 427 886 L899 886 Q911 886 911 874 L911 858" fill="none" stroke="#3fd6b4" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" marker-end="url(#a-teal)"/>
+<rect x="547.75" y="863.5" width="128.5" height="23" rx="11.5" fill="#0d1a31" stroke="#3fd6b4" stroke-opacity=".55" filter="url(#sh-s)"/>
+<text x="612" y="879.5" font-size="12.5" fill="#3fd6b4" text-anchor="middle" font-weight="620">Geometry lookup</text>
+<circle cx="38" cy="933" r="3" fill="#3fd6b4"/>
+<text x="50" y="938" font-size="13" fill="#a3b5d1" text-anchor="start" font-weight="400">Selected fields shown. Files have logical keys, not SQL constraints. No patient-level joins to CDC, ENSANUT or the hospital vault.</text>
 </svg>

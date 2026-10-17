@@ -1,102 +1,145 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 960" role="img" aria-labelledby="title desc">
 <title id="title">Release evidence / artifacts and final delivery gate</title><desc id="desc">Artifact lineage + decision gate · observed execution and human approval are separate inputs</desc>
-<defs><marker id="a-blue" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0L10 5 0 10z" fill="#175cd3"/></marker><marker id="a-teal" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0L10 5 0 10z" fill="#007f73"/></marker><marker id="a-violet" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0L10 5 0 10z" fill="#7045b7"/></marker><marker id="a-amber" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0L10 5 0 10z" fill="#a94f09"/></marker><marker id="a-red" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0L10 5 0 10z" fill="#ba3544"/></marker><marker id="a-ink" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0L10 5 0 10z" fill="#20344d"/></marker></defs>
-<rect width="1200" height="100%" rx="14" fill="#f5f8fc"/>
-<style>text{font-family:Inter,ui-sans-serif,system-ui,-apple-system,sans-serif} .mono{font-family:ui-monospace,SFMono-Regular,Consolas,monospace}</style>
-<text x="32" y="38" font-size="23" fill="#20344d" text-anchor="start" font-weight="700">Release evidence / artifacts and final delivery gate</text>
-<text x="32" y="65" font-size="15" fill="#526780" text-anchor="start" font-weight="400">Artifact lineage + decision gate · observed execution and human approval are separate inputs</text>
-<path d="M32 83L1168 83" stroke="#d9e2ed" stroke-width="1.6" fill="none"/>
+<defs><marker id="a-blue" viewBox="0 0 12 12" refX="10" refY="6" markerWidth="8" markerHeight="8" orient="auto-start-reverse"><path d="M1 1.5L11 6 1 10.5 3.6 6z" fill="#6ea8ff"/></marker><linearGradient id="t-blue" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#6ea8ff" stop-opacity=".16"/><stop offset=".55" stop-color="#6ea8ff" stop-opacity=".05"/><stop offset="1" stop-color="#6ea8ff" stop-opacity=".02"/></linearGradient><linearGradient id="e-blue" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#6ea8ff" stop-opacity=".95"/><stop offset="1" stop-color="#6ea8ff" stop-opacity=".55"/></linearGradient><marker id="a-teal" viewBox="0 0 12 12" refX="10" refY="6" markerWidth="8" markerHeight="8" orient="auto-start-reverse"><path d="M1 1.5L11 6 1 10.5 3.6 6z" fill="#3fd6b4"/></marker><linearGradient id="t-teal" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#3fd6b4" stop-opacity=".16"/><stop offset=".55" stop-color="#3fd6b4" stop-opacity=".05"/><stop offset="1" stop-color="#3fd6b4" stop-opacity=".02"/></linearGradient><linearGradient id="e-teal" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#3fd6b4" stop-opacity=".95"/><stop offset="1" stop-color="#3fd6b4" stop-opacity=".55"/></linearGradient><marker id="a-violet" viewBox="0 0 12 12" refX="10" refY="6" markerWidth="8" markerHeight="8" orient="auto-start-reverse"><path d="M1 1.5L11 6 1 10.5 3.6 6z" fill="#b8a2ff"/></marker><linearGradient id="t-violet" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#b8a2ff" stop-opacity=".16"/><stop offset=".55" stop-color="#b8a2ff" stop-opacity=".05"/><stop offset="1" stop-color="#b8a2ff" stop-opacity=".02"/></linearGradient><linearGradient id="e-violet" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#b8a2ff" stop-opacity=".95"/><stop offset="1" stop-color="#b8a2ff" stop-opacity=".55"/></linearGradient><marker id="a-amber" viewBox="0 0 12 12" refX="10" refY="6" markerWidth="8" markerHeight="8" orient="auto-start-reverse"><path d="M1 1.5L11 6 1 10.5 3.6 6z" fill="#ffb65c"/></marker><linearGradient id="t-amber" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#ffb65c" stop-opacity=".16"/><stop offset=".55" stop-color="#ffb65c" stop-opacity=".05"/><stop offset="1" stop-color="#ffb65c" stop-opacity=".02"/></linearGradient><linearGradient id="e-amber" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#ffb65c" stop-opacity=".95"/><stop offset="1" stop-color="#ffb65c" stop-opacity=".55"/></linearGradient><marker id="a-red" viewBox="0 0 12 12" refX="10" refY="6" markerWidth="8" markerHeight="8" orient="auto-start-reverse"><path d="M1 1.5L11 6 1 10.5 3.6 6z" fill="#ff7088"/></marker><linearGradient id="t-red" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#ff7088" stop-opacity=".16"/><stop offset=".55" stop-color="#ff7088" stop-opacity=".05"/><stop offset="1" stop-color="#ff7088" stop-opacity=".02"/></linearGradient><linearGradient id="e-red" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#ff7088" stop-opacity=".95"/><stop offset="1" stop-color="#ff7088" stop-opacity=".55"/></linearGradient><marker id="a-ink" viewBox="0 0 12 12" refX="10" refY="6" markerWidth="8" markerHeight="8" orient="auto-start-reverse"><path d="M1 1.5L11 6 1 10.5 3.6 6z" fill="#eef4fd"/></marker><linearGradient id="t-ink" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#eef4fd" stop-opacity=".16"/><stop offset=".55" stop-color="#eef4fd" stop-opacity=".05"/><stop offset="1" stop-color="#eef4fd" stop-opacity=".02"/></linearGradient><linearGradient id="e-ink" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#eef4fd" stop-opacity=".95"/><stop offset="1" stop-color="#eef4fd" stop-opacity=".55"/></linearGradient><filter id="sh" x="-20%" y="-20%" width="140%" height="160%"><feDropShadow dx="0" dy="8" stdDeviation="10" flood-color="#000814" flood-opacity=".55"/></filter><filter id="sh-s" x="-20%" y="-30%" width="140%" height="180%"><feDropShadow dx="0" dy="3" stdDeviation="4" flood-color="#000814" flood-opacity=".5"/></filter><pattern id="grid" width="24" height="24" patternUnits="userSpaceOnUse"><circle cx="1.2" cy="1.2" r="1.2" fill="#1b2b49"/></pattern><radialGradient id="glow" cx="12%" cy="0%" r="75%"><stop offset="0" stop-color="#2a5bb8" stop-opacity=".35"/><stop offset="1" stop-color="#2a5bb8" stop-opacity="0"/></radialGradient><radialGradient id="glow2" cx="100%" cy="100%" r="60%"><stop offset="0" stop-color="#1f8f7c" stop-opacity=".18"/><stop offset="1" stop-color="#1f8f7c" stop-opacity="0"/></radialGradient><linearGradient id="accent" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#6ea8ff"/><stop offset="1" stop-color="#3fd6b4"/></linearGradient></defs>
+<style>text{font-family:Inter,"SF Pro Text",ui-sans-serif,system-ui,-apple-system,"Segoe UI",sans-serif;letter-spacing:-.005em} .mono{font-family:"JetBrains Mono",ui-monospace,SFMono-Regular,Consolas,monospace;letter-spacing:0} .caps{letter-spacing:.09em}</style>
+<rect width="1200" height="960" rx="18" fill="#0a1324"/>
+<rect width="1200" height="960" rx="18" fill="url(#grid)" opacity=".9"/>
+<rect width="1200" height="960" rx="18" fill="url(#glow)"/>
+<rect width="1200" height="960" rx="18" fill="url(#glow2)"/>
+<rect x=".5" y=".5" width="1199" height="959" rx="18" fill="none" stroke="#22365a"/>
+<rect x="32" y="22" width="5" height="50" rx="2.5" fill="url(#accent)"/>
+<text x="50" y="44" font-size="25" fill="#eef4fd" text-anchor="start" font-weight="750">Release evidence / artifacts and final delivery gate</text>
+<text x="50" y="68" font-size="14.5" fill="#a3b5d1" text-anchor="start" font-weight="400">Artifact lineage + decision gate · observed execution and human approval are separate inputs</text>
+<path d="M32 88H1168" stroke="#2b3f63" stroke-width="1"/>
 <g class="node">
-<path d="M48 134H344L366 156V246H48Z M344 134V156H366" fill="white" stroke="#175cd3" stroke-width="1.8"/>
-<g transform="translate(66 153) scale(0.90625)" fill="none" stroke="#175cd3" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M7 2h13l7 7v21H7zM20 2v8h7M11 16h12m-12 5h12m-12 5h8"/></g>
-<text x="106" y="169" font-size="18" fill="#175cd3" text-anchor="start" font-weight="650">Pinned source + model</text>
-<text x="68" y="200" font-size="15" fill="#526780" text-anchor="start" font-weight="400">Clean source / commit identity</text>
-<text x="68" y="221" font-size="15" fill="#526780" text-anchor="start" font-weight="400">Code and model SHA-256</text>
+<path d="M48 144Q48 134 58 134H342L366 158V236Q366 246 356 246H58Q48 246 48 236Z" fill="#122039" filter="url(#sh)"/>
+<path d="M48 144Q48 134 58 134H342L366 158V236Q366 246 356 246H58Q48 246 48 236Z" fill="url(#t-blue)" stroke="#6ea8ff" stroke-opacity=".6" stroke-width="1.4"/>
+<path d="M342 134V150Q342 158 350 158H366Z" fill="#6ea8ff" fill-opacity=".28" stroke="#6ea8ff" stroke-opacity=".6" stroke-width="1.2" stroke-linejoin="round"/>
+<circle cx="82" cy="167" r="18" fill="#6ea8ff" fill-opacity=".14" stroke="#6ea8ff" stroke-opacity=".55" stroke-width="1.2"/>
+<g transform="translate(71.65 156.65) scale(0.646875)" fill="none" stroke="#6ea8ff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 2h13l7 7v21H7zM20 2v8h7M11 16h12m-12 5h12m-12 5h8"/></g>
+<text x="110" y="172" font-size="18" fill="#eef4fd" text-anchor="start" font-weight="680">Pinned source + model</text>
+<text x="68" y="202.0" font-size="14.5" fill="#a3b5d1" text-anchor="start" font-weight="400">Clean source / commit identity</text>
+<text x="68" y="222.5" font-size="14.5" fill="#a3b5d1" text-anchor="start" font-weight="400">Code and model SHA-256</text>
 </g>
 <g class="node">
-<rect x="477" y="134" width="310" height="112" rx="10" fill="white" stroke="#007f73" stroke-width="1.8"/>
-<g transform="translate(495 153) scale(0.90625)" fill="none" stroke="#007f73" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="3" width="24" height="8" rx="2"/><rect x="4" y="13" width="24" height="8" rx="2"/><rect x="4" y="23" width="24" height="6" rx="2"/><path d="M8 7h1m4 0h10M8 17h1m4 0h10M8 26h1"/></g>
-<text x="535" y="169" font-size="18" fill="#007f73" text-anchor="start" font-weight="650">Real target execution</text>
-<text x="497" y="200" font-size="15" fill="#526780" text-anchor="start" font-weight="400">VM identity + containers</text>
-<text x="497" y="221" font-size="15" fill="#526780" text-anchor="start" font-weight="400">TLS / architecture / versions</text>
+<rect x="477" y="134" width="310" height="112" rx="12" fill="#122039" filter="url(#sh)"/>
+<rect x="477" y="134" width="310" height="112" rx="12" fill="url(#t-teal)" stroke="#3fd6b4" stroke-opacity=".6" stroke-width="1.4"/>
+<path d="M489 135.2H775" stroke="url(#e-teal)" stroke-width="2.6" stroke-linecap="round"/>
+<circle cx="511" cy="167" r="18" fill="#3fd6b4" fill-opacity=".14" stroke="#3fd6b4" stroke-opacity=".55" stroke-width="1.2"/>
+<g transform="translate(500.65 156.65) scale(0.646875)" fill="none" stroke="#3fd6b4" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="3" width="24" height="8" rx="2"/><rect x="4" y="13" width="24" height="8" rx="2"/><rect x="4" y="23" width="24" height="6" rx="2"/><path d="M8 7h1m4 0h10M8 17h1m4 0h10M8 26h1"/></g>
+<text x="539" y="172" font-size="18" fill="#eef4fd" text-anchor="start" font-weight="680">Real target execution</text>
+<text x="497" y="202.0" font-size="14.5" fill="#a3b5d1" text-anchor="start" font-weight="400">VM identity + containers</text>
+<text x="497" y="222.5" font-size="14.5" fill="#a3b5d1" text-anchor="start" font-weight="400">TLS / architecture / versions</text>
 </g>
 <g class="node">
-<path d="M886 134H1130L1152 156V246H886Z M1130 134V156H1152" fill="white" stroke="#7045b7" stroke-width="1.8"/>
-<g transform="translate(904 153) scale(0.90625)" fill="none" stroke="#7045b7" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 3v25h26M8 22l7-8 6 3 8-12"/><path d="M23 5h6v6"/></g>
-<text x="944" y="169" font-size="18" fill="#7045b7" text-anchor="start" font-weight="650">Versioned metrics</text>
-<text x="906" y="200" font-size="15" fill="#526780" text-anchor="start" font-weight="400">Process measurement</text>
-<text x="906" y="221" font-size="15" fill="#526780" text-anchor="start" font-weight="400">Hospital API + vault</text>
+<path d="M886 144Q886 134 896 134H1128L1152 158V236Q1152 246 1142 246H896Q886 246 886 236Z" fill="#122039" filter="url(#sh)"/>
+<path d="M886 144Q886 134 896 134H1128L1152 158V236Q1152 246 1142 246H896Q886 246 886 236Z" fill="url(#t-violet)" stroke="#b8a2ff" stroke-opacity=".6" stroke-width="1.4"/>
+<path d="M1128 134V150Q1128 158 1136 158H1152Z" fill="#b8a2ff" fill-opacity=".28" stroke="#b8a2ff" stroke-opacity=".6" stroke-width="1.2" stroke-linejoin="round"/>
+<circle cx="920" cy="167" r="18" fill="#b8a2ff" fill-opacity=".14" stroke="#b8a2ff" stroke-opacity=".55" stroke-width="1.2"/>
+<g transform="translate(909.65 156.65) scale(0.646875)" fill="none" stroke="#b8a2ff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 3v25h26M8 22l7-8 6 3 8-12"/><path d="M23 5h6v6"/></g>
+<text x="948" y="172" font-size="18" fill="#eef4fd" text-anchor="start" font-weight="680">Versioned metrics</text>
+<text x="906" y="202.0" font-size="14.5" fill="#a3b5d1" text-anchor="start" font-weight="400">Process measurement</text>
+<text x="906" y="222.5" font-size="14.5" fill="#a3b5d1" text-anchor="start" font-weight="400">Hospital API + vault</text>
 </g>
 <g class="node">
-<path d="M46 378H344L366 400V490H46Z M344 378V400H366" fill="white" stroke="#7045b7" stroke-width="1.8"/>
-<g transform="translate(64 397) scale(0.90625)" fill="none" stroke="#7045b7" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M7 2h13l7 7v21H7zM20 2v8h7M11 16h12m-12 5h12m-12 5h8"/></g>
-<text x="104" y="413" font-size="18" fill="#7045b7" text-anchor="start" font-weight="650">Original audit bundle</text>
-<text x="66" y="444" font-size="15" fill="#526780" text-anchor="start" font-weight="400">Wire hashes + scoped checks</text>
-<text x="66" y="465" font-size="15" fill="#526780" text-anchor="start" font-weight="400">Retain raw logs outside Git</text>
+<path d="M46 388Q46 378 56 378H342L366 402V480Q366 490 356 490H56Q46 490 46 480Z" fill="#122039" filter="url(#sh)"/>
+<path d="M46 388Q46 378 56 378H342L366 402V480Q366 490 356 490H56Q46 490 46 480Z" fill="url(#t-violet)" stroke="#b8a2ff" stroke-opacity=".6" stroke-width="1.4"/>
+<path d="M342 378V394Q342 402 350 402H366Z" fill="#b8a2ff" fill-opacity=".28" stroke="#b8a2ff" stroke-opacity=".6" stroke-width="1.2" stroke-linejoin="round"/>
+<circle cx="80" cy="411" r="18" fill="#b8a2ff" fill-opacity=".14" stroke="#b8a2ff" stroke-opacity=".55" stroke-width="1.2"/>
+<g transform="translate(69.65 400.65) scale(0.646875)" fill="none" stroke="#b8a2ff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 2h13l7 7v21H7zM20 2v8h7M11 16h12m-12 5h12m-12 5h8"/></g>
+<text x="108" y="416" font-size="18" fill="#eef4fd" text-anchor="start" font-weight="680">Original audit bundle</text>
+<text x="66" y="446.0" font-size="14.5" fill="#a3b5d1" text-anchor="start" font-weight="400">Wire hashes + scoped checks</text>
+<text x="66" y="466.5" font-size="14.5" fill="#a3b5d1" text-anchor="start" font-weight="400">Retain raw logs outside Git</text>
 </g>
 <g class="node">
-<rect x="477" y="378" width="310" height="112" rx="10" fill="white" stroke="#a94f09" stroke-width="1.8"/>
-<g transform="translate(495 397) scale(0.90625)" fill="none" stroke="#a94f09" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="16" cy="8" r="4"/><path d="M7 27v-4a9 9 0 0 1 18 0v4M16 18v10"/></g>
-<text x="535" y="413" font-size="18" fill="#a94f09" text-anchor="start" font-weight="650">Human-owned records</text>
-<text x="497" y="444" font-size="15" fill="#526780" text-anchor="start" font-weight="400">Labs / teammate review</text>
-<text x="497" y="465" font-size="15" fill="#526780" text-anchor="start" font-weight="400">Public video / AI approval</text>
+<rect x="477" y="378" width="310" height="112" rx="12" fill="#122039" filter="url(#sh)"/>
+<rect x="477" y="378" width="310" height="112" rx="12" fill="url(#t-amber)" stroke="#ffb65c" stroke-opacity=".6" stroke-width="1.4"/>
+<path d="M489 379.2H775" stroke="url(#e-amber)" stroke-width="2.6" stroke-linecap="round"/>
+<circle cx="511" cy="411" r="18" fill="#ffb65c" fill-opacity=".14" stroke="#ffb65c" stroke-opacity=".55" stroke-width="1.2"/>
+<g transform="translate(500.65 400.65) scale(0.646875)" fill="none" stroke="#ffb65c" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="16" cy="8" r="4"/><path d="M7 27v-4a9 9 0 0 1 18 0v4M16 18v10"/></g>
+<text x="539" y="416" font-size="18" fill="#eef4fd" text-anchor="start" font-weight="680">Human-owned records</text>
+<text x="497" y="446.0" font-size="14.5" fill="#a3b5d1" text-anchor="start" font-weight="400">Labs / teammate review</text>
+<text x="497" y="466.5" font-size="14.5" fill="#a3b5d1" text-anchor="start" font-weight="400">Public video / AI approval</text>
 </g>
 <g class="node">
-<path d="M886 378H1130L1152 400V490H886Z M1130 378V400H1152" fill="white" stroke="#007f73" stroke-width="1.8"/>
-<g transform="translate(904 397) scale(0.90625)" fill="none" stroke="#007f73" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="4" width="28" height="23" rx="3"/><path d="M2 11h28M7 8h1m3 0h1m3 0h1M11 17l-4 4 4 4m10-8 4 4-4 4"/></g>
-<text x="944" y="413" font-size="18" fill="#007f73" text-anchor="start" font-weight="650">VM screenshots</text>
-<text x="906" y="444" font-size="15" fill="#526780" text-anchor="start" font-weight="400">Provider / uname / CPU</text>
-<text x="906" y="465" font-size="15" fill="#526780" text-anchor="start" font-weight="400">Containers / OpenSSL</text>
+<path d="M886 388Q886 378 896 378H1128L1152 402V480Q1152 490 1142 490H896Q886 490 886 480Z" fill="#122039" filter="url(#sh)"/>
+<path d="M886 388Q886 378 896 378H1128L1152 402V480Q1152 490 1142 490H896Q886 490 886 480Z" fill="url(#t-teal)" stroke="#3fd6b4" stroke-opacity=".6" stroke-width="1.4"/>
+<path d="M1128 378V394Q1128 402 1136 402H1152Z" fill="#3fd6b4" fill-opacity=".28" stroke="#3fd6b4" stroke-opacity=".6" stroke-width="1.2" stroke-linejoin="round"/>
+<circle cx="920" cy="411" r="18" fill="#3fd6b4" fill-opacity=".14" stroke="#3fd6b4" stroke-opacity=".55" stroke-width="1.2"/>
+<g transform="translate(909.65 400.65) scale(0.646875)" fill="none" stroke="#3fd6b4" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="4" width="28" height="23" rx="3"/><path d="M2 11h28M7 8h1m3 0h1m3 0h1M11 17l-4 4 4 4m10-8 4 4-4 4"/></g>
+<text x="948" y="416" font-size="18" fill="#eef4fd" text-anchor="start" font-weight="680">VM screenshots</text>
+<text x="906" y="446.0" font-size="14.5" fill="#a3b5d1" text-anchor="start" font-weight="400">Provider / uname / CPU</text>
+<text x="906" y="466.5" font-size="14.5" fill="#a3b5d1" text-anchor="start" font-weight="400">Containers / OpenSSL</text>
 </g>
 <g class="node">
-<path d="M633 582.0L801.0 655 633 728.0 465.0 655Z" fill="#ecf3ff" stroke="#175cd3" stroke-width="1.8"/>
-<text x="633" y="653" font-size="17" fill="#175cd3" text-anchor="middle" font-weight="650">Required records complete?</text>
-<text x="633" y="677" font-size="15" fill="#526780" text-anchor="middle" font-weight="400">Final package gate</text>
+<path d="M633 582.0L801.0 655 633 728.0 465.0 655Z" fill="#122039" filter="url(#sh)" stroke-linejoin="round"/><path d="M633 582.0L801.0 655 633 728.0 465.0 655Z" fill="url(#t-blue)" stroke="#6ea8ff" stroke-opacity=".75" stroke-width="1.5" stroke-linejoin="round"/>
+<text x="633" y="653" font-size="16.5" fill="#eef4fd" text-anchor="middle" font-weight="700">Required records complete?</text>
+<text x="633" y="676" font-size="13.5" fill="#a3b5d1" text-anchor="middle" font-weight="400">Final package gate</text>
 </g>
 <g class="node">
-<path d="M70 621H338L360 643V713H70Z M338 621V643H360" fill="white" stroke="#a94f09" stroke-width="1.8"/>
-<g transform="translate(88 640) scale(0.90625)" fill="none" stroke="#a94f09" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M7 2h13l7 7v21H7zM20 2v8h7M11 16h12m-12 5h12m-12 5h8"/></g>
-<text x="128" y="656" font-size="18" fill="#a94f09" text-anchor="start" font-weight="650">DRAFT + missing list</text>
-<text x="90" y="687" font-size="15" fill="#526780" text-anchor="start" font-weight="400">Keep unmet gates open</text>
+<path d="M70 631Q70 621 80 621H336L360 645V703Q360 713 350 713H80Q70 713 70 703Z" fill="#122039" filter="url(#sh)"/>
+<path d="M70 631Q70 621 80 621H336L360 645V703Q360 713 350 713H80Q70 713 70 703Z" fill="url(#t-amber)" stroke="#ffb65c" stroke-opacity=".6" stroke-width="1.4"/>
+<path d="M336 621V637Q336 645 344 645H360Z" fill="#ffb65c" fill-opacity=".28" stroke="#ffb65c" stroke-opacity=".6" stroke-width="1.2" stroke-linejoin="round"/>
+<circle cx="104" cy="654" r="18" fill="#ffb65c" fill-opacity=".14" stroke="#ffb65c" stroke-opacity=".55" stroke-width="1.2"/>
+<g transform="translate(93.65 643.65) scale(0.646875)" fill="none" stroke="#ffb65c" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 2h13l7 7v21H7zM20 2v8h7M11 16h12m-12 5h12m-12 5h8"/></g>
+<text x="132" y="659" font-size="18" fill="#eef4fd" text-anchor="start" font-weight="680">DRAFT + missing list</text>
+<text x="90" y="689.0" font-size="14.5" fill="#a3b5d1" text-anchor="start" font-weight="400">Keep unmet gates open</text>
 </g>
 <g class="node">
-<rect x="885" y="621" width="270" height="92" rx="10" fill="white" stroke="#007f73" stroke-width="1.8"/>
-<g transform="translate(903 640) scale(0.90625)" fill="none" stroke="#007f73" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9l13-6 13 6v16l-13 5-13-5zM3 9l13 6 13-6M16 15v15M10 6l13 6v7"/></g>
-<text x="943" y="656" font-size="18" fill="#007f73" text-anchor="start" font-weight="650">Final ZIP + manifest</text>
-<text x="905" y="687" font-size="15" fill="#526780" text-anchor="start" font-weight="400">Checksums / source identity</text>
+<rect x="885" y="621" width="270" height="92" rx="12" fill="#122039" filter="url(#sh)"/>
+<rect x="885" y="621" width="270" height="92" rx="12" fill="url(#t-teal)" stroke="#3fd6b4" stroke-opacity=".6" stroke-width="1.4"/>
+<path d="M897 622.2H1143" stroke="url(#e-teal)" stroke-width="2.6" stroke-linecap="round"/>
+<circle cx="919" cy="654" r="18" fill="#3fd6b4" fill-opacity=".14" stroke="#3fd6b4" stroke-opacity=".55" stroke-width="1.2"/>
+<g transform="translate(908.65 643.65) scale(0.646875)" fill="none" stroke="#3fd6b4" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9l13-6 13 6v16l-13 5-13-5zM3 9l13 6 13-6M16 15v15M10 6l13 6v7"/></g>
+<text x="947" y="659" font-size="18" fill="#eef4fd" text-anchor="start" font-weight="680">Final ZIP + manifest</text>
+<text x="905" y="689.0" font-size="14.5" fill="#a3b5d1" text-anchor="start" font-weight="400">Checksums / source identity</text>
 </g>
 <g class="node">
-<rect x="885" y="820" width="270" height="80" rx="40.0" fill="white" stroke="#007f73" stroke-width="1.8"/>
-<g transform="translate(903 839) scale(0.90625)" fill="none" stroke="#007f73" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="16" cy="16" r="13"/><path d="M9 16l5 5 10-12"/></g>
-<text x="943" y="855" font-size="18" fill="#007f73" text-anchor="start" font-weight="650">Leader submits</text>
-<text x="905" y="886" font-size="15" fill="#526780" text-anchor="start" font-weight="400">All four review first</text>
+<rect x="885" y="820" width="270" height="80" rx="40.0" fill="#122039" filter="url(#sh)"/>
+<rect x="885" y="820" width="270" height="80" rx="40.0" fill="url(#t-teal)" stroke="#3fd6b4" stroke-opacity=".6" stroke-width="1.4"/>
+<circle cx="929.0" cy="853" r="18" fill="#3fd6b4" fill-opacity=".14" stroke="#3fd6b4" stroke-opacity=".55" stroke-width="1.2"/>
+<g transform="translate(918.65 842.65) scale(0.646875)" fill="none" stroke="#3fd6b4" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="16" cy="16" r="13"/><path d="M9 16l5 5 10-12"/></g>
+<text x="955.0" y="858" font-size="18" fill="#eef4fd" text-anchor="start" font-weight="680">Leader submits</text>
+<text x="905" y="888.0" font-size="14.5" fill="#a3b5d1" text-anchor="start" font-weight="400">All four review first</text>
 </g>
-<path d="M366 190 L477 190" fill="none" stroke="#175cd3" stroke-width="2" stroke-linejoin="round" marker-end="url(#a-blue)"/>
-<rect x="395.25" y="161" width="52.5" height="22" rx="4" fill="#f5f8fc"/>
-<text x="421.5" y="176" font-size="13" fill="#175cd3" text-anchor="middle" font-weight="550">Build</text>
-<path d="M787 190 L886 190" fill="none" stroke="#007f73" stroke-width="2" stroke-linejoin="round" marker-end="url(#a-teal)"/>
-<rect x="802.95" y="161" width="67.1" height="22" rx="4" fill="#f5f8fc"/>
-<text x="836.5" y="176" font-size="13" fill="#007f73" text-anchor="middle" font-weight="550">Measure</text>
-<path d="M632 246 L632 307 L206 307 L206 378" fill="none" stroke="#7045b7" stroke-width="2" stroke-linejoin="round" marker-end="url(#a-violet)"/>
-<rect x="310.5" y="282" width="89.0" height="22" rx="4" fill="#f5f8fc"/>
-<text x="355" y="297" font-size="13" fill="#7045b7" text-anchor="middle" font-weight="550">Audit mode</text>
-<path d="M716 246 L716 300 L1020 300 L1020 378" fill="none" stroke="#007f73" stroke-width="2" stroke-linejoin="round" marker-end="url(#a-teal)"/>
-<rect x="1038.45" y="325" width="67.1" height="22" rx="4" fill="#f5f8fc"/>
-<text x="1072" y="340" font-size="13" fill="#007f73" text-anchor="middle" font-weight="550">Capture</text>
-<path d="M1020 246 L1020 274 L1170 274 L1170 574 L728 574 L728 623" fill="none" stroke="#7045b7" stroke-width="2" stroke-linejoin="round" marker-end="url(#a-violet)"/>
-<rect x="941.6" y="547" width="132.8" height="22" rx="4" fill="#f5f8fc"/>
-<text x="1008" y="562" font-size="13" fill="#7045b7" text-anchor="middle" font-weight="550">Measurement JSON</text>
-<path d="M206 490 L206 547 L566 547 L566 610" fill="none" stroke="#7045b7" stroke-width="2" stroke-linejoin="round" marker-end="url(#a-violet)"/>
-<path d="M632 490 L632 582" fill="none" stroke="#a94f09" stroke-width="2" stroke-linejoin="round" marker-end="url(#a-amber)"/>
-<path d="M1020 490 L1020 547 L704 547 L704 612" fill="none" stroke="#007f73" stroke-width="2" stroke-linejoin="round" marker-end="url(#a-teal)"/>
-<path d="M465 655 L360 655" fill="none" stroke="#a94f09" stroke-width="2" stroke-linejoin="round" marker-end="url(#a-amber)"/>
-<rect x="397.2" y="625" width="30.6" height="22" rx="4" fill="#f5f8fc"/>
-<text x="412.5" y="640" font-size="13" fill="#a94f09" text-anchor="middle" font-weight="550">No</text>
-<path d="M801 655 L885 655" fill="none" stroke="#007f73" stroke-width="2" stroke-linejoin="round" marker-end="url(#a-teal)"/>
-<rect x="824.05" y="625" width="37.9" height="22" rx="4" fill="#f5f8fc"/>
-<text x="843.0" y="640" font-size="13" fill="#007f73" text-anchor="middle" font-weight="550">Yes</text>
-<path d="M1020 713 L1020 820" fill="none" stroke="#007f73" stroke-width="2" stroke-linejoin="round" marker-end="url(#a-teal)"/>
-<rect x="1027.25" y="770" width="125.5" height="22" rx="4" fill="#f5f8fc"/>
-<text x="1090" y="785" font-size="13" fill="#007f73" text-anchor="middle" font-weight="550">Review + upload</text>
-<text x="32" y="938" font-size="14" fill="#526780" text-anchor="start" font-weight="400">The gate rejects missing records; it cannot establish attendance, authentic provider identity or organizer decisions by itself.</text>
+<path d="M366 190 L477 190" fill="none" stroke="#6ea8ff" stroke-opacity=".18" stroke-width="7" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M366 190 L477 190" fill="none" stroke="#6ea8ff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" marker-end="url(#a-blue)"/>
+<rect x="392.75" y="160.5" width="57.5" height="23" rx="11.5" fill="#0d1a31" stroke="#6ea8ff" stroke-opacity=".55" filter="url(#sh-s)"/>
+<text x="421.5" y="176.5" font-size="12.5" fill="#6ea8ff" text-anchor="middle" font-weight="620">Build</text>
+<path d="M787 190 L886 190" fill="none" stroke="#3fd6b4" stroke-opacity=".18" stroke-width="7" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M787 190 L886 190" fill="none" stroke="#3fd6b4" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" marker-end="url(#a-teal)"/>
+<rect x="800.65" y="160.5" width="71.69999999999999" height="23" rx="11.5" fill="#0d1a31" stroke="#3fd6b4" stroke-opacity=".55" filter="url(#sh-s)"/>
+<text x="836.5" y="176.5" font-size="12.5" fill="#3fd6b4" text-anchor="middle" font-weight="620">Measure</text>
+<path d="M632 246 L632 295 Q632 307 620 307 L218 307 Q206 307 206 319 L206 378" fill="none" stroke="#b8a2ff" stroke-opacity=".18" stroke-width="7" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M632 246 L632 295 Q632 307 620 307 L218 307 Q206 307 206 319 L206 378" fill="none" stroke="#b8a2ff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" marker-end="url(#a-violet)"/>
+<rect x="308.5" y="281.5" width="93.0" height="23" rx="11.5" fill="#0d1a31" stroke="#b8a2ff" stroke-opacity=".55" filter="url(#sh-s)"/>
+<text x="355" y="297.5" font-size="12.5" fill="#b8a2ff" text-anchor="middle" font-weight="620">Audit mode</text>
+<path d="M716 246 L716 288 Q716 300 728 300 L1008 300 Q1020 300 1020 312 L1020 378" fill="none" stroke="#3fd6b4" stroke-opacity=".18" stroke-width="7" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M716 246 L716 288 Q716 300 728 300 L1008 300 Q1020 300 1020 312 L1020 378" fill="none" stroke="#3fd6b4" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" marker-end="url(#a-teal)"/>
+<rect x="1036.15" y="324.5" width="71.69999999999999" height="23" rx="11.5" fill="#0d1a31" stroke="#3fd6b4" stroke-opacity=".55" filter="url(#sh-s)"/>
+<text x="1072" y="340.5" font-size="12.5" fill="#3fd6b4" text-anchor="middle" font-weight="620">Capture</text>
+<path d="M1020 246 L1020 262 Q1020 274 1032 274 L1158 274 Q1170 274 1170 286 L1170 562 Q1170 574 1158 574 L740 574 Q728 574 728 586 L728 623" fill="none" stroke="#b8a2ff" stroke-opacity=".18" stroke-width="7" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M1020 246 L1020 262 Q1020 274 1032 274 L1158 274 Q1170 274 1170 286 L1170 562 Q1170 574 1158 574 L740 574 Q728 574 728 586 L728 623" fill="none" stroke="#b8a2ff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" marker-end="url(#a-violet)"/>
+<rect x="940.2" y="546.5" width="135.6" height="23" rx="11.5" fill="#0d1a31" stroke="#b8a2ff" stroke-opacity=".55" filter="url(#sh-s)"/>
+<text x="1008" y="562.5" font-size="12.5" fill="#b8a2ff" text-anchor="middle" font-weight="620">Measurement JSON</text>
+<path d="M206 490 L206 535 Q206 547 218 547 L554 547 Q566 547 566 559 L566 610" fill="none" stroke="#b8a2ff" stroke-opacity=".18" stroke-width="7" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M206 490 L206 535 Q206 547 218 547 L554 547 Q566 547 566 559 L566 610" fill="none" stroke="#b8a2ff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" marker-end="url(#a-violet)"/>
+<path d="M632 490 L632 582" fill="none" stroke="#ffb65c" stroke-opacity=".18" stroke-width="7" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M632 490 L632 582" fill="none" stroke="#ffb65c" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" marker-end="url(#a-amber)"/>
+<path d="M1020 490 L1020 535 Q1020 547 1008 547 L716 547 Q704 547 704 559 L704 612" fill="none" stroke="#3fd6b4" stroke-opacity=".18" stroke-width="7" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M1020 490 L1020 535 Q1020 547 1008 547 L716 547 Q704 547 704 559 L704 612" fill="none" stroke="#3fd6b4" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" marker-end="url(#a-teal)"/>
+<path d="M465 655 L360 655" fill="none" stroke="#ffb65c" stroke-opacity=".18" stroke-width="7" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M465 655 L360 655" fill="none" stroke="#ffb65c" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" marker-end="url(#a-amber)"/>
+<rect x="394.4" y="624.5" width="36.2" height="23" rx="11.5" fill="#0d1a31" stroke="#ffb65c" stroke-opacity=".55" filter="url(#sh-s)"/>
+<text x="412.5" y="640.5" font-size="12.5" fill="#ffb65c" text-anchor="middle" font-weight="620">No</text>
+<path d="M801 655 L885 655" fill="none" stroke="#3fd6b4" stroke-opacity=".18" stroke-width="7" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M801 655 L885 655" fill="none" stroke="#3fd6b4" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" marker-end="url(#a-teal)"/>
+<rect x="821.35" y="624.5" width="43.3" height="23" rx="11.5" fill="#0d1a31" stroke="#3fd6b4" stroke-opacity=".55" filter="url(#sh-s)"/>
+<text x="843.0" y="640.5" font-size="12.5" fill="#3fd6b4" text-anchor="middle" font-weight="620">Yes</text>
+<path d="M1020 713 L1020 820" fill="none" stroke="#3fd6b4" stroke-opacity=".18" stroke-width="7" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M1020 713 L1020 820" fill="none" stroke="#3fd6b4" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" marker-end="url(#a-teal)"/>
+<rect x="1025.75" y="769.5" width="128.5" height="23" rx="11.5" fill="#0d1a31" stroke="#3fd6b4" stroke-opacity=".55" filter="url(#sh-s)"/>
+<text x="1090" y="785.5" font-size="12.5" fill="#3fd6b4" text-anchor="middle" font-weight="620">Review + upload</text>
+<circle cx="38" cy="933" r="3" fill="#3fd6b4"/>
+<text x="50" y="938" font-size="13" fill="#a3b5d1" text-anchor="start" font-weight="400">The gate rejects missing records; it cannot establish attendance, authentic provider identity or organizer decisions by itself.</text>
 </svg>

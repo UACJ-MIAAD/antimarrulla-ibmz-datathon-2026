@@ -1,76 +1,104 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 780" role="img" aria-labelledby="title desc">
 <title id="title">Container architecture / privacy boundaries</title><desc id="desc">C4-style container view · arrows name the data crossing each boundary</desc>
-<defs><marker id="a-blue" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0L10 5 0 10z" fill="#175cd3"/></marker><marker id="a-teal" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0L10 5 0 10z" fill="#007f73"/></marker><marker id="a-violet" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0L10 5 0 10z" fill="#7045b7"/></marker><marker id="a-amber" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0L10 5 0 10z" fill="#a94f09"/></marker><marker id="a-red" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0L10 5 0 10z" fill="#ba3544"/></marker><marker id="a-ink" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0L10 5 0 10z" fill="#20344d"/></marker></defs>
-<rect width="1200" height="100%" rx="14" fill="#f5f8fc"/>
-<style>text{font-family:Inter,ui-sans-serif,system-ui,-apple-system,sans-serif} .mono{font-family:ui-monospace,SFMono-Regular,Consolas,monospace}</style>
-<text x="32" y="38" font-size="23" fill="#20344d" text-anchor="start" font-weight="700">Container architecture / privacy boundaries</text>
-<text x="32" y="65" font-size="15" fill="#526780" text-anchor="start" font-weight="400">C4-style container view · arrows name the data crossing each boundary</text>
-<path d="M32 83L1168 83" stroke="#d9e2ed" stroke-width="1.6" fill="none"/>
-<rect x="280" y="150" width="860" height="530" rx="12" fill="white" fill-opacity=".55" stroke="#175cd3" stroke-opacity=".5" stroke-width="1.8" stroke-dasharray="7 5"/>
-<text x="298" y="177" font-size="15" fill="#175cd3" text-anchor="start" font-weight="700">APPROVED MVP · TWO CONTAINERS ON ONE HOST</text>
-<text x="298" y="200" font-size="13" fill="#526780" text-anchor="start" font-weight="400">Logical key isolation; the host administrator remains trusted.</text>
+<defs><marker id="a-blue" viewBox="0 0 12 12" refX="10" refY="6" markerWidth="8" markerHeight="8" orient="auto-start-reverse"><path d="M1 1.5L11 6 1 10.5 3.6 6z" fill="#6ea8ff"/></marker><linearGradient id="t-blue" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#6ea8ff" stop-opacity=".16"/><stop offset=".55" stop-color="#6ea8ff" stop-opacity=".05"/><stop offset="1" stop-color="#6ea8ff" stop-opacity=".02"/></linearGradient><linearGradient id="e-blue" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#6ea8ff" stop-opacity=".95"/><stop offset="1" stop-color="#6ea8ff" stop-opacity=".55"/></linearGradient><marker id="a-teal" viewBox="0 0 12 12" refX="10" refY="6" markerWidth="8" markerHeight="8" orient="auto-start-reverse"><path d="M1 1.5L11 6 1 10.5 3.6 6z" fill="#3fd6b4"/></marker><linearGradient id="t-teal" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#3fd6b4" stop-opacity=".16"/><stop offset=".55" stop-color="#3fd6b4" stop-opacity=".05"/><stop offset="1" stop-color="#3fd6b4" stop-opacity=".02"/></linearGradient><linearGradient id="e-teal" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#3fd6b4" stop-opacity=".95"/><stop offset="1" stop-color="#3fd6b4" stop-opacity=".55"/></linearGradient><marker id="a-violet" viewBox="0 0 12 12" refX="10" refY="6" markerWidth="8" markerHeight="8" orient="auto-start-reverse"><path d="M1 1.5L11 6 1 10.5 3.6 6z" fill="#b8a2ff"/></marker><linearGradient id="t-violet" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#b8a2ff" stop-opacity=".16"/><stop offset=".55" stop-color="#b8a2ff" stop-opacity=".05"/><stop offset="1" stop-color="#b8a2ff" stop-opacity=".02"/></linearGradient><linearGradient id="e-violet" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#b8a2ff" stop-opacity=".95"/><stop offset="1" stop-color="#b8a2ff" stop-opacity=".55"/></linearGradient><marker id="a-amber" viewBox="0 0 12 12" refX="10" refY="6" markerWidth="8" markerHeight="8" orient="auto-start-reverse"><path d="M1 1.5L11 6 1 10.5 3.6 6z" fill="#ffb65c"/></marker><linearGradient id="t-amber" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#ffb65c" stop-opacity=".16"/><stop offset=".55" stop-color="#ffb65c" stop-opacity=".05"/><stop offset="1" stop-color="#ffb65c" stop-opacity=".02"/></linearGradient><linearGradient id="e-amber" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#ffb65c" stop-opacity=".95"/><stop offset="1" stop-color="#ffb65c" stop-opacity=".55"/></linearGradient><marker id="a-red" viewBox="0 0 12 12" refX="10" refY="6" markerWidth="8" markerHeight="8" orient="auto-start-reverse"><path d="M1 1.5L11 6 1 10.5 3.6 6z" fill="#ff7088"/></marker><linearGradient id="t-red" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#ff7088" stop-opacity=".16"/><stop offset=".55" stop-color="#ff7088" stop-opacity=".05"/><stop offset="1" stop-color="#ff7088" stop-opacity=".02"/></linearGradient><linearGradient id="e-red" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#ff7088" stop-opacity=".95"/><stop offset="1" stop-color="#ff7088" stop-opacity=".55"/></linearGradient><marker id="a-ink" viewBox="0 0 12 12" refX="10" refY="6" markerWidth="8" markerHeight="8" orient="auto-start-reverse"><path d="M1 1.5L11 6 1 10.5 3.6 6z" fill="#eef4fd"/></marker><linearGradient id="t-ink" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#eef4fd" stop-opacity=".16"/><stop offset=".55" stop-color="#eef4fd" stop-opacity=".05"/><stop offset="1" stop-color="#eef4fd" stop-opacity=".02"/></linearGradient><linearGradient id="e-ink" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#eef4fd" stop-opacity=".95"/><stop offset="1" stop-color="#eef4fd" stop-opacity=".55"/></linearGradient><filter id="sh" x="-20%" y="-20%" width="140%" height="160%"><feDropShadow dx="0" dy="8" stdDeviation="10" flood-color="#000814" flood-opacity=".55"/></filter><filter id="sh-s" x="-20%" y="-30%" width="140%" height="180%"><feDropShadow dx="0" dy="3" stdDeviation="4" flood-color="#000814" flood-opacity=".5"/></filter><pattern id="grid" width="24" height="24" patternUnits="userSpaceOnUse"><circle cx="1.2" cy="1.2" r="1.2" fill="#1b2b49"/></pattern><radialGradient id="glow" cx="12%" cy="0%" r="75%"><stop offset="0" stop-color="#2a5bb8" stop-opacity=".35"/><stop offset="1" stop-color="#2a5bb8" stop-opacity="0"/></radialGradient><radialGradient id="glow2" cx="100%" cy="100%" r="60%"><stop offset="0" stop-color="#1f8f7c" stop-opacity=".18"/><stop offset="1" stop-color="#1f8f7c" stop-opacity="0"/></radialGradient><linearGradient id="accent" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#6ea8ff"/><stop offset="1" stop-color="#3fd6b4"/></linearGradient></defs>
+<style>text{font-family:Inter,"SF Pro Text",ui-sans-serif,system-ui,-apple-system,"Segoe UI",sans-serif;letter-spacing:-.005em} .mono{font-family:"JetBrains Mono",ui-monospace,SFMono-Regular,Consolas,monospace;letter-spacing:0} .caps{letter-spacing:.09em}</style>
+<rect width="1200" height="780" rx="18" fill="#0a1324"/>
+<rect width="1200" height="780" rx="18" fill="url(#grid)" opacity=".9"/>
+<rect width="1200" height="780" rx="18" fill="url(#glow)"/>
+<rect width="1200" height="780" rx="18" fill="url(#glow2)"/>
+<rect x=".5" y=".5" width="1199" height="779" rx="18" fill="none" stroke="#22365a"/>
+<rect x="32" y="22" width="5" height="50" rx="2.5" fill="url(#accent)"/>
+<text x="50" y="44" font-size="25" fill="#eef4fd" text-anchor="start" font-weight="750">Container architecture / privacy boundaries</text>
+<text x="50" y="68" font-size="14.5" fill="#a3b5d1" text-anchor="start" font-weight="400">C4-style container view · arrows name the data crossing each boundary</text>
+<path d="M32 88H1168" stroke="#2b3f63" stroke-width="1"/>
+<rect x="280" y="150" width="860" height="530" rx="16" fill="#6ea8ff" fill-opacity=".045" stroke="#6ea8ff" stroke-opacity=".42" stroke-width="1.4" stroke-dasharray="7 6"/>
+<rect x="294" y="162" width="394.8" height="24" rx="12" fill="#6ea8ff" fill-opacity=".16" stroke="#6ea8ff" stroke-opacity=".45"/>
+<text x="307" y="178.5" font-size="12" fill="#6ea8ff" text-anchor="start" font-weight="750" class="caps">APPROVED MVP · TWO CONTAINERS ON ONE HOST</text>
+<text x="298" y="204" font-size="13" fill="#a3b5d1" text-anchor="start" font-weight="400">Logical key isolation; the host administrator remains trusted.</text>
 <g class="node">
-<path d="M78.0 222C26.0 222 34.0 158.4 82.0 158.4C78.0 110.7 178.0 110.7 182.0 147.8C250.0 128.72 262.0 222 202.0 222Z" fill="#fff9ed" stroke="#a94f09" stroke-width="1.8"/>
-<text x="138.0" y="174.3" font-size="18" fill="#a94f09" text-anchor="middle" font-weight="650">Public website</text>
-<text x="138.0" y="200.8" font-size="14" fill="#526780" text-anchor="middle" font-weight="400">Netlify · static only</text>
+<path d="M78.0 222C26.0 222 34.0 158.4 82.0 158.4C78.0 110.7 178.0 110.7 182.0 147.8C250.0 128.72 262.0 222 202.0 222Z" fill="#122039" filter="url(#sh)"/><path d="M78.0 222C26.0 222 34.0 158.4 82.0 158.4C78.0 110.7 178.0 110.7 182.0 147.8C250.0 128.72 262.0 222 202.0 222Z" fill="url(#t-amber)" stroke="#ffb65c" stroke-opacity=".75" stroke-width="1.4"/>
+<text x="138.0" y="175.36" font-size="17.5" fill="#eef4fd" text-anchor="middle" font-weight="700">Public website</text>
+<text x="138.0" y="200.8" font-size="13.5" fill="#ffb65c" text-anchor="middle" font-weight="500">Netlify · static only</text>
 </g>
 <g class="node">
-<rect x="34" y="310" width="185" height="116" rx="10" fill="white" stroke="#007f73" stroke-width="1.8"/>
-<g transform="translate(52 329) scale(0.90625)" fill="none" stroke="#007f73" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="4" width="28" height="23" rx="3"/><path d="M2 11h28M7 8h1m3 0h1m3 0h1M11 17l-4 4 4 4m10-8 4 4-4 4"/></g>
-<text x="92" y="345" font-size="18" fill="#007f73" text-anchor="start" font-weight="650">Team browser</text>
-<text x="54" y="376" font-size="15" fill="#526780" text-anchor="start" font-weight="400">Synthetic input</text>
-<text x="54" y="397" font-size="15" fill="#526780" text-anchor="start" font-weight="400">Risk + contributions</text>
+<rect x="34" y="310" width="185" height="116" rx="12" fill="#122039" filter="url(#sh)"/>
+<rect x="34" y="310" width="185" height="116" rx="12" fill="url(#t-teal)" stroke="#3fd6b4" stroke-opacity=".6" stroke-width="1.4"/>
+<path d="M46 311.2H207" stroke="url(#e-teal)" stroke-width="2.6" stroke-linecap="round"/>
+<circle cx="68" cy="343" r="18" fill="#3fd6b4" fill-opacity=".14" stroke="#3fd6b4" stroke-opacity=".55" stroke-width="1.2"/>
+<g transform="translate(57.65 332.65) scale(0.646875)" fill="none" stroke="#3fd6b4" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="4" width="28" height="23" rx="3"/><path d="M2 11h28M7 8h1m3 0h1m3 0h1M11 17l-4 4 4 4m10-8 4 4-4 4"/></g>
+<text x="96" y="348" font-size="18" fill="#eef4fd" text-anchor="start" font-weight="680">Team browser</text>
+<text x="54" y="378.0" font-size="14.5" fill="#a3b5d1" text-anchor="start" font-weight="400">Synthetic input</text>
+<text x="54" y="398.5" font-size="14.5" fill="#a3b5d1" text-anchor="start" font-weight="400">Risk + contributions</text>
 </g>
-<g transform="translate(107 460) scale(1.1875)" fill="none" stroke="#20344d" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="16" cy="8" r="4"/><path d="M7 27v-4a9 9 0 0 1 18 0v4M16 18v10"/></g>
-<text x="126" y="520" font-size="16" fill="#20344d" text-anchor="middle" font-weight="400">Operator</text>
-<path d="M126 464L126 426" stroke="#007f73" stroke-width="1.6" fill="none"/>
+<g transform="translate(107 460) scale(1.1875)" fill="none" stroke="#eef4fd" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="16" cy="8" r="4"/><path d="M7 27v-4a9 9 0 0 1 18 0v4M16 18v10"/></g>
+<text x="126" y="520" font-size="16" fill="#eef4fd" text-anchor="middle" font-weight="400">Operator</text>
+<path d="M126 464L126 426" stroke="#3fd6b4" stroke-width="1.6" fill="none" stroke-linecap="round"/>
 <g class="node">
-<rect x="320" y="300" width="275" height="138" rx="10" fill="white" stroke="#007f73" stroke-width="1.8"/>
-<g transform="translate(338 319) scale(0.90625)" fill="none" stroke="#007f73" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M5 29V9h22v20M2 29h28M11 9V3h10v6M16 5v3m-2-1h4M12 29v-7h8v7M10 14h2m8 0h2m-12 4h2m8 0h2"/></g>
-<text x="378" y="335" font-size="18" fill="#007f73" text-anchor="start" font-weight="650">Hospital</text>
-<text x="340" y="366" font-size="15" fill="#526780" text-anchor="start" font-weight="400">Frontend + API</text>
-<text x="340" y="387" font-size="15" fill="#526780" text-anchor="start" font-weight="400">Validate · encrypt · decrypt</text>
-<text x="340" y="408" font-size="15" fill="#526780" text-anchor="start" font-weight="400">Paillier private key in memory</text>
-</g>
-<g class="node">
-<rect x="810" y="300" width="285" height="138" rx="10" fill="white" stroke="#175cd3" stroke-width="1.8"/>
-<g transform="translate(828 319) scale(0.90625)" fill="none" stroke="#175cd3" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="3" width="24" height="8" rx="2"/><rect x="4" y="13" width="24" height="8" rx="2"/><rect x="4" y="23" width="24" height="6" rx="2"/><path d="M8 7h1m4 0h10M8 17h1m4 0h10M8 26h1"/></g>
-<text x="868" y="335" font-size="18" fill="#175cd3" text-anchor="start" font-weight="650">Risk service</text>
-<text x="830" y="366" font-size="15" fill="#526780" text-anchor="start" font-weight="400">Public model + integer weights</text>
-<text x="830" y="387" font-size="15" fill="#526780" text-anchor="start" font-weight="400">Homomorphic linear scoring</text>
-<text x="830" y="408" font-size="15" fill="#526780" text-anchor="start" font-weight="400">No Paillier private key</text>
+<rect x="320" y="300" width="275" height="138" rx="12" fill="#122039" filter="url(#sh)"/>
+<rect x="320" y="300" width="275" height="138" rx="12" fill="url(#t-teal)" stroke="#3fd6b4" stroke-opacity=".6" stroke-width="1.4"/>
+<path d="M332 301.2H583" stroke="url(#e-teal)" stroke-width="2.6" stroke-linecap="round"/>
+<circle cx="354" cy="333" r="18" fill="#3fd6b4" fill-opacity=".14" stroke="#3fd6b4" stroke-opacity=".55" stroke-width="1.2"/>
+<g transform="translate(343.65 322.65) scale(0.646875)" fill="none" stroke="#3fd6b4" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 29V9h22v20M2 29h28M11 9V3h10v6M16 5v3m-2-1h4M12 29v-7h8v7M10 14h2m8 0h2m-12 4h2m8 0h2"/></g>
+<text x="382" y="338" font-size="18" fill="#eef4fd" text-anchor="start" font-weight="680">Hospital</text>
+<text x="340" y="368.0" font-size="14.5" fill="#a3b5d1" text-anchor="start" font-weight="400">Frontend + API</text>
+<text x="340" y="388.5" font-size="14.5" fill="#a3b5d1" text-anchor="start" font-weight="400">Validate · encrypt · decrypt</text>
+<text x="340" y="409.0" font-size="14.5" fill="#a3b5d1" text-anchor="start" font-weight="400">Paillier private key in memory</text>
 </g>
 <g class="node">
-<path d="M330 538V614C330 638 585 638 585 614V538" fill="white" stroke="#7045b7" stroke-width="1.8"/><ellipse cx="457.5" cy="538" rx="127.5" ry="18" fill="#eeebf7" stroke="#7045b7" stroke-width="1.8"/>
-<text x="457.5" y="575" font-size="18" fill="#7045b7" text-anchor="middle" font-weight="650">Encrypted vault</text>
-<text x="457.5" y="602" font-size="14" fill="#526780" text-anchor="middle" font-weight="400">AES-256-GCM payload</text>
-<text x="457.5" y="622" font-size="14" fill="#526780" text-anchor="middle" font-weight="400">Persistent Docker volume</text>
+<rect x="810" y="300" width="285" height="138" rx="12" fill="#122039" filter="url(#sh)"/>
+<rect x="810" y="300" width="285" height="138" rx="12" fill="url(#t-blue)" stroke="#6ea8ff" stroke-opacity=".6" stroke-width="1.4"/>
+<path d="M822 301.2H1083" stroke="url(#e-blue)" stroke-width="2.6" stroke-linecap="round"/>
+<circle cx="844" cy="333" r="18" fill="#6ea8ff" fill-opacity=".14" stroke="#6ea8ff" stroke-opacity=".55" stroke-width="1.2"/>
+<g transform="translate(833.65 322.65) scale(0.646875)" fill="none" stroke="#6ea8ff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="3" width="24" height="8" rx="2"/><rect x="4" y="13" width="24" height="8" rx="2"/><rect x="4" y="23" width="24" height="6" rx="2"/><path d="M8 7h1m4 0h10M8 17h1m4 0h10M8 26h1"/></g>
+<text x="872" y="338" font-size="18" fill="#eef4fd" text-anchor="start" font-weight="680">Risk service</text>
+<text x="830" y="368.0" font-size="14.5" fill="#a3b5d1" text-anchor="start" font-weight="400">Public model + integer weights</text>
+<text x="830" y="388.5" font-size="14.5" fill="#a3b5d1" text-anchor="start" font-weight="400">Homomorphic linear scoring</text>
+<text x="830" y="409.0" font-size="14.5" fill="#a3b5d1" text-anchor="start" font-weight="400">No Paillier private key</text>
 </g>
 <g class="node">
-<path d="M820 530H1058L1080 552V622H820Z M1058 530V552H1080" fill="white" stroke="#7045b7" stroke-width="1.8"/>
-<g transform="translate(838 549) scale(0.90625)" fill="none" stroke="#7045b7" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="6" cy="7" r="3"/><circle cx="6" cy="25" r="3"/><circle cx="17" cy="16" r="4"/><circle cx="27" cy="7" r="3"/><circle cx="27" cy="25" r="3"/><path d="M9 9l5 5M9 23l5-5m7-4 4-5m-4 9 4 5"/></g>
-<text x="878" y="565" font-size="18" fill="#7045b7" text-anchor="start" font-weight="650">Model artifact</text>
-<text x="840" y="596" font-size="15" fill="#526780" text-anchor="start" font-weight="400">Versioned weights W and B</text>
+<path d="M330 538V614C330 638 585 638 585 614V538" fill="#122039" filter="url(#sh)"/>
+<path d="M330 538V614C330 638 585 638 585 614V538" fill="url(#t-violet)" stroke="#b8a2ff" stroke-opacity=".65" stroke-width="1.4"/>
+<path d="M330 554C330 578 585 578 585 554" fill="none" stroke="#b8a2ff" stroke-opacity=".22" stroke-width="1.2"/>
+<ellipse cx="457.5" cy="538" rx="127.5" ry="18" fill="#18294a"/><ellipse cx="457.5" cy="538" rx="127.5" ry="18" fill="#b8a2ff" fill-opacity=".22" stroke="#b8a2ff" stroke-opacity=".75" stroke-width="1.4"/>
+<text x="457.5" y="580" font-size="17.5" fill="#eef4fd" text-anchor="middle" font-weight="700">Encrypted vault</text>
+<text x="457.5" y="604.0" font-size="13.5" fill="#a3b5d1" text-anchor="middle" font-weight="400">AES-256-GCM payload</text>
+<text x="457.5" y="623.5" font-size="13.5" fill="#a3b5d1" text-anchor="middle" font-weight="400">Persistent Docker volume</text>
 </g>
-<path d="M135 310 L135 222" fill="none" stroke="#a94f09" stroke-width="2" stroke-linejoin="round" marker-end="url(#a-amber)"/>
-<rect x="158.75" y="257" width="52.5" height="22" rx="4" fill="#f5f8fc"/>
-<text x="185" y="272" font-size="13" fill="#a94f09" text-anchor="middle" font-weight="550">HTTPS</text>
-<path d="M219 367 L320 367" fill="none" stroke="#007f73" stroke-width="2" stroke-linejoin="round" marker-end="url(#a-teal)"/>
-<rect x="225.5" y="335" width="89.0" height="22" rx="4" fill="#f5f8fc"/>
-<text x="270" y="350" font-size="13" fill="#007f73" text-anchor="middle" font-weight="550">SSH tunnel</text>
-<path d="M595 333 L810 333" fill="none" stroke="#175cd3" stroke-width="2" stroke-linejoin="round" marker-end="url(#a-blue)"/>
-<rect x="593.45" y="303" width="213.1" height="22" rx="4" fill="#f5f8fc"/>
-<text x="700" y="318" font-size="13" fill="#175cd3" text-anchor="middle" font-weight="550">21 ciphertexts + public key</text>
-<path d="M810 398 L595 398" fill="none" stroke="#175cd3" stroke-width="2" stroke-linejoin="round" marker-end="url(#a-blue)"/>
-<rect x="611.7" y="405" width="176.6" height="22" rx="4" fill="#f5f8fc"/>
-<text x="700" y="420" font-size="13" fill="#175cd3" text-anchor="middle" font-weight="550">Encrypted score Enc(z)</text>
-<path d="M457 438 L457 520" fill="none" stroke="#7045b7" stroke-width="2" stroke-linejoin="round" marker-end="url(#a-violet)"/>
-<rect x="490.35" y="467" width="169.29999999999998" height="22" rx="4" fill="#f5f8fc"/>
-<text x="575" y="482" font-size="13" fill="#7045b7" text-anchor="middle" font-weight="550">Save encrypted result</text>
-<path d="M950 530 L950 438" fill="none" stroke="#7045b7" stroke-width="2" stroke-linejoin="round" marker-end="url(#a-violet)" stroke-dasharray="6 5"/>
-<rect x="969.15" y="470" width="81.7" height="22" rx="4" fill="#f5f8fc"/>
-<text x="1010" y="485" font-size="13" fill="#7045b7" text-anchor="middle" font-weight="550">Load W, B</text>
-<path d="M320 706v46" stroke="#007f73" stroke-width="3"/>
-<text x="332" y="721" font-size="14" fill="#007f73" text-anchor="start" font-weight="400">Public site has no route to the Hospital API. Plaintext feature values and the decrypted result stay</text>
-<text x="332" y="741" font-size="14" fill="#007f73" text-anchor="start" font-weight="400">in Hospital.</text>
+<g class="node">
+<path d="M820 540Q820 530 830 530H1056L1080 554V612Q1080 622 1070 622H830Q820 622 820 612Z" fill="#122039" filter="url(#sh)"/>
+<path d="M820 540Q820 530 830 530H1056L1080 554V612Q1080 622 1070 622H830Q820 622 820 612Z" fill="url(#t-violet)" stroke="#b8a2ff" stroke-opacity=".6" stroke-width="1.4"/>
+<path d="M1056 530V546Q1056 554 1064 554H1080Z" fill="#b8a2ff" fill-opacity=".28" stroke="#b8a2ff" stroke-opacity=".6" stroke-width="1.2" stroke-linejoin="round"/>
+<circle cx="854" cy="563" r="18" fill="#b8a2ff" fill-opacity=".14" stroke="#b8a2ff" stroke-opacity=".55" stroke-width="1.2"/>
+<g transform="translate(843.65 552.65) scale(0.646875)" fill="none" stroke="#b8a2ff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="6" cy="7" r="3"/><circle cx="6" cy="25" r="3"/><circle cx="17" cy="16" r="4"/><circle cx="27" cy="7" r="3"/><circle cx="27" cy="25" r="3"/><path d="M9 9l5 5M9 23l5-5m7-4 4-5m-4 9 4 5"/></g>
+<text x="882" y="568" font-size="18" fill="#eef4fd" text-anchor="start" font-weight="680">Model artifact</text>
+<text x="840" y="598.0" font-size="14.5" fill="#a3b5d1" text-anchor="start" font-weight="400">Versioned weights W and B</text>
+</g>
+<path d="M135 310 L135 222" fill="none" stroke="#ffb65c" stroke-opacity=".18" stroke-width="7" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M135 310 L135 222" fill="none" stroke="#ffb65c" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" marker-end="url(#a-amber)"/>
+<rect x="156.25" y="256.5" width="57.5" height="23" rx="11.5" fill="#0d1a31" stroke="#ffb65c" stroke-opacity=".55" filter="url(#sh-s)"/>
+<text x="185" y="272.5" font-size="12.5" fill="#ffb65c" text-anchor="middle" font-weight="620">HTTPS</text>
+<path d="M219 367 L320 367" fill="none" stroke="#3fd6b4" stroke-opacity=".18" stroke-width="7" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M219 367 L320 367" fill="none" stroke="#3fd6b4" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" marker-end="url(#a-teal)"/>
+<rect x="223.5" y="334.5" width="93.0" height="23" rx="11.5" fill="#0d1a31" stroke="#3fd6b4" stroke-opacity=".55" filter="url(#sh-s)"/>
+<text x="270" y="350.5" font-size="12.5" fill="#3fd6b4" text-anchor="middle" font-weight="620">SSH tunnel</text>
+<path d="M595 333 L810 333" fill="none" stroke="#6ea8ff" stroke-opacity=".18" stroke-width="7" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M595 333 L810 333" fill="none" stroke="#6ea8ff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" marker-end="url(#a-blue)"/>
+<rect x="593.15" y="302.5" width="213.7" height="23" rx="11.5" fill="#0d1a31" stroke="#6ea8ff" stroke-opacity=".55" filter="url(#sh-s)"/>
+<text x="700" y="318.5" font-size="12.5" fill="#6ea8ff" text-anchor="middle" font-weight="620">21 ciphertexts + public key</text>
+<path d="M810 398 L595 398" fill="none" stroke="#6ea8ff" stroke-opacity=".18" stroke-width="7" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M810 398 L595 398" fill="none" stroke="#6ea8ff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" marker-end="url(#a-blue)"/>
+<rect x="610.9" y="404.5" width="178.2" height="23" rx="11.5" fill="#0d1a31" stroke="#6ea8ff" stroke-opacity=".55" filter="url(#sh-s)"/>
+<text x="700" y="420.5" font-size="12.5" fill="#6ea8ff" text-anchor="middle" font-weight="620">Encrypted score Enc(z)</text>
+<path d="M457 438 L457 520" fill="none" stroke="#b8a2ff" stroke-opacity=".18" stroke-width="7" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M457 438 L457 520" fill="none" stroke="#b8a2ff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" marker-end="url(#a-violet)"/>
+<rect x="489.45" y="466.5" width="171.1" height="23" rx="11.5" fill="#0d1a31" stroke="#b8a2ff" stroke-opacity=".55" filter="url(#sh-s)"/>
+<text x="575" y="482.5" font-size="12.5" fill="#b8a2ff" text-anchor="middle" font-weight="620">Save encrypted result</text>
+<path d="M950 530 L950 438" fill="none" stroke="#b8a2ff" stroke-opacity=".18" stroke-width="7" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M950 530 L950 438" fill="none" stroke="#b8a2ff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" marker-end="url(#a-violet)" stroke-dasharray="7 6"/>
+<rect x="967.05" y="469.5" width="85.9" height="23" rx="11.5" fill="#0d1a31" stroke="#b8a2ff" stroke-opacity=".55" filter="url(#sh-s)"/>
+<text x="1010" y="485.5" font-size="12.5" fill="#b8a2ff" text-anchor="middle" font-weight="620">Load W, B</text>
+<rect x="320" y="702" width="790" height="57.0" rx="10" fill="#3fd6b4" fill-opacity=".08" stroke="#3fd6b4" stroke-opacity=".35"/>
+<rect x="320" y="702" width="4" height="57.0" rx="2" fill="#3fd6b4"/>
+<text x="338" y="722.0" font-size="13.5" fill="#3fd6b4" text-anchor="start" font-weight="500">Public site has no route to the Hospital API. Plaintext feature values and the decrypted result stay in</text>
+<text x="338" y="741.5" font-size="13.5" fill="#3fd6b4" text-anchor="start" font-weight="500">Hospital.</text>
 </svg>

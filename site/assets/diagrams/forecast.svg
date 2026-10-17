@@ -1,110 +1,155 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 1030" role="img" aria-labelledby="title desc">
 <title id="title">E5 forecasting / selection, reconciliation and evaluation</title><desc id="desc">Data-flow DAG · aggregate notifications only; independent of encrypted patient screening</desc>
-<defs><marker id="a-blue" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0L10 5 0 10z" fill="#175cd3"/></marker><marker id="a-teal" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0L10 5 0 10z" fill="#007f73"/></marker><marker id="a-violet" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0L10 5 0 10z" fill="#7045b7"/></marker><marker id="a-amber" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0L10 5 0 10z" fill="#a94f09"/></marker><marker id="a-red" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0L10 5 0 10z" fill="#ba3544"/></marker><marker id="a-ink" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0L10 5 0 10z" fill="#20344d"/></marker></defs>
-<rect width="1200" height="100%" rx="14" fill="#f5f8fc"/>
-<style>text{font-family:Inter,ui-sans-serif,system-ui,-apple-system,sans-serif} .mono{font-family:ui-monospace,SFMono-Regular,Consolas,monospace}</style>
-<text x="32" y="38" font-size="23" fill="#20344d" text-anchor="start" font-weight="700">E5 forecasting / selection, reconciliation and evaluation</text>
-<text x="32" y="65" font-size="15" fill="#526780" text-anchor="start" font-weight="400">Data-flow DAG · aggregate notifications only; independent of encrypted patient screening</text>
-<path d="M32 83L1168 83" stroke="#d9e2ed" stroke-width="1.6" fill="none"/>
+<defs><marker id="a-blue" viewBox="0 0 12 12" refX="10" refY="6" markerWidth="8" markerHeight="8" orient="auto-start-reverse"><path d="M1 1.5L11 6 1 10.5 3.6 6z" fill="#6ea8ff"/></marker><linearGradient id="t-blue" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#6ea8ff" stop-opacity=".16"/><stop offset=".55" stop-color="#6ea8ff" stop-opacity=".05"/><stop offset="1" stop-color="#6ea8ff" stop-opacity=".02"/></linearGradient><linearGradient id="e-blue" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#6ea8ff" stop-opacity=".95"/><stop offset="1" stop-color="#6ea8ff" stop-opacity=".55"/></linearGradient><marker id="a-teal" viewBox="0 0 12 12" refX="10" refY="6" markerWidth="8" markerHeight="8" orient="auto-start-reverse"><path d="M1 1.5L11 6 1 10.5 3.6 6z" fill="#3fd6b4"/></marker><linearGradient id="t-teal" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#3fd6b4" stop-opacity=".16"/><stop offset=".55" stop-color="#3fd6b4" stop-opacity=".05"/><stop offset="1" stop-color="#3fd6b4" stop-opacity=".02"/></linearGradient><linearGradient id="e-teal" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#3fd6b4" stop-opacity=".95"/><stop offset="1" stop-color="#3fd6b4" stop-opacity=".55"/></linearGradient><marker id="a-violet" viewBox="0 0 12 12" refX="10" refY="6" markerWidth="8" markerHeight="8" orient="auto-start-reverse"><path d="M1 1.5L11 6 1 10.5 3.6 6z" fill="#b8a2ff"/></marker><linearGradient id="t-violet" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#b8a2ff" stop-opacity=".16"/><stop offset=".55" stop-color="#b8a2ff" stop-opacity=".05"/><stop offset="1" stop-color="#b8a2ff" stop-opacity=".02"/></linearGradient><linearGradient id="e-violet" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#b8a2ff" stop-opacity=".95"/><stop offset="1" stop-color="#b8a2ff" stop-opacity=".55"/></linearGradient><marker id="a-amber" viewBox="0 0 12 12" refX="10" refY="6" markerWidth="8" markerHeight="8" orient="auto-start-reverse"><path d="M1 1.5L11 6 1 10.5 3.6 6z" fill="#ffb65c"/></marker><linearGradient id="t-amber" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#ffb65c" stop-opacity=".16"/><stop offset=".55" stop-color="#ffb65c" stop-opacity=".05"/><stop offset="1" stop-color="#ffb65c" stop-opacity=".02"/></linearGradient><linearGradient id="e-amber" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#ffb65c" stop-opacity=".95"/><stop offset="1" stop-color="#ffb65c" stop-opacity=".55"/></linearGradient><marker id="a-red" viewBox="0 0 12 12" refX="10" refY="6" markerWidth="8" markerHeight="8" orient="auto-start-reverse"><path d="M1 1.5L11 6 1 10.5 3.6 6z" fill="#ff7088"/></marker><linearGradient id="t-red" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#ff7088" stop-opacity=".16"/><stop offset=".55" stop-color="#ff7088" stop-opacity=".05"/><stop offset="1" stop-color="#ff7088" stop-opacity=".02"/></linearGradient><linearGradient id="e-red" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#ff7088" stop-opacity=".95"/><stop offset="1" stop-color="#ff7088" stop-opacity=".55"/></linearGradient><marker id="a-ink" viewBox="0 0 12 12" refX="10" refY="6" markerWidth="8" markerHeight="8" orient="auto-start-reverse"><path d="M1 1.5L11 6 1 10.5 3.6 6z" fill="#eef4fd"/></marker><linearGradient id="t-ink" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#eef4fd" stop-opacity=".16"/><stop offset=".55" stop-color="#eef4fd" stop-opacity=".05"/><stop offset="1" stop-color="#eef4fd" stop-opacity=".02"/></linearGradient><linearGradient id="e-ink" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#eef4fd" stop-opacity=".95"/><stop offset="1" stop-color="#eef4fd" stop-opacity=".55"/></linearGradient><filter id="sh" x="-20%" y="-20%" width="140%" height="160%"><feDropShadow dx="0" dy="8" stdDeviation="10" flood-color="#000814" flood-opacity=".55"/></filter><filter id="sh-s" x="-20%" y="-30%" width="140%" height="180%"><feDropShadow dx="0" dy="3" stdDeviation="4" flood-color="#000814" flood-opacity=".5"/></filter><pattern id="grid" width="24" height="24" patternUnits="userSpaceOnUse"><circle cx="1.2" cy="1.2" r="1.2" fill="#1b2b49"/></pattern><radialGradient id="glow" cx="12%" cy="0%" r="75%"><stop offset="0" stop-color="#2a5bb8" stop-opacity=".35"/><stop offset="1" stop-color="#2a5bb8" stop-opacity="0"/></radialGradient><radialGradient id="glow2" cx="100%" cy="100%" r="60%"><stop offset="0" stop-color="#1f8f7c" stop-opacity=".18"/><stop offset="1" stop-color="#1f8f7c" stop-opacity="0"/></radialGradient><linearGradient id="accent" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#6ea8ff"/><stop offset="1" stop-color="#3fd6b4"/></linearGradient></defs>
+<style>text{font-family:Inter,"SF Pro Text",ui-sans-serif,system-ui,-apple-system,"Segoe UI",sans-serif;letter-spacing:-.005em} .mono{font-family:"JetBrains Mono",ui-monospace,SFMono-Regular,Consolas,monospace;letter-spacing:0} .caps{letter-spacing:.09em}</style>
+<rect width="1200" height="1030" rx="18" fill="#0a1324"/>
+<rect width="1200" height="1030" rx="18" fill="url(#grid)" opacity=".9"/>
+<rect width="1200" height="1030" rx="18" fill="url(#glow)"/>
+<rect width="1200" height="1030" rx="18" fill="url(#glow2)"/>
+<rect x=".5" y=".5" width="1199" height="1029" rx="18" fill="none" stroke="#22365a"/>
+<rect x="32" y="22" width="5" height="50" rx="2.5" fill="url(#accent)"/>
+<text x="50" y="44" font-size="25" fill="#eef4fd" text-anchor="start" font-weight="750">E5 forecasting / selection, reconciliation and evaluation</text>
+<text x="50" y="68" font-size="14.5" fill="#a3b5d1" text-anchor="start" font-weight="400">Data-flow DAG · aggregate notifications only; independent of encrypted patient screening</text>
+<path d="M32 88H1168" stroke="#2b3f63" stroke-width="1"/>
 <g class="node">
-<path d="M44 148V224C44 248 334 248 334 224V148" fill="white" stroke="#a94f09" stroke-width="1.8"/><ellipse cx="189.0" cy="148" rx="145.0" ry="18" fill="#eeebf7" stroke="#a94f09" stroke-width="1.8"/>
-<text x="189.0" y="185" font-size="18" fill="#a94f09" text-anchor="middle" font-weight="650">SINAVE weekly data</text>
-<text x="189.0" y="212" font-size="14" fill="#526780" text-anchor="middle" font-weight="400">222 aggregate series</text>
-<text x="189.0" y="232" font-size="14" fill="#526780" text-anchor="middle" font-weight="400">2 types × 3 sexes × 37 areas</text>
+<path d="M44 148V224C44 248 334 248 334 224V148" fill="#122039" filter="url(#sh)"/>
+<path d="M44 148V224C44 248 334 248 334 224V148" fill="url(#t-amber)" stroke="#ffb65c" stroke-opacity=".65" stroke-width="1.4"/>
+<path d="M44 164C44 188 334 188 334 164" fill="none" stroke="#ffb65c" stroke-opacity=".22" stroke-width="1.2"/>
+<ellipse cx="189.0" cy="148" rx="145.0" ry="18" fill="#18294a"/><ellipse cx="189.0" cy="148" rx="145.0" ry="18" fill="#ffb65c" fill-opacity=".22" stroke="#ffb65c" stroke-opacity=".75" stroke-width="1.4"/>
+<text x="189.0" y="190" font-size="17.5" fill="#eef4fd" text-anchor="middle" font-weight="700">SINAVE weekly data</text>
+<text x="189.0" y="214.0" font-size="13.5" fill="#a3b5d1" text-anchor="middle" font-weight="400">222 aggregate series</text>
+<text x="189.0" y="233.5" font-size="13.5" fill="#a3b5d1" text-anchor="middle" font-weight="400">2 types × 3 sexes × 37 areas</text>
 </g>
 <g class="node">
-<path d="M548 131.0L683.0 186 548 241.0 413.0 186Z" fill="#ecf3ff" stroke="#175cd3" stroke-width="1.8"/>
-<text x="548" y="184" font-size="17" fill="#175cd3" text-anchor="middle" font-weight="650">Complete calendar?</text>
-<text x="548" y="208" font-size="15" fill="#526780" text-anchor="middle" font-weight="400">Finite weekly data</text>
+<path d="M548 131.0L683.0 186 548 241.0 413.0 186Z" fill="#122039" filter="url(#sh)" stroke-linejoin="round"/><path d="M548 131.0L683.0 186 548 241.0 413.0 186Z" fill="url(#t-blue)" stroke="#6ea8ff" stroke-opacity=".75" stroke-width="1.5" stroke-linejoin="round"/>
+<text x="548" y="184" font-size="16.5" fill="#eef4fd" text-anchor="middle" font-weight="700">Complete calendar?</text>
+<text x="548" y="207" font-size="13.5" fill="#a3b5d1" text-anchor="middle" font-weight="400">Finite weekly data</text>
 </g>
 <g class="node">
-<rect x="826" y="145" width="300" height="80" rx="40.0" fill="white" stroke="#ba3544" stroke-width="1.8"/>
-<g transform="translate(844 164) scale(0.90625)" fill="none" stroke="#ba3544" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M16 2l12 5v9c0 7-12 14-12 14S4 23 4 16V7zM10 15l4 4 8-9"/></g>
-<text x="884" y="180" font-size="18" fill="#ba3544" text-anchor="start" font-weight="650">Stop on gaps</text>
-<text x="846" y="211" font-size="15" fill="#526780" text-anchor="start" font-weight="400">No global interpolation</text>
+<rect x="826" y="145" width="300" height="80" rx="40.0" fill="#122039" filter="url(#sh)"/>
+<rect x="826" y="145" width="300" height="80" rx="40.0" fill="url(#t-red)" stroke="#ff7088" stroke-opacity=".6" stroke-width="1.4"/>
+<circle cx="870.0" cy="178" r="18" fill="#ff7088" fill-opacity=".14" stroke="#ff7088" stroke-opacity=".55" stroke-width="1.2"/>
+<g transform="translate(859.65 167.65) scale(0.646875)" fill="none" stroke="#ff7088" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 2l12 5v9c0 7-12 14-12 14S4 23 4 16V7zM10 15l4 4 8-9"/></g>
+<text x="896.0" y="183" font-size="18" fill="#eef4fd" text-anchor="start" font-weight="680">Stop on gaps</text>
+<text x="846" y="213.0" font-size="14.5" fill="#a3b5d1" text-anchor="start" font-weight="400">No global interpolation</text>
 </g>
-<rect x="47" y="328" width="1092" height="205" rx="12" fill="white" fill-opacity=".55" stroke="#175cd3" stroke-opacity=".5" stroke-width="1.8" stroke-dasharray="7 5"/>
-<text x="65" y="355" font-size="15" fill="#175cd3" text-anchor="start" font-weight="700">ROLLING-ORIGIN SELECTION</text>
-<text x="65" y="378" font-size="13" fill="#526780" text-anchor="start" font-weight="400">Only observations before each origin enter its fit.</text>
+<rect x="47" y="328" width="1092" height="205" rx="16" fill="#6ea8ff" fill-opacity=".045" stroke="#6ea8ff" stroke-opacity=".42" stroke-width="1.4" stroke-dasharray="7 6"/>
+<rect x="61" y="340" width="253.2" height="24" rx="12" fill="#6ea8ff" fill-opacity=".16" stroke="#6ea8ff" stroke-opacity=".45"/>
+<text x="74" y="356.5" font-size="12" fill="#6ea8ff" text-anchor="start" font-weight="750" class="caps">ROLLING-ORIGIN SELECTION</text>
+<text x="65" y="382" font-size="13" fill="#a3b5d1" text-anchor="start" font-weight="400">Only observations before each origin enter its fit.</text>
 <g class="node">
-<rect x="88" y="405" width="296" height="88" rx="10" fill="white" stroke="#175cd3" stroke-width="1.8"/>
-<g transform="translate(106 424) scale(0.90625)" fill="none" stroke="#175cd3" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 3v25h26M8 22l7-8 6 3 8-12"/><path d="M23 5h6v6"/></g>
-<text x="146" y="440" font-size="18" fill="#175cd3" text-anchor="start" font-weight="650">Seasonal naive</text>
-<text x="108" y="471" font-size="15" fill="#526780" text-anchor="start" font-weight="400">Repeat the prior 52 weeks</text>
-</g>
-<g class="node">
-<rect x="461" y="405" width="296" height="88" rx="10" fill="white" stroke="#175cd3" stroke-width="1.8"/>
-<g transform="translate(479 424) scale(0.90625)" fill="none" stroke="#175cd3" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 3v25h26M8 22l7-8 6 3 8-12"/><path d="M23 5h6v6"/></g>
-<text x="519" y="440" font-size="18" fill="#175cd3" text-anchor="start" font-weight="650">ETS</text>
-<text x="481" y="471" font-size="15" fill="#526780" text-anchor="start" font-weight="400">Damped additive Holt–Winters</text>
-</g>
-<g class="node">
-<rect x="844" y="405" width="250" height="88" rx="10" fill="white" stroke="#175cd3" stroke-width="1.8"/>
-<g transform="translate(862 424) scale(0.90625)" fill="none" stroke="#175cd3" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="16" cy="16" r="13"/><path d="M9 16l5 5 10-12"/></g>
-<text x="902" y="440" font-size="18" fill="#175cd3" text-anchor="start" font-weight="650">Select model</text>
-<text x="864" y="471" font-size="15" fill="#526780" text-anchor="start" font-weight="400">SMAPE + MAE tie-break</text>
+<rect x="88" y="405" width="296" height="88" rx="12" fill="#122039" filter="url(#sh)"/>
+<rect x="88" y="405" width="296" height="88" rx="12" fill="url(#t-blue)" stroke="#6ea8ff" stroke-opacity=".6" stroke-width="1.4"/>
+<path d="M100 406.2H372" stroke="url(#e-blue)" stroke-width="2.6" stroke-linecap="round"/>
+<circle cx="122" cy="438" r="18" fill="#6ea8ff" fill-opacity=".14" stroke="#6ea8ff" stroke-opacity=".55" stroke-width="1.2"/>
+<g transform="translate(111.65 427.65) scale(0.646875)" fill="none" stroke="#6ea8ff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 3v25h26M8 22l7-8 6 3 8-12"/><path d="M23 5h6v6"/></g>
+<text x="150" y="443" font-size="18" fill="#eef4fd" text-anchor="start" font-weight="680">Seasonal naive</text>
+<text x="108" y="473.0" font-size="14.5" fill="#a3b5d1" text-anchor="start" font-weight="400">Repeat the prior 52 weeks</text>
 </g>
 <g class="node">
-<rect x="46" y="624" width="300" height="102" rx="10" fill="white" stroke="#007f73" stroke-width="1.8"/>
-<g transform="translate(64 643) scale(0.90625)" fill="none" stroke="#007f73" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="6" cy="7" r="3"/><circle cx="6" cy="25" r="3"/><circle cx="17" cy="16" r="4"/><circle cx="27" cy="7" r="3"/><circle cx="27" cy="25" r="3"/><path d="M9 9l5 5M9 23l5-5m7-4 4-5m-4 9 4 5"/></g>
-<text x="104" y="659" font-size="18" fill="#007f73" text-anchor="start" font-weight="650">Fit + forecast</text>
-<text x="66" y="690" font-size="15" fill="#526780" text-anchor="start" font-weight="400">63 steps: 11 bridge + 52</text>
-<text x="66" y="711" font-size="15" fill="#526780" text-anchor="start" font-weight="400">Empirical error bands</text>
+<rect x="461" y="405" width="296" height="88" rx="12" fill="#122039" filter="url(#sh)"/>
+<rect x="461" y="405" width="296" height="88" rx="12" fill="url(#t-blue)" stroke="#6ea8ff" stroke-opacity=".6" stroke-width="1.4"/>
+<path d="M473 406.2H745" stroke="url(#e-blue)" stroke-width="2.6" stroke-linecap="round"/>
+<circle cx="495" cy="438" r="18" fill="#6ea8ff" fill-opacity=".14" stroke="#6ea8ff" stroke-opacity=".55" stroke-width="1.2"/>
+<g transform="translate(484.65 427.65) scale(0.646875)" fill="none" stroke="#6ea8ff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 3v25h26M8 22l7-8 6 3 8-12"/><path d="M23 5h6v6"/></g>
+<text x="523" y="443" font-size="18" fill="#eef4fd" text-anchor="start" font-weight="680">ETS</text>
+<text x="481" y="473.0" font-size="14.5" fill="#a3b5d1" text-anchor="start" font-weight="400">Damped additive Holt–Winters</text>
 </g>
 <g class="node">
-<rect x="450" y="624" width="300" height="102" rx="10" fill="white" stroke="#007f73" stroke-width="1.8"/>
-<g transform="translate(468 643) scale(0.90625)" fill="none" stroke="#007f73" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 16h9m0 0V5h15m-15 11h15m-15 0v11h15M23 2l4 3-4 3m0 5 4 3-4 3m0 5 4 3-4 3"/></g>
-<text x="508" y="659" font-size="18" fill="#007f73" text-anchor="start" font-weight="650">Reconcile hierarchy</text>
-<text x="470" y="690" font-size="15" fill="#526780" text-anchor="start" font-weight="400">National → region → state</text>
-<text x="470" y="711" font-size="15" fill="#526780" text-anchor="start" font-weight="400">Sparse fallback if required</text>
+<rect x="844" y="405" width="250" height="88" rx="12" fill="#122039" filter="url(#sh)"/>
+<rect x="844" y="405" width="250" height="88" rx="12" fill="url(#t-blue)" stroke="#6ea8ff" stroke-opacity=".6" stroke-width="1.4"/>
+<path d="M856 406.2H1082" stroke="url(#e-blue)" stroke-width="2.6" stroke-linecap="round"/>
+<circle cx="878" cy="438" r="18" fill="#6ea8ff" fill-opacity=".14" stroke="#6ea8ff" stroke-opacity=".55" stroke-width="1.2"/>
+<g transform="translate(867.65 427.65) scale(0.646875)" fill="none" stroke="#6ea8ff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="16" cy="16" r="13"/><path d="M9 16l5 5 10-12"/></g>
+<text x="906" y="443" font-size="18" fill="#eef4fd" text-anchor="start" font-weight="680">Select model</text>
+<text x="864" y="473.0" font-size="14.5" fill="#a3b5d1" text-anchor="start" font-weight="400">SMAPE + MAE tie-break</text>
 </g>
 <g class="node">
-<path d="M852 624H1130L1152 646V726H852Z M1130 624V646H1152" fill="white" stroke="#7045b7" stroke-width="1.8"/>
-<g transform="translate(870 643) scale(0.90625)" fill="none" stroke="#7045b7" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M7 2h13l7 7v21H7zM20 2v8h7M11 16h12m-12 5h12m-12 5h8"/></g>
-<text x="910" y="659" font-size="18" fill="#7045b7" text-anchor="start" font-weight="650">Public forecast JSON</text>
-<text x="872" y="690" font-size="15" fill="#526780" text-anchor="start" font-weight="400">Point / bands / evaluation</text>
-<text x="872" y="711" font-size="15" fill="#526780" text-anchor="start" font-weight="400">No patient identifiers</text>
+<rect x="46" y="624" width="300" height="102" rx="12" fill="#122039" filter="url(#sh)"/>
+<rect x="46" y="624" width="300" height="102" rx="12" fill="url(#t-teal)" stroke="#3fd6b4" stroke-opacity=".6" stroke-width="1.4"/>
+<path d="M58 625.2H334" stroke="url(#e-teal)" stroke-width="2.6" stroke-linecap="round"/>
+<circle cx="80" cy="657" r="18" fill="#3fd6b4" fill-opacity=".14" stroke="#3fd6b4" stroke-opacity=".55" stroke-width="1.2"/>
+<g transform="translate(69.65 646.65) scale(0.646875)" fill="none" stroke="#3fd6b4" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="6" cy="7" r="3"/><circle cx="6" cy="25" r="3"/><circle cx="17" cy="16" r="4"/><circle cx="27" cy="7" r="3"/><circle cx="27" cy="25" r="3"/><path d="M9 9l5 5M9 23l5-5m7-4 4-5m-4 9 4 5"/></g>
+<text x="108" y="662" font-size="18" fill="#eef4fd" text-anchor="start" font-weight="680">Fit + forecast</text>
+<text x="66" y="692.0" font-size="14.5" fill="#a3b5d1" text-anchor="start" font-weight="400">63 steps: 11 bridge + 52</text>
+<text x="66" y="712.5" font-size="14.5" fill="#a3b5d1" text-anchor="start" font-weight="400">Empirical error bands</text>
 </g>
 <g class="node">
-<rect x="852" y="836" width="300" height="98" rx="10" fill="white" stroke="#175cd3" stroke-width="1.8"/>
-<g transform="translate(870 855) scale(0.90625)" fill="none" stroke="#175cd3" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="4" width="28" height="23" rx="3"/><path d="M2 11h28M7 8h1m3 0h1m3 0h1M11 17l-4 4 4 4m10-8 4 4-4 4"/></g>
-<text x="910" y="871" font-size="18" fill="#175cd3" text-anchor="start" font-weight="650">Forecast dashboard</text>
-<text x="872" y="902" font-size="15" fill="#526780" text-anchor="start" font-weight="400">Filters / curves / quarters</text>
-<text x="872" y="923" font-size="15" fill="#526780" text-anchor="start" font-weight="400">Cost + source required</text>
+<rect x="450" y="624" width="300" height="102" rx="12" fill="#122039" filter="url(#sh)"/>
+<rect x="450" y="624" width="300" height="102" rx="12" fill="url(#t-teal)" stroke="#3fd6b4" stroke-opacity=".6" stroke-width="1.4"/>
+<path d="M462 625.2H738" stroke="url(#e-teal)" stroke-width="2.6" stroke-linecap="round"/>
+<circle cx="484" cy="657" r="18" fill="#3fd6b4" fill-opacity=".14" stroke="#3fd6b4" stroke-opacity=".55" stroke-width="1.2"/>
+<g transform="translate(473.65 646.65) scale(0.646875)" fill="none" stroke="#3fd6b4" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 16h9m0 0V5h15m-15 11h15m-15 0v11h15M23 2l4 3-4 3m0 5 4 3-4 3m0 5 4 3-4 3"/></g>
+<text x="512" y="662" font-size="18" fill="#eef4fd" text-anchor="start" font-weight="680">Reconcile hierarchy</text>
+<text x="470" y="692.0" font-size="14.5" fill="#a3b5d1" text-anchor="start" font-weight="400">National → region → state</text>
+<text x="470" y="712.5" font-size="14.5" fill="#a3b5d1" text-anchor="start" font-weight="400">Sparse fallback if required</text>
 </g>
-<rect x="48" y="814" width="705" height="132" rx="12" fill="white" fill-opacity=".55" stroke="#7045b7" stroke-opacity=".5" stroke-width="1.8" stroke-dasharray="7 5"/>
-<text x="66" y="841" font-size="15" fill="#7045b7" text-anchor="start" font-weight="700">OUTER EVALUATION · RE-RUN THE WHOLE PIPELINE</text>
-<text x="66" y="864" font-size="13" fill="#526780" text-anchor="start" font-weight="400">Two overlapping origins · selection → fit → fallback → reconciliation</text>
-<text x="70" y="900" font-size="15" fill="#7045b7" text-anchor="start" font-weight="400">Publish actual SMAPE and empirical 80/95% coverage.</text>
-<text x="70" y="921" font-size="15" fill="#7045b7" text-anchor="start" font-weight="400">Limited origins and undercoverage: bands remain exploratory.</text>
-<path d="M334 186 L413 186" fill="none" stroke="#a94f09" stroke-width="2" stroke-linejoin="round" marker-end="url(#a-amber)"/>
-<rect x="350.9" y="156" width="45.2" height="22" rx="4" fill="#f5f8fc"/>
-<text x="373.5" y="171" font-size="13" fill="#a94f09" text-anchor="middle" font-weight="550">Read</text>
-<path d="M683 186 L826 186" fill="none" stroke="#ba3544" stroke-width="2" stroke-linejoin="round" marker-end="url(#a-red)"/>
-<rect x="739.2" y="156" width="30.6" height="22" rx="4" fill="#f5f8fc"/>
-<text x="754.5" y="171" font-size="13" fill="#ba3544" text-anchor="middle" font-weight="550">No</text>
-<path d="M548 241 L548 292 L410 292 L410 388 L236 388 L236 405" fill="none" stroke="#175cd3" stroke-width="2" stroke-linejoin="round" marker-end="url(#a-blue)"/>
-<rect x="458.05" y="267" width="37.9" height="22" rx="4" fill="#f5f8fc"/>
-<text x="477" y="282" font-size="13" fill="#175cd3" text-anchor="middle" font-weight="550">Yes</text>
-<path d="M410 388 L609 388 L609 405" fill="none" stroke="#175cd3" stroke-width="2" stroke-linejoin="round" marker-end="url(#a-blue)"/>
-<path d="M384 449 L420 449 L420 514 L819 514 L819 462 L844 462" fill="none" stroke="#175cd3" stroke-width="2" stroke-linejoin="round" marker-end="url(#a-blue)"/>
-<path d="M757 439 L844 439" fill="none" stroke="#175cd3" stroke-width="2" stroke-linejoin="round" marker-end="url(#a-blue)"/>
-<rect x="765.45" y="412" width="67.1" height="22" rx="4" fill="#f5f8fc"/>
-<text x="799" y="427" font-size="13" fill="#175cd3" text-anchor="middle" font-weight="550">Compare</text>
-<path d="M969 493 L969 568 L196 568 L196 624" fill="none" stroke="#007f73" stroke-width="2" stroke-linejoin="round" marker-end="url(#a-teal)"/>
-<rect x="438.65" y="544" width="300.7" height="22" rx="4" fill="#f5f8fc"/>
-<text x="589" y="559" font-size="13" fill="#007f73" text-anchor="middle" font-weight="550">Fit selected model on available history</text>
-<path d="M346 675 L450 675" fill="none" stroke="#007f73" stroke-width="2" stroke-linejoin="round" marker-end="url(#a-teal)"/>
-<rect x="342.55" y="645" width="110.89999999999999" height="22" rx="4" fill="#f5f8fc"/>
-<text x="398" y="660" font-size="13" fill="#007f73" text-anchor="middle" font-weight="550">Point + bands</text>
-<path d="M750 675 L852 675" fill="none" stroke="#7045b7" stroke-width="2" stroke-linejoin="round" marker-end="url(#a-violet)"/>
-<rect x="771.1" y="645" width="59.8" height="22" rx="4" fill="#f5f8fc"/>
-<text x="801" y="660" font-size="13" fill="#7045b7" text-anchor="middle" font-weight="550">Export</text>
-<path d="M1002 726 L1002 836" fill="none" stroke="#7045b7" stroke-width="2" stroke-linejoin="round" marker-end="url(#a-violet)"/>
-<rect x="1017.25" y="775" width="125.5" height="22" rx="4" fill="#f5f8fc"/>
-<text x="1080" y="790" font-size="13" fill="#7045b7" text-anchor="middle" font-weight="550">Static artifact</text>
-<path d="M753 881 L802 881 L802 713 L852 713" fill="none" stroke="#7045b7" stroke-width="2" stroke-linejoin="round" marker-end="url(#a-violet)" stroke-dasharray="6 5"/>
-<rect x="724.3" y="774" width="147.4" height="22" rx="4" fill="#f5f8fc"/>
-<text x="798" y="789" font-size="13" fill="#7045b7" text-anchor="middle" font-weight="550">Evaluation metrics</text>
-<text x="32" y="1008" font-size="14" fill="#526780" text-anchor="start" font-weight="400">E5 is unencrypted. No project unit cost is established; user-entered budget scenarios are not a validated operating budget.</text>
+<g class="node">
+<path d="M852 634Q852 624 862 624H1128L1152 648V716Q1152 726 1142 726H862Q852 726 852 716Z" fill="#122039" filter="url(#sh)"/>
+<path d="M852 634Q852 624 862 624H1128L1152 648V716Q1152 726 1142 726H862Q852 726 852 716Z" fill="url(#t-violet)" stroke="#b8a2ff" stroke-opacity=".6" stroke-width="1.4"/>
+<path d="M1128 624V640Q1128 648 1136 648H1152Z" fill="#b8a2ff" fill-opacity=".28" stroke="#b8a2ff" stroke-opacity=".6" stroke-width="1.2" stroke-linejoin="round"/>
+<circle cx="886" cy="657" r="18" fill="#b8a2ff" fill-opacity=".14" stroke="#b8a2ff" stroke-opacity=".55" stroke-width="1.2"/>
+<g transform="translate(875.65 646.65) scale(0.646875)" fill="none" stroke="#b8a2ff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 2h13l7 7v21H7zM20 2v8h7M11 16h12m-12 5h12m-12 5h8"/></g>
+<text x="914" y="662" font-size="18" fill="#eef4fd" text-anchor="start" font-weight="680">Public forecast JSON</text>
+<text x="872" y="692.0" font-size="14.5" fill="#a3b5d1" text-anchor="start" font-weight="400">Point / bands / evaluation</text>
+<text x="872" y="712.5" font-size="14.5" fill="#a3b5d1" text-anchor="start" font-weight="400">No patient identifiers</text>
+</g>
+<g class="node">
+<rect x="852" y="836" width="300" height="98" rx="12" fill="#122039" filter="url(#sh)"/>
+<rect x="852" y="836" width="300" height="98" rx="12" fill="url(#t-blue)" stroke="#6ea8ff" stroke-opacity=".6" stroke-width="1.4"/>
+<path d="M864 837.2H1140" stroke="url(#e-blue)" stroke-width="2.6" stroke-linecap="round"/>
+<circle cx="886" cy="869" r="18" fill="#6ea8ff" fill-opacity=".14" stroke="#6ea8ff" stroke-opacity=".55" stroke-width="1.2"/>
+<g transform="translate(875.65 858.65) scale(0.646875)" fill="none" stroke="#6ea8ff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="4" width="28" height="23" rx="3"/><path d="M2 11h28M7 8h1m3 0h1m3 0h1M11 17l-4 4 4 4m10-8 4 4-4 4"/></g>
+<text x="914" y="874" font-size="18" fill="#eef4fd" text-anchor="start" font-weight="680">Forecast dashboard</text>
+<text x="872" y="904.0" font-size="14.5" fill="#a3b5d1" text-anchor="start" font-weight="400">Filters / curves / quarters</text>
+<text x="872" y="924.5" font-size="14.5" fill="#a3b5d1" text-anchor="start" font-weight="400">Cost + source required</text>
+</g>
+<rect x="48" y="814" width="705" height="132" rx="16" fill="#b8a2ff" fill-opacity=".045" stroke="#b8a2ff" stroke-opacity=".42" stroke-width="1.4" stroke-dasharray="7 6"/>
+<rect x="62" y="826" width="423.59999999999997" height="24" rx="12" fill="#b8a2ff" fill-opacity=".16" stroke="#b8a2ff" stroke-opacity=".45"/>
+<text x="75" y="842.5" font-size="12" fill="#b8a2ff" text-anchor="start" font-weight="750" class="caps">OUTER EVALUATION · RE-RUN THE WHOLE PIPELINE</text>
+<text x="66" y="868" font-size="13" fill="#a3b5d1" text-anchor="start" font-weight="400">Two overlapping origins · selection → fit → fallback → reconciliation</text>
+<text x="70" y="900" font-size="15" fill="#b8a2ff" text-anchor="start" font-weight="400">Publish actual SMAPE and empirical 80/95% coverage.</text>
+<text x="70" y="921" font-size="15" fill="#b8a2ff" text-anchor="start" font-weight="400">Limited origins and undercoverage: bands remain exploratory.</text>
+<path d="M334 186 L413 186" fill="none" stroke="#ffb65c" stroke-opacity=".18" stroke-width="7" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M334 186 L413 186" fill="none" stroke="#ffb65c" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" marker-end="url(#a-amber)"/>
+<rect x="348.3" y="155.5" width="50.4" height="23" rx="11.5" fill="#0d1a31" stroke="#ffb65c" stroke-opacity=".55" filter="url(#sh-s)"/>
+<text x="373.5" y="171.5" font-size="12.5" fill="#ffb65c" text-anchor="middle" font-weight="620">Read</text>
+<path d="M683 186 L826 186" fill="none" stroke="#ff7088" stroke-opacity=".18" stroke-width="7" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M683 186 L826 186" fill="none" stroke="#ff7088" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" marker-end="url(#a-red)"/>
+<rect x="736.4" y="155.5" width="36.2" height="23" rx="11.5" fill="#0d1a31" stroke="#ff7088" stroke-opacity=".55" filter="url(#sh-s)"/>
+<text x="754.5" y="171.5" font-size="12.5" fill="#ff7088" text-anchor="middle" font-weight="620">No</text>
+<path d="M548 241 L548 280 Q548 292 536 292 L422 292 Q410 292 410 304 L410 376 Q410 388 398 388 L244.5 388 Q236 388 236 396.5 L236 405" fill="none" stroke="#6ea8ff" stroke-opacity=".18" stroke-width="7" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M548 241 L548 280 Q548 292 536 292 L422 292 Q410 292 410 304 L410 376 Q410 388 398 388 L244.5 388 Q236 388 236 396.5 L236 405" fill="none" stroke="#6ea8ff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" marker-end="url(#a-blue)"/>
+<rect x="455.35" y="266.5" width="43.3" height="23" rx="11.5" fill="#0d1a31" stroke="#6ea8ff" stroke-opacity=".55" filter="url(#sh-s)"/>
+<text x="477" y="282.5" font-size="12.5" fill="#6ea8ff" text-anchor="middle" font-weight="620">Yes</text>
+<path d="M410 388 L600.5 388 Q609 388 609 396.5 L609 405" fill="none" stroke="#6ea8ff" stroke-opacity=".18" stroke-width="7" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M410 388 L600.5 388 Q609 388 609 396.5 L609 405" fill="none" stroke="#6ea8ff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" marker-end="url(#a-blue)"/>
+<path d="M384 449 L408 449 Q420 449 420 461 L420 502 Q420 514 432 514 L807 514 Q819 514 819 502 L819 474 Q819 462 831 462 L844 462" fill="none" stroke="#6ea8ff" stroke-opacity=".18" stroke-width="7" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M384 449 L408 449 Q420 449 420 461 L420 502 Q420 514 432 514 L807 514 Q819 514 819 502 L819 474 Q819 462 831 462 L844 462" fill="none" stroke="#6ea8ff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" marker-end="url(#a-blue)"/>
+<path d="M757 439 L844 439" fill="none" stroke="#6ea8ff" stroke-opacity=".18" stroke-width="7" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M757 439 L844 439" fill="none" stroke="#6ea8ff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" marker-end="url(#a-blue)"/>
+<rect x="763.15" y="411.5" width="71.69999999999999" height="23" rx="11.5" fill="#0d1a31" stroke="#6ea8ff" stroke-opacity=".55" filter="url(#sh-s)"/>
+<text x="799" y="427.5" font-size="12.5" fill="#6ea8ff" text-anchor="middle" font-weight="620">Compare</text>
+<path d="M969 493 L969 556 Q969 568 957 568 L208 568 Q196 568 196 580 L196 624" fill="none" stroke="#3fd6b4" stroke-opacity=".18" stroke-width="7" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M969 493 L969 556 Q969 568 957 568 L208 568 Q196 568 196 580 L196 624" fill="none" stroke="#3fd6b4" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" marker-end="url(#a-teal)"/>
+<rect x="439.55" y="543.5" width="298.9" height="23" rx="11.5" fill="#0d1a31" stroke="#3fd6b4" stroke-opacity=".55" filter="url(#sh-s)"/>
+<text x="589" y="559.5" font-size="12.5" fill="#3fd6b4" text-anchor="middle" font-weight="620">Fit selected model on available history</text>
+<path d="M346 675 L450 675" fill="none" stroke="#3fd6b4" stroke-opacity=".18" stroke-width="7" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M346 675 L450 675" fill="none" stroke="#3fd6b4" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" marker-end="url(#a-teal)"/>
+<rect x="340.85" y="644.5" width="114.3" height="23" rx="11.5" fill="#0d1a31" stroke="#3fd6b4" stroke-opacity=".55" filter="url(#sh-s)"/>
+<text x="398" y="660.5" font-size="12.5" fill="#3fd6b4" text-anchor="middle" font-weight="620">Point + bands</text>
+<path d="M750 675 L852 675" fill="none" stroke="#b8a2ff" stroke-opacity=".18" stroke-width="7" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M750 675 L852 675" fill="none" stroke="#b8a2ff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" marker-end="url(#a-violet)"/>
+<rect x="768.7" y="644.5" width="64.6" height="23" rx="11.5" fill="#0d1a31" stroke="#b8a2ff" stroke-opacity=".55" filter="url(#sh-s)"/>
+<text x="801" y="660.5" font-size="12.5" fill="#b8a2ff" text-anchor="middle" font-weight="620">Export</text>
+<path d="M1002 726 L1002 836" fill="none" stroke="#b8a2ff" stroke-opacity=".18" stroke-width="7" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M1002 726 L1002 836" fill="none" stroke="#b8a2ff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" marker-end="url(#a-violet)"/>
+<rect x="1015.75" y="774.5" width="128.5" height="23" rx="11.5" fill="#0d1a31" stroke="#b8a2ff" stroke-opacity=".55" filter="url(#sh-s)"/>
+<text x="1080" y="790.5" font-size="12.5" fill="#b8a2ff" text-anchor="middle" font-weight="620">Static artifact</text>
+<path d="M753 881 L790 881 Q802 881 802 869 L802 725 Q802 713 814 713 L852 713" fill="none" stroke="#b8a2ff" stroke-opacity=".18" stroke-width="7" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M753 881 L790 881 Q802 881 802 869 L802 725 Q802 713 814 713 L852 713" fill="none" stroke="#b8a2ff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" marker-end="url(#a-violet)" stroke-dasharray="7 6"/>
+<rect x="723.1" y="773.5" width="149.8" height="23" rx="11.5" fill="#0d1a31" stroke="#b8a2ff" stroke-opacity=".55" filter="url(#sh-s)"/>
+<text x="798" y="789.5" font-size="12.5" fill="#b8a2ff" text-anchor="middle" font-weight="620">Evaluation metrics</text>
+<circle cx="38" cy="1003" r="3" fill="#3fd6b4"/>
+<text x="50" y="1008" font-size="13" fill="#a3b5d1" text-anchor="start" font-weight="400">E5 is unencrypted. No project unit cost is established; user-entered budget scenarios are not a validated operating budget.</text>
 </svg>

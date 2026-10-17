@@ -1,15 +1,25 @@
-"""Hand-laid technical SVG views. Shapes and connectors carry architectural meaning."""
+"""Hand-laid technical SVG views. Shapes and connectors carry architectural meaning.
+
+Visual system: dark canvas that matches the public site, elevated cards with soft shadows,
+tinted icon badges, pill labels, rounded connectors and a subtle dot grid.
+"""
 from html import escape as esc
 import textwrap
 
-INK = '#20344d'
-MUTED = '#526780'
-BLUE = '#175cd3'
-TEAL = '#007f73'
-VIOLET = '#7045b7'
-AMBER = '#a94f09'
-RED = '#ba3544'
+BG0 = '#0a1324'     # canvas
+BG1 = '#122039'     # card
+BG2 = '#18294a'     # raised / header
+GRID = '#1b2b49'
+LINE = '#2b3f63'
+INK = '#eef4fd'
+MUTED = '#a3b5d1'
+BLUE = '#6ea8ff'
+TEAL = '#3fd6b4'
+VIOLET = '#b8a2ff'
+AMBER = '#ffb65c'
+RED = '#ff7088'
 COLORS = {'blue': BLUE, 'teal': TEAL, 'violet': VIOLET, 'amber': AMBER, 'red': RED, 'ink': INK}
+KEY_OF = {v: k for k, v in COLORS.items()}
 
 ICONS = {
     'person': '<circle cx="16" cy="8" r="4"/><path d="M7 27v-4a9 9 0 0 1 18 0v4M16 18v10"/>',
@@ -30,92 +40,159 @@ ICONS = {
 }
 
 
+def _key(color):
+    return KEY_OF.get(color, 'blue')
+
+
 class Canvas:
     def __init__(self, title, subtitle, h=820):
         self.h = h
+        defs = []
+        for k, v in COLORS.items():
+            defs.append(f'<marker id="a-{k}" viewBox="0 0 12 12" refX="10" refY="6" markerWidth="8" markerHeight="8" orient="auto-start-reverse"><path d="M1 1.5L11 6 1 10.5 3.6 6z" fill="{v}"/></marker>')
+            defs.append(f'<linearGradient id="t-{k}" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="{v}" stop-opacity=".16"/><stop offset=".55" stop-color="{v}" stop-opacity=".05"/><stop offset="1" stop-color="{v}" stop-opacity=".02"/></linearGradient>')
+            defs.append(f'<linearGradient id="e-{k}" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="{v}" stop-opacity=".95"/><stop offset="1" stop-color="{v}" stop-opacity=".55"/></linearGradient>')
+        defs.append('<filter id="sh" x="-20%" y="-20%" width="140%" height="160%"><feDropShadow dx="0" dy="8" stdDeviation="10" flood-color="#000814" flood-opacity=".55"/></filter>')
+        defs.append('<filter id="sh-s" x="-20%" y="-30%" width="140%" height="180%"><feDropShadow dx="0" dy="3" stdDeviation="4" flood-color="#000814" flood-opacity=".5"/></filter>')
+        defs.append(f'<pattern id="grid" width="24" height="24" patternUnits="userSpaceOnUse"><circle cx="1.2" cy="1.2" r="1.2" fill="{GRID}"/></pattern>')
+        defs.append('<radialGradient id="glow" cx="12%" cy="0%" r="75%"><stop offset="0" stop-color="#2a5bb8" stop-opacity=".35"/><stop offset="1" stop-color="#2a5bb8" stop-opacity="0"/></radialGradient>')
+        defs.append('<radialGradient id="glow2" cx="100%" cy="100%" r="60%"><stop offset="0" stop-color="#1f8f7c" stop-opacity=".18"/><stop offset="1" stop-color="#1f8f7c" stop-opacity="0"/></radialGradient>')
+        defs.append(f'<linearGradient id="accent" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="{BLUE}"/><stop offset="1" stop-color="{TEAL}"/></linearGradient>')
         self.parts = [f'<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 {h}" role="img" aria-labelledby="title desc">',
             f'<title id="title">{esc(title)}</title><desc id="desc">{esc(subtitle)}</desc>',
-            '<defs>' + ''.join(f'<marker id="a-{k}" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0L10 5 0 10z" fill="{v}"/></marker>' for k,v in COLORS.items()) + '</defs>',
-            '<rect width="1200" height="100%" rx="14" fill="#f5f8fc"/>',
-            '<style>text{font-family:Inter,ui-sans-serif,system-ui,-apple-system,sans-serif} .mono{font-family:ui-monospace,SFMono-Regular,Consolas,monospace}</style>']
-        self.text(32, 38, title, 23, INK, weight=700)
-        self.text(32, 65, subtitle, 15, MUTED)
-        self.line(32, 83, 1168, 83, '#d9e2ed')
+            '<defs>' + ''.join(defs) + '</defs>',
+            '<style>text{font-family:Inter,"SF Pro Text",ui-sans-serif,system-ui,-apple-system,"Segoe UI",sans-serif;letter-spacing:-.005em} .mono{font-family:"JetBrains Mono",ui-monospace,SFMono-Regular,Consolas,monospace;letter-spacing:0} .caps{letter-spacing:.09em}</style>',
+            f'<rect width="1200" height="{h}" rx="18" fill="{BG0}"/>',
+            f'<rect width="1200" height="{h}" rx="18" fill="url(#grid)" opacity=".9"/>',
+            f'<rect width="1200" height="{h}" rx="18" fill="url(#glow)"/>',
+            f'<rect width="1200" height="{h}" rx="18" fill="url(#glow2)"/>',
+            f'<rect x=".5" y=".5" width="1199" height="{h-1}" rx="18" fill="none" stroke="#22365a"/>']
+        self.raw('<rect x="32" y="22" width="5" height="50" rx="2.5" fill="url(#accent)"/>')
+        self.text(50, 44, title, 25, INK, weight=750)
+        self.text(50, 68, subtitle, 14.5, MUTED)
+        self.raw(f'<path d="M32 88H1168" stroke="{LINE}" stroke-width="1"/>')
 
     def raw(self, s): self.parts.append(s)
 
-    def text(self, x, y, text, size=17, color=INK, anchor='start', weight=400, mono=False):
-        self.raw(f'<text x="{x}" y="{y}" font-size="{size}" fill="{color}" text-anchor="{anchor}" font-weight="{weight}"'+(' class="mono"' if mono else '')+f'>{esc(str(text))}</text>')
+    def text(self, x, y, text, size=17, color=INK, anchor='start', weight=400, mono=False, caps=False):
+        cls = ' class="mono"' if mono else (' class="caps"' if caps else '')
+        self.raw(f'<text x="{x}" y="{y}" font-size="{size}" fill="{color}" text-anchor="{anchor}" font-weight="{weight}"{cls}>{esc(str(text))}</text>')
 
     def lines(self, x, y, text, width=260, size=16, color=MUTED, anchor='start'):
         strings = text if isinstance(text, list) else textwrap.wrap(text, max(12, int(width/(size*.54))))
         for i,t in enumerate(strings): self.text(x,y+i*(size+6),t,size,color,anchor)
 
-    def line(self,x1,y1,x2,y2,color='#b3c1d0',dash=False):
-        self.raw(f'<path d="M{x1} {y1}L{x2} {y2}" stroke="{color}" stroke-width="1.6" fill="none"'+(' stroke-dasharray="6 6"' if dash else '')+'/>')
+    def line(self,x1,y1,x2,y2,color=LINE,dash=False):
+        self.raw(f'<path d="M{x1} {y1}L{x2} {y2}" stroke="{color}" stroke-width="1.6" fill="none" stroke-linecap="round"'+(' stroke-dasharray="5 6"' if dash else '')+'/>')
 
     def icon(self, name, x, y, color=BLUE, size=32):
-        self.raw(f'<g transform="translate({x} {y}) scale({size/32})" fill="none" stroke="{color}" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">{ICONS[name]}</g>')
+        self.raw(f'<g transform="translate({x} {y}) scale({size/32})" fill="none" stroke="{color}" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">{ICONS[name]}</g>')
+
+    def badge(self, name, cx, cy, color, r=19):
+        """Tinted circular badge holding a line icon."""
+        self.raw(f'<circle cx="{cx}" cy="{cy}" r="{r}" fill="{color}" fill-opacity=".14" stroke="{color}" stroke-opacity=".55" stroke-width="1.2"/>')
+        s = r*1.15
+        self.icon(name, cx-s/2, cy-s/2, color, s)
 
     def group(self,x,y,w,h,title,sub='',color=BLUE):
-        self.raw(f'<rect x="{x}" y="{y}" width="{w}" height="{h}" rx="12" fill="white" fill-opacity=".55" stroke="{color}" stroke-opacity=".5" stroke-width="1.8" stroke-dasharray="7 5"/>')
-        self.text(x+18,y+27,title,15,color,weight=700)
-        if sub:self.text(x+18,y+50,sub,13,MUTED)
+        k=_key(color)
+        self.raw(f'<rect x="{x}" y="{y}" width="{w}" height="{h}" rx="16" fill="{color}" fill-opacity=".045" stroke="{color}" stroke-opacity=".42" stroke-width="1.4" stroke-dasharray="7 6"/>')
+        tw=sum(9.6 if ch.isupper() else 8.2 if ch.isalnum() else 6.0 for ch in title)+30
+        self.raw(f'<rect x="{x+14}" y="{y+12}" width="{tw}" height="24" rx="12" fill="{color}" fill-opacity=".16" stroke="{color}" stroke-opacity=".45"/>')
+        self.text(x+27,y+28.5,title,12,color,weight=750,caps=True)
+        if sub:self.text(x+18,y+54,sub,13,MUTED)
+
+    def _card(self,x,y,w,h,color,radius=12):
+        k=_key(color)
+        self.raw(f'<rect x="{x}" y="{y}" width="{w}" height="{h}" rx="{radius}" fill="{BG1}" filter="url(#sh)"/>')
+        self.raw(f'<rect x="{x}" y="{y}" width="{w}" height="{h}" rx="{radius}" fill="url(#t-{k})" stroke="{color}" stroke-opacity=".6" stroke-width="1.4"/>')
+        if radius < h/2 - 1:
+            self.raw(f'<path d="M{x+radius} {y+1.2}H{x+w-radius}" stroke="url(#e-{k})" stroke-width="2.6" stroke-linecap="round"/>')
 
     def node(self,x,y,w,h,title,detail='',icon='container',color=BLUE,kind='process'):
+        k=_key(color)
         self.raw('<g class="node">')
         if kind=='file':
-            self.raw(f'<path d="M{x} {y}H{x+w-22}L{x+w} {y+22}V{y+h}H{x}Z M{x+w-22} {y}V{y+22}H{x+w}" fill="white" stroke="{color}" stroke-width="1.8"/>')
+            self.raw(f'<path d="M{x} {y+10}Q{x} {y} {x+10} {y}H{x+w-24}L{x+w} {y+24}V{y+h-10}Q{x+w} {y+h} {x+w-10} {y+h}H{x+10}Q{x} {y+h} {x} {y+h-10}Z" fill="{BG1}" filter="url(#sh)"/>')
+            self.raw(f'<path d="M{x} {y+10}Q{x} {y} {x+10} {y}H{x+w-24}L{x+w} {y+24}V{y+h-10}Q{x+w} {y+h} {x+w-10} {y+h}H{x+10}Q{x} {y+h} {x} {y+h-10}Z" fill="url(#t-{k})" stroke="{color}" stroke-opacity=".6" stroke-width="1.4"/>')
+            self.raw(f'<path d="M{x+w-24} {y}V{y+16}Q{x+w-24} {y+24} {x+w-16} {y+24}H{x+w}Z" fill="{color}" fill-opacity=".28" stroke="{color}" stroke-opacity=".6" stroke-width="1.2" stroke-linejoin="round"/>')
         elif kind=='io':
-            self.raw(f'<path d="M{x+18} {y}H{x+w}L{x+w-18} {y+h}H{x}Z" fill="white" stroke="{color}" stroke-width="1.8"/>')
+            self.raw(f'<path d="M{x+18} {y}H{x+w}L{x+w-18} {y+h}H{x}Z" fill="{BG1}" filter="url(#sh)"/>')
+            self.raw(f'<path d="M{x+18} {y}H{x+w}L{x+w-18} {y+h}H{x}Z" fill="url(#t-{k})" stroke="{color}" stroke-opacity=".6" stroke-width="1.4" stroke-linejoin="round"/>')
         else:
-            radius = h/2 if kind=='terminal' else 10
-            self.raw(f'<rect x="{x}" y="{y}" width="{w}" height="{h}" rx="{radius}" fill="white" stroke="{color}" stroke-width="1.8"/>')
-        if icon:self.icon(icon,x+18,y+19,color,29)
-        tx=x+58 if icon else x+20
-        self.text(tx,y+35,title,18,color,weight=650)
-        if detail:self.lines(x+20,y+66,detail,w-40,15)
+            self._card(x,y,w,h,color,h/2 if kind=='terminal' else 12)
+        if icon:
+            self.badge(icon,x+34 if kind!='terminal' else x+h/2+4,y+33 if h>70 else y+h/2,color,18 if h>70 else 16)
+        tx=x+62 if icon else x+20
+        if kind=='terminal' and icon: tx=x+h/2+30
+        ty=y+38 if h>70 else y+h/2+6
+        self.text(tx,ty,title,18,INK,weight=680)
+        if detail:self.lines(x+20 if kind!='io' else x+30,y+68,detail,w-40,14.5)
         self.raw('</g>')
 
     def db(self,x,y,w,h,title,detail='',color=VIOLET):
+        k=_key(color)
         self.raw('<g class="node">')
-        self.raw(f'<path d="M{x} {y+18}V{y+h-18}C{x} {y+h+6} {x+w} {y+h+6} {x+w} {y+h-18}V{y+18}" fill="white" stroke="{color}" stroke-width="1.8"/><ellipse cx="{x+w/2}" cy="{y+18}" rx="{w/2}" ry="18" fill="#eeebf7" stroke="{color}" stroke-width="1.8"/>')
-        self.text(x+w/2,y+55,title,18,color,'middle',650)
-        if detail:self.lines(x+w/2,y+82,detail,w-26,14,anchor='middle')
+        body=f'M{x} {y+18}V{y+h-18}C{x} {y+h+6} {x+w} {y+h+6} {x+w} {y+h-18}V{y+18}'
+        self.raw(f'<path d="{body}" fill="{BG1}" filter="url(#sh)"/>')
+        self.raw(f'<path d="{body}" fill="url(#t-{k})" stroke="{color}" stroke-opacity=".65" stroke-width="1.4"/>')
+        self.raw(f'<path d="M{x} {y+34}C{x} {y+58} {x+w} {y+58} {x+w} {y+34}" fill="none" stroke="{color}" stroke-opacity=".22" stroke-width="1.2"/>')
+        self.raw(f'<ellipse cx="{x+w/2}" cy="{y+18}" rx="{w/2}" ry="18" fill="{BG2}"/><ellipse cx="{x+w/2}" cy="{y+18}" rx="{w/2}" ry="18" fill="{color}" fill-opacity=".22" stroke="{color}" stroke-opacity=".75" stroke-width="1.4"/>')
+        self.text(x+w/2,y+60,title,17.5,INK,'middle',700)
+        if detail:self.lines(x+w/2,y+84,detail,w-26,13.5,anchor='middle')
         self.raw('</g>')
 
     def cloud(self,x,y,w,h,title,detail=''):
         self.raw('<g class="node">')
-        self.raw(f'<path d="M{x+w*.2} {y+h}C{x-w*.06} {y+h} {x-w*.02} {y+h*.4} {x+w*.22} {y+h*.4}C{x+w*.2} {y-h*.05} {x+w*.7} {y-h*.05} {x+w*.72} {y+h*.3}C{x+w*1.06} {y+h*.12} {x+w*1.12} {y+h} {x+w*.82} {y+h}Z" fill="#fff9ed" stroke="{AMBER}" stroke-width="1.8"/>')
-        self.text(x+w/2,y+h*.55,title,18,AMBER,'middle',650)
-        self.text(x+w/2,y+h*.8,detail,14,MUTED,'middle')
+        d=f'M{x+w*.2} {y+h}C{x-w*.06} {y+h} {x-w*.02} {y+h*.4} {x+w*.22} {y+h*.4}C{x+w*.2} {y-h*.05} {x+w*.7} {y-h*.05} {x+w*.72} {y+h*.3}C{x+w*1.06} {y+h*.12} {x+w*1.12} {y+h} {x+w*.82} {y+h}Z'
+        self.raw(f'<path d="{d}" fill="{BG1}" filter="url(#sh)"/><path d="{d}" fill="url(#t-amber)" stroke="{AMBER}" stroke-opacity=".75" stroke-width="1.4"/>')
+        self.text(x+w/2,y+h*.56,title,17.5,INK,'middle',700)
+        self.text(x+w/2,y+h*.8,detail,13.5,AMBER,'middle',500)
         self.raw('</g>')
 
     def decision(self,cx,cy,w,h,title,detail=''):
         self.raw('<g class="node">')
-        self.raw(f'<path d="M{cx} {cy-h/2}L{cx+w/2} {cy} {cx} {cy+h/2} {cx-w/2} {cy}Z" fill="#ecf3ff" stroke="{BLUE}" stroke-width="1.8"/>')
-        self.text(cx,cy-2,title,17,BLUE,'middle',650)
-        if detail:self.text(cx,cy+22,detail,15,MUTED,'middle')
+        d=f'M{cx} {cy-h/2}L{cx+w/2} {cy} {cx} {cy+h/2} {cx-w/2} {cy}Z'
+        self.raw(f'<path d="{d}" fill="{BG1}" filter="url(#sh)" stroke-linejoin="round"/><path d="{d}" fill="url(#t-blue)" stroke="{BLUE}" stroke-opacity=".75" stroke-width="1.5" stroke-linejoin="round"/>')
+        self.text(cx,cy-2,title,16.5,INK,'middle',700)
+        if detail:self.text(cx,cy+21,detail,13.5,MUTED,'middle')
         self.raw('</g>')
 
     def edge(self,points,label='',color='blue',dash=False,lx=None,ly=None):
-        path='M'+' L'.join(f'{x} {y}' for x,y in points)
-        self.raw(f'<path d="{path}" fill="none" stroke="{COLORS[color]}" stroke-width="2" stroke-linejoin="round" marker-end="url(#a-{color})"'+(' stroke-dasharray="6 5"' if dash else '')+'/>')
+        r=12
+        d=f'M{points[0][0]} {points[0][1]}'
+        for i in range(1,len(points)-1):
+            (x0,y0),(x1,y1),(x2,y2)=points[i-1],points[i],points[i+1]
+            l1=max(abs(x1-x0),abs(y1-y0)); l2=max(abs(x2-x1),abs(y2-y1))
+            rr=min(r,l1/2,l2/2)
+            ax=x1-(rr if x1>x0 else -rr if x1<x0 else 0); ay=y1-(rr if y1>y0 else -rr if y1<y0 else 0)
+            bx=x1+(rr if x2>x1 else -rr if x2<x1 else 0); by=y1+(rr if y2>y1 else -rr if y2<y1 else 0)
+            d+=f' L{ax} {ay} Q{x1} {y1} {bx} {by}'
+        d+=f' L{points[-1][0]} {points[-1][1]}'
+        col=COLORS[color]
+        self.raw(f'<path d="{d}" fill="none" stroke="{col}" stroke-opacity=".18" stroke-width="7" stroke-linecap="round" stroke-linejoin="round"/>')
+        self.raw(f'<path d="{d}" fill="none" stroke="{col}" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" marker-end="url(#a-{color})"'+(' stroke-dasharray="7 6"' if dash else '')+'/>')
         if label:
             if lx is None:lx=(points[0][0]+points[-1][0])/2
             if ly is None:ly=(points[0][1]+points[-1][1])/2-10
-            self.label(lx,ly,label,COLORS[color])
+            self.label(lx,ly,label,col)
 
     def label(self,x,y,text,color=BLUE):
-        w=len(text)*7.3+16
-        self.raw(f'<rect x="{x-w/2}" y="{y-15}" width="{w}" height="22" rx="4" fill="#f5f8fc"/>')
-        self.text(x,y,text,13,color,'middle',550)
+        w=len(text)*7.1+22
+        self.raw(f'<rect x="{x-w/2}" y="{y-15.5}" width="{w}" height="23" rx="11.5" fill="#0d1a31" stroke="{color}" stroke-opacity=".55" filter="url(#sh-s)"/>')
+        self.text(x,y+0.5,text,12.5,color,'middle',620)
 
     def note(self,x,y,w,text,color=AMBER):
-        self.raw(f'<path d="M{x} {y}v46" stroke="{color}" stroke-width="3"/>')
-        self.lines(x+12,y+15,text,w-14,14,color)
+        size=13.5
+        strings=textwrap.wrap(text, max(12, int((w-34)/(size*.54))))
+        h=len(strings)*(size+6)+18
+        self.raw(f'<rect x="{x}" y="{y-4}" width="{w}" height="{h}" rx="10" fill="{color}" fill-opacity=".08" stroke="{color}" stroke-opacity=".35"/>')
+        self.raw(f'<rect x="{x}" y="{y-4}" width="4" height="{h}" rx="2" fill="{color}"/>')
+        for i,t in enumerate(strings): self.text(x+18,y+16+i*(size+6),t,size,color,weight=500)
 
-    def foot(self,text):self.text(32,self.h-22,text,14,MUTED)
+    def foot(self,text):
+        self.raw(f'<circle cx="38" cy="{self.h-27}" r="3" fill="{TEAL}"/>')
+        self.text(50,self.h-22,text,13,MUTED)
 
     def finish(self):return '\n'.join(self.parts+['</svg>'])+'\n'
 
@@ -170,7 +247,7 @@ def protocol():
         c.node(x-95,108,190,64,title,icon=icon,color=color)
         c.line(x,172,x,826,color,True)
     for x,y,h,color in [(404,226,574,TEAL),(784,348,194,BLUE),(1074,680,54,VIOLET)]:
-        c.raw(f'<rect x="{x}" y="{y}" width="12" height="{h}" fill="white" stroke="{color}" stroke-width="1.5"/>')
+        c.raw(f'<rect x="{x}" y="{y}" width="12" height="{h}" rx="3" fill="{BG2}" stroke="{color}" stroke-width="1.5"/>')
     c.edge([(120,230),(404,230)],'1 · Synthetic input',color='teal',ly=216)
     c.edge([(416,270),(490,270),(490,306),(416,306)],color='teal')
     c.lines(510,280,['Validate 21 integer features','Encrypt x with Paillier'],260,15,TEAL)
@@ -244,15 +321,19 @@ def service():
 def entity(c,x,y,w,title,subtitle,fields,color=BLUE):
     """Logical record/entity with a header and typed field rows, not a process node."""
     h=88+len(fields)*31
-    c.raw(f'<g class="entity"><rect x="{x}" y="{y}" width="{w}" height="{h}" rx="7" fill="white" stroke="{color}" stroke-width="1.8"/><path d="M{x} {y+61}H{x+w}" stroke="{color}"/>')
-    c.icon('database',x+13,y+12,color,29)
-    c.text(x+53,y+28,title,18,color,weight=650)
-    c.text(x+53,y+49,subtitle,12,MUTED)
+    k=_key(color)
+    c.raw(f'<g class="entity"><rect x="{x}" y="{y}" width="{w}" height="{h}" rx="10" fill="{BG1}" filter="url(#sh)"/>')
+    c.raw(f'<path d="M{x} {y+61}V{y+10}Q{x} {y} {x+10} {y}H{x+w-10}Q{x+w} {y} {x+w} {y+10}V{y+61}Z" fill="{color}" fill-opacity=".2"/>')
+    c.raw(f'<rect x="{x}" y="{y}" width="{w}" height="{h}" rx="10" fill="none" stroke="{color}" stroke-opacity=".65" stroke-width="1.4"/><path d="M{x} {y+61}H{x+w}" stroke="{color}" stroke-opacity=".55"/>')
+    c.badge('database',x+30,y+31,color,17)
+    c.text(x+58,y+28,title,17,INK,weight=750)
+    c.text(x+58,y+48,subtitle,12,MUTED)
     for i,(name,typ) in enumerate(fields):
         yy=y+88+i*31
-        c.text(x+17,yy,name,15,INK,mono=True)
-        c.text(x+w-15,yy,typ,13,MUTED,'end')
-        if i<len(fields)-1:c.line(x+12,yy+10,x+w-12,yy+10,'#e7edf5')
+        if i%2==0:c.raw(f'<rect x="{x+6}" y="{yy-20}" width="{w-12}" height="29" rx="5" fill="#ffffff" fill-opacity=".028"/>')
+        c.raw(f'<circle cx="{x+18}" cy="{yy-5}" r="3" fill="{color}" fill-opacity=".85"/>')
+        c.text(x+30,yy,name,14.5,INK,mono=True)
+        c.text(x+w-15,yy,typ,12.5,MUTED,'end')
     c.raw('</g>')
     return h
 
@@ -265,7 +346,7 @@ def relation(c,x1,y1,x2,y2,many=False,label='',lx=None,ly=None):
     end=x2-direction*17
     if many:
         c.line(end,y2,x2,y2-10,VIOLET);c.line(end,y2,x2,y2+10,VIOLET)
-        c.raw(f'<circle cx="{x2-direction*26}" cy="{y2}" r="4" fill="#f5f8fc" stroke="{VIOLET}" stroke-width="1.4"/>')
+        c.raw(f'<circle cx="{x2-direction*26}" cy="{y2}" r="4" fill="{BG0}" stroke="{VIOLET}" stroke-width="1.4"/>')
     else:
         for dx in (10,16):c.line(x2-direction*dx,y2-7,x2-direction*dx,y2+7,VIOLET)
     if label:c.label(lx if lx is not None else (x1+x2)/2,ly if ly is not None else y1-16,label,VIOLET)
