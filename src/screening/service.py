@@ -25,6 +25,10 @@ class TLSThreadingServer(ThreadingHTTPServer):
     Wrapping the listening socket instead would run every handshake inside accept(), on the single main thread:
     one slow or stalled client would then block all others (seen with --concurrency through an SSH tunnel)."""
 
+    # socketserver's default listen backlog is 5: a burst of simultaneous hospitals overflowed it and
+    # connections were reset (ECONNRESET/EINVAL on macOS, measured 21-30 of 40 clients failing).
+    request_queue_size = 128
+
     def __init__(self, address, handler, ctx):
         self.ctx = ctx
         super().__init__(address, handler)

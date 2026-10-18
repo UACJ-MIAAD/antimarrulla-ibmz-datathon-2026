@@ -27,6 +27,10 @@ def test_stalled_handshake_does_not_block_other_clients(tmp_path, model, keys):
         srv.shutdown(); srv.server_close()
 
 
+def test_listen_backlog_absorbs_bursts():
+    assert service.TLSThreadingServer.request_queue_size >= 64
+
+
 def test_parallel_requests_all_succeed(tmp_path, model, keys):
     secrets_setup.generate(str(tmp_path))
     c = tmp_path / "certs"
@@ -46,7 +50,7 @@ def test_parallel_requests_all_succeed(tmp_path, model, keys):
             errors.append(repr(e))
 
     try:
-        ts = [threading.Thread(target=one) for _ in range(8)]
+        ts = [threading.Thread(target=one) for _ in range(24)]  # beyond the default backlog of 5
         [t.start() for t in ts]; [t.join(60) for t in ts]
         assert not errors
     finally:
