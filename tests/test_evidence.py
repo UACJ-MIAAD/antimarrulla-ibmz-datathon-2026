@@ -289,3 +289,14 @@ def test_diagnostic_cannot_declare_itself_release_sized(tmp_path):
     root = str(tmp_path); run = make_run(root, profile="20"); man = manifest(run)
     man["profile"]["release_eligible"] = True; put(os.path.join(run, "manifest.json"), man)
     assert any("profile declaration" in e for e in ev.check(run, root=root)[0])
+
+
+def test_live_output_is_streamed_and_redacted(tmp_path, capsys):
+    cmd = ("printf 'pilot: estimated 90 min\\nfrom 203.0.113.9\\n"
+           "-----BEGIN RSA PRIVATE KEY-----\\nSECRETBODY\\n-----END RSA PRIVATE KEY-----\\ndone\\n'")
+    code, _, n = ev._shell(cmd, str(tmp_path / "x.log"))
+    shown = capsys.readouterr().out
+    assert code == 0 and n >= 2 and "pilot: estimated 90 min" in shown and "done" in shown
+    assert "203.0.113.9" not in shown and "SECRETBODY" not in shown and "[REDACTED-PRIVATE-KEY]" in shown
+    saved = open(tmp_path / "x.log").read()
+    assert "SECRETBODY" not in saved and "203.0.113.9" not in saved and saved.rstrip().endswith("[exit 0]")

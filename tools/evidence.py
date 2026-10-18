@@ -42,6 +42,7 @@ SYSTEM = [
     ("git", "git log -1 --format='%H %an %cI %s'; git status --short --branch"),
 ]
 SECRET = re.compile(r"-----BEGIN [A-Z0-9 ]*PRIVATE KEY-----|\b(?:ghp|gho|ghu|ghs|github_pat)_[A-Za-z0-9_]{20,}|\b(?:AKIA|ASIA)[0-9A-Z]{16}\b|\bxox[abp]-[A-Za-z0-9-]{10,}")
+PEM_START = re.compile(r"-----BEGIN [A-Z0-9 ]*PRIVATE KEY-----")
 PEM = re.compile(r"-----BEGIN ([A-Z0-9 ]*PRIVATE KEY)-----.*?(?:-----END \1-----|\Z)", re.S)
 CREDENTIAL = re.compile(r"(?im)(?:authorization[\"\x27]?\s*[:=]\s*[\"\x27]?(?:bearer|basic)\s+[^\s\"']+|(?:[a-z_]*(?:token|password|secret|api_key|access_key)[a-z_]*)[\"\x27]?\s*[:=]\s*[\"']?[^\s,;\"']{8,}|https?://[^/\s:@]+:[^/\s@]+@)")
 IPV4 = re.compile(r"(?<![\d.])(?:\d{1,3}\.){3}\d{1,3}(?![\d.])")
@@ -102,16 +103,27 @@ def _git(*a, check=False):
 
 
 def _shell(cmd, log_path, echo=True):
-    "Capture output, then redact the complete text before displaying or saving it."
+    "Stream redacted lines live (long runs stay visible); save the log after redacting the complete text."
     t0 = time.monotonic()
     p = subprocess.Popen(cmd, shell=True, cwd=ROOT, stdout=subprocess.PIPE, stderr=subprocess.STDOUT, text=True, errors="replace")
-    buf = io.StringIO()
+    buf, in_key = io.StringIO(), False
+    if echo:
+        sys.stdout.write(redact(f"$ {cmd}\n")[0]); sys.stdout.flush()
     for line in p.stdout:
         buf.write(line)
+        if echo:
+            if PEM_START.search(line):  # Never echo a private-key body, even line by line.
+                in_key = "-----END" not in line.split("-----BEGIN", 1)[1]
+                sys.stdout.write("[REDACTED-PRIVATE-KEY]\n")
+            elif in_key:
+                in_key = "-----END" not in line
+            else:
+                sys.stdout.write(redact(line)[0])
+            sys.stdout.flush()
     code = p.wait()
     text, n = redact(f"$ {cmd}\n{buf.getvalue()}\n[exit {code}]\n")
     if echo:
-        sys.stdout.write(text); sys.stdout.flush()
+        sys.stdout.write(f"[exit {code}]\n"); sys.stdout.flush()
     with open(log_path, "w", encoding="utf-8") as f:
         f.write(text)
     return code, round(time.monotonic() - t0, 1), n
