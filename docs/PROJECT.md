@@ -55,7 +55,7 @@ Paillier provides `Enc(a)*Enc(b)=Enc(a+b)` and `Enc(a)^k=Enc(k*a)`. A logistic m
 | Overflow | Require sum(M_i*abs(W_i))+abs(B) < public_key.max_int, where M_i is each allowed absolute feature maximum. Include the intercept; reject a model that violates the bound. |
 | Decryption | logit=z/10^9, probability=sigmoid(logit). |
 | Exactness check | Decrypted z must equal the same-input fixed-point integer reference exactly. |
-| Quantization check | abs(logit_fixed−logit_float) <=0.5*(sum(abs(x_i))+1)/10^9, at most approximately 1.03e−7 over schema ranges. Sigmoid error is at most one quarter of the logit bound. Report observed error and AUC difference separately. |
+| Quantization check | abs(logit_fixed−logit_float) <=0.5*(sum(abs(x_i))+1)/10^9, at most approximately 9.55e−8 over the cdc19-v1 schema ranges. Sigmoid error is at most one quarter of the logit bound. Report observed error and AUC difference separately. |
 
 The English protocol is **screening-paillier-v2**. JSON requests carry `protocol`, `schema`, `model`, `id`, `key_public: {n}`, `exponent` and 21 decimal-string `ciphertexts`. Responses carry version/model/schema/ID, exponent and decimal-string `result`; service metadata may add evaluation time. Deploy both endpoints and the UI together. The 32-hex-character request ID is validated with fullmatch. Public-key size is constrained to 2048–4096 bits, and ciphertexts must belong to the key's group.
 

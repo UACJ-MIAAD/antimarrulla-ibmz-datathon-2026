@@ -55,7 +55,7 @@ DIAGRAMS = [
         ("4 / Service computes Enc(z)", ["z = B + sum(W[i] × x[i])", "Only additions and known scalars"], "service"),
         ("5 / Hospital decrypts z", ["Exact match to fixed-point reference", "Separate float quantization bound"], "hospital"),
         ("6 / Hospital interprets z", ["logit = z / 10^9; p = sigmoid(logit)", "Compare p with validation threshold"], "hospital"),
-    ], note="Exact encrypted/fixed-point agreement does not imply zero floating-point quantization error. The schema-wide logit error bound is approximately 1.03 × 10^-7. CKKS and Granite are not integrated."),
+    ], note="Exact encrypted/fixed-point agreement does not imply zero floating-point quantization error. The schema-wide logit error bound is approximately 9.55 × 10^-8. CKKS and Granite are not integrated."),
     dict(id="vault", title="Operational database: the encrypted vault", group="Data", intro="The implemented operational store is an append-only JSONL file, not a relational database. Every saved evaluation has an encrypted payload.", source=["src/screening/vault.py", "src/screening/hospital.py", "docker/compose.yml"], nodes=[
         ("Hospital payload / in memory", ["synthetic, profile, input (19 fields)", "probability, risk_high, date"], "hospital"),
         ("AES-256-GCM encryption", ["External 32-byte vault key", "Random 12-byte nonce; AAD = ID"], "hospital"),
