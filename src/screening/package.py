@@ -23,9 +23,9 @@ DOCUMENTATION = ["data/README.md",
 ]
 DOCUMENTATION_GLOB = ["submission/evidence/README.md", "submission/evidence/local/*", "submission/evidence/metrics/*",
                    "submission/evidence/linuxone/*", "submission/evidence/labs/*",
-                   "submission/evidence/two_hosts/*"]
+                   "submission/evidence/two_hosts/*", "submission/evidence/runs/**/*"]
 DOCUMENTATION_GLOB += ["submission/VIDEO_RECORD.json", "submission/evidence/instance/*", "docs/*.md", "docs/*.pptx"]
-CODE_GLOB = ["docs/*.md", "docs/*.pptx", "notebooks/README.md", "src/README.md", "src/**/*.py", "src/**/*.html", "src/data_prep/README.md", "tests/*.py", "tests/instance/*.py", "tests/instance/*.sh", "docker/*", "artifacts/**/*.json",
+CODE_GLOB = ["tools/**/*.py", ".github/workflows/*.yml", "docs/*.md", "docs/*.pptx", "notebooks/README.md", "src/README.md", "src/**/*.py", "src/**/*.html", "src/data_prep/README.md", "tests/*.py", "tests/instance/*.py", "tests/instance/*.sh", "docker/*", "artifacts/**/*.json",
                "data/cdc_891/*", "data/sinave/tipo1/products.csv", "data/sinave/tipo2/products.csv", "data/catalogos/entidades.csv"]
 CODE = ["data/README.md","Makefile", "requirements.txt", ".dockerignore", "LICENSE", "README.md", "docs/LINUXONE.md", "docs/PROJECT.md",
           "docs/TWO_HOSTS.md", "docs/DELIVERY_PLAN.md", "submission/AI_USE.md"]
@@ -73,7 +73,7 @@ def _valid_measurement(m, mode, model_sha):
         return False
     ex, mu = m.get("accuracy") or {}, m.get("sample") or {}
     n = mu.get("n")
-    if not isinstance(n, int) or n <= 0 or ex.get("identical_integers") != n or ex.get("of") != n:
+    if type(n) is not int or n != (2000 if mode == "process" else 200) or ex.get("identical_integers") != n or ex.get("of") != n:
         return False
     if mode == "process":
         return ex.get("all_within_bound") is True and bool(m.get("microbenchmark_in_process"))
@@ -97,7 +97,7 @@ def final_requirements(prov, root=ROOT):
     model_sha = provenance.sha256(model) if os.path.exists(model) else None
     med = [_json(p) for p in glob.glob(os.path.join(root, "submission/evidence/metrics/measurement_*.json"))]
     for mode, command in (("process", "make measure-docker FINAL=1"), ("api", "make measure-api-docker FINAL=1")):
-        if not any(_valid_measurement(m, mode, model_sha) for m in med):
+        if not any(_valid_measurement(m, mode, model_sha) and (m.get("provenance") or {}).get("code_sha256") == prov.get("code_sha256") for m in med):
             missing.append(f"measurement {mode} on LinuxONE with complete results and clean provenance ({command} on the VM)")
     d_l1 = os.path.join(root, "submission/evidence/linuxone")
     reg = _json(os.path.join(d_l1, "RECORD.json")) or {}

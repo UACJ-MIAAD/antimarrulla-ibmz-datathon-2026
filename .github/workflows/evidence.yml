@@ -4,6 +4,8 @@ on:
     branches: ["evidence/**"]
   pull_request:
     paths: ["submission/evidence/runs/**", "tools/evidence.py"]
+permissions:
+  contents: read
 jobs:
   check:
     runs-on: ubuntu-24.04
@@ -15,4 +17,4 @@ jobs:
         with:
           python-version: "3.12"
       - name: Validate recorded evidence runs (s390x, logs, hashes, provenance, secrets)
-        run: PYTHONPATH=src python3 tools/evidence.py check --github-summary
+        run: PYTHONPATH=src python3 tools/evidence.py check --github-summary ${{ github.event_name == 'push' && '--require-runs' || '' }}

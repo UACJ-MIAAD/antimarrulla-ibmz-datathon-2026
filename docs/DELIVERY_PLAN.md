@@ -2,6 +2,12 @@
 
 > Updated October 17, 2026. Local implementation is verified. LinuxONE evidence, both labs, independent teammate review, the final video, and the English release review remain open. Reports in chat are not completion evidence. Story status lives in `site/status.json`.
 
+## Evidence runner preflight gate
+
+**Do not launch the closing run from `516bb59`.** The [preflight audit](EVIDENCE_PREFLIGHT_AUDIT.md) reproduced false acceptance of a one-patient run and an unavailable commit, incomplete private-key redaction, and weak smoke/system/publication checks. A separate fix branch hardens these gates and includes regression tests. Merge it only after independent teammate review and passing CI; pin that approved commit for both containers, client and recording. No final s390x measurement was launched during this audit.
+
+Carlos and Álvaro: first verify the reviewed runner, host Python 3, Docker/Compose, Git identity and push credentials; then run `make evidence-run PY=python3` once on the real VM. Javier: coordinate independent review, provider/lab records, AI publication decision and video. Preserve failed runs as diagnostics; never promote a Mac rehearsal or consistency check into LinuxONE/provider evidence. Authored output labels and the code ZIP now include the evidence tooling; these fixes change the executable source hash while preserving model weights.
+
 ## Confirmed submission window
 
 Source: the event notice supplied by the team captain, **IBM Z Datathon — Project Submissions (LIVE NOW)**, for [Hack2Skill](https://hack2skill.com/event/datathon-2026).
@@ -61,7 +67,7 @@ Minute-by-minute closing timeline, on-screen run of show and judge Q&A: [DEMO_RU
 
 ## Final numerical comparison
 
-Carlos's requested last test should compare floating-point, fixed-point and Paillier **screening** predictions on the same labeled CDC sample; E5 forecasting is a separate unencrypted module. Use the combined English runtime at both endpoints/client: main `ef1e21d` includes the PR 11 evidence-ordering fix, Carlos's PR 12 concurrency/host-identity changes and Yazmin's PR 13 UI redesign/charts. Fetch and pin the agreed commit; rebuild both endpoints and the measurement client together. Earlier reports saying main was Spanish or the audit PR was unmerged describe earlier checkpoints. Preserve the original remote-run outputs before rerunning. See [latest Carlos report](../submission/evidence/two_hosts/carlos_20261017_audit_summary_reported.md).
+Carlos's requested last test should compare floating-point, fixed-point and Paillier **screening** predictions on the same labeled CDC sample; E5 forecasting is a separate unencrypted module. Use the reviewed current cdc19-v1 runtime at both endpoints/client. The old `ef1e21d` checkpoint predates the 19-feature release and is not the final-run pin. Fetch and pin the agreed commit; rebuild both endpoints and the measurement client together. Earlier reports saying main was Spanish or the audit PR was unmerged describe earlier checkpoints. Preserve the original remote-run outputs before rerunning. See [latest Carlos report](../submission/evidence/two_hosts/carlos_20261017_audit_summary_reported.md).
 
 ## Latest server progress and demo identifiers
 
