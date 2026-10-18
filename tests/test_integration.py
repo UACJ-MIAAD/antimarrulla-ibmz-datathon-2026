@@ -1,8 +1,8 @@
 "Integration: hospital UI/API → mutual TLS 1.3 → actual risk service → decryption → vault."
 import json, logging, os, ssl, threading, urllib.request
 import pytest
-from screening import vault, hospital, protocol, secrets_setup, service, synthetic
-from screening.paths import ROOT
+from screening import vault, hospital, protocol, secrets_setup, service, synthetic, provenance
+from screening.paths import ROOT, MODEL_JSON
 
 
 @pytest.fixture(scope="module")
@@ -10,12 +10,12 @@ def environment(tmp_path_factory, model):
     d = tmp_path_factory.mktemp("secrets_setup")
     secrets_setup.generate(str(d))
     c = os.path.join(d, "certs")
-    srv, svc = service.create_server("127.0.0.1", 0, model, f"{c}/service.pem", f"{c}/service.key", f"{c}/ca.pem")
+    srv, svc = service.create_server("127.0.0.1", 0, model, f"{c}/service.pem", f"{c}/service.key", f"{c}/ca.pem", model_sha256=provenance.sha256(MODEL_JSON))
     threading.Thread(target=srv.serve_forever, daemon=True).start()
     url = f"https://localhost:{srv.server_address[1]}"
     cli = hospital.ServiceClient(url, f"{c}/ca.pem", f"{c}/hospital.pem", f"{c}/hospital.key")
     bov = vault.Vault(str(d / "vault.jsonl"), vault.load_key(str(d / "vault.key")))
-    clin = hospital.Clinic(model, cli, bov)
+    clin = hospital.Clinic(model, cli, bov, provenance.sha256(MODEL_JSON))
     hsrv = hospital.create_server("127.0.0.1", 0, clin)
     threading.Thread(target=hsrv.serve_forever, daemon=True).start()
     yield {"dir": d, "certs": c, "url": url, "clinic": clin, "svc": svc, "hosp": f"http://127.0.0.1:{hsrv.server_address[1]}", "vault": bov}
@@ -121,3 +121,33 @@ def test_f11_timings_separate_and_include_vault(environment):
     t = r["timings_ms"]
     assert {"encrypt", "network_and_service", "decrypt", "interpret", "vault", "total_in_hospital"} <= set(t)
     assert t["total_in_hospital"] >= t["encrypt"] + t["network_and_service"] + t["decrypt"] - 1
+
+
+def test_frontend_config_exposes_all_scopes_and_source_identity(environment):
+    with urllib.request.urlopen(environment["hosp"] + "/api/test-config") as response:
+        config = json.loads(response.read())
+    assert config["api_sizes"] == [20, 200, 2000, 16000]
+    assert [(p["process_n"],p["api_n"]) for p in config["profiles"]] == [(20,20),(200,200),(2000,200),(16000,200)]
+    assert config["warmup"] == 3 and config["seed"] == 2026
+    assert config["code_sha256"] == provenance.hash_code()[0]
+    assert config["model_sha256"] == provenance.sha256(MODEL_JSON)
+
+
+def test_seeded_browser_input_is_reproducible_and_exact(environment):
+    seed = 2030
+    first = post(environment["hosp"] + "/api/evaluate", {"synthetic_seed":seed})
+    second = post(environment["hosp"] + "/api/evaluate", {"synthetic_seed":seed})
+    assert first["hospital"]["input"] == second["hospital"]["input"] == synthetic.random_patient(seed)
+    assert first["hospital"]["integer_reference_match"] is True
+    assert first["hospital"]["z_integer"] == second["hospital"]["z_integer"]
+    assert first["id"] != second["id"]
+    assert first["code_sha256"] == provenance.hash_code()[0]
+    assert first["model_sha256"] == provenance.sha256(MODEL_JSON)
+    assert first["server"]["received"]["ciphertexts"] != second["server"]["received"]["ciphertexts"]
+
+
+@pytest.mark.parametrize("seed", [True,"2026",-1,2**32,1.5])
+def test_invalid_browser_seed_is_rejected(environment, seed):
+    with pytest.raises(urllib.error.HTTPError) as error:
+        post(environment["hosp"] + "/api/evaluate", {"synthetic_seed":seed})
+    assert error.value.code == 400

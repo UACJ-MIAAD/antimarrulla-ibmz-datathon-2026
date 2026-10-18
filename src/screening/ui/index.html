@@ -7,7 +7,7 @@
 <style>
 :root{--bg:#0B1426;--surface:#111D35;--line:#22314F;--line2:#3A4A6B;--txt:#F2F4F8;--muted:#A8B3C7;--faint:#7C8AA5;--accent:#78A9FF;--flag:#FF8A3D;--ok:#42BE65;--raise:#E06A22;--lower:#4F8DF5;--warn:#F1C21B;--err:#FF8389;
  --sans:"IBM Plex Sans",system-ui,-apple-system,"Segoe UI",sans-serif;--mono:"IBM Plex Mono",ui-monospace,SFMono-Regular,Menlo,monospace}
-*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--txt);font:15px/1.5 var(--sans)}
+*{box-sizing:border-box}[hidden]{display:none!important}body{margin:0;background:var(--bg);color:var(--txt);font:15px/1.5 var(--sans)}
 .wrap{max-width:1200px;margin:0 auto;padding:32px 40px 48px;display:flex;flex-direction:column;gap:44px}@media(max-width:600px){.wrap{padding:24px 20px 32px;gap:32px}}
 button,input,select{font:inherit;color:inherit}
 :focus-visible{outline:2px solid var(--accent);outline-offset:2px}
@@ -92,6 +92,7 @@ h4{margin:0;font-size:14px;font-weight:500}figure{margin:0}
 .legend{display:flex;flex-wrap:wrap;gap:6px 18px;font-size:12px;color:var(--muted)}.legend i{display:inline-block;width:9px;height:9px;border-radius:50%;margin-right:6px;vertical-align:middle}
 th .sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0)}
 footer{display:flex;flex-wrap:wrap;justify-content:space-between;gap:12px 32px;font-size:12px;color:var(--faint)}footer span:first-child{max-width:760px}
+#test-console{scroll-margin-top:20px}.test-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(300px,100%),1fr));gap:24px}.test-controls{display:flex;gap:12px;align-items:center;flex-wrap:wrap}.test-controls select,#evidence-profile{background:var(--surface);border:1px solid var(--line2);border-radius:6px;padding:9px;min-height:44px}#test-command{display:block;overflow-wrap:anywhere;white-space:pre-wrap;font:13px var(--mono);border:1px solid var(--line);padding:12px;margin:12px 0}#batch-progress{width:100%;height:12px;accent-color:var(--accent)}#batch-status{min-height:48px;overflow-wrap:anywhere}#batch-stats{font:13px var(--mono);white-space:pre-wrap;overflow-wrap:anywhere}.test-card h4{margin:0 0 8px}.test-card p{font-size:13px;color:var(--muted)}
 </style>
 </head>
 <body class="idle">
@@ -104,6 +105,7 @@ footer{display:flex;flex-wrap:wrap;justify-content:space-between;gap:12px 32px;f
 <div class="controls">
   <div class="seg" id="profiles" role="group" aria-label="Synthetic patient"></div>
   <button class="link" id="toggle-editor" type="button" aria-expanded="false" aria-controls="editor">Enter the 19 answers</button>
+  <a href="#test-console">Test modes</a>
 </div>
 <section id="editor" aria-label="Synthetic patient entry">
   <p class="note">Answers use the codes of the CDC Diabetes Health Indicators dataset (UCI 891, BRFSS 2015). These are recoded dataset values, not raw BRFSS response codes. Every field is required. Do not enter real patient data.</p>
@@ -143,6 +145,24 @@ footer{display:flex;flex-wrap:wrap;justify-content:space-between;gap:12px 32px;f
   </div>
   <div class="cta"><button class="pri" id="try" type="button">Try patient C · high risk</button><span>or pick A, B or Random above. Every patient is synthetic.</span></div>
 </section>
+<section id="test-console" class="panel" aria-label="Test modes">
+ <h3>Test modes</h3>
+ <p class="note">Single-patient controls above cover A, B, C, random and custom synthetic inputs. Batch modes below test the deployed API. Recorded CDC comparisons are a separate operation.</p>
+ <div class="test-grid">
+  <div class="test-card"><h4>Browser API test</h4><p>Synthetic requests · concurrency 1 · 3 warmups excluded. Keep this tab open. Large browser runs are diagnostic observations, not final recorded evidence.</p>
+   <div class="test-controls"><label for="batch-size">Requests</label><select id="batch-size" disabled></select><button id="batch" class="pri" disabled>Start API test</button><button id="batch-stop" class="link" disabled>Stop after current</button></div>
+   <progress id="batch-progress" value="0" max="20" aria-label="Completed measured requests"></progress>
+   <p id="batch-status" role="status" aria-live="polite">Loading test configuration…</p><div id="batch-stats"></div>
+   <button id="batch-export" class="link" disabled>Download diagnostic JSON</button>
+  </div>
+  <div class="test-card"><h4>Recorded evidence on the VM</h4><p id="test-scope"></p>
+   <label for="evidence-profile">CDC records</label><select id="evidence-profile" disabled></select>
+   <label style="display:block;margin-top:10px"><input id="evidence-api-all" type="checkbox" disabled> Use the same count for deployed API requests</label>
+   <code id="test-command"></code><button id="copy-command" class="link" disabled>Copy command</button>
+   <p>Run this command in the VM terminal on the reviewed commit. It saves logs, hashes and exact results. This page does not execute shell commands. No clinical AUC is calculated from synthetic browser inputs.</p>
+  </div>
+ </div>
+</section>
 <div class="results">
   <section class="hospital" aria-label="What the hospital sees">
     <div class="side"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#42BE65" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="8" cy="15" r="4"/><path d="M11 12l9-9M17 6l3 3"/></svg>HOSPITAL · HOLDS THE PRIVATE KEY</div>
@@ -154,7 +174,7 @@ footer{display:flex;flex-wrap:wrap;justify-content:space-between;gap:12px 32px;f
   </section>
 </div>
 <section id="session" class="panel" aria-label="This session" hidden>
-  <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:8px 16px"><h3>This session</h3><button class="link" id="batch" type="button">Run 10 random synthetic patients</button></div>
+  <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:8px 16px"><h3>This session · recent observations</h3></div>
   <div class="duo2">
     <figure><h4>Risk of each evaluated patient</h4><div class="chart" id="strip"></div>
       <div class="legend"><span><i style="background:var(--raise)"></i>Flagged: prioritize a glucose test</span><span><i style="background:var(--lower)"></i>Below the threshold</span></div>
@@ -168,7 +188,7 @@ footer{display:flex;flex-wrap:wrap;justify-content:space-between;gap:12px 32px;f
   <div class="tiles" id="model-tiles"></div>
   <div class="duo2">
     <figure><h4>Calibration by decile</h4><div class="chart" id="calibration"></div><p>Each point is one tenth of the test set: average predicted risk against the share that reported diabetes. On the dashed line, prediction matches reality.</p></figure>
-    <figure><h4>Decisions at the 12.3% threshold</h4><div id="confusion"></div><p id="confusion-note"></p></figure>
+    <figure><h4 id="decision-heading">Decisions at the model threshold</h4><div id="confusion"></div><p id="confusion-note"></p></figure>
   </div>
 </section>
 <section id="answers" class="panel" aria-label="Answer by answer" hidden>
@@ -208,7 +228,7 @@ const GROUPS=["Clinical history","Lifestyle","Health status","Access to care","D
 const featureLabel=n=>META[n]?.q||n;
 // "Synthetic B · intermediate risk" → "B · moderate"; other labels pass through.
 function shortLabel(k){const m=/^Synthetic ([A-Z]) · (\w+) risk$/.exec(k);return m?`${m[1]} · ${m[2]==="intermediate"?"moderate":m[2]}`:k}
-async function api(u,b){const r=await fetch(u,b?{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify(b)}:{});const j=await r.json();if(!r.ok)throw new Error(j.error||r.status);return j}
+async function api(u,b){const controller=new AbortController(),timer=setTimeout(()=>controller.abort(),60000);try{const r=await fetch(u,{...(b?{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify(b)}:{}),signal:controller.signal});let j;try{j=await r.json()}catch{throw Error(`Invalid JSON response (HTTP ${r.status})`)}if(!r.ok)throw Error(j.error||`HTTP ${r.status}`);return j}catch(e){if(e.name==="AbortError")throw Error("Request timed out; the server may have completed it. No automatic retry.");throw e}finally{clearTimeout(timer)}}
 function escapeHtml(s){return String(s).replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]))}
 function fieldMarkup(v){const m=META[v.name]||{},id="f_"+v.name,c=m.c&&Object.keys(m.c).every(k=>k>=v.min&&k<=v.max)&&Object.keys(m.c).length===v.max-v.min+1?m.c:null;
  const ctl=c?`<select id="${id}" aria-describedby="m_${v.name}" required><option value="">Select…</option>${Object.entries(c).map(([k,t])=>`<option value="${k}">${escapeHtml(t)} (${k})</option>`).join("")}</select>`
@@ -220,11 +240,12 @@ function validateField(v){const x=$("f_"+v.name).value.trim();let e="";
 function fill(p){for(const v of SCHEMA.variables){$("f_"+v.name).value=p[v.name]??"";validateField(v)}$("summary").textContent=""}
 function markProfile(k){for(const b of $("profiles").querySelectorAll("button"))b.setAttribute("aria-pressed",b.dataset.profile===k)}
 function openEditor(open){$("editor").classList.toggle("open",open);$("toggle-editor").setAttribute("aria-expanded",open);$("toggle-editor").textContent=open?"Hide the 19 answers":"Enter the 19 answers"}
-async function evaluate(body,k){if(busy)return;busy=true;document.body.classList.remove("idle");markProfile(k);for(const b of document.querySelectorAll("button"))b.disabled=true;
+function lockControls(locked){for(const el of document.querySelectorAll("button,input,select"))el.disabled=locked;$("batch-stop").disabled=!batching;$("batch-export").disabled=locked||!BATCH_RESULT;if(!TEST_CONFIG){for(const id of ["batch","batch-size","evidence-profile","evidence-api-all","copy-command"])$(id).disabled=true}}
+async function evaluate(body,k){if(busy||batching)return;busy=true;document.body.classList.remove("idle");markProfile(k);lockControls(true);
  $("hospital").innerHTML='<p class="empty">Encrypting and sending…</p>';$("service").innerHTML="";
- try{render(await api("/api/evaluate",body))}catch(e){$("hospital").innerHTML=`<p class="err">Evaluation failed: ${escapeHtml(e.message)}</p>`}
- finally{busy=false;if(!batching)for(const b of document.querySelectorAll("button"))b.disabled=false}}
-function render(r){const s=r.server,h=r.hospital;fill(h.input);
+ try{const result=await api("/api/evaluate",body);if(result.hospital?.integer_reference_match!==true)throw Error("Exact integer reference check failed; result withheld");render(result)}catch(e){$("hospital").innerHTML=`<p class="err">Evaluation failed: ${escapeHtml(e.message)}</p>`}
+ finally{busy=false;lockControls(false)}}
+function render(r,track=true){const s=r.server,h=r.hospital;fill(h.input);
  const pct=h.probability*100,u=h.threshold*100,max=Math.max(...h.factors.map(f=>Math.abs(f.contribution_logit)),.01);
  $("hospital").innerHTML=`<div class="meta">${escapeHtml(shortLabel(String(r.profile)))} · id ${escapeHtml(r.id.slice(0,8))}</div>
  <div style="display:flex;flex-direction:column;gap:14px;margin-top:8px"><div class="big">${pct.toFixed(1)}<small>%</small></div>
@@ -233,7 +254,7 @@ function render(r){const s=r.server,h=r.hospital;fill(h.input);
  <p class="hint">Threshold ${u.toFixed(1)}%, chosen for ≥80% sensitivity on validation data, so moderate profiles can be flagged. Screening, not diagnosis.</p>
  <div class="factors" style="margin-top:26px"><p class="hint" style="font-size:13px">Largest model contributions <span>· relative to the training mean, not causal effects</span></p>
  ${h.factors.map(f=>`<div class="factor"><div><span title="${escapeHtml(f.variable)}">${escapeHtml(featureLabel(f.variable))}</span><span>${f.contribution_logit>0?"+":""}${f.contribution_logit}</span></div><p title="${escapeHtml(featureLabel(f.variable))}: ${f.contribution_logit>0?"raises":"lowers"} the logit by ${Math.abs(f.contribution_logit)}"><i style="width:${Math.abs(f.contribution_logit)/max*100}%;background:var(${f.contribution_logit>0?"--raise":"--lower"})"></i></p></div>`).join("")}</div>
- <div class="meta" style="margin-top:18px">logit ${h.logit.toFixed(4)} · z = ${escapeHtml(h.z_integer)}</div>`;
+ <div class="meta" style="margin-top:18px">logit ${h.logit.toFixed(4)} · z = ${escapeHtml(h.z_integer)} · exact integer verified</div>`;
  $("service").innerHTML=`<p class="lead">Sees ${s.received.ciphertexts.length} ciphertexts. Never an answer, the probability or the flag.</p>
  <div class="cipher" style="margin-top:20px" tabindex="0" aria-label="Ciphertexts received, leading hex digits">${s.received.ciphertexts.map((c,i)=>`<div><b>x${String(i+1).padStart(2,"0")}</b>${escapeHtml(c.hex)}</div>`).join("")}<div><b>Enc(z)</b>${escapeHtml(s.returned.result.hex)}</div></div>
  <div class="meta" style="margin-top:20px">${escapeHtml(s.received.protocol)} · ${s.received.key_public_bits}-bit key · schema ${escapeHtml(s.received.schema)}<br>in ${s.received.bytes.toLocaleString("en-US")} B · out Enc(z) ${s.returned.bytes.toLocaleString("en-US")} B · ${s.returned.service_ms} ms of compute</div>`;
@@ -245,10 +266,10 @@ function render(r){const s=r.server,h=r.hospital;fill(h.input);
  ${steps.map(([n,w,ms])=>`<tr title="${n}: ${ms} ms (${(ms/t.total_in_hospital*100).toFixed(1)}% of the hospital total)"><td>${n}</td><td class="no">${w}</td><td class="bar"><i style="width:${ms/tmax*100}%"></i></td><td class="v">${ms}</td></tr>`).join("")}
  <tr class="total"><td>Total inside the hospital</td><td class="no">Excluding the browser</td><td></td><td class="v">${t.total_in_hospital}</td></tr></tbody></table></div>
  ${t.encrypt>=tmax?`<p>Encryption takes the longest: each of the ${s.received.ciphertexts.length} answers is a separate ${s.received.key_public_bits}-bit Paillier encryption.</p>`:""}`;
- SESSION.push({label:shortLabel(String(r.profile)),p:h.probability,flag:h.risk_high,ms:t.total_in_hospital});LAST_P=h.probability;THRESHOLD=h.threshold;$("session").hidden=false;drawCharts()}
+ if(track)recordSession(r);LAST_P=h.probability;THRESHOLD=h.threshold;$("session").hidden=false;drawCharts()}
 async function init(){
  try{const e=await api("/api/state"),ok=e.service.state==="ok";$("dot").className="dot "+(ok?"ok":"bad");
-  $("service-state").textContent=ok?"Service online":`Service: ${e.service.state}`;$("environment").textContent=`${e.model} · ${e.key_bits}-bit key · ${e.machine} (${e.system})`;checkModel(e.model_sha256)}
+  $("service-state").textContent=ok?"Service online":`Service: ${e.service.state}`;$("environment").textContent=`${e.model} · ${e.key_bits}-bit key · ${e.machine} (${e.system})`;checkModel(e.model_sha256);if(e.threshold?.probability)$("decision-heading").textContent=`Decisions at the ${(e.threshold.probability*100).toFixed(1)}% threshold`}
  catch(e){$("dot").className="dot bad";$("service-state").textContent="Status unavailable"}
  let s;try{s=await api("/api/synthetic")}catch(e){$("hospital").innerHTML=`<p class="err">Could not load the synthetic profiles: ${escapeHtml(e.message)}</p>`;return}
  SCHEMA=s.schema;PROFILES=s.profiles;
@@ -261,9 +282,7 @@ async function init(){
  $("form").addEventListener("submit",event=>{event.preventDefault();$("submit").click()});
  for(const v of SCHEMA.variables){const el=$("f_"+v.name);el.addEventListener(el.tagName==="SELECT"?"change":"input",()=>{validateField(v);markProfile(null)})}
  fill(Object.values(PROFILES)[0]);
- $("batch").onclick=async()=>{if(busy)return;batching=true;const b=$("batch");
-  try{for(let i=1;i<=10;i++){b.textContent=`Running ${i} of 10…`;await evaluate({random_patient:true},"random")}}
-  finally{batching=false;b.textContent="Run 10 random synthetic patients";for(const x of document.querySelectorAll("button"))x.disabled=false}};
+ await initTests();
  const q=new URLSearchParams(location.search).get("profile");if(q){const k=Object.keys(PROFILES).find(n=>n.endsWith(q)||n.includes("Synthetic "+q));if(k){fill(PROFILES[k]);evaluate({profile:k},k)}}
  $("submit").onclick=()=>{const p={},invalid=[];for(const v of SCHEMA.variables){const x=validateField(v);if(x===null)invalid.push(v.name);else p[v.name]=x}
   if(invalid.length){$("summary").innerHTML=`<span class="err">${invalid.length} field${invalid.length>1?"s need":" needs"} attention.</span>`;$("f_"+invalid[0]).focus();return}
@@ -273,9 +292,45 @@ async function init(){
 const METRICS={sha:"e32420ac99fd10d30a3a65a225a43d84d4bfd7208c6f3b7656611893729575ac",n:38052,positives:5302,auc:0.825,aucFloat:0.825233,aucFixed:0.825233,changed:1,
  sensitivity:0.8072,specificity:0.6885,ppv:0.2955,cm:{tp:4280,fn:1022,fp:10203,tn:22547},
  calibration:[[0.0097,0.0026,3806],[0.0197,0.0058,3806],[0.031,0.0231,3805],[0.0463,0.0428,3805],[0.0671,0.0623,3805],[0.0958,0.1046,3805],[0.1376,0.1545,3805],[0.1973,0.2142,3805],[0.2908,0.3099,3805],[0.4948,0.4736,3805]]};
-const SESSION=[];let LAST_P=null,batching=false,THRESHOLD=null;
+const SESSION=[];let SESSION_TOTAL=0,LAST_P=null,batching=false,THRESHOLD=null,TEST_CONFIG=null,BATCH_RESULT=null,ACTIVE_RUN=null;
+function recordSession(r){SESSION_TOTAL++;SESSION.push({sequence:SESSION_TOTAL,label:shortLabel(String(r.profile)),p:r.hospital.probability,flag:r.hospital.risk_high,ms:r.timings_ms.total_in_hospital});if(SESSION.length>200)SESSION.shift()}
+// BEGIN BATCH_ENGINE
+class ApiBatchRun {
+ constructor({request,state,config,onResult=()=>{},onProgress=()=>{},now=()=>performance.now()}){Object.assign(this,{request,state,config,onResult,onProgress,now});this.stopping=false}
+ stop(){this.stopping=true}
+ identity(s){const h=s.service||{};if(h.state!=="ok"||h.key_private!==false||!s.model_sha256||!s.code_sha256||h.model_sha256!==s.model_sha256||h.code_sha256!==s.code_sha256)throw Error("Hospital/service identity or key status is not ready");return {model_sha256:s.model_sha256,code_sha256:s.code_sha256,machine:s.machine,system:s.system}}
+ verify(r,id){if(r.synthetic!==true||r.model_sha256!==id.model_sha256||r.code_sha256!==id.code_sha256||r.hospital?.integer_reference_match!==true)throw Error("Synthetic result, source identity or exact integer check failed")}
+ async run(n){if(!this.config.api_sizes.includes(n))throw Error("Unsupported API sample size");const start=this.now(),client=[],hospital=[],seen=new Set();
+  const out={kind:"browser-api-diagnostic-v1",status:"running",requested:n,completed:0,exact:0,warmup_completed:0,warmup_requested:this.config.warmup,concurrency:1,initial_seed:this.config.seed,identity:null,failures:0,error:null,scope:"Synthetic browser API observations; no clinical AUC; not recorded release evidence"};
+  try{out.identity=this.identity(await this.state());
+   if(out.identity.code_sha256!==this.config.code_sha256||out.identity.model_sha256!==this.config.model_sha256)throw Error("Test configuration is stale; reload the page");
+   for(let i=0;i<this.config.warmup&&!this.stopping;i++){const r=await this.request({synthetic_seed:this.config.seed+i});this.verify(r,out.identity);out.warmup_completed++;this.onProgress(out)}
+   for(let i=0;i<n&&!this.stopping;i++){const t=this.now(),r=await this.request({synthetic_seed:this.config.seed+this.config.warmup+i});this.verify(r,out.identity);
+    if(!r.id||seen.has(r.id))throw Error("Duplicate or missing request identifier");seen.add(r.id);
+    const ms=this.now()-t,hm=r.timings_ms?.total_in_hospital;if(!Number.isFinite(ms)||!Number.isFinite(hm)||hm<0)throw Error("Invalid request timing");
+    client.push(ms);hospital.push(hm);out.completed++;out.exact++;this.onResult(r,out.completed);this.onProgress(out)}
+   if(out.completed===n){const end=this.identity(await this.state());if(JSON.stringify(end)!==JSON.stringify(out.identity))throw Error("Hospital/service identity changed during the run");out.status="completed"}else out.status="cancelled";
+  }catch(e){out.status="failed";out.failures=1;out.error=e.message}
+  out.percentile_method="linear interpolation";out.elapsed_s=Math.max(0,(this.now()-start)/1000);out.client_ms=ApiBatchRun.stats(client);out.hospital_ms=ApiBatchRun.stats(hospital);return out}
+ static stats(values){if(!values.length)return null;const sorted=[...values].sort((a,b)=>a-b),q=f=>{const i=(sorted.length-1)*f,a=Math.floor(i),b=Math.ceil(i);return sorted[a]+(sorted[b]-sorted[a])*(i-a)};return {n:values.length,p50_ms:q(.5),p95_ms:q(.95),mean_ms:values.reduce((a,b)=>a+b,0)/values.length}}
+}
+// END BATCH_ENGINE
+
+function updateCommand(){if(!TEST_CONFIG)return;const p=TEST_CONFIG.profiles.find(p=>p.name===$("evidence-profile").value),all=$("evidence-api-all").checked,n=all?p.process_n:p.api_n;$("test-command").textContent=`make evidence-run PROFILE=${p.name}${all?` API_N=${n}`:""} PY=python3`;$("test-scope").textContent=`${p.process_n.toLocaleString("en-US")} labeled CDC records + ${n.toLocaleString("en-US")} synthetic API requests. ${p.release_eligible&&n>=200?"Release-sized sample; all remaining evidence gates still apply.":"Diagnostic sample only; cannot close the final package."}`}
+async function initTests(){try{const config=await api("/api/test-config");if(!Array.isArray(config.api_sizes)||config.api_sizes.length!==4||!config.api_sizes.every(n=>Number.isInteger(n)&&[20,200,2000,16000].includes(n))||!Array.isArray(config.profiles))throw Error("Unsupported test configuration");TEST_CONFIG=config;for(const id of ["batch-size","evidence-profile"])$(id).innerHTML=TEST_CONFIG.api_sizes.map(n=>`<option value="${n}">${n.toLocaleString("en-US")}</option>`).join("");$("batch-size").value="20";$("evidence-profile").value="16000";$("batch-status").textContent="Ready. Choose a request count; no batch starts automatically.";updateCommand();lockControls(false)}catch(e){$("batch-status").textContent=`Batch modes unavailable: ${e.message}. Rebuild the matching Hospital and service.`;return}
+ $("evidence-profile").onchange=updateCommand;$("evidence-api-all").onchange=updateCommand;
+ $("copy-command").onclick=async()=>{try{await navigator.clipboard.writeText($("test-command").textContent);$("copy-command").textContent="Copied"}catch{$("copy-command").textContent="Select and copy the command above"}};
+ $("batch-stop").onclick=()=>{ACTIVE_RUN?.stop();$("batch-stop").disabled=true;$("batch-status").textContent="Stopping after the current request; completed vault writes remain saved."};
+ $("batch").onclick=runBrowserTest;$("batch-size").onchange=()=>{$("batch").textContent=`Start ${Number($("batch-size").value).toLocaleString("en-US")} API requests`};$("batch-size").onchange();
+ $("batch-export").onclick=()=>{if(!BATCH_RESULT)return;const blob=new Blob([JSON.stringify(BATCH_RESULT,null,2)],{type:"application/json"}),url=URL.createObjectURL(blob),a=document.createElement("a");a.href=url;a.download=`browser-api-${BATCH_RESULT.requested}-${Date.now()}.json`;a.click();setTimeout(()=>URL.revokeObjectURL(url),1000)};
+}
+async function runBrowserTest(){if(busy||batching||!TEST_CONFIG)return;const n=Number($("batch-size").value);batching=true;BATCH_RESULT=null;lockControls(true);$("batch-progress").max=n;$("batch-progress").value=0;$("batch-stats").textContent="";$("batch-status").textContent="Checking Hospital/service identity…";const started=performance.now();
+ ACTIVE_RUN=new ApiBatchRun({request:b=>api("/api/evaluate",b),state:()=>api("/api/state"),config:TEST_CONFIG,onResult:(r,i)=>{recordSession(r);if(i===1||i%20===0||i===n){document.body.classList.remove("idle");render(r,false)}},onProgress:r=>{$("batch-progress").value=r.completed;const elapsed=(performance.now()-started)/1000,eta=r.completed?Math.ceil((n-r.completed)*elapsed/r.completed):null;$("batch-status").textContent=`${r.warmup_completed}/${r.warmup_requested} warmups · ${r.completed.toLocaleString("en-US")}/${n.toLocaleString("en-US")} measured · ${r.exact} exact${eta!==null?` · estimated ${eta}s remaining`:""}`}});
+ try{BATCH_RESULT=await ACTIVE_RUN.run(n);const r=BATCH_RESULT;$("batch-status").textContent=`${r.status.toUpperCase()}: ${r.completed.toLocaleString("en-US")}/${n.toLocaleString("en-US")} measured; ${r.exact} exact.${r.error?` ${r.error}`:""} Browser diagnostic only.`;const f=x=>x?`p50 ${x.p50_ms.toFixed(1)} ms · p95 ${x.p95_ms.toFixed(1)} ms`:"No measured results";$("batch-stats").textContent=`Browser → API → browser: ${f(r.client_ms)}\nInside Hospital: ${f(r.hospital_ms)}\nElapsed ${r.elapsed_s.toFixed(1)} s · synthetic inputs; no clinical AUC`;drawCharts()}
+ catch(e){$("batch-status").textContent=`FAILED: ${e.message}. No automatic retry.`}
+ finally{batching=false;ACTIVE_RUN=null;lockControls(false)}}
 const fmt=n=>n.toLocaleString("en-US"),pc=(x,d=1)=>`${(x*100).toFixed(d)}%`;
-function checkModel(sha){if(sha&&sha!==METRICS.sha){$("model").hidden=true;return}
+function checkModel(sha){if(!sha||sha!==METRICS.sha){$("model").hidden=true;return}
  if(!sha)$("model-note").textContent+=" This hospital did not report its model hash, so the match is unverified.";}
 function svgEl(w,h,body,label){return `<svg width="${w}" height="${h}" viewBox="0 0 ${w} ${h}" role="img" aria-label="${escapeHtml(label)}">${body}</svg>`}
 function width(id){return Math.max(260,$(id).clientWidth||260)}
@@ -302,10 +357,10 @@ function drawSession(){const rows=SESSION.slice(-20).reverse(),W=width("strip"),
  const L=SESSION.slice(-20),LW=width("latency"),LH=200,lm={l:44,r:8,t:12,b:26},top=Math.max(...L.map(r=>r.ms),1)*1.15,bw=(LW-lm.l-lm.r)/Math.max(L.length,10),Y=v=>LH-lm.b-v/top*(LH-lm.t-lm.b);let h="";
  for(const v of [0,top/2/1.15,top/1.15])h+=`<line x1="${lm.l}" x2="${LW-lm.r}" y1="${Y(v)}" y2="${Y(v)}" stroke="#22314F"/><text x="${lm.l-8}" y="${Y(v)+4}" text-anchor="end">${Math.round(v)}</text>`;
  h+=`<text x="${lm.l-8}" y="${lm.t-2}" text-anchor="end">ms</text>`;
- h+=L.map((r,i)=>{const x=lm.l+i*bw+2,w=Math.max(bw-4,3),y=Y(r.ms),b=Y(0),rr=Math.min(4,w/2,b-y);return `<path d="M${x},${b}V${y+rr}Q${x},${y} ${x+rr},${y}H${x+w-rr}Q${x+w},${y} ${x+w},${y+rr}V${b}Z" fill="var(--accent)"><title>Evaluation ${SESSION.length-L.length+i+1} (${escapeHtml(r.label)}): ${r.ms} ms</title></path>`}).join("");
+ h+=L.map((r,i)=>{const x=lm.l+i*bw+2,w=Math.max(bw-4,3),y=Y(r.ms),b=Y(0),rr=Math.min(4,w/2,b-y);return `<path d="M${x},${b}V${y+rr}Q${x},${y} ${x+rr},${y}H${x+w-rr}Q${x+w},${y} ${x+w},${y+rr}V${b}Z" fill="var(--accent)"><title>Evaluation ${r.sequence} (${escapeHtml(r.label)}): ${r.ms} ms</title></path>`}).join("");
  $("latency").innerHTML=svgEl(LW,LH,h,"Time inside the hospital per evaluation, in milliseconds");
  const ms=SESSION.map(r=>r.ms).sort((a,b)=>a-b),q=f=>ms[Math.min(ms.length-1,Math.ceil(f*ms.length)-1)];
- $("latency-note").textContent=ms.length>=5?`p50 ${q(.5)} ms · p95 ${q(.95)} ms over ${ms.length} evaluations in this browser session, on this machine.`:`${ms.length} evaluation${ms.length>1?"s":""} so far. Run more for p50 and p95.`}
+ $("latency-note").textContent=ms.length>=5?`p50 ${q(.5)} ms · p95 ${q(.95)} ms over the most recent ${ms.length} of ${SESSION_TOTAL} evaluations in this browser session, on this machine.`:`${ms.length} evaluation${ms.length>1?"s":""} so far. Run more for p50 and p95.`}
 function drawCharts(){drawCalibration();if(SESSION.length)drawSession()}
 let resizeTimer;addEventListener("resize",()=>{clearTimeout(resizeTimer);resizeTimer=setTimeout(drawCharts,150)});
 init().then(()=>{drawModel();drawCalibration()}).catch(error=>{$("hospital").innerHTML=`<p class="err">${escapeHtml(error.message)}</p>`});

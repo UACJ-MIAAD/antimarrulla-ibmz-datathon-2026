@@ -43,6 +43,10 @@ make evidence-run PROFILE=16000 API_N=16000 PY=python3
 
 The suite's default already includes separate 200-request API measurements at the larger sizes. Avoid repeating a 16,000-request API run at every size unless that additional runtime is intentional.
 
+## Hospital browser test controls
+
+The prepared Hospital frontend also provides synthetic browser API batches of 20/200/2,000/16,000 with progress, exactness checks, cancellation and JSON diagnostics. These are separate from labeled CDC experiments and recorded evidence. See [frontend readiness](FRONTEND_READINESS.md) for actual versus simulated validation and deployment requirements.
+
 ## Live pitch: use an already running demo
 
 Before recording, run `make demo-docker` and prepare the development image with `make image-dev`. The pitch only needs a single synthetic UI evaluation and/or a short terminal demonstration. For 20 end-to-end synthetic requests:
