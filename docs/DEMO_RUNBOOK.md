@@ -8,7 +8,7 @@ Status at 2026-10-18 00:00 UTC (17 Oct, 18:00 Ciudad Juárez): `main` (`be9b27e`
 
 | Ciudad Juárez | UTC | Owner | Block | Done when |
 |---------------|-----|-------|-------|-----------|
-| 17 Oct 18:00–21:00 | 00:00–03:00 | Carlos + Álvaro | Pin the release commit; on the VM run the four commands in §3; capture the four screenshots | Measurement JSON/MD committed; `submission/evidence/linuxone/RECORD.json` filled |
+| 17 Oct 18:00–21:00 | 00:00–03:00 | Carlos + Álvaro | Pin the release commit; on the VM run the reviewed `make evidence-run` in §3; capture the four screenshots | Measurement JSON/MD committed; `submission/evidence/linuxone/RECORD.json` filled |
 | 17 Oct 18:00–21:00 | 00:00–03:00 | Javier | Labs record with real dates; decide on the organizer question ([TIMELINE.md](TIMELINE.md)); AI-use decision | `submission/evidence/labs/RECORD.json`; AI declaration location decided |
 | 17 Oct 18:00–21:00 | 00:00–03:00 | Yazmin | Two timed read-throughs of [PITCH.md](../submission/PITCH.md); slide check | Narration ≤ 170 s with transitions |
 | 17 Oct 21:00–01:00 | 03:00–07:00 | Álvaro + Javier | Record segments 5b and 6b on the VM (see §4) | Raw screen recordings saved outside Git |
@@ -34,11 +34,12 @@ If a block slips, cut in this order: second VM run, form polish, deck refresh wi
 ## 3. Commands on the VM (in this order)
 
 ```bash
-git fetch && git checkout <pinned-commit>
-make evidence-run
+git fetch origin
+git switch -c demo/final-evidence APPROVED_COMMIT
+make evidence-run PY=python3
 ```
 
-`make evidence-run` runs `verify-docker`, `image-inspect`, `demo-docker`, `measure-docker FINAL=1` and `measure-api-docker FINAL=1`, keeps every log and system identity, and pushes the run to a branch `evidence/s390x_<UTC>` that CI validates (see [LINUXONE.md §2](LINUXONE.md)). The demo stays up for recording. The individual `make` targets still work for debugging.
+`make evidence-run` runs `verify-docker`, `image-inspect`, `demo-docker`, `measure-docker FINAL=1` and `measure-api-docker FINAL=1`, keeps every log and system identity, and pushes the run to a branch `evidence/s390x_<UTC>` that CI validates (see [LINUXONE.md §2](LINUXONE.md)). Read the [preflight audit](EVIDENCE_PREFLIGHT_AUDIT.md) first; `516bb59` requires the hardening fix before final use. Output is sanitized and printed after each step. The demo stays up for recording. The individual `make` targets still work for debugging.
 
 Evidence to keep on screen or in screenshots: Community Cloud dashboard with the VM, `uname -m` (s390x) and `lscpu`, `docker compose -f docker/compose.yml ps`, `openssl version -a`, and the measurement summary that ends the API run.
 

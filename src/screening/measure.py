@@ -176,11 +176,11 @@ def api_mode(a, model, prov, env, now, label):
         "patients_per_minute": round(a.n / wall * 60, 1), "concurrency": 1, "provenance": prov, "environment": env,
     }
     c = out["hospital_components_ms"]
-    md = f"# Hospital API measurement · {label} · {out['date_utc']}\n\n" + _header(out, env, prov) + f"""- Recorrido: {out['flow']}
+    md = f"# Hospital API measurement · {label} · {out['date_utc']}\n\n" + _header(out, env, prov) + f"""- Flow: {out['flow']}
 - Remote hospital: {a.url} · architecture {state.get('machine')} ({state.get('system')}) · model `{local[:16]}` verified
 - Remote code matches client: {state.get('code_sha256') == prov['code_sha256']}
 
-Muestra: {a.n} deterministic synthetic inputs (seed {SAMPLE_SEED}) · integers matching reference: {exact} of {a.n}
+Sample: {a.n} deterministic synthetic inputs (seed {SAMPLE_SEED}) · integers matching reference: {exact} of {a.n}
 
 | Component | p50 (ms) | p95 (ms) | mean (ms) |
 |---|---:|---:|---:|

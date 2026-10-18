@@ -109,3 +109,21 @@ def test_local_ai_draft_does_not_satisfy_final_declaration(tmp_path):
     complete(str(tmp_path))
     w(str(tmp_path), "submission/AI_USE.md", "# Local AI-use declaration draft\nPublication remains pending the team decision.")
     assert any("AI-use declaration" in item for item in package.final_requirements(PROV, root=str(tmp_path)))
+
+
+@pytest.mark.parametrize("mode", ["process", "api"])
+def test_final_package_rejects_single_patient_measurement(tmp_path, mode):
+    root = str(tmp_path); complete(root)
+    path = f"submission/evidence/metrics/measurement_{mode}_s390x_1.json"
+    measurement = json.load(open(os.path.join(root, path)))
+    measurement["sample"]["n"] = 1
+    measurement["accuracy"].update(identical_integers=1, of=1)
+    if mode == "api": measurement["client_ms"]["n"] = 1
+    w(root, path, measurement)
+    assert any(f"measurement {mode}" in e for e in package.final_requirements(PROV, root=root))
+
+
+def test_final_package_rejects_other_executable_code(tmp_path):
+    root = str(tmp_path); complete(root)
+    current = dict(PROV, code_sha256="d" * 64)
+    assert sum(e.startswith("measurement ") for e in package.final_requirements(current, root=root)) == 2

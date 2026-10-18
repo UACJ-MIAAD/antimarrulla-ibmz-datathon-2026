@@ -15,26 +15,34 @@ The labs-before-coding chronology remains disclosed in [TIMELINE.md](TIMELINE.md
 
 ```bash
 sudo apt-get update
-sudo apt-get install -y git make docker.io docker-compose-v2
+sudo apt-get install -y git make python3 docker.io docker-compose-v2
 sudo usermod -aG docker "$USER"
 # Log out and back in before using the Docker group.
 git clone https://github.com/UACJ-MIAAD/antimarrulla-ibmz-datathon-2026.git
 cd antimarrulla-ibmz-datathon-2026
-git checkout RELEASE_COMMIT
+git switch -c demo/final-evidence RELEASE_COMMIT
 ```
 
 Ubuntu 24.04 `python3-*` apt packages support s390x; only pure-Python `phe` is installed through pip in the image. No native pip wheels are required on the host.
 
 ## 2. Recorded run (recommended): one command, logs pushed to GitHub
 
-Give the VM push access once, without storing a token in the repository: `gh auth login` (device code in the browser) or `git config credential.helper store` with a fine-grained token limited to this repository. Then, on the clean release commit:
+Use an existing SSH credential or, if GitHub CLI is installed, `gh auth login` with browser/device authentication and `gh auth setup-git`. Do not use the plaintext `credential.helper store`. Check `git config user.name` and `git config user.email` before running. Switch to the approved named branch first, then pull with `--ff-only`; `git pull && git checkout main` can pull into the wrong branch. Pin the reviewed commit agreed by the team. See the [preflight audit](EVIDENCE_PREFLIGHT_AUDIT.md) before the first final run.
 
 ```bash
 git config user.name "Your Name"   # identifies the operator in the run manifest
 make evidence-run                   # verify-docker, image-inspect, demo-docker, measure(-api)-docker FINAL=1
 ```
 
-It streams everything to the terminal and writes `submission/evidence/runs/s390x_<UTC>/`: one log per step, `system/` identity (`uname`, `lscpu`, `/proc/sysinfo` without serial, Docker, OpenSSL, Compose state and service logs, `/api/state`), a hashed `manifest.json` and `SUMMARY.md`. Public IPv4 addresses and secrets are redacted. It then commits the run plus the new measurement files to a branch `evidence/s390x_<UTC>` and pushes it; failed runs are pushed as well so their logs arrive. If the push fails it writes `dist/<run>.bundle` to send instead. GitHub Actions (`evidence` workflow) validates the branch: s390x, every step exit 0, unmodified logs, exact results, clean commit, model hash and code hash at that commit, smoke A/B/C and no secrets. The captain merges a valid run and updates README, deck and site from its `SUMMARY.md`. `make evidence-check` repeats the validation locally; `make evidence-index` rebuilds the run index. Screenshots (dashboard, UI, video) are still captured by a person.
+The five steps run sequentially. For safe multiline secret redaction, each step's output is displayed **after that step ends**; a quiet terminal during a measurement does not mean it has stopped. The process command requests a 3,600-second budget, at most 2,000 patients and 200 internal HTTPS requests. The strict checker requires exactly **2,000 process patients and 200 deployed API requests**; if the pilot reduces the sample, the run is invalid and must not supply final figures.
+
+Files go to `submission/evidence/runs/s390x_<UTC>/`: step logs, host/system identity, Compose state/logs, `/api/state`, `manifest.json` and `SUMMARY.md`. Common credentials, complete PEM private-key blocks and public IPv4/IPv6 addresses are redacted from logs and newly generated measurement files before publication. Pattern scanning cannot establish the absence of every possible secret; inspect the files before sharing screenshots or making claims.
+
+The runner requires committed runtime/tests/runner/workflow changes and an empty staging area. It commits only the run's regular files and new measurements on `evidence/s390x_<UTC>`; failed runs can also be published for diagnosis and remain invalid. A failed push returns an error and attempts a Git bundle in `dist/`; it never reports a successful upload. The original branch is restored. `make evidence-run NO_PUSH=1` records locally only.
+
+GitHub's `evidence` workflow checks recorded branches with `--require-runs`, so an empty evidence branch cannot pass. It verifies required step order/commands and exit markers, file hashes, required system records, consistency of host/model/code across measurements and API state, exact sample sizes/results, finite numerical bounds and matching ROC-AUCs, plus A/B/C recomputed from the model. A missing recorded Git commit is an error. `make evidence-check RUN=submission/evidence/runs/RUN_ID` repeats validation locally; `LOCAL=1` explicitly permits a rehearsal environment.
+
+**Scope:** unkeyed hashes establish internal consistency, not signed execution attestation; an operator can rewrite a log and its manifest together. The CI does not rerun measurements on s390x, prove provider identity, or replace teammate review. The first actual s390x run, Community Cloud screenshots, labs, approved AI declaration and narrated video remain open. Preserve failed runs on diagnostic branches; include only approved valid runs in a release PR, because strict checks reject any included failed/rehearsal run. After independent review and merge, update README/deck/site from that run's summary, keeping environment and commit labels.
 
 ## 2b. Verify, start and measure manually
 
