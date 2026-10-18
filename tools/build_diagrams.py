@@ -13,8 +13,8 @@ BASE = "ef1e21d"
 # Each node is title, detail lines, and ownership color. Edges reference node indices.
 DIAGRAMS = [
     dict(id="system", title="The complete screening flow", group="System", intro="Synthetic feature values cross the risk-service boundary as ciphertexts; the service returns an encrypted score. Public protocol metadata remains visible.", source=["src/screening/hospital.py", "src/screening/protocol.py"], nodes=[
-        ("1 / Synthetic input", ["21 integer-coded indicators", "Browser → Hospital API"], "hospital"),
-        ("2 / Validate and encrypt", ["Hospital validates feature ranges", "Paillier public key → 21 ciphertexts"], "hospital"),
+        ("1 / Synthetic input", ["19 integer-coded indicators", "Browser → Hospital API"], "hospital"),
+        ("2 / Validate and encrypt", ["Hospital validates feature ranges", "Paillier public key → 19 ciphertexts"], "hospital"),
         ("3 / Evaluate encrypted features", ["Mutual TLS 1.3 → risk service", "Compute the integer linear score"], "service"),
         ("4 / Decrypt at the hospital", ["Service returns one ciphertext", "Private key stays in hospital memory"], "hospital"),
         ("5 / Interpret the score", ["Scale 10^9 → sigmoid → threshold", "Show probability and contributions"], "hospital"),
@@ -31,7 +31,7 @@ DIAGRAMS = [
     dict(id="hospital", title="Hospital component", group="Components", intro="The hospital owns plaintext validation, encryption, decryption, interpretation and encrypted storage. The browser is inside its trusted demo workflow.", source=["src/screening/hospital.py", "src/screening/schema.py"], nodes=[
         ("1 / Serve UI and metadata", ["GET / and /api/synthetic", "GET /api/state → service health"], "hospital"),
         ("2 / Receive synthetic evaluation", ["POST /api/evaluate", "Profile, random input or custom input"], "hospital"),
-        ("3 / Validate original codes", ["Exactly 21 integers in schema order", "Reject missing, extra or invalid values"], "hospital"),
+        ("3 / Validate original codes", ["Exactly 19 integers in schema order", "Reject missing, extra or invalid values"], "hospital"),
         ("4 / Prepare encrypted request", ["Generate a random 32-hex request ID", "Encrypt with hospital Paillier key"], "hospital"),
         ("5 / Call the risk service", ["Mutual TLS 1.3 and server verification", "POST /v2/evaluate"], "service"),
         ("6 / Validate and decrypt response", ["Match ID, model, schema and exponent", "Recover exact fixed-point integer"], "hospital"),
@@ -41,7 +41,7 @@ DIAGRAMS = [
     dict(id="service", title="Risk-service component", group="Components", intro="The service holds the public model and its TLS identity. It receives encrypted input values and returns an encrypted linear score.", source=["src/screening/service.py", "src/screening/protocol.py"], nodes=[
         ("1 / Authenticate transport", ["Mutual TLS, minimum TLS 1.3", "Require a trusted client certificate"], "service"),
         ("2 / Check HTTP request", ["POST /v2/evaluate; JSON body", "Reject unsupported or oversized input"], "service"),
-        ("3 / Validate the wire contract", ["Version, model, schema and request ID", "Public key, 21 ciphertexts, exponent 0"], "service"),
+        ("3 / Validate the wire contract", ["Version, model, schema and request ID", "Public key, 19 ciphertexts, exponent 0"], "service"),
         ("4 / Check arithmetic bounds", ["Validate ciphertext group membership", "Verify fixed-point overflow bound"], "service"),
         ("5 / Evaluate without decryption", ["Homomorphic weighted sum + intercept", "Re-randomize the encrypted score"], "service"),
         ("6 / Capture optional audit evidence", ["Exact wire bytes, hashes and metadata", "Capture failure → HTTP 503"], "storage"),
@@ -51,13 +51,13 @@ DIAGRAMS = [
     dict(id="protocol", title="Cryptography and numerical contract", group="Components", intro="Paillier protects the linear score. The sigmoid and threshold are applied only after hospital decryption.", source=["src/screening/contract.py", "src/screening/protocol.py"], nodes=[
         ("1 / Export the trained model", ["Fold training-only standardization", "Float weights w and intercept b"], "model"),
         ("2 / Quantize model parameters", ["W = round(10^9 × w)", "B = round(10^9 × b)"], "model"),
-        ("3 / Encrypt original inputs", ["21 unscaled integer CDC codes", "Paillier 2048 bits; exponent = 0"], "hospital"),
+        ("3 / Encrypt original inputs", ["19 unscaled integer CDC codes", "Paillier 2048 bits; exponent = 0"], "hospital"),
         ("4 / Service computes Enc(z)", ["z = B + sum(W[i] × x[i])", "Only additions and known scalars"], "service"),
         ("5 / Hospital decrypts z", ["Exact match to fixed-point reference", "Separate float quantization bound"], "hospital"),
         ("6 / Hospital interprets z", ["logit = z / 10^9; p = sigmoid(logit)", "Compare p with validation threshold"], "hospital"),
     ], note="Exact encrypted/fixed-point agreement does not imply zero floating-point quantization error. The schema-wide logit error bound is approximately 1.03 × 10^-7. CKKS and Granite are not integrated."),
     dict(id="vault", title="Operational database: the encrypted vault", group="Data", intro="The implemented operational store is an append-only JSONL file, not a relational database. Every saved evaluation has an encrypted payload.", source=["src/screening/vault.py", "src/screening/hospital.py", "docker/compose.yml"], nodes=[
-        ("Hospital payload / in memory", ["synthetic, profile, input (21 fields)", "probability, risk_high, date"], "hospital"),
+        ("Hospital payload / in memory", ["synthetic, profile, input (19 fields)", "probability, risk_high, date"], "hospital"),
         ("AES-256-GCM encryption", ["External 32-byte vault key", "Random 12-byte nonce; AAD = ID"], "hospital"),
         ("One persisted JSONL envelope", ["id: visible random request ID", "nonce: Base64; ct: Base64 + GCM tag"], "storage"),
         ("Hospital persistent volume", ["vault.jsonl → append, flush, fsync", "Survives container recreation"], "storage"),
@@ -72,8 +72,8 @@ DIAGRAMS = [
         ("State geometry / map lookup", ["estados_mx.geojson: cve_ent", "32 polygons; state-code lookup"], "public"),
         ("Public aggregate map", ["Rates, counts and descriptive ratios", "Different populations, no care cohort"], "public"),
     ], edges=[(0,2),(1,2),(2,3),(3,5),(4,5)], note="One state has many state/year rows. Notifications use reporting geography, deaths residence and discharges treatment geography. Matching state/year does not mean the same people progress through a cascade. CDC and the hospital vault have no patient linkage to this mart."),
-    dict(id="model", title="Screening model and experiment lifecycle", group="Components", intro="Training uses public CDC survey records. ENSANUT is a separate exploratory reduced model; it does not validate the 21-feature demo clinically.", source=["src/screening/data.py", "src/screening/train.py", "src/screening/ensanut.py"], nodes=[
-        ("1 / CDC UCI 891", ["253,680 public survey records", "Target + 21 original-coded features"], "model"),
+    dict(id="model", title="Screening model and experiment lifecycle", group="Components", intro="Training uses public CDC survey records. ENSANUT is a separate exploratory reduced model; it does not validate the 19-feature demo clinically.", source=["src/screening/data.py", "src/screening/train.py", "src/screening/ensanut.py"], nodes=[
+        ("1 / CDC UCI 891", ["253,680 public survey records", "Target + 21 coded features; model uses 19"], "model"),
         ("2 / Shared stratified splits", ["70% training / 15% validation / 15% test", "Seed 2026; ID excluded from features"], "model"),
         ("3 / Fit on training only", ["Standardization + logistic regression", "Fold scaling into original-code weights"], "model"),
         ("4 / Select threshold on validation", ["Sensitivity target ≥80%", "No threshold tuning on the test split"], "model"),

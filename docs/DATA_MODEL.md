@@ -23,15 +23,17 @@ CDC BRFSS 2015, UCI 891: **253,680 rows ×23 columns**, ID plus target plus 21 p
 | Habits | Smoker, PhysActivity, Fruits, Veggies, HvyAlcoholConsump | Binary |
 | Access | AnyHealthcare, NoDocbcCost | Binary |
 | Perceived health | GenHlth 1–5, MentHlth/PhysHlth 0–30, DiffWalk | Ordinal/count/binary |
-| Demographics | Sex, Age 1–13, Education 1–6, Income 1–8 | Source-coded categories |
+| Demographics | Sex, Age 1–13 | Source-coded categories |
 
-There are no nulls. Excluding ID gives 24,206 identical rows; identical categorical responses do not establish duplicate people. 4,560 test profiles (11.98%) also appear in training. Deduplicated-training sensitivity is reported, but it does not establish profile-independent splits; grouping identical profiles would be a separate experiment.
+Schema `cdc19-v1` drops Education 1–6 and Income 1–8 from the model inputs (validation ROC-AUC change −0.0006; see [SCHEMA_CDC19.md](SCHEMA_CDC19.md)).
+
+There are no nulls. Over the 19 model features plus label, 60,142 rows repeat; identical categorical responses do not establish duplicate people. 10,865 test profiles (28.55%) also appear in training (24,206 and 4,560 with the earlier 21 features). Deduplicated-training sensitivity is reported, but it does not establish profile-independent splits; grouping identical profiles would be a separate experiment.
 
 Use shared stratified **70/15/15** splits, seed 2026, under artifacts/splits. Fit standardization on training only, then fold it into weights and intercept. Inputs remain original integers. Quantize only model weights/intercept at scale 10^9, exponent zero. The exported model uses class_weight=None. Compare floating/fixed-point/encrypted variants on the exact same sample. Report validation-threshold sensitivity/specificity, AP, calibration, exact integer equality and the separate quantization bound. See [PROJECT.md](PROJECT.md).
 
 ### ENSANUT exploratory bridge
 
-The implemented external experiment is a **distinct reduced ten-feature model**, not the 21-feature MVP. The original design considered reduction or imputation; the committed protocol selected reduction without imputation before evaluation. Microdata remains local. The target differs from the CDC label.
+The implemented external experiment is a **distinct reduced ten-feature model**, not the 19-feature MVP (`cdc19-v1`). The original design considered reduction or imputation; the committed protocol selected reduction without imputation before evaluation. Microdata remains local. The target differs from the CDC label.
 
 | CDC concept | ENSANUT source | Mapping/limit |
 |-------------|----------------|---------------|

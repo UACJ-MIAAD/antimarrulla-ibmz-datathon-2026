@@ -1,0 +1,201 @@
+{
+ "mode": "process",
+ "date_utc": "2026-10-18T03:01:42Z",
+ "environment_label": "local-darwin-arm64",
+ "warning": "LOCAL measurement. This is not LinuxONE performance.",
+ "command": "python -m screening.measure --budget-s 600 --max 2000 --https 100 --final",
+ "model": "logistic-cdc19-v1",
+ "key_paillier_bits": 2048,
+ "concurrency": 1,
+ "warmup": 5,
+ "pilot": {
+  "patients": 20,
+  "ms_by_patient": 104.06,
+  "budget_s": 600
+ },
+ "sample": {
+  "source": "CDC test split",
+  "seed": 2026,
+  "n": 2000,
+  "positives": 279,
+  "prevalence": 0.1395,
+  "ids_sha256": "f600c31f55198c57096b7ed642b51ef4f3cb407cb08fefb23218701b27f7d101"
+ },
+ "accuracy": {
+  "identical_integers": 2000,
+  "of": 2000,
+  "error_max_logit_vs_floating": 3.3696571977159806e-08,
+  "applicable_max_bound": 7.35e-08,
+  "all_within_bound": true,
+  "error_max_probability": 7.085737552259275e-09
+ },
+ "metrics_same_sample": {
+  "floating": {
+   "roc_auc": 0.806525,
+   "average_precision": 0.393419,
+   "sensitivity": 0.7814,
+   "specificity": 0.681,
+   "matrix_confusion": {
+    "tn": 1172,
+    "fp": 549,
+    "fn": 61,
+    "tp": 218
+   }
+  },
+  "fixed_point": {
+   "roc_auc": 0.806525,
+   "average_precision": 0.393419,
+   "sensitivity": 0.7814,
+   "specificity": 0.681,
+   "matrix_confusion": {
+    "tn": 1172,
+    "fp": 549,
+    "fn": 61,
+    "tp": 218
+   }
+  },
+  "ciphertext": {
+   "roc_auc": 0.806525,
+   "average_precision": 0.393419,
+   "sensitivity": 0.7814,
+   "specificity": 0.681,
+   "matrix_confusion": {
+    "tn": 1172,
+    "fp": 549,
+    "fn": 61,
+    "tp": 218
+   }
+  }
+ },
+ "benchmark_plaintext": {
+  "n_patients": 2000,
+  "repetitions": 10,
+  "concurrency": 1,
+  "scope": "sequential per-patient logit only; excludes encryption, network, sigmoid, decryption and vault",
+  "sample_sha256": "0703b6f8ddb7102c514d94328bd67f101fe493900c1ac8b5cea1e85618bff356",
+  "floating": {
+   "n_evaluations": 20000,
+   "p50_us": 0.916,
+   "p95_us": 0.958,
+   "mean_us": 0.906
+  },
+  "fixed_point": {
+   "n_evaluations": 20000,
+   "p50_us": 1.833,
+   "p95_us": 1.958,
+   "mean_us": 1.829
+  }
+ },
+ "microbenchmark_in_process": {
+  "encrypt_hospital": {
+   "n": 2000,
+   "p50_ms": 97.116,
+   "p95_ms": 99.829,
+   "mean_ms": 97.453
+  },
+  "evaluate_service": {
+   "n": 2000,
+   "p50_ms": 7.536,
+   "p95_ms": 7.806,
+   "mean_ms": 7.558
+  },
+  "decrypt_hospital": {
+   "n": 2000,
+   "p50_ms": 1.492,
+   "p95_ms": 1.54,
+   "mean_ms": 1.491
+  },
+  "patients_per_minute_sequential": 562.9,
+  "note": "without network or vault"
+ },
+ "microbenchmark_https_same_process": {
+  "complete_request": {
+   "n": 100,
+   "p50_ms": 110.1,
+   "p95_ms": 112.811,
+   "mean_ms": 110.488
+  },
+  "components": {
+   "encrypt": {
+    "n": 100,
+    "p50_ms": 98.5,
+    "p95_ms": 100.6,
+    "mean_ms": 98.665
+   },
+   "network_and_service": {
+    "n": 100,
+    "p50_ms": 9.4,
+    "p95_ms": 10.3,
+    "mean_ms": 9.506
+   },
+   "decrypt": {
+    "n": 100,
+    "p50_ms": 1.5,
+    "p95_ms": 1.6,
+    "mean_ms": 1.475
+   },
+   "interpret": {
+    "n": 100,
+    "p50_ms": 0.01,
+    "p95_ms": 0.01,
+    "mean_ms": 0.011
+   },
+   "vault": {
+    "n": 100,
+    "p50_ms": 0.4,
+    "p95_ms": 0.5,
+    "mean_ms": 0.394
+   },
+   "total_in_hospital": {
+    "n": 100,
+    "p50_ms": 109.7,
+    "p95_ms": 112.4,
+    "mean_ms": 110.051
+   }
+  },
+  "patients_per_minute_sequential": 543.0,
+  "note": "hospital logic and HTTPS service in the SAME process, mutual TLS 1.3 with a new connection per request, vault and fsync; excludes two-container deployment and browser"
+ },
+ "sizes_bytes": {
+  "request_p50": 24301,
+  "response_p50": 1393
+ },
+ "aes256gcm_microbenchmark_mb_s": 2858.1,
+ "provenance": {
+  "commit": "be9b27e58cce011804d14124468e46a8c06d7889",
+  "source_commit": "git",
+  "clean": true,
+  "changes_relevant": [],
+  "files_unrelated_to_experiment": [
+   "?? submission/Los_Antimarrulla_Pitch.pptx"
+  ],
+  "code_sha256": "db2086ee2fcf99a4ad8943cb78f269f0f92f881993c911a36b694945e3ef39fd",
+  "code_files": 23,
+  "model_sha256": "e32420ac99fd10d30a3a65a225a43d84d4bfd7208c6f3b7656611893729575ac",
+  "splits_sha256": "8394d9f07d189298a247adaf13ed348f38deddc4b704e49926f2e9459483110e",
+  "cdc_sha256": "c75c2d1fd66c86883e996a80977ae0eea83e1a1b56d39272c1abcea46574afcb",
+  "image": null
+ },
+ "environment": {
+  "machine": "arm64",
+  "system": "Darwin",
+  "platform": "macOS-27.2-arm64-arm-64bit",
+  "processor": "arm",
+  "cpus": 12,
+  "python": "3.12.12",
+  "container": false,
+  "is_linuxone_s390x": false,
+  "versions": {
+   "phe": "1.5.0",
+   "gmpy2": "2.3.2",
+   "cryptography": "50.0.2",
+   "numpy": "2.5.4",
+   "scikit_learn": "1.9.1"
+  },
+  "openssl_cli": "OpenSSL 4.0.3 29 Sep 2026 (Library: OpenSSL 4.0.3 29 Sep 2026)\nbuilt on: Tue Sep 29 13:44:55 2026 UTC\nplatform: darwin64-arm64-cc\noptions:  bn(64,64)\ncompiler: clang -fPIC -arch arm64 -O3 -Wall -DL_ENDIAN -DOPENSSL_PIC -D_REENTRANT -DNDEBUG\nOPENSSLDIR: \"/opt/homebrew/etc/openssl@4\"\nMODULESDIR: \"/opt/homebrew/Cellar/openssl@4/4.0.3/lib/ossl-modules\"\nSeeding source: os-specific\nCPUINFO: OPENSSL_armcap=0x987d",
+  "openssl_of_cryptography": "OpenSSL 4.0.3 29 Sep 2026",
+  "uname": "Darwin MacBook-Pro.local 27.2.0 Darwin Kernel Version 27.2.0: Sun Sep 13 19:46:58 PDT 2026; root:xnu-13432.40.162~92/RELEASE_ARM64_T6030 arm64",
+  "cpu": "Apple M3 Pro",
+  "memory_bytes": "38654705664"
+ }
+}

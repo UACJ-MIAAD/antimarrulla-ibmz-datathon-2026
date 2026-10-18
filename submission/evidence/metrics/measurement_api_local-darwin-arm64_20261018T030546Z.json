@@ -1,0 +1,136 @@
+{
+ "mode": "api",
+ "date_utc": "2026-10-18T03:05:46Z",
+ "environment_label": "local-darwin-arm64",
+ "warning": "LOCAL measurement. This is not LinuxONE performance.",
+ "command": "python -m screening.measure --mode api --url http://127.0.0.1:8080 --n 200 --final",
+ "flow": "HTTP client → deployed hospital API → mutual TLS 1.3 → risk service → decryption → interpretation → AES-256-GCM vault with fsync (no browser)",
+ "hospital_remote": {
+  "url": "http://127.0.0.1:8080",
+  "machine": "aarch64",
+  "system": "Linux",
+  "model_sha256": "e32420ac99fd10d30a3a65a225a43d84d4bfd7208c6f3b7656611893729575ac",
+  "code_sha256": "db2086ee2fcf99a4ad8943cb78f269f0f92f881993c911a36b694945e3ef39fd",
+  "code_equal_to_client": true,
+  "key_bits": 2048
+ },
+ "sample": {
+  "kind": "deterministic synthetic inputs (screening.synthetic.random_patient)",
+  "initial_seed": 2026,
+  "n": 200,
+  "warmup": 3,
+  "sha256": "6b7620df7c8b111ba9fef2948f268c9dadacaabbf798c22d9497696a0e95ad2d"
+ },
+ "accuracy": {
+  "identical_integers": 200,
+  "of": 200
+ },
+ "client_ms": {
+  "n": 200,
+  "p50_ms": 114.778,
+  "p95_ms": 118.24,
+  "mean_ms": 115.255
+ },
+ "hospital_components_ms": {
+  "encrypt": {
+   "n": 200,
+   "p50_ms": 99.7,
+   "p95_ms": 102.9,
+   "mean_ms": 100.202
+  },
+  "network_and_service": {
+   "n": 200,
+   "p50_ms": 9.8,
+   "p95_ms": 10.5,
+   "mean_ms": 9.899
+  },
+  "decrypt": {
+   "n": 200,
+   "p50_ms": 1.6,
+   "p95_ms": 1.6,
+   "mean_ms": 1.557
+  },
+  "interpret": {
+   "n": 200,
+   "p50_ms": 0.01,
+   "p95_ms": 0.02,
+   "mean_ms": 0.012
+  },
+  "vault": {
+   "n": 200,
+   "p50_ms": 1.2,
+   "p95_ms": 1.6,
+   "mean_ms": 1.172
+  },
+  "total_in_hospital": {
+   "n": 200,
+   "p50_ms": 112.2,
+   "p95_ms": 115.9,
+   "mean_ms": 112.825
+  }
+ },
+ "patients_per_minute": 520.2,
+ "concurrency": 1,
+ "provenance": {
+  "commit": "be9b27e58cce011804d14124468e46a8c06d7889",
+  "source_commit": "git",
+  "clean": true,
+  "changes_relevant": [],
+  "files_unrelated_to_experiment": [
+   "M README.md",
+   "M docs/DATA_MODEL.md",
+   "M docs/DELIVERY_PLAN.md",
+   "M docs/DEMO_RUNBOOK.md",
+   "M docs/DEPLOYMENT.md",
+   "M docs/PROJECT.md",
+   "M docs/REVIEW.md",
+   "M docs/ROLES.md",
+   "M docs/SYSTEM_DIAGRAMS.md",
+   "M docs/TWO_HOSTS.md",
+   "M site/architecture.html",
+   "M site/assets/diagrams/hospital.svg",
+   "M site/assets/diagrams/protocol.svg",
+   "M site/assets/diagrams/system.svg",
+   "M site/assets/diagrams/vault.svg",
+   "M site/index.html",
+   "M site/status.json",
+   "M submission/HACK2SKILL.md",
+   "M submission/PITCH.md",
+   "M submission/SLIDES.md",
+   "M tools/build_diagrams.py",
+   "M tools/diagram_page.py",
+   "M tools/technical_diagrams.py",
+   "?? submission/Los_Antimarrulla_Pitch.pptx",
+   "?? submission/evidence/metrics/measurement_process_local-darwin-arm64_20261018T030142Z.json",
+   "?? submission/evidence/metrics/measurement_process_local-darwin-arm64_20261018T030142Z.md"
+  ],
+  "code_sha256": "db2086ee2fcf99a4ad8943cb78f269f0f92f881993c911a36b694945e3ef39fd",
+  "code_files": 23,
+  "model_sha256": "e32420ac99fd10d30a3a65a225a43d84d4bfd7208c6f3b7656611893729575ac",
+  "splits_sha256": "8394d9f07d189298a247adaf13ed348f38deddc4b704e49926f2e9459483110e",
+  "cdc_sha256": "c75c2d1fd66c86883e996a80977ae0eea83e1a1b56d39272c1abcea46574afcb",
+  "image": null
+ },
+ "environment": {
+  "machine": "arm64",
+  "system": "Darwin",
+  "platform": "macOS-27.2-arm64-arm-64bit",
+  "processor": "arm",
+  "cpus": 12,
+  "python": "3.12.12",
+  "container": false,
+  "is_linuxone_s390x": false,
+  "versions": {
+   "phe": "1.5.0",
+   "gmpy2": "2.3.2",
+   "cryptography": "50.0.2",
+   "numpy": "2.5.4",
+   "scikit_learn": "1.9.1"
+  },
+  "openssl_cli": "OpenSSL 4.0.3 29 Sep 2026 (Library: OpenSSL 4.0.3 29 Sep 2026)\nbuilt on: Tue Sep 29 13:44:55 2026 UTC\nplatform: darwin64-arm64-cc\noptions:  bn(64,64)\ncompiler: clang -fPIC -arch arm64 -O3 -Wall -DL_ENDIAN -DOPENSSL_PIC -D_REENTRANT -DNDEBUG\nOPENSSLDIR: \"/opt/homebrew/etc/openssl@4\"\nMODULESDIR: \"/opt/homebrew/Cellar/openssl@4/4.0.3/lib/ossl-modules\"\nSeeding source: os-specific\nCPUINFO: OPENSSL_armcap=0x987d",
+  "openssl_of_cryptography": "OpenSSL 4.0.3 29 Sep 2026",
+  "uname": "Darwin MacBook-Pro.local 27.2.0 Darwin Kernel Version 27.2.0: Sun Sep 13 19:46:58 PDT 2026; root:xnu-13432.40.162~92/RELEASE_ARM64_T6030 arm64",
+  "cpu": "Apple M3 Pro",
+  "memory_bytes": "38654705664"
+ }
+}

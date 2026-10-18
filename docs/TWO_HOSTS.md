@@ -75,9 +75,9 @@ make audit-two-hosts-docker
 Reports `audit_TIMESTAMP.md/.json` and sample wire pairs go to `submission/evidence/two_hosts/`. The audit checks:
 
 1. Matching request/response SHA-256 across both endpoints and intact saved files.
-2. Exact protocol fields, 21 ciphertexts, correct group/size properties and no plaintext inputs.
+2. Exact protocol fields, 19 ciphertexts, correct group/size properties and no plaintext inputs.
 3. Randomized ciphertexts despite repeated underlying input values.
-4. No decrypted integer/logit/probability or small 21-value input vector in service evidence.
+4. No decrypted integer/logit/probability or small 19-value input vector in service evidence.
 5. No live Python Paillier private-key object at service startup or request handling.
 6. TLS 1.3 and hospital client identity.
 7. Present, distinct host IDs; different container hostnames do not establish host separation.

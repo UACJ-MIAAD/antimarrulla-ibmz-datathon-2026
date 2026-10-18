@@ -56,7 +56,7 @@
 <text x="262.0" y="216.5" font-size="12.5" fill="#3fd6b4" text-anchor="middle" font-weight="620">1 · Synthetic input</text>
 <path d="M416 270 L478 270 Q490 270 490 282 L490 294 Q490 306 478 306 L416 306" fill="none" stroke="#3fd6b4" stroke-opacity=".18" stroke-width="7" stroke-linecap="round" stroke-linejoin="round"/>
 <path d="M416 270 L478 270 Q490 270 490 282 L490 294 Q490 306 478 306 L416 306" fill="none" stroke="#3fd6b4" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" marker-end="url(#a-teal)"/>
-<text x="510" y="280" font-size="15" fill="#3fd6b4" text-anchor="start" font-weight="400">Validate 21 integer features</text>
+<text x="510" y="280" font-size="15" fill="#3fd6b4" text-anchor="start" font-weight="400">Validate 19 integer features</text>
 <text x="510" y="301" font-size="15" fill="#3fd6b4" text-anchor="start" font-weight="400">Encrypt x with Paillier</text>
 <path d="M416 350 L784 350" fill="none" stroke="#6ea8ff" stroke-opacity=".18" stroke-width="7" stroke-linecap="round" stroke-linejoin="round"/>
 <path d="M416 350 L784 350" fill="none" stroke="#6ea8ff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" marker-end="url(#a-blue)"/>

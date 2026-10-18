@@ -4,7 +4,7 @@ Operational guide for the last stretch: what to record, in which order, with whi
 
 ## 1. Closing timeline
 
-Status at 2026-10-18 00:00 UTC (17 Oct, 18:00 Ciudad Juárez): `main` passes `make verify` (100 tests), `make verify-docker`, the app-image inspection, the containerized demo smoke test (synthetic A/B/C exact) and the same-host two-host rehearsal. `make package` reports only external gaps: LinuxONE measurements and screenshots, both labs, the narrated video, independent review and the AI-use declaration.
+Status at 2026-10-18 00:00 UTC (17 Oct, 18:00 Ciudad Juárez): `main` (`be9b27e`, model `logistic-cdc19-v1`, 19 features) passes `make verify` (104 tests), `make verify-docker`, the app-image inspection, the containerized demo smoke test (synthetic A/B/C exact) and the same-host two-host rehearsal. `make package` reports only external gaps: LinuxONE measurements and screenshots, both labs, the narrated video, independent review and the AI-use declaration.
 
 | Ciudad Juárez | UTC | Owner | Block | Done when |
 |---------------|-----|-------|-------|-----------|
@@ -51,7 +51,7 @@ Evidence to keep on screen or in screenshots: Community Cloud dashboard with the
 | 5 | 1:20–1:35 | Slide 5 (architecture) | — |
 | 5b | 1:35–1:50 | VM terminal | Show the dashboard tab, then type `uname -m`, `docker compose -f docker/compose.yml ps`, and open `http://127.0.0.1:8080/api/state` to show the loaded model hash |
 | 6 | 1:50–2:00 | Slide 6 (results) | — |
-| 6b | 2:00–2:25 | Hospital UI through the tunnel | Choose **Synthetic C** → wait for the result (66.3 %); point at the 21 ciphertexts on the service side, the risk and factors on the hospital side, and the timing breakdown |
+| 6b | 2:00–2:25 | Hospital UI through the tunnel | Choose **Synthetic C** → wait for the result (63.3 % with `logistic-cdc19-v1`); point at the 19 ciphertexts on the service side, the risk and factors on the hospital side, and the timing breakdown |
 | 7–8 | 2:25–2:50 | Slides 7–8 | Close |
 
 Keep the environment label visible in 6b. If the recording is not from LinuxONE, the label must say so.
@@ -59,7 +59,7 @@ Keep the environment label visible in 6b. If the recording is not from LinuxONE,
 ## 5. Fallback ladder
 
 1. **VM reachable but slow:** record anyway; timings will be higher (Carlos's laptop → s390x audit measured p50 ≈ 607 ms per record, mostly network). Say "measured on this run", not a benchmark.
-2. **VM unreachable:** record the same flow with `make demo-docker` locally and label it "local container run". Show Carlos's approved two-host audit (Mac hospital → s390x service, 10/10 checks, 200/200 exact) as LinuxONE-side evidence, stating it ran the earlier `037ee1b` release.
+2. **VM unreachable:** record the same flow with `make demo-docker` locally and label it "local container run". Show Carlos's approved two-host audit (Mac hospital → s390x service, 10/10 checks, 200/200 exact) as LinuxONE-side evidence, stating it ran the earlier `037ee1b` release with the 21-feature model.
 3. **Live demo fails during judging:** switch to the recorded video; do not improvise numbers.
 
 Never relabel a local capture as LinuxONE.
@@ -69,12 +69,12 @@ Never relabel a local capture as LinuxONE.
 | Question | Short answer | Evidence |
 |----------|--------------|----------|
 | What does IBM Z add beyond hosting Docker? | The homomorphic step is heavy modular arithmetic on 2,048-bit keys (4,096-bit ciphertexts); the target is a hardened, isolated platform for the risk service. We have not benchmarked CPACF or claimed hardware acceleration. | [PROJECT.md](PROJECT.md), measurement files |
-| What actually ran on s390x? | Carlos's audit: the risk service in a container on Linux s390x, hospital on a separate Mac, 200/200 exact integers, 10/10 checks. The final English release run is the one recorded tonight. | [CARLOS_REMOTE_AUDIT.md](CARLOS_REMOTE_AUDIT.md) |
+| What actually ran on s390x? | Carlos's audit: the risk service in a container on Linux s390x, hospital on a separate Mac, 200/200 exact integers, 10/10 checks. That audit used the earlier 21-feature model; the final 19-feature release run is the one recorded tonight. | [CARLOS_REMOTE_AUDIT.md](CARLOS_REMOTE_AUDIT.md) |
 | Where are the keys? | Paillier private key only in hospital memory; AES vault key mounted read-only into the hospital; the service has neither. | [System diagrams](../site/architecture.html) |
 | Can the service see anything? | It sees ciphertexts, the public key, request IDs, sizes and timing. It never sees feature values or the decrypted score. | Audit checks 4–7 |
 | What if the server is malicious? | Out of scope for the demo: mutual TLS authenticates the channel, not the computation; the same-VM administrator is trusted. | [PROJECT.md](PROJECT.md) trust boundary |
 | Does encryption cost accuracy? | No for the encrypted step: decrypted integers equal the fixed-point reference exactly; fixed point vs float differs by < 10⁻⁷ in the logit; AUC identical on the same sample. | Measurement JSON |
-| How fast is it? | Locally ≈ 0.13–0.15 s per patient end to end, dominated by encryption; the remote s390x run was ≈ 0.6 s because of the network. | Measurement files |
+| How fast is it? | Locally ≈ 0.11–0.12 s per patient end to end with 19 features, dominated by encryption; the remote s390x run was ≈ 0.6 s because of the network. | Measurement files |
 | Is it clinically valid in Mexico? | No. It screens a survey label. A separate reduced ENSANUT experiment reached AUC ≈ 0.77 but underestimated risk; recalibration would be required. | [ENSANUT_EXPERIMENT.md](ENSANUT_EXPERIMENT.md) |
 | Why logistic regression? | Its score is linear, which Paillier evaluates exactly; non-linear models would need CKKS or other schemes, which we did not integrate. | [PROJECT.md](PROJECT.md) |
 | What is E5? | An optional, unencrypted 52-week forecast of notified cases; its bands under-cover and it needs a sourced unit cost for budgets. | [FORECAST.md](FORECAST.md) |

@@ -26,7 +26,7 @@ Use the release commit under review, including the English migration. Record com
 
 ## Questions every member should answer
 
-1. Why are the 21 inputs unscaled integers while weights use scale 10^9?
+1. Why are the 19 inputs unscaled integers while weights use scale 10^9?
 2. What does exact decrypted-integer equality prove, and what does the floating-point error bound prove?
 3. Where are the Paillier private key and AES vault key? Which container receives each?
 4. What does the risk service see and what is logged?
@@ -34,7 +34,7 @@ Use the release commit under review, including the English migration. Record com
 6. What does AES-256-GCM encrypt, and what logs/disks/backups does the application not encrypt?
 7. What can CPACF accelerate? Has this application's effective use been measured on LinuxONE?
 8. Why choose the threshold on validation rather than test? What does PPV 29.7% mean?
-9. What did the reduced ENSANUT experiment evaluate, and why does it not validate the 21-feature MVP?
+9. What did the reduced ENSANUT experiment evaluate, and why does it not validate the 19-feature MVP?
 10. How do `make measure`, `make measure-api` and the direct two-host audit differ?
 11. Why must English v2 endpoints, model/schema files, UI and measurement client use the same commit?
 

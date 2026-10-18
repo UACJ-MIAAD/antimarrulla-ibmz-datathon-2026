@@ -29,7 +29,7 @@ flowchart LR
     subgraph VM[One trusted-admin VM; target LinuxONE]
       H[Hospital: frontend and API]
       H -->|Append AES-256-GCM record| V[(Persistent vault volume)]
-      H -->|Mutual TLS 1.3: 21 ciphertexts| S[Risk service]
+      H -->|Mutual TLS 1.3: 19 ciphertexts| S[Risk service]
       S -->|Encrypted score| H
     end
     P[Public visitor] --> N[Netlify: pitch, public aggregates, forecast and plan]

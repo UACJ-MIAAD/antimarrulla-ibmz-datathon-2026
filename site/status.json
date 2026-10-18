@@ -1,7 +1,7 @@
 {
-  "rev": 36,
-  "updated_at": "2026-10-17T21:57:19Z",
-  "note": "Plan audit: current main ef1e21d includes PR 12 concurrency/raw legacy audit and Yazmin PR 13 redesign plus model/session charts. Both main updates are integrated into the diagram review branch. Legacy audit: 200/200 exact, p50 606.919 ms, p95 804.967 ms; historical source/model hashes verified against Git. Final English v2/provider evidence remains open. Ten-diagram web atlas complete. E5 exploratory demo ready; no sourced budget. VM, labs, English narrated video, independent review, approved AI declaration and submission confirmations remain open. Pin one common current runtime/hash for measurements. docs/PLAN_AUDIT_20261017.md. Keep Netlify and its badge. Technical diagram redesign: ten distinct architecture/sequence/flowchart/schema/lineage views replace the repeated step cards. Semantic vector icons, labeled connectors, decision/error paths and logical cardinalities; keyboard tabs, zoom, fit-width and SVG download. Static documentation only; no runtime/model/forecast changes or delivery gate closed.",
+  "rev": 37,
+  "updated_at": "2026-10-18T03:07:02Z",
+  "note": "Carlos PR 18 merged: schema cdc19-v1 drops Education and Income; model logistic-cdc19-v1 with 19 features (test ROC-AUC 0.825, validation change −0.0006 in the reproducible ablation). Validated on main be9b27e: 104 host tests, Docker tests, image inspection, container smoke (A 1.5%, B 15.2%, C 63.3%, exact) and the same-host two-host rehearsal. New local measurements: 2,000/2,000 exact, AUC 0.806525; API 200/200, p50 114.8 ms. Docs, site and diagrams now say 19 ciphertexts. Earlier measurements, Carlos's s390x audit and Álvaro's screenshot describe the 21-feature model and must be rerun on the final release. Remote has only main. Open: LinuxONE run, screenshots, labs, narrated video, deck refresh, independent review, AI declaration and submission. Plan audit: current main ef1e21d includes PR 12 concurrency/raw legacy audit and Yazmin PR 13 redesign plus model/session charts. Both main updates are integrated into the diagram review branch. Legacy audit: 200/200 exact, p50 606.919 ms, p95 804.967 ms; historical source/model hashes verified against Git. Final English v2/provider evidence remains open. Ten-diagram web atlas complete. E5 exploratory demo ready; no sourced budget. VM, labs, English narrated video, independent review, approved AI declaration and submission confirmations remain open. Pin one common current runtime/hash for measurements. docs/PLAN_AUDIT_20261017.md. Keep Netlify and its badge. Technical diagram redesign: ten distinct architecture/sequence/flowchart/schema/lineage views replace the repeated step cards. Semantic vector icons, labeled connectors, decision/error paths and logical cardinalities; keyboard tabs, zoom, fit-width and SVG download. Static documentation only; no runtime/model/forecast changes or delivery gate closed.",
   "milestones": {
     "internal_start": "2026-10-17T13:00:00Z",
     "virtual_closing": "2026-10-18T05:00:00Z",
@@ -234,7 +234,7 @@
           "block": "h3",
           "priority": "MVP",
           "state": "done",
-          "evidence": "artifacts/model/logistic_model_v1.json and artifacts/metrics/logistic_model_v1.json; test ROC-AUC 0.826."
+          "evidence": "artifacts/model/logistic_model_v1.json and artifacts/metrics/logistic_model_v1.json; test ROC-AUC 0.826 (21 features); retrained as logistic-cdc19-v1 with 19 features: test ROC-AUC 0.825."
         },
         {
           "id": "US-3.2",
@@ -256,7 +256,7 @@
           "block": "h12",
           "priority": "MVP",
           "state": "done",
-          "evidence": "English v2, clean code 5412abe: 2,000/2,000 exact integers and AUC 0.808383 in float/fixed-point/encrypted. submission/evidence/metrics/measurement_process_local-darwin-arm64_20261017T193517Z.json. Separate 200/200 synthetic Docker API run: client p50 149.015 ms, p95 183.317 ms; submission/evidence/metrics/measurement_api_local-darwin-arm64_20261017T194052Z.json. Local Mac/arm64 and Docker; LinuxONE remains pending."
+          "evidence": "English v2, clean code 5412abe: 2,000/2,000 exact integers and AUC 0.808383 in float/fixed-point/encrypted. submission/evidence/metrics/measurement_process_local-darwin-arm64_20261017T193517Z.json. Separate 200/200 synthetic Docker API run: client p50 149.015 ms, p95 183.317 ms; submission/evidence/metrics/measurement_api_local-darwin-arm64_20261017T194052Z.json. Local Mac/arm64 and Docker; LinuxONE remains pending. Re-measured for logistic-cdc19-v1 (19 features) at clean be9b27e: 2,000/2,000 exact, AUC 0.806525; API 200/200, p50 114.8 ms, p95 118.2 ms; submission/evidence/metrics/measurement_process_local-darwin-arm64_20261018T030142Z.json and submission/evidence/metrics/measurement_api_local-darwin-arm64_20261018T030546Z.json."
         },
         {
           "id": "US-3.4",

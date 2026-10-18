@@ -23,7 +23,7 @@ In Mexico, 18.3 percent of adults have diabetes, and about one in three does not
 
 ## 3. Solution
 
-The hospital encrypts 21 indicators and keeps the private key. The risk service computes on ciphertexts. Only the hospital decrypts the score and displays its largest contributing factors. This is screening to prioritize a glucose test, not a diagnosis.
+The hospital encrypts 19 indicators and keeps the private key. The risk service computes on ciphertexts. Only the hospital decrypts the score and displays its largest contributing factors. This is screening to prioritize a glucose test, not a diagnosis.
 
 ## 4. Homomorphic encryption
 
@@ -37,7 +37,7 @@ The design uses two containers: a hospital holding the key and a keyless risk se
 
 ## 6. Actual demo
 
-The service sees 21 ciphertexts and returns an encrypted score. The hospital sees the risk, threshold decision and contributing factors. Our English-release local test matched all 2,000 fixed-point reference integers, with the same AUC in plaintext and encrypted evaluation.
+The service sees 19 ciphertexts and returns an encrypted score. The hospital sees the risk, threshold decision and contributing factors. Our English-release local test matched all 2,000 fixed-point reference integers, with the same AUC in plaintext and encrypted evaluation.
 
 *Replace or supplement this sentence with the measured translated-release LinuxONE results. Record the synthetic profile C flow; keep the environment label visible.*
 
@@ -61,4 +61,4 @@ More than 11 thousand SSA diabetes admissions included an amputation in 2024. We
 - [ ] Final file <=180 seconds by `ffprobe`; public URL verified without a login
 - [ ] Official PDF and video record updated
 
-For questions: ENSANUT used a separate reduced model, AUC about 0.77, with underestimated risk. It does not validate the 21-feature MVP in Mexico.
+For questions: ENSANUT used a separate reduced model, AUC about 0.77, with underestimated risk. It does not validate the 19-feature MVP in Mexico.

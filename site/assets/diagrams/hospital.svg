@@ -29,7 +29,7 @@
 <g class="node">
 <path d="M551 325.0L701.0 390 551 455.0 401.0 390Z" fill="#122039" filter="url(#sh)" stroke-linejoin="round"/><path d="M551 325.0L701.0 390 551 455.0 401.0 390Z" fill="url(#t-blue)" stroke="#6ea8ff" stroke-opacity=".75" stroke-width="1.5" stroke-linejoin="round"/>
 <text x="551" y="388" font-size="16.5" fill="#eef4fd" text-anchor="middle" font-weight="700">Valid input?</text>
-<text x="551" y="411" font-size="13.5" fill="#a3b5d1" text-anchor="middle" font-weight="400">21 integers + schema ranges</text>
+<text x="551" y="411" font-size="13.5" fill="#a3b5d1" text-anchor="middle" font-weight="400">19 integers + schema ranges</text>
 </g>
 <g class="node">
 <rect x="877" y="352" width="245" height="80" rx="40.0" fill="#122039" filter="url(#sh)"/>
@@ -46,7 +46,7 @@
 <circle cx="420" cy="537" r="18" fill="#3fd6b4" fill-opacity=".14" stroke="#3fd6b4" stroke-opacity=".55" stroke-width="1.2"/>
 <g transform="translate(409.65 526.65) scale(0.646875)" fill="none" stroke="#3fd6b4" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="14" width="22" height="15" rx="3"/><path d="M10 14V9a6 6 0 0 1 12 0v5M16 20v4"/></g>
 <text x="448" y="542" font-size="18" fill="#eef4fd" text-anchor="start" font-weight="680">Paillier encryption</text>
-<text x="406" y="572.0" font-size="14.5" fill="#a3b5d1" text-anchor="start" font-weight="400">21 inputs → 21 ciphertexts</text>
+<text x="406" y="572.0" font-size="14.5" fill="#a3b5d1" text-anchor="start" font-weight="400">19 inputs → 19 ciphertexts</text>
 </g>
 <g class="node">
 <rect x="386" y="646" width="330" height="90" rx="12" fill="#122039" filter="url(#sh)"/>

@@ -32,7 +32,7 @@
 <rect x="70" y="326" width="386" height="29" rx="5" fill="#ffffff" fill-opacity=".028"/>
 <circle cx="82" cy="341" r="3" fill="#3fd6b4" fill-opacity=".85"/>
 <text x="94" y="346" font-size="14.5" fill="#eef4fd" text-anchor="start" font-weight="400" class="mono">input</text>
-<text x="447" y="346" font-size="12.5" fill="#a3b5d1" text-anchor="end" font-weight="400">21 integer fields</text>
+<text x="447" y="346" font-size="12.5" fill="#a3b5d1" text-anchor="end" font-weight="400">19 integer fields</text>
 <circle cx="82" cy="372" r="3" fill="#3fd6b4" fill-opacity=".85"/>
 <text x="94" y="377" font-size="14.5" fill="#eef4fd" text-anchor="start" font-weight="400" class="mono">probability</text>
 <text x="447" y="377" font-size="12.5" fill="#a3b5d1" text-anchor="end" font-weight="400">number</text>

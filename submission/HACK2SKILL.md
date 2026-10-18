@@ -12,7 +12,7 @@ T2 · AI Secured: Innovation Without Exposure
 
 ## Short description
 
-Privacy-preserving screening evaluates diabetes risk on encrypted data. The hospital encrypts 21 indicators with Paillier and retains the private key. A risk service designed for IBM LinuxONE evaluates a logistic model without decrypting the inputs, returning a ciphertext that only the hospital can open.
+Privacy-preserving screening evaluates diabetes risk on encrypted data. The hospital encrypts 19 indicators with Paillier and retains the private key. A risk service designed for IBM LinuxONE evaluates a logistic model without decrypting the inputs, returning a ciphertext that only the hospital can open.
 
 ## Problem
 
@@ -20,11 +20,11 @@ ENSANUT 2022 reports that 18.3% of adults in Mexico have diabetes and about one 
 
 ## Solution
 
-1. The hospital validates the 21 original integer feature codes and encrypts them with a 2048-bit Paillier public key.
+1. The hospital validates the 19 original integer feature codes and encrypts them with a 2048-bit Paillier public key.
 2. The keyless service evaluates the fixed-point logit: `Enc(z) = product(Enc(x_i)^W_i) * Enc(B)`, then rerandomizes the result.
 3. The hospital decrypts the integer, applies the sigmoid and shows the risk and largest model contributions. This demonstrates screening, not diagnosis, future disease prediction or mortality prediction.
 
-The held-out CDC test split has ROC-AUC 0.826, sensitivity 0.805, specificity 0.691 and PPV 0.297, with threshold chosen on validation. The English v2 local benchmark at clean code commit `5412abe` matched 2,000/2,000 decrypted integers, with AUC 0.808383 in all three variants and maximum logit error 4.50×10^-8. The two-container API matched 200/200 synthetic inputs, with client p50 149.015 ms and p95 183.317 ms. These are Mac/arm64 and Docker results. Add actual translated-release LinuxONE measurements before submission; keep their platform and commit labels.
+The held-out CDC test split has ROC-AUC 0.825, sensitivity 0.807, specificity 0.689 and PPV 0.296 (model `logistic-cdc19-v1`, 19 features), with threshold chosen on validation. The local benchmark of this model at clean commit `be9b27e` matched 2,000/2,000 decrypted integers, with AUC 0.806525 in all three variants and maximum logit error 3.37×10^-8. The two-container API matched 200/200 synthetic inputs, with client p50 114.8 ms and p95 118.2 ms. These are Mac/arm64 and Docker results. Add actual translated-release LinuxONE measurements before submission; keep their platform and commit labels.
 
 ## IBM Z / LinuxONE
 

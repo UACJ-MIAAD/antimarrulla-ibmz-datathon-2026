@@ -67,7 +67,7 @@ Carlos's requested last test should compare floating-point, fixed-point and Pail
 
 Álvaro’s supplied screenshot shows the legacy Spanish v1 UI reporting Linux s390x, service `ok` and synthetic C at 66.3%. This is partial progress; it does not establish provider identity or final English v2 execution. [Evidence record](../submission/evidence/linuxone/alvaro_20261017_legacy_ui_reported.md). Álvaro and Carlos should preserve that run, rebuild both peers from the reviewed English release, and capture the English UI plus complete provider/version/measurement evidence.
 
-The team abandoned collecting real CURPs from the web. Demo patients and identifiers remain synthetic; use the existing random request IDs. Do not add identity fields to the 21-feature model.
+The team abandoned collecting real CURPs from the web. Demo patients and identifiers remain synthetic; use the existing random request IDs. Do not add identity fields to the 19-feature model.
 
 ## Frontend and storage deployment decision
 
@@ -91,6 +91,6 @@ The demo and two-host rehearsal use **synthetic inputs by default**. `DATA=cdc` 
 | Internal submission target | October 18, 09:00 | October 18, 07:00 | Registered leader submits after all four review |
 | Confirmed portal deadline | October 18, 12:30 | October 18, 10:30 | Hard deadline; keep the 3-hour-30-minute buffer |
 
-If the second VM fails, use the one-VM MVP without claiming host separation. If form polish fails, use the existing synthetic profiles and 21-feature editor, translated into English. If a sourced unit cost is missing, E5 keeps exploratory case forecasts and bands without a budget. Missing screenshots, narration or LinuxONE runs must remain open with an owner; a draft or Mac measurement does not replace them.
+If the second VM fails, use the one-VM MVP without claiming host separation. If form polish fails, use the existing synthetic profiles and 19-feature editor, translated into English. If a sourced unit cost is missing, E5 keeps exploratory case forecasts and bands without a budget. Missing screenshots, narration or LinuxONE runs must remain open with an owner; a draft or Mac measurement does not replace them.
 
 Respect the existing rest rota in [ROLES.md](ROLES.md). Before resting, leave a commit, status and the next owner. Branch updates are not production releases. Keep Netlify and its badge.

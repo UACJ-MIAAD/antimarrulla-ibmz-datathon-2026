@@ -39,7 +39,7 @@ The decrypted JSON payload contains the following fields. They are not plaintext
 |-------------------------|------|---------|
 | `synthetic` | Boolean | Demo evaluation marker, currently true |
 | `profile` | String | Synthetic profile or custom-input label |
-| `input` | Object | The 21 feature-name/integer pairs |
+| `input` | Object | The 19 feature-name/integer pairs |
 | `probability` | Number | Hospital-interpreted screening score |
 | `risk_high` | Boolean | Comparison with the validation threshold |
 | `date` | Number | Evaluation Unix timestamp |

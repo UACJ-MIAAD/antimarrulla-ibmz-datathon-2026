@@ -84,7 +84,7 @@
 <path d="M595 333 L810 333" fill="none" stroke="#6ea8ff" stroke-opacity=".18" stroke-width="7" stroke-linecap="round" stroke-linejoin="round"/>
 <path d="M595 333 L810 333" fill="none" stroke="#6ea8ff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" marker-end="url(#a-blue)"/>
 <rect x="593.15" y="302.5" width="213.7" height="23" rx="11.5" fill="#0d1a31" stroke="#6ea8ff" stroke-opacity=".55" filter="url(#sh-s)"/>
-<text x="700" y="318.5" font-size="12.5" fill="#6ea8ff" text-anchor="middle" font-weight="620">21 ciphertexts + public key</text>
+<text x="700" y="318.5" font-size="12.5" fill="#6ea8ff" text-anchor="middle" font-weight="620">19 ciphertexts + public key</text>
 <path d="M810 398 L595 398" fill="none" stroke="#6ea8ff" stroke-opacity=".18" stroke-width="7" stroke-linecap="round" stroke-linejoin="round"/>
 <path d="M810 398 L595 398" fill="none" stroke="#6ea8ff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" marker-end="url(#a-blue)"/>
 <rect x="610.9" y="404.5" width="178.2" height="23" rx="11.5" fill="#0d1a31" stroke="#6ea8ff" stroke-opacity=".55" filter="url(#sh-s)"/>

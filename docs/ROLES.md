@@ -30,7 +30,7 @@ The submission portal is open from **October 16, 2026, 23:45 UTC** until **Octob
 ### Carlos Enrique Gonzalez Moran — ML model, protocol and risk service
 
 - Complete both required labs with Álvaro and Yazmin.
-- Own logistic regression, the 21-feature contract, fixed-point weights and Paillier inference; preserve the H11 handoff before rest.
+- Own logistic regression, the feature contract (21 features at H5; 19 in `cdc19-v1`), fixed-point weights and Paillier inference; preserve the H11 handoff before rest.
 - Lead the English code/test/contract migration with Álvaro, updating imports, callers, schemas and tests together.
 - Compare plaintext/fixed-point/encrypted outputs on the same sample and measure plaintext logit cost separately from the full HTTPS flow.
 - Run the actual project tests and measurements on the pinned translated LinuxONE release; keep random seeds and dependencies reproducible.
@@ -52,7 +52,7 @@ Internal H0 is **October 17, 07:00 Ciudad Juárez / 09:00 EDT**, distinct from t
 |-------|--------|--------|--------|--------|
 | 0–1 | Scope, decision and owners | VM/repo access | Model plan | Data/pitch plan |
 | 1–3 | Collect lab evidence | Labs; Paillier on s390x; optional CKKS check | Required labs | Labs; CDC exploratory analysis |
-| 3–5 | Stand-up and UI outline | Two containers | Logistic regression | Splits and 21-feature schema handed to Carlos at H5 |
+| 3–5 | Stand-up and UI outline | Two containers | Logistic regression | Splits and feature schema handed to Carlos at H5 |
 | 5–8 | Rest | TLS 1.3 and AES-256-GCM vault | Numerical contract; XGBoost only if time remains | Official statistics and map |
 | 8–11 | Stand-up; split-screen UI | Rest | Complete encrypted flow before H11 | Impact slide; optional E5/ENSANUT |
 | 11–12 | Split-screen UI | Connect the service | Rest | Optional experiments |

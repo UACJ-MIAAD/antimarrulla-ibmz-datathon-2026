@@ -27,7 +27,7 @@ The project addresses disclosure concerns when hospitals ask an external service
 sequenceDiagram
     participant H as Hospital container (private key)
     participant S as Risk service (no private key)
-    H->>H: Validate and encrypt 21 integer features
+    H->>H: Validate and encrypt 19 integer features
     H->>S: Ciphertexts over mutual TLS 1.3
     S->>S: Evaluate encrypted fixed-point logit
     S->>H: Return rerandomized ciphertext
@@ -104,20 +104,20 @@ Python 3.12, scikit-learn, phe/gmpy2, cryptography, Docker Ubuntu 24.04 and Make
 
 ## 5. Data and evaluation
 
-CDC UCI 891: 253,680 survey records, 21 predictors and 13.9% positive labels. SINAVE, INEGI/DGIS, SIS, IMSS and CONAPO support Mexican context. Their populations, residence/treatment geography, years and count units differ. See [DATA_MODEL.md](DATA_MODEL.md).
+CDC UCI 891: 253,680 survey records, 19 model predictors (schema `cdc19-v1`; Education and Income dropped from 21) and 13.9% positive labels. SINAVE, INEGI/DGIS, SIS, IMSS and CONAPO support Mexican context. Their populations, residence/treatment geography, years and count units differ. See [DATA_MODEL.md](DATA_MODEL.md).
 
-LogisticRegression uses lbfgs, C=1, max_iter=5000 and no class weighting. Shared stratified 70/15/15 splits use seed 2026. Validation selects threshold about 0.1225 for sensitivity >=0.80 with maximum specificity.
+LogisticRegression uses lbfgs, C=1, max_iter=5000 and no class weighting. Shared stratified 70/15/15 splits use seed 2026. Validation selects threshold about 0.1218 for sensitivity >=0.80 with maximum specificity.
 
 | Split | ROC-AUC | AP | Sensitivity | Specificity | PPV | Brier | ECE |
 |-------|--------:|---:|------------:|------------:|----:|------:|----:|
-| Validation, 38,052 | 0.819 | 0.398 | 0.800 | 0.692 | 0.296 | 0.100 | 0.016 |
-| Test, 38,052 | 0.826 | 0.415 | 0.805 | 0.691 | 0.297 | 0.098 | 0.012 |
+| Validation, 38,052 | 0.818 | 0.398 | 0.800 | 0.686 | 0.292 | 0.100 | 0.014 |
+| Test, 38,052 | 0.825 | 0.414 | 0.807 | 0.689 | 0.296 | 0.098 | 0.012 |
 
-Test confusion counts: TP 4,268; FN 1,034; TN 22,644; FP 10,106. AP is sklearn average precision, not trapezoidal PR area. ECE uses ten equal-sized probability bins.
+Test confusion counts: TP 4,280; FN 1,022; TN 22,547; FP 10,203. AP is sklearn average precision, not trapezoidal PR area. ECE uses ten equal-sized probability bins.
 
-Balanced class weighting gives similar AUC (0.827) but higher mean probability (0.386 against 0.139 prevalence), Brier 0.175 and ECE 0.246. The exported unweighted model's observed calibration does not guarantee calibration in another population.
+Balanced class weighting gives similar AUC (0.826) but higher mean probability (0.386 against 0.139 prevalence), Brier 0.175 and ECE 0.246. The exported unweighted model's observed calibration does not guarantee calibration in another population.
 
-There are 24,206 identical feature/label rows without ID; 4,560 test rows have an identical training counterpart. They may represent different people with the same categorical responses. Deduplicated training uses 163,437 rows and produces nearly unchanged test AUC/AP/Brier (0.826/0.415/0.098). Fixed-point test error is at most about 5.7e−8 logit, within the applicable 9.6e−8 bound; no threshold decision changes. XGBoost is untrained and optional.
+There are 60,142 identical feature/label rows over the 19 model features; 10,865 test rows have an identical training counterpart. They may represent different people with the same categorical responses. Deduplicated training uses 140,508 rows and produces nearly unchanged test AUC/AP/Brier (0.824/0.411/0.099). Fixed-point test error is at most about 3.8e−8 logit, within the applicable 9.1e−8 bound; floating and fixed-point test AUC are identical (0.825233). One of 38,052 test records lies within that error of the threshold and flips its decision. XGBoost is untrained and optional.
 
 ### Historical measurements and new release evidence
 
@@ -131,14 +131,14 @@ The [ENSANUT experiment](ENSANUT_EXPERIMENT.md) uses a distinct reduced ten-feat
 
 ## 6. Demo and delivery
 
-Left: 21 ciphertexts and returned encrypted score. Right: hospital probability, threshold decision and five largest contributions relative to training means. Bottom: actual per-request encryption/network/decryption/vault/total timings. Contributions are not causal explanations. Granite is not integrated.
+Left: 19 ciphertexts and returned encrypted score. Right: hospital probability, threshold decision and five largest contributions relative to training means. Bottom: actual per-request encryption/network/decryption/vault/total timings. Contributions are not causal explanations. Granite is not integrated.
 
 Follow the preserved rest rota and checkpoints: labs H1–3, encrypted handoff before H11, H12 flow check, H18 demo, H20 freeze and H24 internal submission. The actual chronology remains separately recorded. E5 forecasts 222 series at 52 weeks plus bridge steps and is optional; see [FORECAST.md](FORECAST.md).
 
 | Risk | Response |
 |------|----------|
 | CKKS cannot build on s390x | Keep Paillier |
-| Encrypted inference is slow | Use the linear 21-feature model and measured sample sizes |
+| Encrypted inference is slow | Use the linear 19-feature model and measured sample sizes |
 | Medical claims exceed evidence | Say screening and retain population/label limits |
 | Granite is slow or unavailable | Keep the existing factor display; extension remains optional |
 | Class imbalance | Report AP, sensitivity/specificity and calibration at a validation threshold |
