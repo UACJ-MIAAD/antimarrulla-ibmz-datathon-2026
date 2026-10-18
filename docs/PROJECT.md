@@ -4,7 +4,7 @@ Theme 2 · **AI Secured: Innovation Without Exposure** · IBM Z Datathon 2026.
 
 The hospital encrypts its 21 screening indicators and keeps the private key. A risk service designed for IBM LinuxONE evaluates a logistic model on ciphertexts. The hospital decrypts the score and displays contributing factors. Granite explanations remain an unimplemented optional extension.
 
-[Pitch](../submission/Los_Antimarrulla_Screening_Pitch.pptx) · [decision](DECISION.md) · [sources](DATA_SOURCES.md) · [delivery plan](DELIVERY_PLAN.md).
+[Pitch](../submission/Los_Antimarrulla_Screening_Pitch.pptx) · [decision](https://github.com/UACJ-MIAAD/antimarrulla-ibmz-datathon-2026/blob/archive/working-docs-20261018/docs/DECISION.md) · [sources](DATA_SOURCES.md) · [delivery plan](DELIVERY_PLAN.md).
 
 ## 1. Problem and population limits
 

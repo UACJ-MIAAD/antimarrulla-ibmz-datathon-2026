@@ -15,7 +15,7 @@ Never publish sensitive or private patient records. `data/raw/` is an ignored lo
 | File | Description | Rows | Approximate size |
 |------|-------------|-----:|------------------|
 | `sinave/boletin/data_raw_Diabetes_T1.csv`, `_T2.csv` | Original epidemiological bulletin: year/week/state, weekly and cumulative cases by sex; 2014 through week 31 of 2026 | 21,024 each | 2 MB |
-| `sinave/tipo1/epi_dataset_v2.csv`, `sinave/tipo2/epi_dataset_v2.csv` | Reconciled weekly state/sex series, Census 2020 exposure and quality flags | 42,048 each | 12 MB |
+| `sinave/tipo1/epi_dataset_v2.csv`, `sinave/tipo2/epi_dataset_v2.csv` | *Not included in the submission repository (unused intermediate; [archived](https://github.com/UACJ-MIAAD/antimarrulla-ibmz-datathon-2026/tree/archive/working-docs-20261018/data/sinave)).* Reconciled weekly state/sex series, Census 2020 exposure and quality flags | 42,048 each | 12 MB |
 | `sinave/tipo1/products.csv`, `sinave/tipo2/products.csv` | 111 series/type, 222 total: state/region/national × men/women/all | 72,927 each | 14 MB |
 | `defunciones/defunciones_diabetes_2024.csv` | Registered deaths: E10–E14 (112,577) plus O24 (9); 74 EDR columns | 112,586 | 24 MB |
 | `egresos_sector/egresos_sector_diabetes_2024.csv` | Reported sector diabetes discharges; institutional code DH, ISSSTE=4 | 120,385 | 8 MB |
@@ -44,7 +44,7 @@ E10–E14 registered-death totals: **151,019 in 2020** and **110,059 in 2023**. 
 |------|-------------|-----:|------------------|
 | `marts/cascada_entidad_anio.csv` | State/year care-stage indicators, 2017–2024; population, notified cases, screenings, treatment/control, discharges, deaths and rates | 256 | 30 KB |
 | `catalogos/entidades.csv` | INEGI state codes, names, ISO codes, SINAVE region and IMSS delegation crosswalk | 32 | 2 KB |
-| `catalogos/clues_202608.csv` | DGIS CLUES facility catalog, August 2026, institutions/locations/coordinates | 64,450 | 16 MB |
+| `catalogos/clues_202608.csv` | *Not included in the submission repository (unused by the code; download from the source below or the [archive](https://github.com/UACJ-MIAAD/antimarrulla-ibmz-datathon-2026/tree/archive/working-docs-20261018/data/catalogos)).* DGIS CLUES facility catalog, August 2026, institutions/locations/coordinates | 64,450 | 16 MB |
 | `geo/estados_mx.geojson` | Natural Earth state polygons | 32 | 0.4 MB |
 
 The mart combines independent aggregate sources. It is not a linked patient cascade and does not measure case fatality, individual progression or underdiagnosis.

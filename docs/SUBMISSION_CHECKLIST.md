@@ -16,7 +16,7 @@ The submission window is **October 16, 23:45 UTC → October 18, 16:30 UTC**, fr
 - [x] Current main b04fadb passes 98 host tests, including PR 12 concurrency; prior audit runtime passed 93 Ubuntu tests plus four Git-dependent skips. Historical local measurements at clean code 5412abe remain versioned; final LinuxONE measurements/captures still required
 - [ ] Independent teammate signs off on the English release and records the reviewed commit
 
-English implementation and existing artifacts are translated and checked; see [ENGLISH_MIGRATION.md](ENGLISH_MIGRATION.md). Final English narration, teammate sign-off, real LinuxONE evidence and submission remain open. Checked boxes describe implementation evidence, not human approval.
+English implementation and existing artifacts are translated and checked; see [ENGLISH_MIGRATION.md](https://github.com/UACJ-MIAAD/antimarrulla-ibmz-datathon-2026/blob/archive/working-docs-20261018/docs/ENGLISH_MIGRATION.md). Final English narration, teammate sign-off, real LinuxONE evidence and submission remain open. Checked boxes describe implementation evidence, not human approval.
 
 ## Prerequisites
 
@@ -51,7 +51,7 @@ English implementation and existing artifacts are translated and checked; see [E
 - [ ] All four confirm additional tools/tasks, including the unconfirmed “Muse” entry, and understand the submitted code
 - [x] English architecture diagram exists and is visually checked in `submission/flowchart/architecture.pdf`
 - [x] Web atlas documents the full system, independent components, operational vault schema and analytical file relationships; see `docs/SYSTEM_DIAGRAMS.md`
-- [x] Decision document exists in [DECISION.md](DECISION.md)
+- [x] Decision document exists in [DECISION.md](https://github.com/UACJ-MIAAD/antimarrulla-ibmz-datathon-2026/blob/archive/working-docs-20261018/docs/DECISION.md)
 
 ## LinuxONE evidence
 
@@ -125,4 +125,4 @@ The registered team leader submits from the team dashboard after all four review
 
 ## Fresh audit checkpoint
 
-[October 17 blind status audit](BLIND_AUDIT_20261017.md): PR 9 is merged, public E5 renders 222 combinations, and the forecast/nested evaluation reproduces. Audit-fix branch passes 97 host tests and 93 Ubuntu tests with four Git-dependent skips. The package final gate still rejects missing VM/lab/video/review/AI records. An optional forecast demo does not substitute for those required deliverables.
+[October 17 blind status audit](https://github.com/UACJ-MIAAD/antimarrulla-ibmz-datathon-2026/blob/archive/working-docs-20261018/docs/BLIND_AUDIT_20261017.md): PR 9 is merged, public E5 renders 222 combinations, and the forecast/nested evaluation reproduces. Audit-fix branch passes 97 host tests and 93 Ubuntu tests with four Git-dependent skips. The package final gate still rejects missing VM/lab/video/review/AI records. An optional forecast demo does not substitute for those required deliverables.

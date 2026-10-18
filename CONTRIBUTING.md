@@ -28,7 +28,6 @@ Commit frequently and keep changes reviewable. Project code must follow the even
 
 ## 5. Notebooks
 
-- Store notebooks in `notebooks/`, named `NN_topic.ipynb`, for example `02_baseline.ipynb`.
 - VM work must be committed and pushed; files left only on a VM are not release evidence.
 - Restart and run all cells before committing; remove oversized outputs.
 - Put reusable code in `src/`; notebooks import the project implementation so their results match verification.
@@ -42,7 +41,7 @@ Commit frequently and keep changes reviewable. Project code must follow the even
 
 ## 7. Team cadence and submission
 
-Follow [DELIVERY_PLAN.md](docs/DELIVERY_PLAN.md) and [ROLES.md](docs/ROLES.md).
+Follow [DELIVERY_PLAN.md](docs/DELIVERY_PLAN.md) and [ROLES.md](https://github.com/UACJ-MIAAD/antimarrulla-ibmz-datathon-2026/blob/archive/working-docs-20261018/docs/ROLES.md).
 
 - Stand-up every four hours; ask for help after 30 minutes blocked.
 - H18: working demo. H20: feature freeze.
