@@ -78,7 +78,7 @@ erDiagram
 |---------|--------|-----------------|
 | State | data/catalogos/entidades.csv | cve_ent, two-digit INEGI 01–32; official/short names, abbreviation, ISO, SINAVE region and IMSS delegations |
 | State geometry | data/geo/estados_mx.geojson | cve_ent; 32 Natural Earth polygons simplified to three decimals |
-| Facility | data/catalogos/clues_202608.csv | clues; 64,450 facilities, August 2026, institution/state/municipality/care level/status/coordinates |
+| Facility (catalog not redistributed; see data/README.md) | data/catalogos/clues_202608.csv | clues; 64,450 facilities, August 2026, institution/state/municipality/care level/status/coordinates |
 | Institution | Sector descriptor DH catalog | 1 SSA, 2 IMSS, 3 IMSS-Bienestar, 4 ISSSTE, 5 PEMEX, 6 SEMAR, 7 state, 8 private, 9 DIF, 10 municipal, 11 university, 12 SEDENA, 13 Servicios de Salud IMSS-Bienestar, 14 CIJ |
 | Time | Source fields | anio, epi_year/epi_week, mes; distinct calendar/epidemiological meanings |
 

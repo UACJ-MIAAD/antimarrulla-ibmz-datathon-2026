@@ -45,7 +45,7 @@ The suite's default already includes separate 200-request API measurements at th
 
 ## Hospital browser test controls
 
-The prepared Hospital frontend also provides synthetic browser API batches of 20/200/2,000/16,000 with progress, exactness checks, cancellation and JSON diagnostics. These are separate from labeled CDC experiments and recorded evidence. See [frontend readiness](FRONTEND_READINESS.md) for actual versus simulated validation and deployment requirements.
+The prepared Hospital frontend also provides synthetic browser API batches of 20/200/2,000/16,000 with progress, exactness checks, cancellation and JSON diagnostics. These are separate from labeled CDC experiments and recorded evidence. See [frontend readiness](https://github.com/UACJ-MIAAD/antimarrulla-ibmz-datathon-2026/blob/archive/working-docs-20261018/docs/FRONTEND_READINESS.md) for actual versus simulated validation and deployment requirements.
 
 ## Live pitch: use an already running demo
 

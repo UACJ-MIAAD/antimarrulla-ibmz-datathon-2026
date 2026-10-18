@@ -27,7 +27,7 @@ Ubuntu 24.04 `python3-*` apt packages support s390x; only pure-Python `phe` is i
 
 ## 2. Recorded run (recommended): one command, logs pushed to GitHub
 
-Use an existing SSH credential or, if GitHub CLI is installed, `gh auth login` with browser/device authentication and `gh auth setup-git`. Do not use the plaintext `credential.helper store`. Check `git config user.name` and `git config user.email` before running. Switch to the approved named branch first, then pull with `--ff-only`; `git pull && git checkout main` can pull into the wrong branch. Pin the reviewed commit agreed by the team. See the [preflight audit](EVIDENCE_PREFLIGHT_AUDIT.md) before the first final run.
+Use an existing SSH credential or, if GitHub CLI is installed, `gh auth login` with browser/device authentication and `gh auth setup-git`. Do not use the plaintext `credential.helper store`. Check `git config user.name` and `git config user.email` before running. Switch to the approved named branch first, then pull with `--ff-only`; `git pull && git checkout main` can pull into the wrong branch. Pin the reviewed commit agreed by the team. See the [preflight audit](https://github.com/UACJ-MIAAD/antimarrulla-ibmz-datathon-2026/blob/archive/working-docs-20261018/docs/EVIDENCE_PREFLIGHT_AUDIT.md) before the first final run.
 
 ```bash
 git config user.name "Your Name"   # identifies the operator in the run manifest

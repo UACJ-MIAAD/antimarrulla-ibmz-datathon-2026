@@ -1,5 +1,7 @@
 # Factual timeline: labs, code and event window
 
+Sources cited as `EVENT.md`, `RULES.md` or `ROLES.md` are team working documents archived at the tag [`archive/working-docs-20261018`](https://github.com/UACJ-MIAAD/antimarrulla-ibmz-datathon-2026/tree/archive/working-docs-20261018/docs).
+
 Facts come from Git history and the event documents. **This is not approval or an exception.** Only the organizer can resolve compliance. Do not rewrite dates or commits.
 
 | EDT (UTC−4) | Ciudad Juárez | Fact | Evidence |

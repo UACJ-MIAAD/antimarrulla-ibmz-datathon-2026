@@ -64,7 +64,7 @@ Ideas about horizons/SMAPE/regional fallback may come from prior team research; 
 
 ## October 17 blind status audit
 
-The published dashboard rendered all **222 type/sex/geography combinations**. A fresh full forecast and nested evaluation reproduce every series and metadata value exactly after canonical series ordering. The main artifact and public JSON are identical. See [BLIND_AUDIT_20261017.md](BLIND_AUDIT_20261017.md).
+The published dashboard rendered all **222 type/sex/geography combinations**. A fresh full forecast and nested evaluation reproduce every series and metadata value exactly after canonical series ordering. The main artifact and public JSON are identical. See [BLIND_AUDIT_20261017.md](https://github.com/UACJ-MIAAD/antimarrulla-ibmz-datathon-2026/blob/archive/working-docs-20261018/docs/BLIND_AUDIT_20261017.md).
 
 **Ready for an exploratory forecast demo; not a fully completed original feature plan or a validated operating budget.** The project has no sourced unit cost, calibrated nominal bands, forecast map, combined T1+T2 view, SARIMA/Prophet or demonstrated E5 LinuxONE execution. Freeze this optional scope while closing the encrypted MVP and video.
 

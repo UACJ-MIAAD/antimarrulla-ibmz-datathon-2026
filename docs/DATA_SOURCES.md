@@ -78,7 +78,7 @@ Source dimensions: CLUES/notifying institution/municipality/state; epidemiologic
 | Layer | File | Contents |
 |-------|------|----------|
 | Raw bulletin | data/sinave/boletin/data_raw_Diabetes_T1.csv and T2 | Anio, Semana, Entidad, Padecimiento, Casos_semana and cumulative sex/previous-year counts |
-| Reconciled | tipo1/epi_dataset_v2.csv and tipo2 | 64 state/sex series; dates, cases, exposure, observed and quality flags |
+| Reconciled (archived, not in the submission repository) | tipo1/epi_dataset_v2.csv and tipo2 | 64 state/sex series; dates, cases, exposure, observed and quality flags |
 | Products | tipo1/products.csv and tipo2 | 111 series/type, 222 total; state/region/national × men/women/all |
 
 These series were compiled/reconciled **before the event** as prepared data. Their reconciliation code is not submitted as event-built solution code. Preserve that disclosure and raw-bulletin comparison.

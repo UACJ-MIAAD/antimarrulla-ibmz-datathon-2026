@@ -1,20 +1,97 @@
 <p align="center">
-  <img src="assets/logo.png" alt="Los Antimarrulla team logo" width="320">
+  <img src="assets/logo.png" alt="Los Antimarrulla team logo" width="260">
 </p>
 
-# Los Antimarrulla · IBM Z Datathon 2026
+# Privacy-preserving screening · Los Antimarrulla
 
-**Privacy-preserving screening** evaluates a diabetes screening model on Paillier ciphertexts. The hospital keeps its private key; the risk service evaluates the model without decrypting patient inputs.
+**IBM Z Datathon 2026 · Theme 2: AI Secured.** A hospital estimates diabetes screening risk with an external AI service **without the service ever seeing patient data**. The hospital encrypts 19 survey answers with Paillier homomorphic encryption and keeps the private key; a risk service designed for IBM LinuxONE evaluates a logistic model directly on the ciphertexts and returns an encrypted score that only the hospital can open.
 
-Public site: [project, pitch, data and delivery plan](https://antimarrulla-tamizaje.netlify.app). The English migration and audit corrections are merged through PRs 9, 11, 12 and 13 (runtime baseline `ef1e21d`). The public forecast dashboard is live. Independent teammate sign-off and final VM/video evidence remain open. See the [current plan audit](docs/PLAN_AUDIT_20261017.md).
+| | |
+|---|---|
+| Pitch deck (PDF) | [Los Antimarrulla_IBM Z Datathon 2026 Project.pdf](submission/Los%20Antimarrulla_IBM%20Z%20Datathon%202026%20Project.pdf) · [editable PPTX](submission/Los_Antimarrulla_Screening_Pitch.pptx) |
+| Public site | [antimarrulla-tamizaje.netlify.app](https://antimarrulla-tamizaje.netlify.app) — pitch, data, [architecture atlas](https://antimarrulla-tamizaje.netlify.app/architecture) and [forecast dashboard](https://antimarrulla-tamizaje.netlify.app/forecast) |
+| Architecture | [flowchart (PDF)](submission/flowchart/architecture.pdf) · [system diagrams and storage dictionary](docs/SYSTEM_DIAGRAMS.md) |
+| Submission text | [Hack2Skill answers](submission/HACK2SKILL.md) |
 
-The [system diagram atlas](https://antimarrulla-tamizaje.netlify.app/architecture) covers the complete flow, deployment, hospital, risk service, cryptographic protocol, encrypted vault, analytical data model, model training, forecasting and release evidence. [Diagram guide and storage dictionary](docs/SYSTEM_DIAGRAMS.md).
+<p align="center">
+  <img src="submission/deck_diagrams/slide3_solution_flow.png" alt="Hospital encrypts 19 answers, the LinuxONE risk service evaluates ciphertexts and returns Enc(z), the hospital decrypts" width="900">
+</p>
 
-**Submission deadline:** October 18, 2026, **16:30 UTC / 12:30 EDT / 10:30 Ciudad Juárez / 18:30 SAST**. Internal target: 13:00 UTC / 09:00 EDT / 07:00 Ciudad Juárez. The portal opened October 16 at 23:45 UTC. Follow the [delivery plan](docs/DELIVERY_PLAN.md) and [submission checklist](docs/SUBMISSION_CHECKLIST.md).
+## How it works
+
+1. **Hospital container** validates the 19 integer-coded answers and encrypts each one with a 2048-bit Paillier public key. The private key never leaves this container.
+2. **Risk service** (no private key) computes the encrypted logit `Enc(z) = ∏ Enc(xᵢ)^Wᵢ · Enc(B) mod n²` with integer weights scaled by 10⁹, rerandomizes it and returns one ciphertext over mutual TLS 1.3.
+3. **Hospital** decrypts `z`, applies the sigmoid and threshold, shows the largest model contributions and stores the evaluation in an AES-256-GCM vault.
+
+Screening support, not diagnosis: the model predicts a self-reported survey label. All demo patients are synthetic.
+
+## Reproduce it
+
+Requirements: Python 3.12, Make and Docker (Docker alone is enough for the container route). Everything needed is in this repository: code, the public CDC dataset, the fixed splits, the exported model and its metrics. Secrets are generated outside the repository (`~/.screening` by default).
+
+```bash
+make verify          # 100+ tests, artifact hashes and an exact re-training check of the exported model
+make demo            # build images, start hospital + risk service, run the A/B/C smoke test
+```
+
+Open <http://127.0.0.1:8080>, choose synthetic patient A, B or C (C gives 63.3%) or enter the 19 answers. The split screen shows ciphertexts at the service and the decrypted risk at the hospital. `make demo-down` stops it.
+
+Without a host Python (for example on LinuxONE s390x, Ubuntu 24.04):
+
+```bash
+make verify-docker && make demo-docker
+make measure-docker FINAL=1        # same CDC sample: floating vs fixed point vs Paillier, plus timings
+make measure-api-docker FINAL=1    # deployed hospital API, 200 synthetic requests, remote hashes verified
+make evidence-run PY=python3       # all of the above with logs and system identity, pushed for CI validation
+```
+
+Other entry points: `make model` (rebuild splits and retrain), `make ablation` (21 vs 19 features), `make forecast` (optional 52-week forecasts), `make rehearse-two-hosts` (hospital and service as separate hosts on one machine), `make package` (documentation and code ZIPs with SHA-256 manifest). Guides: [LinuxONE](docs/LINUXONE.md), [benchmark profiles](docs/BENCHMARK_PROFILES.md), [two hosts](docs/TWO_HOSTS.md), [deployment](docs/DEPLOYMENT.md).
+
+## Results
+
+Model `logistic-cdc19-v1` ([schema `cdc19-v1`](docs/SCHEMA_CDC19.md); Education and Income dropped with a validation AUC change of −0.0006) trained on CDC BRFSS 2015 (UCI 891, 253,680 records) with stratified 70/15/15 splits; threshold chosen on validation for ≥80% sensitivity.
+
+| Held-out test (38,052) | ROC-AUC | AP | Sensitivity | Specificity | PPV | Brier |
+|---|---:|---:|---:|---:|---:|---:|
+| `logistic-cdc19-v1` | 0.825 | 0.414 | 0.807 | 0.689 | 0.296 | 0.098 |
+
+Encrypted evaluation (local Mac/arm64 + Docker, clean commit `be9b27e`):
+
+- 2,000/2,000 decrypted integers equal the fixed-point reference; ROC-AUC 0.806525 identical in floating, fixed-point and encrypted evaluation; maximum logit error 3.37×10⁻⁸ — [process evidence](submission/evidence/metrics/measurement_process_local-darwin-arm64_20261018T030142Z.json).
+- Deployed two-container API: 200/200 exact, client p50 114.8 ms / p95 118.2 ms; 19 ciphertexts (24 KB) in, one encrypted score (1.4 KB) out — [API evidence](submission/evidence/metrics/measurement_api_local-darwin-arm64_20261018T030546Z.json).
+- Earlier s390x audit (Mac hospital → LinuxONE risk service, 21-feature release): 10/10 checks, 200/200 exact — [audit](submission/evidence/two_hosts/auditoria_20261017T194931Z.md), [summary](docs/CARLOS_REMOTE_AUDIT.md). Recorded LinuxONE runs of this release land in `submission/evidence/runs/`.
+
+Details: [project design and evaluation](docs/PROJECT.md), [data model](docs/DATA_MODEL.md), [data sources](docs/DATA_SOURCES.md), [ENSANUT experiment](docs/ENSANUT_EXPERIMENT.md), [forecast](docs/FORECAST.md).
+
+## Limits and trust boundary
+
+- The risk service receives only ciphertexts and has no private key. In the demo both containers share one VM, so its administrator is trusted; production places the hospital container on hospital premises.
+- Mutual TLS authenticates the channel, not the computation; a malicious service is out of scope.
+- CPACF is a LinuxONE capability; its effective use by this application has not been measured.
+- A separate reduced ENSANUT experiment (AUC ≈ 0.77) underestimated risk; the model is not clinically validated for Mexico.
+- The optional forecast (222 weekly SINAVE series) has exploratory bands: nominal 80% covers about 64% out of sample. Budgets require a sourced unit cost.
+
+## Repository map
+
+| Location | Contents |
+|----------|----------|
+| `src/screening/` | Schema, numerical contract, training, Paillier protocol, risk service, hospital, vault, measurement, forecast and UI |
+| `src/data_prep/` | Preparation of the Mexican context tables from the public sources in `data/` |
+| `artifacts/` | Fixed splits, schema, exported model, metrics and forecast artifacts |
+| `tests/` | Protocol, integration, provenance, measurement, packaging, evidence and forecast tests |
+| `docker/` | Ubuntu 24.04 app/dev images (amd64, arm64, s390x) and the two-container Compose deployment |
+| `data/` | Public datasets with sources and licenses ([data/README.md](data/README.md)); ENSANUT microdata is not redistributed |
+| `docs/` | Design, data, LinuxONE, deployment, diagrams, review and timeline |
+| `site/` | Public pitch site, architecture atlas and forecast dashboard |
+| `submission/` | Pitch PDF/PPTX, diagrams, flowchart, video script and Hack2Skill text |
+| `submission/evidence/` | Measurements, captures, audits and recorded runs with provenance; `submission/evidencias/` keeps earlier Spanish-era files unchanged |
+| `tools/` | Diagram generators and the evidence runner/checker |
+
+Team working documents (plans, audits, idea ranking, runbooks) are archived at the tag [`archive/working-docs-20261018`](https://github.com/UACJ-MIAAD/antimarrulla-ibmz-datathon-2026/tree/archive/working-docs-20261018) and are not needed to reproduce the project. The build chronology is disclosed in [docs/TIMELINE.md](docs/TIMELINE.md).
 
 ## Team
 
-UACJ · Master's program in Artificial Intelligence and Data Analytics (MIAAD), virtual Americas track.
+UACJ · Master's in Artificial Intelligence and Data Analytics (MIAAD).
 
 | Role | Member | Contact |
 |------|--------|---------|
@@ -23,109 +100,18 @@ UACJ · Master's program in Artificial Intelligence and Data Analytics (MIAAD), 
 | ML and encrypted inference | Carlos Enrique Gonzalez Moran | al271771@alumnos.uacj.mx |
 | Data and pitch | Yazmin Ivonne Flores Martinez | al261548@alumnos.uacj.mx |
 
-## Run the project
-
-Python 3.12, Docker and Make are required for the host route. Commands use the English `screening` package and the English wire format `screening-paillier-v2`. Deploy both hospital and service from the same commit. The prior Spanish API/commands are historical and are not compatibility aliases.
-
-```bash
-make verify
-make demo
-```
-
-Open [the local hospital UI](http://127.0.0.1:8080). Choose a synthetic profile or enter the 21 source-coded features. The split screen shows ciphertexts at the service and the decrypted risk at the hospital. Stop the containers with `make demo-down`.
-
-```bash
-make measure             # Same CDC sample: floating point, fixed point and Paillier
-make measure-api         # Actual deployed hospital API with synthetic inputs
-make rehearse-two-hosts N=8
-make package             # Documentation and code ZIPs, explicitly DRAFT
-```
-
-`make measure` times plaintext/fixed-point logits separately from encryption, encrypted evaluation and decryption. Its same-process HTTPS microbenchmark is distinct from `make measure-api`, which exercises the two-container hospital/service/vault deployment. Neither includes browser rendering. Keep operations and environments separate when comparing timings.
-
-For LinuxONE s390x, Ubuntu 24.04 apt dependencies avoid native pip-wheel requirements:
-
-```bash
-make verify-docker
-make demo-docker
-make measure-docker FINAL=1
-make measure-api-docker FINAL=1
-```
-
-Use [the LinuxONE runbook](docs/LINUXONE.md) and pin the same release commit for both endpoints and measurements. The app image excludes CDC data, tests, sklearn and private keys. Secrets live outside the repository in `~/.screening` by default. `SCREENING_SECRETS` selects another directory. Generate fresh local demo credentials; do not overwrite or reuse another deployment's vault with a different key.
-
-## Where the frontend and records live
-
-The interactive form and its API are served together by the **Hospital container**. Saved synthetic evaluations stay in its persistent AES-256-GCM vault volume; the risk service receives ciphertexts only. The public pitch, map, forecast and plan stay on **Netlify**. Access the VM hospital through an SSH tunnel; the Netlify site does not expose its API. See [deployment placement and owners](docs/DEPLOYMENT.md).
-
-## Model, evidence and limitations
-
-The 19-feature logistic model (`logistic-cdc19-v1`, schema [`cdc19-v1`](docs/SCHEMA_CDC19.md): Education and Income dropped, validation AUC change −0.0006) uses public CDC BRFSS 2015 data (UCI 891). The stratified 70/15/15 splits are shared by training and evaluation. Standardization is fitted on training only and folded into weights/intercept. A validation threshold targets sensitivity >=0.80; test data is reserved for reporting.
-
-- Test split: 38,052 records; ROC-AUC 0.825, AP 0.414, sensitivity 0.807, specificity 0.689, PPV 0.296 and Brier 0.098.
-- Fixed point uses unscaled integer inputs and weights/intercept rounded at scale 10^9. Decrypted integer equality and floating-point quantization error are separate checks.
-- Local measurements of `logistic-cdc19-v1` at clean commit `be9b27e`: 2,000/2,000 exact integers, AUC 0.806525 identical in floating, fixed-point and encrypted evaluation, and maximum logit error 3.37×10^-8 (sample bound 7.35×10^-8). Requests carry 19 ciphertexts (24,301 bytes). The local Docker API matched 200/200 synthetic cases with remote code and model hashes verified, client p50 114.8 ms and p95 118.2 ms. These are Mac/arm64 plus Docker measurements; LinuxONE remains pending. See [process evidence](submission/evidence/metrics/measurement_process_local-darwin-arm64_20261018T030142Z.json) and [deployed API evidence](submission/evidence/metrics/measurement_api_local-darwin-arm64_20261018T030546Z.json). Earlier measurements and audits (including `5412abe` and Carlos's two-host audit) describe the 21-feature model and remain as history.
-- The reduced ten-feature ENSANUT experiment is separate from the MVP: weighted AUC about 0.77, underestimated risk and sensitivity 0.46–0.49 at the CDC threshold. It does not establish clinical validity in Mexico.
-- E5 is an optional 222-series forecast. Nested evaluation and actual band coverage are reported; nominal 80/95% coverage is not guaranteed. Budget scenarios require a sourced unit cost.
-
-This is a technical screening demonstration, not a diagnosis or a forecast of an individual's future diabetes or mortality. The survey label concerns reported diagnosis. Clinical use requires independent population-specific evaluation.
-
-**Team runs on October 17:**
-
-| Run | Result | Evidence status |
-|-----|-----------------|-----------------|
-| Carlos · Mac hospital to a remote s390x risk service | Original audit **approved, 10/10 checks**: service container on Linux s390x (Ubuntu, OpenSSL 3.0.13), hospital on macOS arm64, separate hosts; 200/200 exact integers; per record p50 606.9 ms and p95 805.0 ms (encrypt ≈141 ms, network + service ≈456 ms p50, decrypt ≈9 ms); TLS 1.3 with client certificate; no private key or plaintext on the service side | Raw report committed ([audit](submission/evidence/two_hosts/auditoria_20261017T194931Z.md), [summary](docs/CARLOS_REMOTE_AUDIT.md)). It ran the pre-English release `037ee1b`; LinuxONE Community Cloud identity and a run on the final English release are still pending. It used the earlier 21-feature model; the 19-feature `cdc19-v1` release must be rerun |
-| Álvaro · legacy UI on the server | Linux s390x, 2048-bit key, synthetic C at 66.3% (earlier 21-feature model; 63.3% with `cdc19-v1`) | Screenshot only; provider dashboard, `uname`/`lscpu`, containers and measurement files pending |
-
-Prepared sizes: `make evidence-run PROFILE=16000` (choose `20`, `200`, `2000` or `16000`), or `make evidence-suite PY=python3` for all four sequentially. For the pitch use `make demo-test N=20 FINAL=1` against a prewarmed demo. Larger profiles compare labeled CDC records and use 200 synthetic API requests by default; `API_N=16000` requests a full 16,000-request API test. [Profile guide](docs/BENCHMARK_PROFILES.md). The Hospital frontend includes a separate test console for synthetic API batches, progress/cancellation/export and recorded-run command selection; see [readiness and validation scope](docs/FRONTEND_READINESS.md).
-
-Next run, on the approved demo VM with the agreed release: `make evidence-run`. It runs `verify-docker`, `image-inspect`, `demo-docker` and both FINAL measurements, keeps every log and the system identity, and pushes them to a branch `evidence/s390x_n<process>_api<requests>_<UTC>` that CI validates before merge ([how](docs/LINUXONE.md#2-recorded-run-recommended-one-command-logs-pushed-to-github); [runs](submission/evidence/runs/)). Use the wording "One synthetic record from the measured run" (not "real patient").
-
-**Trust boundary:** the risk service receives ciphertexts and has no Paillier private key. The approved demo uses two containers on one host; its administrator is trusted and could access hospital memory. Use synthetic demo inputs. Publicly anonymized CDC rows are reserved for explicit benchmarks. AES-256-GCM protects vault records, not every log, disk or backup. CPACF is a platform capability; effective use by this application remains unmeasured. LinuxONE execution and provider screenshots remain pending until actual evidence is committed.
-
-## Repository map
-
-| Location | Contents |
-|----------|----------|
-| `src/screening/` | Schema, numerical contract, training, protocol, service, hospital, vault, measurement and UI |
-| `src/data_prep/` | Reproducible preparation scripts with original source column names preserved |
-| `artifacts/` | Shared splits, schema, model, metrics and forecast artifacts |
-| `tests/` | Protocol, integration, provenance, forecasting, packaging and instance checks |
-| `docker/` | Ubuntu app/dev images and two-container Compose deployment |
-| `data/` | Public datasets, catalogs, documentation and source-coded derived tables |
-| `docs/` | Design, rules, data contracts, runbooks and delivery plan |
-| `site/` | Public pitch, state indicators, forecast dashboard and evidence-based story status |
-| `submission/` | English pitch, PDF, flowchart, video instructions and submission text |
-| `submission/evidence/` | New English release evidence |
-| `submission/evidencias/` | Preserved historical measurement files and screenshots; never relabeled as current |
-
-Original datasets, source fields, proper names, the required submission title and historical evidence retain their original spelling. All current authored code, comments, UI and release documents use English. See [the language migration record](docs/ENGLISH_MIGRATION.md) for path/API changes and validation.
-
-## Project and event documents
-
-**Closing and demo:** [demo runbook and closing timeline](docs/DEMO_RUNBOOK.md) — recording order, VM commands, fallback ladder and judge Q&A.
-
-
-[Project design](docs/PROJECT.md) · [decision](docs/DECISION.md) · [data model](docs/DATA_MODEL.md) · [data sources](docs/DATA_SOURCES.md) · [event](docs/EVENT.md) · [rules](docs/RULES.md) · [judging criteria](docs/JUDGING_CRITERIA.md) · [themes](docs/THEMES.md) · [roles](docs/ROLES.md) · [independent review](docs/REVIEW.md) · [factual timeline](docs/TIMELINE.md).
-
-## Contribution and review
-
-Use an English branch/commit/PR description. Changes enter `main` through a PR reviewed by another team member. Preserve the actual build history; do not backdate commits or infer a coding-start waiver from the submission window. Yazmin's recorded clone check is partial verification, not a complete protocol review. See [CONTRIBUTING.md](CONTRIBUTING.md).
-
 ## Open-source credits
 
 | Resource | License recorded by the project | Use |
 |----------|---------------------------------|-----|
-| [NumPy](https://github.com/numpy/numpy), [pandas](https://github.com/pandas-dev/pandas), [scikit-learn](https://github.com/scikit-learn/scikit-learn), [matplotlib](https://github.com/matplotlib/matplotlib), [Jupyter](https://github.com/jupyter/notebook) | BSD / PSF | Data, modeling and analysis |
-| [python-paillier / phe](https://github.com/data61/python-paillier) | GPLv3, with Apache 2.0 portions | Paillier inference |
-| [gmpy2](https://github.com/aleaxit/gmpy) | LGPL-3.0-or-later | Large integer arithmetic |
-| [cryptography](https://github.com/pyca/cryptography) | Apache 2.0 / BSD | Vault encryption and TLS certificates |
+| [NumPy](https://github.com/numpy/numpy), [pandas](https://github.com/pandas-dev/pandas), [scikit-learn](https://github.com/scikit-learn/scikit-learn) | BSD | Data and modeling |
+| [python-paillier / phe](https://github.com/data61/python-paillier) | GPLv3, with Apache 2.0 portions | Paillier encryption and inference |
+| [gmpy2](https://github.com/aleaxit/gmpy) | LGPL-3.0-or-later | Large-integer arithmetic |
+| [cryptography](https://github.com/pyca/cryptography) | Apache 2.0 / BSD | AES-256-GCM vault and TLS certificates |
 | [pytest](https://github.com/pytest-dev/pytest) | MIT | Tests |
-| [Ubuntu](https://hub.docker.com/_/ubuntu) | Package-specific free licenses | Multi-architecture container base |
-| [ucimlrepo](https://github.com/uci-ml-repo/ucimlrepo) | MIT | CDC acquisition |
-| [dbfread](https://github.com/olemb/dbfread) | MIT | INEGI DBF reading |
-| [statsmodels](https://github.com/statsmodels/statsmodels) | BSD | Optional ETS forecast |
-| [TenSEAL](https://github.com/OpenMined/TenSEAL) / [OpenFHE](https://github.com/openfheorg/openfhe-development) | Apache 2.0 / BSD-2 | Optional CKKS, not implemented |
-| [llama.cpp](https://github.com/ggerganov/llama.cpp) / IBM Granite | MIT / Apache 2.0 | Optional explanations, not integrated |
+| [statsmodels](https://github.com/statsmodels/statsmodels) | BSD | ETS forecasting |
+| [ucimlrepo](https://github.com/uci-ml-repo/ucimlrepo), [dbfread](https://github.com/olemb/dbfread) | MIT | CDC acquisition and INEGI DBF reading |
+| [Ubuntu](https://hub.docker.com/_/ubuntu) / [Docker](https://www.docker.com/) | Package-specific free licenses / Apache 2.0 | Multi-architecture containers |
+| [CDC Diabetes Health Indicators (UCI 891)](https://archive.ics.uci.edu/dataset/891/cdc+diabetes+health+indicators) | CC BY 4.0 (UCI) / public-domain source | Training and evaluation data |
 
-Own source code uses [MIT](LICENSE). `phe` retains its GPLv3 terms; distribution of combined works such as images must retain applicable licenses/notices and satisfy the dependency's requirements rather than be described as MIT-only. Every dataset retains its source terms and attribution. CDC/BRFSS is public-domain source material; source metadata and transformations are documented in [data/README.md](data/README.md). ENSANUT microdata is not redistributed. The team is still deciding where to publish its separate AI-use declaration; do not treat a local draft as completed disclosure.
+Datasets from INEGI, DGIS/SSA, SINAVE, CONAPO and IMSS keep their source terms and attribution; see [data/README.md](data/README.md). Own source code uses the [MIT license](LICENSE). `phe` retains its GPLv3 terms: combined works such as container images must keep the applicable licenses and notices.
