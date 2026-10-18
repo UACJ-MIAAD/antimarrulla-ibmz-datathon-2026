@@ -1,5 +1,5 @@
 "Benchmark profile declarations and sequential execution without running Docker."
-import json, os, pathlib, subprocess, sys
+import json, os, pathlib, shlex, subprocess, sys
 import pytest
 from screening import benchmark_profiles as bp
 from screening.paths import ROOT
@@ -32,3 +32,15 @@ sys.exit(3 if str(n)==sys.argv[2] else 0)
     result = subprocess.run(["make", "--no-print-directory", "evidence-suite", f"MAKE={sys.executable} {fake} {trace} {fail_at}"], cwd=ROOT, capture_output=True, text=True)
     assert [json.loads(line) for line in trace.read_text().splitlines()] == expected
     assert (result.returncode == 0) == (fail_at is None)
+
+
+@pytest.mark.skipif(not os.path.isfile(os.path.join(ROOT, "Makefile")), reason="Makefile is not copied into the dev image")
+@pytest.mark.parametrize("target", ["measure-docker", "measure-api-docker"])
+def test_bind_mounted_measurements_use_the_host_owner(target):
+    result = subprocess.run(["make", "--no-print-directory", "-n", "-o", "image-dev", target],
+                            cwd=ROOT, capture_output=True, text=True, check=True)
+    line = next(line for line in result.stdout.splitlines() if line.startswith("docker run "))
+    args = shlex.split(line)
+    assert args[args.index("--user") + 1] == f"{os.getuid()}:{os.getgid()}"
+    assert ":/app/submission/evidence/metrics" in line
+    assert "chmod 777" not in result.stdout

@@ -73,11 +73,11 @@ demo-docker: secrets-docker image    ## Run the demo and container smoke test wi
 image-inspect: image                 ## Verify the app image excludes data, tests, sklearn and keys.
 	docker run --rm screening:demo sh -c 'test ! -e /app/data && test ! -e /app/tests && ! python3 -c "import sklearn" 2>/dev/null && ! find / -xdev \( -name "*.key" -o -name "vault.key" \) 2>/dev/null | grep -q . && test -f /app/artifacts/model/logistic_model_v1.json && test -f /app/screening/ui/index.html && echo "app image OK: model/UI present; no CDC, tests, sklearn or keys"'
 measure-docker: image-dev            ## Write process measurements with container provenance.
-	mkdir -p $(MEASUREMENT_DIR) && chmod 777 $(MEASUREMENT_DIR)
-	docker run --rm $(PROC) -v $(CURDIR)/$(MEASUREMENT_DIR):/app/submission/evidence/metrics screening:dev python3 -m screening.measure $(MEASURE_ARGS) $(if $(FINAL),--final,)
+	mkdir -p $(MEASUREMENT_DIR)
+	docker run --rm --user $(SCREENING_UID):$(SCREENING_GID) $(PROC) -v $(CURDIR)/$(MEASUREMENT_DIR):/app/submission/evidence/metrics screening:dev python3 -m screening.measure $(MEASURE_ARGS) $(if $(FINAL),--final,)
 measure-api-docker: image-dev        ## Measure the Compose hospital API from a client container.
-	mkdir -p $(MEASUREMENT_DIR) && chmod 777 $(MEASUREMENT_DIR)
-	docker run --rm --network host $(PROC) -v $(CURDIR)/$(MEASUREMENT_DIR):/app/submission/evidence/metrics screening:dev python3 -m screening.measure --mode api --url $(UI_URL) $(API_ARGS) $(if $(FINAL),--final,)
+	mkdir -p $(MEASUREMENT_DIR)
+	docker run --rm --user $(SCREENING_UID):$(SCREENING_GID) --network host $(PROC) -v $(CURDIR)/$(MEASUREMENT_DIR):/app/submission/evidence/metrics screening:dev python3 -m screening.measure --mode api --url $(UI_URL) $(API_ARGS) $(if $(FINAL),--final,)
 
 PROFILE ?= 2000
 .PHONY: evidence-run evidence-check evidence-index demo-test test-profiles
