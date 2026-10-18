@@ -44,6 +44,18 @@ GitHub's `evidence` workflow checks recorded branches with `--require-runs`, so 
 
 **Scope:** unkeyed hashes establish internal consistency, not signed execution attestation; an operator can rewrite a log and its manifest together. The CI does not rerun measurements on s390x, prove provider identity, or replace teammate review. The first actual s390x run, Community Cloud screenshots, labs, approved AI declaration and narrated video remain open. Preserve failed runs on diagnostic branches; include only approved valid runs in a release PR, because strict checks reject any included failed/rehearsal run. After independent review and merge, update README/deck/site from that run's summary, keeping environment and commit labels.
 
+## Measurement file ownership recovery
+
+The process and API measurement containers run with the invoking host UID/GID, so the host evidence runner can sanitize and hash their outputs. Earlier Makefile versions ran these clients as image UID 10001: the directory was writable, but generated files could not be rewritten by the host user. A failure in this finalization phase does not establish that the measurements themselves failed; preserve the original JSON/Markdown and run logs. A directory without a completed manifest and successful check is not validated final evidence.
+
+If this failure already occurred, stop the runner and repair only the metrics directory from the repository root:
+
+```bash
+sudo chown -R "$(id -u):$(id -g)" submission/evidence/metrics
+```
+
+Then update to the fixed main and retry profile 20 first. Do not run the whole evidence command with sudo or delete earlier results. This ownership fix changes only Makefile/tests/docs; the screening runtime and model hashes remain unchanged. A failed run without a manifest has no automatic resume operation; keep it for recovery/audit, and record a new complete run for delivery.
+
 ## 2b. Verify, start and measure manually
 
 `03_test_stack.py` is library preflight. `05_test_claims.py` runs the actual project tests and saves provenance under `submission/evidence/instance/`; `make instance-claims` uses a configured host environment. Without host Python setup, use `make verify-docker`.

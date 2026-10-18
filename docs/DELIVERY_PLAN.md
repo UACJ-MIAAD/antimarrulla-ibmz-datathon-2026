@@ -4,6 +4,8 @@
 
 ## Evidence runner preflight gate
 
+**Linux measurement ownership hotfix:** measurement clients must run with the invoking host UID/GID. If an older run fails sanitizing `measurement_api_*.json` with PermissionError, preserve its metrics/logs and repair ownership as documented in [LINUXONE.md](LINUXONE.md#measurement-file-ownership-recovery). Retry profile 20 from fixed main before the larger profiles; incomplete runs are not final evidence. This Makefile-only runtime-launch fix preserves screening/model hashes.
+
 **Do not launch the closing run from `516bb59`.** The [preflight audit](EVIDENCE_PREFLIGHT_AUDIT.md) reproduced false acceptance of a one-patient run and an unavailable commit, incomplete private-key redaction, and weak smoke/system/publication checks. PRs 19–21 harden these gates, configure the benchmark profiles and prepare the Hospital frontend. The captain has authorized their ordered integration into main after validation and green CI; independent teammate technical review remains open (see REVIEW.md). Pin the resulting main commit for both containers, client and recording. No final s390x measurement was launched during this audit.
 
 Hospital frontend readiness: individual A/B/C/random/custom paths and actual 20/200 browser batches validated locally; large counts tested by simulation only. Progress, stop-on-failure, cancellation, source identity/exactness, command copy and export are prepared. Rebuild the latest reviewed source on the VM; no new LinuxONE evidence is claimed. [Readiness matrix](FRONTEND_READINESS.md).
