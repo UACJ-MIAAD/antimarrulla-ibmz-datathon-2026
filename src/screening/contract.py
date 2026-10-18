@@ -1,5 +1,5 @@
 """Numerical contract (docs/PROJECT.md).
-Inputs are the 21 unscaled integer CDC codes (input scale 1).
+Inputs are the schema's unscaled integer CDC codes (19 in cdc19-v1) (input scale 1).
 W_i=round(10^9*w_i), B=round(10^9*b). Paillier exponent is zero throughout.
 Reference arithmetic uses exact Python integers.
 """

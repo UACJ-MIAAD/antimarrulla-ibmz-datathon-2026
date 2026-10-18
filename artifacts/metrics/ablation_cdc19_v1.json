@@ -1,0 +1,37 @@
+{
+ "question": "Does removing Education and/or Income reduce discrimination?",
+ "procedure": "train.fit (standardized logistic regression) on the training split; scored on the validation split; test split unused",
+ "splits_sha256": "8394d9f07d189298a247adaf13ed348f38deddc4b704e49926f2e9459483110e",
+ "source_sha256": "c75c2d1fd66c86883e996a80977ae0eea83e1a1b56d39272c1abcea46574afcb",
+ "n_training": 177576,
+ "n_validation": 38052,
+ "validation_positives": 5302,
+ "results": {
+  "all_21": {
+   "features": 21,
+   "roc_auc": 0.8186,
+   "average_precision": 0.3979,
+   "delta_roc_auc_vs_21": 0.0
+  },
+  "without_Education": {
+   "features": 20,
+   "roc_auc": 0.8187,
+   "average_precision": 0.398,
+   "delta_roc_auc_vs_21": 0.0001
+  },
+  "without_Income": {
+   "features": 20,
+   "roc_auc": 0.818,
+   "average_precision": 0.3975,
+   "delta_roc_auc_vs_21": -0.0006
+  },
+  "without_both_19": {
+   "features": 19,
+   "roc_auc": 0.818,
+   "average_precision": 0.3975,
+   "delta_roc_auc_vs_21": -0.0006
+  }
+ },
+ "date_utc": "2026-10-18T00:10:53Z",
+ "environment": "Linux x86_64 \u00b7 Python 3.12.3 \u00b7 scikit-learn 1.9.1 \u00b7 numpy 2.5.4"
+}

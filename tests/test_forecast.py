@@ -31,7 +31,7 @@ def test_222_series_and_horizon(p):
     for s in p["series"]:
         assert len(s["forecast"]["point"]) == p["weeks_nowcast"] + 52
         assert all(v >= 0 for v in s["forecast"]["point"])
-        assert all(what <= pt <= hi for what, pt, hi in zip(s["forecast"]["lo95"], s["forecast"]["point"], s["forecast"]["hi95"]))
+        assert all(low <= pt <= high for low, pt, high in zip(s["forecast"]["lo95"], s["forecast"]["point"], s["forecast"]["hi95"]))
 
 
 def test_states_sum_to_national(p):

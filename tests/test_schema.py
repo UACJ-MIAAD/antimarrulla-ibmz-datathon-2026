@@ -5,17 +5,17 @@ from screening.schema import InvalidInput
 
 
 def base():
-    return {n: what for n, what, hi in schema.VARIABLES}
+    return {n: low for n, low, high in schema.VARIABLES}
 
 
 def test_order_and_size():
-    assert len(schema.FEATURE_NAMES) == 21
-    assert schema.FEATURE_NAMES[0] == "HighBP" and schema.FEATURE_NAMES[-1] == "Income"
-    assert sum(schema.MAX_ABS) == 204
+    assert len(schema.FEATURE_NAMES) == 19 and schema.VERSION == "cdc19-v1"
+    assert schema.FEATURE_NAMES[0] == "HighBP" and schema.FEATURE_NAMES[-1] == "Age"
+    assert sum(schema.MAX_ABS) == 190
 
 
 def test_accepts_minimum_and_maximum():
-    assert schema.validate(base()) == [what for _, what, _ in schema.VARIABLES]
+    assert schema.validate(base()) == [low for _, low, _ in schema.VARIABLES]
     assert schema.validate({n: hi for n, _, hi in schema.VARIABLES}) == [hi for _, _, hi in schema.VARIABLES]
 
 
@@ -31,7 +31,7 @@ def test_rejects_values_invalid(value):
         schema.validate(r)
 
 
-@pytest.mark.parametrize("var,value", [("BMI", 11), ("BMI", 99), ("HighBP", 2), ("HighBP", -1), ("Age", 0), ("Age", 14), ("GenHlth", 6), ("Income", 9)])
+@pytest.mark.parametrize("var,value", [("BMI", 11), ("BMI", 99), ("HighBP", 2), ("HighBP", -1), ("Age", 0), ("Age", 14), ("GenHlth", 6), ("MentHlth", 31)])
 def test_rejects_outside_of_range(var, value):
     r = base(); r[var] = value
     with pytest.raises(InvalidInput):
@@ -39,11 +39,19 @@ def test_rejects_outside_of_range(var, value):
 
 
 def test_rejects_missing_and_extra():
-    r = base(); del r["Income"]
+    r = base(); del r["Age"]
     with pytest.raises(InvalidInput):
         schema.validate(r)
     r = base(); r["ID"] = 1
     with pytest.raises(InvalidInput):
         schema.validate(r)
     with pytest.raises(InvalidInput):
-        schema.validate([0] * 21)
+        schema.validate([0] * 19)
+
+
+@pytest.mark.parametrize("removed", ["Education", "Income"])
+def test_removed_features_are_rejected(removed):
+    """cdc19-v1 no longer collects Education or Income: sending them is an error, not silently ignored."""
+    r = base(); r[removed] = 1
+    with pytest.raises(InvalidInput):
+        schema.validate(r)

@@ -16,10 +16,12 @@ from phe import paillier
 from . import contract, schema, hospital, provenance, protocol, service, synthetic
 from .paths import MODEL_JSON, SPLITS, ROOT
 
-REPORT_OUTPUT = os.path.join(ROOT, "submission", "evidencias", "two_hosts")
+REPORT_OUTPUT = os.path.join(ROOT, "submission", "evidence", "two_hosts")
 REQUEST_FIELDS = {"protocol", "schema", "model", "id", "key_public", "exponent", "ciphertexts"}
 RESPONSE_FIELDS = {"protocol", "schema", "model", "id", "exponent", "result", "service_ms"}
-PLAINTEXT_VECTOR = re.compile(r"\[\s*(?:-?\d{1,3}\s*,\s*){20}-?\d{1,3}\s*\]")
+N_FEATURES = len(schema.FEATURE_NAMES)
+# A plaintext input vector: a JSON list of N_FEATURES small integers (the audit must find none on the service side).
+PLAINTEXT_VECTOR = re.compile(r"\[\s*(?:-?\d{1,3}\s*,\s*){%d}-?\d{1,3}\s*\]" % (N_FEATURES - 1))
 WARMUP = 3
 
 
@@ -255,7 +257,7 @@ def audit(a):
                 bad.append(s["id"])
         except (OSError, ValueError, KeyError, TypeError):
             bad.append(s["id"])
-    check("structure", "Each request contains only protocol fields, 21 ciphertexts and no plaintext inputs",
+    check("structure", f"Each request contains only protocol fields, {N_FEATURES} ciphertexts and no plaintext inputs",
           not bad and bits_min is not None and bits_min > 3000,
           f"allowed fields {sorted(REQUEST_FIELDS)} · public key: {sorted(key_bits)} bits · shortest ciphertext: {bits_min} bits · "
           f"nonconforming requests: {len(bad)}")
@@ -286,7 +288,7 @@ def audit(a):
         vectors += [os.path.basename(p) for _ in PLAINTEXT_VECTOR.finditer(text)][:1]
     check("without_plaintext", "No decrypted result or plaintext input vector appears in service evidence", not findings and not vectors,
           f"{len(patterns)} searched values (hospital integer logits, logits and probabilities; {small} integers shorter than seven digits excluded) "
-          f"in {len(files)} files · findings: {findings[:5] or 0} · 21-integer vectors: {len(vectors)}")
+          f"in {len(files)} files · findings: {findings[:5] or 0} · {N_FEATURES}-integer vectors: {len(vectors)}")
 
     # 5. Private-key isolation
     with_key = sum(1 for s in filter(None, ours) if s["private_key_in_memory"] is not False)

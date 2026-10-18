@@ -4,7 +4,7 @@ from screening import hospital, protocol, secrets_setup, service
 
 
 def _patient(model):
-    return {n: 0 if n not in ("BMI", "GenHlth", "Age", "Education", "Income") else 12 if n == "BMI" else 1 for n in model["variables"]}
+    return {n: 0 if n not in ("BMI", "GenHlth", "Age") else 12 if n == "BMI" else 1 for n in model["variables"]}
 
 
 def test_stalled_handshake_does_not_block_other_clients(tmp_path, model, keys):

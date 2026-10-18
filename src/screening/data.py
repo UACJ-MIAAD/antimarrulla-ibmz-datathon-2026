@@ -19,13 +19,14 @@ def sha256(path):
     return h.hexdigest()
 
 
-def load_cdc(path=CDC_CSV):
-    "Return IDs, integer feature matrix in schema order and labels; exclude ID from predictors."
+def load_cdc(path=CDC_CSV, features=None):
+    "Return IDs, integer feature matrix (schema order, or `features` for exploratory analyses) and labels."
+    features = list(features or schema.FEATURE_NAMES)
     with open(path, newline="") as f:
         rd = csv.DictReader(f)
         rows = list(rd)
     ids = np.array([int(r["ID"]) for r in rows], dtype=np.int64)
-    X = np.array([[schema.to_integer(n, int(float(r[n]))) for n in schema.FEATURE_NAMES] for r in rows], dtype=np.int64)
+    X = np.array([[schema.to_integer(n, int(float(r[n]))) for n in features] for r in rows], dtype=np.int64)
     y = np.array([int(float(r[schema.TARGET])) for r in rows], dtype=np.int64)
     return ids, X, y
 
