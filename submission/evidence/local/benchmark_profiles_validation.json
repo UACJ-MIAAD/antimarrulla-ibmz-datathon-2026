@@ -34,7 +34,13 @@
     "adaptive_max_overridden": 8,
     "adaptive_budget_seconds_overridden": 1,
     "same_process_https_requests": 3,
-    "final": false
+    "final": false,
+    "provenance": {
+      "commit": "4ed55fb47618c95e7a273332cbce8a733d69e18d",
+      "clean": false,
+      "code_sha256": "46f38dac1ee298f4fdc7d8707500d8b9d1d4dd63f287dc215887d59af274f71e",
+      "model_sha256": "e32420ac99fd10d30a3a65a225a43d84d4bfd7208c6f3b7656611893729575ac"
+    }
   },
   "long_measurements_executed": false,
   "vm_measurements_executed": false
