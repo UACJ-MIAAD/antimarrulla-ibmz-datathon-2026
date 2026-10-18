@@ -6,6 +6,8 @@
 
 **Do not launch the closing run from `516bb59`.** The [preflight audit](EVIDENCE_PREFLIGHT_AUDIT.md) reproduced false acceptance of a one-patient run and an unavailable commit, incomplete private-key redaction, and weak smoke/system/publication checks. A separate fix branch hardens these gates and includes regression tests. Merge it only after independent teammate review and passing CI; pin that approved commit for both containers, client and recording. No final s390x measurement was launched during this audit.
 
+Prepared test sizes: **20 / 200 / 2,000 / 16,000**, with exact declared counts and diagnostic/release scope. `make evidence-suite PY=python3` runs all four in order; `make demo-test N=20 FINAL=1` is the short synthetic API demonstration. The larger CDC profiles use 200 deployed API requests by default; `API_N=16000` explicitly requests the longer API test. See [BENCHMARK_PROFILES.md](BENCHMARK_PROFILES.md). No 16,000-record test result is claimed from the supplied chat.
+
 Carlos and Álvaro: first verify the reviewed runner, host Python 3, Docker/Compose, Git identity and push credentials; then run `make evidence-run PY=python3` once on the real VM. Javier: coordinate independent review, provider/lab records, AI publication decision and video. Preserve failed runs as diagnostics; never promote a Mac rehearsal or consistency check into LinuxONE/provider evidence. Authored output labels and the code ZIP now include the evidence tooling; these fixes change the executable source hash while preserving model weights.
 
 ## Confirmed submission window

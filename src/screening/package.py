@@ -7,6 +7,7 @@ Run: python -m screening.package [--kind documentation|code|both] [--final]
 """
 import argparse, datetime, glob, hashlib, json, os, re, zipfile
 from . import provenance
+from .benchmark_profiles import release_size
 from .paths import ROOT
 
 EXCLUDE = re.compile(r"(^|/)(\.git|\.venv|__pycache__|dist|data/raw)(/|$)|\.(key|pem)$|AUDITORIA|PLAN_REAUDITORIA|AI_USE\.local|USO_IA\.local|submission/Los_Antimarrulla_Pitch\.pptx$")
@@ -73,7 +74,7 @@ def _valid_measurement(m, mode, model_sha):
         return False
     ex, mu = m.get("accuracy") or {}, m.get("sample") or {}
     n = mu.get("n")
-    if type(n) is not int or n != (2000 if mode == "process" else 200) or ex.get("identical_integers") != n or ex.get("of") != n:
+    if not release_size(mode, n) or ex.get("identical_integers") != n or ex.get("of") != n:
         return False
     if mode == "process":
         return ex.get("all_within_bound") is True and bool(m.get("microbenchmark_in_process"))

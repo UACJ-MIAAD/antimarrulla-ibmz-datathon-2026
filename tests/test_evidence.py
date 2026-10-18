@@ -29,23 +29,24 @@ def put(path, data):
     return path
 
 
-def make_run(root, arch="s390x"):
+def make_run(root, arch="s390x", profile="2000", api_n=None):
+    plan = ev.benchmark_profiles.profile(profile, api_n)
     model = put(os.path.join(root, ev.MODEL), open(os.path.join(ev.ROOT, ev.MODEL)).read())
     msha = sha(model)
     base = {"date_utc": "2026-10-18T05:10:00Z", "environment_label": "s390x-linuxone", "environment": {"is_linuxone_s390x": arch == "s390x", "machine": arch, "system": "Linux"},
             "provenance": {"clean": True, "commit": COMMIT, "code_sha256": CODE, "model_sha256": msha}}
-    proc = {**base, "mode": "process", "sample": {"n": 2000}, "microbenchmark_in_process": {"encrypt_hospital": {"p50_ms": 300.0}},
-            "accuracy": {"identical_integers": 2000, "of": 2000, "all_within_bound": True, "error_max_logit_vs_floating": 3e-8, "applicable_max_bound": 9e-8},
+    proc = {**base, "mode": "process", "sample": {"n": plan["process_n"]}, "microbenchmark_in_process": {"encrypt_hospital": {"p50_ms": 300.0}},
+            "accuracy": {"identical_integers": plan["process_n"], "of": plan["process_n"], "all_within_bound": True, "error_max_logit_vs_floating": 3e-8, "applicable_max_bound": 9e-8},
             "metrics_same_sample": {k: {"roc_auc": 0.806525} for k in ("floating", "fixed_point", "ciphertext")}}
-    api = {**base, "mode": "api", "sample": {"n": 200}, "accuracy": {"identical_integers": 200, "of": 200},
-           "client_ms": {"n": 200, "p50_ms": 350.0, "p95_ms": 380.0},
+    api = {**base, "mode": "api", "sample": {"n": plan["api_n"]}, "accuracy": {"identical_integers": plan["api_n"], "of": plan["api_n"]},
+           "client_ms": {"n": plan["api_n"], "p50_ms": 350.0, "p95_ms": 380.0},
            "hospital_remote": {"model_sha256": msha, "code_equal_to_client": True, "code_sha256": CODE, "machine": arch}}
     mp = put(os.path.join(root, ev.METRICS, "measurement_process_s390x_1.json"), proc)
     ma = put(os.path.join(root, ev.METRICS, "measurement_api_s390x_1.json"), api)
     run = os.path.join(root, ev.RUNS, f"{arch}_20261018T050000Z")
     texts = {"verify": "100 passed\nverification OK\n", "demo": SMOKE.replace("architecture s390x", f"architecture {arch}"), "image_inspect": "app image OK: model/UI present"}
     steps = []
-    for i, (name, cmd) in enumerate(ev.STEPS, 1):
+    for i, (name, cmd) in enumerate(ev.steps_for(plan), 1):
         log = put(os.path.join(run, "logs", f"{i:02d}_{name}.log"), f"$ {cmd}\n{texts.get(name, 'ok')}\n[exit 0]\n")
         steps.append({"name": name, "command": cmd, "exit_code": 0, "seconds": 1.0, "log": f"logs/{i:02d}_{name}.log", "sha256": sha(log)})
     uname = put(os.path.join(run, "system", "uname.txt"), f"Linux vm 6.8.0 {arch}\n{arch}\n")
@@ -57,7 +58,7 @@ def make_run(root, arch="s390x"):
              "service": {"state": "ok", "key_private": False, "model_sha256": msha, "code_sha256": CODE}}
     state_file = put(os.path.join(run, "system", "api_state.json"), state)
     system_files.append({"name": "api_state", "file": "system/api_state.json", "sha256": sha(state_file)})
-    man = {"schema": ev.SCHEMA, "run_id": os.path.basename(run), "status": "passed", "arch": arch, "commit": COMMIT,
+    man = {"schema": ev.SCHEMA, "profile": plan, "run_id": os.path.basename(run), "status": "passed", "arch": arch, "commit": COMMIT,
            "operator": "Carlos", "started_utc": "2026-10-18T05:00:00Z", "ended_utc": "2026-10-18T05:20:00Z", "redactions": 0,
            "steps": steps, "system_files": system_files,
            "measurements": [{"path": os.path.relpath(p, root), "sha256": sha(p)} for p in (mp, ma)]}
@@ -264,3 +265,38 @@ def test_failure_run_keeps_logs_and_reports_publication_failure(tmp_path, monkey
     assert manifest(run)["status"] == "failed"
     assert os.path.isfile(os.path.join(run, "logs", "01_verify.log"))
     assert "NOT VALID" in open(os.path.join(run, "SUMMARY.md")).read()
+
+
+@pytest.mark.parametrize("profile", ["20", "200", "2000", "16000"])
+def test_declared_profile_validates_exact_requested_sample(tmp_path, profile):
+    root = str(tmp_path); run = make_run(root, profile=profile)
+    errors, warnings, summary = ev.check(run, root=root)
+    assert errors == []
+    assert summary["process"]["n"] == int(profile)
+    text = ev.write_summary(run, manifest(run), errors, warnings, summary)
+    assert ("DIAGNOSTIC ONLY" in text) == (int(profile) < 2000)
+
+
+def test_large_api_override_is_recorded_and_checked(tmp_path):
+    root = str(tmp_path); run = make_run(root, profile="16000", api_n=16000)
+    assert ev.check(run, root=root)[0] == []
+    assert manifest(run)["profile"]["api_n"] == 16000
+    change_measurement(root, run, "api", lambda d: d["sample"].update(n=200))
+    assert any("requires exactly 16000" in e for e in ev.check(run, root=root)[0])
+
+
+def test_diagnostic_cannot_declare_itself_release_sized(tmp_path):
+    root = str(tmp_path); run = make_run(root, profile="20"); man = manifest(run)
+    man["profile"]["release_eligible"] = True; put(os.path.join(run, "manifest.json"), man)
+    assert any("profile declaration" in e for e in ev.check(run, root=root)[0])
+
+
+def test_live_output_is_streamed_and_redacted(tmp_path, capsys):
+    cmd = ("printf 'pilot: estimated 90 min\\nfrom 203.0.113.9\\n"
+           "-----BEGIN RSA PRIVATE KEY-----\\nSECRETBODY\\n-----END RSA PRIVATE KEY-----\\ndone\\n'")
+    code, _, n = ev._shell(cmd, str(tmp_path / "x.log"))
+    shown = capsys.readouterr().out
+    assert code == 0 and n >= 2 and "pilot: estimated 90 min" in shown and "done" in shown
+    assert "203.0.113.9" not in shown and "SECRETBODY" not in shown and "[REDACTED-PRIVATE-KEY]" in shown
+    saved = open(tmp_path / "x.log").read()
+    assert "SECRETBODY" not in saved and "203.0.113.9" not in saved and saved.rstrip().endswith("[exit 0]")
