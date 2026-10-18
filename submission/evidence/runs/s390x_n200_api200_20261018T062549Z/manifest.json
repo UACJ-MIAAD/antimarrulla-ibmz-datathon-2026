@@ -1,0 +1,147 @@
+{
+  "schema": "evidence-run-v1",
+  "run_id": "s390x_n200_api200_20261018T062549Z",
+  "status": "passed",
+  "profile": {
+    "name": "200",
+    "process_n": 200,
+    "api_n": 200,
+    "https_n": 200,
+    "release_eligible": false
+  },
+  "started_utc": "2026-10-18T06:25:49Z",
+  "ended_utc": "2026-10-18T06:29:33Z",
+  "operator": "bidallei",
+  "commit": "b50f6cc2346d8b5ae2fa22d36f7c67d5ec08c9ed",
+  "arch": "s390x",
+  "system": "Linux",
+  "ui_url": "http://127.0.0.1:8080",
+  "redactions": 0,
+  "steps": [
+    {
+      "name": "verify",
+      "command": "make verify-docker",
+      "exit_code": 0,
+      "seconds": 50.4,
+      "log": "logs/01_verify.log",
+      "sha256": "d2fc18271019ae4b23ad9da7221a7de916a7a6a6b3c45413c19c466ca155c4b9"
+    },
+    {
+      "name": "image_inspect",
+      "command": "make image-inspect",
+      "exit_code": 0,
+      "seconds": 0.9,
+      "log": "logs/02_image_inspect.log",
+      "sha256": "7552af9f2f39f7c397851349d9e21d8823a634aef348ce1bd9bb2657d3d75f94"
+    },
+    {
+      "name": "demo",
+      "command": "make demo-docker",
+      "exit_code": 0,
+      "seconds": 1.5,
+      "log": "logs/03_demo.log",
+      "sha256": "8d65546cd3061043c7e1eb7c9af92a1d0cfa4875885b8b7b6026caddd65ad37f"
+    },
+    {
+      "name": "measure_process",
+      "command": "make measure-docker FINAL=1 MEASURE_ARGS=\"--patients 200 --https 200\"",
+      "exit_code": 0,
+      "seconds": 115.5,
+      "log": "logs/04_measure_process.log",
+      "sha256": "2f94f1fa4f90f177b5446a0922b838bb597fc7a71851d64afaad26f7df1e73d3"
+    },
+    {
+      "name": "measure_api",
+      "command": "make measure-api-docker FINAL=1 API_ARGS=\"--n 200\"",
+      "exit_code": 0,
+      "seconds": 54.9,
+      "log": "logs/05_measure_api.log",
+      "sha256": "c223d0703f045c1466884c056b0c4c95be1221294f5dfe4c27f442bbd94b48c1"
+    }
+  ],
+  "system_files": [
+    {
+      "name": "uname",
+      "file": "system/uname.txt",
+      "sha256": "96d3386245cd40398fc13861401824d24af2e84c5546492d701bd00b32d25a03",
+      "exit_code": 0
+    },
+    {
+      "name": "os_release",
+      "file": "system/os_release.txt",
+      "sha256": "5028c099fed7ea115368afebd6ffaef6eb31c368d0e8ea6fbaa1e188889ae216",
+      "exit_code": 0
+    },
+    {
+      "name": "lscpu",
+      "file": "system/lscpu.txt",
+      "sha256": "203dfc49989d581baa62ad7cf2454c3ec9a48d59de2227c7d85e81de154407f8",
+      "exit_code": 0
+    },
+    {
+      "name": "sysinfo",
+      "file": "system/sysinfo.txt",
+      "sha256": "be6638db49efc1b97a476d7f1487ca095b7b8ab90279e60a5249f2c9d9f3ac5f",
+      "exit_code": 0
+    },
+    {
+      "name": "memory",
+      "file": "system/memory.txt",
+      "sha256": "c5f0162d2210d972f82db5bd9715674a72fb020f5d74bb99d5dc86ee57297bd1",
+      "exit_code": 0
+    },
+    {
+      "name": "docker",
+      "file": "system/docker.txt",
+      "sha256": "d369bea3b1ec2db183b1746aaae1dcfc379e35f5839698476a6ab99def54615a",
+      "exit_code": 0
+    },
+    {
+      "name": "openssl",
+      "file": "system/openssl.txt",
+      "sha256": "8e7a5afd407241b3eacc728a06f47953e7f2c548fb75f2279870d0b4b4bc04af",
+      "exit_code": 0
+    },
+    {
+      "name": "git",
+      "file": "system/git.txt",
+      "sha256": "d9fba20e43a746cae2eaa04191d31696949bd0bb8cde507ac6985850d9d468de",
+      "exit_code": 0
+    },
+    {
+      "name": "compose_ps",
+      "file": "system/compose_ps.txt",
+      "sha256": "0b6dffa683735c5bb5957ac19498b930e878c864e40b2a77a3363c76b6ec1fc8",
+      "exit_code": 0
+    },
+    {
+      "name": "compose_logs",
+      "file": "system/compose_logs.txt",
+      "sha256": "f6ad770a21e4d187ba1844801a45dc7ba0648aea17094f3fc72cd90cd287346d",
+      "exit_code": 0
+    },
+    {
+      "name": "api_state",
+      "file": "system/api_state.json",
+      "sha256": "90691d5556d7fd8a77db12c7e601aca6c9dd92c26955184d33430234417fc725"
+    }
+  ],
+  "measurements": [
+    {
+      "path": "submission/evidence/metrics/measurement_api_s390x-container_20261018T062839Z.json",
+      "sha256": "eb96d3180055e785662af2c4f9fc7006254ff012d875d07e3fdfff536bf1995b"
+    },
+    {
+      "path": "submission/evidence/metrics/measurement_api_s390x-container_20261018T062839Z.md",
+      "sha256": "1d584380e44015b3c78962e2ada7fa519b98da5a81420d68aa238e5f582a4a05"
+    },
+    {
+      "path": "submission/evidence/metrics/measurement_process_s390x-container_20261018T062643Z.json",
+      "sha256": "6b37b619ac851de585641d010833b88b44d213159ae8c29f51088bbbd5dc3bef"
+    },
+    {
+      "path": "submission/evidence/metrics/measurement_process_s390x-container_20261018T062643Z.md",
+      "sha256": "302286bb0fcb074c44fdf4b54104349bec7460fbbdcfd8353a9fe69a5a788e87"
+    }
+  ]
+}

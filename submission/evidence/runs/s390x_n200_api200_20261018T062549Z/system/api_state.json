@@ -1,0 +1,24 @@
+{
+  "service": {
+    "state": "ok",
+    "protocol": "screening-paillier-v2",
+    "model": "logistic-cdc19-v1",
+    "schema": "cdc19-v1",
+    "key_private": false,
+    "model_sha256": "e32420ac99fd10d30a3a65a225a43d84d4bfd7208c6f3b7656611893729575ac",
+    "code_sha256": "59a38c39df3c874153fcf7bed08e4cc4ba2c6faa22fb127b3aa4f480156cbb65",
+    "evidence": false
+  },
+  "model": "logistic-cdc19-v1",
+  "model_sha256": "e32420ac99fd10d30a3a65a225a43d84d4bfd7208c6f3b7656611893729575ac",
+  "code_sha256": "59a38c39df3c874153fcf7bed08e4cc4ba2c6faa22fb127b3aa4f480156cbb65",
+  "schema": "cdc19-v1",
+  "key_bits": 2048,
+  "machine": "s390x",
+  "system": "Linux",
+  "threshold": {
+    "probability": 0.12177832323488091,
+    "logit": -1.9756966717186843,
+    "criterion": "sensitivity >= 0.8 on validation with maximum specificity"
+  }
+}

@@ -1,0 +1,603 @@
+$ docker compose -f docker/compose.yml logs --no-color --timestamps --tail 300
+hospital-1  | 2026-10-18T05:09:45.492806512Z 2026-10-18 05:09:45,492 hospital evaluated id=e21d89b4483cee98d174cf66dd5bd6e1 encrypt_ms=236.1 service_ms=22.0 decrypt_ms=3.7 vault_ms=1.1
+hospital-1  | 2026-10-18T05:09:45.756831475Z 2026-10-18 05:09:45,756 hospital evaluated id=4dca88e4d66c3a9dd25fc43e126ec747 encrypt_ms=235.4 service_ms=21.7 decrypt_ms=3.7 vault_ms=1.0
+hospital-1  | 2026-10-18T05:09:46.022715967Z 2026-10-18 05:09:46,022 hospital evaluated id=fd7d8fb58f7f388593c342e5a3734f42 encrypt_ms=235.8 service_ms=23.7 decrypt_ms=3.7 vault_ms=0.9
+hospital-1  | 2026-10-18T05:09:46.285472907Z 2026-10-18 05:09:46,285 hospital evaluated id=c44f55a5f71fb385860561b8fe420df8 encrypt_ms=234.4 service_ms=21.8 decrypt_ms=3.7 vault_ms=1.0
+hospital-1  | 2026-10-18T05:09:46.549896839Z 2026-10-18 05:09:46,549 hospital evaluated id=5e859f9e09807be169936f64afbf4956 encrypt_ms=236.4 service_ms=21.7 decrypt_ms=3.7 vault_ms=0.9
+hospital-1  | 2026-10-18T05:09:46.819412178Z 2026-10-18 05:09:46,819 hospital evaluated id=e1ef1c973a2b91fa6c9f7db460778a77 encrypt_ms=241.0 service_ms=21.8 decrypt_ms=3.7 vault_ms=1.1
+hospital-1  | 2026-10-18T05:09:47.085846110Z 2026-10-18 05:09:47,085 hospital evaluated id=5448f6eb517dc4fbb556ae55b06aa78f encrypt_ms=237.5 service_ms=21.6 decrypt_ms=3.9 vault_ms=1.0
+hospital-1  | 2026-10-18T05:09:47.349674703Z 2026-10-18 05:09:47,349 hospital evaluated id=f88402f5e1d57954157561d0f26c20c5 encrypt_ms=235.2 service_ms=21.8 decrypt_ms=3.8 vault_ms=1.1
+hospital-1  | 2026-10-18T05:09:47.617220614Z 2026-10-18 05:09:47,616 hospital evaluated id=e1d5591dd84d4309153a9416a7518139 encrypt_ms=237.0 service_ms=23.0 decrypt_ms=4.5 vault_ms=1.0
+hospital-1  | 2026-10-18T05:09:47.884417182Z 2026-10-18 05:09:47,884 hospital evaluated id=acfb97c7bc8b57c91c96cf45ad0bd1eb encrypt_ms=238.1 service_ms=22.5 decrypt_ms=3.7 vault_ms=1.1
+hospital-1  | 2026-10-18T05:09:48.146910184Z 2026-10-18 05:09:48,146 hospital evaluated id=1b9c4896fa6b35129db7e5bb758fadfd encrypt_ms=234.4 service_ms=21.5 decrypt_ms=3.7 vault_ms=1.0
+hospital-1  | 2026-10-18T05:09:48.410868386Z 2026-10-18 05:09:48,410 hospital evaluated id=99cc4ba388c1fb069c1f8ea8d29dd70f encrypt_ms=235.6 service_ms=21.7 decrypt_ms=3.8 vault_ms=1.1
+hospital-1  | 2026-10-18T05:09:48.678078850Z 2026-10-18 05:09:48,677 hospital evaluated id=4e99b153300a7e5ad08f3c5460e6eafe encrypt_ms=238.2 service_ms=22.4 decrypt_ms=3.7 vault_ms=1.1
+hospital-1  | 2026-10-18T05:09:48.946163401Z 2026-10-18 05:09:48,945 hospital evaluated id=6a4b4e0e7b73b0c9bd6c55419998ec56 encrypt_ms=238.0 service_ms=22.4 decrypt_ms=4.0 vault_ms=1.0
+hospital-1  | 2026-10-18T05:09:49.211688421Z 2026-10-18 05:09:49,211 hospital evaluated id=848b73bfff50298b28a9f3145049bc8a encrypt_ms=237.4 service_ms=22.3 decrypt_ms=3.7 vault_ms=1.0
+hospital-1  | 2026-10-18T05:09:49.480381184Z 2026-10-18 05:09:49,480 hospital evaluated id=5044274f858ada2775c28bc00b5dbf48 encrypt_ms=239.9 service_ms=22.1 decrypt_ms=3.8 vault_ms=1.1
+hospital-1  | 2026-10-18T05:09:49.745440294Z 2026-10-18 05:09:49,744 hospital evaluated id=3708543cfdff9ee21da6e0f74cda4f4b encrypt_ms=232.5 service_ms=24.7 decrypt_ms=3.6 vault_ms=1.5
+hospital-1  | 2026-10-18T05:09:50.008748421Z 2026-10-18 05:09:50,008 hospital evaluated id=cea2e9774e8f19b08820f4feaed2d1a3 encrypt_ms=234.7 service_ms=22.2 decrypt_ms=3.7 vault_ms=1.1
+hospital-1  | 2026-10-18T05:09:50.272012737Z 2026-10-18 05:09:50,271 hospital evaluated id=0fdd10ea053d8406bbc450846a7c9d3c encrypt_ms=234.7 service_ms=22.0 decrypt_ms=3.7 vault_ms=1.0
+hospital-1  | 2026-10-18T05:34:42.306474405Z 2026-10-18 05:34:42,306 hospital evaluated id=b426cf8688abf4e15d15033eb1b3cb19 encrypt_ms=236.1 service_ms=21.7 decrypt_ms=3.7 vault_ms=1.4
+hospital-1  | 2026-10-18T05:34:42.568104953Z 2026-10-18 05:34:42,567 hospital evaluated id=5777240865eeb427251d041e3c810cb2 encrypt_ms=233.2 service_ms=22.0 decrypt_ms=3.7 vault_ms=1.0
+hospital-1  | 2026-10-18T05:34:42.834471146Z 2026-10-18 05:34:42,834 hospital evaluated id=167d97a4a3346a6ba19096db2e7b2b7a encrypt_ms=238.1 service_ms=21.6 decrypt_ms=3.7 vault_ms=1.0
+hospital-1  | 2026-10-18T05:35:06.059230343Z 2026-10-18 05:35:06,059 hospital evaluated id=966308f39385e48c91e380a3b0b5e0a3 encrypt_ms=232.0 service_ms=24.4 decrypt_ms=3.7 vault_ms=1.3
+hospital-1  | 2026-10-18T05:35:06.321761410Z 2026-10-18 05:35:06,321 hospital evaluated id=e239006894e14486f8fa0ce2793fb616 encrypt_ms=232.1 service_ms=23.8 decrypt_ms=3.9 vault_ms=1.0
+hospital-1  | 2026-10-18T05:35:06.584130091Z 2026-10-18 05:35:06,584 hospital evaluated id=0e889f53585f611392b9d0263dbfbf57 encrypt_ms=234.2 service_ms=21.6 decrypt_ms=3.7 vault_ms=1.0
+hospital-1  | 2026-10-18T05:35:06.855035074Z 2026-10-18 05:35:06,854 hospital evaluated id=c0604a809fd6127dcd8e7d44fcb13b3f encrypt_ms=242.2 service_ms=21.6 decrypt_ms=3.7 vault_ms=1.0
+hospital-1  | 2026-10-18T05:35:07.127746091Z 2026-10-18 05:35:07,127 hospital evaluated id=e0bbc91829dcaacbf2259fa3a581a203 encrypt_ms=245.2 service_ms=21.7 decrypt_ms=3.7 vault_ms=1.0
+hospital-1  | 2026-10-18T05:35:07.394204087Z 2026-10-18 05:35:07,393 hospital evaluated id=38422cedab71a9a438efee73bfcab2d9 encrypt_ms=236.9 service_ms=21.9 decrypt_ms=3.7 vault_ms=1.2
+hospital-1  | 2026-10-18T05:35:07.654653459Z 2026-10-18 05:35:07,654 hospital evaluated id=8f848dad5d8562de67740aeceda98fe5 encrypt_ms=233.0 service_ms=21.7 decrypt_ms=3.7 vault_ms=1.1
+hospital-1  | 2026-10-18T05:35:07.921526509Z 2026-10-18 05:35:07,921 hospital evaluated id=1c5439617331e0519e7885e329138c66 encrypt_ms=237.7 service_ms=22.7 decrypt_ms=3.7 vault_ms=1.0
+hospital-1  | 2026-10-18T05:35:08.181860450Z 2026-10-18 05:35:08,181 hospital evaluated id=2521c80b57de461e3ac6cd8f21fa5ff1 encrypt_ms=231.0 service_ms=22.7 decrypt_ms=3.7 vault_ms=1.0
+hospital-1  | 2026-10-18T05:35:08.451125114Z 2026-10-18 05:35:08,450 hospital evaluated id=705224128d0d61e5f7af8713d8cf4c94 encrypt_ms=236.1 service_ms=25.5 decrypt_ms=3.7 vault_ms=1.4
+hospital-1  | 2026-10-18T05:35:08.712889806Z 2026-10-18 05:35:08,712 hospital evaluated id=6fe5c35ee764d4d094085aace090d6b5 encrypt_ms=233.4 service_ms=21.7 decrypt_ms=3.7 vault_ms=1.2
+hospital-1  | 2026-10-18T05:35:08.975953525Z 2026-10-18 05:35:08,975 hospital evaluated id=284961a2253b02219089b9f587ac17fc encrypt_ms=235.2 service_ms=22.0 decrypt_ms=3.8 vault_ms=1.2
+hospital-1  | 2026-10-18T05:35:09.242759406Z 2026-10-18 05:35:09,242 hospital evaluated id=0b4a1a9a3e46b89cdb840ec7e95ee431 encrypt_ms=238.1 service_ms=22.2 decrypt_ms=3.7 vault_ms=1.1
+hospital-1  | 2026-10-18T05:35:09.506229587Z 2026-10-18 05:35:09,506 hospital evaluated id=62e252cc4eada9258324016e21a21760 encrypt_ms=234.4 service_ms=22.4 decrypt_ms=3.7 vault_ms=1.1
+hospital-1  | 2026-10-18T05:35:09.769873642Z 2026-10-18 05:35:09,769 hospital evaluated id=df72c701ab652780c3d0031edc609724 encrypt_ms=235.0 service_ms=22.2 decrypt_ms=3.7 vault_ms=1.0
+hospital-1  | 2026-10-18T05:35:10.031312520Z 2026-10-18 05:35:10,031 hospital evaluated id=446ceab1d6c9c8782074aced2a2af5be encrypt_ms=232.5 service_ms=22.4 decrypt_ms=3.7 vault_ms=1.1
+hospital-1  | 2026-10-18T05:35:10.295224403Z 2026-10-18 05:35:10,294 hospital evaluated id=b94f0d39d86c3d6ac0d236752f3800c6 encrypt_ms=234.7 service_ms=21.9 decrypt_ms=3.7 vault_ms=1.0
+hospital-1  | 2026-10-18T05:35:10.555983145Z 2026-10-18 05:35:10,555 hospital evaluated id=8ba942c9912b0b10ba2679edf47083a1 encrypt_ms=232.9 service_ms=21.9 decrypt_ms=3.7 vault_ms=1.0
+hospital-1  | 2026-10-18T05:35:10.818346925Z 2026-10-18 05:35:10,818 hospital evaluated id=70f149ca3afe8e07fdc5d55335904f2b encrypt_ms=233.5 service_ms=22.3 decrypt_ms=3.7 vault_ms=1.2
+hospital-1  | 2026-10-18T05:35:11.080447204Z 2026-10-18 05:35:11,080 hospital evaluated id=c7eadb21a9d453a81226a64ccca5ba57 encrypt_ms=233.6 service_ms=22.0 decrypt_ms=3.7 vault_ms=1.0
+hospital-1  | 2026-10-18T05:35:11.342719579Z 2026-10-18 05:35:11,342 hospital evaluated id=0e03127f85120c01fde5e838ad665c53 encrypt_ms=233.5 service_ms=22.1 decrypt_ms=3.8 vault_ms=1.0
+hospital-1  | 2026-10-18T05:35:11.614371895Z 2026-10-18 05:35:11,613 hospital evaluated id=f0ca18b5f6924b6fd6613da8394c83d1 encrypt_ms=240.2 service_ms=24.4 decrypt_ms=3.8 vault_ms=1.0
+hospital-1  | 2026-10-18T05:35:11.883105243Z 2026-10-18 05:35:11,882 hospital evaluated id=dbf77308fa7133f330141904cd5d2bdf encrypt_ms=239.7 service_ms=22.1 decrypt_ms=3.9 vault_ms=1.1
+hospital-1  | 2026-10-18T05:53:22.085625237Z 2026-10-18 05:53:22,085 hospital evaluated id=0f3c0a9410af0340e12574209c34062e encrypt_ms=234.8 service_ms=21.7 decrypt_ms=3.8 vault_ms=1.1
+hospital-1  | 2026-10-18T05:53:22.348472341Z 2026-10-18 05:53:22,348 hospital evaluated id=a817732ebff809438d4209dbb1e8ea59 encrypt_ms=234.5 service_ms=21.8 decrypt_ms=3.7 vault_ms=1.1
+hospital-1  | 2026-10-18T05:53:22.621612782Z 2026-10-18 05:53:22,620 hospital evaluated id=4c253b17510fd2dfa1efec62138d691a encrypt_ms=239.6 service_ms=24.6 decrypt_ms=3.7 vault_ms=2.7
+hospital-1  | 2026-10-18T05:53:46.193294117Z 2026-10-18 05:53:46,193 hospital evaluated id=7bc2f5821d688187069a4ad012f0d69f encrypt_ms=240.8 service_ms=22.5 decrypt_ms=3.7 vault_ms=1.1
+hospital-1  | 2026-10-18T05:53:46.454348767Z 2026-10-18 05:53:46,453 hospital evaluated id=ae467d0a2c373ee0adb2dbd73b0fbab1 encrypt_ms=232.1 service_ms=21.7 decrypt_ms=3.7 vault_ms=1.1
+hospital-1  | 2026-10-18T05:53:46.720485736Z 2026-10-18 05:53:46,720 hospital evaluated id=00878f325a347212ba03eca38aff09e2 encrypt_ms=237.3 service_ms=22.1 decrypt_ms=3.7 vault_ms=1.0
+hospital-1  | 2026-10-18T05:53:46.987584777Z 2026-10-18 05:53:46,987 hospital evaluated id=57657dbe185c91680378da97a2315811 encrypt_ms=238.6 service_ms=21.9 decrypt_ms=3.7 vault_ms=1.1
+hospital-1  | 2026-10-18T05:53:47.257140826Z 2026-10-18 05:53:47,257 hospital evaluated id=c80867a592d007ba0dd597c92ec87718 encrypt_ms=240.4 service_ms=22.6 decrypt_ms=3.8 vault_ms=1.1
+hospital-1  | 2026-10-18T05:53:47.530388157Z 2026-10-18 05:53:47,530 hospital evaluated id=1be37bb964d023e63706c9f341763364 encrypt_ms=244.4 service_ms=22.1 decrypt_ms=3.8 vault_ms=1.0
+hospital-1  | 2026-10-18T05:53:47.793451381Z 2026-10-18 05:53:47,793 hospital evaluated id=0279ba8c421c363693bd9427a36afac9 encrypt_ms=235.0 service_ms=21.5 decrypt_ms=3.7 vault_ms=1.0
+hospital-1  | 2026-10-18T05:53:48.058906925Z 2026-10-18 05:53:48,058 hospital evaluated id=cb422f670cc0cf617ba3fbf5e89e1bdd encrypt_ms=237.0 service_ms=22.1 decrypt_ms=3.7 vault_ms=1.0
+hospital-1  | 2026-10-18T05:53:48.322356222Z 2026-10-18 05:53:48,322 hospital evaluated id=87811a4aadb732ad0b095229f9224e1e encrypt_ms=234.6 service_ms=22.4 decrypt_ms=3.7 vault_ms=0.9
+hospital-1  | 2026-10-18T05:53:48.588301607Z 2026-10-18 05:53:48,588 hospital evaluated id=84598e846f372f27b98806cfb9b3630f encrypt_ms=237.7 service_ms=21.7 decrypt_ms=3.8 vault_ms=1.1
+hospital-1  | 2026-10-18T05:53:48.852153035Z 2026-10-18 05:53:48,852 hospital evaluated id=ab6cd6107339992ce230cdb3f111bdb5 encrypt_ms=235.0 service_ms=22.1 decrypt_ms=3.7 vault_ms=1.0
+hospital-1  | 2026-10-18T05:53:49.118683119Z 2026-10-18 05:53:49,118 hospital evaluated id=8e33466405175a8c0974f14c3a62694b encrypt_ms=238.2 service_ms=21.9 decrypt_ms=3.8 vault_ms=1.0
+hospital-1  | 2026-10-18T05:53:49.385014187Z 2026-10-18 05:53:49,384 hospital evaluated id=bf24ae2c9d1244a040e01e75df862238 encrypt_ms=238.5 service_ms=21.5 decrypt_ms=3.8 vault_ms=1.0
+hospital-1  | 2026-10-18T05:53:49.651809009Z 2026-10-18 05:53:49,651 hospital evaluated id=76ba04900e2e8f89576476fb32cc6342 encrypt_ms=238.3 service_ms=22.1 decrypt_ms=3.8 vault_ms=1.0
+hospital-1  | 2026-10-18T05:53:49.918664457Z 2026-10-18 05:53:49,918 hospital evaluated id=5ebe08ab30fb837b45e627b161987907 encrypt_ms=238.5 service_ms=22.0 decrypt_ms=3.7 vault_ms=1.0
+hospital-1  | 2026-10-18T05:53:50.183043536Z 2026-10-18 05:53:50,182 hospital evaluated id=ec459483fc30469043f5397b2fe68594 encrypt_ms=236.0 service_ms=21.8 decrypt_ms=3.7 vault_ms=1.2
+hospital-1  | 2026-10-18T05:53:50.448151495Z 2026-10-18 05:53:50,448 hospital evaluated id=8dbbd80ff3c7223b5b6f8033f87af00c encrypt_ms=235.4 service_ms=23.3 decrypt_ms=3.7 vault_ms=1.0
+hospital-1  | 2026-10-18T05:53:50.715802201Z 2026-10-18 05:53:50,715 hospital evaluated id=a2e41eeceb25b276414cf72eb037242a encrypt_ms=238.5 service_ms=22.6 decrypt_ms=3.8 vault_ms=1.0
+hospital-1  | 2026-10-18T05:53:50.980588685Z 2026-10-18 05:53:50,980 hospital evaluated id=832d362c379da503308799c7c41b36e7 encrypt_ms=236.7 service_ms=21.7 decrypt_ms=3.7 vault_ms=1.0
+hospital-1  | 2026-10-18T05:53:51.244612566Z 2026-10-18 05:53:51,244 hospital evaluated id=8cc60c294435212c68aa028f404a2bba encrypt_ms=236.0 service_ms=21.6 decrypt_ms=3.7 vault_ms=1.0
+hospital-1  | 2026-10-18T05:53:51.510305884Z 2026-10-18 05:53:51,509 hospital evaluated id=8d69bde7df05495755542320ef5c3bf8 encrypt_ms=236.7 service_ms=22.0 decrypt_ms=3.7 vault_ms=1.1
+hospital-1  | 2026-10-18T05:53:51.776551577Z 2026-10-18 05:53:51,776 hospital evaluated id=6efcc7a7ec37eeb71f8882efceaa5364 encrypt_ms=238.7 service_ms=21.5 decrypt_ms=3.8 vault_ms=1.1
+hospital-1  | 2026-10-18T05:53:52.043681557Z 2026-10-18 05:53:52,043 hospital evaluated id=cdc3b69aef03af2ef70ab24139ec435d encrypt_ms=238.9 service_ms=21.9 decrypt_ms=3.7 vault_ms=1.0
+hospital-1  | 2026-10-18T06:20:48.115898162Z 2026-10-18 06:20:48,115 hospital evaluated id=02fa025b2cefa73dedc1cbf9a9603db6 encrypt_ms=241.2 service_ms=23.3 decrypt_ms=4.1 vault_ms=1.0
+hospital-1  | 2026-10-18T06:20:48.550493594Z 2026-10-18 06:20:48,549 hospital evaluated id=5264dc45df2601b9e2f9f808a4326d20 encrypt_ms=240.5 service_ms=22.7 decrypt_ms=3.8 vault_ms=1.0
+hospital-1  | 2026-10-18T06:20:49.137179814Z 2026-10-18 06:20:49,137 hospital evaluated id=5cb1ca5cfcfbf18474858c34123a3f49 encrypt_ms=245.9 service_ms=22.1 decrypt_ms=3.8 vault_ms=1.0
+hospital-1  | 2026-10-18T06:20:49.755172269Z 2026-10-18 06:20:49,755 hospital evaluated id=6173665f53df8ae330078f52960488be encrypt_ms=239.0 service_ms=22.9 decrypt_ms=3.7 vault_ms=1.0
+hospital-1  | 2026-10-18T06:20:50.217995094Z 2026-10-18 06:20:50,217 hospital evaluated id=49a862bf898b334594535e44edd87a13 encrypt_ms=235.8 service_ms=21.9 decrypt_ms=3.7 vault_ms=1.4
+hospital-1  | 2026-10-18T06:20:50.641964876Z 2026-10-18 06:20:50,641 hospital evaluated id=53a3fe2c97562eacd4dc3d4b1dabb796 encrypt_ms=232.8 service_ms=21.8 decrypt_ms=3.8 vault_ms=1.0
+hospital-1  | 2026-10-18T06:20:51.081456041Z 2026-10-18 06:20:51,080 hospital evaluated id=d7952abbe9893a0b8783c2787d22df89 encrypt_ms=243.6 service_ms=22.2 decrypt_ms=3.7 vault_ms=1.0
+hospital-1  | 2026-10-18T06:20:51.510988312Z 2026-10-18 06:20:51,510 hospital evaluated id=e543e82f8b655b0155299723dc5589a5 encrypt_ms=235.1 service_ms=22.3 decrypt_ms=3.7 vault_ms=1.0
+hospital-1  | 2026-10-18T06:20:51.950215128Z 2026-10-18 06:20:51,949 hospital evaluated id=12345b054a07358afc97c6951da210be encrypt_ms=243.4 service_ms=22.6 decrypt_ms=3.8 vault_ms=1.1
+hospital-1  | 2026-10-18T06:20:52.390761562Z 2026-10-18 06:20:52,390 hospital evaluated id=dd926adef76a79f936183dbb89577a7b encrypt_ms=238.2 service_ms=21.9 decrypt_ms=3.8 vault_ms=1.0
+hospital-1  | 2026-10-18T06:20:52.834839110Z 2026-10-18 06:20:52,833 hospital evaluated id=732f9d394d41bd0f324e410a1444e818 encrypt_ms=243.4 service_ms=22.2 decrypt_ms=3.9 vault_ms=1.2
+hospital-1  | 2026-10-18T06:20:53.270095924Z 2026-10-18 06:20:53,269 hospital evaluated id=f9a5225ed2011e3f2431eff4fe6b0e41 encrypt_ms=241.3 service_ms=22.0 decrypt_ms=3.7 vault_ms=1.0
+hospital-1  | 2026-10-18T06:20:53.709620002Z 2026-10-18 06:20:53,709 hospital evaluated id=1d4deccdde2565e8339aa7f83dd699f6 encrypt_ms=244.3 service_ms=21.7 decrypt_ms=3.7 vault_ms=1.0
+hospital-1  | 2026-10-18T06:20:54.142832618Z 2026-10-18 06:20:54,142 hospital evaluated id=8ea0bec21c4048b4b80933d7bcbd8014 encrypt_ms=237.2 service_ms=22.3 decrypt_ms=4.0 vault_ms=1.0
+hospital-1  | 2026-10-18T06:20:54.581247539Z 2026-10-18 06:20:54,581 hospital evaluated id=4992f9bc94bd578a90aa9ad88377a490 encrypt_ms=236.6 service_ms=28.3 decrypt_ms=3.8 vault_ms=1.1
+hospital-1  | 2026-10-18T06:20:55.014783114Z 2026-10-18 06:20:55,014 hospital evaluated id=67158e3ba26de93f1cb7cb61da7be8c4 encrypt_ms=240.2 service_ms=22.6 decrypt_ms=3.8 vault_ms=1.2
+hospital-1  | 2026-10-18T06:20:55.455674625Z 2026-10-18 06:20:55,455 hospital evaluated id=85d4c254be52f8934af11e38d55eaa89 encrypt_ms=237.7 service_ms=22.0 decrypt_ms=3.7 vault_ms=1.0
+hospital-1  | 2026-10-18T06:20:55.885687058Z 2026-10-18 06:20:55,885 hospital evaluated id=907c930d75991646808874c49e4e8c21 encrypt_ms=237.9 service_ms=22.2 decrypt_ms=3.7 vault_ms=1.0
+hospital-1  | 2026-10-18T06:20:56.318400359Z 2026-10-18 06:20:56,318 hospital evaluated id=77da6190d1fa8e60ae1d87a70e7b4af6 encrypt_ms=239.0 service_ms=23.1 decrypt_ms=3.9 vault_ms=1.1
+hospital-1  | 2026-10-18T06:20:56.750260533Z 2026-10-18 06:20:56,750 hospital evaluated id=350f1e211e890a5c5f91bab5f28a0df6 encrypt_ms=240.3 service_ms=22.1 decrypt_ms=3.8 vault_ms=1.0
+hospital-1  | 2026-10-18T06:20:57.185841739Z 2026-10-18 06:20:57,185 hospital evaluated id=2f851a07ea08bad34588b279a54826d8 encrypt_ms=240.8 service_ms=23.1 decrypt_ms=3.8 vault_ms=1.0
+hospital-1  | 2026-10-18T06:20:57.625332184Z 2026-10-18 06:20:57,625 hospital evaluated id=9f3060ce2d60e57bda7ad4e4b1777829 encrypt_ms=244.5 service_ms=22.4 decrypt_ms=4.0 vault_ms=1.2
+hospital-1  | 2026-10-18T06:20:58.063789293Z 2026-10-18 06:20:58,063 hospital evaluated id=3bea4c5a6712cb1817cbb3d02feb2367 encrypt_ms=244.0 service_ms=21.8 decrypt_ms=3.7 vault_ms=1.0
+hospital-1  | 2026-10-18T06:26:42.002341436Z 2026-10-18 06:26:42,002 hospital evaluated id=ede013bea8a2da6c3b9b1d2530cf38d7 encrypt_ms=242.0 service_ms=21.8 decrypt_ms=3.7 vault_ms=1.1
+hospital-1  | 2026-10-18T06:26:42.269726672Z 2026-10-18 06:26:42,269 hospital evaluated id=8c96d7ff6cad08919f3eb09ed4d8737a encrypt_ms=239.3 service_ms=21.7 decrypt_ms=3.7 vault_ms=1.0
+hospital-1  | 2026-10-18T06:26:42.534302171Z 2026-10-18 06:26:42,533 hospital evaluated id=d89584f840314a948c8f4c89f9540b5b encrypt_ms=236.3 service_ms=21.7 decrypt_ms=3.7 vault_ms=1.0
+hospital-1  | 2026-10-18T06:28:39.319736840Z 2026-10-18 06:28:39,319 hospital evaluated id=ea0d2458ec48a6d8cb29fb2160927210 encrypt_ms=233.2 service_ms=21.3 decrypt_ms=3.7 vault_ms=1.1
+hospital-1  | 2026-10-18T06:28:39.580831254Z 2026-10-18 06:28:39,580 hospital evaluated id=12adaba56ae7ca185436b8c36964b172 encrypt_ms=233.0 service_ms=21.6 decrypt_ms=3.7 vault_ms=1.1
+hospital-1  | 2026-10-18T06:28:39.841885319Z 2026-10-18 06:28:39,841 hospital evaluated id=402cffba426f28a5527f6c39590db299 encrypt_ms=233.3 service_ms=21.4 decrypt_ms=3.7 vault_ms=1.0
+hospital-1  | 2026-10-18T06:28:40.103905215Z 2026-10-18 06:28:40,103 hospital evaluated id=7e7205275bc8924edf1af28e6f7078c7 encrypt_ms=234.0 service_ms=21.6 decrypt_ms=3.7 vault_ms=1.0
+hospital-1  | 2026-10-18T06:28:40.367572699Z 2026-10-18 06:28:40,367 hospital evaluated id=6a93867ddad8d3b58f599e4d3063091d encrypt_ms=235.9 service_ms=21.4 decrypt_ms=3.7 vault_ms=1.0
+hospital-1  | 2026-10-18T06:28:40.628847327Z 2026-10-18 06:28:40,628 hospital evaluated id=a3c9aca9436e05c1a556617867566b9c encrypt_ms=233.1 service_ms=21.6 decrypt_ms=3.7 vault_ms=1.0
+hospital-1  | 2026-10-18T06:28:40.891619576Z 2026-10-18 06:28:40,891 hospital evaluated id=a05b193ce7967347f0fe2116faa9afb9 encrypt_ms=234.2 service_ms=21.9 decrypt_ms=3.7 vault_ms=1.3
+hospital-1  | 2026-10-18T06:28:41.153502492Z 2026-10-18 06:28:41,153 hospital evaluated id=b284d55bfb6db2311f7f595979d02bdd encrypt_ms=233.4 service_ms=21.9 decrypt_ms=3.7 vault_ms=1.1
+hospital-1  | 2026-10-18T06:28:41.416204099Z 2026-10-18 06:28:41,416 hospital evaluated id=40c3b52611ef74f4665c081f63e5a2ab encrypt_ms=234.0 service_ms=22.2 decrypt_ms=3.7 vault_ms=1.0
+hospital-1  | 2026-10-18T06:28:41.678626512Z 2026-10-18 06:28:41,678 hospital evaluated id=329447bc56d546eee6474dc911f61365 encrypt_ms=234.4 service_ms=21.4 decrypt_ms=3.8 vault_ms=1.0
+hospital-1  | 2026-10-18T06:28:41.945626159Z 2026-10-18 06:28:41,945 hospital evaluated id=01be81afe872725f7d68cd6def6fcc76 encrypt_ms=238.3 service_ms=22.3 decrypt_ms=3.7 vault_ms=0.9
+hospital-1  | 2026-10-18T06:28:42.211274052Z 2026-10-18 06:28:42,211 hospital evaluated id=926c045d474d749f19872d3f7d69cf3c encrypt_ms=234.8 service_ms=24.2 decrypt_ms=3.7 vault_ms=1.1
+hospital-1  | 2026-10-18T06:28:42.473878843Z 2026-10-18 06:28:42,473 hospital evaluated id=fc77f12508c946d9361f48e67743673f encrypt_ms=232.8 service_ms=23.2 decrypt_ms=3.7 vault_ms=1.0
+hospital-1  | 2026-10-18T06:28:42.737470497Z 2026-10-18 06:28:42,737 hospital evaluated id=6122616bfcc255fa4bce88c087e7822d encrypt_ms=234.9 service_ms=21.9 decrypt_ms=3.7 vault_ms=1.1
+hospital-1  | 2026-10-18T06:28:42.999464434Z 2026-10-18 06:28:42,999 hospital evaluated id=61c78af71cea4a656c38da42df60fc4a encrypt_ms=233.0 service_ms=22.4 decrypt_ms=3.7 vault_ms=1.1
+hospital-1  | 2026-10-18T06:28:43.260204370Z 2026-10-18 06:28:43,260 hospital evaluated id=3da5aa6be0b3554da1ac41bb8afe6de4 encrypt_ms=232.4 service_ms=21.6 decrypt_ms=3.7 vault_ms=1.0
+hospital-1  | 2026-10-18T06:28:43.523460543Z 2026-10-18 06:28:43,523 hospital evaluated id=948269bc9a8dd1a60eab7bbb4cc7d925 encrypt_ms=234.9 service_ms=21.8 decrypt_ms=3.7 vault_ms=1.0
+hospital-1  | 2026-10-18T06:28:43.791095223Z 2026-10-18 06:28:43,790 hospital evaluated id=2061f79c54ed466696c1ab15754187fd encrypt_ms=239.0 service_ms=21.9 decrypt_ms=3.7 vault_ms=1.2
+hospital-1  | 2026-10-18T06:28:44.058359598Z 2026-10-18 06:28:44,058 hospital evaluated id=d97a02c2dfceebc7bf1254ad1a2a25b3 encrypt_ms=238.5 service_ms=21.7 decrypt_ms=3.8 vault_ms=1.5
+hospital-1  | 2026-10-18T06:28:44.327059071Z 2026-10-18 06:28:44,326 hospital evaluated id=29f974a7a1d95553e798e5d5d59c30db encrypt_ms=239.4 service_ms=21.8 decrypt_ms=3.9 vault_ms=1.7
+hospital-1  | 2026-10-18T06:28:44.596032640Z 2026-10-18 06:28:44,595 hospital evaluated id=7391a03a6f8468cb4c8e2a5e19badf70 encrypt_ms=240.5 service_ms=21.7 decrypt_ms=3.7 vault_ms=1.1
+hospital-1  | 2026-10-18T06:28:44.863874529Z 2026-10-18 06:28:44,863 hospital evaluated id=c131fc1dc595a98b4b6c0732d06fdb23 encrypt_ms=239.5 service_ms=21.8 decrypt_ms=3.7 vault_ms=1.0
+hospital-1  | 2026-10-18T06:28:45.135876433Z 2026-10-18 06:28:45,135 hospital evaluated id=ce8f0e1add7080ce937822a716eb10e7 encrypt_ms=243.6 service_ms=21.6 decrypt_ms=3.8 vault_ms=1.0
+hospital-1  | 2026-10-18T06:28:45.404128548Z 2026-10-18 06:28:45,404 hospital evaluated id=47cfa4e566f5eec4ed1d5d35e201f3a8 encrypt_ms=239.9 service_ms=21.7 decrypt_ms=3.8 vault_ms=1.1
+hospital-1  | 2026-10-18T06:28:45.672249819Z 2026-10-18 06:28:45,672 hospital evaluated id=319c6b18d96df4190c740cd4986112c0 encrypt_ms=239.8 service_ms=21.8 decrypt_ms=3.7 vault_ms=1.0
+hospital-1  | 2026-10-18T06:28:45.938507438Z 2026-10-18 06:28:45,938 hospital evaluated id=08ddce24375065f7b481082192b9be4e encrypt_ms=237.9 service_ms=21.7 decrypt_ms=3.8 vault_ms=1.2
+hospital-1  | 2026-10-18T06:28:46.208075872Z 2026-10-18 06:28:46,207 hospital evaluated id=db9b3170b31f73f881028b49a91f3e2b encrypt_ms=240.2 service_ms=22.8 decrypt_ms=3.8 vault_ms=1.0
+hospital-1  | 2026-10-18T06:28:46.477234813Z 2026-10-18 06:28:46,477 hospital evaluated id=d220b0489d89d7a907776c8dd7f41bff encrypt_ms=241.0 service_ms=21.6 decrypt_ms=3.7 vault_ms=1.1
+hospital-1  | 2026-10-18T06:28:46.746586550Z 2026-10-18 06:28:46,746 hospital evaluated id=5fb35e8b54767583f70b561f368a0f22 encrypt_ms=239.9 service_ms=21.6 decrypt_ms=3.8 vault_ms=2.3
+hospital-1  | 2026-10-18T06:28:47.006972407Z 2026-10-18 06:28:47,006 hospital evaluated id=f6b83e8acc67b1d5cfdb8295b4a2a412 encrypt_ms=231.9 service_ms=21.8 decrypt_ms=3.8 vault_ms=1.0
+hospital-1  | 2026-10-18T06:28:47.278601003Z 2026-10-18 06:28:47,278 hospital evaluated id=20644b52907cf0251d47566873f5ae94 encrypt_ms=243.0 service_ms=21.7 decrypt_ms=3.8 vault_ms=1.2
+hospital-1  | 2026-10-18T06:28:47.551093113Z 2026-10-18 06:28:47,550 hospital evaluated id=d415188fdcb3a9212234ca70654141df encrypt_ms=244.2 service_ms=21.7 decrypt_ms=3.8 vault_ms=1.0
+hospital-1  | 2026-10-18T06:28:47.821313565Z 2026-10-18 06:28:47,821 hospital evaluated id=20ffb84ec80a701f9c30fe46a54a2ab5 encrypt_ms=242.1 service_ms=21.7 decrypt_ms=3.7 vault_ms=1.0
+hospital-1  | 2026-10-18T06:28:48.092331487Z 2026-10-18 06:28:48,091 hospital evaluated id=63ea11161016d6f5c871e1ae20685b1f encrypt_ms=239.2 service_ms=21.9 decrypt_ms=3.7 vault_ms=4.1
+hospital-1  | 2026-10-18T06:28:48.361328615Z 2026-10-18 06:28:48,361 hospital evaluated id=85729d99feb0cfdfb9efca061d210c3f encrypt_ms=236.2 service_ms=26.5 decrypt_ms=3.7 vault_ms=1.0
+hospital-1  | 2026-10-18T06:28:48.627010503Z 2026-10-18 06:28:48,626 hospital evaluated id=9577a8d4ed553fc19820313e84843f12 encrypt_ms=237.1 service_ms=22.0 decrypt_ms=3.8 vault_ms=1.0
+hospital-1  | 2026-10-18T06:28:48.892803518Z 2026-10-18 06:28:48,892 hospital evaluated id=ea74b85c263daefb60bb4ebf10370769 encrypt_ms=236.3 service_ms=21.7 decrypt_ms=3.7 vault_ms=2.2
+hospital-1  | 2026-10-18T06:28:49.157014593Z 2026-10-18 06:28:49,156 hospital evaluated id=e43e38942b16a7b3b5b1243c86cc693c encrypt_ms=235.5 service_ms=21.9 decrypt_ms=3.7 vault_ms=1.3
+hospital-1  | 2026-10-18T06:28:49.423183534Z 2026-10-18 06:28:49,423 hospital evaluated id=06a9eac1534415fdfd85bd30f8f77c01 encrypt_ms=237.7 service_ms=22.0 decrypt_ms=3.7 vault_ms=1.0
+hospital-1  | 2026-10-18T06:28:49.686601755Z 2026-10-18 06:28:49,686 hospital evaluated id=6f33bde7d816ef403778d8c353db96ac encrypt_ms=234.9 service_ms=21.9 decrypt_ms=3.7 vault_ms=1.1
+hospital-1  | 2026-10-18T06:28:49.952635697Z 2026-10-18 06:28:49,952 hospital evaluated id=27312145582d5a45e90954fa455cc808 encrypt_ms=237.4 service_ms=21.7 decrypt_ms=3.7 vault_ms=1.0
+hospital-1  | 2026-10-18T06:28:50.217947672Z 2026-10-18 06:28:50,217 hospital evaluated id=fe9d2270c347d237fd26c6440826ac11 encrypt_ms=236.6 service_ms=21.6 decrypt_ms=3.8 vault_ms=1.0
+hospital-1  | 2026-10-18T06:28:50.483861037Z 2026-10-18 06:28:50,483 hospital evaluated id=feab3b203bbee937dabc4ace5bb21807 encrypt_ms=236.8 service_ms=21.9 decrypt_ms=4.2 vault_ms=1.2
+hospital-1  | 2026-10-18T06:28:50.752246850Z 2026-10-18 06:28:50,752 hospital evaluated id=b81873109d04ca562248c14759a14c20 encrypt_ms=239.8 service_ms=22.1 decrypt_ms=3.7 vault_ms=1.0
+hospital-1  | 2026-10-18T06:28:51.015727916Z 2026-10-18 06:28:51,015 hospital evaluated id=fc15d7e4036dc5582c334e7465b8d005 encrypt_ms=234.1 service_ms=22.5 decrypt_ms=3.8 vault_ms=1.2
+hospital-1  | 2026-10-18T06:28:51.281045964Z 2026-10-18 06:28:51,280 hospital evaluated id=47d5c169c393a55e538090e04aef1ce1 encrypt_ms=236.7 service_ms=22.1 decrypt_ms=3.7 vault_ms=1.0
+hospital-1  | 2026-10-18T06:28:51.547565051Z 2026-10-18 06:28:51,547 hospital evaluated id=6b714a58dfa357f888760e14617a33d9 encrypt_ms=238.2 service_ms=21.8 decrypt_ms=3.8 vault_ms=1.0
+hospital-1  | 2026-10-18T06:28:51.812124319Z 2026-10-18 06:28:51,811 hospital evaluated id=199f25444a5e80fc6beca6052163a21c encrypt_ms=236.1 service_ms=21.9 decrypt_ms=3.7 vault_ms=1.0
+hospital-1  | 2026-10-18T06:28:52.076857613Z 2026-10-18 06:28:52,076 hospital evaluated id=1e3883a5c115df099ef3dbb5d284824c encrypt_ms=235.9 service_ms=21.8 decrypt_ms=3.8 vault_ms=1.3
+hospital-1  | 2026-10-18T06:28:52.343427278Z 2026-10-18 06:28:52,343 hospital evaluated id=9804d316fdf5c29aae7450c4aa6128dc encrypt_ms=237.7 service_ms=22.4 decrypt_ms=3.7 vault_ms=1.1
+hospital-1  | 2026-10-18T06:28:52.608477714Z 2026-10-18 06:28:52,608 hospital evaluated id=c6d515fb3fa273b22a87c1a26447bf68 encrypt_ms=236.9 service_ms=21.7 decrypt_ms=3.7 vault_ms=1.0
+hospital-1  | 2026-10-18T06:28:52.873374890Z 2026-10-18 06:28:52,873 hospital evaluated id=2ac429ed852c6197dcd9fe54fa34de74 encrypt_ms=236.7 service_ms=21.7 decrypt_ms=3.7 vault_ms=1.0
+hospital-1  | 2026-10-18T06:28:53.136373326Z 2026-10-18 06:28:53,136 hospital evaluated id=b0215f5dbc15f9054cfb9cd4a5532c26 encrypt_ms=234.3 service_ms=22.1 decrypt_ms=3.8 vault_ms=1.0
+hospital-1  | 2026-10-18T06:28:53.399941254Z 2026-10-18 06:28:53,399 hospital evaluated id=9cad9b7ba0308fef8a960812017b2559 encrypt_ms=235.4 service_ms=21.7 decrypt_ms=3.7 vault_ms=1.0
+hospital-1  | 2026-10-18T06:28:53.665822657Z 2026-10-18 06:28:53,665 hospital evaluated id=333cc9adb578518c53f00ed05e8ddfbf encrypt_ms=237.3 service_ms=21.9 decrypt_ms=3.7 vault_ms=1.1
+hospital-1  | 2026-10-18T06:28:53.928693917Z 2026-10-18 06:28:53,928 hospital evaluated id=0619044e58a7b1bd3023657bab321fa5 encrypt_ms=234.7 service_ms=21.5 decrypt_ms=3.7 vault_ms=1.0
+hospital-1  | 2026-10-18T06:28:54.192929972Z 2026-10-18 06:28:54,192 hospital evaluated id=5956d68e784552012ec6ac418db69f7f encrypt_ms=236.1 service_ms=21.7 decrypt_ms=3.7 vault_ms=1.0
+hospital-1  | 2026-10-18T06:28:54.460334214Z 2026-10-18 06:28:54,460 hospital evaluated id=67db4d5de42a06d6f1fa31728d79d46e encrypt_ms=238.6 service_ms=22.1 decrypt_ms=3.8 vault_ms=1.0
+hospital-1  | 2026-10-18T06:28:54.728358718Z 2026-10-18 06:28:54,728 hospital evaluated id=d9eb87b5f54fa12af631e2047df6aeb6 encrypt_ms=239.3 service_ms=22.1 decrypt_ms=3.8 vault_ms=1.0
+hospital-1  | 2026-10-18T06:28:54.996042500Z 2026-10-18 06:28:54,995 hospital evaluated id=99603d919d41fcff94aa9d93a1e71186 encrypt_ms=239.0 service_ms=22.1 decrypt_ms=3.7 vault_ms=1.0
+hospital-1  | 2026-10-18T06:28:55.261104082Z 2026-10-18 06:28:55,260 hospital evaluated id=ec3dfb1a9dd8aac038dbe8220baba456 encrypt_ms=236.7 service_ms=21.8 decrypt_ms=3.7 vault_ms=1.1
+hospital-1  | 2026-10-18T06:28:55.525195354Z 2026-10-18 06:28:55,525 hospital evaluated id=6cbe4fb5102c9a5fa5b54f0ce329bf64 encrypt_ms=235.7 service_ms=21.9 decrypt_ms=3.7 vault_ms=1.0
+hospital-1  | 2026-10-18T06:28:55.789434301Z 2026-10-18 06:28:55,789 hospital evaluated id=faffc0ffff61c5c28b384253fd54c11a encrypt_ms=236.0 service_ms=21.7 decrypt_ms=3.7 vault_ms=1.0
+hospital-1  | 2026-10-18T06:28:56.053880555Z 2026-10-18 06:28:56,053 hospital evaluated id=1145a3ea2527cc87dd1d9327d536fee4 encrypt_ms=236.3 service_ms=21.7 decrypt_ms=3.7 vault_ms=1.0
+hospital-1  | 2026-10-18T06:28:56.318288957Z 2026-10-18 06:28:56,318 hospital evaluated id=f420cec0958e3ed95d054948c15e631c encrypt_ms=236.0 service_ms=21.9 decrypt_ms=3.7 vault_ms=1.1
+hospital-1  | 2026-10-18T06:28:56.585401663Z 2026-10-18 06:28:56,584 hospital evaluated id=a296f120e10640fc0a4a65b1c176ff72 encrypt_ms=237.6 service_ms=22.0 decrypt_ms=3.7 vault_ms=1.1
+hospital-1  | 2026-10-18T06:28:56.852222680Z 2026-10-18 06:28:56,852 hospital evaluated id=3021bbb3ccf4e932ecf47a0c86455865 encrypt_ms=239.3 service_ms=21.7 decrypt_ms=3.7 vault_ms=1.0
+hospital-1  | 2026-10-18T06:28:57.121214589Z 2026-10-18 06:28:57,121 hospital evaluated id=53dc5a0571a3c436a0224c2cfe10febf encrypt_ms=238.4 service_ms=23.2 decrypt_ms=3.8 vault_ms=1.7
+hospital-1  | 2026-10-18T06:28:57.384663660Z 2026-10-18 06:28:57,384 hospital evaluated id=3f88c40ede60a0ccbc27a4e3407a78b5 encrypt_ms=235.0 service_ms=21.7 decrypt_ms=3.7 vault_ms=1.0
+hospital-1  | 2026-10-18T06:28:57.648377306Z 2026-10-18 06:28:57,648 hospital evaluated id=831407b9e750213b3e5f9b65102d5f57 encrypt_ms=235.1 service_ms=22.0 decrypt_ms=3.7 vault_ms=1.2
+hospital-1  | 2026-10-18T06:28:57.911997449Z 2026-10-18 06:28:57,911 hospital evaluated id=9dc91cb272e0c82b7f532881bfd68283 encrypt_ms=234.6 service_ms=21.9 decrypt_ms=3.7 vault_ms=1.5
+hospital-1  | 2026-10-18T06:28:58.173892100Z 2026-10-18 06:28:58,173 hospital evaluated id=eb57b937dcf20eb8ab24a73839ea8609 encrypt_ms=232.3 service_ms=22.2 decrypt_ms=3.7 vault_ms=1.2
+hospital-1  | 2026-10-18T06:28:58.439565305Z 2026-10-18 06:28:58,439 hospital evaluated id=e3c51da2373702da178124eb01cbf2d9 encrypt_ms=236.2 service_ms=23.3 decrypt_ms=3.7 vault_ms=1.1
+hospital-1  | 2026-10-18T06:28:58.700551867Z 2026-10-18 06:28:58,699 hospital evaluated id=d40cacd2ebb4c72f43b1740146a0712e encrypt_ms=231.7 service_ms=22.1 decrypt_ms=3.7 vault_ms=1.0
+hospital-1  | 2026-10-18T06:28:58.963884395Z 2026-10-18 06:28:58,963 hospital evaluated id=91aa2e13167e13b71c9dbcd636026a36 encrypt_ms=235.7 service_ms=21.7 decrypt_ms=3.7 vault_ms=1.0
+hospital-1  | 2026-10-18T06:28:59.223820543Z 2026-10-18 06:28:59,223 hospital evaluated id=4feaec7c9c86fbf2c0f46688ded58606 encrypt_ms=231.4 service_ms=22.0 decrypt_ms=3.6 vault_ms=1.0
+hospital-1  | 2026-10-18T06:28:59.486175427Z 2026-10-18 06:28:59,486 hospital evaluated id=dfca1651ea06c9275fac3c32e96bf11d encrypt_ms=234.2 service_ms=21.6 decrypt_ms=3.7 vault_ms=1.0
+hospital-1  | 2026-10-18T06:28:59.748509058Z 2026-10-18 06:28:59,747 hospital evaluated id=207d9858b79b4e4f725ffff3619c0927 encrypt_ms=233.0 service_ms=22.0 decrypt_ms=3.7 vault_ms=1.1
+hospital-1  | 2026-10-18T06:29:00.009540376Z 2026-10-18 06:29:00,009 hospital evaluated id=1ca70efb1270a4a0716c7d79a7ff8afe encrypt_ms=233.9 service_ms=21.4 decrypt_ms=3.7 vault_ms=1.0
+hospital-1  | 2026-10-18T06:29:00.274078880Z 2026-10-18 06:29:00,273 hospital evaluated id=fa978c73c95da651f3597494f872ba6a encrypt_ms=234.3 service_ms=22.7 decrypt_ms=3.7 vault_ms=1.0
+hospital-1  | 2026-10-18T06:29:00.541333930Z 2026-10-18 06:29:00,541 hospital evaluated id=cb34f047f3c121bf98874ebb490ca7ea encrypt_ms=235.1 service_ms=26.3 decrypt_ms=3.7 vault_ms=1.0
+hospital-1  | 2026-10-18T06:29:00.802720752Z 2026-10-18 06:29:00,801 hospital evaluated id=7659569f14302e2943e5ecdb5d8535bf encrypt_ms=231.5 service_ms=22.4 decrypt_ms=4.0 vault_ms=1.0
+hospital-1  | 2026-10-18T06:29:01.063464050Z 2026-10-18 06:29:01,063 hospital evaluated id=ca465791e21a8a330375014b19e43b85 encrypt_ms=233.1 service_ms=21.7 decrypt_ms=3.7 vault_ms=1.1
+hospital-1  | 2026-10-18T06:29:01.325595098Z 2026-10-18 06:29:01,325 hospital evaluated id=ce389bf5543624d3aec390fda9305350 encrypt_ms=233.9 service_ms=21.7 decrypt_ms=3.7 vault_ms=1.1
+hospital-1  | 2026-10-18T06:29:01.588490478Z 2026-10-18 06:29:01,588 hospital evaluated id=bb1b3e30ab4d67105128978aa3f9012e encrypt_ms=235.2 service_ms=21.3 decrypt_ms=3.7 vault_ms=1.0
+hospital-1  | 2026-10-18T06:29:01.857523395Z 2026-10-18 06:29:01,856 hospital evaluated id=96c056b6470e844ab65668e261a21b86 encrypt_ms=235.4 service_ms=26.6 decrypt_ms=3.7 vault_ms=1.0
+hospital-1  | 2026-10-18T06:29:02.121679116Z 2026-10-18 06:29:02,121 hospital evaluated id=ee74caa5ba79771baa17a923a215a39b encrypt_ms=237.0 service_ms=21.4 decrypt_ms=3.7 vault_ms=1.0
+hospital-1  | 2026-10-18T06:29:02.386869513Z 2026-10-18 06:29:02,386 hospital evaluated id=bd487db863c6519ec32e74821f544fec encrypt_ms=234.8 service_ms=23.4 decrypt_ms=3.7 vault_ms=0.9
+hospital-1  | 2026-10-18T06:29:02.655826571Z 2026-10-18 06:29:02,655 hospital evaluated id=9a9645073f9a03bb9dd52d0717062a12 encrypt_ms=240.9 service_ms=21.5 decrypt_ms=3.7 vault_ms=1.1
+hospital-1  | 2026-10-18T06:29:02.918640693Z 2026-10-18 06:29:02,918 hospital evaluated id=eef2bfd23bcede8512046f9cc51bfb49 encrypt_ms=235.2 service_ms=21.5 decrypt_ms=3.7 vault_ms=1.1
+hospital-1  | 2026-10-18T06:29:03.185737909Z 2026-10-18 06:29:03,184 hospital evaluated id=19804c3b0e9d0a261000dda62c84b4a1 encrypt_ms=237.7 service_ms=22.2 decrypt_ms=3.7 vault_ms=1.0
+hospital-1  | 2026-10-18T06:29:03.449194912Z 2026-10-18 06:29:03,449 hospital evaluated id=da6acdcaf8ee914dc6c9097dac83bcb8 encrypt_ms=236.1 service_ms=21.5 decrypt_ms=3.7 vault_ms=1.0
+hospital-1  | 2026-10-18T06:29:03.715078217Z 2026-10-18 06:29:03,714 hospital evaluated id=5abc9bcb1bbfb072aeeb09439f342ed9 encrypt_ms=235.9 service_ms=22.4 decrypt_ms=3.8 vault_ms=1.3
+hospital-1  | 2026-10-18T06:29:03.987982878Z 2026-10-18 06:29:03,987 hospital evaluated id=c1ee1ad8f09c4e3d9a44eba2df1add5a encrypt_ms=235.5 service_ms=31.1 decrypt_ms=3.7 vault_ms=1.2
+hospital-1  | 2026-10-18T06:29:04.253057823Z 2026-10-18 06:29:04,252 hospital evaluated id=a6f6cbe8178e30ca462cb19797c0db08 encrypt_ms=236.1 service_ms=21.9 decrypt_ms=3.7 vault_ms=1.1
+hospital-1  | 2026-10-18T06:29:04.517604033Z 2026-10-18 06:29:04,517 hospital evaluated id=a0f43328b4b1e41eaa06548948d34271 encrypt_ms=236.0 service_ms=22.4 decrypt_ms=3.8 vault_ms=1.2
+hospital-1  | 2026-10-18T06:29:04.788289636Z 2026-10-18 06:29:04,787 hospital evaluated id=f8bc1ac34f02da67d63a7abdf5198597 encrypt_ms=241.0 service_ms=22.4 decrypt_ms=3.9 vault_ms=1.0
+hospital-1  | 2026-10-18T06:29:05.053393138Z 2026-10-18 06:29:05,052 hospital evaluated id=e9e93dd2fee21f1036e21917339b95e2 encrypt_ms=236.5 service_ms=22.0 decrypt_ms=3.8 vault_ms=1.1
+hospital-1  | 2026-10-18T06:29:05.316188469Z 2026-10-18 06:29:05,315 hospital evaluated id=065aabcd90ef1d3e58683bb235a85bff encrypt_ms=234.8 service_ms=21.6 decrypt_ms=3.7 vault_ms=0.9
+hospital-1  | 2026-10-18T06:29:05.580121926Z 2026-10-18 06:29:05,580 hospital evaluated id=3fe0588c1083e81a565159fcee82a526 encrypt_ms=236.4 service_ms=21.6 decrypt_ms=3.7 vault_ms=1.0
+hospital-1  | 2026-10-18T06:29:05.843050763Z 2026-10-18 06:29:05,842 hospital evaluated id=ff2fb8cf2d46e27763caed36da16e646 encrypt_ms=234.0 service_ms=21.6 decrypt_ms=3.8 vault_ms=1.1
+hospital-1  | 2026-10-18T06:29:06.106949378Z 2026-10-18 06:29:06,106 hospital evaluated id=5ad949bd35ea6059910697a31b083cea encrypt_ms=236.2 service_ms=21.8 decrypt_ms=3.7 vault_ms=1.0
+hospital-1  | 2026-10-18T06:29:06.373117350Z 2026-10-18 06:29:06,372 hospital evaluated id=c8028020eb86915cb7f3e37fd788baf5 encrypt_ms=236.9 service_ms=22.2 decrypt_ms=3.8 vault_ms=1.0
+hospital-1  | 2026-10-18T06:29:06.637812996Z 2026-10-18 06:29:06,636 hospital evaluated id=3266b5c875e479301ebd4e6ece6aa330 encrypt_ms=236.0 service_ms=22.1 decrypt_ms=3.7 vault_ms=1.0
+hospital-1  | 2026-10-18T06:29:06.904060598Z 2026-10-18 06:29:06,903 hospital evaluated id=14de60cb4751a6b10a8b00b809281bfd encrypt_ms=238.8 service_ms=21.5 decrypt_ms=3.6 vault_ms=1.1
+hospital-1  | 2026-10-18T06:29:07.168027936Z 2026-10-18 06:29:07,167 hospital evaluated id=b4ad948d6f43a6d741b15f73dbb7fc02 encrypt_ms=235.0 service_ms=21.9 decrypt_ms=3.7 vault_ms=1.0
+hospital-1  | 2026-10-18T06:29:07.433952938Z 2026-10-18 06:29:07,433 hospital evaluated id=363d955b5c8a121d039618dc54364dec encrypt_ms=237.9 service_ms=21.7 decrypt_ms=3.7 vault_ms=1.0
+hospital-1  | 2026-10-18T06:29:07.695881235Z 2026-10-18 06:29:07,695 hospital evaluated id=59ab09f148c94fc57d4ddb11e3e4c03b encrypt_ms=233.8 service_ms=21.8 decrypt_ms=3.7 vault_ms=1.0
+hospital-1  | 2026-10-18T06:29:07.962961421Z 2026-10-18 06:29:07,962 hospital evaluated id=7fc9806d4c0d68f85acd89702a343316 encrypt_ms=239.0 service_ms=21.8 decrypt_ms=3.7 vault_ms=1.0
+hospital-1  | 2026-10-18T06:29:08.226196486Z 2026-10-18 06:29:08,226 hospital evaluated id=9bf548c8912e77b19361a6dce14f0b3c encrypt_ms=235.6 service_ms=21.5 decrypt_ms=3.7 vault_ms=1.0
+hospital-1  | 2026-10-18T06:29:08.490303576Z 2026-10-18 06:29:08,489 hospital evaluated id=6b37f807fdfb217bb74e95d3f4f4538b encrypt_ms=235.4 service_ms=21.6 decrypt_ms=3.8 vault_ms=0.9
+hospital-1  | 2026-10-18T06:29:08.753788859Z 2026-10-18 06:29:08,753 hospital evaluated id=d470fcbbdb427d1c118fa830d5a5351a encrypt_ms=236.4 service_ms=21.6 decrypt_ms=3.7 vault_ms=1.0
+hospital-1  | 2026-10-18T06:29:09.016363309Z 2026-10-18 06:29:09,016 hospital evaluated id=9e6fce57a2ef025812b09e0760cd1af9 encrypt_ms=234.6 service_ms=21.4 decrypt_ms=3.7 vault_ms=1.2
+hospital-1  | 2026-10-18T06:29:09.281038749Z 2026-10-18 06:29:09,280 hospital evaluated id=f36583efc9be65e7ba2e65d422999dc7 encrypt_ms=234.9 service_ms=22.6 decrypt_ms=3.7 vault_ms=1.0
+hospital-1  | 2026-10-18T06:29:09.541192473Z 2026-10-18 06:29:09,541 hospital evaluated id=a1147971b03ab777631e5d8a8e8d1ef6 encrypt_ms=232.1 service_ms=22.1 decrypt_ms=3.7 vault_ms=1.1
+hospital-1  | 2026-10-18T06:29:09.809509370Z 2026-10-18 06:29:09,808 hospital evaluated id=ec75da2b0af2896dc5df1669db49c897 encrypt_ms=239.5 service_ms=21.8 decrypt_ms=3.7 vault_ms=1.0
+hospital-1  | 2026-10-18T06:29:10.072663294Z 2026-10-18 06:29:10,071 hospital evaluated id=34b78b208113aec90c81e3ae8ad0b0a4 encrypt_ms=234.6 service_ms=22.2 decrypt_ms=3.7 vault_ms=1.0
+hospital-1  | 2026-10-18T06:29:10.332452915Z 2026-10-18 06:29:10,331 hospital evaluated id=d4c2f58ef2cb6ca72edbe0d767a35ffd encrypt_ms=232.1 service_ms=21.2 decrypt_ms=3.8 vault_ms=1.0
+hospital-1  | 2026-10-18T06:29:10.593828876Z 2026-10-18 06:29:10,593 hospital evaluated id=d959f7a606486d44335fa8854f838c12 encrypt_ms=233.6 service_ms=21.5 decrypt_ms=3.7 vault_ms=1.3
+hospital-1  | 2026-10-18T06:29:10.859347707Z 2026-10-18 06:29:10,858 hospital evaluated id=56d6bc09e0912e95bd8c396dbe393d88 encrypt_ms=236.3 service_ms=22.2 decrypt_ms=3.7 vault_ms=1.0
+hospital-1  | 2026-10-18T06:29:11.125635682Z 2026-10-18 06:29:11,124 hospital evaluated id=8c35d8312be0bc6522de078e0fa10e8d encrypt_ms=237.9 service_ms=21.6 decrypt_ms=3.8 vault_ms=1.2
+hospital-1  | 2026-10-18T06:29:11.390150118Z 2026-10-18 06:29:11,390 hospital evaluated id=c6f4d93caae4ece64d4d1e3034c85f6c encrypt_ms=236.9 service_ms=21.8 decrypt_ms=3.7 vault_ms=1.0
+hospital-1  | 2026-10-18T06:29:11.656771174Z 2026-10-18 06:29:11,655 hospital evaluated id=5d5dba62bc99bbe86d4273127930a801 encrypt_ms=236.7 service_ms=22.7 decrypt_ms=3.8 vault_ms=1.0
+hospital-1  | 2026-10-18T06:29:11.920869874Z 2026-10-18 06:29:11,920 hospital evaluated id=89c703974af493f2986a9faed0429e69 encrypt_ms=236.2 service_ms=21.9 decrypt_ms=3.8 vault_ms=1.0
+hospital-1  | 2026-10-18T06:29:12.187731892Z 2026-10-18 06:29:12,187 hospital evaluated id=8beee511341dd24915c720fe915e4399 encrypt_ms=238.5 service_ms=21.8 decrypt_ms=3.7 vault_ms=1.2
+hospital-1  | 2026-10-18T06:29:12.450467663Z 2026-10-18 06:29:12,449 hospital evaluated id=6fb236563089f9cc6d57d7587884e37f encrypt_ms=232.9 service_ms=22.6 decrypt_ms=3.7 vault_ms=1.0
+hospital-1  | 2026-10-18T06:29:12.717480339Z 2026-10-18 06:29:12,717 hospital evaluated id=a5cd066f4cfd571fce220a9e68483467 encrypt_ms=239.1 service_ms=21.9 decrypt_ms=3.7 vault_ms=1.1
+hospital-1  | 2026-10-18T06:29:12.979700862Z 2026-10-18 06:29:12,978 hospital evaluated id=b18f9818b398432783f983a0e404cdec encrypt_ms=233.1 service_ms=22.0 decrypt_ms=3.7 vault_ms=1.0
+hospital-1  | 2026-10-18T06:29:13.244709662Z 2026-10-18 06:29:13,244 hospital evaluated id=54613197e7f09379f9e78ae6e396aae3 encrypt_ms=237.0 service_ms=22.2 decrypt_ms=3.7 vault_ms=1.0
+hospital-1  | 2026-10-18T06:29:13.510696744Z 2026-10-18 06:29:13,510 hospital evaluated id=910fcd6c217328d8d48fb1270de98f59 encrypt_ms=238.2 service_ms=21.5 decrypt_ms=3.7 vault_ms=1.0
+hospital-1  | 2026-10-18T06:29:13.774298368Z 2026-10-18 06:29:13,773 hospital evaluated id=14b3ac1a6b07404986b70fc65b2e4189 encrypt_ms=234.3 service_ms=22.2 decrypt_ms=3.7 vault_ms=1.1
+hospital-1  | 2026-10-18T06:29:14.034545201Z 2026-10-18 06:29:14,034 hospital evaluated id=41a68335ff0e824f39428e10a02789df encrypt_ms=232.8 service_ms=21.6 decrypt_ms=3.7 vault_ms=1.1
+hospital-1  | 2026-10-18T06:29:14.300590040Z 2026-10-18 06:29:14,300 hospital evaluated id=30bdeb02a9c8451f59605935577fe499 encrypt_ms=236.9 service_ms=22.5 decrypt_ms=3.7 vault_ms=1.1
+hospital-1  | 2026-10-18T06:29:14.564688315Z 2026-10-18 06:29:14,564 hospital evaluated id=39b76b37acb5c93c1c6ea9c77f62a48c encrypt_ms=234.3 service_ms=23.4 decrypt_ms=3.7 vault_ms=1.0
+hospital-1  | 2026-10-18T06:29:14.833882885Z 2026-10-18 06:29:14,833 hospital evaluated id=a770bda9c6876abcb65cc52c3ef339b3 encrypt_ms=240.9 service_ms=21.7 decrypt_ms=3.7 vault_ms=1.0
+hospital-1  | 2026-10-18T06:29:15.092368421Z 2026-10-18 06:29:15,092 hospital evaluated id=6d262e781ca152c38f235d204a642972 encrypt_ms=229.9 service_ms=21.9 decrypt_ms=3.7 vault_ms=1.1
+hospital-1  | 2026-10-18T06:29:15.354873185Z 2026-10-18 06:29:15,354 hospital evaluated id=8ced8c93f1aba2be35d018b2549faaa8 encrypt_ms=233.0 service_ms=22.7 decrypt_ms=3.7 vault_ms=1.1
+hospital-1  | 2026-10-18T06:29:15.619451184Z 2026-10-18 06:29:15,619 hospital evaluated id=e711ec73408a67b3ea899db293db513e encrypt_ms=235.9 service_ms=22.0 decrypt_ms=3.7 vault_ms=1.1
+hospital-1  | 2026-10-18T06:29:15.880117501Z 2026-10-18 06:29:15,880 hospital evaluated id=542fc4fe8c5686c027f599a875278387 encrypt_ms=232.0 service_ms=22.2 decrypt_ms=3.7 vault_ms=1.0
+hospital-1  | 2026-10-18T06:29:16.146435611Z 2026-10-18 06:29:16,146 hospital evaluated id=5118068206b5df720326df6d6e9ab2d6 encrypt_ms=236.9 service_ms=22.8 decrypt_ms=3.7 vault_ms=1.2
+hospital-1  | 2026-10-18T06:29:16.410008568Z 2026-10-18 06:29:16,409 hospital evaluated id=863509500c0d86b511332cffbe73a348 encrypt_ms=234.7 service_ms=22.5 decrypt_ms=3.7 vault_ms=1.0
+hospital-1  | 2026-10-18T06:29:16.674340763Z 2026-10-18 06:29:16,674 hospital evaluated id=77df1faa8e34a58008708542e78e86a8 encrypt_ms=235.4 service_ms=22.5 decrypt_ms=3.7 vault_ms=1.1
+hospital-1  | 2026-10-18T06:29:16.938935764Z 2026-10-18 06:29:16,938 hospital evaluated id=f0add1d790b28f6f89fb07f1c7b77074 encrypt_ms=236.3 service_ms=21.7 decrypt_ms=3.7 vault_ms=1.0
+hospital-1  | 2026-10-18T06:29:17.203498984Z 2026-10-18 06:29:17,203 hospital evaluated id=b24995e7417cf8b8e7e6da123f7754c8 encrypt_ms=235.8 service_ms=22.3 decrypt_ms=3.7 vault_ms=1.0
+hospital-1  | 2026-10-18T06:29:17.473039742Z 2026-10-18 06:29:17,472 hospital evaluated id=7c24bc614f64a9db049bb016eacecadc encrypt_ms=241.2 service_ms=21.6 decrypt_ms=3.8 vault_ms=1.1
+hospital-1  | 2026-10-18T06:29:17.736902885Z 2026-10-18 06:29:17,736 hospital evaluated id=3613500c92ef8d48e6a6b4734cb3645f encrypt_ms=235.6 service_ms=21.7 decrypt_ms=3.8 vault_ms=1.0
+hospital-1  | 2026-10-18T06:29:18.001550169Z 2026-10-18 06:29:18,001 hospital evaluated id=bb39667876543f331cfdd42157e19765 encrypt_ms=236.5 service_ms=21.8 decrypt_ms=3.7 vault_ms=1.0
+hospital-1  | 2026-10-18T06:29:18.268082947Z 2026-10-18 06:29:18,267 hospital evaluated id=2278656f1d1a33affc253acefd5f9b3c encrypt_ms=238.1 service_ms=21.7 decrypt_ms=3.7 vault_ms=1.1
+hospital-1  | 2026-10-18T06:29:18.533047694Z 2026-10-18 06:29:18,532 hospital evaluated id=2d1dede38094fbdbf52051f74c2d6e55 encrypt_ms=236.0 service_ms=21.7 decrypt_ms=3.8 vault_ms=1.0
+hospital-1  | 2026-10-18T06:29:18.797104995Z 2026-10-18 06:29:18,796 hospital evaluated id=6a2d178115e9e6419e0694763d70ae7f encrypt_ms=235.8 service_ms=21.9 decrypt_ms=3.7 vault_ms=1.2
+hospital-1  | 2026-10-18T06:29:19.060681078Z 2026-10-18 06:29:19,060 hospital evaluated id=72c0f257f4cf5df5712afa7a5aecd535 encrypt_ms=234.1 service_ms=23.1 decrypt_ms=3.6 vault_ms=1.0
+hospital-1  | 2026-10-18T06:29:19.324930228Z 2026-10-18 06:29:19,324 hospital evaluated id=cde00a4217afb596f8b45e752fef744f encrypt_ms=236.1 service_ms=21.5 decrypt_ms=3.7 vault_ms=1.0
+hospital-1  | 2026-10-18T06:29:19.587018562Z 2026-10-18 06:29:19,586 hospital evaluated id=c2afd0d1af6ad80a80173684c49e4a1d encrypt_ms=233.4 service_ms=21.9 decrypt_ms=3.9 vault_ms=1.0
+hospital-1  | 2026-10-18T06:29:19.850322204Z 2026-10-18 06:29:19,850 hospital evaluated id=9251feca0bb48f79ce11f2ccdf1d754f encrypt_ms=234.8 service_ms=21.8 decrypt_ms=3.7 vault_ms=1.1
+hospital-1  | 2026-10-18T06:29:20.116521667Z 2026-10-18 06:29:20,116 hospital evaluated id=869b41923250cbbe8367cf9d99d5d0ee encrypt_ms=237.6 service_ms=22.2 decrypt_ms=3.7 vault_ms=1.0
+hospital-1  | 2026-10-18T06:29:20.381108074Z 2026-10-18 06:29:20,380 hospital evaluated id=db978639f2abfc0d96709cd38148dce2 encrypt_ms=236.4 service_ms=21.6 decrypt_ms=3.7 vault_ms=1.0
+hospital-1  | 2026-10-18T06:29:20.645134303Z 2026-10-18 06:29:20,645 hospital evaluated id=897e4029c229720ba0a88357a32ab2ef encrypt_ms=236.0 service_ms=21.6 decrypt_ms=3.7 vault_ms=1.0
+hospital-1  | 2026-10-18T06:29:20.908545371Z 2026-10-18 06:29:20,908 hospital evaluated id=db66a00b2daf257469893f5cab6822b5 encrypt_ms=235.3 service_ms=21.6 decrypt_ms=3.7 vault_ms=1.0
+hospital-1  | 2026-10-18T06:29:21.174534058Z 2026-10-18 06:29:21,174 hospital evaluated id=842f7015d5ddeb0a4143ec2d0dfd543c encrypt_ms=238.0 service_ms=21.5 decrypt_ms=3.7 vault_ms=1.1
+hospital-1  | 2026-10-18T06:29:21.439200516Z 2026-10-18 06:29:21,439 hospital evaluated id=5b73cb045ab008c0eeb81de378454444 encrypt_ms=236.5 service_ms=21.5 decrypt_ms=3.7 vault_ms=1.2
+hospital-1  | 2026-10-18T06:29:21.703177971Z 2026-10-18 06:29:21,702 hospital evaluated id=3a031ca50b618fac6d07eaf8435472a3 encrypt_ms=234.4 service_ms=22.2 decrypt_ms=3.7 vault_ms=1.0
+hospital-1  | 2026-10-18T06:29:21.968699437Z 2026-10-18 06:29:21,968 hospital evaluated id=0b56a55c56c0214b0caf01229c84f209 encrypt_ms=237.9 service_ms=21.7 decrypt_ms=3.7 vault_ms=1.0
+hospital-1  | 2026-10-18T06:29:22.231164576Z 2026-10-18 06:29:22,230 hospital evaluated id=bfe942dcb37cbc827e511ffbb000330f encrypt_ms=233.1 service_ms=21.7 decrypt_ms=3.8 vault_ms=1.2
+hospital-1  | 2026-10-18T06:29:22.498028504Z 2026-10-18 06:29:22,497 hospital evaluated id=8e49648168995d4dd4f47b6983ef2ee8 encrypt_ms=239.0 service_ms=21.8 decrypt_ms=3.7 vault_ms=1.0
+hospital-1  | 2026-10-18T06:29:22.757784428Z 2026-10-18 06:29:22,756 hospital evaluated id=fee6168d01b41aa6bac5cf5768afe2d7 encrypt_ms=230.7 service_ms=21.7 decrypt_ms=3.7 vault_ms=1.0
+hospital-1  | 2026-10-18T06:29:23.022001604Z 2026-10-18 06:29:23,021 hospital evaluated id=d7aafd6fa2ad01342fa7e050d3415291 encrypt_ms=236.2 service_ms=21.8 decrypt_ms=3.8 vault_ms=1.2
+hospital-1  | 2026-10-18T06:29:23.285334428Z 2026-10-18 06:29:23,284 hospital evaluated id=b4c09b938f4ed835145946b4625c0d48 encrypt_ms=233.7 service_ms=22.1 decrypt_ms=3.7 vault_ms=1.1
+hospital-1  | 2026-10-18T06:29:23.549484414Z 2026-10-18 06:29:23,549 hospital evaluated id=f5a1f40d2b46a92bba6681ce407b82a8 encrypt_ms=236.7 service_ms=21.5 decrypt_ms=3.7 vault_ms=1.1
+hospital-1  | 2026-10-18T06:29:23.816569867Z 2026-10-18 06:29:23,815 hospital evaluated id=719aaff5c942be32d501313b9aa28141 encrypt_ms=237.7 service_ms=22.3 decrypt_ms=3.7 vault_ms=1.0
+hospital-1  | 2026-10-18T06:29:24.078012355Z 2026-10-18 06:29:24,077 hospital evaluated id=47c5ad84e4c1c1f732c17382315df49e encrypt_ms=233.7 service_ms=21.8 decrypt_ms=3.7 vault_ms=1.0
+hospital-1  | 2026-10-18T06:29:24.348632638Z 2026-10-18 06:29:24,347 hospital evaluated id=75bd7c21188e94e7aaa4fc5c5429fdfa encrypt_ms=240.9 service_ms=22.2 decrypt_ms=3.9 vault_ms=1.1
+hospital-1  | 2026-10-18T06:29:24.614612538Z 2026-10-18 06:29:24,614 hospital evaluated id=970a840cdf61078f328217e9b5362091 encrypt_ms=237.9 service_ms=21.8 decrypt_ms=3.9 vault_ms=1.2
+hospital-1  | 2026-10-18T06:29:24.878375052Z 2026-10-18 06:29:24,877 hospital evaluated id=aeb4c6ee7ea9611a4d8ca6077171b4a2 encrypt_ms=234.3 service_ms=22.3 decrypt_ms=3.7 vault_ms=1.0
+hospital-1  | 2026-10-18T06:29:25.141740922Z 2026-10-18 06:29:25,141 hospital evaluated id=62a0dd05a74fa1384715731ba95aa3f2 encrypt_ms=235.1 service_ms=22.3 decrypt_ms=3.7 vault_ms=1.0
+hospital-1  | 2026-10-18T06:29:25.406614826Z 2026-10-18 06:29:25,405 hospital evaluated id=a1376fd808e01da54e3c4d5b5db3a07d encrypt_ms=234.6 service_ms=23.1 decrypt_ms=3.7 vault_ms=1.0
+hospital-1  | 2026-10-18T06:29:25.665613170Z 2026-10-18 06:29:25,665 hospital evaluated id=c6824bb7898f36613718b1079380efe9 encrypt_ms=231.3 service_ms=22.0 decrypt_ms=3.7 vault_ms=1.0
+hospital-1  | 2026-10-18T06:29:25.931075945Z 2026-10-18 06:29:25,930 hospital evaluated id=7f26c37207899c9154d1a8076563d658 encrypt_ms=236.8 service_ms=21.9 decrypt_ms=3.7 vault_ms=1.2
+hospital-1  | 2026-10-18T06:29:26.194536114Z 2026-10-18 06:29:26,193 hospital evaluated id=d05b1af65fbd89a3b8f13948b0ac6e08 encrypt_ms=234.4 service_ms=21.8 decrypt_ms=3.7 vault_ms=1.0
+hospital-1  | 2026-10-18T06:29:26.463795450Z 2026-10-18 06:29:26,463 hospital evaluated id=cfca51790b46d26573c324946504b874 encrypt_ms=241.3 service_ms=22.0 decrypt_ms=3.8 vault_ms=1.1
+hospital-1  | 2026-10-18T06:29:26.731919543Z 2026-10-18 06:29:26,731 hospital evaluated id=8466c2f7bc50db7b1b63152f5a9af901 encrypt_ms=239.0 service_ms=21.8 decrypt_ms=3.7 vault_ms=1.1
+hospital-1  | 2026-10-18T06:29:26.998599243Z 2026-10-18 06:29:26,998 hospital evaluated id=7412b89ffecc4fa10d05d113c1629548 encrypt_ms=238.7 service_ms=22.0 decrypt_ms=3.7 vault_ms=1.1
+hospital-1  | 2026-10-18T06:29:27.267939993Z 2026-10-18 06:29:27,267 hospital evaluated id=4ba0af0188a41035b70af1ad3cc5ae47 encrypt_ms=239.2 service_ms=22.8 decrypt_ms=3.7 vault_ms=1.1
+hospital-1  | 2026-10-18T06:29:27.534290217Z 2026-10-18 06:29:27,533 hospital evaluated id=9896f2496e3838fcb62916de629fdbad encrypt_ms=237.7 service_ms=22.0 decrypt_ms=3.7 vault_ms=1.2
+hospital-1  | 2026-10-18T06:29:27.800561863Z 2026-10-18 06:29:27,800 hospital evaluated id=821c4561df26743368dd5542b3f41108 encrypt_ms=238.4 service_ms=21.9 decrypt_ms=3.7 vault_ms=1.1
+hospital-1  | 2026-10-18T06:29:28.064794265Z 2026-10-18 06:29:28,064 hospital evaluated id=3501b726be2e2dc43fdaa8ec0f385f47 encrypt_ms=235.6 service_ms=22.2 decrypt_ms=3.7 vault_ms=1.0
+hospital-1  | 2026-10-18T06:29:28.329269128Z 2026-10-18 06:29:28,329 hospital evaluated id=5d9f3d023ea91ebf8eab974c2f91032e encrypt_ms=235.5 service_ms=22.4 decrypt_ms=3.8 vault_ms=1.0
+hospital-1  | 2026-10-18T06:29:28.597078822Z 2026-10-18 06:29:28,596 hospital evaluated id=ad6a944602b1eb7906fa5ae0b137ab3c encrypt_ms=239.3 service_ms=21.8 decrypt_ms=3.7 vault_ms=1.1
+hospital-1  | 2026-10-18T06:29:28.863512003Z 2026-10-18 06:29:28,863 hospital evaluated id=885c474c5d388fffd3b22fe884c0ed37 encrypt_ms=238.1 service_ms=21.9 decrypt_ms=3.7 vault_ms=1.0
+hospital-1  | 2026-10-18T06:29:29.131255702Z 2026-10-18 06:29:29,131 hospital evaluated id=9a87f212bfda0acaef8e29a4afa2e5a0 encrypt_ms=238.8 service_ms=22.3 decrypt_ms=3.7 vault_ms=1.1
+hospital-1  | 2026-10-18T06:29:29.395197191Z 2026-10-18 06:29:29,395 hospital evaluated id=11f5821db1434ad54ae7643e53df23b6 encrypt_ms=233.0 service_ms=23.9 decrypt_ms=4.2 vault_ms=1.1
+hospital-1  | 2026-10-18T06:29:29.656606497Z 2026-10-18 06:29:29,656 hospital evaluated id=8fec2404fb1efc53d46ff1e5f64bde42 encrypt_ms=232.6 service_ms=22.3 decrypt_ms=3.7 vault_ms=1.0
+hospital-1  | 2026-10-18T06:29:29.929308802Z 2026-10-18 06:29:29,929 hospital evaluated id=c45db871759c7d71e8e1c546ea9aef66 encrypt_ms=244.0 service_ms=22.2 decrypt_ms=3.7 vault_ms=1.0
+hospital-1  | 2026-10-18T06:29:30.191351634Z 2026-10-18 06:29:30,191 hospital evaluated id=8d21a82412db332e0e004b2523a81941 encrypt_ms=233.5 service_ms=22.0 decrypt_ms=3.7 vault_ms=1.0
+hospital-1  | 2026-10-18T06:29:30.461285557Z 2026-10-18 06:29:30,461 hospital evaluated id=9df5cffaf720a4f21c46b592fbab12b0 encrypt_ms=240.4 service_ms=23.0 decrypt_ms=3.7 vault_ms=1.0
+hospital-1  | 2026-10-18T06:29:30.723668080Z 2026-10-18 06:29:30,723 hospital evaluated id=1fbb826fb6e771bdd990b415875c1d8d encrypt_ms=232.9 service_ms=22.8 decrypt_ms=3.7 vault_ms=1.1
+hospital-1  | 2026-10-18T06:29:30.994404295Z 2026-10-18 06:29:30,994 hospital evaluated id=53d3b5a5e5922afc0619c3707a515c5e encrypt_ms=241.9 service_ms=22.2 decrypt_ms=3.7 vault_ms=1.0
+hospital-1  | 2026-10-18T06:29:31.256752883Z 2026-10-18 06:29:31,256 hospital evaluated id=0569f5ffa4920f06e2af8ae9a16b536f encrypt_ms=233.3 service_ms=22.5 decrypt_ms=3.7 vault_ms=1.1
+hospital-1  | 2026-10-18T06:29:31.523382863Z 2026-10-18 06:29:31,523 hospital evaluated id=c0831b4fc89066f57a0286eecb89d823 encrypt_ms=238.1 service_ms=21.8 decrypt_ms=3.8 vault_ms=1.0
+hospital-1  | 2026-10-18T06:29:31.785576913Z 2026-10-18 06:29:31,785 hospital evaluated id=6b3fa4c4ea05f6047521434385ec49e7 encrypt_ms=233.4 service_ms=22.2 decrypt_ms=3.7 vault_ms=1.0
+hospital-1  | 2026-10-18T06:29:32.049429903Z 2026-10-18 06:29:32,049 hospital evaluated id=f9f8a48863ef5ec2ea885d3e678cda62 encrypt_ms=234.6 service_ms=22.7 decrypt_ms=3.7 vault_ms=1.1
+hospital-1  | 2026-10-18T06:29:32.313503290Z 2026-10-18 06:29:32,313 hospital evaluated id=2e30a54b523b2e784b6def03c5a83940 encrypt_ms=234.5 service_ms=22.5 decrypt_ms=3.9 vault_ms=1.3
+hospital-1  | 2026-10-18T06:29:32.580167559Z 2026-10-18 06:29:32,580 hospital evaluated id=8b9be11fa2a71851ea4060666c49e80a encrypt_ms=237.8 service_ms=22.1 decrypt_ms=3.8 vault_ms=1.1
+hospital-1  | 2026-10-18T06:29:32.843982734Z 2026-10-18 06:29:32,843 hospital evaluated id=d1625a74fe9cc888449b48242fc842ae encrypt_ms=234.6 service_ms=22.6 decrypt_ms=3.7 vault_ms=1.0
+service-1   | 2026-10-18T05:09:45.487629362Z 2026-10-18 05:09:45,487 service evaluated id=e21d89b4483cee98d174cf66dd5bd6e1 ms=17.4 bytes_in=24303 bytes_out=1415
+service-1   | 2026-10-18T05:09:45.751912144Z 2026-10-18 05:09:45,751 service evaluated id=4dca88e4d66c3a9dd25fc43e126ec747 ms=17.3 bytes_in=24297 bytes_out=1414
+service-1   | 2026-10-18T05:09:46.017900257Z 2026-10-18 05:09:46,017 service evaluated id=fd7d8fb58f7f388593c342e5a3734f42 ms=19.4 bytes_in=24295 bytes_out=1415
+service-1   | 2026-10-18T05:09:46.280502056Z 2026-10-18 05:09:46,280 service evaluated id=c44f55a5f71fb385860561b8fe420df8 ms=17.4 bytes_in=24297 bytes_out=1414
+service-1   | 2026-10-18T05:09:46.545099425Z 2026-10-18 05:09:46,544 service evaluated id=5e859f9e09807be169936f64afbf4956 ms=17.5 bytes_in=24301 bytes_out=1414
+service-1   | 2026-10-18T05:09:46.814385483Z 2026-10-18 05:09:46,814 service evaluated id=e1ef1c973a2b91fa6c9f7db460778a77 ms=17.4 bytes_in=24304 bytes_out=1414
+service-1   | 2026-10-18T05:09:47.080743928Z 2026-10-18 05:09:47,080 service evaluated id=5448f6eb517dc4fbb556ae55b06aa78f ms=17.4 bytes_in=24300 bytes_out=1415
+service-1   | 2026-10-18T05:09:47.344588294Z 2026-10-18 05:09:47,344 service evaluated id=f88402f5e1d57954157561d0f26c20c5 ms=17.4 bytes_in=24304 bytes_out=1415
+service-1   | 2026-10-18T05:09:47.610479079Z 2026-10-18 05:09:47,609 service evaluated id=e1d5591dd84d4309153a9416a7518139 ms=17.4 bytes_in=24302 bytes_out=1414
+service-1   | 2026-10-18T05:09:47.879493570Z 2026-10-18 05:09:47,879 service evaluated id=acfb97c7bc8b57c91c96cf45ad0bd1eb ms=18.3 bytes_in=24298 bytes_out=1415
+service-1   | 2026-10-18T05:09:48.142032981Z 2026-10-18 05:09:48,141 service evaluated id=1b9c4896fa6b35129db7e5bb758fadfd ms=17.4 bytes_in=24304 bytes_out=1414
+service-1   | 2026-10-18T05:09:48.405758231Z 2026-10-18 05:09:48,405 service evaluated id=99cc4ba388c1fb069c1f8ea8d29dd70f ms=17.6 bytes_in=24301 bytes_out=1414
+service-1   | 2026-10-18T05:09:48.673018451Z 2026-10-18 05:09:48,672 service evaluated id=4e99b153300a7e5ad08f3c5460e6eafe ms=18.2 bytes_in=24300 bytes_out=1415
+service-1   | 2026-10-18T05:09:48.940632135Z 2026-10-18 05:09:48,939 service evaluated id=6a4b4e0e7b73b0c9bd6c55419998ec56 ms=17.5 bytes_in=24301 bytes_out=1415
+service-1   | 2026-10-18T05:09:49.206827157Z 2026-10-18 05:09:49,206 service evaluated id=848b73bfff50298b28a9f3145049bc8a ms=17.8 bytes_in=24303 bytes_out=1414
+service-1   | 2026-10-18T05:09:49.475242502Z 2026-10-18 05:09:49,475 service evaluated id=5044274f858ada2775c28bc00b5dbf48 ms=17.7 bytes_in=24301 bytes_out=1415
+service-1   | 2026-10-18T05:09:49.743553488Z 2026-10-18 05:09:49,739 service evaluated id=3708543cfdff9ee21da6e0f74cda4f4b ms=20.0 bytes_in=24304 bytes_out=1415
+service-1   | 2026-10-18T05:09:50.003652506Z 2026-10-18 05:09:50,003 service evaluated id=cea2e9774e8f19b08820f4feaed2d1a3 ms=17.3 bytes_in=24303 bytes_out=1414
+service-1   | 2026-10-18T05:09:50.267231860Z 2026-10-18 05:09:50,267 service evaluated id=0fdd10ea053d8406bbc450846a7c9d3c ms=17.6 bytes_in=24298 bytes_out=1415
+service-1   | 2026-10-18T05:34:42.301288831Z 2026-10-18 05:34:42,301 service evaluated id=b426cf8688abf4e15d15033eb1b3cb19 ms=17.4 bytes_in=24300 bytes_out=1415
+service-1   | 2026-10-18T05:34:42.563246259Z 2026-10-18 05:34:42,563 service evaluated id=5777240865eeb427251d041e3c810cb2 ms=17.4 bytes_in=24301 bytes_out=1415
+service-1   | 2026-10-18T05:34:42.829560142Z 2026-10-18 05:34:42,829 service evaluated id=167d97a4a3346a6ba19096db2e7b2b7a ms=17.4 bytes_in=24306 bytes_out=1414
+service-1   | 2026-10-18T05:35:06.054032285Z 2026-10-18 05:35:06,053 service evaluated id=966308f39385e48c91e380a3b0b5e0a3 ms=19.9 bytes_in=24296 bytes_out=1415
+service-1   | 2026-10-18T05:35:06.316495793Z 2026-10-18 05:35:06,316 service evaluated id=e239006894e14486f8fa0ce2793fb616 ms=19.0 bytes_in=24298 bytes_out=1415
+service-1   | 2026-10-18T05:35:06.579082676Z 2026-10-18 05:35:06,578 service evaluated id=0e889f53585f611392b9d0263dbfbf57 ms=17.4 bytes_in=24307 bytes_out=1415
+service-1   | 2026-10-18T05:35:06.849308180Z 2026-10-18 05:35:06,849 service evaluated id=c0604a809fd6127dcd8e7d44fcb13b3f ms=17.4 bytes_in=24301 bytes_out=1413
+service-1   | 2026-10-18T05:35:07.122747497Z 2026-10-18 05:35:07,122 service evaluated id=e0bbc91829dcaacbf2259fa3a581a203 ms=17.3 bytes_in=24295 bytes_out=1415
+service-1   | 2026-10-18T05:35:07.388270716Z 2026-10-18 05:35:07,388 service evaluated id=38422cedab71a9a438efee73bfcab2d9 ms=17.7 bytes_in=24301 bytes_out=1415
+service-1   | 2026-10-18T05:35:07.649626899Z 2026-10-18 05:35:07,649 service evaluated id=8f848dad5d8562de67740aeceda98fe5 ms=17.5 bytes_in=24293 bytes_out=1412
+service-1   | 2026-10-18T05:35:07.916546342Z 2026-10-18 05:35:07,916 service evaluated id=1c5439617331e0519e7885e329138c66 ms=18.2 bytes_in=24298 bytes_out=1414
+service-1   | 2026-10-18T05:35:08.176259884Z 2026-10-18 05:35:08,176 service evaluated id=2521c80b57de461e3ac6cd8f21fa5ff1 ms=18.1 bytes_in=24297 bytes_out=1415
+service-1   | 2026-10-18T05:35:08.444961198Z 2026-10-18 05:35:08,444 service evaluated id=705224128d0d61e5f7af8713d8cf4c94 ms=20.9 bytes_in=24302 bytes_out=1414
+service-1   | 2026-10-18T05:35:08.711132301Z 2026-10-18 05:35:08,706 service evaluated id=6fe5c35ee764d4d094085aace090d6b5 ms=17.5 bytes_in=24301 bytes_out=1413
+service-1   | 2026-10-18T05:35:08.970760289Z 2026-10-18 05:35:08,970 service evaluated id=284961a2253b02219089b9f587ac17fc ms=17.5 bytes_in=24303 bytes_out=1415
+service-1   | 2026-10-18T05:35:09.237645557Z 2026-10-18 05:35:09,237 service evaluated id=0b4a1a9a3e46b89cdb840ec7e95ee431 ms=17.7 bytes_in=24298 bytes_out=1415
+service-1   | 2026-10-18T05:35:09.504305603Z 2026-10-18 05:35:09,501 service evaluated id=62e252cc4eada9258324016e21a21760 ms=18.3 bytes_in=24301 bytes_out=1413
+service-1   | 2026-10-18T05:35:09.766752074Z 2026-10-18 05:35:09,764 service evaluated id=df72c701ab652780c3d0031edc609724 ms=18.0 bytes_in=24299 bytes_out=1414
+service-1   | 2026-10-18T05:35:10.026279273Z 2026-10-18 05:35:10,026 service evaluated id=446ceab1d6c9c8782074aced2a2af5be ms=18.3 bytes_in=24299 bytes_out=1415
+service-1   | 2026-10-18T05:35:10.293766266Z 2026-10-18 05:35:10,289 service evaluated id=b94f0d39d86c3d6ac0d236752f3800c6 ms=17.6 bytes_in=24299 bytes_out=1415
+service-1   | 2026-10-18T05:35:10.550966659Z 2026-10-18 05:35:10,550 service evaluated id=8ba942c9912b0b10ba2679edf47083a1 ms=17.7 bytes_in=24302 bytes_out=1415
+service-1   | 2026-10-18T05:35:10.813158587Z 2026-10-18 05:35:10,813 service evaluated id=70f149ca3afe8e07fdc5d55335904f2b ms=17.9 bytes_in=24303 bytes_out=1414
+service-1   | 2026-10-18T05:35:11.075493345Z 2026-10-18 05:35:11,075 service evaluated id=c7eadb21a9d453a81226a64ccca5ba57 ms=17.6 bytes_in=24299 bytes_out=1414
+service-1   | 2026-10-18T05:35:11.337556093Z 2026-10-18 05:35:11,337 service evaluated id=0e03127f85120c01fde5e838ad665c53 ms=17.7 bytes_in=24300 bytes_out=1415
+service-1   | 2026-10-18T05:35:11.608948150Z 2026-10-18 05:35:11,608 service evaluated id=f0ca18b5f6924b6fd6613da8394c83d1 ms=17.7 bytes_in=24300 bytes_out=1414
+service-1   | 2026-10-18T05:35:11.881678553Z 2026-10-18 05:35:11,877 service evaluated id=dbf77308fa7133f330141904cd5d2bdf ms=17.6 bytes_in=24302 bytes_out=1415
+service-1   | 2026-10-18T05:53:22.084306684Z 2026-10-18 05:53:22,080 service evaluated id=0f3c0a9410af0340e12574209c34062e ms=17.8 bytes_in=24299 bytes_out=1415
+service-1   | 2026-10-18T05:53:22.347539842Z 2026-10-18 05:53:22,343 service evaluated id=a817732ebff809438d4209dbb1e8ea59 ms=17.7 bytes_in=24302 bytes_out=1414
+service-1   | 2026-10-18T05:53:22.618365200Z 2026-10-18 05:53:22,613 service evaluated id=4c253b17510fd2dfa1efec62138d691a ms=18.0 bytes_in=24299 bytes_out=1414
+service-1   | 2026-10-18T05:53:46.188195380Z 2026-10-18 05:53:46,188 service evaluated id=7bc2f5821d688187069a4ad012f0d69f ms=17.9 bytes_in=24301 bytes_out=1414
+service-1   | 2026-10-18T05:53:46.448763810Z 2026-10-18 05:53:46,448 service evaluated id=ae467d0a2c373ee0adb2dbd73b0fbab1 ms=17.5 bytes_in=24303 bytes_out=1415
+service-1   | 2026-10-18T05:53:46.715598300Z 2026-10-18 05:53:46,715 service evaluated id=00878f325a347212ba03eca38aff09e2 ms=17.5 bytes_in=24295 bytes_out=1414
+service-1   | 2026-10-18T05:53:46.982586407Z 2026-10-18 05:53:46,982 service evaluated id=57657dbe185c91680378da97a2315811 ms=17.8 bytes_in=24301 bytes_out=1413
+service-1   | 2026-10-18T05:53:47.251995009Z 2026-10-18 05:53:47,251 service evaluated id=c80867a592d007ba0dd597c92ec87718 ms=18.3 bytes_in=24305 bytes_out=1414
+service-1   | 2026-10-18T05:53:47.529632740Z 2026-10-18 05:53:47,525 service evaluated id=1be37bb964d023e63706c9f341763364 ms=17.4 bytes_in=24301 bytes_out=1415
+service-1   | 2026-10-18T05:53:47.788701966Z 2026-10-18 05:53:47,788 service evaluated id=0279ba8c421c363693bd9427a36afac9 ms=17.4 bytes_in=24303 bytes_out=1415
+service-1   | 2026-10-18T05:53:48.053980828Z 2026-10-18 05:53:48,053 service evaluated id=cb422f670cc0cf617ba3fbf5e89e1bdd ms=17.8 bytes_in=24301 bytes_out=1414
+service-1   | 2026-10-18T05:53:48.317426996Z 2026-10-18 05:53:48,317 service evaluated id=87811a4aadb732ad0b095229f9224e1e ms=18.1 bytes_in=24302 bytes_out=1414
+service-1   | 2026-10-18T05:53:48.584306861Z 2026-10-18 05:53:48,583 service evaluated id=84598e846f372f27b98806cfb9b3630f ms=17.4 bytes_in=24300 bytes_out=1413
+service-1   | 2026-10-18T05:53:48.847368661Z 2026-10-18 05:53:48,847 service evaluated id=ab6cd6107339992ce230cdb3f111bdb5 ms=17.7 bytes_in=24300 bytes_out=1415
+service-1   | 2026-10-18T05:53:49.113568427Z 2026-10-18 05:53:49,113 service evaluated id=8e33466405175a8c0974f14c3a62694b ms=17.8 bytes_in=24301 bytes_out=1415
+service-1   | 2026-10-18T05:53:49.380040498Z 2026-10-18 05:53:49,379 service evaluated id=bf24ae2c9d1244a040e01e75df862238 ms=17.4 bytes_in=24301 bytes_out=1414
+service-1   | 2026-10-18T05:53:49.646740473Z 2026-10-18 05:53:49,646 service evaluated id=76ba04900e2e8f89576476fb32cc6342 ms=17.7 bytes_in=24299 bytes_out=1415
+service-1   | 2026-10-18T05:53:49.913777301Z 2026-10-18 05:53:49,913 service evaluated id=5ebe08ab30fb837b45e627b161987907 ms=17.9 bytes_in=24303 bytes_out=1412
+service-1   | 2026-10-18T05:53:50.177836756Z 2026-10-18 05:53:50,177 service evaluated id=ec459483fc30469043f5397b2fe68594 ms=17.3 bytes_in=24300 bytes_out=1415
+service-1   | 2026-10-18T05:53:50.443160235Z 2026-10-18 05:53:50,443 service evaluated id=8dbbd80ff3c7223b5b6f8033f87af00c ms=17.5 bytes_in=24302 bytes_out=1414
+service-1   | 2026-10-18T05:53:50.710747551Z 2026-10-18 05:53:50,710 service evaluated id=a2e41eeceb25b276414cf72eb037242a ms=17.8 bytes_in=24300 bytes_out=1415
+service-1   | 2026-10-18T05:53:50.975655532Z 2026-10-18 05:53:50,975 service evaluated id=832d362c379da503308799c7c41b36e7 ms=17.5 bytes_in=24303 bytes_out=1415
+service-1   | 2026-10-18T05:53:51.239759634Z 2026-10-18 05:53:51,239 service evaluated id=8cc60c294435212c68aa028f404a2bba ms=17.6 bytes_in=24303 bytes_out=1415
+service-1   | 2026-10-18T05:53:51.508891991Z 2026-10-18 05:53:51,504 service evaluated id=8d69bde7df05495755542320ef5c3bf8 ms=17.6 bytes_in=24307 bytes_out=1415
+service-1   | 2026-10-18T05:53:51.771448566Z 2026-10-18 05:53:51,771 service evaluated id=6efcc7a7ec37eeb71f8882efceaa5364 ms=17.4 bytes_in=24299 bytes_out=1415
+service-1   | 2026-10-18T05:53:52.042933805Z 2026-10-18 05:53:52,038 service evaluated id=cdc3b69aef03af2ef70ab24139ec435d ms=17.4 bytes_in=24301 bytes_out=1415
+service-1   | 2026-10-18T06:20:48.114282531Z 2026-10-18 06:20:48,110 service evaluated id=02fa025b2cefa73dedc1cbf9a9603db6 ms=18.9 bytes_in=24303 bytes_out=1412
+service-1   | 2026-10-18T06:20:48.544799672Z 2026-10-18 06:20:48,544 service evaluated id=5264dc45df2601b9e2f9f808a4326d20 ms=18.3 bytes_in=24300 bytes_out=1414
+service-1   | 2026-10-18T06:20:49.132176674Z 2026-10-18 06:20:49,131 service evaluated id=5cb1ca5cfcfbf18474858c34123a3f49 ms=17.6 bytes_in=24298 bytes_out=1414
+service-1   | 2026-10-18T06:20:49.750193179Z 2026-10-18 06:20:49,750 service evaluated id=6173665f53df8ae330078f52960488be ms=17.8 bytes_in=24298 bytes_out=1415
+service-1   | 2026-10-18T06:20:50.211560228Z 2026-10-18 06:20:50,211 service evaluated id=49a862bf898b334594535e44edd87a13 ms=17.3 bytes_in=24301 bytes_out=1414
+service-1   | 2026-10-18T06:20:50.636768624Z 2026-10-18 06:20:50,636 service evaluated id=53a3fe2c97562eacd4dc3d4b1dabb796 ms=17.4 bytes_in=24302 bytes_out=1415
+service-1   | 2026-10-18T06:20:51.075817745Z 2026-10-18 06:20:51,075 service evaluated id=d7952abbe9893a0b8783c2787d22df89 ms=17.8 bytes_in=24300 bytes_out=1415
+service-1   | 2026-10-18T06:20:51.505477359Z 2026-10-18 06:20:51,505 service evaluated id=e543e82f8b655b0155299723dc5589a5 ms=17.8 bytes_in=24300 bytes_out=1415
+service-1   | 2026-10-18T06:20:51.944462845Z 2026-10-18 06:20:51,944 service evaluated id=12345b054a07358afc97c6951da210be ms=17.7 bytes_in=24300 bytes_out=1415
+service-1   | 2026-10-18T06:20:52.385751171Z 2026-10-18 06:20:52,385 service evaluated id=dd926adef76a79f936183dbb89577a7b ms=17.6 bytes_in=24303 bytes_out=1415
+service-1   | 2026-10-18T06:20:52.828599233Z 2026-10-18 06:20:52,828 service evaluated id=732f9d394d41bd0f324e410a1444e818 ms=17.8 bytes_in=24305 bytes_out=1415
+service-1   | 2026-10-18T06:20:53.264565290Z 2026-10-18 06:20:53,264 service evaluated id=f9a5225ed2011e3f2431eff4fe6b0e41 ms=17.5 bytes_in=24298 bytes_out=1415
+service-1   | 2026-10-18T06:20:53.704752101Z 2026-10-18 06:20:53,704 service evaluated id=1d4deccdde2565e8339aa7f83dd699f6 ms=17.4 bytes_in=24301 bytes_out=1415
+service-1   | 2026-10-18T06:20:54.137301853Z 2026-10-18 06:20:54,137 service evaluated id=8ea0bec21c4048b4b80933d7bcbd8014 ms=17.7 bytes_in=24299 bytes_out=1415
+service-1   | 2026-10-18T06:20:54.575952546Z 2026-10-18 06:20:54,572 service evaluated id=4992f9bc94bd578a90aa9ad88377a490 ms=20.6 bytes_in=24299 bytes_out=1415
+service-1   | 2026-10-18T06:20:55.009595874Z 2026-10-18 06:20:55,009 service evaluated id=67158e3ba26de93f1cb7cb61da7be8c4 ms=18.2 bytes_in=24301 bytes_out=1415
+service-1   | 2026-10-18T06:20:55.450490428Z 2026-10-18 06:20:55,450 service evaluated id=85d4c254be52f8934af11e38d55eaa89 ms=17.7 bytes_in=24304 bytes_out=1415
+service-1   | 2026-10-18T06:20:55.880743904Z 2026-10-18 06:20:55,880 service evaluated id=907c930d75991646808874c49e4e8c21 ms=17.8 bytes_in=24301 bytes_out=1415
+service-1   | 2026-10-18T06:20:56.313220549Z 2026-10-18 06:20:56,313 service evaluated id=77da6190d1fa8e60ae1d87a70e7b4af6 ms=18.1 bytes_in=24303 bytes_out=1414
+service-1   | 2026-10-18T06:20:56.745350276Z 2026-10-18 06:20:56,745 service evaluated id=350f1e211e890a5c5f91bab5f28a0df6 ms=17.8 bytes_in=24303 bytes_out=1415
+service-1   | 2026-10-18T06:20:57.180762190Z 2026-10-18 06:20:57,180 service evaluated id=2f851a07ea08bad34588b279a54826d8 ms=18.7 bytes_in=24299 bytes_out=1415
+service-1   | 2026-10-18T06:20:57.619931453Z 2026-10-18 06:20:57,619 service evaluated id=9f3060ce2d60e57bda7ad4e4b1777829 ms=17.7 bytes_in=24296 bytes_out=1415
+service-1   | 2026-10-18T06:20:58.058732369Z 2026-10-18 06:20:58,058 service evaluated id=3bea4c5a6712cb1817cbb3d02feb2367 ms=17.6 bytes_in=24300 bytes_out=1413
+service-1   | 2026-10-18T06:26:42.001543950Z 2026-10-18 06:26:41,997 service evaluated id=ede013bea8a2da6c3b9b1d2530cf38d7 ms=17.7 bytes_in=24295 bytes_out=1415
+service-1   | 2026-10-18T06:26:42.264828659Z 2026-10-18 06:26:42,264 service evaluated id=8c96d7ff6cad08919f3eb09ed4d8737a ms=17.9 bytes_in=24302 bytes_out=1415
+service-1   | 2026-10-18T06:26:42.529087574Z 2026-10-18 06:26:42,528 service evaluated id=d89584f840314a948c8f4c89f9540b5b ms=17.5 bytes_in=24302 bytes_out=1414
+service-1   | 2026-10-18T06:28:39.314756063Z 2026-10-18 06:28:39,314 service evaluated id=ea0d2458ec48a6d8cb29fb2160927210 ms=17.3 bytes_in=24301 bytes_out=1415
+service-1   | 2026-10-18T06:28:39.575727570Z 2026-10-18 06:28:39,575 service evaluated id=12adaba56ae7ca185436b8c36964b172 ms=17.5 bytes_in=24301 bytes_out=1415
+service-1   | 2026-10-18T06:28:39.836970583Z 2026-10-18 06:28:39,836 service evaluated id=402cffba426f28a5527f6c39590db299 ms=17.3 bytes_in=24298 bytes_out=1412
+service-1   | 2026-10-18T06:28:40.098915810Z 2026-10-18 06:28:40,098 service evaluated id=7e7205275bc8924edf1af28e6f7078c7 ms=17.3 bytes_in=24302 bytes_out=1414
+service-1   | 2026-10-18T06:28:40.362692111Z 2026-10-18 06:28:40,362 service evaluated id=6a93867ddad8d3b58f599e4d3063091d ms=17.3 bytes_in=24303 bytes_out=1415
+service-1   | 2026-10-18T06:28:40.623908419Z 2026-10-18 06:28:40,623 service evaluated id=a3c9aca9436e05c1a556617867566b9c ms=17.3 bytes_in=24304 bytes_out=1414
+service-1   | 2026-10-18T06:28:40.886269950Z 2026-10-18 06:28:40,886 service evaluated id=a05b193ce7967347f0fe2116faa9afb9 ms=17.7 bytes_in=24298 bytes_out=1415
+service-1   | 2026-10-18T06:28:41.148358917Z 2026-10-18 06:28:41,147 service evaluated id=b284d55bfb6db2311f7f595979d02bdd ms=17.3 bytes_in=24298 bytes_out=1415
+service-1   | 2026-10-18T06:28:41.411182683Z 2026-10-18 06:28:41,411 service evaluated id=40c3b52611ef74f4665c081f63e5a2ab ms=17.7 bytes_in=24298 bytes_out=1414
+service-1   | 2026-10-18T06:28:41.674348654Z 2026-10-18 06:28:41,673 service evaluated id=329447bc56d546eee6474dc911f61365 ms=17.3 bytes_in=24299 bytes_out=1415
+service-1   | 2026-10-18T06:28:41.940628474Z 2026-10-18 06:28:41,940 service evaluated id=01be81afe872725f7d68cd6def6fcc76 ms=18.0 bytes_in=24303 bytes_out=1415
+service-1   | 2026-10-18T06:28:42.206223352Z 2026-10-18 06:28:42,206 service evaluated id=926c045d474d749f19872d3f7d69cf3c ms=19.5 bytes_in=24301 bytes_out=1415
+service-1   | 2026-10-18T06:28:42.468763186Z 2026-10-18 06:28:42,468 service evaluated id=fc77f12508c946d9361f48e67743673f ms=17.4 bytes_in=24300 bytes_out=1415
+service-1   | 2026-10-18T06:28:42.732393904Z 2026-10-18 06:28:42,732 service evaluated id=6122616bfcc255fa4bce88c087e7822d ms=17.4 bytes_in=24304 bytes_out=1415
+service-1   | 2026-10-18T06:28:42.994443376Z 2026-10-18 06:28:42,994 service evaluated id=61c78af71cea4a656c38da42df60fc4a ms=18.1 bytes_in=24300 bytes_out=1415
+service-1   | 2026-10-18T06:28:43.255237546Z 2026-10-18 06:28:43,255 service evaluated id=3da5aa6be0b3554da1ac41bb8afe6de4 ms=17.4 bytes_in=24300 bytes_out=1415
+service-1   | 2026-10-18T06:28:43.518483817Z 2026-10-18 06:28:43,518 service evaluated id=948269bc9a8dd1a60eab7bbb4cc7d925 ms=17.4 bytes_in=24302 bytes_out=1415
+service-1   | 2026-10-18T06:28:43.785867245Z 2026-10-18 06:28:43,785 service evaluated id=2061f79c54ed466696c1ab15754187fd ms=17.3 bytes_in=24299 bytes_out=1415
+service-1   | 2026-10-18T06:28:44.052873595Z 2026-10-18 06:28:44,052 service evaluated id=d97a02c2dfceebc7bf1254ad1a2a25b3 ms=17.3 bytes_in=24298 bytes_out=1415
+service-1   | 2026-10-18T06:28:44.321278066Z 2026-10-18 06:28:44,321 service evaluated id=29f974a7a1d95553e798e5d5d59c30db ms=17.6 bytes_in=24302 bytes_out=1415
+service-1   | 2026-10-18T06:28:44.590942510Z 2026-10-18 06:28:44,590 service evaluated id=7391a03a6f8468cb4c8e2a5e19badf70 ms=17.3 bytes_in=24296 bytes_out=1415
+service-1   | 2026-10-18T06:28:44.859118784Z 2026-10-18 06:28:44,858 service evaluated id=c131fc1dc595a98b4b6c0732d06fdb23 ms=17.5 bytes_in=24302 bytes_out=1414
+service-1   | 2026-10-18T06:28:45.130733956Z 2026-10-18 06:28:45,130 service evaluated id=ce8f0e1add7080ce937822a716eb10e7 ms=17.3 bytes_in=24302 bytes_out=1414
+service-1   | 2026-10-18T06:28:45.399116946Z 2026-10-18 06:28:45,398 service evaluated id=47cfa4e566f5eec4ed1d5d35e201f3a8 ms=17.4 bytes_in=24302 bytes_out=1413
+service-1   | 2026-10-18T06:28:45.667218066Z 2026-10-18 06:28:45,667 service evaluated id=319c6b18d96df4190c740cd4986112c0 ms=17.4 bytes_in=24298 bytes_out=1415
+service-1   | 2026-10-18T06:28:45.933260998Z 2026-10-18 06:28:45,933 service evaluated id=08ddce24375065f7b481082192b9be4e ms=17.4 bytes_in=24305 bytes_out=1415
+service-1   | 2026-10-18T06:28:46.202996489Z 2026-10-18 06:28:46,202 service evaluated id=db9b3170b31f73f881028b49a91f3e2b ms=17.5 bytes_in=24300 bytes_out=1414
+service-1   | 2026-10-18T06:28:46.472228411Z 2026-10-18 06:28:46,472 service evaluated id=d220b0489d89d7a907776c8dd7f41bff ms=17.3 bytes_in=24304 bytes_out=1415
+service-1   | 2026-10-18T06:28:46.740260156Z 2026-10-18 06:28:46,740 service evaluated id=5fb35e8b54767583f70b561f368a0f22 ms=17.3 bytes_in=24302 bytes_out=1413
+service-1   | 2026-10-18T06:28:47.004259851Z 2026-10-18 06:28:47,001 service evaluated id=f6b83e8acc67b1d5cfdb8295b4a2a412 ms=17.3 bytes_in=24303 bytes_out=1414
+service-1   | 2026-10-18T06:28:47.273517321Z 2026-10-18 06:28:47,273 service evaluated id=20644b52907cf0251d47566873f5ae94 ms=17.4 bytes_in=24302 bytes_out=1415
+service-1   | 2026-10-18T06:28:47.546048682Z 2026-10-18 06:28:47,545 service evaluated id=d415188fdcb3a9212234ca70654141df ms=17.5 bytes_in=24301 bytes_out=1415
+service-1   | 2026-10-18T06:28:47.816354034Z 2026-10-18 06:28:47,816 service evaluated id=20ffb84ec80a701f9c30fe46a54a2ab5 ms=17.4 bytes_in=24300 bytes_out=1415
+service-1   | 2026-10-18T06:28:48.084045014Z 2026-10-18 06:28:48,083 service evaluated id=63ea11161016d6f5c871e1ae20685b1f ms=17.3 bytes_in=24304 bytes_out=1415
+service-1   | 2026-10-18T06:28:48.356374569Z 2026-10-18 06:28:48,356 service evaluated id=85729d99feb0cfdfb9efca061d210c3f ms=17.6 bytes_in=24304 bytes_out=1414
+service-1   | 2026-10-18T06:28:48.622042805Z 2026-10-18 06:28:48,621 service evaluated id=9577a8d4ed553fc19820313e84843f12 ms=17.3 bytes_in=24303 bytes_out=1414
+service-1   | 2026-10-18T06:28:48.886618237Z 2026-10-18 06:28:48,886 service evaluated id=ea74b85c263daefb60bb4ebf10370769 ms=17.3 bytes_in=24302 bytes_out=1415
+service-1   | 2026-10-18T06:28:49.151711115Z 2026-10-18 06:28:49,151 service evaluated id=e43e38942b16a7b3b5b1243c86cc693c ms=17.5 bytes_in=24303 bytes_out=1415
+service-1   | 2026-10-18T06:28:49.418307449Z 2026-10-18 06:28:49,418 service evaluated id=06a9eac1534415fdfd85bd30f8f77c01 ms=17.7 bytes_in=24303 bytes_out=1414
+service-1   | 2026-10-18T06:28:49.681581017Z 2026-10-18 06:28:49,681 service evaluated id=6f33bde7d816ef403778d8c353db96ac ms=17.6 bytes_in=24300 bytes_out=1415
+service-1   | 2026-10-18T06:28:49.947757478Z 2026-10-18 06:28:49,947 service evaluated id=27312145582d5a45e90954fa455cc808 ms=17.4 bytes_in=24302 bytes_out=1415
+service-1   | 2026-10-18T06:28:50.212909502Z 2026-10-18 06:28:50,212 service evaluated id=fe9d2270c347d237fd26c6440826ac11 ms=17.4 bytes_in=24298 bytes_out=1414
+service-1   | 2026-10-18T06:28:50.478156638Z 2026-10-18 06:28:50,477 service evaluated id=feab3b203bbee937dabc4ace5bb21807 ms=17.6 bytes_in=24304 bytes_out=1415
+service-1   | 2026-10-18T06:28:50.747402860Z 2026-10-18 06:28:50,747 service evaluated id=b81873109d04ca562248c14759a14c20 ms=17.8 bytes_in=24300 bytes_out=1415
+service-1   | 2026-10-18T06:28:51.009970811Z 2026-10-18 06:28:51,009 service evaluated id=fc15d7e4036dc5582c334e7465b8d005 ms=17.7 bytes_in=24302 bytes_out=1414
+service-1   | 2026-10-18T06:28:51.276132849Z 2026-10-18 06:28:51,275 service evaluated id=47d5c169c393a55e538090e04aef1ce1 ms=17.8 bytes_in=24299 bytes_out=1414
+service-1   | 2026-10-18T06:28:51.542524013Z 2026-10-18 06:28:51,542 service evaluated id=6b714a58dfa357f888760e14617a33d9 ms=17.5 bytes_in=24297 bytes_out=1415
+service-1   | 2026-10-18T06:28:51.807211560Z 2026-10-18 06:28:51,807 service evaluated id=199f25444a5e80fc6beca6052163a21c ms=17.4 bytes_in=24299 bytes_out=1415
+service-1   | 2026-10-18T06:28:52.071447340Z 2026-10-18 06:28:52,071 service evaluated id=1e3883a5c115df099ef3dbb5d284824c ms=17.5 bytes_in=24300 bytes_out=1415
+service-1   | 2026-10-18T06:28:52.338408232Z 2026-10-18 06:28:52,338 service evaluated id=9804d316fdf5c29aae7450c4aa6128dc ms=18.0 bytes_in=24298 bytes_out=1414
+service-1   | 2026-10-18T06:28:52.603545495Z 2026-10-18 06:28:52,603 service evaluated id=c6d515fb3fa273b22a87c1a26447bf68 ms=17.4 bytes_in=24299 bytes_out=1413
+service-1   | 2026-10-18T06:28:52.868436012Z 2026-10-18 06:28:52,868 service evaluated id=2ac429ed852c6197dcd9fe54fa34de74 ms=17.5 bytes_in=24301 bytes_out=1414
+service-1   | 2026-10-18T06:28:53.131420073Z 2026-10-18 06:28:53,131 service evaluated id=b0215f5dbc15f9054cfb9cd4a5532c26 ms=18.0 bytes_in=24296 bytes_out=1415
+service-1   | 2026-10-18T06:28:53.395121610Z 2026-10-18 06:28:53,394 service evaluated id=9cad9b7ba0308fef8a960812017b2559 ms=17.6 bytes_in=24297 bytes_out=1415
+service-1   | 2026-10-18T06:28:53.660786519Z 2026-10-18 06:28:53,660 service evaluated id=333cc9adb578518c53f00ed05e8ddfbf ms=17.7 bytes_in=24303 bytes_out=1415
+service-1   | 2026-10-18T06:28:53.923677485Z 2026-10-18 06:28:53,923 service evaluated id=0619044e58a7b1bd3023657bab321fa5 ms=17.4 bytes_in=24301 bytes_out=1414
+service-1   | 2026-10-18T06:28:54.187976014Z 2026-10-18 06:28:54,187 service evaluated id=5956d68e784552012ec6ac418db69f7f ms=17.4 bytes_in=24298 bytes_out=1414
+service-1   | 2026-10-18T06:28:54.455351529Z 2026-10-18 06:28:54,455 service evaluated id=67db4d5de42a06d6f1fa31728d79d46e ms=17.9 bytes_in=24300 bytes_out=1414
+service-1   | 2026-10-18T06:28:54.724337506Z 2026-10-18 06:28:54,723 service evaluated id=d9eb87b5f54fa12af631e2047df6aeb6 ms=17.5 bytes_in=24300 bytes_out=1414
+service-1   | 2026-10-18T06:28:54.991282004Z 2026-10-18 06:28:54,990 service evaluated id=99603d919d41fcff94aa9d93a1e71186 ms=17.8 bytes_in=24303 bytes_out=1415
+service-1   | 2026-10-18T06:28:55.256217041Z 2026-10-18 06:28:55,255 service evaluated id=ec3dfb1a9dd8aac038dbe8220baba456 ms=17.5 bytes_in=24302 bytes_out=1415
+service-1   | 2026-10-18T06:28:55.520389049Z 2026-10-18 06:28:55,520 service evaluated id=6cbe4fb5102c9a5fa5b54f0ce329bf64 ms=17.5 bytes_in=24299 bytes_out=1414
+service-1   | 2026-10-18T06:28:55.784585320Z 2026-10-18 06:28:55,784 service evaluated id=faffc0ffff61c5c28b384253fd54c11a ms=17.5 bytes_in=24299 bytes_out=1415
+service-1   | 2026-10-18T06:28:56.049113296Z 2026-10-18 06:28:56,048 service evaluated id=1145a3ea2527cc87dd1d9327d536fee4 ms=17.5 bytes_in=24305 bytes_out=1414
+service-1   | 2026-10-18T06:28:56.313410165Z 2026-10-18 06:28:56,313 service evaluated id=f420cec0958e3ed95d054948c15e631c ms=17.4 bytes_in=24301 bytes_out=1414
+service-1   | 2026-10-18T06:28:56.579597565Z 2026-10-18 06:28:56,579 service evaluated id=a296f120e10640fc0a4a65b1c176ff72 ms=17.4 bytes_in=24299 bytes_out=1415
+service-1   | 2026-10-18T06:28:56.847449008Z 2026-10-18 06:28:56,847 service evaluated id=3021bbb3ccf4e932ecf47a0c86455865 ms=17.4 bytes_in=24299 bytes_out=1415
+service-1   | 2026-10-18T06:28:57.115239353Z 2026-10-18 06:28:57,114 service evaluated id=53dc5a0571a3c436a0224c2cfe10febf ms=18.2 bytes_in=24299 bytes_out=1414
+service-1   | 2026-10-18T06:28:57.379781428Z 2026-10-18 06:28:57,379 service evaluated id=3f88c40ede60a0ccbc27a4e3407a78b5 ms=17.4 bytes_in=24299 bytes_out=1415
+service-1   | 2026-10-18T06:28:57.643396110Z 2026-10-18 06:28:57,643 service evaluated id=831407b9e750213b3e5f9b65102d5f57 ms=17.4 bytes_in=24302 bytes_out=1415
+service-1   | 2026-10-18T06:28:57.906523297Z 2026-10-18 06:28:57,906 service evaluated id=9dc91cb272e0c82b7f532881bfd68283 ms=17.7 bytes_in=24300 bytes_out=1414
+service-1   | 2026-10-18T06:28:58.168142957Z 2026-10-18 06:28:58,167 service evaluated id=eb57b937dcf20eb8ab24a73839ea8609 ms=17.4 bytes_in=24297 bytes_out=1415
+service-1   | 2026-10-18T06:28:58.434793319Z 2026-10-18 06:28:58,434 service evaluated id=e3c51da2373702da178124eb01cbf2d9 ms=19.0 bytes_in=24300 bytes_out=1415
+service-1   | 2026-10-18T06:28:58.694923879Z 2026-10-18 06:28:58,694 service evaluated id=d40cacd2ebb4c72f43b1740146a0712e ms=17.4 bytes_in=24298 bytes_out=1415
+service-1   | 2026-10-18T06:28:58.958951306Z 2026-10-18 06:28:58,958 service evaluated id=91aa2e13167e13b71c9dbcd636026a36 ms=17.4 bytes_in=24301 bytes_out=1415
+service-1   | 2026-10-18T06:28:59.219003850Z 2026-10-18 06:28:59,218 service evaluated id=4feaec7c9c86fbf2c0f46688ded58606 ms=17.7 bytes_in=24299 bytes_out=1415
+service-1   | 2026-10-18T06:28:59.481442375Z 2026-10-18 06:28:59,481 service evaluated id=dfca1651ea06c9275fac3c32e96bf11d ms=17.6 bytes_in=24300 bytes_out=1415
+service-1   | 2026-10-18T06:28:59.742776626Z 2026-10-18 06:28:59,742 service evaluated id=207d9858b79b4e4f725ffff3619c0927 ms=17.4 bytes_in=24302 bytes_out=1414
+service-1   | 2026-10-18T06:29:00.004821362Z 2026-10-18 06:29:00,004 service evaluated id=1ca70efb1270a4a0716c7d79a7ff8afe ms=17.3 bytes_in=24304 bytes_out=1414
+service-1   | 2026-10-18T06:29:00.268466969Z 2026-10-18 06:29:00,268 service evaluated id=fa978c73c95da651f3597494f872ba6a ms=17.6 bytes_in=24299 bytes_out=1415
+service-1   | 2026-10-18T06:29:00.536560302Z 2026-10-18 06:29:00,536 service evaluated id=cb34f047f3c121bf98874ebb490ca7ea ms=18.9 bytes_in=24302 bytes_out=1413
+service-1   | 2026-10-18T06:29:00.796684246Z 2026-10-18 06:29:00,796 service evaluated id=7659569f14302e2943e5ecdb5d8535bf ms=17.3 bytes_in=24305 bytes_out=1415
+service-1   | 2026-10-18T06:29:01.058415457Z 2026-10-18 06:29:01,058 service evaluated id=ca465791e21a8a330375014b19e43b85 ms=17.5 bytes_in=24297 bytes_out=1415
+service-1   | 2026-10-18T06:29:01.320560186Z 2026-10-18 06:29:01,320 service evaluated id=ce389bf5543624d3aec390fda9305350 ms=17.4 bytes_in=24302 bytes_out=1415
+service-1   | 2026-10-18T06:29:01.583669384Z 2026-10-18 06:29:01,583 service evaluated id=bb1b3e30ab4d67105128978aa3f9012e ms=17.3 bytes_in=24301 bytes_out=1415
+service-1   | 2026-10-18T06:29:01.854256602Z 2026-10-18 06:29:01,851 service evaluated id=96c056b6470e844ab65668e261a21b86 ms=18.4 bytes_in=24304 bytes_out=1415
+service-1   | 2026-10-18T06:29:02.116795348Z 2026-10-18 06:29:02,116 service evaluated id=ee74caa5ba79771baa17a923a215a39b ms=17.4 bytes_in=24300 bytes_out=1414
+service-1   | 2026-10-18T06:29:02.381398011Z 2026-10-18 06:29:02,381 service evaluated id=bd487db863c6519ec32e74821f544fec ms=18.0 bytes_in=24303 bytes_out=1415
+service-1   | 2026-10-18T06:29:02.654187702Z 2026-10-18 06:29:02,649 service evaluated id=9a9645073f9a03bb9dd52d0717062a12 ms=17.4 bytes_in=24303 bytes_out=1415
+service-1   | 2026-10-18T06:29:02.913722492Z 2026-10-18 06:29:02,913 service evaluated id=eef2bfd23bcede8512046f9cc51bfb49 ms=17.7 bytes_in=24300 bytes_out=1414
+service-1   | 2026-10-18T06:29:03.180062866Z 2026-10-18 06:29:03,179 service evaluated id=19804c3b0e9d0a261000dda62c84b4a1 ms=17.7 bytes_in=24302 bytes_out=1415
+service-1   | 2026-10-18T06:29:03.444444732Z 2026-10-18 06:29:03,444 service evaluated id=da6acdcaf8ee914dc6c9097dac83bcb8 ms=17.4 bytes_in=24301 bytes_out=1413
+service-1   | 2026-10-18T06:29:03.708971977Z 2026-10-18 06:29:03,708 service evaluated id=5abc9bcb1bbfb072aeeb09439f342ed9 ms=18.0 bytes_in=24300 bytes_out=1415
+service-1   | 2026-10-18T06:29:03.973229704Z 2026-10-18 06:29:03,972 service evaluated id=c1ee1ad8f09c4e3d9a44eba2df1add5a ms=17.4 bytes_in=24300 bytes_out=1414
+service-1   | 2026-10-18T06:29:04.247502237Z 2026-10-18 06:29:04,247 service evaluated id=a6f6cbe8178e30ca462cb19797c0db08 ms=17.5 bytes_in=24300 bytes_out=1414
+service-1   | 2026-10-18T06:29:04.512551418Z 2026-10-18 06:29:04,512 service evaluated id=a0f43328b4b1e41eaa06548948d34271 ms=18.2 bytes_in=24304 bytes_out=1415
+service-1   | 2026-10-18T06:29:04.782529009Z 2026-10-18 06:29:04,782 service evaluated id=f8bc1ac34f02da67d63a7abdf5198597 ms=17.6 bytes_in=24306 bytes_out=1415
+service-1   | 2026-10-18T06:29:05.047587232Z 2026-10-18 06:29:05,047 service evaluated id=e9e93dd2fee21f1036e21917339b95e2 ms=17.5 bytes_in=24299 bytes_out=1414
+service-1   | 2026-10-18T06:29:05.310718361Z 2026-10-18 06:29:05,310 service evaluated id=065aabcd90ef1d3e58683bb235a85bff ms=17.6 bytes_in=24297 bytes_out=1415
+service-1   | 2026-10-18T06:29:05.575318205Z 2026-10-18 06:29:05,575 service evaluated id=3fe0588c1083e81a565159fcee82a526 ms=17.5 bytes_in=24302 bytes_out=1415
+service-1   | 2026-10-18T06:29:05.837405056Z 2026-10-18 06:29:05,837 service evaluated id=ff2fb8cf2d46e27763caed36da16e646 ms=17.7 bytes_in=24295 bytes_out=1415
+service-1   | 2026-10-18T06:29:06.102052707Z 2026-10-18 06:29:06,101 service evaluated id=5ad949bd35ea6059910697a31b083cea ms=17.8 bytes_in=24298 bytes_out=1415
+service-1   | 2026-10-18T06:29:06.367364761Z 2026-10-18 06:29:06,367 service evaluated id=c8028020eb86915cb7f3e37fd788baf5 ms=17.7 bytes_in=24300 bytes_out=1414
+service-1   | 2026-10-18T06:29:06.632281694Z 2026-10-18 06:29:06,631 service evaluated id=3266b5c875e479301ebd4e6ece6aa330 ms=17.4 bytes_in=24303 bytes_out=1414
+service-1   | 2026-10-18T06:29:06.899298927Z 2026-10-18 06:29:06,899 service evaluated id=14de60cb4751a6b10a8b00b809281bfd ms=17.4 bytes_in=24300 bytes_out=1415
+service-1   | 2026-10-18T06:29:07.162515345Z 2026-10-18 06:29:07,162 service evaluated id=b4ad948d6f43a6d741b15f73dbb7fc02 ms=17.9 bytes_in=24300 bytes_out=1414
+service-1   | 2026-10-18T06:29:07.428346464Z 2026-10-18 06:29:07,428 service evaluated id=363d955b5c8a121d039618dc54364dec ms=17.6 bytes_in=24301 bytes_out=1414
+service-1   | 2026-10-18T06:29:07.690334533Z 2026-10-18 06:29:07,690 service evaluated id=59ab09f148c94fc57d4ddb11e3e4c03b ms=17.5 bytes_in=24301 bytes_out=1414
+service-1   | 2026-10-18T06:29:07.957538202Z 2026-10-18 06:29:07,957 service evaluated id=7fc9806d4c0d68f85acd89702a343316 ms=17.6 bytes_in=24300 bytes_out=1414
+service-1   | 2026-10-18T06:29:08.221408828Z 2026-10-18 06:29:08,221 service evaluated id=9bf548c8912e77b19361a6dce14f0b3c ms=17.5 bytes_in=24302 bytes_out=1414
+service-1   | 2026-10-18T06:29:08.484689055Z 2026-10-18 06:29:08,484 service evaluated id=6b37f807fdfb217bb74e95d3f4f4538b ms=17.5 bytes_in=24295 bytes_out=1415
+service-1   | 2026-10-18T06:29:08.749045207Z 2026-10-18 06:29:08,748 service evaluated id=d470fcbbdb427d1c118fa830d5a5351a ms=17.6 bytes_in=24304 bytes_out=1415
+service-1   | 2026-10-18T06:29:09.011334090Z 2026-10-18 06:29:09,011 service evaluated id=9e6fce57a2ef025812b09e0760cd1af9 ms=17.5 bytes_in=24301 bytes_out=1415
+service-1   | 2026-10-18T06:29:09.275584527Z 2026-10-18 06:29:09,275 service evaluated id=f36583efc9be65e7ba2e65d422999dc7 ms=17.6 bytes_in=24302 bytes_out=1414
+service-1   | 2026-10-18T06:29:09.536389654Z 2026-10-18 06:29:09,536 service evaluated id=a1147971b03ab777631e5d8a8e8d1ef6 ms=18.1 bytes_in=24303 bytes_out=1414
+service-1   | 2026-10-18T06:29:09.803935503Z 2026-10-18 06:29:09,803 service evaluated id=ec75da2b0af2896dc5df1669db49c897 ms=17.4 bytes_in=24303 bytes_out=1415
+service-1   | 2026-10-18T06:29:10.067066316Z 2026-10-18 06:29:10,066 service evaluated id=34b78b208113aec90c81e3ae8ad0b0a4 ms=17.3 bytes_in=24305 bytes_out=1414
+service-1   | 2026-10-18T06:29:10.326909595Z 2026-10-18 06:29:10,326 service evaluated id=d4c2f58ef2cb6ca72edbe0d767a35ffd ms=17.3 bytes_in=24300 bytes_out=1415
+service-1   | 2026-10-18T06:29:10.588766172Z 2026-10-18 06:29:10,588 service evaluated id=d959f7a606486d44335fa8854f838c12 ms=17.6 bytes_in=24303 bytes_out=1415
+service-1   | 2026-10-18T06:29:10.853804904Z 2026-10-18 06:29:10,853 service evaluated id=56d6bc09e0912e95bd8c396dbe393d88 ms=17.3 bytes_in=24301 bytes_out=1414
+service-1   | 2026-10-18T06:29:11.119756872Z 2026-10-18 06:29:11,119 service evaluated id=8c35d8312be0bc6522de078e0fa10e8d ms=17.6 bytes_in=24299 bytes_out=1414
+service-1   | 2026-10-18T06:29:11.385394004Z 2026-10-18 06:29:11,385 service evaluated id=c6f4d93caae4ece64d4d1e3034c85f6c ms=17.8 bytes_in=24299 bytes_out=1415
+service-1   | 2026-10-18T06:29:11.651072375Z 2026-10-18 06:29:11,650 service evaluated id=5d5dba62bc99bbe86d4273127930a801 ms=18.2 bytes_in=24304 bytes_out=1413
+service-1   | 2026-10-18T06:29:11.915900610Z 2026-10-18 06:29:11,915 service evaluated id=89c703974af493f2986a9faed0429e69 ms=17.6 bytes_in=24303 bytes_out=1415
+service-1   | 2026-10-18T06:29:12.182770688Z 2026-10-18 06:29:12,182 service evaluated id=8beee511341dd24915c720fe915e4399 ms=17.5 bytes_in=24296 bytes_out=1414
+service-1   | 2026-10-18T06:29:12.444611045Z 2026-10-18 06:29:12,444 service evaluated id=6fb236563089f9cc6d57d7587884e37f ms=17.7 bytes_in=24298 bytes_out=1415
+service-1   | 2026-10-18T06:29:12.712604172Z 2026-10-18 06:29:12,712 service evaluated id=a5cd066f4cfd571fce220a9e68483467 ms=17.5 bytes_in=24298 bytes_out=1413
+service-1   | 2026-10-18T06:29:12.974164117Z 2026-10-18 06:29:12,973 service evaluated id=b18f9818b398432783f983a0e404cdec ms=17.5 bytes_in=24305 bytes_out=1414
+service-1   | 2026-10-18T06:29:13.239887690Z 2026-10-18 06:29:13,239 service evaluated id=54613197e7f09379f9e78ae6e396aae3 ms=18.0 bytes_in=24302 bytes_out=1415
+service-1   | 2026-10-18T06:29:13.505997752Z 2026-10-18 06:29:13,505 service evaluated id=910fcd6c217328d8d48fb1270de98f59 ms=17.5 bytes_in=24302 bytes_out=1415
+service-1   | 2026-10-18T06:29:13.770099788Z 2026-10-18 06:29:13,768 service evaluated id=14b3ac1a6b07404986b70fc65b2e4189 ms=18.0 bytes_in=24299 bytes_out=1415
+service-1   | 2026-10-18T06:29:14.029660105Z 2026-10-18 06:29:14,029 service evaluated id=41a68335ff0e824f39428e10a02789df ms=17.5 bytes_in=24301 bytes_out=1415
+service-1   | 2026-10-18T06:29:14.295542579Z 2026-10-18 06:29:14,295 service evaluated id=30bdeb02a9c8451f59605935577fe499 ms=18.1 bytes_in=24300 bytes_out=1413
+service-1   | 2026-10-18T06:29:14.559967092Z 2026-10-18 06:29:14,559 service evaluated id=39b76b37acb5c93c1c6ea9c77f62a48c ms=18.7 bytes_in=24303 bytes_out=1415
+service-1   | 2026-10-18T06:29:14.829150567Z 2026-10-18 06:29:14,828 service evaluated id=a770bda9c6876abcb65cc52c3ef339b3 ms=17.5 bytes_in=24296 bytes_out=1414
+service-1   | 2026-10-18T06:29:15.087472820Z 2026-10-18 06:29:15,087 service evaluated id=6d262e781ca152c38f235d204a642972 ms=17.4 bytes_in=24301 bytes_out=1414
+service-1   | 2026-10-18T06:29:15.349996377Z 2026-10-18 06:29:15,349 service evaluated id=8ced8c93f1aba2be35d018b2549faaa8 ms=17.8 bytes_in=24295 bytes_out=1414
+service-1   | 2026-10-18T06:29:15.614582261Z 2026-10-18 06:29:15,614 service evaluated id=e711ec73408a67b3ea899db293db513e ms=17.7 bytes_in=24298 bytes_out=1414
+service-1   | 2026-10-18T06:29:15.875241217Z 2026-10-18 06:29:15,875 service evaluated id=542fc4fe8c5686c027f599a875278387 ms=17.5 bytes_in=24301 bytes_out=1415
+service-1   | 2026-10-18T06:29:16.141421724Z 2026-10-18 06:29:16,141 service evaluated id=5118068206b5df720326df6d6e9ab2d6 ms=17.8 bytes_in=24304 bytes_out=1414
+service-1   | 2026-10-18T06:29:16.405002799Z 2026-10-18 06:29:16,404 service evaluated id=863509500c0d86b511332cffbe73a348 ms=17.6 bytes_in=24303 bytes_out=1414
+service-1   | 2026-10-18T06:29:16.669285445Z 2026-10-18 06:29:16,669 service evaluated id=77df1faa8e34a58008708542e78e86a8 ms=17.6 bytes_in=24299 bytes_out=1415
+service-1   | 2026-10-18T06:29:16.938091936Z 2026-10-18 06:29:16,933 service evaluated id=f0add1d790b28f6f89fb07f1c7b77074 ms=17.4 bytes_in=24302 bytes_out=1415
+service-1   | 2026-10-18T06:29:17.198590202Z 2026-10-18 06:29:17,198 service evaluated id=b24995e7417cf8b8e7e6da123f7754c8 ms=17.8 bytes_in=24296 bytes_out=1415
+service-1   | 2026-10-18T06:29:17.472151567Z 2026-10-18 06:29:17,467 service evaluated id=7c24bc614f64a9db049bb016eacecadc ms=17.4 bytes_in=24300 bytes_out=1414
+service-1   | 2026-10-18T06:29:17.732017318Z 2026-10-18 06:29:17,731 service evaluated id=3613500c92ef8d48e6a6b4734cb3645f ms=17.4 bytes_in=24301 bytes_out=1415
+service-1   | 2026-10-18T06:29:17.996771941Z 2026-10-18 06:29:17,996 service evaluated id=bb39667876543f331cfdd42157e19765 ms=17.4 bytes_in=24297 bytes_out=1415
+service-1   | 2026-10-18T06:29:18.263145280Z 2026-10-18 06:29:18,262 service evaluated id=2278656f1d1a33affc253acefd5f9b3c ms=17.4 bytes_in=24303 bytes_out=1413
+service-1   | 2026-10-18T06:29:18.527305566Z 2026-10-18 06:29:18,527 service evaluated id=2d1dede38094fbdbf52051f74c2d6e55 ms=17.4 bytes_in=24301 bytes_out=1413
+service-1   | 2026-10-18T06:29:18.791815476Z 2026-10-18 06:29:18,791 service evaluated id=6a2d178115e9e6419e0694763d70ae7f ms=17.5 bytes_in=24298 bytes_out=1415
+service-1   | 2026-10-18T06:29:19.055810409Z 2026-10-18 06:29:19,055 service evaluated id=72c0f257f4cf5df5712afa7a5aecd535 ms=18.4 bytes_in=24303 bytes_out=1415
+service-1   | 2026-10-18T06:29:19.319995448Z 2026-10-18 06:29:19,319 service evaluated id=cde00a4217afb596f8b45e752fef744f ms=17.4 bytes_in=24298 bytes_out=1414
+service-1   | 2026-10-18T06:29:19.581790438Z 2026-10-18 06:29:19,581 service evaluated id=c2afd0d1af6ad80a80173684c49e4a1d ms=17.4 bytes_in=24300 bytes_out=1414
+service-1   | 2026-10-18T06:29:19.845349038Z 2026-10-18 06:29:19,845 service evaluated id=9251feca0bb48f79ce11f2ccdf1d754f ms=17.4 bytes_in=24305 bytes_out=1415
+service-1   | 2026-10-18T06:29:20.111600413Z 2026-10-18 06:29:20,111 service evaluated id=869b41923250cbbe8367cf9d99d5d0ee ms=17.5 bytes_in=24297 bytes_out=1415
+service-1   | 2026-10-18T06:29:20.376182310Z 2026-10-18 06:29:20,376 service evaluated id=db978639f2abfc0d96709cd38148dce2 ms=17.4 bytes_in=24302 bytes_out=1415
+service-1   | 2026-10-18T06:29:20.640159361Z 2026-10-18 06:29:20,640 service evaluated id=897e4029c229720ba0a88357a32ab2ef ms=17.4 bytes_in=24301 bytes_out=1415
+service-1   | 2026-10-18T06:29:20.903514846Z 2026-10-18 06:29:20,903 service evaluated id=db66a00b2daf257469893f5cab6822b5 ms=17.3 bytes_in=24303 bytes_out=1414
+service-1   | 2026-10-18T06:29:21.169571288Z 2026-10-18 06:29:21,169 service evaluated id=842f7015d5ddeb0a4143ec2d0dfd543c ms=17.3 bytes_in=24306 bytes_out=1414
+service-1   | 2026-10-18T06:29:21.434036980Z 2026-10-18 06:29:21,433 service evaluated id=5b73cb045ab008c0eeb81de378454444 ms=17.4 bytes_in=24302 bytes_out=1415
+service-1   | 2026-10-18T06:29:21.697409480Z 2026-10-18 06:29:21,697 service evaluated id=3a031ca50b618fac6d07eaf8435472a3 ms=17.5 bytes_in=24301 bytes_out=1415
+service-1   | 2026-10-18T06:29:21.963681163Z 2026-10-18 06:29:21,963 service evaluated id=0b56a55c56c0214b0caf01229c84f209 ms=17.4 bytes_in=24302 bytes_out=1415
+service-1   | 2026-10-18T06:29:22.225339127Z 2026-10-18 06:29:22,225 service evaluated id=bfe942dcb37cbc827e511ffbb000330f ms=17.3 bytes_in=24298 bytes_out=1415
+service-1   | 2026-10-18T06:29:22.493043224Z 2026-10-18 06:29:22,492 service evaluated id=8e49648168995d4dd4f47b6983ef2ee8 ms=17.5 bytes_in=24300 bytes_out=1415
+service-1   | 2026-10-18T06:29:22.752220012Z 2026-10-18 06:29:22,751 service evaluated id=fee6168d01b41aa6bac5cf5768afe2d7 ms=17.4 bytes_in=24303 bytes_out=1415
+service-1   | 2026-10-18T06:29:23.016742917Z 2026-10-18 06:29:23,016 service evaluated id=d7aafd6fa2ad01342fa7e050d3415291 ms=17.6 bytes_in=24300 bytes_out=1414
+service-1   | 2026-10-18T06:29:23.279456191Z 2026-10-18 06:29:23,279 service evaluated id=b4c09b938f4ed835145946b4625c0d48 ms=17.5 bytes_in=24302 bytes_out=1415
+service-1   | 2026-10-18T06:29:23.544632801Z 2026-10-18 06:29:23,544 service evaluated id=f5a1f40d2b46a92bba6681ce407b82a8 ms=17.3 bytes_in=24301 bytes_out=1415
+service-1   | 2026-10-18T06:29:23.811120971Z 2026-10-18 06:29:23,810 service evaluated id=719aaff5c942be32d501313b9aa28141 ms=17.4 bytes_in=24299 bytes_out=1414
+service-1   | 2026-10-18T06:29:24.073175346Z 2026-10-18 06:29:24,072 service evaluated id=47c5ad84e4c1c1f732c17382315df49e ms=17.4 bytes_in=24299 bytes_out=1415
+service-1   | 2026-10-18T06:29:24.344263580Z 2026-10-18 06:29:24,342 service evaluated id=75bd7c21188e94e7aaa4fc5c5429fdfa ms=17.5 bytes_in=24301 bytes_out=1415
+service-1   | 2026-10-18T06:29:24.609125716Z 2026-10-18 06:29:24,608 service evaluated id=970a840cdf61078f328217e9b5362091 ms=17.5 bytes_in=24302 bytes_out=1415
+service-1   | 2026-10-18T06:29:24.872776446Z 2026-10-18 06:29:24,872 service evaluated id=aeb4c6ee7ea9611a4d8ca6077171b4a2 ms=17.7 bytes_in=24300 bytes_out=1415
+service-1   | 2026-10-18T06:29:25.136831383Z 2026-10-18 06:29:25,136 service evaluated id=62a0dd05a74fa1384715731ba95aa3f2 ms=18.0 bytes_in=24298 bytes_out=1415
+service-1   | 2026-10-18T06:29:25.400927225Z 2026-10-18 06:29:25,400 service evaluated id=a1376fd808e01da54e3c4d5b5db3a07d ms=18.6 bytes_in=24303 bytes_out=1415
+service-1   | 2026-10-18T06:29:25.660611171Z 2026-10-18 06:29:25,660 service evaluated id=c6824bb7898f36613718b1079380efe9 ms=17.4 bytes_in=24300 bytes_out=1415
+service-1   | 2026-10-18T06:29:25.925922633Z 2026-10-18 06:29:25,925 service evaluated id=7f26c37207899c9154d1a8076563d658 ms=17.3 bytes_in=24305 bytes_out=1413
+service-1   | 2026-10-18T06:29:26.188746936Z 2026-10-18 06:29:26,188 service evaluated id=d05b1af65fbd89a3b8f13948b0ac6e08 ms=17.4 bytes_in=24302 bytes_out=1414
+service-1   | 2026-10-18T06:29:26.458822443Z 2026-10-18 06:29:26,458 service evaluated id=cfca51790b46d26573c324946504b874 ms=17.6 bytes_in=24295 bytes_out=1415
+service-1   | 2026-10-18T06:29:26.726337882Z 2026-10-18 06:29:26,726 service evaluated id=8466c2f7bc50db7b1b63152f5a9af901 ms=17.4 bytes_in=24298 bytes_out=1415
+service-1   | 2026-10-18T06:29:26.993727163Z 2026-10-18 06:29:26,993 service evaluated id=7412b89ffecc4fa10d05d113c1629548 ms=17.7 bytes_in=24298 bytes_out=1414
+service-1   | 2026-10-18T06:29:27.263434830Z 2026-10-18 06:29:27,262 service evaluated id=4ba0af0188a41035b70af1ad3cc5ae47 ms=17.9 bytes_in=24304 bytes_out=1414
+service-1   | 2026-10-18T06:29:27.528586620Z 2026-10-18 06:29:27,528 service evaluated id=9896f2496e3838fcb62916de629fdbad ms=17.5 bytes_in=24303 bytes_out=1415
+service-1   | 2026-10-18T06:29:27.795661486Z 2026-10-18 06:29:27,795 service evaluated id=821c4561df26743368dd5542b3f41108 ms=17.5 bytes_in=24300 bytes_out=1415
+service-1   | 2026-10-18T06:29:28.059876777Z 2026-10-18 06:29:28,059 service evaluated id=3501b726be2e2dc43fdaa8ec0f385f47 ms=17.6 bytes_in=24293 bytes_out=1415
+service-1   | 2026-10-18T06:29:28.324382381Z 2026-10-18 06:29:28,324 service evaluated id=5d9f3d023ea91ebf8eab974c2f91032e ms=17.7 bytes_in=24301 bytes_out=1414
+service-1   | 2026-10-18T06:29:28.592228269Z 2026-10-18 06:29:28,591 service evaluated id=ad6a944602b1eb7906fa5ae0b137ab3c ms=17.4 bytes_in=24299 bytes_out=1415
+service-1   | 2026-10-18T06:29:28.858689551Z 2026-10-18 06:29:28,858 service evaluated id=885c474c5d388fffd3b22fe884c0ed37 ms=17.4 bytes_in=24303 bytes_out=1414
+service-1   | 2026-10-18T06:29:29.126176720Z 2026-10-18 06:29:29,126 service evaluated id=9a87f212bfda0acaef8e29a4afa2e5a0 ms=17.7 bytes_in=24302 bytes_out=1414
+service-1   | 2026-10-18T06:29:29.389640719Z 2026-10-18 06:29:29,389 service evaluated id=11f5821db1434ad54ae7643e53df23b6 ms=18.9 bytes_in=24303 bytes_out=1415
+service-1   | 2026-10-18T06:29:29.651858089Z 2026-10-18 06:29:29,651 service evaluated id=8fec2404fb1efc53d46ff1e5f64bde42 ms=17.8 bytes_in=24302 bytes_out=1415
+service-1   | 2026-10-18T06:29:29.924493391Z 2026-10-18 06:29:29,924 service evaluated id=c45db871759c7d71e8e1c546ea9aef66 ms=18.0 bytes_in=24299 bytes_out=1415
+service-1   | 2026-10-18T06:29:30.186603320Z 2026-10-18 06:29:30,186 service evaluated id=8d21a82412db332e0e004b2523a81941 ms=17.6 bytes_in=24297 bytes_out=1414
+service-1   | 2026-10-18T06:29:30.456604263Z 2026-10-18 06:29:30,456 service evaluated id=9df5cffaf720a4f21c46b592fbab12b0 ms=18.4 bytes_in=24299 bytes_out=1414
+service-1   | 2026-10-18T06:29:30.718794214Z 2026-10-18 06:29:30,718 service evaluated id=1fbb826fb6e771bdd990b415875c1d8d ms=18.3 bytes_in=24298 bytes_out=1415
+service-1   | 2026-10-18T06:29:30.989513105Z 2026-10-18 06:29:30,989 service evaluated id=53d3b5a5e5922afc0619c3707a515c5e ms=17.9 bytes_in=24305 bytes_out=1415
+service-1   | 2026-10-18T06:29:31.251797891Z 2026-10-18 06:29:31,251 service evaluated id=0569f5ffa4920f06e2af8ae9a16b536f ms=17.8 bytes_in=24296 bytes_out=1415
+service-1   | 2026-10-18T06:29:31.518496221Z 2026-10-18 06:29:31,518 service evaluated id=c0831b4fc89066f57a0286eecb89d823 ms=17.7 bytes_in=24293 bytes_out=1415
+service-1   | 2026-10-18T06:29:31.780749422Z 2026-10-18 06:29:31,780 service evaluated id=6b3fa4c4ea05f6047521434385ec49e7 ms=17.6 bytes_in=24298 bytes_out=1414
+service-1   | 2026-10-18T06:29:32.044604979Z 2026-10-18 06:29:32,044 service evaluated id=f9f8a48863ef5ec2ea885d3e678cda62 ms=18.3 bytes_in=24301 bytes_out=1414
+service-1   | 2026-10-18T06:29:32.308166370Z 2026-10-18 06:29:32,307 service evaluated id=2e30a54b523b2e784b6def03c5a83940 ms=17.9 bytes_in=24300 bytes_out=1413
+service-1   | 2026-10-18T06:29:32.575237984Z 2026-10-18 06:29:32,574 service evaluated id=8b9be11fa2a71851ea4060666c49e80a ms=18.0 bytes_in=24302 bytes_out=1414
+service-1   | 2026-10-18T06:29:32.839185507Z 2026-10-18 06:29:32,838 service evaluated id=d1625a74fe9cc888449b48242fc842ae ms=17.9 bytes_in=24306 bytes_out=1413
+
+[exit 0]

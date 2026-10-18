@@ -1,0 +1,57 @@
+$ make demo-docker
+make[1]: Entering directory '/home/linux1/antimarrulla-ibmz-datathon-2026'
+docker build -f docker/Dockerfile --target app -t screening:demo .
+#0 building with "default" instance using docker driver
+
+#1 [internal] load build definition from Dockerfile
+#1 transferring dockerfile: 1.24kB done
+#1 DONE 0.0s
+
+#2 [internal] load metadata for docker.io/library/ubuntu:24.04
+#2 DONE 0.1s
+
+#3 [internal] load .dockerignore
+#3 transferring context: 217B done
+#3 DONE 0.0s
+
+#4 [internal] load build context
+#4 transferring context: 1.35kB done
+#4 DONE 0.0s
+
+#5 [app 1/5] FROM docker.io/library/ubuntu:24.04@sha256:68ee22004a9109b44973313b02ff7b1de250f1de0f5ecb628d73f579aaff33ac
+#5 resolve docker.io/library/ubuntu:24.04@sha256:68ee22004a9109b44973313b02ff7b1de250f1de0f5ecb628d73f579aaff33ac 0.0s done
+#5 DONE 0.0s
+
+#6 [app 2/5] RUN apt-get update  && apt-get install -y --no-install-recommends python3 python3-pip python3-cryptography python3-gmpy2 ca-certificates openssl  && pip3 install --no-cache-dir --break-system-packages phe==1.5.0  && rm -rf /var/lib/apt/lists/*  && useradd --system --uid 10001 --home /app screening  && mkdir -p /var/lib/screening && chmod 1777 /var/lib/screening
+#6 CACHED
+
+#7 [app 3/5] WORKDIR /app
+#7 CACHED
+
+#8 [app 4/5] COPY src/screening /app/screening
+#8 CACHED
+
+#9 [app 5/5] COPY artifacts/model /app/artifacts/model
+#9 CACHED
+
+#10 exporting to image
+#10 exporting layers done
+#10 exporting manifest sha256:e88cd76f5f8d60080eb7f737e44a767be5b85c88333b82f3529763486122ac49 done
+#10 exporting config sha256:8fca404cf42f0fccf16be305fb81d37a42f1cebff3511e10575c4792e7ec4e1c done
+#10 exporting attestation manifest sha256:aaa3af6aed8a6d6261b962004f728b1d31227a49ab03d8397d1062c48993ee89 done
+#10 exporting manifest list sha256:d63e641b33503d872b6b3c3b86827d6d2ef20484ba57ffd98f0c382eae17c82c done
+#10 naming to docker.io/library/screening:demo done
+#10 unpacking to docker.io/library/screening:demo done
+#10 DONE 0.0s
+docker compose -f docker/compose.yml up -d
+ Container screening-hospital-1 Running 
+ Container screening-service-1 Running 
+docker run --rm --network host screening:demo python3 -m screening.smoke http://127.0.0.1:8080
+service OK · architecture s390x · key 2048 bits · model e32420ac99fd
+Synthetic A · low risk: p=0.015 · exact z · 268.5 ms inside the hospital
+Synthetic B · intermediate risk: p=0.152 · exact z · 265.7 ms inside the hospital
+Synthetic C · high risk: p=0.633 · exact z · 262.7 ms inside the hospital
+smoke OK
+make[1]: Leaving directory '/home/linux1/antimarrulla-ibmz-datathon-2026'
+
+[exit 0]
