@@ -1,0 +1,6 @@
+$ docker compose -f docker/compose.yml ps
+NAME                   IMAGE                                                                     COMMAND                  SERVICE    CREATED       STATUS       PORTS
+screening-hospital-1   sha256:4290a53a1129126701fd5585db7b238788bdd870ff3f1949c4c75f9dea8cc5b7   "python3 -m screenin…"   hospital   2 hours ago   Up 2 hours   127.0.0.1:8080->8080/tcp
+screening-service-1    sha256:4290a53a1129126701fd5585db7b238788bdd870ff3f1949c4c75f9dea8cc5b7   "python3 -m screenin…"   service    2 hours ago   Up 2 hours   
+
+[exit 0]

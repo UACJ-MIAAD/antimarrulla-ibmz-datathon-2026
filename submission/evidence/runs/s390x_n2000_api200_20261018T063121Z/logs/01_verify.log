@@ -1,0 +1,74 @@
+$ make verify-docker
+make[1]: Entering directory '/home/linux1/antimarrulla-ibmz-datathon-2026'
+docker build -f docker/Dockerfile --target dev -t screening:dev .
+#0 building with "default" instance using docker driver
+
+#1 [internal] load build definition from Dockerfile
+#1 transferring dockerfile: 1.24kB done
+#1 DONE 0.0s
+
+#2 [internal] load metadata for docker.io/library/ubuntu:24.04
+#2 DONE 0.2s
+
+#3 [internal] load .dockerignore
+#3 transferring context: 217B done
+#3 DONE 0.0s
+
+#4 [internal] load build context
+#4 transferring context: 2.87kB done
+#4 DONE 0.0s
+
+#5 [app 1/5] FROM docker.io/library/ubuntu:24.04@sha256:68ee22004a9109b44973313b02ff7b1de250f1de0f5ecb628d73f579aaff33ac
+#5 resolve docker.io/library/ubuntu:24.04@sha256:68ee22004a9109b44973313b02ff7b1de250f1de0f5ecb628d73f579aaff33ac 0.0s done
+#5 DONE 0.0s
+
+#6 [app 4/5] COPY src/screening /app/screening
+#6 CACHED
+
+#7 [dev 3/4] COPY data/cdc_891 /app/data/cdc_891
+#7 CACHED
+
+#8 [app 5/5] COPY artifacts/model /app/artifacts/model
+#8 CACHED
+
+#9 [app 2/5] RUN apt-get update  && apt-get install -y --no-install-recommends python3 python3-pip python3-cryptography python3-gmpy2 ca-certificates openssl  && pip3 install --no-cache-dir --break-system-packages phe==1.5.0  && rm -rf /var/lib/apt/lists/*  && useradd --system --uid 10001 --home /app screening  && mkdir -p /var/lib/screening && chmod 1777 /var/lib/screening
+#9 CACHED
+
+#10 [dev 1/4] RUN apt-get update  && apt-get install -y --no-install-recommends python3-numpy python3-sklearn python3-pytest util-linux  && (apt-get install -y --no-install-recommends s390-tools || true)  && rm -rf /var/lib/apt/lists/*
+#10 CACHED
+
+#11 [dev 2/4] COPY tests /app/tests
+#11 CACHED
+
+#12 [app 3/5] WORKDIR /app
+#12 CACHED
+
+#13 [dev 4/4] COPY artifacts /app/artifacts
+#13 CACHED
+
+#14 exporting to image
+#14 exporting layers done
+#14 exporting manifest sha256:81f921a94c76b6cdcca808a16c9e9ea60e49d3c53ada2f56e67851f31b1942a9 done
+#14 exporting config sha256:79e7b113b4c53f09702eaa0c3a2708c29aa44d1308e5af25ee9b57042eb2d341 done
+#14 exporting attestation manifest sha256:271d0b4c3a7b8d6f192150c1b801239d7cd9524c6eed41ac68dac76620227447 done
+#14 exporting manifest list sha256:fbb573e212e877135d5253c3dbdb3ad2a059dcfc324b5db705227217da57c846 done
+#14 naming to docker.io/library/screening:dev done
+#14 unpacking to docker.io/library/screening:dev done
+#14 DONE 0.0s
+docker run --rm -e SCREENING_COMMIT=b50f6cc2346d8b5ae2fa22d36f7c67d5ec08c9ed -e SCREENING_RELEVANT_CHANGES=0 -e SCREENING_IMAGE=$(docker image inspect -f '{{.Id}}' screening:dev) screening:dev sh -c "python3 -m pytest -q -p no:cacheprovider tests && python3 -m screening.verify"
+..........ssss...............s.......................................... [ 50%]
+........................ssss..........................................   [100%]
+133 passed, 10 skipped in 45.11s
+  ok  model hash matches the metrics record
+  ok  split hash matches the model metadata
+  ok  CDC CSV hash matches the split metadata
+  ok  schema and feature order match
+  ok  quantized weights = round(10^9 * weights)
+  ok  2048-bit key overflow bound includes the intercept
+  ok  disjoint splits cover all 253,680 rows
+        maximum weight difference 3.15e-14 · intercept 3.38e-14 · retrained ROC-AUC 0.825233
+  ok  retraining reproduces the exported model (tolerance 1e-3 allows lbfgs version/architecture variation)
+verification OK
+make[1]: Leaving directory '/home/linux1/antimarrulla-ibmz-datathon-2026'
+
+[exit 0]
