@@ -1,14 +1,16 @@
 # Delivery plan and immediate team actions
 
-> Updated October 17, 2026. Local implementation is verified. LinuxONE evidence, both labs, independent teammate review, the final video, and the English release review remain open. Reports in chat are not completion evidence. Story status lives in `site/status.json`.
+> Updated October 18, 2026. Local implementation is verified. LinuxONE evidence, both labs, independent teammate review, the final video, and the English release review remain open. Reports in chat are not completion evidence. Story status lives in `site/status.json`.
 
 ## Evidence runner preflight gate
 
-**Do not launch the closing run from `516bb59`.** The [preflight audit](EVIDENCE_PREFLIGHT_AUDIT.md) reproduced false acceptance of a one-patient run and an unavailable commit, incomplete private-key redaction, and weak smoke/system/publication checks. A separate fix branch hardens these gates and includes regression tests. Merge it only after independent teammate review and passing CI; pin that approved commit for both containers, client and recording. No final s390x measurement was launched during this audit.
+**Do not launch the closing run from `516bb59`.** The [preflight audit](EVIDENCE_PREFLIGHT_AUDIT.md) reproduced false acceptance of a one-patient run and an unavailable commit, incomplete private-key redaction, and weak smoke/system/publication checks. PRs 19–21 harden these gates, configure the benchmark profiles and prepare the Hospital frontend. The captain has authorized their ordered integration into main after validation and green CI; independent teammate technical review remains open (see REVIEW.md). Pin the resulting main commit for both containers, client and recording. No final s390x measurement was launched during this audit.
+
+Hospital frontend readiness: individual A/B/C/random/custom paths and actual 20/200 browser batches validated locally; large counts tested by simulation only. Progress, stop-on-failure, cancellation, source identity/exactness, command copy and export are prepared. Rebuild the latest reviewed source on the VM; no new LinuxONE evidence is claimed. [Readiness matrix](FRONTEND_READINESS.md).
 
 Prepared test sizes: **20 / 200 / 2,000 / 16,000**, with exact declared counts and diagnostic/release scope. `make evidence-suite PY=python3` runs all four in order; `make demo-test N=20 FINAL=1` is the short synthetic API demonstration. The larger CDC profiles use 200 deployed API requests by default; `API_N=16000` explicitly requests the longer API test. See [BENCHMARK_PROFILES.md](BENCHMARK_PROFILES.md). No 16,000-record test result is claimed from the supplied chat.
 
-Carlos and Álvaro: first verify the reviewed runner, host Python 3, Docker/Compose, Git identity and push credentials; then run `make evidence-run PY=python3` once on the real VM. Javier: coordinate independent review, provider/lab records, AI publication decision and video. Preserve failed runs as diagnostics; never promote a Mac rehearsal or consistency check into LinuxONE/provider evidence. Authored output labels and the code ZIP now include the evidence tooling; these fixes change the executable source hash while preserving model weights.
+Carlos and Álvaro: first verify the reviewed runner, host Python 3, Docker/Compose, Git identity and push credentials; then run `make evidence-run PROFILE=20 PY=python3` on the real VM. If it passes with zero checker errors, continue with PROFILE=200, PROFILE=2000 and finally PROFILE=16000. The 2,000-record run is the required release-sized baseline; 16,000 is the larger comparison. Do not run evidence-suite after already completing 20 unless intentionally repeating it. Javier: coordinate independent review, provider/lab records, AI publication decision and video. Preserve failed runs as diagnostics; never promote a Mac rehearsal or consistency check into LinuxONE/provider evidence. Authored output labels and the code ZIP now include the evidence tooling; these fixes change the executable source hash while preserving model weights.
 
 ## Confirmed submission window
 
@@ -54,7 +56,7 @@ Merged audit corrections save evidence before successful HTTP acknowledgment, re
 Minute-by-minute closing timeline, on-screen run of show and judge Q&A: [DEMO_RUNBOOK.md](DEMO_RUNBOOK.md).
 
 
-**Javier / coordination: use the next 30 minutes to secure the release, real VM evidence and the video.** Yazmin's form and PR 10 polish are integrated into main through PRs 9/11; US-6.4 is complete for synthetic inputs. Confirm the registered leader/dashboard access; tell Carlos and Álvaro PR 13 is merged and pin the agreed current main release (runtime content `ef1e21d` or a common later runtime) before the final measurements; secure a human review; collect original lab/attendance and Carlos audit records; rehearse the English script with Yazmin. Protect the submission buffer. The website diagrams can be reviewed independently while the runtime remains stable.
+**Javier / coordination: use the next 30 minutes to secure the release, real VM evidence and the video.** Yazmin's form and PR 10 polish are integrated into main through PRs 9/11; US-6.4 is complete for synthetic inputs. Confirm the registered leader/dashboard access; pin the resulting main release containing PRs 19–21 before the final measurements; secure a human review; collect original lab/attendance and Carlos audit records; rehearse the English script with Yazmin. Protect the submission buffer. The website diagrams can be reviewed independently while the runtime remains stable.
 
 | Priority | Owner | Next concrete action | Completion evidence |
 |----------|-------|----------------------|---------------------|

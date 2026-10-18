@@ -7,7 +7,7 @@ Run: python -m screening.hospital
 """
 import hashlib, http.client, json, logging, os, platform, ssl, time, urllib.parse
 from http.server import BaseHTTPRequestHandler, ThreadingHTTPServer
-from . import vault, schema, provenance, protocol, synthetic
+from . import vault, schema, provenance, protocol, synthetic, contract, benchmark_profiles
 
 log = logging.getLogger("hospital")
 UI = os.path.join(os.path.dirname(__file__), "ui", "index.html")
@@ -66,6 +66,8 @@ class Clinic:
         z, x = self.h.decrypt(resp)
         t3 = time.perf_counter()
         result = self.h.interpret(z, x)
+        model = self.h.model_json
+        result["integer_reference_match"] = z == contract.logit_integer(model["weights_integers"], model["intercept_integer"], x)
         t4 = time.perf_counter()
         self.vault.save(sol["id"], {"synthetic": True, "profile": label, "input": dict(zip(schema.FEATURE_NAMES, x)),
                                         "probability": result["probability"], "risk_high": result["risk_high"], "date": time.time()})
@@ -73,6 +75,7 @@ class Clinic:
         log.info("evaluated id=%s encrypt_ms=%.1f service_ms=%.1f decrypt_ms=%.1f vault_ms=%.1f", sol["id"], (t1 - t0) * 1e3, (t2 - t1) * 1e3, (t3 - t2) * 1e3, (t5 - t4) * 1e3)
         return {
             "synthetic": True, "profile": label, "id": sol["id"],
+            "model_sha256": self.model_sha256, "code_sha256": self.code_sha256,
             "hospital": {"input": dict(zip(schema.FEATURE_NAMES, x)), **result},
             "server": {
                 "received": {"protocol": sol["protocol"], "model": sol["model"], "schema": sol["schema"], "id": sol["id"],
@@ -115,6 +118,10 @@ def create_server(host, port, clinic):
                 return self.wfile.write(body)
             if path == "/api/synthetic":
                 return self._json(200, {"profiles": synthetic.PROFILES, "schema": schema.as_dict()})
+            if path == "/api/test-config":
+                return self._json(200, {"api_sizes": list(benchmark_profiles.SIZES), "warmup": 3, "seed": 2026,
+                    "profiles": [benchmark_profiles.profile(n) for n in benchmark_profiles.SIZES],
+                    "model_sha256": clinic.model_sha256, "code_sha256": clinic.code_sha256})
             if path == "/api/state":
                 try:
                     health = clinic.client.health()
@@ -143,6 +150,11 @@ def create_server(host, port, clinic):
                 if "profile" in request:
                     label = request["profile"]
                     patient = synthetic.PROFILES[label]
+                elif "synthetic_seed" in request:
+                    seed = request["synthetic_seed"]
+                    if type(seed) is not int or not 0 <= seed < 2 ** 32:
+                        raise ValueError("synthetic_seed must be an integer from 0 to 4294967295")
+                    label, patient = "Seeded synthetic input", synthetic.random_patient(seed)
                 elif request.get("random_patient"):
                     label, patient = "Random synthetic input", synthetic.random_patient()
                 else:

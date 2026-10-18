@@ -1,6 +1,6 @@
 # Benchmark profiles: 20, 200, 2,000 and 16,000
 
-Pin the reviewed release on a named branch before measuring. This configuration builds on the evidence preflight fix; both PRs must be reviewed and merged before the VM run. Reserve a measurement window on the VM and avoid other benchmarks in parallel. The model weights and 19-feature schema are unchanged. Executable source changes require rebuilding both endpoints and the client together.
+Pin the reviewed release on a named branch before measuring. This configuration includes the evidence preflight fix and Hospital frontend readiness. The captain authorized integration of PRs 19–21 after validation; pin the resulting main before the VM run. Independent teammate release review remains open (see REVIEW.md). Reserve a measurement window on the VM and avoid other benchmarks in parallel. The model weights and 19-feature schema are unchanged. Executable source changes require rebuilding both endpoints and the client together.
 
 ## Prepared profiles
 
@@ -17,7 +17,7 @@ Each profile declares its exact process/API counts in `manifest.json`, command l
 
 ## Ready-to-run commands on the VM
 
-Run only after independent review and pinning the approved commit:
+Run after validated integration and pinning the captain-authorized main commit; complete independent teammate review before submission:
 
 ```bash
 make test-profiles PY=python3                  # Prints configuration; runs no measurements.
@@ -42,6 +42,10 @@ make evidence-run PROFILE=16000 API_N=16000 PY=python3
 ```
 
 The suite's default already includes separate 200-request API measurements at the larger sizes. Avoid repeating a 16,000-request API run at every size unless that additional runtime is intentional.
+
+## Hospital browser test controls
+
+The prepared Hospital frontend also provides synthetic browser API batches of 20/200/2,000/16,000 with progress, exactness checks, cancellation and JSON diagnostics. These are separate from labeled CDC experiments and recorded evidence. See [frontend readiness](FRONTEND_READINESS.md) for actual versus simulated validation and deployment requirements.
 
 ## Live pitch: use an already running demo
 

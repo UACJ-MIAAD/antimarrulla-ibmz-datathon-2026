@@ -1,0 +1,34 @@
+{
+  "kind": "browser-api-diagnostic-v1",
+  "status": "completed",
+  "requested": 20,
+  "completed": 20,
+  "exact": 20,
+  "warmup_completed": 3,
+  "warmup_requested": 3,
+  "concurrency": 1,
+  "initial_seed": 2026,
+  "identity": {
+    "model_sha256": "e32420ac99fd10d30a3a65a225a43d84d4bfd7208c6f3b7656611893729575ac",
+    "code_sha256": "59a38c39df3c874153fcf7bed08e4cc4ba2c6faa22fb127b3aa4f480156cbb65",
+    "machine": "arm64",
+    "system": "Darwin"
+  },
+  "failures": 0,
+  "error": null,
+  "scope": "Synthetic browser API observations; no clinical AUC; not recorded release evidence",
+  "percentile_method": "linear interpolation",
+  "elapsed_s": 2.525600000143051,
+  "client_ms": {
+    "n": 20,
+    "p50_ms": 107.69999992847443,
+    "p95_ms": 111.16500004529955,
+    "mean_ms": 108.80499995946884
+  },
+  "hospital_ms": {
+    "n": 20,
+    "p50_ms": 105.8,
+    "p95_ms": 108.75500000000001,
+    "mean_ms": 106.78500000000001
+  }
+}
