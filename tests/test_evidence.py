@@ -65,7 +65,7 @@ def test_complete_s390x_run_is_valid(tmp_path):
     assert s["smoke"]["Synthetic C"] == 0.633 and s["process"]["exact"] == 2000 and s["api"]["client_ms"]["p50_ms"] == 350.0
     assert any("not available" in w for w in warnings)  # fake commit: code hash not recomputed, reported
     text = ev.write_summary(run, manifest(run), errors, warnings, s)
-    assert "**VALID**" in text and "63.3%" in text
+    assert "**VALID**" in text and "63.3%" in text and "3e-08" in text
 
 
 def test_edited_log_is_rejected(tmp_path):

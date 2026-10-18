@@ -35,11 +35,10 @@ If a block slips, cut in this order: second VM run, form polish, deck refresh wi
 
 ```bash
 git fetch && git checkout <pinned-commit>
-make verify-docker
-make demo-docker
-make measure-docker FINAL=1
-make measure-api-docker FINAL=1
+make evidence-run
 ```
+
+`make evidence-run` runs `verify-docker`, `image-inspect`, `demo-docker`, `measure-docker FINAL=1` and `measure-api-docker FINAL=1`, keeps every log and system identity, and pushes the run to a branch `evidence/s390x_<UTC>` that CI validates (see [LINUXONE.md §2](LINUXONE.md)). The demo stays up for recording. The individual `make` targets still work for debugging.
 
 Evidence to keep on screen or in screenshots: Community Cloud dashboard with the VM, `uname -m` (s390x) and `lscpu`, `docker compose -f docker/compose.yml ps`, `openssl version -a`, and the measurement summary that ends the API run.
 

@@ -187,6 +187,7 @@ def publish(run_id, rel_dir, measurement_paths, status, n_errors):
         print(f"!! push failed. Send this file instead: {bundle}\n   (receiver: git fetch {os.path.basename(bundle)} {branch}:{branch})")
     if back and back != "HEAD":
         _git("switch", back)
+        print(f"   back on {back}; the run lives on {branch} (git switch {branch} to view it here)")
 
 
 def _valid(m, mode, model_sha, require_s390x):
@@ -316,7 +317,7 @@ def _fmt(d, k):
 
 
 def write_summary(run_dir, man, errors, warnings, s):
-    verdict = "VALID" if not errors else "NOT VALID"
+    verdict = "NOT VALID" if errors else ("VALID" if man.get("arch") == "s390x" else "VALID REHEARSAL (not s390x; not LinuxONE evidence)")
     lines = [f"# Evidence run {man.get('run_id')}", "",
              f"**{verdict}** · status `{man.get('status')}` · arch `{man.get('arch')}` · commit `{str(man.get('commit'))[:7]}` · "
              f"operator {man.get('operator')} · {man.get('started_utc')} → {man.get('ended_utc')}", "",
@@ -330,7 +331,7 @@ def write_summary(run_dir, man, errors, warnings, s):
     if p:
         micro = p.get("micro") or {}
         enc = next((v for k, v in micro.items() if "encrypt" in k), {})
-        lines += ["", f"Process: {p['exact']}/{p['n']} exact · encrypted ROC-AUC {p['auc']} · max logit error {p['max_logit_error']} · "
+        lines += ["", f"Process: {p['exact']}/{p['n']} exact · encrypted ROC-AUC {p['auc']} · max logit error {p['max_logit_error'] if p['max_logit_error'] is None else format(p['max_logit_error'], '.3g')} · "
                       f"encrypt p50 {_fmt(enc, 'p50_ms')} ms · `{p['file']}`"]
     if a:
         c = a.get("client_ms") or {}

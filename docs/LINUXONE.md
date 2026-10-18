@@ -25,7 +25,18 @@ git checkout RELEASE_COMMIT
 
 Ubuntu 24.04 `python3-*` apt packages support s390x; only pure-Python `phe` is installed through pip in the image. No native pip wheels are required on the host.
 
-## 2. Verify, start and measure
+## 2. Recorded run (recommended): one command, logs pushed to GitHub
+
+Give the VM push access once, without storing a token in the repository: `gh auth login` (device code in the browser) or `git config credential.helper store` with a fine-grained token limited to this repository. Then, on the clean release commit:
+
+```bash
+git config user.name "Your Name"   # identifies the operator in the run manifest
+make evidence-run                   # verify-docker, image-inspect, demo-docker, measure(-api)-docker FINAL=1
+```
+
+It streams everything to the terminal and writes `submission/evidence/runs/s390x_<UTC>/`: one log per step, `system/` identity (`uname`, `lscpu`, `/proc/sysinfo` without serial, Docker, OpenSSL, Compose state and service logs, `/api/state`), a hashed `manifest.json` and `SUMMARY.md`. Public IPv4 addresses and secrets are redacted. It then commits the run plus the new measurement files to a branch `evidence/s390x_<UTC>` and pushes it; failed runs are pushed as well so their logs arrive. If the push fails it writes `dist/<run>.bundle` to send instead. GitHub Actions (`evidence` workflow) validates the branch: s390x, every step exit 0, unmodified logs, exact results, clean commit, model hash and code hash at that commit, smoke A/B/C and no secrets. The captain merges a valid run and updates README, deck and site from its `SUMMARY.md`. `make evidence-check` repeats the validation locally; `make evidence-index` rebuilds the run index. Screenshots (dashboard, UI, video) are still captured by a person.
+
+## 2b. Verify, start and measure manually
 
 `03_test_stack.py` is library preflight. `05_test_claims.py` runs the actual project tests and saves provenance under `submission/evidence/instance/`; `make instance-claims` uses a configured host environment. Without host Python setup, use `make verify-docker`.
 
