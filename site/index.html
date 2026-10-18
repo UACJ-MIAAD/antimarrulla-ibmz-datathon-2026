@@ -190,7 +190,7 @@ header.top .brand{white-space:nowrap;overflow:hidden;text-overflow:ellipsis;min-
 <section id="deck"><div class="wrap">
   <h2>The pitch</h2>
   <p class="lead">Ten slides: problem, solution, homomorphic encryption, LinuxONE architecture, actual demo, model evidence, the time-series forecast, the roadmap and impact.</p>
-  <div class="stage"><img id="slide" src="assets/slides/s-1.jpg?v=deck10-28" alt="Pitch slide 1"><button class="navbtn prev" aria-label="Previous slide">‹</button><button class="navbtn next" aria-label="Next slide">›</button></div>
+  <div class="stage"><img id="slide" src="assets/slides/s-1.jpg?v=deck10-29" alt="Pitch slide 1"><button class="navbtn prev" aria-label="Previous slide">‹</button><button class="navbtn next" aria-label="Next slide">›</button></div>
   <div class="thumbs" id="thumbs"></div>
   <details class="note" style="margin:0 0 14px"><summary>Slide text</summary><ol>
 <li>Los Antimarrulla · Privacy-preserving screening. The hospital encrypts patient indicators; a service designed for IBM LinuxONE evaluates the model without decrypting them.</li>
@@ -203,7 +203,7 @@ header.top .brand{white-space:nowrap;overflow:hidden;text-overflow:ellipsis;min-
 <li>Time-series forecast (optional E5): 222 weekly series of SINAVE-notified type 1 and type 2 cases (national, four regions, 32 states; men, women, all), 52 weeks ahead after an 11-week nowcast. ETS or seasonal naive per series, reconciled top-down. Nested out-of-sample SMAPE about 13% national, 25% regional and 60% state; nominal 80% bands cover about 64%, so they stay exploratory. Budgets require a sourced unit cost. Not yet run on LinuxONE.</li>
 <li>Roadmap (a plan): October 2026 encrypted MVP with LinuxONE evidence runs; Q1 2027 recalibration for Mexico and s390x benchmarks; Q2 2027 hospital pilot; Q4 2027 CKKS for non-linear models, Granite explanations and forecasts on LinuxONE. Clinical validation, legal/privacy review and a security audit gate clinical use.</li>
 <li>Impact: earlier screening with less disclosure. The service sees ciphertexts; the hospital sees the result. The demo uses synthetic inputs and a trusted host administrator.</li></ol></details>
-  <div><a class="btn" href="assets/Los%20Antimarrulla_IBM%20Z%20Datathon%202026%20Project.pdf?v=deck10-28" download>Download PDF</a> <a class="btn ghost" href="https://github.com/UACJ-MIAAD/antimarrulla-ibmz-datathon-2026">View repository</a></div>
+  <div><a class="btn" href="assets/Los%20Antimarrulla_IBM%20Z%20Datathon%202026%20Project.pdf?v=deck10-29" download>Download PDF</a> <a class="btn ghost" href="https://github.com/UACJ-MIAAD/antimarrulla-ibmz-datathon-2026">View repository</a></div>
 </div></section>
 
 <section id="architecture"><div class="wrap">
@@ -324,8 +324,8 @@ load(true);setInterval(tick,1000);tick();setInterval(()=>load(false),120000);
 
 // ---- Deck ----
 const N=10; let cur=1; const img=document.getElementById("slide"), th=document.getElementById("thumbs");
-th.innerHTML=Array.from({length:N},(_,i)=>`<button type="button" class="th" data-i="${i+1}" aria-label="Go to slide ${i+1}"><img src="assets/slides/s-${i+1}.jpg?v=deck10-28" alt="" loading="lazy"></button>`).join("");
-function go(i){ cur=(i-1+N)%N+1; img.src=`assets/slides/s-${cur}.jpg?v=deck10-28`; img.alt=`Pitch slide ${cur}`; th.querySelectorAll(".th").forEach(x=>{const on=+x.dataset.i===cur;x.classList.toggle("on",on);x.setAttribute("aria-current",on?"true":"false")}); }
+th.innerHTML=Array.from({length:N},(_,i)=>`<button type="button" class="th" data-i="${i+1}" aria-label="Go to slide ${i+1}"><img src="assets/slides/s-${i+1}.jpg?v=deck10-29" alt="" loading="lazy"></button>`).join("");
+function go(i){ cur=(i-1+N)%N+1; img.src=`assets/slides/s-${cur}.jpg?v=deck10-29`; img.alt=`Pitch slide ${cur}`; th.querySelectorAll(".th").forEach(x=>{const on=+x.dataset.i===cur;x.classList.toggle("on",on);x.setAttribute("aria-current",on?"true":"false")}); }
 document.querySelector(".prev").onclick=()=>go(cur-1); document.querySelector(".next").onclick=()=>go(cur+1);
 th.onclick=e=>{ const b=e.target.closest(".th"); if(b) go(+b.dataset.i); };
 document.addEventListener("keydown",e=>{ const a=document.activeElement, deck=document.getElementById("deck"); if(a && /^(INPUT|SELECT|TEXTAREA)$/.test(a.tagName)) return; if(a && a!==document.body && !deck.contains(a)) return; const r=deck.getBoundingClientRect(); if(r.bottom<0||r.top>innerHeight) return; if(e.key==="ArrowRight") go(cur+1); if(e.key==="ArrowLeft") go(cur-1); }); go(1);

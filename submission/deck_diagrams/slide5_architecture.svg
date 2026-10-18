@@ -1,0 +1,60 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1340 760" width="1340" height="760">
+<title>slide5_architecture</title>
+<rect x="4" y="4" width="1332" height="752" rx="28" fill="#0F62FE" fill-opacity="0.06" stroke="#0F62FE" stroke-width="4"/>
+<circle cx="56" cy="56" r="30" fill="#0F62FE"/>
+<g transform="translate(34.8,34.8) scale(0.882)" fill="none" stroke="#FFFFFF" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round"><rect x="11" y="11" width="26" height="11" rx="2.5"/><rect x="11" y="26" width="26" height="11" rx="2.5"/><path d="M16 16.5h.1M16 31.5h.1"/></g>
+<text x="104" y="67" font-family="Arial, Helvetica, sans-serif" font-size="34" font-weight="bold" fill="#F4F4F4" text-anchor="start">IBM LinuxONE · s390x · Ubuntu 24.04 · Docker</text>
+<rect x="1166.96" y="33.0" width="138.08" height="42.0" rx="21.0" fill="#14141C" fill-opacity="1"/>
+<rect x="1166.96" y="33.0" width="138.08" height="42.0" rx="21.0" fill="#F1C21B" fill-opacity="0.18" stroke="#F1C21B" stroke-width="2"/>
+<text x="1236" y="62.64" font-family="Arial, Helvetica, sans-serif" font-size="24" font-weight="bold" fill="#F1C21B" text-anchor="middle">demo VM</text>
+<rect x="28" y="104" width="528" height="530" rx="22" fill="#24A148" fill-opacity="0.08" stroke="#24A148" stroke-width="3" stroke-dasharray="14 10"/>
+<text x="54" y="154" font-family="Arial, Helvetica, sans-serif" font-size="33" font-weight="bold" fill="#6FDC8C" text-anchor="start">Hospital container</text>
+<text x="54" y="188" font-family="Arial, Helvetica, sans-serif" font-size="24" font-weight="normal" fill="#A8B3C7" text-anchor="start">the only holder of the private key</text>
+<rect x="50" y="214" width="484" height="118" rx="16" fill="#1A1A24" fill-opacity="1" stroke="#3D4459" stroke-width="2"/>
+<circle cx="100" cy="273" r="30" fill="#24A148"/>
+<g transform="translate(78.8,251.8) scale(0.882)" fill="none" stroke="#FFFFFF" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="17" cy="24" r="7"/><path d="M24 24h15M34 24v6M39 24v4"/></g>
+<text x="148" y="264" font-family="Arial, Helvetica, sans-serif" font-size="29" font-weight="bold" fill="#F4F4F4" text-anchor="start">Paillier private key</text>
+<text x="148" y="302" font-family="Arial, Helvetica, sans-serif" font-size="24" font-weight="normal" fill="#A8B3C7" text-anchor="start">generated and kept in memory</text>
+<rect x="50" y="344" width="484" height="118" rx="16" fill="#1A1A24" fill-opacity="1" stroke="#3D4459" stroke-width="2"/>
+<circle cx="100" cy="403" r="30" fill="#24A148"/>
+<g transform="translate(78.8,381.8) scale(0.882)" fill="none" stroke="#FFFFFF" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round"><rect x="13" y="22" width="22" height="16" rx="3"/><path d="M17 22v-5a7 7 0 0 1 14 0v5"/><circle cx="24" cy="30" r="1.6" fill="#fff"/></g>
+<text x="148" y="394" font-family="Arial, Helvetica, sans-serif" font-size="29" font-weight="bold" fill="#F4F4F4" text-anchor="start">Encrypt · decrypt · explain</text>
+<text x="148" y="432" font-family="Arial, Helvetica, sans-serif" font-size="24" font-weight="normal" fill="#A8B3C7" text-anchor="start">python-paillier + gmpy2</text>
+<rect x="50" y="474" width="484" height="118" rx="16" fill="#1A1A24" fill-opacity="1" stroke="#3D4459" stroke-width="2"/>
+<circle cx="100" cy="533" r="30" fill="#24A148"/>
+<g transform="translate(78.8,511.8) scale(0.882)" fill="none" stroke="#FFFFFF" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round"><rect x="11" y="12" width="26" height="24" rx="3"/><circle cx="24" cy="24" r="5"/><path d="M24 19v-2M24 31v-2M19 24h-2M31 24h-2"/></g>
+<text x="148" y="524" font-family="Arial, Helvetica, sans-serif" font-size="29" font-weight="bold" fill="#F4F4F4" text-anchor="start">Encrypted vault</text>
+<text x="148" y="562" font-family="Arial, Helvetica, sans-serif" font-size="24" font-weight="normal" fill="#A8B3C7" text-anchor="start">AES-256-GCM · read-only key file</text>
+<rect x="784" y="104" width="528" height="530" rx="22" fill="#78A9FF" fill-opacity="0.08" stroke="#78A9FF" stroke-width="3" stroke-dasharray="14 10"/>
+<text x="810" y="154" font-family="Arial, Helvetica, sans-serif" font-size="33" font-weight="bold" fill="#78A9FF" text-anchor="start">Risk service</text>
+<text x="810" y="188" font-family="Arial, Helvetica, sans-serif" font-size="24" font-weight="normal" fill="#A8B3C7" text-anchor="start">public key and public weights only</text>
+<rect x="806" y="214" width="484" height="118" rx="16" fill="#1A1A24" fill-opacity="1" stroke="#3D4459" stroke-width="2"/>
+<circle cx="856" cy="273" r="30" fill="#0F62FE"/>
+<g transform="translate(834.8,251.8) scale(0.882)" fill="none" stroke="#FFFFFF" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round"><path d="M28 12c-4 0-5 3-5.5 6L20 32c-.5 3-2 5-5 5"/><path d="M15 21h12M29 26l7 9M36 26l-7 9"/></g>
+<text x="904" y="264" font-family="Arial, Helvetica, sans-serif" font-size="29" font-weight="bold" fill="#F4F4F4" text-anchor="start">Homomorphic logit</text>
+<text x="904" y="302" font-family="Arial, Helvetica, sans-serif" font-size="24" font-weight="normal" fill="#A8B3C7" text-anchor="start">∏ Enc(xᵢ)^Wᵢ · Enc(B) mod n²</text>
+<rect x="806" y="344" width="484" height="118" rx="16" fill="#1A1A24" fill-opacity="1" stroke="#3D4459" stroke-width="2"/>
+<circle cx="856" cy="403" r="30" fill="#0F62FE"/>
+<g transform="translate(834.8,381.8) scale(0.882)" fill="none" stroke="#FFFFFF" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round"><path d="M11 36h27"/><path d="M13 30l7-8 6 5 10-12"/></g>
+<text x="904" y="394" font-family="Arial, Helvetica, sans-serif" font-size="29" font-weight="bold" fill="#F4F4F4" text-anchor="start">Model logistic-cdc19-v1</text>
+<text x="904" y="432" font-family="Arial, Helvetica, sans-serif" font-size="24" font-weight="normal" fill="#A8B3C7" text-anchor="start">19 integer weights × 10⁹</text>
+<rect x="806" y="474" width="484" height="118" rx="16" fill="#1A1A24" fill-opacity="1" stroke="#3D4459" stroke-width="2"/>
+<circle cx="856" cy="533" r="30" fill="#0F62FE"/>
+<g transform="translate(834.8,511.8) scale(0.882)" fill="none" stroke="#FFFFFF" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 13h18M15 21h18M15 29h12M15 37h8"/></g>
+<text x="904" y="524" font-family="Arial, Helvetica, sans-serif" font-size="29" font-weight="bold" fill="#F4F4F4" text-anchor="start">Minimal logs</text>
+<text x="904" y="562" font-family="Arial, Helvetica, sans-serif" font-size="24" font-weight="normal" fill="#A8B3C7" text-anchor="start">request IDs, milliseconds, bytes</text>
+<text x="670" y="262" font-family="Arial, Helvetica, sans-serif" font-size="25" font-weight="bold" fill="#F4F4F4" text-anchor="middle">19 ciphertexts</text>
+<line x1="564" y1="286" x2="754.0" y2="286.0" stroke="#A56EFF" stroke-width="7" stroke-linecap="round"/>
+<polygon points="776,286 754.0,273.9 754.0,298.1" fill="#A56EFF"/>
+<text x="670" y="324" font-family="Arial, Helvetica, sans-serif" font-size="24" font-weight="normal" fill="#A8B3C7" text-anchor="middle">24 KB</text>
+<text x="670" y="412" font-family="Arial, Helvetica, sans-serif" font-size="25" font-weight="bold" fill="#F4F4F4" text-anchor="middle">Enc(z)</text>
+<line x1="776" y1="436" x2="586.0" y2="436.0" stroke="#6FDC8C" stroke-width="7" stroke-linecap="round"/>
+<polygon points="564,436 586.0,448.1 586.0,423.9" fill="#6FDC8C"/>
+<text x="670" y="474" font-family="Arial, Helvetica, sans-serif" font-size="24" font-weight="normal" fill="#A8B3C7" text-anchor="middle">1.4 KB</text>
+<rect x="592.0" y="534.125" width="156.0" height="43.75" rx="21.875" fill="#14141C" fill-opacity="1"/>
+<rect x="592.0" y="534.125" width="156.0" height="43.75" rx="21.875" fill="#F1C21B" fill-opacity="0.18" stroke="#F1C21B" stroke-width="2"/>
+<text x="670" y="565.0" font-family="Arial, Helvetica, sans-serif" font-size="25" font-weight="bold" fill="#F1C21B" text-anchor="middle">mTLS 1.3</text>
+<text x="670" y="604" font-family="Arial, Helvetica, sans-serif" font-size="21" font-weight="normal" fill="#A8B3C7" text-anchor="middle">client certificates</text>
+<text x="28" y="684" font-family="Arial, Helvetica, sans-serif" font-size="22" font-weight="normal" fill="#A8B3C7" text-anchor="start">Browser → SSH tunnel → hospital UI/API on VM loopback (port 8080). The service never sees an answer, the probability or the flag.</text>
+<text x="28" y="724" font-family="Arial, Helvetica, sans-serif" font-size="22" font-weight="normal" fill="#F1C21B" text-anchor="start">Demo: both containers share one VM and a trusted administrator · Production: the hospital container runs on hospital premises.</text>
+</svg>

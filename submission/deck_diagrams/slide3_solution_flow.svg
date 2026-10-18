@@ -1,0 +1,52 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 2426 440" width="2426" height="440">
+<title>slide3_solution_flow</title>
+<rect x="4" y="4" width="1010" height="432" rx="26" fill="#24A148" fill-opacity="0.07" stroke="#24A148" stroke-width="3"/>
+<circle cx="56" cy="58" r="28" fill="#24A148"/>
+<g transform="translate(36.2,38.2) scale(0.824)" fill="none" stroke="#FFFFFF" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="17" cy="24" r="7"/><path d="M24 24h15M34 24v6M39 24v4"/></g>
+<text x="100" y="68" font-family="Arial, Helvetica, sans-serif" font-size="30" font-weight="bold" fill="#6FDC8C" text-anchor="start" letter-spacing="1.5">HOSPITAL · holds the private key</text>
+<rect x="1412" y="4" width="1010" height="432" rx="26" fill="#0F62FE" fill-opacity="0.08" stroke="#78A9FF" stroke-width="3"/>
+<circle cx="1464" cy="58" r="28" fill="#0F62FE"/>
+<g transform="translate(1444.2,38.2) scale(0.824)" fill="none" stroke="#FFFFFF" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round"><rect x="11" y="11" width="26" height="11" rx="2.5"/><rect x="11" y="26" width="26" height="11" rx="2.5"/><path d="M16 16.5h.1M16 31.5h.1"/></g>
+<text x="1508" y="68" font-family="Arial, Helvetica, sans-serif" font-size="30" font-weight="bold" fill="#78A9FF" text-anchor="start" letter-spacing="1.5">RISK SERVICE on LinuxONE · no private key</text>
+<rect x="40" y="104" width="930" height="150" rx="18" fill="#1A1A24" fill-opacity="1" stroke="#3D4459" stroke-width="2"/>
+<circle cx="92" cy="179" r="30" fill="#24A148"/>
+<text x="92" y="190" font-family="Arial, Helvetica, sans-serif" font-size="32" font-weight="bold" fill="#FFFFFF" text-anchor="middle">1</text>
+<text x="144" y="162" font-family="Arial, Helvetica, sans-serif" font-size="34" font-weight="bold" fill="#F4F4F4" text-anchor="start">Encrypt the 19 answers</text>
+<text x="144" y="202" font-family="Arial, Helvetica, sans-serif" font-size="25" font-weight="normal" fill="#A8B3C7" text-anchor="start">Paillier 2048-bit public key; the key pair</text>
+<text x="144" y="235" font-family="Arial, Helvetica, sans-serif" font-size="25" font-weight="normal" fill="#A8B3C7" text-anchor="start">never leaves the hospital container</text>
+<rect x="40" y="270" width="930" height="150" rx="18" fill="#1A1A24" fill-opacity="1" stroke="#3D4459" stroke-width="2"/>
+<circle cx="92" cy="345" r="30" fill="#24A148"/>
+<text x="92" y="356" font-family="Arial, Helvetica, sans-serif" font-size="32" font-weight="bold" fill="#FFFFFF" text-anchor="middle">4</text>
+<text x="144" y="328" font-family="Arial, Helvetica, sans-serif" font-size="34" font-weight="bold" fill="#F4F4F4" text-anchor="start">Decrypt and explain</text>
+<text x="144" y="368" font-family="Arial, Helvetica, sans-serif" font-size="25" font-weight="normal" fill="#A8B3C7" text-anchor="start">σ(z / 10⁹) → risk 63.3% for synthetic C;</text>
+<text x="144" y="401" font-family="Arial, Helvetica, sans-serif" font-size="25" font-weight="normal" fill="#A8B3C7" text-anchor="start">threshold 12.2% → prioritize a glucose test</text>
+<rect x="1452" y="104" width="930" height="150" rx="18" fill="#1A1A24" fill-opacity="1" stroke="#3D4459" stroke-width="2"/>
+<circle cx="1504" cy="179" r="30" fill="#0F62FE"/>
+<text x="1504" y="190" font-family="Arial, Helvetica, sans-serif" font-size="32" font-weight="bold" fill="#FFFFFF" text-anchor="middle">2</text>
+<text x="1556" y="162" font-family="Arial, Helvetica, sans-serif" font-size="34" font-weight="bold" fill="#F4F4F4" text-anchor="start">Evaluate on ciphertexts</text>
+<text x="1556" y="202" font-family="Arial, Helvetica, sans-serif" font-size="25" font-weight="normal" fill="#A8B3C7" text-anchor="start">Enc(z) = ∏ Enc(xᵢ)^Wᵢ · Enc(B)  (mod n²)</text>
+<text x="1556" y="235" font-family="Arial, Helvetica, sans-serif" font-size="25" font-weight="normal" fill="#A8B3C7" text-anchor="start">integer weights × 10⁹ · exact, no decryption</text>
+<rect x="1452" y="270" width="930" height="150" rx="18" fill="#1A1A24" fill-opacity="1" stroke="#3D4459" stroke-width="2"/>
+<circle cx="1504" cy="345" r="30" fill="#0F62FE"/>
+<text x="1504" y="356" font-family="Arial, Helvetica, sans-serif" font-size="32" font-weight="bold" fill="#FFFFFF" text-anchor="middle">3</text>
+<text x="1556" y="328" font-family="Arial, Helvetica, sans-serif" font-size="34" font-weight="bold" fill="#F4F4F4" text-anchor="start">Return one ciphertext</text>
+<text x="1556" y="368" font-family="Arial, Helvetica, sans-serif" font-size="25" font-weight="normal" fill="#A8B3C7" text-anchor="start">rerandomized Enc(z); the service never sees</text>
+<text x="1556" y="401" font-family="Arial, Helvetica, sans-serif" font-size="25" font-weight="normal" fill="#A8B3C7" text-anchor="start">an answer, the probability or the flag</text>
+<line x1="1213" y1="20" x2="1213" y2="420" stroke="#F1C21B" stroke-width="3" stroke-dasharray="12 10"/>
+<rect x="1096.92" y="19.0" width="232.16000000000003" height="42.0" rx="21.0" fill="#14141C" fill-opacity="1"/>
+<rect x="1096.92" y="19.0" width="232.16000000000003" height="42.0" rx="21.0" fill="#F1C21B" fill-opacity="0.18" stroke="#F1C21B" stroke-width="2"/>
+<text x="1213" y="48.64" font-family="Arial, Helvetica, sans-serif" font-size="24" font-weight="bold" fill="#F1C21B" text-anchor="middle">mutual TLS 1.3</text>
+<line x1="985" y1="179" x2="1416.0" y2="179.0" stroke="#78A9FF" stroke-width="6" stroke-linecap="round"/>
+<polygon points="1438,179 1416.0,166.9 1416.0,191.1" fill="#78A9FF"/>
+<rect x="1037.0" y="118.125" width="352.00000000000006" height="43.75" rx="21.875" fill="#14141C" fill-opacity="1"/>
+<rect x="1037.0" y="118.125" width="352.00000000000006" height="43.75" rx="21.875" fill="#A56EFF" fill-opacity="0.18" stroke="#A56EFF" stroke-width="2"/>
+<text x="1213" y="149.0" font-family="Arial, Helvetica, sans-serif" font-size="25" font-weight="bold" fill="#A56EFF" text-anchor="middle">19 ciphertexts · 24 KB</text>
+<line x1="1438" y1="345" x2="1007.0" y2="345.0" stroke="#6FDC8C" stroke-width="6" stroke-linecap="round"/>
+<polygon points="985,345 1007.0,357.1 1007.0,332.9" fill="#6FDC8C"/>
+<rect x="1086.0" y="284.125" width="254.00000000000003" height="43.75" rx="21.875" fill="#14141C" fill-opacity="1"/>
+<rect x="1086.0" y="284.125" width="254.00000000000003" height="43.75" rx="21.875" fill="#A56EFF" fill-opacity="0.18" stroke="#A56EFF" stroke-width="2"/>
+<text x="1213" y="315.0" font-family="Arial, Helvetica, sans-serif" font-size="25" font-weight="bold" fill="#A56EFF" text-anchor="middle">Enc(z) · 1.4 KB</text>
+<rect x="1092.44" y="380.75" width="241.12" height="38.5" rx="19.25" fill="#14141C" fill-opacity="1"/>
+<rect x="1092.44" y="380.75" width="241.12" height="38.5" rx="19.25" fill="#F1C21B" fill-opacity="0.18" stroke="#F1C21B" stroke-width="2"/>
+<text x="1213" y="407.92" font-family="Arial, Helvetica, sans-serif" font-size="22" font-weight="bold" fill="#F1C21B" text-anchor="middle">ciphertexts only</text>
+</svg>
