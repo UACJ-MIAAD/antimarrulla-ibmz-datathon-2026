@@ -79,6 +79,14 @@ measure-api-docker: image-dev        ## Measure the Compose hospital API from a 
 	mkdir -p $(MEASUREMENT_DIR) && chmod 777 $(MEASUREMENT_DIR)
 	docker run --rm --network host $(PROC) -v $(CURDIR)/$(MEASUREMENT_DIR):/app/submission/evidence/metrics screening:dev python3 -m screening.measure --mode api --url $(UI_URL) $(if $(FINAL),--final,)
 
+.PHONY: evidence-run evidence-check evidence-index
+evidence-run:                        ## On the VM: run checks + FINAL measurements, keep logs, push branch evidence/<run>.
+	$(PY) tools/evidence.py run $(if $(NO_PUSH),--no-push,) $(if $(DOWN),--down,)
+evidence-check:                      ## Validate recorded runs (RUN=dir for one; LOCAL=1 accepts non-s390x rehearsals).
+	$(PY) tools/evidence.py check $(RUN) $(if $(LOCAL),--allow-non-s390x,)
+evidence-index:                      ## Rebuild submission/evidence/runs/INDEX.md.
+	$(PY) tools/evidence.py index
+
 .PHONY: ensanut forecast video-draft
 ensanut: setup                       ## Optional reduced ENSANUT experiment with local microdata.
 	$(BIN)/python -m screening.ensanut
