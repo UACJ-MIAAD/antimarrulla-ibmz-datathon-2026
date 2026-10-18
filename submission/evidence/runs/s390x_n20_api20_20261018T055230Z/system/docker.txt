@@ -1,0 +1,31 @@
+$ docker version && docker compose version
+Client: Docker Engine - Community
+ Version:           29.8.0
+ API version:       1.56
+ Go version:        go1.26.8
+ Git commit:        88096ef
+ Built:             Thu Sep 17 08:51:40 2026
+ OS/Arch:           linux/s390x
+ Context:           default
+
+Server: Docker Engine - Community
+ Engine:
+  Version:          29.8.0
+  API version:      1.56 (minimum version 1.40)
+  Go version:       go1.26.8
+  Git commit:       3ce5872
+  Built:            Thu Sep 17 08:51:40 2026
+  OS/Arch:          linux/s390x
+  Experimental:     false
+ containerd:
+  Version:          v2.3.5
+  GitCommit:        1294c24a7da8e5a793ed378161673abe94118892
+ runc:
+  Version:          1.5.1
+  GitCommit:        v1.5.1-0-g8f2685a4
+ docker-init:
+  Version:          0.19.0
+  GitCommit:        de40ad0
+Docker Compose version v5.5.1
+
+[exit 0]

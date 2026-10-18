@@ -1,0 +1,14 @@
+$ git log -1 --format='%H %an %cI %s'; git status --short --branch
+b50f6cc2346d8b5ae2fa22d36f7c67d5ec08c9ed Javier Rebull 2026-10-18T01:38:14-04:00 Merge pull request #23: ten-slide deck with the time-series forecast and the roadmap
+## main...origin/main
+?? submission/evidence/metrics/measurement_api_s390x-container_20261018T050944Z.json
+?? submission/evidence/metrics/measurement_api_s390x-container_20261018T050944Z.md
+?? submission/evidence/metrics/measurement_api_s390x-container_20261018T053505Z.json
+?? submission/evidence/metrics/measurement_api_s390x-container_20261018T053505Z.md
+?? submission/evidence/metrics/measurement_process_s390x-container_20261018T050922Z.json
+?? submission/evidence/metrics/measurement_process_s390x-container_20261018T050922Z.md
+?? submission/evidence/metrics/measurement_process_s390x-container_20261018T053443Z.json
+?? submission/evidence/metrics/measurement_process_s390x-container_20261018T053443Z.md
+?? submission/evidence/runs/
+
+[exit 0]
