@@ -13,6 +13,7 @@ The Hospital UI now supports single-patient demonstrations, synthetic browser AP
 | 200 API requests | Same sequential batch flow, bounded recent-history charts | Actual browser: 200/200 exact; recent history limited to 200 of 221 observations |
 | 2,000 / 16,000 API requests | Explicit selectable counts; tab must remain open; stop after current request and export available | Selectors and the exact request loop checked with simulated requests; **no actual large run performed** |
 | Recorded CDC profiles 20 / 200 / 2,000 / 16,000 | Show the corresponding VM command and separate CDC/API counts; small profiles labeled diagnostic | All four generated commands inspected; API count override inspected; command copy verified |
+| Switching patient → batch | Clear the individual profile selection so a seeded batch result is not mislabeled C | Actual browser: C no longer pressed after batch |
 | Cancellation | Finish the current request, then stop; preserve completed vault writes | Actual browser cancellation during warmup; simulated cancellation after five measured results |
 | Connection failure | Stop, show FAILED and unlock controls; no automatic retry | Owned preview stopped: FAILED 0/20; service restored and a new 20/20 run completed |
 | Wrong integer / identity / duplicate result | Stop immediately; never report completion | Simulated engine checks; single-score guard test withholds the result |
@@ -41,6 +42,6 @@ The frontend does not execute shell commands, launch a CDC experiment inside the
 - Native `make verify`: **187 passed**, model reproduced.
 - Ubuntu arm64 `make verify-docker`: **133 passed, 8 skipped**, model reproduced. The Node browser-state-machine test is skipped in the dev image; native and CI verify exercise it.
 - Browser state-machine simulations cover all four counts, warmups, exactness, duplicates, identity changes, cancellation, failed requests, unsupported sizes, offline startup, percentile calculation and withholding a failed single score.
-- [Actual 20-request diagnostic](../submission/evidence/local/frontend_browser_api_20.json) and [validation record](../submission/evidence/local/frontend_readiness_validation.json).
+- [Actual 20-request diagnostic](../submission/evidence/local/frontend_browser_api_20_final.json) and [validation record](../submission/evidence/local/frontend_readiness_validation_v2.json).
 
 Both desktop/mobile proof screenshots are available locally under `dist/frontend-validation/`. The intentional outage produced a network error; the final reloaded preview had no console errors or warnings. The model file and weights are unchanged. Source changes require fresh final measurements at the approved commit.

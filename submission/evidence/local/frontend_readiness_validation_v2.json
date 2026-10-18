@@ -1,0 +1,70 @@
+{
+  "scope": "Local Hospital frontend readiness; not LinuxONE evidence",
+  "date_utc": "2026-10-18T04:25:53.924427+00:00",
+  "source_commit_before_changes": "bc02b819ff8876a132175df02bc1456542d92fb0",
+  "tested_with_uncommitted_frontend": true,
+  "source_code_sha256": "59a38c39df3c874153fcf7bed08e4cc4ba2c6faa22fb127b3aa4f480156cbb65",
+  "model_sha256": "e32420ac99fd10d30a3a65a225a43d84d4bfd7208c6f3b7656611893729575ac",
+  "native_verify": {
+    "passed": 187,
+    "model_reproduced": true
+  },
+  "ubuntu_arm64_verify": {
+    "passed": 133,
+    "skipped": 8,
+    "model_reproduced": true
+  },
+  "browser_20": {
+    "requested": 20,
+    "completed": 20,
+    "exact": 20,
+    "warmups": 3,
+    "diagnostic": "submission/evidence/local/frontend_browser_api_20_final.json",
+    "source_code_sha256": "59a38c39df3c874153fcf7bed08e4cc4ba2c6faa22fb127b3aa4f480156cbb65"
+  },
+  "browser_200": {
+    "requested": 200,
+    "completed": 200,
+    "exact": 200,
+    "warmups": 3,
+    "observed_in_browser": true,
+    "source_code_sha256": "a3c566805490059325c18c0aa6948f97dde904c879404ce514db2944d026613c",
+    "note": "Observed before the final single-score guard and selector styling; batch engine unchanged."
+  },
+  "individual_modes": [
+    "A",
+    "B",
+    "C",
+    "random",
+    "custom valid",
+    "custom invalid"
+  ],
+  "real_cancellation": {
+    "status": "cancelled",
+    "measured_completed": 0,
+    "requested": 200,
+    "during_warmup": true
+  },
+  "real_outage": {
+    "status": "failed",
+    "measured_completed": 0,
+    "requested": 20,
+    "recovery_completed": 20
+  },
+  "simulated_api_sizes": [
+    20,
+    200,
+    2000,
+    16000
+  ],
+  "large_actual_runs_executed": false,
+  "vm_runs_executed": false,
+  "mobile": {
+    "viewport_px": 375,
+    "document_width_px": 375
+  },
+  "final_console_errors": 0,
+  "command_copy_and_diagnostic_download_verified": true,
+  "supersedes": "frontend_readiness_validation.json",
+  "individual_selection_cleared_on_batch_start": true
+}
