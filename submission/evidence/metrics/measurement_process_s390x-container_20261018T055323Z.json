@@ -1,0 +1,204 @@
+{
+ "mode": "process",
+ "date_utc": "2026-10-18T05:53:23Z",
+ "environment_label": "s390x-container",
+ "warning": null,
+ "command": "python -m screening.measure --budget-s 600 --max 2000 --patients 20 --https 20 --final",
+ "model": "logistic-cdc19-v1",
+ "key_paillier_bits": 2048,
+ "concurrency": 1,
+ "warmup": 5,
+ "requested_patients": 20,
+ "pilot": {
+  "patients": 20,
+  "ms_by_patient": 262.65,
+  "budget_s": 600
+ },
+ "sample": {
+  "source": "CDC test split",
+  "seed": 2026,
+  "n": 20,
+  "positives": 3,
+  "prevalence": 0.15,
+  "ids_sha256": "7f8a362c4627ce3ef6f754fca13c17c0cd949c5cd8dc42515eb43028db4bc800"
+ },
+ "accuracy": {
+  "identical_integers": 20,
+  "of": 20,
+  "error_max_logit_vs_floating": 2.2273298094788174e-08,
+  "applicable_max_bound": 5.4e-08,
+  "all_within_bound": true,
+  "error_max_probability": 3.7903855054644e-09
+ },
+ "metrics_same_sample": {
+  "floating": {
+   "roc_auc": 0.980392,
+   "average_precision": 0.916667,
+   "sensitivity": 1.0,
+   "specificity": 0.5294,
+   "matrix_confusion": {
+    "tn": 9,
+    "fp": 8,
+    "fn": 0,
+    "tp": 3
+   }
+  },
+  "fixed_point": {
+   "roc_auc": 0.980392,
+   "average_precision": 0.916667,
+   "sensitivity": 1.0,
+   "specificity": 0.5294,
+   "matrix_confusion": {
+    "tn": 9,
+    "fp": 8,
+    "fn": 0,
+    "tp": 3
+   }
+  },
+  "ciphertext": {
+   "roc_auc": 0.980392,
+   "average_precision": 0.916667,
+   "sensitivity": 1.0,
+   "specificity": 0.5294,
+   "matrix_confusion": {
+    "tn": 9,
+    "fp": 8,
+    "fn": 0,
+    "tp": 3
+   }
+  }
+ },
+ "benchmark_plaintext": {
+  "n_patients": 20,
+  "repetitions": 10,
+  "concurrency": 1,
+  "scope": "sequential per-patient logit only; excludes encryption, network, sigmoid, decryption and vault",
+  "sample_sha256": "42ab6bdccd8882b75af5bf044259d411909eb6a7767d1e249083f750e0705bbf",
+  "floating": {
+   "n_evaluations": 200,
+   "p50_us": 1.555,
+   "p95_us": 1.585,
+   "mean_us": 1.568
+  },
+  "fixed_point": {
+   "n_evaluations": 200,
+   "p50_us": 3.467,
+   "p95_us": 3.602,
+   "mean_us": 3.474
+  }
+ },
+ "microbenchmark_in_process": {
+  "encrypt_hospital": {
+   "n": 20,
+   "p50_ms": 242.328,
+   "p95_ms": 245.834,
+   "mean_ms": 242.23
+  },
+  "evaluate_service": {
+   "n": 20,
+   "p50_ms": 18.136,
+   "p95_ms": 18.675,
+   "mean_ms": 18.19
+  },
+  "decrypt_hospital": {
+   "n": 20,
+   "p50_ms": 3.723,
+   "p95_ms": 3.812,
+   "mean_ms": 3.744
+  },
+  "patients_per_minute_sequential": 227.0,
+  "note": "without network or vault"
+ },
+ "microbenchmark_https_same_process": {
+  "complete_request": {
+   "n": 20,
+   "p50_ms": 271.163,
+   "p95_ms": 273.557,
+   "mean_ms": 271.241
+  },
+  "components": {
+   "encrypt": {
+    "n": 20,
+    "p50_ms": 243.1,
+    "p95_ms": 244.9,
+    "mean_ms": 243.425
+   },
+   "network_and_service": {
+    "n": 20,
+    "p50_ms": 22.3,
+    "p95_ms": 22.8,
+    "mean_ms": 22.37
+   },
+   "decrypt": {
+    "n": 20,
+    "p50_ms": 3.7,
+    "p95_ms": 3.9,
+    "mean_ms": 3.77
+   },
+   "interpret": {
+    "n": 20,
+    "p50_ms": 0.04,
+    "p95_ms": 0.05,
+    "mean_ms": 0.041
+   },
+   "vault": {
+    "n": 20,
+    "p50_ms": 1.0,
+    "p95_ms": 1.1,
+    "mean_ms": 1.075
+   },
+   "total_in_hospital": {
+    "n": 20,
+    "p50_ms": 270.6,
+    "p95_ms": 273.0,
+    "mean_ms": 270.69
+   }
+  },
+  "patients_per_minute_sequential": 221.2,
+  "note": "hospital logic and HTTPS service in the SAME process, mutual TLS 1.3 with a new connection per request, vault and fsync; excludes two-container deployment and browser"
+ },
+ "sizes_bytes": {
+  "request_p50": 24306,
+  "response_p50": 1393
+ },
+ "aes256gcm_microbenchmark_mb_s": 6643.8,
+ "provenance": {
+  "commit": "b50f6cc2346d8b5ae2fa22d36f7c67d5ec08c9ed",
+  "source_commit": "environment",
+  "clean": true,
+  "changes_relevant": [],
+  "files_unrelated_to_experiment": null,
+  "code_sha256": "59a38c39df3c874153fcf7bed08e4cc4ba2c6faa22fb127b3aa4f480156cbb65",
+  "code_files": 24,
+  "model_sha256": "e32420ac99fd10d30a3a65a225a43d84d4bfd7208c6f3b7656611893729575ac",
+  "splits_sha256": "8394d9f07d189298a247adaf13ed348f38deddc4b704e49926f2e9459483110e",
+  "cdc_sha256": "c75c2d1fd66c86883e996a80977ae0eea83e1a1b56d39272c1abcea46574afcb",
+  "image": "sha256:fc4c882858776d3f69652639af62c311fbcfba3564454458e4ca6133634d362c",
+  "note": "container without .git: Makefile declares commit/state; the in-image source hash identifies executable code"
+ },
+ "environment": {
+  "machine": "s390x",
+  "system": "Linux",
+  "platform": "Linux-6.8.0-147-generic-s390x-with-glibc2.39",
+  "processor": "s390x",
+  "cpus": 3,
+  "python": "3.12.3",
+  "container": true,
+  "is_linuxone_s390x": true,
+  "versions": {
+   "phe": "1.5.0",
+   "gmpy2": "2.1.5",
+   "cryptography": "41.0.7",
+   "numpy": "1.26.4",
+   "scikit_learn": "1.4.1.post1"
+  },
+  "openssl_cli": "OpenSSL 3.0.13 30 Jan 2024 (Library: OpenSSL 3.0.13 30 Jan 2024)\nbuilt on: Wed Sep 16 18:47:02 2026 UTC\nplatform: debian-s390x\noptions:  bn(64,64)\ncompiler: gcc -fPIC -pthread -m64 -Wa,--noexecstack -Wall -fzero-call-used-regs=used-gpr -DOPENSSL_TLS_SECURITY_LEVEL=2 -Wa,--noexecstack -g -O2 -mbackchain -ffile-prefix-map=/build/openssl-SJd6nd/openssl-3.0.13=. -fstack-protector-strong -Wformat -Werror=format-security -fno-stack-clash-protection -fdebug-prefix-map=/build/openssl-SJd6nd/openssl-3.0.13=/usr/src/openssl-3.0.13-0ubuntu3.16 -DOPENSSL_USE_NODELETE -DB_ENDIAN -DOPENSSL_PIC -DOPENSSL_BUILDING_OPENSSL -DNDEBUG -Wdate-time -D_FORTIFY_SOURCE=3\nOPENSSLDIR: \"/usr/lib/ssl\"\nENGINESDIR: \"/usr/lib/s390x-linux-gnu/engines-3\"\nMODULESDIR: \"/usr/lib/s390x-linux-gnu/ossl-modules\"\nSeeding source: os-specific\nCPUINFO: OPENSSL_s390xcap=stfle:0xfbcbfffbfeffff7c:0x7fcef0000000000:0x77003b9804a00000:0x0:kimd:0xf0000000fc000000:0x4000000000000001:klmd:0xf0000000fc000000:0x1:km:0xf070383800002828:0x282800000001:kmc:0xf070383800000000:0x1000000000000001:kmac:0xf070383800000000:0xf0f1:kmctr:0xf070383800000000:0x1:kmo:0xf070383800000000:0x1:kmf:0xf070383800000000:0x1:prno:0x9000000000000000:0xa001:kma:0x8000383800000000:0x1:pcc:0xf070383800002828:0xe0c0c00000000001:kdsa:0xf070700088888800:0x1",
+  "openssl_of_cryptography": "OpenSSL 3.0.13 30 Jan 2024",
+  "uname": "Linux a92aad74cc76 6.8.0-147-generic #147-Ubuntu SMP Thu Sep 24 10:59:43 UTC 2026 s390x s390x s390x GNU/Linux",
+  "lscpu": "Architecture:                            s390x\nCPU op-mode(s):                          32-bit, 64-bit\nByte Order:                              Big Endian\nCPU(s):                                  3\nOn-line CPU(s) list:                     0-2\nVendor ID:                               IBM/S390\nModel name:                              -\nMachine type:                            9175\nThread(s) per core:                      1\nCore(s) per socket:                      1\nSocket(s) per book:                      1\nBook(s) per drawer:                      1\nDrawer(s):                               3\nCPU dynamic MHz:                         5508\nCPU static MHz:                          5508\nBogoMIPS:                                28901.00\nDispatching mode:                        horizontal\nFlags:                                   esan3 zarch stfle msa ldisp eimm dfp edat etf3eh highgprs te vx vxd vxe gs vxe2 vxp sort dflt vxp2 nnpa sie\nHypervisor:                              z/VM 7.3.0\nHypervisor vendor:                       IBM\nVirtualization type:                     full\nL1d cache:                               384 KiB (3 instances)\nL1i cache:                               384 KiB (3 instances)\nL2 cache:                                108 MiB (3 instances)\nL3 cache:                                360 MiB\nNUMA node(s):                            1\nNUMA node0 CPU(s):                       0-2\nVulnerability Gather data sampling:      Not affected\nVulnerability Indirect target selection: Not affected\nVulnerability Itlb multihit:             Not affected\nVulnerability L1tf:                      Not affected\nVulnerability Mds:                       Not affected\nVulnerability Meltdown:                  Not affected\nVulnerability Mmio stale data:           Not affected\nVulnerability Reg file data sampling:    Not affected\nVulnerability Retbleed:                  Not affected\nVulnerability Spec rstack overflow:      Not affected\nVulnerability Spec store bypass:         Not affected\nVulnerability Spectre v1:                Mitigation; __user pointer sanitization\nVulnerability Spectre v2:                Mitigation; etokens\nVulnerability Srbds:                     Not affected\nVulnerability Tsa:                       Not affected\nVulnerability Tsx async abort:           Not affected\nVulnerability Vmscape:                   Not affected",
+  "cpacfinfo": "cpacfinfo is not installed",
+  "cpuinfo_features": [
+   "features\t: esan3 zarch stfle msa ldisp eimm dfp edat etf3eh highgprs te vx vxd vxe gs vxe2 vxp sort dflt vxp2 nnpa sie \n"
+  ]
+ }
+}

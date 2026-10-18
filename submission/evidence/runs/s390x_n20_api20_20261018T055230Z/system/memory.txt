@@ -1,0 +1,6 @@
+$ free -h || vm_stat
+               total        used        free      shared  buff/cache   available
+Mem:           7.8Gi       3.3Gi       540Mi        13Mi       4.1Gi       4.5Gi
+Swap:             0B          0B          0B
+
+[exit 0]
