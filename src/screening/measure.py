@@ -1,11 +1,11 @@
 """Measurements with verifiable execution provenance.
 Process mode compares floating point, fixed point and Paillier on one stratified CDC test sample;
-measure encryption/evaluation/aecryption separately. A same-process HTTPS microbenchmark includes
+measure encryption/evaluation/decryption separately. A same-process HTTPS microbenchmark includes
 mutual TLS, hospital logic and the vault; it is not a two-container deployment.
 API mode calls the deployed hospital API and verifies model hash and exact expected integers
 using deterministic synthetic inputs. Record code/model/split/image identity and environment.
 --final requires a clean identifiable commit and, for API mode, matching remote code.
-Run: python -m screening.measure [--budget-s 600] [--max 2000] [--https 100] [--final]
+Run: python -m screening.measure [--patients 16000] [--budget-s 600] [--max 2000] [--https 100] [--final]
      python -m screening.measure --mode api --url http://127.0.0.1:8080 [--n 200] [--final]
 """
 import argparse, datetime, json, math, os, platform, random, shutil, statistics, subprocess, tempfile, threading, time
@@ -198,6 +198,7 @@ def main():
     ap.add_argument("--n", type=int, default=200, help="API-mode requests")
     ap.add_argument("--budget-s", type=float, default=600, help="maximum seconds for in-process measurement")
     ap.add_argument("--max", type=int, default=2000)
+    ap.add_argument("--patients", type=int, help="exact process sample; overrides adaptive budget and --max")
     ap.add_argument("--https", type=int, default=100, help="round trips for the same-process HTTPS microbenchmark")
     ap.add_argument("--final", action="store_true", help="reject relevant uncommitted changes")
     a = ap.parse_args()
@@ -220,6 +221,9 @@ def main():
     ids, X, y = data.load_cdc()
     Xte, yte, idte = data.load_split(part, "test", ids, X, y)
     row = {int(i): k for k, i in enumerate(idte)}
+    from .benchmark_profiles import sample_size
+    if a.patients is not None:
+        sample_size(len(idte), a.max, a.budget_s, 1, a.patients)
     h = protocol.hospital(model)
     s = protocol.RiskService(protocol.QuantizedModel.from_json(model))
     W, B, wf, bf, threshold = model["weights_integers"], model["intercept_integer"], model["weights_floating"], model["intercept_floating"], model["threshold"]["probability"]
@@ -239,8 +243,8 @@ def main():
     for x in Xte[5:25].tolist():
         one(x)
     by_patient = (time.perf_counter() - t) / 20
-    n = min(int(min(a.max, max(100, a.budget_s / by_patient))), len(idte))
-    print(f"pilot: {by_patient * 1e3:.1f} ms per patient → sample size {n}")
+    n = sample_size(len(idte), a.max, a.budget_s, by_patient, a.patients)
+    print(f"pilot: {by_patient * 1e3:.1f} ms per patient → sample size {n}; estimated process loop {n * by_patient / 60:.1f} min (excludes setup/HTTPS)", flush=True)
 
     sample = stratified_sample(idte.tolist(), yte.tolist(), n)
     ciphertexts, ev, des, b_in, b_out, zs, xs, ys = [], [], [], [], [], [], [], []
@@ -288,6 +292,7 @@ def main():
         "warning": None if env["is_linuxone_s390x"] else "LOCAL measurement. This is not LinuxONE performance.",
         "command": "python -m screening.measure " + " ".join(f"--{k.replace('_', '-')} {v}" for k, v in vars(a).items() if k not in ("mode", "url", "n", "final")) + (" --final" if a.final else ""),
         "model": model["model"], "key_paillier_bits": h.pub.n.bit_length(), "concurrency": 1, "warmup": 5,
+        "requested_patients": a.patients,
         "pilot": {"patients": 20, "ms_by_patient": round(by_patient * 1e3, 2), "budget_s": a.budget_s},
         "sample": {"source": "CDC test split", "seed": SAMPLE_SEED, "n": n, "positives": int(ys.sum()),
                     "prevalence": round(float(ys.mean()), 4), "ids_sha256": __import__("hashlib").sha256(json.dumps(sample).encode()).hexdigest()},

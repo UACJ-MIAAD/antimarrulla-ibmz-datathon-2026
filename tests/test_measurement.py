@@ -26,3 +26,20 @@ def test_api_final_rejects_code_remote_different(model, monkeypatch):
     a = argparse.Namespace(url="http://127.0.0.1:8080", final=True)
     with pytest.raises(SystemExit, match="hospital code"):
         measure.api_mode(a, model, {"code_sha256": "1" * 64}, {}, None, "local")
+
+
+@pytest.mark.parametrize("requested", [20, 200, 2000, 16000])
+def test_explicit_samples_never_shrink_to_the_time_budget(requested):
+    from screening.benchmark_profiles import sample_size
+    assert sample_size(38052, 2000, 1, 10, requested) == requested
+
+
+def test_explicit_sample_larger_than_test_split_is_rejected():
+    from screening.benchmark_profiles import sample_size
+    with pytest.raises(ValueError):
+        sample_size(38052, 2000, 600, 0.1, 50000)
+
+
+def test_legacy_adaptive_budget_still_works():
+    from screening.benchmark_profiles import sample_size
+    assert sample_size(38052, 2000, 600, 0.5) == 1200

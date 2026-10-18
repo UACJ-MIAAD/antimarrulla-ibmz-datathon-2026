@@ -39,7 +39,7 @@ git switch -c demo/final-evidence APPROVED_COMMIT
 make evidence-run PY=python3
 ```
 
-`make evidence-run` runs `verify-docker`, `image-inspect`, `demo-docker`, `measure-docker FINAL=1` and `measure-api-docker FINAL=1`, keeps every log and system identity, and pushes the run to a branch `evidence/s390x_<UTC>` that CI validates (see [LINUXONE.md §2](LINUXONE.md)). Read the [preflight audit](EVIDENCE_PREFLIGHT_AUDIT.md) first; `516bb59` requires the hardening fix before final use. Output is sanitized and printed after each step. The demo stays up for recording. The individual `make` targets still work for debugging.
+`make evidence-run` runs `verify-docker`, `image-inspect`, `demo-docker`, `measure-docker FINAL=1` and `measure-api-docker FINAL=1`, keeps every log and system identity, and pushes the run to a branch `evidence/s390x_n<process>_api<requests>_<UTC>` that CI validates (see [LINUXONE.md §2](LINUXONE.md)). Read the [preflight audit](EVIDENCE_PREFLIGHT_AUDIT.md) first; `516bb59` requires the hardening fix before final use. Output is sanitized and printed after each step. The demo stays up for recording. For a short live terminal test use `make demo-test N=20 FINAL=1` after prewarming the images; run the 16,000-record profile before the pitch ([profiles](BENCHMARK_PROFILES.md)). The individual `make` targets still work for debugging.
 
 Evidence to keep on screen or in screenshots: Community Cloud dashboard with the VM, `uname -m` (s390x) and `lscpu`, `docker compose -f docker/compose.yml ps`, `openssl version -a`, and the measurement summary that ends the API run.
 

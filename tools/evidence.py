@@ -13,19 +13,24 @@ import argparse, datetime, getpass, hashlib, io, ipaddress, json, math, os, plat
 
 ROOT = os.path.abspath(os.path.join(os.path.dirname(__file__), ".."))
 sys.path.insert(0, os.path.join(ROOT, "src"))
-from screening import package, provenance  # noqa: E402
+from screening import package, provenance, benchmark_profiles  # noqa: E402
 
 RUNS = os.path.join("submission", "evidence", "runs")
 METRICS = os.path.join("submission", "evidence", "metrics")
 MODEL = os.path.join("artifacts", "model", "logistic_model_v1.json")
 SCHEMA = "evidence-run-v1"
-STEPS = [
-    ("verify", "make verify-docker"),
-    ("image_inspect", "make image-inspect"),
-    ("demo", "make demo-docker"),
-    ("measure_process", 'make measure-docker FINAL=1 MEASURE_ARGS="--budget-s 3600 --max 2000 --https 200"'),
-    ("measure_api", "make measure-api-docker FINAL=1"),
-]
+
+def steps_for(plan):
+    return [
+        ("verify", "make verify-docker"),
+        ("image_inspect", "make image-inspect"),
+        ("demo", "make demo-docker"),
+        ("measure_process", f'make measure-docker FINAL=1 MEASURE_ARGS="--patients {plan["process_n"]} --https {plan["https_n"]}"'),
+        ("measure_api", f'make measure-api-docker FINAL=1 API_ARGS="--n {plan["api_n"]}"'),
+    ]
+
+
+STEPS = steps_for(benchmark_profiles.profile())
 SYSTEM = [
     ("uname", "uname -a && uname -m"),
     ("os_release", "cat /etc/os-release"),
@@ -128,9 +133,10 @@ def run(args):
     if g.get("relevant") != [] or not g.get("commit"):
         sys.exit("evidence run: commit or stash relevant changes first (src, tests, docker, Makefile, artifacts): "
                  + ", ".join(g.get("relevant") or ["unknown state"]))
+    plan = benchmark_profiles.profile(getattr(args, "profile", benchmark_profiles.DEFAULT), getattr(args, "api_n", None))
     started = _utc()
     arch = platform.machine().lower()
-    run_id = f"{arch}_{started:%Y%m%dT%H%M%SZ}"
+    run_id = f"{arch}_n{plan['process_n']}_api{plan['api_n']}_{started:%Y%m%dT%H%M%SZ}"
     rel_dir = os.path.join(RUNS, run_id)
     out = os.path.join(ROOT, rel_dir)
     os.makedirs(os.path.join(out, "logs")); os.makedirs(os.path.join(out, "system"))
@@ -141,7 +147,7 @@ def run(args):
         code, _, n = _shell(cmd, p, echo=False); redactions += n
         system.append({"name": name, "file": f"system/{name}.txt", "sha256": _sha(p), "exit_code": code})
     status = "passed"
-    selected = [s for s in STEPS if not args.steps or s[0] in args.steps]
+    selected = [s for s in steps_for(plan) if not args.steps or s[0] in args.steps]
     for i, (name, cmd) in enumerate(selected, 1):
         print(f"\n== [{i}/{len(selected)}] {name}: {cmd}")
         p = os.path.join(out, "logs", f"{i:02d}_{name}.log")
@@ -172,7 +178,7 @@ def run(args):
         print(redact(f"note: {ui}/api/state not reachable ({e})")[0])
     new = sorted(_measurements() - before)
     manifest = {
-        "schema": SCHEMA, "run_id": run_id, "status": status,
+        "schema": SCHEMA, "run_id": run_id, "status": status, "profile": plan,
         "started_utc": f"{started:%Y-%m-%dT%H:%M:%SZ}", "ended_utc": f"{_utc():%Y-%m-%dT%H:%M:%SZ}",
         "operator": _git("config", "user.name") or getpass.getuser(), "commit": g["commit"],
         "arch": arch, "system": platform.system(), "ui_url": ui, "redactions": redactions,
@@ -242,11 +248,21 @@ def publish(run_id, rel_dir, measurement_paths, status, n_errors):
 
 
 def _valid(m, mode, model_sha, require_s390x):
-    if require_s390x:
-        return package._valid_measurement(m, mode, model_sha)
+    # Reuse release identity/exactness checks for diagnostic counts, without promoting
+    # a diagnostic measurement into release evidence. Its original count is checked below.
     m = json.loads(json.dumps(m))
-    m["environment_label"] = "s390x"
-    m.setdefault("environment", {})["is_linuxone_s390x"] = True
+    n = (m.get("sample") or {}).get("n")
+    if type(n) is not int or n <= 0 or (m.get("accuracy") or {}).get("identical_integers") != n or (m.get("accuracy") or {}).get("of") != n:
+        return False
+    if mode == "api" and (m.get("client_ms") or {}).get("n") != n:
+        return False
+    if not require_s390x:
+        m["environment_label"] = "s390x"
+        m.setdefault("environment", {})["is_linuxone_s390x"] = True
+    normalized = 2000 if mode == "process" else 200
+    m["sample"]["n"] = normalized
+    m["accuracy"].update(identical_integers=normalized, of=normalized)
+    if mode == "api": m["client_ms"]["n"] = normalized
     return package._valid_measurement(m, mode, model_sha)
 
 
@@ -290,10 +306,16 @@ def _check(run_dir, require_s390x=True, root=ROOT):
         errors.append(f"run status is {man.get('status')!r}")
     if require_s390x and man.get("arch") != "s390x":
         errors.append(f"architecture is {man.get('arch')!r}, not s390x")
+    declared = man.get("profile") or benchmark_profiles.profile()
+    plan = benchmark_profiles.profile(declared["name"], declared["api_n"])
+    if declared != plan:
+        errors.append("profile declaration is inconsistent")
+    s["profile"] = plan
+    expected_steps = steps_for(plan)
     done = {st.get("name"): st for st in man.get("steps", [])}
-    if [st.get("name") for st in man.get("steps", [])] != [name for name, _ in STEPS]:
+    if [st.get("name") for st in man.get("steps", [])] != [name for name, _ in expected_steps]:
         errors.append("steps must occur exactly once in the required order")
-    for name, command in STEPS:
+    for name, command in expected_steps:
         st = done.get(name)
         if not st:
             errors.append(f"step {name} was not run")
@@ -345,7 +367,7 @@ def _check(run_dir, require_s390x=True, root=ROOT):
         measured = datetime.datetime.fromisoformat(m["date_utc"].replace("Z", "+00:00"))
         if measured.tzinfo is None or not started <= measured <= ended:
             errors.append(f"{mode} measurement timestamp is outside this run")
-        expected_n = 2000 if mode == "process" else 200
+        expected_n = plan["process_n" if mode == "process" else "api_n"]
         if (m.get("sample") or {}).get("n") != expected_n:
             errors.append(f"{mode} requires exactly {expected_n} patients")
         env = m.get("environment") or {}
@@ -414,7 +436,7 @@ def _check(run_dir, require_s390x=True, root=ROOT):
             return open(logs[name], encoding="utf-8").read()
         except (KeyError, OSError):
             return ""
-    for name, command in STEPS:
+    for name, command in expected_steps:
         log = read(name)
         if not log.startswith(f"$ {command}\n") or not log.rstrip().endswith("[exit 0]"):
             errors.append(f"{name} log command/exit does not corroborate manifest")
@@ -461,7 +483,10 @@ def _fmt(d, k):
 
 
 def write_summary(run_dir, man, errors, warnings, s):
+    plan = s.get("profile") or benchmark_profiles.profile()
     verdict = "NOT VALID" if errors else ("VALID" if man.get("arch") == "s390x" else "VALID REHEARSAL (not s390x; not LinuxONE evidence)")
+    if not errors and not plan["release_eligible"]:
+        verdict += " DIAGNOSTIC ONLY (insufficient release sample)"
     lines = [f"# Evidence run {man.get('run_id')}", "",
              f"**{verdict}** · status `{man.get('status')}` · arch `{man.get('arch')}` · commit `{str(man.get('commit'))[:7]}` · "
              f"operator {man.get('operator')} · {man.get('started_utc')} → {man.get('ended_utc')}", "",
@@ -469,6 +494,7 @@ def write_summary(run_dir, man, errors, warnings, s):
              "| Step | Exit | Seconds | Log |", "|---|---:|---:|---|"]
     for st in man.get("steps", []):
         lines.append(f"| {st['name']} | {st['exit_code']} | {st['seconds']} | [{st['log']}]({st['log']}) |")
+    lines += ["", f"Declared profile: process {plan['process_n']} labeled CDC records; API {plan['api_n']} synthetic requests; release-sized sample: {plan['release_eligible']}. Counts and scopes are separate."]
     if s.get("smoke"):
         lines += ["", "Smoke: " + " · ".join(f"{k} {v:.1%}" for k, v in s["smoke"].items())]
     p, a = s.get("process"), s.get("api")
@@ -516,7 +542,7 @@ def cmd_check(args):
 
 
 def cmd_index(_):
-    rows = ["# Recorded evidence runs", "", "Generated by `make evidence-index`. VALID requires s390x and every final check.", "",
+    rows = ["# Recorded evidence runs", "", "Generated by `make evidence-index`. VALID requires s390x and every configured check; small profiles are diagnostic only.", "",
             "| Run | Verdict | Commit | Smoke C | Process exact | API p50 / p95 (ms) |", "|---|---|---|---:|---:|---:|"]
     for d in _run_dirs(None):
         if not os.path.exists(os.path.join(d, "manifest.json")):
@@ -524,7 +550,7 @@ def cmd_index(_):
         errors, _, s = check(d)
         c = (s.get("api") or {}).get("client_ms") or {}
         p = s.get("process") or {}
-        rows.append(f"| [{os.path.basename(d)}]({os.path.basename(d)}/SUMMARY.md) | {'VALID' if not errors else 'not valid'} | "
+        rows.append(f"| [{os.path.basename(d)}]({os.path.basename(d)}/SUMMARY.md) | {('VALID' if s.get('profile', {}).get('release_eligible') else 'diagnostic only') if not errors else 'not valid'} | "
                     f"`{str(s.get('commit'))[:7]}` | {(s.get('smoke') or {}).get('Synthetic C', '—')} | "
                     f"{_fmt(p, 'exact')}/{_fmt(p, 'n')} | {_fmt(c, 'p50_ms')} / {_fmt(c, 'p95_ms')} |")
     os.makedirs(os.path.join(ROOT, RUNS), exist_ok=True)
@@ -538,6 +564,8 @@ def main(argv=None):
     ap = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
     sub = ap.add_subparsers(dest="cmd", required=True)
     r = sub.add_parser("run", help="record a run on this host")
+    r.add_argument("--profile", choices=list(map(str, benchmark_profiles.SIZES)), default=benchmark_profiles.DEFAULT)
+    r.add_argument("--api-n", type=int, choices=benchmark_profiles.SIZES, help="override synthetic API sample (default: up to 200)")
     r.add_argument("--no-push", action="store_true", help="keep the run local (no branch, commit or push)")
     r.add_argument("--down", action="store_true", help="stop the demo containers at the end")
     r.add_argument("--steps", nargs="*", choices=[s[0] for s in STEPS], help="subset of steps (marks the run partial)")

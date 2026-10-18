@@ -46,7 +46,7 @@ demo-down:
 measure: setup                       ## Same-sample numerical comparison and process microbenchmarks.
 	$(BIN)/python -m screening.measure $(MEASURE_ARGS) $(if $(FINAL),--final,)
 measure-api: setup                   ## Measure the deployed hospital API end to end.
-	$(BIN)/python -m screening.measure --mode api --url $(UI_URL) $(if $(FINAL),--final,)
+	$(BIN)/python -m screening.measure --mode api --url $(UI_URL) $(API_ARGS) $(if $(FINAL),--final,)
 package: verify                      ## Build DRAFT ZIPs; FINAL=1 requires final evidence.
 	$(BIN)/python -m screening.package --kind both $(if $(FINAL),--final,)
 
@@ -77,11 +77,12 @@ measure-docker: image-dev            ## Write process measurements with containe
 	docker run --rm $(PROC) -v $(CURDIR)/$(MEASUREMENT_DIR):/app/submission/evidence/metrics screening:dev python3 -m screening.measure $(MEASURE_ARGS) $(if $(FINAL),--final,)
 measure-api-docker: image-dev        ## Measure the Compose hospital API from a client container.
 	mkdir -p $(MEASUREMENT_DIR) && chmod 777 $(MEASUREMENT_DIR)
-	docker run --rm --network host $(PROC) -v $(CURDIR)/$(MEASUREMENT_DIR):/app/submission/evidence/metrics screening:dev python3 -m screening.measure --mode api --url $(UI_URL) $(if $(FINAL),--final,)
+	docker run --rm --network host $(PROC) -v $(CURDIR)/$(MEASUREMENT_DIR):/app/submission/evidence/metrics screening:dev python3 -m screening.measure --mode api --url $(UI_URL) $(API_ARGS) $(if $(FINAL),--final,)
 
-.PHONY: evidence-run evidence-check evidence-index
+PROFILE ?= 2000
+.PHONY: evidence-run evidence-check evidence-index demo-test test-profiles
 evidence-run:                        ## On the VM: run checks + FINAL measurements, keep logs, push branch evidence/<run>.
-	$(PY) tools/evidence.py run $(if $(NO_PUSH),--no-push,) $(if $(DOWN),--down,)
+	$(PY) tools/evidence.py run --profile $(PROFILE) $(if $(API_N),--api-n $(API_N),) $(if $(NO_PUSH),--no-push,) $(if $(DOWN),--down,)
 evidence-check:                      ## Validate recorded runs (RUN=dir for one; LOCAL=1 accepts non-s390x rehearsals).
 	$(PY) tools/evidence.py check $(RUN) $(if $(LOCAL),--allow-non-s390x,)
 evidence-index:                      ## Rebuild submission/evidence/runs/INDEX.md.
@@ -136,3 +137,13 @@ rehearse-two-hosts: setup             ## Single-host synthetic rehearsal; never 
 	$(BIN)/python -m screening.two_hosts hospital --service https://localhost:$$P --certs $$E/for_hospital --output $$E/hospital_log --n $(if $(filter 200,$(N)),20,$(N)) --data $(DATA); \
 	kill $$PID; wait $$PID 2>/dev/null || true; $(BIN)/python -m screening.two_hosts audit --service $$E/service_evidence --hospital $$E/hospital_log \
 	  --log-service $$E/service.log --output $$E/report --allow-same-machine
+
+# Fast live demonstration against the already-running Hospital; no model retraining.
+demo-test:                           ## Synthetic end-to-end requests; N=20 for the pitch, N=200 for a short test.
+	$(MAKE) measure-api-docker API_ARGS="--n $(N)" $(if $(FINAL),FINAL=$(FINAL),)
+test-profiles:                       ## Print configured sizes without executing measurements.
+	@$(PY) -c 'from screening.benchmark_profiles import profile, SIZES; [print(profile(n)) for n in SIZES]'
+
+.PHONY: evidence-suite
+evidence-suite:                      ## Run 20, 200, 2,000 and 16,000 profiles sequentially; stop on any failure.
+	@for size in 20 200 2000 16000; do $(MAKE) evidence-run PROFILE=$$size || exit $$?; done

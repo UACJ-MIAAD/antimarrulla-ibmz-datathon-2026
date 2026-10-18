@@ -1,0 +1,41 @@
+{
+  "scope": "Benchmark profile configuration validation; not LinuxONE execution evidence",
+  "date_utc": "2026-10-18T03:55:05.914311+00:00",
+  "source_code_sha256": "e98f90a6fabfdd60dd5a81016ceaf6781c3fddb0ec022246ebbc08e45abda315",
+  "model_sha256": "e32420ac99fd10d30a3a65a225a43d84d4bfd7208c6f3b7656611893729575ac",
+  "source_commit_before_changes": "4ed55fb47618c95e7a273332cbce8a733d69e18d",
+  "tested_with_uncommitted_configuration": true,
+  "native_verify": {
+    "passed": 178,
+    "model_reproduction": true
+  },
+  "ubuntu_arm64_verify": {
+    "passed": 126,
+    "skipped": 7,
+    "model_reproduction": true
+  },
+  "targeted_tests": {
+    "passed": 91,
+    "suite_fail_stop_test_uses_fake_make": true
+  },
+  "local_rehearsal": {
+    "mode": "process",
+    "environment_label": "local-darwin-arm64",
+    "requested_patients": 20,
+    "sample_n": 20,
+    "accuracy": {
+      "identical_integers": 20,
+      "of": 20,
+      "error_max_logit_vs_floating": 2.2273298094788174e-08,
+      "applicable_max_bound": 5.4e-08,
+      "all_within_bound": true,
+      "error_max_probability": 3.7903855054644e-09
+    },
+    "adaptive_max_overridden": 8,
+    "adaptive_budget_seconds_overridden": 1,
+    "same_process_https_requests": 3,
+    "final": false
+  },
+  "long_measurements_executed": false,
+  "vm_measurements_executed": false
+}

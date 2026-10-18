@@ -127,3 +127,9 @@ def test_final_package_rejects_other_executable_code(tmp_path):
     root = str(tmp_path); complete(root)
     current = dict(PROV, code_sha256="d" * 64)
     assert sum(e.startswith("measurement ") for e in package.final_requirements(current, root=root)) == 2
+
+
+@pytest.mark.parametrize("mode,n,valid", [("process", 20, False), ("process", 200, False), ("process", 2000, True), ("process", 16000, True), ("process", 1, False), ("api", 20, False), ("api", 200, True), ("api", 16000, True)])
+def test_release_samples_respect_diagnostic_and_final_sizes(mode, n, valid):
+    from screening.benchmark_profiles import release_size
+    assert release_size(mode, n) is valid
