@@ -29,7 +29,7 @@ Every batch checks Hospital/service identity before starting, checks each measur
 
 ## Operator steps
 
-1. Independently review the prerequisite evidence/profile PRs and the frontend fix. Pin the approved latest commit and rebuild both endpoints/client together.
+1. The captain authorized integration of PRs 19–21 after validation. Pin the resulting main commit and rebuild both endpoints/client together. Independent teammate review of this release remains required before submission; record it in REVIEW.md.
 2. Start with `make demo-docker`; reach Hospital through the existing SSH tunnel. A/B/C, Random and the 19-field form are at the top.
 3. Open **Test modes**. For the pitch choose 20 browser requests or one profile C. Use 200 for a short diagnostic before recording.
 4. For the formal 16,000-record CDC comparison, copy the **Recorded evidence on the VM** command and run it in the VM terminal. Default API count remains 200; the checkbox explicitly requests the same count for API. Do not run a large batch and a formal benchmark simultaneously.

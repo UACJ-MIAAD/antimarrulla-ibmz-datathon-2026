@@ -56,3 +56,9 @@ PR 8 (`09cadf5`) is incorporated into English PR 9 with its authored commit pres
 PR 12 (concurrency, macOS host identity and raw historical audit) was merged by its author AzraelNogo at 21:00:21 UTC as `b04fadb`, also with no GitHub review recorded. Review remains open. Yazmin's PR 13 redesign/charts subsequently merged by jrebull at 21:24:20 UTC as ef1e21d, also without a recorded GitHub review. The same independent release review remains open.
 
 PR 14 diagram/documentation atlas was merged at 21:26:06 UTC as b38a69f. Documentation-only changes do not close the existing independent review or final runtime evidence gates.
+
+## Captain-authorized closing integration — October 18, 2026
+
+The captain explicitly instructed the integration agent to validate and merge all remaining work into `main` in this chat. This authorizes the merge exception for PRs 19 (evidence preflight), 20 (benchmark profiles and live redacted output), and 21 (Hospital frontend readiness). The GitHub review lists for all three PRs were empty when checked. This authorization does **not** constitute independent teammate technical approval, and the release review gate stays open.
+
+Combined runtime checkpoint: `3a896e4d6b5d4dc2040f129fc803b40cd259e7e1`, which already includes streaming fix `bc02b81`. Validate the combined source and green GitHub checks before the ordered merge. Preserve the authored commits using merge commits. Documentation changes do not change the screening runtime hash. Rebuild both peers and the measurement client from the resulting pinned `main` before recording final LinuxONE evidence. No final VM run, provider proof, lab completion or narrated video is certified by this merge.
