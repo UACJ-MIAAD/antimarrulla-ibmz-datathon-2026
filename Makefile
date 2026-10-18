@@ -50,6 +50,9 @@ measure-api: setup                   ## Measure the deployed hospital API end to
 package: verify                      ## Build DRAFT ZIPs; FINAL=1 requires final evidence.
 	$(BIN)/python -m screening.package --kind both $(if $(FINAL),--final,)
 
+ablation: setup                       ## 21 vs 19 features evidence (validation split) → artifacts/metrics/ablation_cdc19_v1.json
+	$(BIN)/python -m screening.ablation
+
 # Ubuntu apt packages support amd64, arm64 and LinuxONE s390x without native pip wheels.
 COMMIT := $(shell git rev-parse HEAD 2>/dev/null)
 RELEVANT := src tests docker Makefile requirements.txt artifacts/model artifacts/splits .dockerignore

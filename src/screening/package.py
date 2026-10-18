@@ -18,7 +18,7 @@ DOCUMENTATION = ["data/README.md",
     "docs/FORECAST.md", "docs/SUBMISSION_CHECKLIST.md", "docs/REVIEW.md", "docs/TIMELINE.md",
     "docs/TWO_HOSTS.md", "docs/DELIVERY_PLAN.md", "submission/AI_USE.md",
     "artifacts/model/logistic_model_v1.json", "artifacts/model/cdc19_schema_v1.json",
-    "artifacts/metrics/logistic_model_v1.json", "artifacts/metrics/ensanut_exploratory_v1.json",
+    "artifacts/metrics/logistic_model_v1.json", "artifacts/metrics/ensanut_exploratory_v1.json", "artifacts/metrics/ablation_cdc19_v1.json",
     "artifacts/forecast/e5_forecast_v1.json",
 ]
 DOCUMENTATION_GLOB = ["submission/evidence/README.md", "submission/evidence/local/*", "submission/evidence/metrics/*",

@@ -8,7 +8,7 @@ encrypted protocol now use 19 CDC variables instead of 21.
 Both variables contribute almost nothing to discrimination, and removing them means the hospital collects two fewer
 sensitive socioeconomic answers and encrypts two fewer values per patient.
 
-Ablation on the CDC validation split (trained on the training split, same logistic regression; test split untouched):
+Ablation on the CDC validation split (trained on the training split with the exported model's `train.fit`; test split untouched). Reproduce with `make ablation`; the result is recorded in `artifacts/metrics/ablation_cdc19_v1.json`:
 
 | Features | ROC-AUC | Average precision |
 |---|---:|---:|
