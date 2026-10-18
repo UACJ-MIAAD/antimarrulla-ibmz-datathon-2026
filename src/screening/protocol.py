@@ -1,6 +1,6 @@
 """Paillier screening protocol: the hospital encrypts/decrypts; the risk service sees ciphertexts only.
 
-Versioned JSON request: protocol, schema, model, id, key_public {n}, exponent 0, ciphertexts (21 decimal strings).
+Versioned JSON request: protocol, schema, model, id, key_public {n}, exponent 0, ciphertexts (one decimal string per schema feature).
 Versioned response: protocol, schema, model, id, exponent 0, result (decimal ciphertext string).
 Validate versions, structure, key size and ciphertext group membership. The service cannot inspect encrypted inputs.
 The English wire format uses screening-paillier-v2; deploy both endpoints together.
@@ -108,7 +108,7 @@ class hospital:
         self._pending = {}
 
     def prepare(self, record):
-        "Validate the 21-feature record, encrypt every integer and build the request."
+        "Validate the schema record, encrypt every integer and build the request."
         x = schema.validate(record)
         ciphertexts = []
         for v in x:

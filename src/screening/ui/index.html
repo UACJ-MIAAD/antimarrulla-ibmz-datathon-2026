@@ -103,7 +103,7 @@ footer{display:flex;flex-wrap:wrap;justify-content:space-between;gap:12px 32px;f
 </header>
 <div class="controls">
   <div class="seg" id="profiles" role="group" aria-label="Synthetic patient"></div>
-  <button class="link" id="toggle-editor" type="button" aria-expanded="false" aria-controls="editor">Enter the 21 answers</button>
+  <button class="link" id="toggle-editor" type="button" aria-expanded="false" aria-controls="editor">Enter the 19 answers</button>
 </div>
 <section id="editor" aria-label="Synthetic patient entry">
   <p class="note">Answers use the codes of the CDC Diabetes Health Indicators dataset (UCI 891, BRFSS 2015). These are recoded dataset values, not raw BRFSS response codes. Every field is required. Do not enter real patient data.</p>
@@ -113,7 +113,7 @@ footer{display:flex;flex-wrap:wrap;justify-content:space-between;gap:12px 32px;f
 <section id="intro" aria-label="How the demo works">
   <p class="headline">A risk model scores a patient for diabetes without ever seeing their answers.</p>
   <ol class="steps">
-    <li><span class="n">01</span><div class="side"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#42BE65" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="8" cy="15" r="4"/><path d="M11 12l9-9M17 6l3 3"/></svg>HOSPITAL</div><h2>Encrypts the 21 answers</h2><p>Each answer is encrypted with the hospital's 2048-bit Paillier public key. The private key never leaves the hospital.</p></li>
+    <li><span class="n">01</span><div class="side"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#42BE65" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="8" cy="15" r="4"/><path d="M11 12l9-9M17 6l3 3"/></svg>HOSPITAL</div><h2>Encrypts the 19 answers</h2><p>Each answer is encrypted with the hospital's 2048-bit Paillier public key. The private key never leaves the hospital.</p></li>
     <li><span class="n">02</span><div class="side"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#78A9FF" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="5" y="11" width="14" height="10" rx="2"/><path d="M8 11V7a4 4 0 0 1 8 0v4"/></svg>RISK SERVICE</div><h2>Scores them while encrypted</h2><p>Over mutual TLS 1.3, it computes the encrypted score Enc(z) from the ciphertexts. It holds no private key and cannot read anything.</p></li>
     <li><span class="n">03</span><div class="side"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#42BE65" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="8" cy="15" r="4"/><path d="M11 12l9-9M17 6l3 3"/></svg>HOSPITAL</div><h2>Decrypts only the score</h2><p>It turns the score into a probability, decides whether to prioritize a glucose test and stores the result in an AES-256-GCM vault.</p></li>
   </ol>
@@ -121,8 +121,8 @@ footer{display:flex;flex-wrap:wrap;justify-content:space-between;gap:12px 32px;f
     <figure class="panel" style="margin:0" aria-label="Architecture">
       <h3>Architecture</h3>
       <div class="arch">
-        <div class="box"><div class="side" style="color:var(--txt)">Hospital container</div><ul><li>The 21 answers, in plaintext</li><li class="key">Paillier private key</li><li>AES-256-GCM vault</li><li>Probability and flag</li></ul></div>
-        <div class="wire"><span class="proto">MUTUAL TLS 1.3</span><div><span class="vert">↓ </span>21 ciphertexts · ≈27 KB<div class="line fwd"></div></div><div><span class="vert">↑ </span>Enc(z) · ≈1.4 KB<div class="line back"></div></div></div>
+        <div class="box"><div class="side" style="color:var(--txt)">Hospital container</div><ul><li>The 19 answers, in plaintext</li><li class="key">Paillier private key</li><li>AES-256-GCM vault</li><li>Probability and flag</li></ul></div>
+        <div class="wire"><span class="proto">MUTUAL TLS 1.3</span><div><span class="vert">↓ </span>19 ciphertexts · ≈24 KB<div class="line fwd"></div></div><div><span class="vert">↑ </span>Enc(z) · ≈1.4 KB<div class="line back"></div></div></div>
         <div class="box"><div class="side" style="color:var(--txt)">Risk service container</div><ul><li>Public key only</li><li>Fixed-point model weights</li><li class="nokey">No private key</li><li class="nokey">No readable answer</li></ul></div>
       </div>
       <p>Both containers run on one host in this demo. Sizes from a local run of profile C.</p>
@@ -132,7 +132,7 @@ footer{display:flex;flex-wrap:wrap;justify-content:space-between;gap:12px 32px;f
       <div class="tbox"><table class="tbl">
         <thead><tr><th scope="col">Data</th><th scope="col">Hospital</th><th scope="col">Risk service</th></tr></thead>
         <tbody>
-          <tr><th scope="row" style="font-weight:400;color:var(--txt)">The 21 answers</th><td class="yes">Plaintext</td><td class="no">Ciphertexts only</td></tr>
+          <tr><th scope="row" style="font-weight:400;color:var(--txt)">The 19 answers</th><td class="yes">Plaintext</td><td class="no">Ciphertexts only</td></tr>
           <tr><th scope="row" style="font-weight:400;color:var(--txt)">Risk score z</th><td class="yes">Decrypted</td><td class="no">Enc(z) only</td></tr>
           <tr><th scope="row" style="font-weight:400;color:var(--txt)">Probability and flag</th><td class="yes">Yes</td><td class="no">Never</td></tr>
           <tr><th scope="row" style="font-weight:400;color:var(--txt)">Private key</th><td class="yes">Yes, in memory</td><td class="no">Never</td></tr>
@@ -203,8 +203,6 @@ const META={
  NoDocbcCost:{g:3,q:"Could not see a doctor due to cost, past 12 months",c:YN},
  Sex:{g:4,q:"Sex",c:{0:"Female",1:"Male"}},
  Age:{g:4,q:"Age group",c:{1:"18–24",2:"25–29",3:"30–34",4:"35–39",5:"40–44",6:"45–49",7:"50–54",8:"55–59",9:"60–64",10:"65–69",11:"70–74",12:"75–79",13:"80 or older"}},
- Education:{g:4,q:"Highest education level",c:{1:"Never attended or kindergarten only",2:"Grades 1–8",3:"Grades 9–11",4:"Grade 12 or GED",5:"College 1–3 years",6:"College 4+ years"}},
- Income:{g:4,q:"Annual household income (2015 US dollars)",c:{1:"Under $10,000",2:"$10,000–14,999",3:"$15,000–19,999",4:"$20,000–24,999",5:"$25,000–34,999",6:"$35,000–49,999",7:"$50,000–74,999",8:"$75,000 or more"}},
 };
 const GROUPS=["Clinical history","Lifestyle","Health status","Access to care","Demographics","Other"];
 const featureLabel=n=>META[n]?.q||n;
@@ -221,7 +219,7 @@ function validateField(v){const x=$("f_"+v.name).value.trim();let e="";
  $("m_"+v.name).textContent=e;$("w_"+v.name).classList.toggle("bad",!!e);$("f_"+v.name).setAttribute("aria-invalid",!!e);return e?null:Number(x)}
 function fill(p){for(const v of SCHEMA.variables){$("f_"+v.name).value=p[v.name]??"";validateField(v)}$("summary").textContent=""}
 function markProfile(k){for(const b of $("profiles").querySelectorAll("button"))b.setAttribute("aria-pressed",b.dataset.profile===k)}
-function openEditor(open){$("editor").classList.toggle("open",open);$("toggle-editor").setAttribute("aria-expanded",open);$("toggle-editor").textContent=open?"Hide the 21 answers":"Enter the 21 answers"}
+function openEditor(open){$("editor").classList.toggle("open",open);$("toggle-editor").setAttribute("aria-expanded",open);$("toggle-editor").textContent=open?"Hide the 19 answers":"Enter the 19 answers"}
 async function evaluate(body,k){if(busy)return;busy=true;document.body.classList.remove("idle");markProfile(k);for(const b of document.querySelectorAll("button"))b.disabled=true;
  $("hospital").innerHTML='<p class="empty">Encrypting and sending…</p>';$("service").innerHTML="";
  try{render(await api("/api/evaluate",body))}catch(e){$("hospital").innerHTML=`<p class="err">Evaluation failed: ${escapeHtml(e.message)}</p>`}
@@ -242,7 +240,7 @@ function render(r){const s=r.server,h=r.hospital;fill(h.input);
  $("answers").hidden=false;
  $("answer-rows").innerHTML=SCHEMA.variables.map((v,i)=>{const x=h.input[v.name],m=META[v.name]||{},ans=m.c?.[x]!==undefined?`${m.c[x]} (${x})`:`${x}${m.u?" "+m.u:""}`;
   return `<tr><td class="n">${i+1}</td><td>${escapeHtml(featureLabel(v.name))}</td><td class="yes">${escapeHtml(ans)}</td><td class="mono">${escapeHtml(s.received.ciphertexts[i].hex.slice(0,24))}…</td></tr>`}).join("");
- const t=r.timings_ms,steps=[["Encrypt the 21 answers","Hospital",t.encrypt],["mTLS 1.3 + encrypted scoring","Network + risk service",t.network_and_service],["Decrypt the score","Hospital",t.decrypt],["AES-GCM vault + fsync","Hospital",t.vault]],tmax=Math.max(...steps.map(x=>x[2]),.01);
+ const t=r.timings_ms,steps=[["Encrypt the 19 answers","Hospital",t.encrypt],["mTLS 1.3 + encrypted scoring","Network + risk service",t.network_and_service],["Decrypt the score","Hospital",t.decrypt],["AES-GCM vault + fsync","Hospital",t.vault]],tmax=Math.max(...steps.map(x=>x[2]),.01);
  $("timings").innerHTML=`<h3>One encrypted round trip</h3><div class="tbox"><table class="tbl tbar"><thead><tr><th scope="col">Step</th><th scope="col">Where</th><th scope="col"><span class="sr">Share</span></th><th scope="col" style="text-align:right">ms</th></tr></thead><tbody>
  ${steps.map(([n,w,ms])=>`<tr title="${n}: ${ms} ms (${(ms/t.total_in_hospital*100).toFixed(1)}% of the hospital total)"><td>${n}</td><td class="no">${w}</td><td class="bar"><i style="width:${ms/tmax*100}%"></i></td><td class="v">${ms}</td></tr>`).join("")}
  <tr class="total"><td>Total inside the hospital</td><td class="no">Excluding the browser</td><td></td><td class="v">${t.total_in_hospital}</td></tr></tbody></table></div>
@@ -272,9 +270,9 @@ async function init(){
   $("summary").textContent="";evaluate({patient:p},null)};
 }
 // Test-set metrics of the served model (artifacts/metrics/logistic_model_v1.json). Shown only when the hospital reports this model hash.
-const METRICS={sha:"9747116760f938ae501f96f57a3ad401324032b0ba52e20ef14b48e32c1d8b11",n:38052,positives:5302,auc:0.826,aucFloat:0.826017,aucFixed:0.826017,changed:0,
- sensitivity:0.805,specificity:0.6914,ppv:0.2969,cm:{tp:4268,fn:1034,fp:10106,tn:22644},
- calibration:[[0.0096,0.0024,3806],[0.0195,0.0076,3806],[0.0306,0.021,3805],[0.0458,0.0402,3805],[0.0667,0.0649,3805],[0.0951,0.1075,3805],[0.1367,0.1519,3805],[0.1974,0.2095,3805],[0.2912,0.3109,3805],[0.4974,0.4775,3805]]};
+const METRICS={sha:"e32420ac99fd10d30a3a65a225a43d84d4bfd7208c6f3b7656611893729575ac",n:38052,positives:5302,auc:0.825,aucFloat:0.825233,aucFixed:0.825233,changed:1,
+ sensitivity:0.8072,specificity:0.6885,ppv:0.2955,cm:{tp:4280,fn:1022,fp:10203,tn:22547},
+ calibration:[[0.0097,0.0026,3806],[0.0197,0.0058,3806],[0.031,0.0231,3805],[0.0463,0.0428,3805],[0.0671,0.0623,3805],[0.0958,0.1046,3805],[0.1376,0.1545,3805],[0.1973,0.2142,3805],[0.2908,0.3099,3805],[0.4948,0.4736,3805]]};
 const SESSION=[];let LAST_P=null,batching=false,THRESHOLD=null;
 const fmt=n=>n.toLocaleString("en-US"),pc=(x,d=1)=>`${(x*100).toFixed(d)}%`;
 function checkModel(sha){if(sha&&sha!==METRICS.sha){$("model").hidden=true;return}

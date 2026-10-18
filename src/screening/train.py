@@ -15,7 +15,7 @@ from . import contract, data, schema
 from .paths import MODEL_METRICS, MODEL_JSON, SPLITS, ensure_dirs
 
 TARGET_SENSITIVITY = 0.80
-MODEL_NAME = "logistic-cdc21-v1"
+MODEL_NAME = "logistic-cdc19-v1"
 
 
 def fit(Xtr, ytr, class_weight=None):

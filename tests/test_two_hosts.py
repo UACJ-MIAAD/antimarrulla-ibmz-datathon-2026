@@ -148,7 +148,7 @@ def test_the_check_of_key_detects_to_hospital_in_the_same_process(tmp_path, mode
         h = protocol.hospital(model, keys=keys)  # A private key exists in THIS process.
         cli = hospital.ServiceClient(f"https://localhost:{srv.server_address[1]}", str(c / "ca.pem"), str(c / "hospital.pem"), str(c / "hospital.key"))
         assert cli.health()["evidence"] is True
-        sol, _ = h.prepare({n: 0 if n not in ("BMI", "GenHlth", "Age", "Education", "Income") else 12 if n == "BMI" else 1 for n in model["variables"]})
+        sol, _ = h.prepare({n: 0 if n not in ("BMI", "GenHlth", "Age") else 12 if n == "BMI" else 1 for n in model["variables"]})
         cli.evaluate(sol)
     finally:
         srv.shutdown()
@@ -178,7 +178,7 @@ def test_evidence_storage_failure_does_not_acknowledge_success(tmp_path, model, 
     try:
         h = protocol.hospital(model, keys=keys)
         cli = hospital.ServiceClient(f"https://localhost:{srv.server_address[1]}", str(c / "ca.pem"), str(c / "hospital.pem"), str(c / "hospital.key"))
-        patient = {n: 0 if n not in ("BMI", "GenHlth", "Age", "Education", "Income") else 12 if n == "BMI" else 1 for n in model["variables"]}
+        patient = {n: 0 if n not in ("BMI", "GenHlth", "Age") else 12 if n == "BMI" else 1 for n in model["variables"]}
         request, _ = h.prepare(patient)
         with pytest.raises(protocol.InvalidMessage, match="HTTP 503"):
             cli.evaluate(request)
@@ -196,3 +196,11 @@ def test_concurrency_keeps_exact_results_and_audit(run, tmp_path):
     a = argparse.Namespace(service=str(run / "evidence"), hospital=str(run / "hospital_parallel"),
                            log_service=[str(run / "service.log")], output=str(tmp_path), samples=1, allow_same_machine=True)
     assert two_hosts.audit(a) == 0
+
+
+def test_plaintext_vector_detector_follows_schema_size():
+    """The audit must recognize a leaked plaintext input of the CURRENT schema size, and not a ciphertext list."""
+    from screening import schema
+    n = len(schema.FEATURE_NAMES)
+    assert two_hosts.PLAINTEXT_VECTOR.search(json.dumps([1] * n))
+    assert not two_hosts.PLAINTEXT_VECTOR.search(json.dumps([str(10 ** 600)] * n))

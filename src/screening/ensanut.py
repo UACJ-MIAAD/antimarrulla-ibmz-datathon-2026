@@ -96,8 +96,8 @@ def metrics(y, p, w, threshold):
 
 def main():
     part = json.load(open(SPLITS))
-    ids, X, y = data.load_cdc()
-    cols = [schema.FEATURE_NAMES.index(p) for p in PREDICTORS]
+    ids, X, y = data.load_cdc(features=PREDICTORS)  # Education is outside the protocol schema; load it explicitly
+    cols = list(range(len(PREDICTORS)))
     Xtr, ytr, _ = data.load_split(part, "training", ids, X, y)
     Xva, yva, _ = data.load_split(part, "validation", ids, X, y)
     Xte, yte, _ = data.load_split(part, "test", ids, X, y)

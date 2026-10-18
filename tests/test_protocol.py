@@ -18,7 +18,7 @@ def round_trip(h, s, x):
 
 def valid_sample(n, seed=7):
     rnd = random.Random(seed)
-    return [[rnd.randint(what, hi) for _, what, hi in schema.VARIABLES] for _ in range(n)]
+    return [[rnd.randint(low, high) for _, low, high in schema.VARIABLES] for _ in range(n)]
 
 
 # a) Decrypted integer equals the exact integer reference.
@@ -39,18 +39,19 @@ def test_b_error_within_of_bound(hospital, service, model):
 
 # c) Negative/zero weights, extreme values and invalid inputs
 def test_c_negative_zeros_and_extreme(model, keys):
-    W = [0, -7, 3, -1_000_000_000_000, 5, 0, 1, -1, 2, 0, -3, 4, 0, 9, -2, 1, 0, -5, 6, -4, 8]
+    W = [0, -7, 3, -1_000_000_000_000, 5, 0, 1, -1, 2, 0, -3, 4, 0, 9, -2, 1, 0, -5, 6]
+    assert len(W) == len(schema.FEATURE_NAMES)
     m = copy.deepcopy(model); m["weights_integers"], m["intercept_integer"] = W, -123456789
     h = protocol.hospital(m, keys=keys)
     s = protocol.RiskService(protocol.QuantizedModel.from_json(m))
-    for x in ([what for _, what, _ in schema.VARIABLES], [hi for _, _, hi in schema.VARIABLES]):
+    for x in ([low for _, low, _ in schema.VARIABLES], [high for _, _, high in schema.VARIABLES]):
         z, xv = round_trip(h, s, x)
         assert z == contract.logit_integer(W, -123456789, xv)
     assert any(w < 0 for w in model["weights_integers"]), "the actual model contains negative coefficients"
 
 
 def test_c_all_zeros(model, keys):
-    m = copy.deepcopy(model); m["weights_integers"], m["intercept_integer"] = [0] * 21, 0
+    m = copy.deepcopy(model); m["weights_integers"], m["intercept_integer"] = [0] * len(schema.FEATURE_NAMES), 0
     h = protocol.hospital(m, keys=keys)
     s = protocol.RiskService(protocol.QuantizedModel.from_json(m))
     z, _ = round_trip(h, s, valid_sample(1)[0])
@@ -59,7 +60,7 @@ def test_c_all_zeros(model, keys):
 
 def test_c_overflow_rejected(model, keys):
     pub = keys[0]
-    W = [0] * 21; W[3] = pub.max_int // 98  # BMI: 98 * W approaches max_int; adding the intercept overflows.
+    W = [0] * len(schema.FEATURE_NAMES); W[3] = pub.max_int // 98  # BMI: 98 * W approaches max_int; adding the intercept overflows.
     with pytest.raises(contract.InvalidModel):
         contract.verify_overflow(W, 10 ** 6, pub.max_int)
     m = copy.deepcopy(model); m["weights_integers"], m["intercept_integer"] = W, 10 ** 6
@@ -79,7 +80,7 @@ def test_c_messages_tampered_rejected(hospital, service):
     cases = []
     for field, value in [("protocol", "other"), ("model", "other"), ("schema", "other"), ("exponent", -2), ("id", "x")]:
         c = copy.deepcopy(sol); c[field] = value; cases.append(c)
-    c = copy.deepcopy(sol); c["ciphertexts"] = c["ciphertexts"][:20]; cases.append(c)
+    c = copy.deepcopy(sol); c["ciphertexts"] = c["ciphertexts"][:-1]; cases.append(c)
     c = copy.deepcopy(sol); c["ciphertexts"][0] = "0"; cases.append(c)
     c = copy.deepcopy(sol); c["ciphertexts"][0] = str(int(sol["key_public"]["n"]) ** 2); cases.append(c)
     c = copy.deepcopy(sol); c["key_public"] = {"n": str(2 ** 1023 + 1)}; cases.append(c)

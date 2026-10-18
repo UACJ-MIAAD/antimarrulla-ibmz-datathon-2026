@@ -316,7 +316,7 @@ def main():
 
 | Microbenchmark | p50 (ms) | p95 (ms) | mean (ms) |
 |---|---:|---:|---:|
-| In process · encrypt 21 features | {tp['encrypt_hospital']['p50_ms']} | {tp['encrypt_hospital']['p95_ms']} | {tp['encrypt_hospital']['mean_ms']} |
+| In process · encrypt {len(schema.FEATURE_NAMES)} features | {tp['encrypt_hospital']['p50_ms']} | {tp['encrypt_hospital']['p95_ms']} | {tp['encrypt_hospital']['mean_ms']} |
 | In process · evaluate ciphertexts | {tp['evaluate_service']['p50_ms']} | {tp['evaluate_service']['p95_ms']} | {tp['evaluate_service']['mean_ms']} |
 | In process · decrypt | {tp['decrypt_hospital']['p50_ms']} | {tp['decrypt_hospital']['p95_ms']} | {tp['decrypt_hospital']['mean_ms']} |
 | Same-process HTTPS + vault ({len(rec)} requests) | {mh["complete_request"]['p50_ms']} | {mh["complete_request"]['p95_ms']} | {mh["complete_request"]['mean_ms']} |

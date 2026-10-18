@@ -35,7 +35,7 @@ def test_flow_complete_by_the_ui(environment, model, caplog):
     x = [synthetic.PROFILES[profile][n] for n in model["variables"]]
     from screening import contract
     assert int(r["hospital"]["z_integer"]) == contract.logit_integer(model["weights_integers"], model["intercept_integer"], x)
-    assert r["synthetic"] is True and len(r["server"]["received"]["ciphertexts"]) == 21
+    assert r["synthetic"] is True and len(r["server"]["received"]["ciphertexts"]) == len(model["variables"])
     assert r["server"]["received"]["key_public_bits"] >= 2048
     # e) Logs contain neither plaintext inputs nor plaintext results.
     text = "\n".join(rec.getMessage() for rec in caplog.records)
