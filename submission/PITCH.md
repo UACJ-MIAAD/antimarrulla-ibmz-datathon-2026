@@ -1,6 +1,6 @@
 # English video script · Privacy-preserving screening
 
-Editable deck: [English pitch](Los_Antimarrulla_Screening_Pitch.pptx). Ten slides; English speaker notes accompany each slide. Hard limit: **180 seconds**. Editing target: **170 seconds**, including actual instance/model footage. Spoken text is approximately 300 words; rehearse with the screen transitions.
+Editable deck: [English pitch](Los_Antimarrulla_Screening_Pitch.pptx). Eleven slides; English speaker notes accompany each slide. Slide 7 (the system in screens) is for the live presentation; in the video its captures can serve as B-roll during the demo segment without extra time. Hard limit: **180 seconds**. Editing target: **170 seconds**, including actual instance/model footage. Spoken text is approximately 300 words; rehearse with the screen transitions.
 
 | # | Segment | Duration | Cumulative | Speaker |
 |---|---------|---------:|-----------:|---------|
@@ -10,10 +10,11 @@ Editable deck: [English pitch](Los_Antimarrulla_Screening_Pitch.pptx). Ten slide
 | 4 | Homomorphic encryption | 25 s | 1:15 | Carlos |
 | 5 | IBM Z and LinuxONE screen | 30 s | 1:45 | Álvaro |
 | 6 | Actual demo | 30 s | 2:15 | Javier |
-| 7 | Data and model | 8 s | 2:23 | Yazmin |
-| 8 | Time-series forecast (E5) | 8 s | 2:31 | Javier |
-| 9 | Roadmap | 8 s | 2:39 | Carlos |
-| 10 | Impact and close | 10 s | 2:49 | Yazmin |
+| 7 | The system in screens (live; B-roll in the video) | 0 s | 2:15 | Javier |
+| 8 | Data and model | 8 s | 2:23 | Yazmin |
+| 9 | Time-series forecast (E5) | 8 s | 2:31 | Javier |
+| 10 | Roadmap | 8 s | 2:39 | Carlos |
+| 11 | Impact and close | 10 s | 2:49 | Yazmin |
 
 ## 1. Introduction
 
@@ -43,21 +44,25 @@ The service sees 19 ciphertexts and returns an encrypted score. The hospital see
 
 *Replace or supplement this sentence with the measured translated-release LinuxONE results. Record the synthetic profile C flow; keep the environment label visible.*
 
-## 7. Data and model
+## 7. The system in screens (live presentation)
+
+Every screen shows what stays private: the hospital sees each answer, the service sees only ciphertexts; one round trip takes about a tenth of a second; the model and its test modes are built into the app.
+
+## 8. Data and model
 
 We trained on 253 thousand public CDC responses. Test AUC is 0.83, with 80 percent sensitivity. Patient inputs reach the risk service only as ciphertexts.
 
-## 8. Time-series forecast (E5)
+## 9. Time-series forecast (E5)
 
 For planning, a separate dashboard forecasts weekly notified diabetes cases for 222 series, 52 weeks ahead. Its bands are exploratory.
 
 *Show `antimarrulla-tamizaje.netlify.app/forecast` for two seconds if time allows; it uses public aggregates, not patient data.*
 
-## 9. Roadmap
+## 10. Roadmap
 
 Next: recalibrate for Mexico, pilot with a hospital, and add non-linear encrypted models on LinuxONE.
 
-## 10. Impact and close
+## 11. Impact and close
 
 We want earlier screening with less disclosure. The service sees ciphertexts; the hospital sees the result. Thank you.
 
