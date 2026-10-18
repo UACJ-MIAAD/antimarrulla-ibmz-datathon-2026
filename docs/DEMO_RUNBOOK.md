@@ -47,12 +47,12 @@ Evidence to keep on screen or in screenshots: Community Cloud dashboard with the
 
 | Segment | Time | On screen | Action |
 |---------|------|-----------|--------|
-| 1–4 | 0:00–1:20 | Slides 1–4 | Narration only |
-| 5 | 1:20–1:35 | Slide 5 (architecture) | — |
-| 5b | 1:35–1:50 | VM terminal | Show the dashboard tab, then type `uname -m`, `docker compose -f docker/compose.yml ps`, and open `http://127.0.0.1:8080/api/state` to show the loaded model hash |
-| 6 | 1:50–2:00 | Slide 6 (results) | — |
-| 6b | 2:00–2:25 | Hospital UI through the tunnel | Choose **Synthetic C** → wait for the result (63.3 % with `logistic-cdc19-v1`); point at the 19 ciphertexts on the service side, the risk and factors on the hospital side, and the timing breakdown |
-| 7–8 | 2:25–2:50 | Slides 7–8 | Close |
+| 1–4 | 0:00–1:15 | Slides 1–4 | Narration only |
+| 5 | 1:15–1:30 | Slide 5 (architecture) | — |
+| 5b | 1:30–1:45 | VM terminal | Show the dashboard tab, then type `uname -m`, `docker compose -f docker/compose.yml ps`, and open `http://127.0.0.1:8080/api/state` to show the loaded model hash |
+| 6 | 1:45–1:55 | Slide 6 (results) | — |
+| 6b | 1:55–2:15 | Hospital UI through the tunnel | Choose **Synthetic C** → wait for the result (63.3 % with `logistic-cdc19-v1`); point at the 19 ciphertexts on the service side, the risk and factors on the hospital side, and the timing breakdown |
+| 7–10 | 2:15–2:49 | Slides 7–10 (model, time-series forecast, roadmap, impact) | Optional: two seconds of the live forecast dashboard on slide 8 |
 
 Keep the environment label visible in 6b. If the recording is not from LinuxONE, the label must say so.
 
